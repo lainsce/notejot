@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Notejot
+GenericName=Notepad
+Comment=Jot your ideas.
+Categories=GTK;Utility;
+Exec=com.github.lainsce.notejot
+Icon=wordprocessing
+Terminal=false
+Type=Application
+Keywords=Text;Plain;Plaintext;Notepad;

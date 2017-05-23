@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Cassidy James Blaede <c@ssidyjam.es> -->
+<component type="desktop">
+    <id>com.github.lainsce.notejot.desktop</id>
+    <metadata_license>CC0</metadata_license>
+    <project_license>GPL-3.0+</project_license>
+    <name>Notejot</name>
+    <summary>Jot your ideas</summary>
+    <description>
+        <p>A stupidly-simple jotting pad.</p>
+    </description>
+    <provides>
+        <binary>com.github.lainsce.notejot</binary>
+    </provides>
+    <developer_name>Lains</developer_name>
+    <url type="homepage"></url>
+    <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
+    <custom>
+        <value key="x-appcenter-color-primary">#fff3ae</value>
+        <value key="x-appcenter-color-primary-text">#454545</value>
+        <value key="x-appcenter-suggested-price">0.5</value>
+    </custom>
+</component>
