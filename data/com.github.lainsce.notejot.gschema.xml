@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/github/lainsce/notejot/"
+  id="com.github.lainsce.notejot"
+  gettext-domain="com.github.lainsce.notejot">
+    <key name="window-x" type="i">
+      <default>-1</default>
+      <summary>Most recent x position of Notejot</summary>
+      <description>Most recent x position of Notejot</description>
+    </key>
+    <key name="window-y" type="i">
+      <default>-1</default>
+      <summary>Most recent y position of Notejot</summary>
+      <description>Most recent y position of Notejot</description>
+    </key>
+  </schema>
+</schemalist>
+
