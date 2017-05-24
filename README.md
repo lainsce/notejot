@@ -1,3 +1,5 @@
+![icon](data/icon.png)
+
 # Notejot
 
 Stupidly simple jotting pad.
