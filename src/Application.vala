@@ -25,28 +25,17 @@ public class Notejot.Application : Granite.Application {
         app_years = "2017";
         exec_name = "com.github.lainsce.notejot";
         app_launcher = "com.github.lainsce.notejot";
-
         build_version = "0.5";
         app_icon = "com.github.lainsce.notejot";
         main_url = "https://github.com/lainsce/notejot/";
         bug_url = "https://github.com/lainsce/notejot/issues";
         help_url = "https://github.com/lainsce/notejot/";
         about_authors = {"Lains <lainsce@airmail.cc>", null};
-
         about_license_type = Gtk.License.GPL_3_0;
     }
 
     protected override void activate () {
         var app_window = new MainWindow (this);
-
-        var settings = new Settings ("com.github.lainsce.notejot");
-        var window_x = settings.get_int ("window-x");
-        var window_y = settings.get_int ("window-y");
-
-        if (window_x != -1 ||  window_y != -1) {
-            app_window.move (window_x, window_y);
-        }
-
         app_window.show_all ();
 
         var quit_action = new SimpleAction ("quit", null);
@@ -60,13 +49,6 @@ public class Notejot.Application : Granite.Application {
             if (app_window != null) {
                 app_window.destroy ();
             }
-        });
-
-        app_window.state_changed.connect (() => {
-            int root_x, root_y;
-            app_window.get_position (out root_x, out root_y);
-            settings.set_int ("window-x", root_x);
-            settings.set_int ("window-y", root_y);
         });
     }
 

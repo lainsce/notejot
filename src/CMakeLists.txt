@@ -5,7 +5,6 @@ ensure_vala_version ("0.26.2" MINIMUM)
 include (ValaPrecompile)
 vala_precompile (VALA_C ${EXEC_NAME}
     Application.vala
-    AppSettings.vala
     MainWindow.vala
 PACKAGES
     granite
