@@ -6,6 +6,7 @@ include (ValaPrecompile)
 vala_precompile (VALA_C ${EXEC_NAME}
     Application.vala
     MainWindow.vala
+    Widgets/Toolbar.vala
 PACKAGES
     granite
     gtk+-3.0
