@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-public class MainWindow : Gtk.Window {
+public class Notejot.MainWindow : Gtk.ApplicationWindow {
     private Gtk.HeaderBar header_bar;
     private Gtk.Button new_window_button;
     private Gtk.SourceView view;
@@ -45,7 +45,7 @@ public class MainWindow : Gtk.Window {
         new_window_button = new Gtk.Button.from_icon_name ("list-add", Gtk.IconSize.SMALL_TOOLBAR);
         new_window_button.tooltip_text = ("New pad…");
         new_window_button.clicked.connect (() => {
-            // TODO: Find a way to create new instances on GObject
+            application.activate ();
         });
 
         header_bar = new Gtk.HeaderBar ();
