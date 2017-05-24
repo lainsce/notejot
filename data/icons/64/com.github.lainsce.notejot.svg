@@ -39,7 +39,7 @@
        x2="375.00003"
        y2="655.29242"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.0999994,0,0,0.10013972,-4.9231632,-5.9888979)" />
+       gradientTransform="matrix(0.0998299,0,0,0.09996998,-5.0903952,-5.4274805)" />
     <radialGradient
        gradientTransform="matrix(2.003784,0,0,1.4,27.98813,-17.4)"
        gradientUnits="userSpaceOnUse"
@@ -99,7 +99,7 @@
        x2="23.99999"
        y1="4.999989"
        x1="23.99999"
-       gradientTransform="matrix(1.3920226,0,0,1.4637068,-1.044909,-3.3107766)"
+       gradientTransform="matrix(1.389663,0,0,1.4612258,-1.2187152,-2.7538989)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient3647"
        xlink:href="#linearGradient3924-2-2-5-8" />
@@ -131,8 +131,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.5"
-     inkscape:cx="-21.727273"
-     inkscape:cy="32"
+     inkscape:cx="3.6363634"
+     inkscape:cy="43.981728"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
@@ -150,7 +150,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -159,7 +159,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <g
-       transform="matrix(1.5047868,0,0,0.53571428,-3.8421544,36.514611)"
+       transform="matrix(1.5022361,0,0,0.53480618,-4.0112191,37.003975)"
        id="g3712-8-2-4-4"
        style="opacity:0.4">
       <rect
@@ -188,46 +188,46 @@
     <rect
        style="fill:#ffe680;fill-rule:evenodd;stroke:none;stroke-width:1.0304172px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="rect3338"
-       width="52.929871"
-       height="56.170898"
-       x="5.9824219"
-       y="3.9198678"
-       ry="3.1206045"
+       width="52.840157"
+       height="56.07568"
+       x="5.7943029"
+       y="4.4637055"
+       ry="3.1153147"
        transform="matrix(0.99999041,-0.00437844,0.00435859,0.9999905,0,0)" />
     <rect
-       style="opacity:0.4;fill:none;stroke:url(#linearGradient4207);stroke-width:0.70190841;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       style="opacity:0.4;fill:none;fill-opacity:1;stroke:url(#linearGradient4207);stroke-width:0.70071864;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3387"
-       width="53.298264"
-       height="56.201939"
-       x="5.7846217"
-       y="3.7779176"
-       ry="2.8988607" />
+       width="53.20792"
+       height="56.106678"
+       x="5.5992393"
+       y="4.3227787"
+       ry="2.8939469" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.83520699px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00286b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:1;fill-rule:nonzero;"
-       x="11.782673"
-       y="30.51409"
+       style="font-style:normal;font-weight:normal;font-size:12.81345081px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#00286b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="10.46882"
+       y="31.442118"
        id="text3353"
        sodipodi:linespacing="125%"
-       transform="matrix(1.0592422,-0.13401196,0.13768764,0.92665136,0,0)"><tspan
+       transform="matrix(1.0592422,-0.13401196,0.13768764,0.92665135,0,0)"><tspan
          sodipodi:role="line"
          id="tspan3355"
-         x="11.782673"
-         y="30.51409"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.11361122px;font-family:'Redacted Script';-inkscape-font-specification:'Redacted Script Bold';fill:#00286b;fill-opacity:1;stroke:none;stroke-opacity:1;fill-rule:nonzero;">milk</tspan><tspan
+         x="10.46882"
+         y="31.442118"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.08460426px;font-family:'Redacted Script';-inkscape-font-specification:'Redacted Script Bold';fill:#00286b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1">sss</tspan><tspan
          sodipodi:role="line"
-         x="11.782673"
-         y="51.906105"
+         x="10.46882"
+         y="52.797874"
          id="tspan3357"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.11361122px;font-family:'Redacted Script';-inkscape-font-specification:'Redacted Script Bold';fill:#00286b;fill-opacity:1;stroke:none;stroke-opacity:1;fill-rule:nonzero;">eggs</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.08460426px;font-family:'Redacted Script';-inkscape-font-specification:'Redacted Script Bold';fill:#00286b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1">sss</tspan></text>
     <rect
-       width="51.504841"
-       height="54.15715"
-       rx="1.9435788"
-       ry="2.038187"
-       x="6.6112146"
-       y="4.7396069"
+       width="51.417542"
+       height="54.06535"
+       rx="1.9402844"
+       ry="2.0347321"
+       x="6.4244308"
+       y="5.2828431"
        id="rect6741-5-0-2-3"
-       style="fill:none;stroke:url(#linearGradient3647);stroke-width:0.9951604;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="fill:none;stroke:url(#linearGradient3647);stroke-width:0.99347359;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
   </g>
 </svg>
