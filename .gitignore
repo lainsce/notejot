@@ -1,10 +1,9 @@
 build/
 ~*
 *~
-src/clack
-debian/com.github.cassidyjames.clack.debhelper.log
-debian/com.github.cassidyjames.clack.substvars
-debian/com.github.cassidyjames.clack/
+debian/com.github.lainsce.notejot.debhelper.log
+debian/com.github.lainsce.notejot.substvars
+debian/com.github.lainsce.notejot/
 debian/debhelper-build-stamp
 debian/files
 obj-x86_64-linux-gnu/

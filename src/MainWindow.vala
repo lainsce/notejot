@@ -22,13 +22,13 @@ public class Notejot.MainWindow : Gtk.ApplicationWindow {
     private Gtk.SourceView view;
     private Gtk.ScrolledWindow scroll;
 
-    private const string COLOR_PRIMARY = """
+    private const string COLORS = """
     @define-color colorPrimary %s;
         .background,
         .titlebar {
         }
         GtkSourceView {
-            background-color: #fff9de;
+            background-color: %s;
         }
     """;
 
@@ -63,9 +63,10 @@ public class Notejot.MainWindow : Gtk.ApplicationWindow {
         scroll.add (view);
 
         string color_primary = "#fff1b9";
+        string color_secondary = "#fff9de";
         var provider = new Gtk.CssProvider ();
             try {
-                var colored_css = COLOR_PRIMARY.printf (color_primary);
+                var colored_css = COLORS.printf (color_primary, color_secondary);
                 provider.load_from_data (colored_css, colored_css.length);
 
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);

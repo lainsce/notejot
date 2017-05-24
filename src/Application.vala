@@ -25,7 +25,7 @@ public class Notejot.Application : Granite.Application {
         app_years = "2017";
         exec_name = "com.github.lainsce.notejot";
         app_launcher = "com.github.lainsce.notejot";
-        build_version = "0.5";
+        build_version = "0.1.5";
         app_icon = "com.github.lainsce.notejot";
         main_url = "https://github.com/lainsce/notejot/";
         bug_url = "https://github.com/lainsce/notejot/issues";
@@ -40,10 +40,6 @@ public class Notejot.Application : Granite.Application {
 
         var quit_action = new SimpleAction ("quit", null);
         add_action (quit_action);
-
-        var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("com/github/lainsce/notejot/Application.css");
-        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         quit_action.activate.connect (() => {
             if (app_window != null) {
