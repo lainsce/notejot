@@ -29,16 +29,10 @@ namespace Notejot.Widgets {
         private Gtk.Menu menu;
         private Gtk.MenuButton app_menu;
 
-        public const string FILE_EXTENSION = ".txt";
-        public static File? current_file = null;
-
         public Toolbar() {
-            this.headerbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
-
             icon_settings ();
 
             this.show_close_button = true;
-            this.set_custom_title (headerbar_box);
             this.headerbar_box.no_show_all = false;
             this.headerbar_box.show ();
             this.show_all ();
@@ -52,16 +46,16 @@ namespace Notejot.Widgets {
 
             menu_settings();
 
-            this.app_menu.popup = this.menu;
+            this.app_menu.popup = menu;
             this.pack_end (this.app_menu);
         }
 
         private void menu_settings () {
             this.menu = new Gtk.Menu ();
 
-            var save_item = new Gtk.MenuItem.with_label ("Save as...");
+            var save_item = new Gtk.MenuItem.with_label ("Save as…");
             save_item.activate.connect(() => {
-               save_selected ();
+               // Nothing...
             });
 
             var about_item = new Gtk.MenuItem.with_label ("About");
@@ -90,53 +84,6 @@ namespace Notejot.Widgets {
             aboutDialog.response.connect(() => {
               aboutDialog.destroy ();
             });
-        }
-
-        private static File? get_file_from_user (string title, string accept_button_label, Gtk.FileChooserAction chooser_action, List<Gtk.FileFilter> filters) {
-            File? result = null;
-
-            var dialog = new Gtk.FileChooserDialog (
-                title,
-                null,
-                chooser_action,
-                ("Cancel"), Gtk.ResponseType.CANCEL,
-                accept_button_label, Gtk.ResponseType.ACCEPT);
-
-            var all_filter = new Gtk.FileFilter ();
-            all_filter.set_filter_name ("All Files");
-            all_filter.add_pattern ("*");
-
-            filters.append (all_filter);
-
-            filters.@foreach ((filter) => {
-                dialog.add_filter (filter);
-            });
-
-            if (dialog.run () == Gtk.ResponseType.ACCEPT) {
-                result = dialog.get_file ();
-            }
-
-            dialog.close ();
-
-            return result;
-        }
-
-        public static File? save_selected () {
-            File? result = null;
-            List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
-            Gtk.FileFilter filter = new Gtk.FileFilter ();
-            filter.set_filter_name ("Text Files");
-            filter.add_pattern ("*" + FILE_EXTENSION);
-            filters.append (filter);
-
-            result = get_file_from_user (("Save file"), ("Save"), Gtk.FileChooserAction.SAVE, filters);
-
-            var path = result.get_path ();
-            if (!path.has_suffix (FILE_EXTENSION)) {
-                result = File.new_for_path (path + FILE_EXTENSION);
-            }
-
-            return result;
         }
     }
 }

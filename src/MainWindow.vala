@@ -30,7 +30,7 @@ namespace Notejot {
 
         private const string COLORS = """
         @define-color colorPrimary %s;
-            .background,
+        @define-color textColorPrimary #646464;
             .titlebar {
             }
             GtkSourceView {
