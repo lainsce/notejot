@@ -18,9 +18,12 @@
 */
 public class Notejot.MainWindow : Gtk.ApplicationWindow {
     private Gtk.HeaderBar header_bar;
-    private Gtk.Button new_window_button;
+    private Gtk.Button save_button;
     private Gtk.SourceView view;
     private Gtk.ScrolledWindow scroll;
+
+    GLib.File? file;
+	Gtk.SourceBuffer buffer;
 
     private const string COLORS = """
     @define-color colorPrimary %s;
@@ -28,7 +31,7 @@ public class Notejot.MainWindow : Gtk.ApplicationWindow {
         .titlebar {
         }
         GtkSourceView {
-            background-color: %s;
+            font-size: 12;
         }
     """;
 
@@ -42,31 +45,33 @@ public class Notejot.MainWindow : Gtk.ApplicationWindow {
     }
 
     construct {
-        new_window_button = new Gtk.Button.from_icon_name ("list-add", Gtk.IconSize.SMALL_TOOLBAR);
-        new_window_button.tooltip_text = ("New pad…");
-        new_window_button.clicked.connect (() => {
-            application.activate ();
+        save_button = new Gtk.Button.from_icon_name ("document-save-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        save_button.tooltip_text = ("Save pad…");
+        save_button.clicked.connect (() => {
+            // TODO: Saving
         });
 
         header_bar = new Gtk.HeaderBar ();
         header_bar.set_title ("Notejot");
         header_bar.show_close_button = true;
-        header_bar.pack_end (new_window_button);
+        header_bar.pack_end (save_button);
         set_titlebar (header_bar);
 
         scroll = new Gtk.ScrolledWindow (null, null);
         this.add (scroll);
-        this.view = new Gtk.SourceView ();
-        this.view.wrap_mode = Gtk.WrapMode.WORD;
-        this.view.top_margin = 12;
-        this.view.left_margin = 12;
+        buffer = new Gtk.SourceBuffer (null);
+		view = new Gtk.SourceView.with_buffer (buffer);
+		view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
+        view.top_margin = 12;
+        view.left_margin = 12;
+        view.bottom_margin = 12;
+        view.right_margin = 12;
         scroll.add (view);
 
         string color_primary = "#fff1b9";
-        string color_secondary = "#fff9de";
         var provider = new Gtk.CssProvider ();
             try {
-                var colored_css = COLORS.printf (color_primary, color_secondary);
+                var colored_css = COLORS.printf (color_primary);
                 provider.load_from_data (colored_css, colored_css.length);
 
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
