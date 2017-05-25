@@ -15,7 +15,7 @@ set (DATADIR "${CMAKE_INSTALL_PREFIX}/share")
 set (PKGDATADIR "${DATADIR}/com.github.lainsce.notejot")
 
 set (EXEC_NAME "com.github.lainsce.notejot")
-set (RELEASE_NAME "Level 1-6")
+set (RELEASE_NAME "Level 1")
 set (VERSION "0.1.6")
 set (VERSION_INFO "Stable")
 
