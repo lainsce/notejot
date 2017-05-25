@@ -54,6 +54,8 @@ vala_precompile(VALA_C ${EXEC_NAME}
     src/Widgets/Toolbar.vala
     src/Widgets/SourceView.vala
     src/Constants/Stylesheet.vala
+    src/Utils/FileUtils.vala
+    src/Utils/DialogUtils.vala
 
 # tell what libraries to use when compiling
 PACKAGES

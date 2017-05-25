@@ -21,8 +21,9 @@ using Granite.Widgets;
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.ScrolledWindow scroll;
-        private Widgets.Toolbar toolbar;
-        private Widgets.SourceView view;
+
+        public Widgets.Toolbar toolbar;
+        public Widgets.SourceView view;
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,

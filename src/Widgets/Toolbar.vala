@@ -27,7 +27,7 @@ namespace Notejot.Widgets {
         private Gtk.Menu menu;
         private Gtk.MenuButton app_menu;
 
-        public Widgets.SourceView view;
+        public File file;
 
         public Toolbar() {
             app_menu = new Gtk.MenuButton();
@@ -39,7 +39,7 @@ namespace Notejot.Widgets {
 
             var save_item = new Gtk.MenuItem.with_label (_("Save as…"));
             save_item.activate.connect(() => {
-                save_file_as_dialog ();
+                button_pressed ();
             });
 
             var about_item = new Gtk.MenuItem.with_label (_("About"));
@@ -78,38 +78,49 @@ namespace Notejot.Widgets {
             });
         }
 
-        private void save_file_as_dialog () {
-            Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog (
-                "Save Text File",
-                null,
-                Gtk.FileChooserAction.SAVE,
-                "Cancel", Gtk.ResponseType.CANCEL,
-                "Save", Gtk.ResponseType.ACCEPT
-            );
+        public void button_pressed () {
+            debug ("Button pressed.");
 
-            Gtk.FileFilter filter = new Gtk.FileFilter ();
-                chooser.set_filter (filter);
-                filter.add_mime_type ("text/*");
-
-                if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-                    save_file_as (chooser.get_filename (), view.buffer.text);
-                    debug("File was saved.");
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    bool was_saved = save_document ();
+                    if (!was_saved) {
+                        debug ("Cancelling new document too.");
+                        return;
+                    }
+                } catch (Error e) {
+                    error ("Unexpected error during save: " + e.message);
                 }
-
-                chooser.close ();
             }
 
-        private void save_file_as (string filename, string text) {
-            try {
-                File file = File.new_for_path (filename);
-                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
-                var data_stream = new DataOutputStream (file_stream);
+            debug ("Clearing buffer.");
+            Widgets.SourceView.buffer.set_text ("");
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
 
-                data_stream.put_string ("text");
-                debug(text);
-            } catch (Error e) {
-                stderr.printf ("Error: couldn't save %s\n", e.message);
+        private bool save_document () throws Error {
+            // If it's a new file, ask the user for a valid location.
+            if (file == null) {
+                debug ("This is a new file. Asking the user where to save.");
+                file = Utils.DialogUtils.display_save_dialog ();
+                // If file is still null, then user aborted save operation.
+                if (file == null) {
+                    debug ("User cancelled operation. Aborting operation.");
+                    return false;
+                }
             }
+
+            debug ("Attempting to save file: " + file.get_path ());
+            if (file.query_exists ())
+                file.delete ();
+
+            Gtk.TextIter start, end;
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            uint8[] binbuffer = buffer.data;
+            Utils.FileUtils.save_file (file, binbuffer);
+            return true;
         }
     }
 }
