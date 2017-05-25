@@ -15,6 +15,11 @@
     <developer_name>Lains</developer_name>
     <url type="homepage"></url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/lainsce/notejot/master/data/shot.png</image>
+        </screenshot>
+    </screenshots>
     <custom>
         <value key="x-appcenter-color-primary">#fff3ae</value>
         <value key="x-appcenter-color-primary-text">#454545</value>

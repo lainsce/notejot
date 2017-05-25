@@ -22,20 +22,11 @@ namespace Notejot.Widgets {
             this.set_buffer (buffer);
 
             this.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
-            this.top_margin = 12;
+            this.margin = 1;
             this.left_margin = 12;
-            this.bottom_margin = 12;
+            this.top_margin = 12;
             this.right_margin = 12;
-        }
-
-        public void set_text (string text, bool opening = true) {
-            if (opening) {
-                buffer.begin_not_undoable_action ();
-            } else {
-                buffer.end_not_undoable_action ();
-            }
-
-            buffer.text = text;
+            this.expand = false;
         }
     }
 }

@@ -24,25 +24,22 @@ namespace Notejot {
         private Widgets.Toolbar toolbar;
         private Widgets.SourceView view;
 
-        private const string COLORS = """
-        @define-color colorPrimary #fff1b9;
-        @define-color textColorPrimary #646464;
-            .titlebar {
-            }
-            GtkSourceView {
-                font-size: 12px;
-            }
-        """;
-
         public MainWindow (Gtk.Application application) {
             Object (application: application,
                     resizable: false,
-                    title: ("Notejot"),
+                    title: _("Notejot"),
                     height_request: 500,
                     width_request: 500);
+
+            Granite.Widgets.Utils.set_theming_for_screen (
+                this.get_screen (),
+                Stylesheet.NOTE,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         }
 
         construct {
+            this.get_style_context ().add_class ("rounded");
             this.toolbar = new Widgets.Toolbar ();
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
@@ -52,15 +49,6 @@ namespace Notejot {
             this.add (scroll);
             this.view = new Widgets.SourceView ();
             scroll.add (view);
-
-            var provider = new Gtk.CssProvider ();
-                try {
-                    var colored_css = COLORS;
-                    provider.load_from_data (colored_css, colored_css.length);
-                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                } catch (GLib.Error e) {
-                    critical (e.message);
-                }
         }
     }
 }

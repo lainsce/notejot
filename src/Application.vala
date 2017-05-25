@@ -26,7 +26,7 @@ namespace Notejot {
             app_years = "2017";
             exec_name = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
-            build_version = "0.1.5";
+            build_version = "0.1.6";
             app_icon = "com.github.lainsce.notejot";
             main_url = "https://github.com/lainsce/notejot/";
             bug_url = "https://github.com/lainsce/notejot/issues";
@@ -41,6 +41,7 @@ namespace Notejot {
 
             var quit_action = new SimpleAction ("quit", null);
             add_action (quit_action);
+            add_accelerator ("<Control>q", "app.quit", null);
 
             quit_action.activate.connect (() => {
                 if (app_window != null) {
