@@ -9,16 +9,5 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# Enable additional explot mitigation
-# (PIE and *full* RELRO at the time of this writing)
-#export DEB_BUILD_MAINT_OPTIONS=hardening=+all
-
 %:
 	dh $@
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
-
-
-override_dh_install:
-	dh_install --fail-missing
