@@ -22,19 +22,16 @@ using Granite;
 
 namespace Notejot.Widgets {
     public class Toolbar : Gtk.HeaderBar {
-
         public signal void about_selected ();
 
-        private Gtk.Box headerbar_box;
         private Gtk.Menu menu;
         private Gtk.MenuButton app_menu;
 
+        private Notejot.MainWindow window;
+
         public Toolbar() {
             icon_settings ();
-
             this.show_close_button = true;
-            this.headerbar_box.no_show_all = false;
-            this.headerbar_box.show ();
             this.show_all ();
         }
 
@@ -46,7 +43,7 @@ namespace Notejot.Widgets {
 
             menu_settings();
 
-            this.app_menu.popup = menu;
+            this.app_menu.popup = this.menu;
             this.pack_end (this.app_menu);
         }
 
@@ -55,7 +52,7 @@ namespace Notejot.Widgets {
 
             var save_item = new Gtk.MenuItem.with_label ("Save as…");
             save_item.activate.connect(() => {
-               // Nothing...
+                save_file_as_dialog ();
             });
 
             var about_item = new Gtk.MenuItem.with_label ("About");
@@ -84,6 +81,41 @@ namespace Notejot.Widgets {
             aboutDialog.response.connect(() => {
               aboutDialog.destroy ();
             });
+        }
+
+        private void save_file_as_dialog () {
+            Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog (
+                "Save Text File",
+                window,
+                Gtk.FileChooserAction.SAVE,
+                "Cancel", Gtk.ResponseType.CANCEL,
+                "Save", Gtk.ResponseType.ACCEPT
+            );
+
+            Gtk.FileFilter filter = new Gtk.FileFilter ();
+            chooser.set_filter (filter);
+            filter.add_mime_type ("text/*");
+
+            if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+                save_file_as (chooser.get_filename ());
+                debug("File was saved.");
+            }
+
+            chooser.close ();
+        }
+
+        private void save_file_as (string filename) {
+            try {
+                string text = window.view.buffer.text;
+                File file = File.new_for_path (filename);
+                var file_stream = file.create (FileCreateFlags.NONE);
+                var data_stream = new DataOutputStream (file_stream);
+
+                data_stream.put_string (text);
+                debug(text);
+            } catch (Error e) {
+                stderr.printf ("Error: couldn't save %s\n", e.message);
+            }
         }
     }
 }

@@ -20,9 +20,10 @@ using Granite.Widgets;
 
 namespace Notejot {
     public class MainWindow : Gtk.ApplicationWindow {
-        private Gtk.SourceView view;
         private Gtk.ScrolledWindow scroll;
-    	private Gtk.SourceBuffer buffer;
+
+        public Gtk.SourceView view;
+    	public Gtk.SourceBuffer buffer;
 
         private Widgets.Toolbar toolbar;
 
@@ -34,7 +35,7 @@ namespace Notejot {
             .titlebar {
             }
             GtkSourceView {
-                font-size: 12;
+                font-size: 12px;
             }
         """;
 
