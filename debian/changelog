@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (0.1.7) xenial; urgency=low
+
+  * AppCenter fixes.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 25 May 2017 08:21:00 -0300
+
 com.github.lainsce.notejot (0.1.6) xenial; urgency=low
 
   * Initial Release.

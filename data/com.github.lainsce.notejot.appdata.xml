@@ -6,13 +6,17 @@
     <name>Notejot</name>
     <summary>Jot your ideas</summary>
     <description>
-        <p>A stupidly-simple jotting pad.</p>
+        <p>A stupidly-simple jotting pad for any type of short term notes.</p>
+        <ul>
+            <li>Save your notes anywhere, even on existing files.</li>
+            <li>Quit anytime with the shortcut Ctrl + Q</li>
+        </ul>
     </description>
     <provides>
         <binary>com.github.lainsce.notejot</binary>
     </provides>
     <developer_name>Lains</developer_name>
-    <url type="homepage"></url>
+    <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
     <screenshots>
         <screenshot type="default">
