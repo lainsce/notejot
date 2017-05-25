@@ -39,7 +39,7 @@
        x2="375.00003"
        y2="655.29242"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.0751783,0,0,0.07528379,-4.060036,11.802784)" />
+       gradientTransform="matrix(0.0748373,0,0,0.07560787,-4.0235546,11.589324)" />
     <radialGradient
        gradientTransform="matrix(2.003784,0,0,1.4,27.98813,-17.4)"
        gradientUnits="userSpaceOnUse"
@@ -99,7 +99,7 @@
        x2="23.99999"
        y1="4.999989"
        x1="23.99999"
-       gradientTransform="matrix(1.0465052,0,0,1.1003965,-1.1444132,13.816162)"
+       gradientTransform="matrix(1.0464168,0,0,1.1101361,-1.1422909,13.400594)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient3647"
        xlink:href="#linearGradient3924-2-2-5-8" />
@@ -130,9 +130,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.5"
-     inkscape:cx="3.6363634"
-     inkscape:cy="43.981728"
+     inkscape:zoom="11"
+     inkscape:cx="27.766647"
+     inkscape:cy="23.647718"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
@@ -159,6 +159,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      transform="translate(0,-16)">
+    <rect
+       style="opacity:1;fill:#ffdd55;fill-opacity:1;stroke:none;stroke-width:0.52761984;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3387-2"
+       width="39.705395"
+       height="42.070168"
+       x="4.1472998"
+       y="19.055824"
+       ry="2.1699526" />
     <g
        transform="matrix(1.1312799,0,0,0.40274328,-3.2473474,43.756386)"
        id="g3712-8-2-4-4"
@@ -187,22 +195,13 @@
          style="fill:url(#linearGradient13984);fill-opacity:1;stroke:none" />
     </g>
     <rect
-       style="fill:#ffe680;fill-rule:evenodd;stroke:none;stroke-width:1.0304172px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect3338"
-       width="39.792019"
-       height="42.228577"
-       x="4.0675826"
-       y="19.250336"
-       ry="2.3460314"
-       transform="matrix(0.99999041,-0.00437844,0.00435859,0.9999905,0,0)" />
-    <rect
-       style="opacity:0.4;fill:none;fill-opacity:1;stroke:url(#linearGradient4207);stroke-width:0.527686;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:0.4;fill:none;fill-opacity:1;stroke:url(#linearGradient4207);stroke-width:0.52761984;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3387"
-       width="40.06897"
-       height="42.251919"
-       x="3.989943"
-       y="19.145353"
-       ry="2.1793272" />
+       width="39.887215"
+       height="42.433804"
+       x="3.9899099"
+       y="18.963503"
+       ry="2.1887088" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:9.64934826px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#00286b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -222,13 +221,13 @@
          id="tspan3357"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.8657999px;font-family:'Redacted Script';-inkscape-font-specification:'Redacted Script Bold';fill:#00286b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1">sss</tspan></text>
     <rect
-       width="38.720699"
-       height="40.714668"
-       rx="1.4611583"
-       ry="1.5322834"
-       x="4.6113648"
-       y="19.868343"
+       width="38.717426"
+       height="41.075031"
+       rx="1.4610348"
+       ry="1.5458456"
+       x="4.6130009"
+       y="19.506344"
        id="rect6741-5-0-2-3"
-       style="fill:none;stroke:url(#linearGradient3647);stroke-width:0.74814922;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="fill:none;stroke:url(#linearGradient3647);stroke-width:0.75142109;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
   </g>
 </svg>

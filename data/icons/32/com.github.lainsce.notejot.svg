@@ -39,7 +39,7 @@
        x2="375.00003"
        y2="655.29242"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.04834239,0,0,0.04841022,-1.9326255,29.965994)" />
+       gradientTransform="matrix(0.04834537,0,0,0.0479549,-1.9337393,30.009607)" />
     <radialGradient
        gradientTransform="matrix(2.003784,0,0,1.4,27.98813,-17.4)"
        gradientUnits="userSpaceOnUse"
@@ -130,9 +130,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.5"
-     inkscape:cx="3.6363634"
-     inkscape:cy="43.981728"
+     inkscape:zoom="15.556349"
+     inkscape:cx="6.7415436"
+     inkscape:cy="11.316251"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
@@ -150,7 +150,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -159,6 +159,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      transform="translate(0,-32)">
+    <rect
+       style="opacity:1;fill:#ffdd55;fill-opacity:1;stroke:none;stroke-width:0.52761984;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3387-2"
+       width="25.498978"
+       height="26.812508"
+       x="3.364886"
+       y="34.801369"
+       ry="1.3829722" />
     <g
        transform="matrix(0.72745423,0,0,0.25897861,-1.4100371,50.513326)"
        id="g3712-8-2-4-4"
@@ -187,22 +195,13 @@
          style="fill:url(#linearGradient13984);fill-opacity:1;stroke:none" />
     </g>
     <rect
-       style="fill:#ffe680;fill-rule:evenodd;stroke:none;stroke-width:1.0304172px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect3338"
-       width="25.587719"
-       height="27.154514"
-       x="3.1961937"
-       y="34.757797"
-       ry="1.5085838"
-       transform="matrix(0.99999041,-0.00437844,0.00435859,0.9999905,0,0)" />
-    <rect
-       style="opacity:0.4;fill:none;fill-opacity:1;stroke:url(#linearGradient4207);stroke-width:0.33932132;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:0.4;fill:none;fill-opacity:1;stroke:url(#linearGradient4207);stroke-width:0.33773223;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3387"
-       width="25.765808"
-       height="27.169523"
-       x="3.2438045"
-       y="34.687534"
-       ry="1.4013869" />
+       width="25.767397"
+       height="26.913982"
+       x="3.2430098"
+       y="34.686741"
+       ry="1.3882062" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.20488262px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#00286b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

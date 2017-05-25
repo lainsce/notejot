@@ -78,7 +78,7 @@ namespace Notejot.Widgets {
             });
         }
 
-        public void save_file_as_dialog () {
+        private void save_file_as_dialog () {
             Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog (
                 "Save Text File",
                 null,
@@ -88,22 +88,28 @@ namespace Notejot.Widgets {
             );
 
             Gtk.FileFilter filter = new Gtk.FileFilter ();
-            chooser.set_filter (filter);
-            filter.add_mime_type ("text/*");
+                chooser.set_filter (filter);
+                filter.add_mime_type ("text/*");
 
-            if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-                Gtk.TextIter start;
-                Gtk.TextIter end;
-                view.buffer.get_start_iter(out start);
-                view.buffer.get_end_iter(out end);
-
-                try {
-                    FileUtils.set_contents (chooser.get_filename(), view.buffer.get_text(start, end, false));
-                } catch (Error e) {
-                    stderr.printf ("Error: couldn't save %s\n", e.message);
+                if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+                    save_file_as (chooser.get_filename (), view.buffer.text);
+                    debug("File was saved.");
                 }
+
+                chooser.close ();
             }
-            chooser.close ();
+
+        private void save_file_as (string filename, string text) {
+            try {
+                File file = File.new_for_path (filename);
+                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
+                var data_stream = new DataOutputStream (file_stream);
+
+                data_stream.put_string ("text");
+                debug(text);
+            } catch (Error e) {
+                stderr.printf ("Error: couldn't save %s\n", e.message);
+            }
         }
     }
 }
