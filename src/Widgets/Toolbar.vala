@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Robert San <robertsanseries@gmail.com> (http://robertsanseries.github.io)
+* Copyright (c) 2017 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -104,16 +104,16 @@ namespace Notejot.Widgets {
             chooser.close ();
         }
 
-        public void save_file_as (string filename, string text) {
-            try {
-                File file = File.new_for_path (filename);
-                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
-                var data_stream = new DataOutputStream (file_stream);
-                debug(text);
-                data_stream.put_string (text);
-            } catch (Error e) {
-                stderr.printf ("Error: couldn't save %s\n", e.message);
-            }
+        public void save_file_as (string filename) {
+                Gtk.Textiter start, end
+                view.buffer.get_start_iter(out start)
+                view.buffer.get_end_iter(out end)
+                
+                try {
+                    FileUtils.set_contents (filename, view.buffer.get_text(start, end,false);
+                } catch (Error e) {
+                    stderr.printf ("Error: couldn't save %s\n", e.message);
+                }
         }
     }
 }
