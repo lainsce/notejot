@@ -27,7 +27,7 @@ namespace Notejot.Widgets {
         private Gtk.Menu menu;
         private Gtk.MenuButton app_menu;
 
-        private Notejot.MainWindow window;
+        public Widgets.SourceView view;
 
         public Toolbar() {
             icon_settings ();
@@ -83,10 +83,10 @@ namespace Notejot.Widgets {
             });
         }
 
-        private void save_file_as_dialog () {
+        public void save_file_as_dialog () {
             Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog (
                 "Save Text File",
-                window,
+                null,
                 Gtk.FileChooserAction.SAVE,
                 "Cancel", Gtk.ResponseType.CANCEL,
                 "Save", Gtk.ResponseType.ACCEPT
@@ -97,22 +97,20 @@ namespace Notejot.Widgets {
             filter.add_mime_type ("text/*");
 
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-                save_file_as (chooser.get_filename ());
+                save_file_as (chooser.get_filename (), view.buffer.text);
                 debug("File was saved.");
             }
 
             chooser.close ();
         }
 
-        private void save_file_as (string filename) {
+        public void save_file_as (string filename, string text) {
             try {
-                string text = window.view.buffer.text;
                 File file = File.new_for_path (filename);
-                var file_stream = file.create (FileCreateFlags.NONE);
+                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
                 var data_stream = new DataOutputStream (file_stream);
-
-                data_stream.put_string (text);
                 debug(text);
+                data_stream.put_string (text);
             } catch (Error e) {
                 stderr.printf ("Error: couldn't save %s\n", e.message);
             }

@@ -17,39 +17,41 @@
 * Boston, MA 02110-1301 USA
 *
 */
-public class Notejot.Application : Granite.Application {
+namespace Notejot {
+    public class Application : Granite.Application {
 
-    construct {
-        application_id = "com.github.lainsce.notejot";
-        program_name = "Notejot";
-        app_years = "2017";
-        exec_name = "com.github.lainsce.notejot";
-        app_launcher = "com.github.lainsce.notejot";
-        build_version = "0.1.5";
-        app_icon = "com.github.lainsce.notejot";
-        main_url = "https://github.com/lainsce/notejot/";
-        bug_url = "https://github.com/lainsce/notejot/issues";
-        help_url = "https://github.com/lainsce/notejot/";
-        about_authors = {"Lains <lainsce@airmail.cc>", null};
-        about_license_type = Gtk.License.GPL_3_0;
-    }
+        construct {
+            application_id = "com.github.lainsce.notejot";
+            program_name = "Notejot";
+            app_years = "2017";
+            exec_name = "com.github.lainsce.notejot";
+            app_launcher = "com.github.lainsce.notejot";
+            build_version = "0.1.5";
+            app_icon = "com.github.lainsce.notejot";
+            main_url = "https://github.com/lainsce/notejot/";
+            bug_url = "https://github.com/lainsce/notejot/issues";
+            help_url = "https://github.com/lainsce/notejot/";
+            about_authors = {"Lains <lainsce@airmail.cc>", null};
+            about_license_type = Gtk.License.GPL_3_0;
+        }
 
-    protected override void activate () {
-        var app_window = new MainWindow (this);
-        app_window.show_all ();
+        protected override void activate () {
+            var app_window = new MainWindow (this);
+            app_window.show_all ();
 
-        var quit_action = new SimpleAction ("quit", null);
-        add_action (quit_action);
+            var quit_action = new SimpleAction ("quit", null);
+            add_action (quit_action);
 
-        quit_action.activate.connect (() => {
-            if (app_window != null) {
-                app_window.destroy ();
-            }
-        });
-    }
+            quit_action.activate.connect (() => {
+                if (app_window != null) {
+                    app_window.destroy ();
+                }
+            });
+        }
 
-    public static int main (string[] args) {
-        var app = new Notejot.Application ();
-        return app.run (args);
+        public static int main (string[] args) {
+            var app = new Notejot.Application ();
+            return app.run (args);
+        }
     }
 }

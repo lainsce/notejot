@@ -19,18 +19,13 @@
 using Granite.Widgets;
 
 namespace Notejot {
-    public class MainWindow : Gtk.ApplicationWindow {
+    public class MainWindow : Gtk.Window {
         private Gtk.ScrolledWindow scroll;
-
-        public Gtk.SourceView view;
-    	public Gtk.SourceBuffer buffer;
-
         private Widgets.Toolbar toolbar;
-
-        public signal void save_selected ();
+        private Widgets.SourceView view;
 
         private const string COLORS = """
-        @define-color colorPrimary %s;
+        @define-color colorPrimary #fff1b9;
         @define-color textColorPrimary #646464;
             .titlebar {
             }
@@ -41,7 +36,6 @@ namespace Notejot {
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
-                    icon_name: "com.github.lainsce.notejot",
                     resizable: false,
                     title: ("Notejot"),
                     height_request: 500,
@@ -49,41 +43,24 @@ namespace Notejot {
         }
 
         construct {
-            mount_structure ();
+            this.toolbar = new Widgets.Toolbar ();
+            this.window_position = Gtk.WindowPosition.CENTER;
+            this.set_titlebar (toolbar);
+            this.show_all ();
 
             scroll = new Gtk.ScrolledWindow (null, null);
             this.add (scroll);
-            buffer = new Gtk.SourceBuffer (null);
-    		view = new Gtk.SourceView.with_buffer (buffer);
-    		view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
-            view.top_margin = 12;
-            view.left_margin = 12;
-            view.bottom_margin = 12;
-            view.right_margin = 12;
+            this.view = new Widgets.SourceView ();
             scroll.add (view);
 
-            string color_primary = "#fff1b9";
             var provider = new Gtk.CssProvider ();
                 try {
-                    var colored_css = COLORS.printf (color_primary);
+                    var colored_css = COLORS;
                     provider.load_from_data (colored_css, colored_css.length);
-
                     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 } catch (GLib.Error e) {
                     critical (e.message);
                 }
-        }
-
-        private void mount_structure () {
-            header_bar ();
-
-            this.window_position = Gtk.WindowPosition.CENTER;
-            this.set_titlebar (toolbar);
-            this.show_all ();
-        }
-
-        private void header_bar () {
-            this.toolbar = new Widgets.Toolbar ();
         }
     }
 }
