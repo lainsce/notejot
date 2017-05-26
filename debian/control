@@ -8,6 +8,7 @@ Build-Depends: cmake (>= 2.8),
                libgranite-dev (>= 0.3.0),
                libgtksourceview-3.0-dev (>= 3.10),
                valac (>= 0.26)
+
 Standards-Version: 3.9.3
 Package: com.github.lainsce.notejot
 Architecture: any
