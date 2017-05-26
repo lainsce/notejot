@@ -41,6 +41,7 @@ namespace Notejot {
 
         construct {
             this.get_style_context ().add_class ("rounded");
+            this.get_style_context ().add_class ("notejot-window");
             this.toolbar = new Widgets.Toolbar ();
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);

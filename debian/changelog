@@ -1,3 +1,10 @@
+com.github.lainsce.notejot (1.0.1) xenial; urgency=low
+
+  * Fixed background of the tootip being white instead of the normal color.
+  * Made the note have an actual color
+
+ -- Lains <lainsce@airmail.cc>  Sat, 26 May 2017 00:00:00 -0300
+
 com.github.lainsce.notejot (1.0.0) xenial; urgency=low
 
   * Stable release.

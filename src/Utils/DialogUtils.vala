@@ -69,23 +69,4 @@ namespace Notejot.Utils.DialogUtils {
         chooser.destroy();
         return file;
     }
-
-    private int display_save_confirm () {
-        var dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "<b>" +
-                _("There are unsaved changes. Do you want to save?") + "</b>" +
-                "\n\n" + _("If you don't save, changes will be lost forever."));
-        dialog.use_markup = true;
-        dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
-        var dontsave = new Gtk.Button.with_label (_("Don't save"));
-        dontsave.show ();
-        dialog.add_action_widget (dontsave, Gtk.ResponseType.NO);
-        dialog.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.YES);
-        dialog.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
-        dialog.set_default_response (Gtk.ResponseType.ACCEPT);
-        int response = dialog.run ();
-        dialog.destroy();
-        return response;
-    }
-
 }
