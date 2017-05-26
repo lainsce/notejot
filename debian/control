@@ -3,13 +3,12 @@ Section: x11
 Priority: extra
 Maintainer: Lains <lainsce@airmail.cc>
 Build-Depends: cmake (>= 2.8),
-               debhelper (>= 9),
                libgtk-3-dev,
+               libgranite-dev,
                libgtksourceview-3.0-dev (>= 3.10),
                valac (>= 0.26)
-
+Standards-Version: 3.9.3
 Package: com.github.lainsce.notejot
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Pre-Depends: dpkg (>= 1.15.6)
-  Description: A stupidly-simple jotting pad.
+Description: A stupidly-simple jotting pad.
