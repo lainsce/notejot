@@ -3,6 +3,7 @@ Section: x11
 Priority: extra
 Maintainer: Lains <lainsce@airmail.cc>
 Build-Depends: cmake (>= 2.8),
+               cmake-elementary,
                debhelper (>= 9),
                libgtk-3-dev,
                libgranite-dev (>= 0.3.0),
