@@ -33,12 +33,6 @@ add_definitions(${DEPS_CFLAGS})
 link_libraries(${DEPS_LIBRARIES})
 link_directories(${DEPS_LIBRARY_DIRS})
 
-# make sure we have the latest granite
-pkg_check_modules(GRANITE0401 QUIET granite>=0.4.0.1)
-if (GRANITE0401_FOUND)
-    set (GRANITE_OPTIONS --define=HAS_GRANITE_4_1)
-endif ()
-
 # make sure we have vala
 find_package(Vala REQUIRED)
 # make sure we use vala
@@ -62,10 +56,6 @@ PACKAGES
     granite
     gtk+-3.0
     gtksourceview-3.0
-
-# some extra options
-OPTIONS
-    ${GRANITE_OPTIONS}
 )
 
 # tell cmake what to call the executable we just made
