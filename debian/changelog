@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.0.2) xenial; urgency=low
+
+  * Fixed notes not being saved on quit
+
+ -- Lains <lainsce@airmail.cc>  Sat, 27 May 2017 08:00:00 -0300
+
 com.github.lainsce.notejot (1.0.1) xenial; urgency=low
 
   * Fixed background of the tootip being white instead of the normal color.
