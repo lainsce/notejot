@@ -39,7 +39,7 @@ namespace Notejot.Widgets {
 
             var save_item = new Gtk.MenuItem.with_label (_("Save as…"));
             save_item.activate.connect(() => {
-                button_pressed ();
+                save_button_pressed ();
             });
 
             var about_item = new Gtk.MenuItem.with_label (_("About"));
@@ -78,40 +78,34 @@ namespace Notejot.Widgets {
             });
         }
 
-        public void button_pressed () {
-            debug ("Button pressed.");
+        public void save_button_pressed () {
+            debug ("Save button pressed.");
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
-                    bool was_saved = save_document ();
-                    if (!was_saved) {
-                        debug ("Cancelling new document too.");
-                        return;
-                    }
+                    debug ("Saving file...");
+                    save_document ();
                 } catch (Error e) {
                     error ("Unexpected error during save: " + e.message);
                 }
             }
 
-            debug ("Clearing buffer.");
-            Widgets.SourceView.buffer.set_text ("");
             file = null;
             Widgets.SourceView.is_modified = false;
         }
 
-        private bool save_document () throws Error {
+        public bool save_document () throws Error {
             // If it's a new file, ask the user for a valid location.
             if (file == null) {
-                debug ("This is a new file. Asking the user where to save.");
+                debug ("Asking the user where to save.");
                 file = Utils.DialogUtils.display_save_dialog ();
                 // If file is still null, then user aborted save operation.
                 if (file == null) {
-                    debug ("User cancelled operation. Aborting operation.");
+                    debug ("User cancelled operation. Aborting.");
                     return false;
                 }
             }
 
-            debug ("Attempting to save file: " + file.get_path ());
             if (file.query_exists ())
                 file.delete ();
 

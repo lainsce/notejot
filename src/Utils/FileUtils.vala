@@ -17,24 +17,56 @@
 
 namespace Notejot.Utils.FileUtils {
 
+    File tmp_file;
+
     // Save a buffer to a file.
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create
-                (FileCreateFlags.REPLACE_DESTINATION));
+                (FileCreateFlags.NONE));
         long written = 0;
         while (written < buffer.length)
             written += output.write (buffer[written:buffer.length]);
         // No close method? This is scary, GLib. Very scary.
     }
 
-    // Read a file and get the contents.
-    public string open_file (File file) throws Error {
-        string content = "";
-        var input = new DataInputStream (file.read ());
-        string line;
-        while ((line = input.read_line (null)) != null)
-            content += line + "\n";
-        return content;
+    private void load_tmp_file () {
+        Granite.Services.Paths.initialize ("notejot", Build.PKGDATADIR);
+        Granite.Services.Paths.ensure_directory_exists (Granite.Services.Paths.user_data_folder);
+
+        tmp_file = Granite.Services.Paths.user_data_folder.get_child ("temp");
+
+        if ( !tmp_file.query_exists () ) {
+            try {
+                tmp_file.create (FileCreateFlags.NONE);
+            } catch (Error e) {
+                error ("Error: %s\n", e.message);
+            }
+        }
+
+        try {
+            string text;
+            string filename = tmp_file.get_path ();
+
+            GLib.FileUtils.get_contents (filename, out text);
+            Widgets.SourceView.buffer.text = text;
+        } catch (Error e) {
+            error ("%s", e.message);
+        }
     }
 
+    private void save_tmp_file () {
+        if ( tmp_file.query_exists () ) {
+            try {
+                tmp_file.delete();
+            } catch (Error e) {
+                error ("Error: %s\n", e.message);
+            }
+        }
+
+        Gtk.TextIter start, end;
+        Widgets.SourceView.buffer.get_bounds (out start, out end);
+        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+        uint8[] binbuffer = buffer.data;
+        save_file(tmp_file, binbuffer);
+    }
 }

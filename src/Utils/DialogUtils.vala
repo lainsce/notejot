@@ -25,12 +25,8 @@ namespace Notejot.Utils.DialogUtils {
         // Init the FileChooser, based on what the calling method desires.
         var chooser = new Gtk.FileChooserDialog (title, null, action);
         chooser.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
-        if (action == Gtk.FileChooserAction.OPEN) {
-            chooser.add_button (Gtk.Stock.OPEN, Gtk.ResponseType.ACCEPT);
-        } else if (action == Gtk.FileChooserAction.SAVE) {
-            chooser.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT);
-            chooser.set_do_overwrite_confirmation (true);
-        }
+        chooser.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT);
+        chooser.set_do_overwrite_confirmation (true);
 
         var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("Text files"));
@@ -42,19 +38,6 @@ namespace Notejot.Utils.DialogUtils {
         chooser.add_filter (filter);
 
         return chooser;
-    }
-
-    /**
-     * Display an open dialog and return the selected file. Returned file should exist.
-     */
-    public File display_open_dialog () {
-        var chooser = create_file_chooser (_("Open file"),
-                Gtk.FileChooserAction.OPEN);
-        File file = null;
-        if (chooser.run () == Gtk.ResponseType.ACCEPT)
-            file = chooser.get_file ();
-        chooser.destroy();
-        return file;
     }
 
     /**

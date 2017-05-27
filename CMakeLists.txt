@@ -39,6 +39,10 @@ add_definitions(${DEPS_CFLAGS})
 link_libraries(${DEPS_LIBRARIES})
 link_directories(${DEPS_LIBRARY_DIRS})
 
+# use config to surface app build details
+configure_file (${CMAKE_SOURCE_DIR}/cmake/config.h.cmake ${CMAKE_BINARY_DIR}/config.h)
+add_definitions (-DGETTEXT_PACKAGE=\"${GETTEXT_PACKAGE}\")
+
 # make sure we have vala
 find_package(Vala REQUIRED)
 # make sure we use vala
@@ -64,6 +68,9 @@ PACKAGES
     gtksourceview-3.0
 
 # some extra options
+CUSTOM_VAPIS
+    vapi/config.vapi
+
 OPTIONS
     ${GRANITE_OPTIONS}
 )

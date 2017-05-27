@@ -22,15 +22,16 @@ namespace Notejot.Stylesheet {
         @define-color colorPrimary #fff1b9;
         @define-color textColorPrimary #656565;
 
-        notejot-window .background {
+        .notejot-window {
             background-color: #fdf6e3;
         }
 
-        GtkSourceView {
+        .notejot-note {
             background-color: #fdf6e3;
             font-size: 11px;
         }
-        GtkSourceView:selected {
+
+        .notejot-note:selected {
             background-color: #93a1a1;
             color: #fdf6e3;
         }

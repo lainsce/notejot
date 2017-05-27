@@ -19,10 +19,13 @@
 
 namespace Notejot.Widgets {
     public class SourceView : Gtk.SourceView {
-        public static Gtk.SourceBuffer buffer;
+        public static new Gtk.SourceBuffer buffer;
         public static bool is_modified;
 
-        public SourceView () {
+        construct {
+            var context = this.get_style_context ();
+            context.add_class ("notejot-note");
+
             buffer = new Gtk.SourceBuffer (null);
             this.set_buffer (buffer);
 
@@ -38,6 +41,7 @@ namespace Notejot.Widgets {
         }
 
         public void on_text_modified () {
+            Utils.FileUtils.save_tmp_file ();
             if (!is_modified) {
                 is_modified = true;
             }
