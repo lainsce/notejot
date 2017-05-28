@@ -21,12 +21,14 @@ using Granite.Widgets;
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.ScrolledWindow scroll;
+        private Settings settings;
 
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;
 
-        public MainWindow () {
-            Object (resizable: false,
+        public MainWindow (Gtk.Application application) {
+            Object (application: application,
+                    resizable: false,
                     title: _("Notejot"),
                     height_request: 500,
                     width_request: 500);
@@ -39,6 +41,8 @@ namespace Notejot {
         }
 
         construct {
+            settings = new Settings ("com.github.lainsce.notejot");
+
             this.get_style_context ().add_class ("rounded");
             this.toolbar = new Widgets.Toolbar ();
             var header_context = toolbar.get_style_context ();
@@ -46,16 +50,33 @@ namespace Notejot {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
-            this.show_all ();
 
             scroll = new Gtk.ScrolledWindow (null, null);
             this.add (scroll);
             this.view = new Widgets.SourceView ();
             scroll.add (view);
 
+            var settings = AppSettings.get_default ();
+
+            int x = settings.window_x;
+            int y = settings.window_y;
+
+            if (x != -1 && y != -1) {
+                move (x, y);
+            }
+
             Utils.FileUtils.load_tmp_file ();
         }
 
+        public override bool delete_event (Gdk.EventAny event) {
+            int x, y;
+            get_position (out x, out y);
 
+            var settings = AppSettings.get_default ();
+            settings.window_x = x;
+            settings.window_y = y;
+
+            return false;
+        }
     }
 }

@@ -20,8 +20,7 @@
 namespace Notejot {
     public class Application : Granite.Application {
 
-        private static Notejot.Application app;
-        private MainWindow window = null;
+        private Notejot.MainWindow? window = null;
 
         construct {
             application_id = "com.github.lainsce.notejot";
@@ -29,24 +28,13 @@ namespace Notejot {
             app_years = "2017";
             exec_name = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
-            build_version = "1.0.1";
+            build_version = "1.0.4";
             app_icon = "com.github.lainsce.notejot";
             main_url = "https://github.com/lainsce/notejot/";
             bug_url = "https://github.com/lainsce/notejot/issues";
             help_url = "https://github.com/lainsce/notejot/";
             about_authors = {"Lains <lainsce@airmail.cc>", null};
             about_license_type = Gtk.License.GPL_3_0;
-        }
-
-        protected override void activate () {
-            if (window != null) {
-                window.present ();
-                return;
-            }
-
-            window = new MainWindow ();
-            window.set_application (this);
-            window.show_all ();
 
             var quit_action = new SimpleAction ("quit", null);
             add_action (quit_action);
@@ -59,16 +47,19 @@ namespace Notejot {
             });
         }
 
+        protected override void activate () {
+            if (window == null) {
+                window = new MainWindow (this);
+                add_window (window);
+                window.show_all ();
+            } else {
+                window.present ();
+            }
+        }
+
         public static int main (string[] args) {
             var app = new Notejot.Application ();
             return app.run (args);
-        }
-
-        public static Notejot.Application get_instance () {
-            if (app == null)
-                app = new Notejot.Application ();
-
-            return app;
         }
     }
 }

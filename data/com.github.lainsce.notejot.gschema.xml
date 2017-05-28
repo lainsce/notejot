@@ -1,0 +1,14 @@
+<schemalist>
+	<schema id="com.github.lainsce.notejot" path="/com/github/lainsce/notejot/">
+		<key name="window-x" type="i">
+			<default>-1</default>
+			<summary>Window position</summary>
+			<description>The x axis of window position</description>
+		</key>
+		<key name="window-y" type="i">
+			<default>-1</default>
+			<summary>Window position</summary>
+			<description>The y axis of window position</description>
+		</key>
+	</schema>
+</schemalist>

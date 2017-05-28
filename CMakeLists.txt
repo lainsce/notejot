@@ -58,6 +58,7 @@ vala_precompile(VALA_C ${EXEC_NAME}
     src/Widgets/Toolbar.vala
     src/Widgets/SourceView.vala
     src/Constants/Stylesheet.vala
+    src/Constants/AppSettings.vala
     src/Utils/FileUtils.vala
     src/Utils/DialogUtils.vala
 

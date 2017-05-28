@@ -16,14 +16,12 @@
  */
 
 namespace Notejot.Utils.DialogUtils {
-
-    /**
-     * Display a choose file dialog: a save dialog, or an open dialog.
-     */
     public Gtk.FileChooserDialog create_file_chooser (string title,
             Gtk.FileChooserAction action) {
+
         // Init the FileChooser, based on what the calling method desires.
         var chooser = new Gtk.FileChooserDialog (title, null, action);
+
         chooser.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
         if (action == Gtk.FileChooserAction.OPEN) {
             chooser.add_button (Gtk.Stock.OPEN, Gtk.ResponseType.ACCEPT);
@@ -36,6 +34,7 @@ namespace Notejot.Utils.DialogUtils {
         filter.set_filter_name (_("Text files"));
         filter.add_pattern ("*.txt");
         chooser.add_filter (filter);
+
         filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
@@ -48,6 +47,7 @@ namespace Notejot.Utils.DialogUtils {
         var chooser = create_file_chooser (_("Open file"),
                 Gtk.FileChooserAction.OPEN);
         File file = null;
+
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
             file = chooser.get_file ();
 
@@ -55,6 +55,7 @@ namespace Notejot.Utils.DialogUtils {
         filter.set_filter_name (_("Text files"));
         filter.add_pattern ("*.txt");
         chooser.add_filter (filter);
+
         filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
@@ -64,15 +65,14 @@ namespace Notejot.Utils.DialogUtils {
         return file;
     }
 
-    /**
-     * Display a save dialog and return the selected file.
-     */
     public File display_save_dialog () {
         var chooser = create_file_chooser (_("Save file"),
                 Gtk.FileChooserAction.SAVE);
         File file = null;
+
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
             file = chooser.get_file ();
+
         chooser.destroy();
         return file;
     }
