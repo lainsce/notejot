@@ -54,11 +54,17 @@ namespace Notejot.Widgets {
                 save_button_pressed ();
             });
 
+            var open_item = new Gtk.MenuItem.with_label (_("Open…"));
+            open_item.activate.connect(() => {
+                open_button_pressed ();
+            });
+
             var about_item = new Gtk.MenuItem.with_label (_("About"));
             about_item.activate.connect(() => {
                 show_about_dialog ();
             });
 
+            menu.add (open_item);
             menu.add (save_item);
             menu.add (new Gtk.SeparatorMenuItem ());
             menu.add (about_item);
@@ -92,6 +98,22 @@ namespace Notejot.Widgets {
             });
         }
 
+        public void open_button_pressed () {
+            debug ("Open button pressed.");
+
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    debug ("Opening file...");
+                    open_document ();
+                } catch (Error e) {
+                    error ("Unexpected error during open: " + e.message);
+                }
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
+
         public void save_button_pressed () {
             debug ("Save button pressed.");
 
@@ -106,6 +128,25 @@ namespace Notejot.Widgets {
 
             file = null;
             Widgets.SourceView.is_modified = false;
+        }
+
+        public bool open_document () throws Error {
+            // If it's a file, ask the user for a valid location.
+            if (file == null) {
+                debug ("Asking the user what to open.");
+                file = Utils.DialogUtils.display_open_dialog ();
+                // If file is still null, then user aborted open operation.
+                if (file == null) {
+                    debug ("User cancelled operation. Aborting.");
+                    return false;
+                }
+            }
+
+            string text;
+            FileUtils.get_contents (file.get_path(), out text);
+
+            Widgets.SourceView.buffer.text = text;
+            return true;
         }
 
         public bool save_document () throws Error {
