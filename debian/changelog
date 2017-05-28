@@ -1,3 +1,10 @@
+com.github.lainsce.notejot (1.0.3) xenial; urgency=low
+
+  * New button - the Clear note button.
+  * Only one instance of the window may now be opened.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 27 May 2017 11:25:00 -0300
+
 com.github.lainsce.notejot (1.0.2) xenial; urgency=low
 
   * Fixed notes not being saved on quit

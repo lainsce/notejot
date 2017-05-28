@@ -26,10 +26,22 @@ namespace Notejot.Widgets {
 
         private Gtk.Menu menu;
         private Gtk.MenuButton app_menu;
+        private Gtk.Button new_button;
 
         public File file;
 
         public Toolbar() {
+
+            new_button = new Gtk.Button ();
+            new_button.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+			new_button.has_tooltip = true;
+            new_button.tooltip_text = (_("Clear note"));
+
+            new_button.clicked.connect(() => {
+                Widgets.SourceView.buffer.set_text ("");
+                Utils.FileUtils.save_tmp_file ();
+            });
+
             app_menu = new Gtk.MenuButton();
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             app_menu.has_tooltip = true;
@@ -53,6 +65,8 @@ namespace Notejot.Widgets {
             menu.show_all ();
 
             app_menu.popup = menu;
+
+            this.pack_start (new_button);
             this.pack_end (app_menu);
 
             this.show_close_button = true;
@@ -65,7 +79,7 @@ namespace Notejot.Widgets {
             aboutDialog.website             = "https://github.com/lainsce/notejot/";
             aboutDialog.website_label       = "Website";
             aboutDialog.logo_icon_name      = "com.github.lainsce.notejot";
-            aboutDialog.version             = "1.0.2";
+            aboutDialog.version             = "1.0.3";
             aboutDialog.authors             = { "Lains <lainsce@airmail.cc>" };
             aboutDialog.comments            = "Jot your ideas.";
             aboutDialog.license_type        = Gtk.License.GPL_3_0;

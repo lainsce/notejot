@@ -25,9 +25,8 @@ namespace Notejot {
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;
 
-        public MainWindow (Gtk.Application application) {
-            Object (application: application,
-                    resizable: false,
+        public MainWindow () {
+            Object (resizable: false,
                     title: _("Notejot"),
                     height_request: 500,
                     width_request: 500);
@@ -56,5 +55,7 @@ namespace Notejot {
 
             Utils.FileUtils.load_tmp_file ();
         }
+
+
     }
 }

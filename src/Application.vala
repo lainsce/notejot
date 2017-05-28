@@ -20,6 +20,9 @@
 namespace Notejot {
     public class Application : Granite.Application {
 
+        private static Notejot.Application app;
+        private MainWindow window = null;
+
         construct {
             application_id = "com.github.lainsce.notejot";
             program_name = "Notejot";
@@ -36,16 +39,22 @@ namespace Notejot {
         }
 
         protected override void activate () {
-            var app_window = new MainWindow (this);
-            app_window.show_all ();
+            if (window != null) {
+                window.present ();
+                return;
+            }
+
+            window = new MainWindow ();
+            window.set_application (this);
+            window.show_all ();
 
             var quit_action = new SimpleAction ("quit", null);
             add_action (quit_action);
             add_accelerator ("<Control>q", "app.quit", null);
 
             quit_action.activate.connect (() => {
-                if (app_window != null) {
-                    app_window.destroy ();
+                if (window != null) {
+                    window.destroy ();
                 }
             });
         }
@@ -53,6 +62,13 @@ namespace Notejot {
         public static int main (string[] args) {
             var app = new Notejot.Application ();
             return app.run (args);
+        }
+
+        public static Notejot.Application get_instance () {
+            if (app == null)
+                app = new Notejot.Application ();
+
+            return app;
         }
     }
 }
