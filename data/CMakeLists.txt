@@ -3,4 +3,4 @@ install (FILES icons/48/com.github.lainsce.notejot.svg DESTINATION share/icons/h
 install (FILES icons/64/com.github.lainsce.notejot.svg DESTINATION share/icons/hicolor/64x64/apps)
 install (FILES icons/128/com.github.lainsce.notejot.svg DESTINATION share/icons/hicolor/128x128/apps)
 
-install (FILES icons/64/com.github.lainsce.notejot.svg DESTINATION share/icons/hicolor/scalable/apps)
+install (FILES icons/128/com.github.lainsce.notejot.svg DESTINATION share/icons/hicolor/scalable/apps)
