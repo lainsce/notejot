@@ -8,10 +8,7 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=GTK;Utility;
-<<<<<<< HEAD
 
 [Desktop Action AboutDialog]
 _Name=About Notejot
 Exec=com.github.lainsce.notejot --about
-=======
->>>>>>> parent of 96864c5... Start of 1.0.5
