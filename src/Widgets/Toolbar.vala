@@ -85,7 +85,7 @@ namespace Notejot.Widgets {
             aboutDialog.website             = "https://github.com/lainsce/notejot/";
             aboutDialog.website_label       = "Website";
             aboutDialog.logo_icon_name      = "com.github.lainsce.notejot";
-            aboutDialog.version             = "1.0.3";
+            aboutDialog.version             = "1.0.5";
             aboutDialog.authors             = { "Lains <lainsce@airmail.cc>" };
             aboutDialog.comments            = "Jot your ideas.";
             aboutDialog.license_type        = Gtk.License.GPL_3_0;
