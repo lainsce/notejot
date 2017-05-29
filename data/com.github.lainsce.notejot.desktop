@@ -8,3 +8,7 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=GTK;Utility;
+
+[Desktop Action AboutDialog]
+_Name=About Screenshot
+Exec=com.github.lainsce.notejot --about

@@ -16,7 +16,7 @@ set (PKGDATADIR "${DATADIR}/com.github.lainsce.notejot")
 
 set (EXEC_NAME "com.github.lainsce.notejot")
 set (RELEASE_NAME "Level 1")
-set (VERSION "1.0.3")
+set (VERSION "1.0.5")
 set (VERSION_INFO "Stable")
 
 # we're about to use pkgconfig to make sure dependencies are installed so let's find pkgconfig first
