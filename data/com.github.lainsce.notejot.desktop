@@ -10,5 +10,5 @@ StartupNotify=true
 Categories=GTK;Utility;
 
 [Desktop Action AboutDialog]
-_Name=About Screenshot
+_Name=About Notejot
 Exec=com.github.lainsce.notejot --about

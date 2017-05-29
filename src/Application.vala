@@ -23,6 +23,8 @@ namespace Notejot {
         private Notejot.MainWindow? window = null;
 
         construct {
+            flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
+
             application_id = "com.github.lainsce.notejot";
             program_name = "Notejot";
             app_years = "2017";
@@ -58,8 +60,40 @@ namespace Notejot {
         }
 
         public static int main (string[] args) {
+            Gtk.init (ref args);
+
             var app = new Notejot.Application ();
-            return app.run (args);
+            if ("--help" in args || "-h" in args) {
+                return ((Gtk.Application)app).run (args);
+            } else {
+                return app.run (args);
+            }
         }
-    }
+
+        private int _command_line (ApplicationCommandLine command_line) {
+            string[] args = command_line.get_arguments ();
+
+            try {
+                var opt_context = new OptionContext ("- Notejot");
+                opt_context.set_help_enabled (true);
+                opt_context.add_main_entries (options, null);
+
+                unowned string[] tmp = args;
+                opt_context.parse (ref tmp);
+            } catch (OptionError e) {
+                command_line.print ("error: %s\n", e.message);
+                command_line.print ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
+                return 0;
+            }
+            return 0;
+        }
+
+        public override int command_line (ApplicationCommandLine commmand_line) {
+            this.hold ();
+            int res = _command_line (commmand_line);
+            this.release ();
+
+            return res;
+          }
+     }
 }
