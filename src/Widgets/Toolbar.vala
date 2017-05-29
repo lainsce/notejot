@@ -82,11 +82,10 @@ namespace Notejot.Widgets {
         private static void show_about_dialog () {
             Granite.Widgets.AboutDialog aboutDialog = new Granite.Widgets.AboutDialog();
             aboutDialog.program_name        = "Notejot";
-            aboutDialog.copyright           = "2017 Lains";
             aboutDialog.website             = "https://github.com/lainsce/notejot/";
             aboutDialog.website_label       = "Website";
             aboutDialog.logo_icon_name      = "com.github.lainsce.notejot";
-            aboutDialog.version             = "1.0.5";
+            aboutDialog.version             = "1.0.3";
             aboutDialog.authors             = { "Lains <lainsce@airmail.cc>" };
             aboutDialog.comments            = "Jot your ideas.";
             aboutDialog.license_type        = Gtk.License.GPL_3_0;

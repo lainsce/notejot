@@ -21,7 +21,7 @@ using Granite.Widgets;
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.ScrolledWindow scroll;
-        private Settings settings;
+        private AppSettings settings;
 
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;
@@ -41,8 +41,6 @@ namespace Notejot {
         }
 
         construct {
-            settings = new Settings ("com.github.lainsce.notejot");
-
             this.get_style_context ().add_class ("rounded");
             this.toolbar = new Widgets.Toolbar ();
             var header_context = toolbar.get_style_context ();
