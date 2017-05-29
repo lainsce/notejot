@@ -15,10 +15,10 @@ gtksourceview-3.0
 
 ## Building
 
-Simply clone this repo, make a build folder, and `cd` into it.
-Then,
+Simply clone this repo, then:
 
 ```
-cmake -DCMAKE_INSTALL_PREFIX=/usr ../
-sudo make install
+$ mkdir build && cd build
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr ../
+$ sudo make install
 ```
