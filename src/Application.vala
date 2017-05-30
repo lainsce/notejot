@@ -22,7 +22,11 @@ namespace Notejot {
 
         private Notejot.MainWindow? window = null;
 
+        private static bool print_version = false;
+        private static bool show_about_dialog = false;
+
         construct {
+            flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             application_id = "com.github.lainsce.notejot";
             program_name = "Notejot";
             app_years = "2017";
@@ -61,5 +65,39 @@ namespace Notejot {
             var app = new Notejot.Application ();
             return app.run (args);
         }
+
+        public void new_window () {
+            new MainWindow (this).show_all ();
+        }
+
+        protected override int command_line (ApplicationCommandLine command_line) {
+            string[] args = command_line.get_arguments ();
+
+            var context = new OptionContext ("File");
+            context.add_main_entries (entries, "com.github.lainsce.notejot");
+            context.add_group (Gtk.get_option_group (true));
+
+            try {
+                unowned string[] tmp = args;
+                context.parse (ref tmp);
+            } catch (Error e) {
+                stdout.printf ("com.github.lainsce.notejot: ERROR: " + e.message + "\n");
+                return 0;
+            }
+
+            if (print_version) {
+                stdout.printf ("Notejot %s\n", Build.VERSION);
+                stdout.printf ("Copyright 2017 Lains\n");
+            } else {
+                new_window ();
+            }
+            return 0;
+        }
+
+        static const OptionEntry[] entries = {
+            { "version", 'v', 0, OptionArg.NONE, out print_version, N_("Print version info and exit"), null },
+            { "about", 'a', 0, OptionArg.NONE, out show_about_dialog, N_("Show about dialog"), null },
+            { null }
+        };
     }
 }
