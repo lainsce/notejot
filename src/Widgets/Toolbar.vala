@@ -22,15 +22,15 @@ using Granite;
 
 namespace Notejot.Widgets {
     public class Toolbar : Gtk.HeaderBar {
-        public signal void about_selected ();
-
-        private Gtk.Menu menu;
-        private Gtk.MenuButton app_menu;
         private Gtk.Button new_button;
+        private Gtk.Button open_button;
+        private Gtk.Button save_button;
 
         public File file;
 
         public Toolbar() {
+			var header_context = this.get_style_context ();
+            header_context.add_class ("notejot-toolbar");
 
             new_button = new Gtk.Button ();
             new_button.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -42,60 +42,30 @@ namespace Notejot.Widgets {
                 Utils.FileUtils.save_tmp_file ();
             });
 
-            app_menu = new Gtk.MenuButton();
-            app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            app_menu.has_tooltip = true;
-            app_menu.tooltip_text = (_("Settings"));
+            save_button = new Gtk.Button ();
+            save_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+			save_button.has_tooltip = true;
+            save_button.tooltip_text = (_("Save as…"));
 
-            menu = new Gtk.Menu ();
-
-            var save_item = new Gtk.MenuItem.with_label (_("Save as…"));
-            save_item.activate.connect(() => {
+            save_button.clicked.connect(() => {
                 save_button_pressed ();
             });
 
-            var open_item = new Gtk.MenuItem.with_label (_("Open…"));
-            open_item.activate.connect(() => {
+            open_button = new Gtk.Button ();
+            open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+			open_button.has_tooltip = true;
+            open_button.tooltip_text = (_("Open…"));
+
+            open_button.clicked.connect(() => {
                 open_button_pressed ();
             });
 
-            var about_item = new Gtk.MenuItem.with_label (_("About"));
-            about_item.activate.connect(() => {
-                show_about_dialog ();
-            });
-
-            menu.add (open_item);
-            menu.add (save_item);
-            menu.add (new Gtk.SeparatorMenuItem ());
-            menu.add (about_item);
-            menu.show_all ();
-
-            app_menu.popup = menu;
-
             this.pack_start (new_button);
-            this.pack_end (app_menu);
+            this.pack_end (save_button);
+            this.pack_end (open_button);
 
             this.show_close_button = true;
             this.show_all ();
-        }
-
-        private static void show_about_dialog () {
-            Granite.Widgets.AboutDialog aboutDialog = new Granite.Widgets.AboutDialog();
-            aboutDialog.program_name        = "Notejot";
-            aboutDialog.website             = "https://github.com/lainsce/notejot/";
-            aboutDialog.website_label       = "Website";
-            aboutDialog.logo_icon_name      = "com.github.lainsce.notejot";
-            aboutDialog.version             = "1.0.5";
-            aboutDialog.authors             = { "Lains <lainsce@airmail.cc>" };
-            aboutDialog.comments            = "Jot your ideas.";
-            aboutDialog.license_type        = Gtk.License.GPL_3_0;
-            aboutDialog.help                = "https://github.com/lainsce/notejot/";
-            aboutDialog.bug                 = "https://github.com/lainsce/notejot/issues";
-            aboutDialog.translator_credits  = "Github Translators";
-            aboutDialog.translate           = "https://github.com/lainsce/notejot/tree/master/po";
-            aboutDialog.response.connect(() => {
-              aboutDialog.destroy ();
-            });
         }
 
         public void open_button_pressed () {

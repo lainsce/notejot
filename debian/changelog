@@ -1,6 +1,8 @@
 com.github.lainsce.notejot (1.0.5) xenial; urgency=low
 
   * The window position is now saved.
+  * Deprecated the appmenu in favor of separate buttons.
+  * Removed AboutDialog.
 
  -- Lains <lainsce@airmail.cc>  Sat, 27 May 2017 11:25:00 -0300
 
