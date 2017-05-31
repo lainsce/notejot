@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.0.6) xenial; urgency=low
+
+  * Future Proofing by using Meson now.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 31 May 2017 00:25:00 -0300
+
 com.github.lainsce.notejot (1.0.5) xenial; urgency=low
 
   * The window position is now saved.

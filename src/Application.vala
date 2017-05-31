@@ -32,7 +32,7 @@ namespace Notejot {
             app_years = "2017";
             exec_name = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
-            build_version = "1.0.5";
+            build_version = "1.0.6";
             app_icon = "com.github.lainsce.notejot";
             main_url = "https://github.com/lainsce/notejot/";
             bug_url = "https://github.com/lainsce/notejot/issues";
@@ -86,7 +86,7 @@ namespace Notejot {
             }
 
             if (print_version) {
-                stdout.printf ("Notejot %s\n", Build.VERSION);
+                stdout.printf ("Notejot %s\n", this.build_version);
                 stdout.printf ("Copyright 2017 Lains\n");
             } else {
                 new_window ();
