@@ -11,6 +11,7 @@ Please make sure you have these dependencies first before building.
 granite
 gtk+-3.0
 gtksourceview-3.0
+meson
 ```
 
 ## Building
@@ -18,7 +19,7 @@ gtksourceview-3.0
 Simply clone this repo, then:
 
 ```
-$ mkdir build && cd build
-$ cmake -DCMAKE_INSTALL_PREFIX=/usr ../
-$ sudo make install
+$ meson build && cd build
+$ ninja
+$ sudo ninja install
 ```
