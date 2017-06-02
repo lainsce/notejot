@@ -13,10 +13,21 @@
 *
 * You should have received a copy of the GNU General Public
 * License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
+* Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+* Boston, MA 02111-1307, USA.
 */
+namespace Notejot.Utils.ColorUtils {
+    public static void setstyle (Gtk.Widget widget, string css) {
+        try {
+            var provider = new Gtk.CssProvider ();
+            var context = widget.get_style_context ();
 
-namespace Notejot.Stylesheet {
-    // Nothing to see here folks!
+            provider.load_from_data (css, css.length);
+
+            context.add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (Error e) {
+            warning ("Style error: %s", e.message);
+            stderr.printf ("%s %s\n", widget.name, css);
+        }
+    }
 }

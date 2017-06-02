@@ -21,10 +21,36 @@ using Granite.Widgets;
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.ScrolledWindow scroll;
-        private AppSettings settings;
 
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;
+
+        public const string WINDOW = """
+            @define-color colorPrimary #c79b68;
+            @define-color textColorPrimary #333;
+
+            .notejot-window {
+                background-color: @colorPrimary;
+            }
+            .notejot-toolbar {
+                background: none;
+            }
+
+            .notejot-note {
+                font-size: 11px;
+            }
+        """;
+
+        public const string NOTE = """
+            .notejot-note {
+                background-color: %s;
+            }
+
+            .notejot-note:selected {
+                background-color: #336699;
+                color: %s;
+            }
+        """;
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
@@ -35,7 +61,7 @@ namespace Notejot {
 
             Granite.Widgets.Utils.set_theming_for_screen (
                 this.get_screen (),
-                Stylesheet.NOTE,
+                WINDOW,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
         }
