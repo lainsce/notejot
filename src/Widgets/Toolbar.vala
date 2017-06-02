@@ -26,9 +26,6 @@ namespace Notejot.Widgets {
         private Gtk.Button open_button;
         private Gtk.Button save_button;
 
-        private Widgets.ColorPicker color_button;
-        public MainWindow window;
-
         public File file;
 
         public Toolbar() {
@@ -63,12 +60,9 @@ namespace Notejot.Widgets {
                 open_button_pressed ();
             });
 
-            color_button = new Widgets.ColorPicker ();
-
             this.pack_start (new_button);
             this.pack_end (save_button);
             this.pack_end (open_button);
-            this.pack_end (color_button);
 
             this.show_close_button = true;
             this.show_all ();
