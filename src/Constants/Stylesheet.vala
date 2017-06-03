@@ -28,6 +28,7 @@ namespace Notejot.Stylesheet {
         .notejot-toolbar {
             background: transparent;
             border-bottom-color: transparent;
+            box-shadow: inset 0px 1px 2px -2px white;
         }
 
         .notejot-note {
