@@ -21,7 +21,6 @@ using Granite.Widgets;
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.ScrolledWindow scroll;
-        private AppSettings settings;
 
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;

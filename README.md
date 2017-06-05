@@ -1,5 +1,5 @@
 # ![icon](data/icon.png) Notejot
-###### Stupidly simple jotting pad.
+## Stupidly simple jotting pad.
 
 ![Screenshot](data/shot.png)
 
@@ -20,6 +20,6 @@ Simply clone this repo, then:
 
 ```
 $ meson build && cd build
-$ ninja
+$ mesonconf -Dprefix=/usr
 $ sudo ninja install
 ```

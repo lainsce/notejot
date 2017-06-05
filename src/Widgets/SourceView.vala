@@ -38,6 +38,7 @@ namespace Notejot.Widgets {
             this.top_margin = 12;
             this.right_margin = 12;
             this.expand = false;
+            this.set_highlight_matching_brackets (false);
         }
 
         public void on_text_modified () {

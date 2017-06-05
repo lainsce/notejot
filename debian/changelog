@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.0.8) xenial; urgency=low
+
+  * Fixed the unnecessary higlighting of brackets.
+
+ -- Lains <lainsce@airmail.cc>  Mon, 5 June 2017 02:25:00 -0300
+
 com.github.lainsce.notejot (1.0.7) xenial; urgency=low
 
   * Fixed a style bug in the GTK CSS.

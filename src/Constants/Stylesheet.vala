@@ -22,7 +22,7 @@ namespace Notejot.Stylesheet {
         @define-color textColorPrimary #656565;
 
         .notejot-window {
-            background-color: #fff1b9;
+            background-color: #fff3ae;
         }
 
         .notejot-toolbar {
@@ -32,13 +32,13 @@ namespace Notejot.Stylesheet {
         }
 
         .notejot-note {
-            background-color: #fff1b9;
+            background-color: #fff3ae;
             font-size: 11px;
         }
 
         .notejot-note:selected {
             background-color: #93a1a1;
-            color: #fff1b9;
+            color: #fff3ae;
         }
     """;
 }
