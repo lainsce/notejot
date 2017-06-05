@@ -31,6 +31,7 @@ namespace Notejot.Widgets {
 
             is_modified = false;
             buffer.changed.connect (on_text_modified);
+            buffer.set_highlight_matching_brackets (false);
 
             this.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
             this.margin = 1;
@@ -38,7 +39,6 @@ namespace Notejot.Widgets {
             this.top_margin = 12;
             this.right_margin = 12;
             this.expand = false;
-            this.set_highlight_matching_brackets (false);
         }
 
         public void on_text_modified () {
