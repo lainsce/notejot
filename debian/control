@@ -13,4 +13,4 @@ Standards-Version: 3.9.3
 Package: com.github.lainsce.notejot
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: A stupidly-simple jotting pad.
+Description: A stupidly-simple sticky notes app.

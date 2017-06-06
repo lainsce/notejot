@@ -58,7 +58,7 @@ namespace Notejot.Utils.FileUtils {
     private void save_tmp_file () {
         if ( tmp_file.query_exists () ) {
             try {
-                tmp_file.delete();
+                tmp_file.delete ();
             } catch (Error e) {
                 error ("Error: %s\n", e.message);
             }
@@ -70,6 +70,6 @@ namespace Notejot.Utils.FileUtils {
         string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
-        save_file(tmp_file, binbuffer);
+        save_file (tmp_file, binbuffer);
     }
 }

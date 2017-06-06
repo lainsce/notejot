@@ -6,9 +6,8 @@
     <name>Notejot</name>
     <summary>Jot your ideas</summary>
     <description>
-        <p>A stupidly-simple jotting pad for any type of short term notes.</p>
+        <p>A stupidly-simple sticky notes app for any type of short term notes.</p>
         <ul>
-            <li>Save your notes anywhere, even on existing files.</li>
             <li>Quit anytime with the shortcut Ctrl + Q</li>
         </ul>
     </description>

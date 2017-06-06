@@ -1,5 +1,5 @@
 # ![icon](data/icon.png) Notejot
-## Stupidly simple jotting pad.
+## Stupidly simple sticky notes applet.
 
 ![Screenshot](data/shot.png)
 
