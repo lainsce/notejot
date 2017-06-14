@@ -31,7 +31,6 @@ c_args = [
 ]
 
 cc = meson.get_compiler('c')
-m_dep = cc.find_library('m', required : false)
 
 # Let's define our executable
 executable(
@@ -48,8 +47,7 @@ executable(
         dependency('granite'),
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
-        dependency('gtk+-3.0'),
-        m_dep
+        dependency('gtk+-3.0')
     ],
     vala_args: [
         meson.source_root() + '/vapi/config.vapi',
