@@ -10,10 +10,5 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
-		<key name="last-note-color" type="s">
-		<default>''</default>
-		<summary>Last color used for the note</summary>
-		<description>Set the preferred color</description>
-	</key>
 	</schema>
 </schemalist>

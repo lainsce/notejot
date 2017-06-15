@@ -23,17 +23,16 @@ using Granite;
 namespace Notejot.Widgets {
     public class Toolbar : Gtk.HeaderBar {
         private Gtk.Button clear_button;
-        private Widgets.ColorPicker color_button;
 
         public File file;
 
         public Toolbar () {
-            var header_context = this.get_style_context ();
+			var header_context = this.get_style_context ();
             header_context.add_class ("notejot-toolbar");
 
             clear_button = new Gtk.Button ();
             clear_button.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            clear_button.has_tooltip = true;
+			clear_button.has_tooltip = true;
             clear_button.tooltip_text = (_("Clear note"));
 
             clear_button.clicked.connect (() => {
@@ -41,10 +40,7 @@ namespace Notejot.Widgets {
                 Utils.FileUtils.save_tmp_file ();
             });
 
-            color_button = new Widgets.ColorPicker ();
-
             this.pack_end (clear_button);
-            this.pack_end (color_button);
 
             this.show_close_button = true;
             this.show_all ();

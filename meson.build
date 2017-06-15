@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.notejot', ['vala', 'c'],
-    version: '1.1.1'
+    version: '1.0.9'
 )
 
 # Import main lib files
@@ -39,11 +39,9 @@ executable(
     'src/MainWindow.vala',
     'src/Widgets/Toolbar.vala',
     'src/Widgets/SourceView.vala',
-    'src/Widgets/ColorPicker.vala',
     'src/Constants/Stylesheet.vala',
     'src/Constants/AppSettings.vala',
     'src/Utils/FileUtils.vala',
-    'src/Utils/ColorUtils.vala',
     c_args: c_args,
     dependencies: [
         dependency('granite'),

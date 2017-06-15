@@ -19,7 +19,6 @@ namespace Notejot {
     public class AppSettings : Granite.Services.Settings {
         public int window_x { get; set; }
         public int window_y { get; set; }
-        public string last_note_color { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {
