@@ -1,5 +1,6 @@
 # ![icon](data/icon.png) Notejot
 ## Stupidly simple sticky notes applet.
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.notejot)
 
 ![Screenshot](data/shot.png)
 
