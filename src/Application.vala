@@ -32,7 +32,7 @@ namespace Notejot {
             app_years = "2017";
             exec_name = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
-            build_version = "1.0.9";
+            build_version = "1.1.3";
             app_icon = "com.github.lainsce.notejot";
             main_url = "https://github.com/lainsce/notejot/";
             bug_url = "https://github.com/lainsce/notejot/issues";
