@@ -7,4 +7,4 @@ schemadir = os.path.join(os.environ['MESON_INSTALL_PREFIX'], 'share', 'glib-2.0'
 
 if not os.environ.get('DESTDIR'):
 	print('Compiling gsettings schemas...')
-	subprocess.call(['glib-compile-schemas', schemadir])
+	subprocess.call(['glib-compile-schemas', schemadir], shell=False)
