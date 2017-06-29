@@ -28,9 +28,9 @@
      id="namedview40"
      showgrid="true"
      showguides="false"
-     inkscape:zoom="13.015093"
-     inkscape:cx="35.651431"
-     inkscape:cy="0.47293866"
+     inkscape:zoom="32.875"
+     inkscape:cx="7.9695815"
+     inkscape:cy="12"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -166,16 +166,6 @@
        r="12.671875"
        cy="9.9571075"
        cx="6.952919" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4291"
-       id="radialGradient4289"
-       cx="12.008832"
-       cy="12.027124"
-       fx="12.008832"
-       fy="12.027124"
-       r="9.500001"
-       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata3431">
@@ -190,26 +180,21 @@
     </rdf:RDF>
   </metadata>
   <rect
-     width="19.000002"
-     height="19.000002"
-     rx="1"
-     ry="1"
-     x="2.5088305"
-     y="2.5271232"
+     width="19.487179"
+     height="19.487179"
+     rx="1.0256408"
+     ry="1.0256408"
+     x="2.2564101"
+     y="2.2564111"
      id="rect5505-21-8-1-3"
-     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:url(#radialGradient4289);fill-opacity:1;marker:none;enable-background:accumulate;stroke:#e0bc33;stroke-opacity:1" />
-  <path
-     style="fill:#ffd42f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="m 20.997,14.687764 -5.46462,6.36347 5.100312,0.03636 c 0,0 0.400739,0.109088 0.400739,-0.509078 z"
-     id="path4279"
-     inkscape:connector-curvature="0" />
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffea83;fill-opacity:1;stroke:#e0bc33;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate" />
   <rect
      style="opacity:0.39800002;fill:#0f334f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305"
-     width="9.9626474"
-     height="1.9623282"
-     x="5.0338979"
-     y="6.0508475"
+     width="10"
+     height="2"
+     x="5"
+     y="5"
      rx="0"
      ry="0" />
   <rect
@@ -221,9 +206,4 @@
      y="9.025424"
      rx="0"
      ry="0" />
-  <path
-     style="fill:none;fill-rule:evenodd;stroke:#e0bc33;stroke-width:0.90259391px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="m 15.535722,20.787082 -0.05813,-6.312801 5.463662,-0.06011 z"
-     id="path4172"
-     inkscape:connector-curvature="0" />
 </svg>

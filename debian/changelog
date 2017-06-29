@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.1.4) xenial; urgency=low
+
+  * New icon that respects the icon grid & doesn't suck.
+
+ -- Lains <lainsce@airmail.cc>  Wed, 28 June 2017 11:30:00 -0300
+
 com.github.lainsce.notejot (1.1.3) xenial; urgency=low
 
   * Fixed versioning through the app.
@@ -26,7 +32,7 @@ com.github.lainsce.notejot (1.0.9) xenial; urgency=low
 
   * Removed the unnecessary open/save buttons or even file handling other then the tmp file.
 
- -- Lains <lainsce@airmail.cc>  Mon, 6 June 2017 02:45:00 -0300
+ -- Lains <lainsce@airmail.cc>  Tue, 6 June 2017 02:45:00 -0300
 
 com.github.lainsce.notejot (1.0.8) xenial; urgency=low
 

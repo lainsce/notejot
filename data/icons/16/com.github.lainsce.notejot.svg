@@ -29,9 +29,9 @@
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="24.843749"
-     inkscape:cx="12.739624"
-     inkscape:cy="5.5443486"
+     inkscape:zoom="22.627417"
+     inkscape:cx="-5.349912"
+     inkscape:cy="6.7422867"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -239,7 +239,7 @@
        fx="33.41156"
        cy="4.3418932"
        cx="33.41156"
-       gradientTransform="matrix(0,0.56677848,-0.55472356,0,10.40855,-16.684318)"
+       gradientTransform="matrix(0,0.55766736,-0.55766732,0,10.421345,-16.400059)"
        gradientUnits="userSpaceOnUse"
        id="radialGradient3651"
        xlink:href="#linearGradient4226" />
@@ -494,14 +494,14 @@
     </rdf:RDF>
   </metadata>
   <rect
-     width="12.965678"
-     height="13.247439"
-     rx="0.60026288"
-     ry="0.61330736"
-     x="1.5171477"
-     y="1.4906673"
+     width="13.034483"
+     height="13.034483"
+     rx="0.60344827"
+     ry="0.60344827"
+     x="1.4827585"
+     y="1.4827584"
      id="rect5505-21-3-8-5-2"
-     style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:url(#radialGradient3651);fill-opacity:1;fill-rule:nonzero;stroke:#ebbe00;stroke-width:0.97080004;stroke-opacity:1;marker:none;enable-background:accumulate" />
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffe780;fill-opacity:1;fill-rule:nonzero;stroke:#efc824;stroke-width:0.96551722;stroke-opacity:1;marker:none;enable-background:accumulate" />
   <g
      id="layer4-0"
      transform="matrix(0.9047486,0,0,0.9047486,-570.51497,-723.56047)" />
@@ -514,24 +514,19 @@
   <rect
      style="opacity:0.39800002;fill:#0f334f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305"
-     width="7.9591465"
-     height="1.993251"
-     x="3.0717106"
-     y="3.0472918"
+     width="9"
+     height="1"
+     x="3"
+     y="4"
      rx="0"
      ry="0" />
   <rect
      style="opacity:0.39800002;fill:#0f334f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305-3"
-     width="5.981411"
-     height="1.9127477"
-     x="3.0157599"
-     y="6.0620322"
+     width="6"
+     height="1"
+     x="3"
+     y="7"
      rx="0"
      ry="0" />
-  <path
-     style="fill:#ffdf3e;fill-rule:evenodd;stroke:#ebbe00;stroke-width:0.85447627px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
-     d="m 14.00636,10.378561 -3.589808,3.728834 0,-3.695882 z"
-     id="path4227"
-     inkscape:connector-curvature="0" />
 </svg>
