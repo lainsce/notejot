@@ -19,10 +19,10 @@
 
 namespace Notejot.Stylesheet {
     public const string NOTE = """
-        @define-color textColorPrimary #666;
+        @define-color textColorPrimary #555;
 
         .notejot-window {
-            background-color: #fff394;
+            background-color: #ffe57f;
         }
 
         .notejot-toolbar {
@@ -32,13 +32,13 @@ namespace Notejot.Stylesheet {
         }
 
         .notejot-note {
-            background-color: #fff394;
+            background-color: #ffe57f;
             font-size: 11px;
         }
 
         .notejot-note:selected {
             background-color: #95a3ab;
-            color: #fff394;
+            color: #ffe57f;
         }
     """;
 }

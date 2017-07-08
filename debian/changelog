@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.1.5) xenial; urgency=low
+
+  * Fix the in-app colors in respect to color contrast rules.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 8 July 2017 03:30:00 -0300
+
 com.github.lainsce.notejot (1.1.4) xenial; urgency=low
 
   * New icon that respects the icon grid & doesn't suck.
