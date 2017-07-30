@@ -1,3 +1,11 @@
+com.github.lainsce.notejot (1.1.6) xenial; urgency=low
+
+  * Creation of new Notejot applets not permitted, only one applet is able to be shown now.
+  * Remove the About Dialog.
+  * Update the text color.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 29 July 2017 00:10:00 -0300
+
 com.github.lainsce.notejot (1.1.5) xenial; urgency=low
 
   * Fix the in-app colors in respect to color contrast rules.

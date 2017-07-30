@@ -19,31 +19,21 @@
 */
 namespace Notejot {
     public class Application : Granite.Application {
+        private MainWindow window = null;
 
-        private Notejot.MainWindow? window = null;
-
-        private static bool print_version = false;
-        private static bool show_about_dialog = false;
+        public Application () {
+            Object (application_id: "com.github.lainsce.notejot",
+                    flags: ApplicationFlags.FLAGS_NONE);
+        }
 
         construct {
-            flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
-            application_id = "com.github.lainsce.notejot";
-            program_name = "Notejot";
-            app_years = "2017";
+            app_icon = "com.github.lainsce.notejot";
             exec_name = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
-            build_version = "1.1.5";
-            app_icon = "com.github.lainsce.notejot";
-            main_url = "https://github.com/lainsce/notejot/";
-            bug_url = "https://github.com/lainsce/notejot/issues";
-            help_url = "https://github.com/lainsce/notejot/";
-            about_authors = {"Lains <lainsce@airmail.cc>", null};
-            about_license_type = Gtk.License.GPL_3_0;
 
             var quit_action = new SimpleAction ("quit", null);
             add_action (quit_action);
             add_accelerator ("<Control>q", "app.quit", null);
-
             quit_action.activate.connect (() => {
                 if (window != null) {
                     window.destroy ();
@@ -52,13 +42,7 @@ namespace Notejot {
         }
 
         protected override void activate () {
-            if (window == null) {
-                window = new MainWindow (this);
-                add_window (window);
-                window.show_all ();
-            } else {
-                window.present ();
-            }
+            new_window ();
         }
 
         public static int main (string[] args) {
@@ -67,37 +51,13 @@ namespace Notejot {
         }
 
         public void new_window () {
-            new MainWindow (this).show_all ();
-        }
-
-        protected override int command_line (ApplicationCommandLine command_line) {
-            string[] args = command_line.get_arguments ();
-
-            var context = new OptionContext ("File");
-            context.add_main_entries (entries, "com.github.lainsce.notejot");
-            context.add_group (Gtk.get_option_group (true));
-
-            try {
-                unowned string[] tmp = args;
-                context.parse (ref tmp);
-            } catch (Error e) {
-                stdout.printf ("com.github.lainsce.notejot: ERROR: " + e.message + "\n");
-                return 0;
+            if (window != null) {
+                window.present ();
+                return;
             }
 
-            if (print_version) {
-                stdout.printf ("Notejot %s\n", this.build_version);
-                stdout.printf ("Copyright 2017 Lains\n");
-            } else {
-                new_window ();
-            }
-            return 0;
+            window = new MainWindow (this);
+            window.show_all ();
         }
-
-        static const OptionEntry[] entries = {
-            { "version", 'v', 0, OptionArg.NONE, out print_version, N_("Print version info and exit"), null },
-            { "about", 'a', 0, OptionArg.NONE, out show_about_dialog, N_("Show about dialog"), null },
-            { null }
-        };
     }
 }

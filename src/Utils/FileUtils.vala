@@ -70,6 +70,10 @@ namespace Notejot.Utils.FileUtils {
         string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
-        save_file (tmp_file, binbuffer);
+        try {
+            save_file (tmp_file, binbuffer);
+        } catch (Error e) {
+            error ("%s", e.message);
+        }
     }
 }
