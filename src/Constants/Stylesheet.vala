@@ -21,23 +21,19 @@ namespace Notejot.Stylesheet {
     public const string NOTE = """
         @define-color colorPrimary #ffe57f;
         @define-color textColorPrimary #555864;
-
         .notejot-window {
             background-color: @colorPrimary;
         }
-
         .notejot-toolbar {
             background: transparent;
             border-bottom-color: transparent;
             box-shadow: inset 0px 1px 1px -2px white;
             text-shadow: none;
         }
-
         .notejot-note {
             background-color: @colorPrimary;
             font-size: 11px;
         }
-
         .notejot-note:selected {
             background-color: @textColorPrimary;
             color: @colorPrimary;

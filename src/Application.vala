@@ -55,7 +55,6 @@ namespace Notejot {
                 window.present ();
                 return;
             }
-
             window = new MainWindow (this);
             window.show_all ();
         }

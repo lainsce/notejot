@@ -19,7 +19,7 @@
 
 namespace Notejot.Widgets {
     public class SourceView : Gtk.SourceView {
-        public static new Gtk.SourceBuffer buffer;
+        public static Gtk.SourceBuffer buffer;
         public static bool is_modified;
 
         construct {
@@ -27,12 +27,12 @@ namespace Notejot.Widgets {
             context.add_class ("notejot-note");
 
             buffer = new Gtk.SourceBuffer (null);
-            this.set_buffer (buffer);
-
-            is_modified = false;
             buffer.changed.connect (on_text_modified);
             buffer.set_highlight_matching_brackets (false);
 
+            is_modified = false;
+
+            this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
             this.margin = 1;
             this.left_margin = 12;

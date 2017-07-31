@@ -21,14 +21,6 @@ msgstr ""
 msgid "Notejot"
 msgstr ""
 
-#: ../src/Widgets/Toolbar.vala:36
-msgid "Settings"
-msgstr ""
-
-#: ../src/Widgets/Toolbar.vala:40
-msgid "Save as…"
-msgstr ""
-
-#: ../src/Widgets/Toolbar.vala:45
-msgid "About"
+#: ../src/Widgets/Toolbar.vala:35
+msgid "Clear note"
 msgstr ""

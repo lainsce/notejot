@@ -1,3 +1,10 @@
+com.github.lainsce.notejot (1.1.7) xenial; urgency=low
+
+  * Use warning instead of error.
+  * Code reorganization.
+
+ -- Lains <lainsce@airmail.cc>  Mon, 31 July 2017 15:34:00 -0300
+
 com.github.lainsce.notejot (1.1.6) xenial; urgency=low
 
   * Creation of new Notejot applets not permitted, only one applet is able to be shown now.
