@@ -22,8 +22,53 @@
             <image>https://raw.githubusercontent.com/lainsce/notejot/master/data/shot.png</image>
         </screenshot>
     </screenshots>
+    <releases>
+      <release version="1.1.8" date="2017-08-09">
+        <description>
+          <p>Release: RDNN All the things</p>
+          <ul>
+            <li>Made the cache be RDNN-compatible</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.1.7" date="2017-07-31">
+        <description>
+          <p>Release: Warn me, don't Error me</p>
+          <ul>
+            <li>"warning ()" instead of "error ()" for stability</li>
+            <li>Organized code properly now</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.1.6" date="2017-07-29">
+        <description>
+          <p>Release: About What, Exactly?</p>
+          <ul>
+            <li>Creation of new Notejot applets not permitted, only one applet is able to be shown now</li>
+            <li>Remove the About Dialog</li>
+            <li>Update the text color</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.1.5" date="2017-07-08">
+        <description>
+          <p>Release: New Coat of Paint</p>
+          <ul>
+            <li>Fix the in-app colors in respect to color contrast rules</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.1.4" date="2017-06-28">
+        <description>
+          <p>Release: Rebounded Icon Noted</p>
+          <ul>
+            <li>The icon now follows the elementary OS icon guidelines.</li>
+          </ul>
+        </description>
+      </release>
+    </releases>
     <custom>
         <value key="x-appcenter-color-primary">#fff3ae</value>
-        <value key="x-appcenter-color-primary-text">#454545</value>
+        <value key="x-appcenter-color-primary-text">#555864</value>
     </custom>
 </component>

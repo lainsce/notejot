@@ -28,9 +28,17 @@ namespace Notejot.Utils.FileUtils {
     }
 
     private void load_tmp_file () {
-        Granite.Services.Paths.initialize ("notejot", Build.PKGDATADIR);
-        Granite.Services.Paths.ensure_directory_exists (Granite.Services.Paths.user_data_folder);
-        tmp_file = Granite.Services.Paths.user_data_folder.get_child ("temp");
+        string cache_path = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.notejot");
+        var cache_folder = File.new_for_path (cache_path);
+        if (!cache_folder.query_exists ()) {
+            try {
+                cache_folder.make_directory_with_parents ();
+            } catch (Error e) {
+                warning ("Error: %s\n", e.message);
+            }
+        }
+
+        tmp_file = cache_folder.get_child ("temp");
 
         if ( !tmp_file.query_exists () ) {
             try {
@@ -43,6 +51,7 @@ namespace Notejot.Utils.FileUtils {
         try {
             string text;
             string filename = tmp_file.get_path ();
+
             GLib.FileUtils.get_contents (filename, out text);
             Widgets.SourceView.buffer.text = text;
         } catch (Error e) {
@@ -53,21 +62,23 @@ namespace Notejot.Utils.FileUtils {
     private void save_tmp_file () {
         if ( tmp_file.query_exists () ) {
             try {
-                tmp_file.delete ();
+                tmp_file.delete();
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
+
         }
 
         Gtk.TextIter start, end;
         Widgets.SourceView.buffer.get_bounds (out start, out end);
+
         string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
         try {
             save_file (tmp_file, binbuffer);
         } catch (Error e) {
-            warning ("%s", e.message);
+            warning ("Exception found: "+ e.message);
         }
     }
 }

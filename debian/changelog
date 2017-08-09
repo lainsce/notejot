@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.1.8) xenial; urgency=low
+
+  * Made the cache RDNN-compatible.
+
+ -- Lains <lainsce@airmail.cc>  Wed, 09 August 2017 13:04:00 -0300
+
 com.github.lainsce.notejot (1.1.7) xenial; urgency=low
 
   * Use warning instead of error.
