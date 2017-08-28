@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Notejot
 Comment=Jot your ideas
+Comment[lt]=Greitai užsirašykite savo idėjas
 Exec=com.github.lainsce.notejot
 Icon=com.github.lainsce.notejot
 Keywords=Text;Plain;Plaintext;Notepad;
