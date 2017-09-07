@@ -20,7 +20,7 @@
 namespace Notejot.Stylesheet {
     public const string NOTE = """
         @define-color colorPrimary #ffe57f;
-        @define-color textColorPrimary #555864;
+        @define-color textColorPrimary #31363b;
         .notejot-window {
             background-color: @colorPrimary;
         }
@@ -35,7 +35,7 @@ namespace Notejot.Stylesheet {
             font-size: 11px;
         }
         .notejot-note:selected {
-            background-color: @textColorPrimary;
+            background-color: shade (@textColorPrimary, 1.78);
             color: @colorPrimary;
         }
     """;

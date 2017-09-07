@@ -42,9 +42,11 @@ namespace Notejot {
             this.get_style_context ().add_class ("rounded");
             var context = this.get_style_context ();
             context.add_class ("notejot-window");
-            this.toolbar = new Widgets.Toolbar ();
             this.window_position = Gtk.WindowPosition.CENTER;
+
+            this.toolbar = new Widgets.Toolbar ();
             this.set_titlebar (toolbar);
+
             scroll = new Gtk.ScrolledWindow (null, null);
             this.add (scroll);
             this.view = new Widgets.SourceView ();
@@ -53,6 +55,7 @@ namespace Notejot {
             var settings = AppSettings.get_default ();
             int x = settings.window_x;
             int y = settings.window_y;
+
             if (x != -1 && y != -1) {
                 move (x, y);
             }
@@ -61,9 +64,10 @@ namespace Notejot {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
+            var settings = AppSettings.get_default ();
+            
             int x, y;
             get_position (out x, out y);
-            var settings = AppSettings.get_default ();
             settings.window_x = x;
             settings.window_y = y;
             return false;

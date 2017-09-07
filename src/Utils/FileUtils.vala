@@ -21,7 +21,6 @@ namespace Notejot.Utils.FileUtils {
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create
                 (FileCreateFlags.NONE));
-
         long written = 0;
         while (written < buffer.length)
             written += output.write (buffer[written:buffer.length]);
@@ -51,7 +50,6 @@ namespace Notejot.Utils.FileUtils {
         try {
             string text;
             string filename = tmp_file.get_path ();
-
             GLib.FileUtils.get_contents (filename, out text);
             Widgets.SourceView.buffer.text = text;
         } catch (Error e) {
@@ -66,12 +64,10 @@ namespace Notejot.Utils.FileUtils {
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
-
         }
 
         Gtk.TextIter start, end;
         Widgets.SourceView.buffer.get_bounds (out start, out end);
-
         string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 

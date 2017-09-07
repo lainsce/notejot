@@ -1,3 +1,15 @@
+com.github.lainsce.notejot (1.2.0) xenial; urgency=low
+
+  * Small code fixes & enable Notejot for i18n.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 07 September 2017 01:24:00 -0300
+
+ com.github.lainsce.notejot (1.1.9) xenial; urgency=low
+
+   * Added Lithuanian translations.
+
+  -- Lains <lainsce@airmail.cc>  Thu, 31 August 2017 11:02:00 -0300
+
 com.github.lainsce.notejot (1.1.8) xenial; urgency=low
 
   * Made the cache RDNN-compatible.
