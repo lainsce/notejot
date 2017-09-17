@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/com/github/lainsce/notejot">
+        <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
+    </gresource>
+</gresources>

@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.2.1) xenial; urgency=low
+
+  * Add GResource for the CSS styling.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 17 September 2017 03:24:00 -0300
+
 com.github.lainsce.notejot (1.2.0) xenial; urgency=low
 
   * Small code fixes & enable Notejot for i18n.

@@ -21,6 +21,6 @@ Simply clone this repo, then:
 
 ```
 $ meson build && cd build
-$ mesonconf -Dprefix=/usr
+$ meson configure -Dprefix=/usr
 $ sudo ninja install
 ```

@@ -23,6 +23,14 @@
         </screenshot>
     </screenshots>
     <releases>
+      <release version="1.2.1" date="2017-09-17">
+            <description>
+              <p>Release: Great Resource, My Friend!</p>
+              <ul>
+                <li>Make the app use GResource for loading the styling</li>
+              </ul>
+            </description>
+      </release>
       <release version="1.2.0" date="2017-09-07">
             <description>
               <p>Release: Hello, World!</p>

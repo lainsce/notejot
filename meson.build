@@ -1,11 +1,18 @@
 # Name our project
 project('com.github.lainsce.notejot', ['vala', 'c'],
-    version: '1.2.0'
+    version: '1.2.1'
 )
 
 # Import main lib files
 gnome = import('gnome')
 i18n = import('i18n')
+
+# Compile the GResources for this project
+asresources = gnome.compile_resources(
+    'as-resources', 'data/style.gresource.xml',
+    source_dir: 'data',
+    c_name: 'as'
+)
 
 # Set this for convenience
 conf = configuration_data()
@@ -39,9 +46,9 @@ executable(
     'src/MainWindow.vala',
     'src/Widgets/Toolbar.vala',
     'src/Widgets/SourceView.vala',
-    'src/Constants/Stylesheet.vala',
     'src/Constants/AppSettings.vala',
     'src/Utils/FileUtils.vala',
+    asresources,
     c_args: c_args,
     dependencies: [
         dependency('granite'),

@@ -30,15 +30,13 @@ namespace Notejot {
                     title: _("Notejot"),
                     height_request: 500,
                     width_request: 500);
-
-            Granite.Widgets.Utils.set_theming_for_screen (
-                this.get_screen (),
-                Stylesheet.NOTE,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
         }
 
         construct {
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/lainsce/notejot/stylesheet.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
             this.get_style_context ().add_class ("rounded");
             var context = this.get_style_context ();
             context.add_class ("notejot-window");

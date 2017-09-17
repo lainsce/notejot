@@ -33,7 +33,7 @@ namespace Notejot.Widgets {
             is_modified = false;
 
             this.set_buffer (buffer);
-            this.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
+            this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.left_margin = 12;
             this.top_margin = 12;
             this.right_margin = 12;
