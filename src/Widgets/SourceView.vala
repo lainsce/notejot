@@ -34,10 +34,11 @@ namespace Notejot.Widgets {
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.left_margin = 12;
-            this.top_margin = 12;
-            this.right_margin = 12;
-            this.bottom_margin = 12;
+            this.margin = 2;
+            this.left_margin = 10;
+            this.top_margin = 10;
+            this.right_margin = 10;
+            this.bottom_margin = 10;
             this.expand = false;
         }
 

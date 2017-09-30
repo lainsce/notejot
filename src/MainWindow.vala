@@ -43,6 +43,7 @@ namespace Notejot {
             this.window_position = Gtk.WindowPosition.CENTER;
 
             this.toolbar = new Widgets.Toolbar ();
+            toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
 
             scroll = new Gtk.ScrolledWindow (null, null);
@@ -63,7 +64,6 @@ namespace Notejot {
 
         public override bool delete_event (Gdk.EventAny event) {
             var settings = AppSettings.get_default ();
-            
             int x, y;
             get_position (out x, out y);
             settings.window_x = x;

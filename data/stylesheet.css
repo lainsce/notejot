@@ -5,9 +5,9 @@
 }
 
 .notejot-toolbar {
-    background: transparent;
-    border-bottom-color: transparent;
-    box-shadow: inset 0px 1px 1px -2px white;
+    background: @colorPrimary;
+    border-bottom-color: @colorPrimary;
+    box-shadow: inset 0px 1px 1px -2px shade (@colorPrimary, 1.2);
     text-shadow: none;
 }
 
@@ -17,6 +17,6 @@
 }
 
 .notejot-note:selected {
-    background-color: shade (@textColorPrimary, 1.78);
+    background-color: shade (@textColorPrimary, 1.2);
     color: @colorPrimary;
 }
