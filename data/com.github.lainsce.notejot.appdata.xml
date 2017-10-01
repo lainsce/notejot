@@ -23,6 +23,14 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.2.3" date="2017-10-01">
+            <description>
+                <p>Release: Olá, Brasil!</p>
+                <ul>
+                    <li>Brazilian Portuguese translation</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.2.2" date="2017-09-30">
             <description>
                 <p>Release: Notes Should Look Nice</p>

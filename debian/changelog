@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.2.3) xenial; urgency=low
+
+  * Added Brazilian Portuguese translations.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 1 October 2017 05:11:00 -0300
+
 com.github.lainsce.notejot (1.2.2) xenial; urgency=low
 
   * Adjust internal margins for a better note-taking experience.
