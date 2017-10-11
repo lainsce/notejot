@@ -23,6 +23,14 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.2.4" date="2017-10-13">
+            <description>
+                <p>Release: High Definition Notes</p>
+                <ul>
+                    <li>Add high definition icon support</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.2.3" date="2017-10-01">
             <description>
                 <p>Release: Olá, Brasil!</p>
