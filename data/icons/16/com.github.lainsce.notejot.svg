@@ -29,9 +29,9 @@
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="22.627417"
-     inkscape:cx="-5.349912"
-     inkscape:cy="6.7422867"
+     inkscape:zoom="45.254834"
+     inkscape:cx="-0.43965712"
+     inkscape:cy="6.7652575"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -527,6 +527,15 @@
      height="1"
      x="3"
      y="7"
+     rx="0"
+     ry="0" />
+  <rect
+     style="opacity:0.4995935;fill:#efc824;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+     id="rect4305-36"
+     width="12"
+     height="1"
+     x="2"
+     y="12"
      rx="0"
      ry="0" />
 </svg>

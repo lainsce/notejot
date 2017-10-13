@@ -1,5 +1,11 @@
 com.github.lainsce.notejot (1.2.4) xenial; urgency=low
 
+  * Remade the icons to make them less generic.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 20 October 2017 17:11:00 -0300
+
+com.github.lainsce.notejot (1.2.4) xenial; urgency=low
+
   * Install HiDPI icons now.
 
  -- Lains <lainsce@airmail.cc>  Fri, 13 October 2017 05:11:00 -0300
