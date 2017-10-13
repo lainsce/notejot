@@ -23,11 +23,19 @@
         </screenshot>
     </screenshots>
     <releases>
-        <release version="1.2.5" date="2017-10-20">
+        <release version="1.2.6" date="2017-10-20">
             <description>
                 <p>Release: Icons With Gusto</p>
                 <ul>
                     <li>Make the icons less generic</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.2.5" date="2017-10-13">
+            <description>
+                <p>Release: Appcenter Bump</p>
+                <ul>
+                    <li>Just a bump for AppCenter to not error out</li>
                 </ul>
             </description>
         </release>
