@@ -24,7 +24,7 @@ namespace Notejot {
 
         public Application () {
             Object (flags: ApplicationFlags.FLAGS_NONE,
-            application_id: "com.github.lainsce.coin");
+            application_id: "com.github.lainsce.notejot");
 	    }
 
         construct {
@@ -57,12 +57,7 @@ namespace Notejot {
 
 	    public void create_note(Storage? storage) {
 	        var note = new MainWindow(this, storage);
-            note.get_storage_note();
 	        open_notes.append(note);
-	    }
-
-	    public void remove_note(MainWindow note) {
-	        open_notes.remove(note);
 	    }
 
 	    public void update_storage(MainWindow window) {
@@ -70,6 +65,7 @@ namespace Notejot {
 
 	        foreach (MainWindow w in open_notes) {
 	            storage.append(w.get_storage_note());
+                open_notes.remove(w);
 	        }
 
 	        note_manager.save_notes(storage);

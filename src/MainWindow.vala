@@ -27,6 +27,7 @@ namespace Notejot {
         private int default_color = 2;
         private static int font_size = 14;
         private Gtk.TextView view = new Gtk.TextView ();
+        private Gtk.Button clear_button;
         public string content {
         	owned get {
         		return view.buffer.text;
@@ -46,14 +47,6 @@ namespace Notejot {
 
             if (storage != null) {
                 init_from_storage(storage);
-            } else if (storage == null) {
-                var settings = AppSettings.get_default ();
-                int x = settings.window_x;
-                int y = settings.window_y;
-
-                if (x != -1 && y != -1) {
-                    move (x, y);
-                }
             }
 
             this.uid = uid_counter++;
@@ -67,7 +60,7 @@ namespace Notejot {
             new_button.tooltip_text = (_("New note"));
             new_button.clicked.connect (create_new_note);
 
-            var clear_button = new Gtk.Button.from_icon_name("edit-delete-symbolic");
+            clear_button = new Gtk.Button.from_icon_name("edit-delete-symbolic");
             clear_button.has_tooltip = true;
             clear_button.tooltip_text = (_("Clear note"));
             clear_button.clicked.connect(delete_note);
@@ -162,10 +155,10 @@ namespace Notejot {
         private void init_from_storage(Storage storage) {
             this.color = storage.color;
             this.content = storage.content;
-            this.move (storage.x, storage.y);
+            this.move(storage.x, storage.y);
         }
 
-        private void create_new_note(Gtk.Button new_btn) {
+        private void create_new_note(Gtk.Button new_button) {
             ((Application)this.application).create_note(null);
         }
 
@@ -175,22 +168,23 @@ namespace Notejot {
         }
 
         private void delete_note(Gtk.Button clear_button) {
-            ((Application)this.application).remove_note(this);
             view.buffer.text = "";
+            this.color = 2;
+            ((Application)this.application).update_storage(this);
+            this.close ();
         }
 
         public Storage get_storage_note() {
-            int x, y;
-            int color = this.color;
+            int x, y, color;
             string content = view.buffer.text;
 
             this.get_position (out x, out y);
+            color = this.color;
+
             return new Storage.from_storage(x, y, color, content);
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            ((Application)this.application).update_storage(this);
-
             var settings = AppSettings.get_default ();
             int x, y;
             this.get_position (out x, out y);
