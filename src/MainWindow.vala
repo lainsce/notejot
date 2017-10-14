@@ -19,14 +19,14 @@
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        private int color = -1;
+        public int color = 2;
         private int uid;
         private static string[] code_color = {(_("White")), (_("Green")), (_("Yellow")), (_("Orange")), (_("Red")), (_("Blue")), (_("Purple"))};
         private static string[] value_color = {"#fafafa", "#d1ff82", "#fff394", "#ffc27d", "#ff9c92", "#8cd5ff", "#e29ffc"};
         private static int uid_counter = 0;
         private int default_color = 2;
         private static int font_size = 14;
-        private string content = "";
+        public string content = "";
         private Gtk.TextView view = new Gtk.TextView ();
 
         public MainWindow (Gtk.Application app, Storage? storage) {
@@ -99,9 +99,9 @@ namespace Notejot {
             string style = null;
             string selected_color = this.color == -1 ? value_color[default_color] : value_color[color];
             if (Gtk.get_minor_version() < 20) {
-                style = (N_(".mainwindow-%d {background-color: %s; color: #111; text-shadow: transparent; icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {color: #111; background-color: %s; background-image: none; border-bottom-color: %s; box-shadow: inset 0px 1px 1px -2px shade (%s, 0.8); text-shadow: 0 1px transparent; icon-shadow: 0 1px transparent; box-shadow: none;} .window-%d GtkTextView.view {color: #111; font-size: %dpx} .window-%d GtkTextView.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, selected_color, uid, font_size, uid);
+                style = (N_("@define-color textColorPrimary #000; .mainwindow-%d {background-color: %s; text-shadow: transparent; icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {background-color: %s; background-image: none; border-bottom-color: %s; box-shadow: inset 0px 1px 1px -2px shade (%s, 0.8); text-shadow: 0 1px transparent; icon-shadow: 0 1px transparent; box-shadow: none;} .window-%d GtkTextView.view {color: #000; font-size: %dpx} .window-%d GtkTextView.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, selected_color, uid, font_size, uid);
             } else {
-                style = (_(".mainwindow-%d {background-color: %s; color: #111; text-shadow: transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d textview.view text,.window-%d headerbar {color: #111; background-color: %s; background-image: none; border-bottom-color: %s; box-shadow: inset 0px 1px 1px -2px shade (%s, 0.8); text-shadow: 0 1px #111; -gtk-icon-shadow: 0 1px #111; box-shadow: none;} .window-%d textview.view {color: #111; font-size: %dpx} .window-%d textview.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, selected_color, uid, font_size, uid);
+                style = (_("@define-color textColorPrimary #000; .mainwindow-%d {background-color: %s; text-shadow: transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d textview.view text,.window-%d headerbar {background-color: %s; background-image: none; border-bottom-color: %s; box-shadow: inset 0px 1px 1px -2px shade (%s, 0.8); text-shadow: 0 1px transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: none;} .window-%d textview.view {color: #000; font-size: %dpx} .window-%d textview.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, selected_color, uid, font_size, uid);
             }
 
             try {
