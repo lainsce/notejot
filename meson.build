@@ -7,13 +7,6 @@ project('com.github.lainsce.notejot', ['vala', 'c'],
 gnome = import('gnome')
 i18n = import('i18n')
 
-# Compile the GResources for this project
-asresources = gnome.compile_resources(
-    'as-resources', 'data/style.gresource.xml',
-    source_dir: 'data',
-    c_name: 'as'
-)
-
 # Set this for convenience
 conf = configuration_data()
 
@@ -44,16 +37,16 @@ executable(
     meson.project_name(),
     'src/Application.vala',
     'src/MainWindow.vala',
-    'src/Widgets/Toolbar.vala',
-    'src/Widgets/SourceView.vala',
+    'src/Services/NoteManager.vala',
+    'src/Services/Storage.vala',
     'src/Constants/AppSettings.vala',
-    'src/Utils/FileUtils.vala',
-    asresources,
     c_args: c_args,
     dependencies: [
         dependency('granite'),
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
+        dependency('json-glib-1.0'),
+        dependency('gee-0.8'),
         dependency('gtk+-3.0')
     ],
     vala_args: [

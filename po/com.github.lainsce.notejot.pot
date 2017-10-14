@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 01:05-0300\n"
+"POT-Creation-Date: 2017-10-14 01:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,42 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:30
-msgid "Notejot"
+#: src/MainWindow.vala:24
+msgid "White"
 msgstr ""
 
-#: src/Widgets/Toolbar.vala:35
+#: src/MainWindow.vala:24
+msgid "Green"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Yellow"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Orange"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Red"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Blue"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Purple"
+msgstr ""
+
+#: src/MainWindow.vala:55
+msgid "New note"
+msgstr ""
+
+#: src/MainWindow.vala:60
 msgid "Clear note"
+msgstr ""
+
+#: src/MainWindow.vala:65
+msgid "Change color"
 msgstr ""

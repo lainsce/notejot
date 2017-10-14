@@ -1,12 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.notejot package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-01 04:34-0300\n"
 "PO-Revision-Date: 2017-10-01 04:35-0300\n"
 "Language-Team: \n"
@@ -18,10 +12,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: pt_BR\n"
 
-#: src/MainWindow.vala:30
-msgid "Notejot"
-msgstr "Notejot"
+#: src/MainWindow.vala:24
+msgid "White"
+msgstr "Branco"
 
-#: src/Widgets/Toolbar.vala:35
+#: src/MainWindow.vala:24
+msgid "Green"
+msgstr "Verde"
+
+#: src/MainWindow.vala:24
+msgid "Yellow"
+msgstr "Amarelo"
+
+#: src/MainWindow.vala:24
+msgid "Orange"
+msgstr "Laranja"
+
+#: src/MainWindow.vala:24
+msgid "Red"
+msgstr "Vermelho"
+
+#: src/MainWindow.vala:24
+msgid "Blue"
+msgstr "Azul"
+
+#: src/MainWindow.vala:24
+msgid "Purple"
+msgstr "Violeta"
+
+#: src/MainWindow.vala:55
+msgid "New note"
+msgstr "Nova nota"
+
+#: src/MainWindow.vala:60
 msgid "Clear note"
-msgstr "Apagar nota"
+msgstr "Limpar nota"
+
+#: src/MainWindow.vala:65
+msgid "Change color"
+msgstr "Mudar cor"

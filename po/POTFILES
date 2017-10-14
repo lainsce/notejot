@@ -1,6 +1,5 @@
 src/Application.vala
 src/MainWindow.vala
-src/Widgets/Toolbar.vala
-src/Widgets/SourceView.vala
+src/Services/NoteManager.vala
+src/Services/Storage.vala
 src/Constants/AppSettings.vala
-src/Utils/FileUtils.vala

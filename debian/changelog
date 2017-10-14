@@ -1,5 +1,6 @@
 com.github.lainsce.notejot (1.2.6) xenial; urgency=low
 
+  * Now able to open as many notes as user can.
   * Remade the icons to make them less generic.
 
  -- Lains <lainsce@airmail.cc>  Fri, 20 October 2017 17:11:00 -0300

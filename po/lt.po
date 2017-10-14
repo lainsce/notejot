@@ -1,12 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Moo, 2017.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: com.github.lainsce.notejot\n"
 "POT-Creation-Date: 2017-08-28 13:54+0300\n"
 "PO-Revision-Date: 2017-08-28 13:55+0300\n"
 "Language-Team: \n"
@@ -18,10 +12,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "Language: lt\n"
 
-#: ../src/MainWindow.vala:30
-msgid "Notejot"
-msgstr "Notejot"
+#: src/MainWindow.vala:24
+msgid "White"
+msgstr ""
 
-#: ../src/Widgets/Toolbar.vala:35
+#: src/MainWindow.vala:24
+msgid "Green"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Yellow"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Orange"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Red"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Blue"
+msgstr ""
+
+#: src/MainWindow.vala:24
+msgid "Purple"
+msgstr ""
+
+#: src/MainWindow.vala:55
+msgid "New note"
+msgstr ""
+
+#: src/MainWindow.vala:60
 msgid "Clear note"
 msgstr "Išvalyti užrašus"
+
+#: src/MainWindow.vala:65
+msgid "Change color"
+msgstr ""

@@ -17,6 +17,8 @@ Please make sure you have these dependencies first before building.
 granite
 gtk+-3.0
 gtksourceview-3.0
+libjson-glib
+libgee-0.8
 meson
 ```
 

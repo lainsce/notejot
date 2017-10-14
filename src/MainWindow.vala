@@ -16,40 +16,33 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-using Granite.Widgets;
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        private Gtk.ScrolledWindow scroll;
-        public Widgets.Toolbar toolbar;
-        public Widgets.SourceView view;
+        private int color = -1;
+        private int uid;
+        private static string[] code_color = {(_("White")), (_("Green")), (_("Yellow")), (_("Orange")), (_("Red")), (_("Blue")), (_("Purple"))};
+        private static string[] value_color = {"#fafafa", "#d1ff82", "#fff394", "#ffc27d", "#ff9c92", "#8cd5ff", "#e29ffc"};
+        private static int uid_counter = 0;
+        private int default_color = 2;
+        private static int font_size = 14;
+        private string content = "";
+        private Gtk.TextView view = new Gtk.TextView ();
 
-        public MainWindow (Gtk.Application application) {
-            Object (application: application,
+        public MainWindow (Gtk.Application app, Storage? storage) {
+            Object (application: app,
                     resizable: false,
-                    title: _("Notejot"),
+                    title: "Notejot",
                     height_request: 500,
                     width_request: 500);
-        }
 
-        construct {
-            var provider = new Gtk.CssProvider ();
-            provider.load_from_resource ("/com/github/lainsce/notejot/stylesheet.css");
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            if (storage != null) {
+                init_from_storage(storage);
+            }
 
-            this.get_style_context ().add_class ("rounded");
-            var context = this.get_style_context ();
-            context.add_class ("notejot-window");
-            this.window_position = Gtk.WindowPosition.CENTER;
-
-            this.toolbar = new Widgets.Toolbar ();
-            toolbar.has_subtitle = false;
-            this.set_titlebar (toolbar);
-
-            scroll = new Gtk.ScrolledWindow (null, null);
-            this.add (scroll);
-            this.view = new Widgets.SourceView ();
-            scroll.add (view);
+            this.uid = uid_counter++;
+            this.get_style_context().add_class("rounded");
+            this.get_style_context().add_class("mainwindow-%d".printf(uid));
 
             var settings = AppSettings.get_default ();
             int x = settings.window_x;
@@ -59,16 +52,144 @@ namespace Notejot {
                 move (x, y);
             }
 
-            Utils.FileUtils.load_tmp_file ();
+            update_theme();
+
+            var new_button = new Gtk.Button.from_icon_name("list-add-symbolic");
+            new_button.has_tooltip = true;
+            new_button.tooltip_text = (_("New note"));
+            new_button.clicked.connect (create_new_note);
+
+            var clear_button = new Gtk.Button.from_icon_name("edit-delete-symbolic");
+            clear_button.has_tooltip = true;
+            clear_button.tooltip_text = (_("Clear note"));
+            clear_button.clicked.connect(delete_note);
+
+            Gtk.MenuButton app_button = create_app_menu();
+            app_button.has_tooltip = true;
+            app_button.tooltip_text = (_("Change color"));
+
+            var header = new Gtk.HeaderBar();
+            header.set_title("Notejot");
+            header.has_subtitle = false;
+            header.set_show_close_button (true);
+            header.pack_start (new_button);
+            header.pack_end(app_button);
+            header.pack_end(clear_button);
+            this.set_titlebar(header);
+
+            Gtk.ScrolledWindow scrolled = new Gtk.ScrolledWindow (null, null);
+            this.add (scrolled);
+
+            view.set_wrap_mode (Gtk.WrapMode.WORD);
+            view.buffer.text = this.content;
+            view.margin = 2;
+            view.left_margin = 10;
+            view.top_margin = 10;
+            view.right_margin = 10;
+            view.bottom_margin = 10;
+            view.expand = false;
+            scrolled.add (view);
+            this.show_all();
+        }
+
+        private void update_theme() {
+            var css_provider = new Gtk.CssProvider();
+            this.get_style_context().add_class("window-%d".printf(uid));
+
+            string style = null;
+            string selected_color = this.color == -1 ? value_color[default_color] : value_color[color];
+            if (Gtk.get_minor_version() < 20) {
+                style = (N_(".mainwindow-%d {background-color: %s; color: #111; text-shadow: transparent; icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {color: #111; background-color: %s; background-image: none; border-bottom-color: %s; box-shadow: inset 0px 1px 1px -2px shade (%s, 0.8); text-shadow: 0 1px transparent; icon-shadow: 0 1px transparent; box-shadow: none;} .window-%d GtkTextView.view {color: #111; font-size: %dpx} .window-%d GtkTextView.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, selected_color, uid, font_size, uid);
+            } else {
+                style = (_(".mainwindow-%d {background-color: %s; color: #111; text-shadow: transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d textview.view text,.window-%d headerbar {color: #111; background-color: %s; background-image: none; border-bottom-color: %s; box-shadow: inset 0px 1px 1px -2px shade (%s, 0.8); text-shadow: 0 1px #111; -gtk-icon-shadow: 0 1px #111; box-shadow: none;} .window-%d textview.view {color: #111; font-size: %dpx} .window-%d textview.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, selected_color, uid, font_size, uid);
+            }
+
+            try {
+                css_provider.load_from_data(style, -1);
+            } catch (GLib.Error e) {
+                warning ("Failed to parse css style : %s", e.message);
+            }
+
+            Gtk.StyleContext.add_provider_for_screen(
+                Gdk.Screen.get_default(),
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        }
+
+        private Gtk.MenuButton create_app_menu() {
+            Gtk.Menu app_menu = new Gtk.Menu();
+            foreach (string color in code_color) {
+                var label = new Gtk.Label(color);
+
+                Gtk.Box box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+                box.add(label);
+
+                var menu_item = new Gtk.MenuItem();
+                menu_item.name = color;
+                menu_item.activate.connect(change_color_action);
+                menu_item.add(box);
+
+                app_menu.add(menu_item);
+            }
+            app_menu.show_all();
+
+            var app_button = new Gtk.MenuButton();
+            app_button.image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            app_button.set_popup(app_menu);
+
+            return app_button;
+        }
+
+        private void init_from_storage(Storage storage) {
+            this.color = storage.color;
+            this.content = storage.content;
+        }
+
+        private void create_new_note(Gtk.Button new_btn) {
+            ((Application)this.application).create_note(null);
+        }
+
+        private void change_color_action(Gtk.MenuItem color_item) {
+            this.color = index_color(color_item.name);
+            update_theme();
+        }
+
+        private void delete_note(Gtk.Button clear_button) {
+            ((Application)this.application).remove_note(this);
+            view.buffer.text = "";
+        }
+
+        public Storage get_storage_note() {
+            var settings = AppSettings.get_default ();
+            int x = settings.window_x;
+            int y = settings.window_y;
+            int color = this.color;
+            string content = view.buffer.text;
+
+            return new Storage.from_storage(x, y, color, content);
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            var settings = AppSettings.get_default ();
-            int x, y;
-            get_position (out x, out y);
-            settings.window_x = x;
-            settings.window_y = y;
-            return false;
+                ((Application)this.application).quit_note(this);
+
+                var settings = AppSettings.get_default ();
+                int x, y;
+                this.get_position (out x, out y);
+                settings.window_x = x;
+                settings.window_y = y;
+                return false;
+        }
+
+        private int index_color(string icolor) {
+            int index = 0;
+            foreach (string color in code_color) {
+                if (color == icolor) {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
         }
     }
 }
