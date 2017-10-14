@@ -46,13 +46,7 @@ namespace Notejot {
 
             if (storage != null) {
                 init_from_storage(storage);
-                int x = storage.x;
-                int y = storage.y;
-
-                if (x != -1 && y != -1) {
-                    this.move (x, y);
-                }
-            } else {
+            } else if (storage == null) {
                 var settings = AppSettings.get_default ();
                 int x = settings.window_x;
                 int y = settings.window_y;
@@ -168,6 +162,7 @@ namespace Notejot {
         private void init_from_storage(Storage storage) {
             this.color = storage.color;
             this.content = storage.content;
+            this.move (storage.x, storage.y);
         }
 
         private void create_new_note(Gtk.Button new_btn) {
@@ -185,12 +180,11 @@ namespace Notejot {
         }
 
         public Storage get_storage_note() {
-            var settings = AppSettings.get_default ();
-            int x = settings.window_x;
-            int y = settings.window_y;
+            int x, y;
             int color = this.color;
             string content = view.buffer.text;
 
+            this.get_position (out x, out y);
             return new Storage.from_storage(x, y, color, content);
         }
 
