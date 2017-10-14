@@ -36,25 +36,10 @@ namespace Notejot {
             add_action (quit_action);
             add_accelerator ("<Control>q", "app.quit", null);
             quit_action.activate.connect (() => {
-                List<Storage> storage = new List<Storage>();
-
     	        foreach (MainWindow windows in open_notes) {
-    	            storage.append(windows.get_storage_note());
+    	            update_storage(windows);
     	            windows.close();
     	        }
-
-    	        note_manager.save_notes(storage);
-            });
-
-            var test_action = new SimpleAction ("test", null);
-            add_action (test_action);
-            add_accelerator ("<Control>h", "app.test", null);
-            test_action.activate.connect (() => {
-            	unowned List<Gtk.Window> windows = get_windows ();
-            	windows.@foreach ((window) => {
-            		var note = (MainWindow)window;
-            		print (note.content + "\n");
-            	});
             });
         }
 
@@ -80,12 +65,11 @@ namespace Notejot {
 	        open_notes.remove(note);
 	    }
 
-	    public void quit_note(MainWindow window) {
+	    public void update_storage(MainWindow window) {
 	        List<Storage> storage = new List<Storage>();
 
 	        foreach (MainWindow w in open_notes) {
 	            storage.append(w.get_storage_note());
-                window.close();
 	        }
 
 	        note_manager.save_notes(storage);

@@ -26,8 +26,16 @@ namespace Notejot {
         private static int uid_counter = 0;
         private int default_color = 2;
         private static int font_size = 14;
-        public string content = "";
         private Gtk.TextView view = new Gtk.TextView ();
+        public string content {
+        	owned get {
+        		return view.buffer.text;
+        	}
+
+        	set {
+        		view.buffer.text = value;
+        	}
+        }
 
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
@@ -38,19 +46,25 @@ namespace Notejot {
 
             if (storage != null) {
                 init_from_storage(storage);
+                int x = storage.x;
+                int y = storage.y;
+
+                if (x != -1 && y != -1) {
+                    this.move (x, y);
+                }
+            } else {
+                var settings = AppSettings.get_default ();
+                int x = settings.window_x;
+                int y = settings.window_y;
+
+                if (x != -1 && y != -1) {
+                    move (x, y);
+                }
             }
 
             this.uid = uid_counter++;
             this.get_style_context().add_class("rounded");
             this.get_style_context().add_class("mainwindow-%d".printf(uid));
-
-            var settings = AppSettings.get_default ();
-            int x = settings.window_x;
-            int y = settings.window_y;
-
-            if (x != -1 && y != -1) {
-                move (x, y);
-            }
 
             update_theme();
 
@@ -90,6 +104,16 @@ namespace Notejot {
             view.expand = false;
             scrolled.add (view);
             this.show_all();
+
+            focus_out_event.connect (() => {
+                update_storage ();
+                return false;
+            });
+        }
+
+        private void update_storage () {
+            get_storage_note();
+            ((Application)this.application).update_storage(this);
         }
 
         private void update_theme() {
@@ -171,14 +195,14 @@ namespace Notejot {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-                ((Application)this.application).quit_note(this);
+            ((Application)this.application).update_storage(this);
 
-                var settings = AppSettings.get_default ();
-                int x, y;
-                this.get_position (out x, out y);
-                settings.window_x = x;
-                settings.window_y = y;
-                return false;
+            var settings = AppSettings.get_default ();
+            int x, y;
+            this.get_position (out x, out y);
+            settings.window_x = x;
+            settings.window_y = y;
+            return false;
         }
 
         private int index_color(string icolor) {
