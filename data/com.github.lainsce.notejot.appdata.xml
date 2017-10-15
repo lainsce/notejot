@@ -23,6 +23,22 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.2.8" date="2017-10-27">
+            <description>
+                <p>Release: Minor Visual Fixes</p>
+                <ul>
+                    <li>Some minor fixes in the UI</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.2.7" date="2017-10-20">
+            <description>
+                <p>Release: Appcenter Bump</p>
+                <ul>
+                    <li>Just a bump for AppCenter to not error out</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.2.6" date="2017-10-20">
             <description>
                 <p>Release: Icons With Gusto</p>

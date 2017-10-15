@@ -1,3 +1,15 @@
+com.github.lainsce.notejot (1.2.8) xenial; urgency=low
+
+  * Minor UI fixes.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 27 October 2017 17:11:00 -0300
+
+com.github.lainsce.notejot (1.2.7) xenial; urgency=low
+
+  * AppCenter Bump.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 20 October 2017 17:11:00 -0300
+
 com.github.lainsce.notejot (1.2.6) xenial; urgency=low
 
   * Now able to open as many notes as user can.
