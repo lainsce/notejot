@@ -3,12 +3,11 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "POT-Creation-Date: 2017-10-01 04:34-0300\n"
 "PO-Revision-Date: 2017-10-01 04:35-0300\n"
-"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
-"Last-Translator: \n"
+"Last-Translator: Paulo Galardi <lainsce@airmail.cc>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: pt_BR\n"
 
@@ -40,14 +39,14 @@ msgstr "Azul"
 msgid "Purple"
 msgstr "Violeta"
 
-#: src/MainWindow.vala:55
+#: src/MainWindow.vala:59
 msgid "New note"
 msgstr "Nova nota"
 
-#: src/MainWindow.vala:60
+#: src/MainWindow.vala:64
 msgid "Clear note"
 msgstr "Limpar nota"
 
-#: src/MainWindow.vala:65
+#: src/MainWindow.vala:69
 msgid "Change color"
 msgstr "Mudar cor"

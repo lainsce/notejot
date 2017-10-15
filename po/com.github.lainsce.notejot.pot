@@ -1,14 +1,8 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.notejot package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-14 01:53-0300\n"
+"POT-Creation-Date: 2017-10-15 03:14-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,14 +39,14 @@ msgstr ""
 msgid "Purple"
 msgstr ""
 
-#: src/MainWindow.vala:55
+#: src/MainWindow.vala:59
 msgid "New note"
 msgstr ""
 
-#: src/MainWindow.vala:60
+#: src/MainWindow.vala:64
 msgid "Clear note"
 msgstr ""
 
-#: src/MainWindow.vala:65
+#: src/MainWindow.vala:69
 msgid "Change color"
 msgstr ""
