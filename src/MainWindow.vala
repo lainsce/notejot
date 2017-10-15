@@ -171,6 +171,7 @@ namespace Notejot {
             view.buffer.text = "";
             this.color = 2;
             ((Application)this.application).update_storage(this);
+            ((Application)this.application).remove_note(this);
             this.close ();
         }
 

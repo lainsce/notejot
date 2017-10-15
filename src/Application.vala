@@ -37,6 +37,7 @@ namespace Notejot {
             add_accelerator ("<Control>q", "app.quit", null);
             quit_action.activate.connect (() => {
     	        foreach (MainWindow windows in open_notes) {
+                    print ("Quitting all notes...\n");
     	            update_storage(windows);
     	            windows.close();
     	        }
@@ -56,16 +57,22 @@ namespace Notejot {
 	    }
 
 	    public void create_note(Storage? storage) {
+            print ("Creating a note...\n");
 	        var note = new MainWindow(this, storage);
 	        open_notes.append(note);
 	    }
 
+        public void remove_note(MainWindow note) {
+            print ("Removing a note...\n");
+	        open_notes.remove(note);
+	    }
+
 	    public void update_storage(MainWindow window) {
+            print ("Updating the storage...\n");
 	        List<Storage> storage = new List<Storage>();
 
 	        foreach (MainWindow w in open_notes) {
 	            storage.append(w.get_storage_note());
-                open_notes.remove(w);
 	        }
 
 	        note_manager.save_notes(storage);
