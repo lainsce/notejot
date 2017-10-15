@@ -58,7 +58,7 @@ namespace Notejot {
                 json_notes[index++] = "{\"x\":\"%d\", \"y\":\"%d\", \"color\":\"%d\", \"content\":\"%s\"}".printf(note.x, note.y, note.color, note.content);
             }
 
-            return "[%s]".printf(string.joinv(",", json_notes));
+            return "[%s]".printf(string.joinv(",\n", json_notes));
         }
 
         public Gee.ArrayList<Storage> load_from_file() {
