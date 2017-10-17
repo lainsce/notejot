@@ -164,6 +164,7 @@ namespace Notejot {
         private void change_color_action(Gtk.MenuItem color_item) {
             this.color = index_color(color_item.name);
             update_theme();
+            ((Application)this.application).update_storage(this);
         }
 
         private void delete_note(Gtk.Button clear_button) {
