@@ -40,7 +40,11 @@ msgid "Blue"
 msgstr "Azul"
 
 #: src/MainWindow.vala:24
-msgid "Purple"
+msgid "Indigo"
+msgstr "Índigo"
+
+#: src/MainWindow.vala:24
+msgid "Violet"
 msgstr "Violeta"
 
 #: src/MainWindow.vala:59
