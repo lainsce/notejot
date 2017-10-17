@@ -16,6 +16,10 @@ msgid "White"
 msgstr ""
 
 #: src/MainWindow.vala:24
+msgid "slate"
+msgstr ""
+
+#: src/MainWindow.vala:24
 msgid "Green"
 msgstr ""
 
