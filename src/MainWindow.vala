@@ -19,12 +19,12 @@
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        public int color = 2;
+        public int color = -1;
         private int uid;
         private static string[] code_color = {(_("White")), (_("Slate")), (_("Green")), (_("Yellow")), (_("Orange")), (_("Red")), (_("Blue")), (_("Purple"))};
         private static string[] value_color = {"#fafafa", "#95a3ab", "#d1ff82", "#fff394", "#ffc27d", "#ff9c92", "#8cd5ff", "#e29ffc"};
         private static int uid_counter = 0;
-        private int default_color = 2;
+        private int default_color = 3;
         private Gtk.TextView view = new Gtk.TextView ();
         private Gtk.Button clear_button;
         public string content {
