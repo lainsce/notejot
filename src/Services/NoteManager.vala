@@ -93,7 +93,7 @@ namespace Notejot {
                 }
 
             } catch (Error e) {
-                warning ("Failed to load file %s\n", e.message);
+                warning ("Failed to load file: %s\n", e.message);
             }
 
             return stored_notes;
