@@ -22,20 +22,12 @@ namespace Notejot {
         public int color = 4;
         private int uid;
         private static string[] code_color = {(_("White")), (_("Slate")), (_("Red")), (_("Orange")), (_("Yellow")), (_("Green")), (_("Blue")), (_("Indigo")), (_("Violet"))};
-        private static string[] value_color = {"#fafafa", "#95a3ab", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
+        private static string[] value_color = {"#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
         private static int uid_counter = 0;
         private int default_color = 4;
-        private Gtk.TextView view = new Gtk.TextView ();
+        private Gtk.SourceView view = new Gtk.SourceView ();
         private Gtk.Button clear_button;
-        public string content {
-        	owned get {
-        		return view.buffer.text;
-        	}
-
-        	set {
-        		view.buffer.text = value;
-        	}
-        }
+        public string content = "";
 
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
@@ -177,7 +169,9 @@ namespace Notejot {
 
         public Storage get_storage_note() {
             int x, y, color;
-            string content = view.buffer.text;
+            Gtk.TextIter start,end;
+            view.buffer.get_bounds (out start, out end);
+            string content = view.buffer.get_text (start, end, true);
 
             this.get_position (out x, out y);
             color = this.color;

@@ -41,7 +41,7 @@ namespace Notejot {
                     file.delete ();
                 }
 
-                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION );
+                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
                 var data_stream = new DataOutputStream (file_stream);
                 data_stream.put_string(json_string);
             } catch (Error e) {
@@ -55,7 +55,7 @@ namespace Notejot {
             int index = 0;
 
             foreach (Storage note in notes) {
-                json_notes[index++] = "{\"x\":\"%d\", \"y\":\"%d\", \"color\":\"%d\", \"content\":\"%s\"}".printf(note.x, note.y, note.color, note.content);
+                json_notes[index++] = "{\n\t\"x\":\"%d\",\n\t\"y\":\"%d\",\n\t\"color\":\"%d\",\n\t\"content\":\"%s\"\n}".printf(note.x, note.y, note.color, note.content);
             }
 
             return "[%s]".printf(string.joinv(",\n", json_notes));
