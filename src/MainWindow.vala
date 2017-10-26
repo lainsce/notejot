@@ -19,14 +19,14 @@
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        public int color = 4;
+        private Gtk.Button clear_button;
+        private Gtk.SourceView view = new Gtk.SourceView ();
+        private int default_color = 4;
         private int uid;
+        private static int uid_counter = 0;
         private static string[] code_color = {(_("White")), (_("Slate")), (_("Red")), (_("Orange")), (_("Yellow")), (_("Green")), (_("Blue")), (_("Indigo")), (_("Violet"))};
         private static string[] value_color = {"#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
-        private static int uid_counter = 0;
-        private int default_color = 4;
-        private Gtk.SourceView view = new Gtk.SourceView ();
-        private Gtk.Button clear_button;
+        public int color = 4;
         public string content = "";
 
         public MainWindow (Gtk.Application app, Storage? storage) {
@@ -40,46 +40,47 @@ namespace Notejot {
                 init_from_storage(storage);
             }
 
-            this.uid = uid_counter++;
-            this.get_style_context().add_class("rounded");
             this.get_style_context().add_class("mainwindow-%d".printf(uid));
+            this.get_style_context().add_class("rounded");
+
+            this.uid = uid_counter++;
 
             update_theme();
 
             var new_button = new Gtk.Button.from_icon_name("list-add-symbolic");
+            new_button.clicked.connect (create_new_note);
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New note"));
-            new_button.clicked.connect (create_new_note);
 
             clear_button = new Gtk.Button.from_icon_name("edit-delete-symbolic");
+            clear_button.clicked.connect(delete_note);
             clear_button.has_tooltip = true;
             clear_button.tooltip_text = (_("Clear note"));
-            clear_button.clicked.connect(delete_note);
 
             Gtk.MenuButton app_button = create_app_menu();
             app_button.has_tooltip = true;
             app_button.tooltip_text = (_("Change color"));
 
             var header = new Gtk.HeaderBar();
-            header.set_title("Notejot");
             header.has_subtitle = false;
-            header.set_show_close_button (true);
-            header.pack_start (new_button);
             header.pack_end(app_button);
             header.pack_end(clear_button);
+            header.pack_start (new_button);
+            header.set_show_close_button (true);
+            header.set_title("Notejot");
             this.set_titlebar(header);
 
             Gtk.ScrolledWindow scrolled = new Gtk.ScrolledWindow (null, null);
             this.add (scrolled);
 
-            view.set_wrap_mode (Gtk.WrapMode.WORD);
-            view.buffer.text = this.content;
-            view.margin = 2;
-            view.left_margin = 10;
-            view.top_margin = 10;
-            view.right_margin = 10;
             view.bottom_margin = 10;
+            view.buffer.text = this.content;
             view.expand = false;
+            view.left_margin = 10;
+            view.margin = 2;
+            view.right_margin = 10;
+            view.set_wrap_mode (Gtk.WrapMode.WORD);
+            view.top_margin = 10;
             scrolled.add (view);
             this.show_all();
 
@@ -128,9 +129,9 @@ namespace Notejot {
                 box.add(label);
 
                 var menu_item = new Gtk.MenuItem();
-                menu_item.name = color;
                 menu_item.activate.connect(change_color_action);
                 menu_item.add(box);
+                menu_item.name = color;
 
                 app_menu.add(menu_item);
             }

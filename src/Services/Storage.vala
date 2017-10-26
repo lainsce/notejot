@@ -20,18 +20,18 @@
 
 namespace Notejot {
     public class Storage : Object {
+        public int color;
         public int x;
         public int y;
-        public int color;
         public string content;
 
         public Storage() {}
 
         public Storage.from_storage(int x, int y, int color, string message) {
-            this.x = x;
-            this.y = y;
             this.color = color;
             this.content = message;
+            this.x = x;
+            this.y = y;
         }
     }
 }

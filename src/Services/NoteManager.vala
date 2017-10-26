@@ -19,8 +19,8 @@
 
 namespace Notejot {
     public class NoteManager {
-        private string file_name;
         private string app_dir = Environment.get_user_cache_dir () + "/com.github.lainsce.notejot";
+        private string file_name;
 
         public NoteManager () {
             file_name = this.app_dir + "/saved_notes.json";
@@ -29,8 +29,8 @@ namespace Notejot {
 
         public void save_notes(List<Storage> notes) {
             string json_string = prepare_json_from_notes(notes);
-            var file = File.new_for_path (file_name);
             var dir = File.new_for_path(app_dir);
+            var file = File.new_for_path (file_name);
 
             try {
                 if (!dir.query_exists()) {
@@ -41,8 +41,8 @@ namespace Notejot {
                     file.delete ();
                 }
 
-                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
                 var data_stream = new DataOutputStream (file_stream);
+                var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
                 data_stream.put_string(json_string);
             } catch (Error e) {
                 warning ("Failed to save notes %s\n", e.message);
@@ -68,8 +68,8 @@ namespace Notejot {
                 var file = File.new_for_path(file_name);
                 var json_string = "";
                 if (file.query_exists()) {
-                    var dis = new DataInputStream (file.read ());
                     string line;
+                    var dis = new DataInputStream (file.read ());
 
                     while ((line = dis.read_line (null)) != null) {
                         json_string += line;
@@ -81,12 +81,12 @@ namespace Notejot {
                     var root = parser.get_root();
                     var array = root.get_array();
                     foreach (var item in array.get_elements()) {
-                        var node = item.get_object();
+                        int color = int.parse(node.get_string_member("color"));
                         int x = int.parse(node.get_string_member("x"));
                         int y = int.parse(node.get_string_member("y"));
-                        int color = int.parse(node.get_string_member("color"));
-                        string content = node.get_string_member("content");
                         Storage stored_note = new Storage.from_storage(x, y, color, content);
+                        string content = node.get_string_member("content");
+                        var node = item.get_object();
                         stored_notes.add(stored_note);
                     }
 

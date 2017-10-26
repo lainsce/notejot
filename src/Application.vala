@@ -29,12 +29,12 @@ namespace Notejot {
 
         construct {
             app_icon = "com.github.lainsce.notejot";
-            exec_name = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
+            exec_name = "com.github.lainsce.notejot";
 
             var quit_action = new SimpleAction ("quit", null);
-            add_action (quit_action);
             add_accelerator ("<Control>q", "app.quit", null);
+            add_action (quit_action);
             quit_action.activate.connect (() => {
     	        foreach (MainWindow windows in open_notes) {
                     debug ("Quitting all notes...\n");
