@@ -41,8 +41,8 @@ namespace Notejot {
                     file.delete ();
                 }
 
-                var data_stream = new DataOutputStream (file_stream);
                 var file_stream = file.create (FileCreateFlags.REPLACE_DESTINATION);
+                var data_stream = new DataOutputStream (file_stream);
                 data_stream.put_string(json_string);
             } catch (Error e) {
                 warning ("Failed to save notes %s\n", e.message);
@@ -81,12 +81,12 @@ namespace Notejot {
                     var root = parser.get_root();
                     var array = root.get_array();
                     foreach (var item in array.get_elements()) {
+                        var node = item.get_object();
                         int color = int.parse(node.get_string_member("color"));
                         int x = int.parse(node.get_string_member("x"));
                         int y = int.parse(node.get_string_member("y"));
-                        Storage stored_note = new Storage.from_storage(x, y, color, content);
                         string content = node.get_string_member("content");
-                        var node = item.get_object();
+                        Storage stored_note = new Storage.from_storage(x, y, color, content);
                         stored_notes.add(stored_note);
                     }
 

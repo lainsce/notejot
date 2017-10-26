@@ -1,8 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.notejot package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
-"POT-Creation-Date: 2017-10-15 03:14-0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 23:53-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,50 +17,76 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:24
+#: src/MainWindow.vala:27
 msgid "White"
 msgstr ""
 
-#: src/MainWindow.vala:24
+#: src/MainWindow.vala:27
 msgid "Slate"
 msgstr ""
 
-#: src/MainWindow.vala:24
-msgid "Green"
-msgstr ""
-
-#: src/MainWindow.vala:24
-msgid "Yellow"
-msgstr ""
-
-#: src/MainWindow.vala:24
-msgid "Orange"
-msgstr ""
-
-#: src/MainWindow.vala:24
+#: src/MainWindow.vala:27
 msgid "Red"
 msgstr ""
 
-#: src/MainWindow.vala:24
+#: src/MainWindow.vala:27
+msgid "Orange"
+msgstr ""
+
+#: src/MainWindow.vala:27
+msgid "Yellow"
+msgstr ""
+
+#: src/MainWindow.vala:27
+msgid "Green"
+msgstr ""
+
+#: src/MainWindow.vala:27
 msgid "Blue"
 msgstr ""
 
-#: src/MainWindow.vala:24
+#: src/MainWindow.vala:27
 msgid "Indigo"
 msgstr ""
 
-#: src/MainWindow.vala:24
+#: src/MainWindow.vala:27
 msgid "Violet"
 msgstr ""
 
-#: src/MainWindow.vala:59
+#: src/MainWindow.vala:53
 msgid "New note"
 msgstr ""
 
-#: src/MainWindow.vala:64
+#: src/MainWindow.vala:58
 msgid "Clear note"
 msgstr ""
 
-#: src/MainWindow.vala:69
+#: src/MainWindow.vala:62
 msgid "Change color"
+msgstr ""
+
+#: src/MainWindow.vala:105
+#, c-format
+msgid ""
+"@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: "
+"%s; text-shadow: transparent; icon-shadow: 0 1px transparent; box-shadow: "
+"transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {background-"
+"color: %s; background-image: none; border-bottom-color: %s; text-shadow: 0 "
+"1px transparent; icon-shadow: 0 1px transparent; box-shadow: none;} .window-"
+"%d GtkTextView.view {color: @textColorPrimary; font-size: 11px} .window-%d "
+"GtkTextView.view:selected {color: #FFFFFF; background-color: #3d9bda; font-"
+"size: 11px} .window-%d GtkTextView.view text{margin : 10px}"
+msgstr ""
+
+#: src/MainWindow.vala:107
+#, c-format
+msgid ""
+"@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: "
+"%s; text-shadow: transparent; -gtk-icon-shadow: 0 1px transparent; box-"
+"shadow: transparent;} .window-%d textview.view text,.window-%d headerbar "
+"{background-color: %s; background-image: none; border-bottom-color: %s; text-"
+"shadow: 0 1px transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: "
+"none;} .window-%d textview.view {color: @textColorPrimary; font-size: 14px} ."
+"window-%d textview.view:selected {color: #FFFFFF; background-color: #64baff; "
+"font-size: 11px} .window-%d textview.view text{margin : 10px}"
 msgstr ""
