@@ -12,50 +12,14 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/MainWindow.vala:27
-msgid "White"
-msgstr "Branco"
-
-#: src/MainWindow.vala:27
-msgid "Slate"
-msgstr "Cinza"
-
-#: src/MainWindow.vala:27
-msgid "Red"
-msgstr "Vermelho"
-
-#: src/MainWindow.vala:27
-msgid "Orange"
-msgstr "Laranja"
-
-#: src/MainWindow.vala:27
-msgid "Yellow"
-msgstr "Amarelo"
-
-#: src/MainWindow.vala:27
-msgid "Green"
-msgstr "Verde"
-
-#: src/MainWindow.vala:27
-msgid "Blue"
-msgstr "Azul"
-
-#: src/MainWindow.vala:27
-msgid "Indigo"
-msgstr "Índigo"
-
-#: src/MainWindow.vala:27
-msgid "Violet"
-msgstr "Violeta"
-
-#: src/MainWindow.vala:53
+#: src/MainWindow.vala:113
 msgid "New note"
 msgstr "Nova nota"
 
-#: src/MainWindow.vala:58
+#: src/MainWindow.vala:116
 msgid "Clear note"
 msgstr "Limpar nota"
 
-#: src/MainWindow.vala:62
-msgid "Change color"
-msgstr "Mudar cor"
+#: src/MainWindow.vala:52
+msgid "Settings"
+msgstr "Preferẽncias"

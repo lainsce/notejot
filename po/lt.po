@@ -13,50 +13,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:27
-msgid "White"
-msgstr "Balta"
-
-#: src/MainWindow.vala:27
-msgid "Slate"
-msgstr "Pilkai melsva"
-
-#: src/MainWindow.vala:27
-msgid "Red"
-msgstr "Raudona"
-
-#: src/MainWindow.vala:27
-msgid "Orange"
-msgstr "Oranžinė"
-
-#: src/MainWindow.vala:27
-msgid "Yellow"
-msgstr "Geltona"
-
-#: src/MainWindow.vala:27
-msgid "Green"
-msgstr "Žalia"
-
-#: src/MainWindow.vala:27
-msgid "Blue"
-msgstr "Mėlyna"
-
-#: src/MainWindow.vala:27
-msgid "Indigo"
-msgstr "Indigo"
-
-#: src/MainWindow.vala:27
-msgid "Violet"
-msgstr "Violetinė"
-
-#: src/MainWindow.vala:53
+#: src/MainWindow.vala:113
 msgid "New note"
 msgstr "Nauji užrašai"
 
-#: src/MainWindow.vala:58
+#: src/MainWindow.vala:116
 msgid "Clear note"
 msgstr "Išvalyti užrašus"
 
-#: src/MainWindow.vala:62
-msgid "Change color"
-msgstr "Pakeisti spalvą"
+#: src/MainWindow.vala:52
+msgid "Settings"
+msgstr ""

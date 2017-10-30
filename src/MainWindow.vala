@@ -19,13 +19,13 @@
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        private Gtk.Button clear_button;
+        private Gtk.MenuItem clear_item;
         private Gtk.SourceView view = new Gtk.SourceView ();
         private int default_color = 4;
         private int uid;
         private static int uid_counter = 0;
-        private static string[] code_color = {(_("White")), (_("Slate")), (_("Red")), (_("Orange")), (_("Yellow")), (_("Green")), (_("Blue")), (_("Indigo")), (_("Violet"))};
-        private static string[] value_color = {"#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
+        public static string[] value_color = {"#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
+        public static int[] integer_color = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         public int color = 4;
         public string content = "";
 
@@ -47,25 +47,13 @@ namespace Notejot {
 
             update_theme();
 
-            var new_button = new Gtk.Button.from_icon_name("list-add-symbolic");
-            new_button.clicked.connect (create_new_note);
-            new_button.has_tooltip = true;
-            new_button.tooltip_text = (_("New note"));
-
-            clear_button = new Gtk.Button.from_icon_name("edit-delete-symbolic");
-            clear_button.clicked.connect(delete_note);
-            clear_button.has_tooltip = true;
-            clear_button.tooltip_text = (_("Clear note"));
-
             Gtk.MenuButton app_button = create_app_menu();
             app_button.has_tooltip = true;
-            app_button.tooltip_text = (_("Change color"));
+            app_button.tooltip_text = (_("Settings"));
 
             var header = new Gtk.HeaderBar();
             header.has_subtitle = false;
             header.pack_end(app_button);
-            header.pack_end(clear_button);
-            header.pack_start (new_button);
             header.set_show_close_button (true);
             header.set_title("Notejot");
             this.set_titlebar(header);
@@ -77,7 +65,6 @@ namespace Notejot {
             view.buffer.text = this.content;
             view.expand = false;
             view.left_margin = 10;
-            view.margin = 2;
             view.right_margin = 10;
             view.set_wrap_mode (Gtk.WrapMode.WORD);
             view.top_margin = 10;
@@ -122,19 +109,22 @@ namespace Notejot {
 
         private Gtk.MenuButton create_app_menu() {
             Gtk.Menu app_menu = new Gtk.Menu();
-            foreach (string color in code_color) {
-                var label = new Gtk.Label(color);
 
-                Gtk.Box box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-                box.add(label);
+            var new_item = new Gtk.MenuItem.with_label (_("New note"));
+            new_item.activate.connect (create_new_note);
 
-                var menu_item = new Gtk.MenuItem();
-                menu_item.activate.connect(change_color_action);
-                menu_item.add(box);
-                menu_item.name = color;
+            clear_item = new Gtk.MenuItem.with_label (_("Clear note"));
+            clear_item.activate.connect(delete_note);
 
-                app_menu.add(menu_item);
-            }
+            var color_menu_item = new ColorWidget ();
+            color_menu_item.color_changed.connect ((color) => {
+                change_color_action (color+1);
+            });
+
+            app_menu.add(new_item);
+            app_menu.add(color_menu_item);
+            app_menu.add(clear_item);
+
             app_menu.show_all();
 
             var app_button = new Gtk.MenuButton();
@@ -150,17 +140,17 @@ namespace Notejot {
             this.move(storage.x, storage.y);
         }
 
-        private void create_new_note(Gtk.Button new_button) {
+        private void create_new_note(Gtk.MenuItem new_item) {
             ((Application)this.application).create_note(null);
         }
 
-        private void change_color_action(Gtk.MenuItem color_item) {
-            this.color = index_color(color_item.name);
+        private void change_color_action(int color) {
+            this.color = index_color(color);
             update_theme();
             ((Application)this.application).update_storage(this);
         }
 
-        private void delete_note(Gtk.Button clear_button) {
+        private void delete_note(Gtk.MenuItem clear_item) {
             view.buffer.text = "";
             this.color = 4;
             ((Application)this.application).update_storage(this);
@@ -189,9 +179,9 @@ namespace Notejot {
             return false;
         }
 
-        private int index_color(string icolor) {
+        private int index_color(int icolor) {
             int index = 0;
-            foreach (string color in code_color) {
+            foreach (int color in integer_color) {
                 if (color == icolor) {
                     return index;
                 }

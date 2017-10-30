@@ -17,50 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:27
-msgid "White"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Slate"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Red"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Orange"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Yellow"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Green"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Blue"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Indigo"
-msgstr ""
-
-#: src/MainWindow.vala:27
-msgid "Violet"
-msgstr ""
-
-#: src/MainWindow.vala:53
+#: src/MainWindow.vala:113
 msgid "New note"
 msgstr ""
 
-#: src/MainWindow.vala:58
+#: src/MainWindow.vala:116
 msgid "Clear note"
 msgstr ""
 
-#: src/MainWindow.vala:62
-msgid "Change color"
+#: src/MainWindow.vala:52
+msgid "Settings"
 msgstr ""

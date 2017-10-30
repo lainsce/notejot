@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.notejot', ['vala', 'c'],
-    version: '1.2.8'
+    version: '1.2.9'
 )
 
 # Import main lib files
@@ -37,6 +37,7 @@ executable(
     meson.project_name(),
     'src/Application.vala',
     'src/MainWindow.vala',
+    'src/ColorWidget.vala',
     'src/Services/NoteManager.vala',
     'src/Services/Storage.vala',
     'src/Constants/AppSettings.vala',
