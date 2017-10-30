@@ -21,12 +21,13 @@ namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.MenuItem delete_item;
         private Gtk.SourceView view = new Gtk.SourceView ();
-        private int default_color = 4;
+        private int default_color = 5;
         private int uid;
         private static int uid_counter = 0;
-        public static string[] value_color = {"#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
-        public static int[] integer_color = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        public int color = 4;
+        // The first string here is not used, it's used as padding on the color widget.
+        public static string[] value_color = {"", "#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
+        public static int[] integer_color = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        public int color = 5;
         public string content = "";
 
         public MainWindow (Gtk.Application app, Storage? storage) {
@@ -152,7 +153,7 @@ namespace Notejot {
 
         private void delete_note(Gtk.MenuItem delete_item) {
             view.buffer.text = "";
-            this.color = 4;
+            this.color = 5;
             ((Application)this.application).update_storage(this);
             ((Application)this.application).remove_note(this);
             this.close ();

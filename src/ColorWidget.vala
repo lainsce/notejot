@@ -5,7 +5,7 @@ namespace Notejot {
         public signal void color_changed (int ncolor);
 
         public ColorWidget () {
-            set_size_request (140, 30);
+            set_size_request (200, 30);
             height = 30;
 
             button_press_event.connect (button_pressed_cb);
@@ -27,14 +27,14 @@ namespace Notejot {
 
         private void determine_button_pressed_event (Gdk.EventButton event) {
             int i;
-            int btnw = 10;
-            int btnh = 10;
+            int btnw = 15;
+            int btnh = 15;
             int y0 = (height - btnh) / 2;
-            int x0 = btnw + 8;
+            int x0 = btnw + 6;
 
             if (event.y >= y0 && event.y <= y0+btnh) {
-                for (i=1; i<=8; i++) {
-                    if (event.x >= x0 * i + 8 && event.x <= x0 * i + btnw + 8) {
+                for (i=1; i<=9; i++) {
+                    if (event.x >= x0 * i + 6 && event.x <= x0 * i + btnw + 6) {
                         color_changed (i);
                         break;
                     }
@@ -44,14 +44,14 @@ namespace Notejot {
 
         protected bool on_draw (Cairo.Context cr) {
             int i;
-            int btnw = 10;
-            int btnh = 10;
+            int btnw = 15;
+            int btnh = 15;
             int y0 = (height - btnh) / 2;
-            int x0 = btnw + 8;
+            int x0 = btnw + 6;
 
-            for (i=1; i<=8; i++) {
-                DrawRoundedRectangle (cr,x0 * i + 8, y0, btnw, btnh, "stroke", i);
-                DrawRoundedRectangle (cr,x0 * i + 8, y0, btnw, btnh, "fill", i);
+            for (i=1; i<=9; i++) {
+                DrawRoundedRectangle (cr,x0 * i + 6, y0, btnw, btnh, "stroke", i);
+                DrawRoundedRectangle (cr,x0 * i + 6, y0, btnw, btnh, "fill", i);
             }
 
             return true;
