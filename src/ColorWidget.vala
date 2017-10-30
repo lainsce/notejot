@@ -34,7 +34,7 @@ namespace Notejot {
 
             if (event.y >= y0 && event.y <= y0+btnh) {
                 for (i=1; i<=9; i++) {
-                    if (event.x >= x0 * i + 6 && event.x <= x0 * i + btnw + 6) {
+                    if (event.x >= x0 * i && event.x <= x0 * i + btnw + 6) {
                         color_changed (i);
                         break;
                     }
@@ -50,8 +50,8 @@ namespace Notejot {
             int x0 = btnw + 6;
 
             for (i=1; i<=9; i++) {
-                DrawRoundedRectangle (cr,x0 * i + 6, y0, btnw, btnh, "stroke", i);
-                DrawRoundedRectangle (cr,x0 * i + 6, y0, btnw, btnh, "fill", i);
+                DrawRoundedRectangle (cr,x0 * i + 6, y0, btnw, btnh, "stroke", i + 1);
+                DrawRoundedRectangle (cr,x0 * i + 6, y0, btnw, btnh, "fill", i + 1);
             }
 
             return true;
