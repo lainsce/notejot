@@ -66,6 +66,7 @@ namespace Notejot {
             view.buffer.text = this.content;
             view.expand = false;
             view.left_margin = 10;
+            view.margin = 1;
             view.right_margin = 10;
             view.set_wrap_mode (Gtk.WrapMode.WORD);
             view.top_margin = 10;
