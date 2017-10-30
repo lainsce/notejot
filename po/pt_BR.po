@@ -17,8 +17,8 @@ msgid "New note"
 msgstr "Nova nota"
 
 #: src/MainWindow.vala:116
-msgid "Clear note"
-msgstr "Limpar nota"
+msgid "Delete note"
+msgstr "Deletar nota"
 
 #: src/MainWindow.vala:52
 msgid "Settings"

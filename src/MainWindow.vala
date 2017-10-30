@@ -19,7 +19,7 @@
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        private Gtk.MenuItem clear_item;
+        private Gtk.MenuItem delete_item;
         private Gtk.SourceView view = new Gtk.SourceView ();
         private int default_color = 4;
         private int uid;
@@ -113,8 +113,8 @@ namespace Notejot {
             var new_item = new Gtk.MenuItem.with_label (_("New note"));
             new_item.activate.connect (create_new_note);
 
-            clear_item = new Gtk.MenuItem.with_label (_("Clear note"));
-            clear_item.activate.connect(delete_note);
+            delete_item = new Gtk.MenuItem.with_label (_("Delete note"));
+            delete_item.activate.connect(delete_note);
 
             var color_menu_item = new ColorWidget ();
             color_menu_item.color_changed.connect ((color) => {
@@ -123,7 +123,7 @@ namespace Notejot {
 
             app_menu.add(new_item);
             app_menu.add(color_menu_item);
-            app_menu.add(clear_item);
+            app_menu.add(delete_item);
 
             app_menu.show_all();
 
@@ -150,7 +150,7 @@ namespace Notejot {
             ((Application)this.application).update_storage(this);
         }
 
-        private void delete_note(Gtk.MenuItem clear_item) {
+        private void delete_note(Gtk.MenuItem delete_item) {
             view.buffer.text = "";
             this.color = 4;
             ((Application)this.application).update_storage(this);
@@ -172,6 +172,7 @@ namespace Notejot {
 
         public override bool delete_event (Gdk.EventAny event) {
             var settings = AppSettings.get_default ();
+
             int x, y;
             this.get_position (out x, out y);
             settings.window_x = x;

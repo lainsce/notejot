@@ -18,7 +18,7 @@ msgid "New note"
 msgstr "Nauji užrašai"
 
 #: src/MainWindow.vala:116
-msgid "Clear note"
+msgid "Delete note"
 msgstr "Išvalyti užrašus"
 
 #: src/MainWindow.vala:52
