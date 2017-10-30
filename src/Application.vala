@@ -45,13 +45,19 @@ namespace Notejot {
         }
 
         protected override void activate () {
-    	    var list = note_manager.load_from_file();
-
-            if (list.size == 0) {
-                create_note(null);
+            if (get_windows ().length () > 0) {
+                foreach (MainWindow windows in open_notes) {
+                    windows.present ();
+                }
             } else {
-                foreach (Storage storage in list) {
-                    create_note(storage);
+                var list = note_manager.load_from_file();
+
+                if (list.size == 0) {
+                    create_note(null);
+                } else {
+                    foreach (Storage storage in list) {
+                        create_note(storage);
+                    }
                 }
             }
 	    }
