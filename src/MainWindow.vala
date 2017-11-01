@@ -41,7 +41,6 @@ namespace Notejot {
                 init_from_storage(storage);
             }
 
-            this.get_style_context().add_class("mainwindow-%d".printf(uid));
             this.get_style_context().add_class("rounded");
 
             this.uid = uid_counter++;
@@ -67,7 +66,7 @@ namespace Notejot {
             view.buffer.text = this.content;
             view.expand = false;
             view.left_margin = 10;
-            view.margin = 1;
+            view.margin = 2;
             view.right_margin = 10;
             view.set_wrap_mode (Gtk.WrapMode.WORD);
             view.top_margin = 10;
@@ -87,14 +86,15 @@ namespace Notejot {
 
         private void update_theme() {
             var css_provider = new Gtk.CssProvider();
+            this.get_style_context().add_class("mainwindow-%d".printf(uid));
             this.get_style_context().add_class("window-%d".printf(uid));
 
             string style = null;
             string selected_color = this.color == -1 ? value_color[default_color] : value_color[color];
             if (Gtk.get_minor_version() < 20) {
-                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; box-shadow: transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {background-color: %s; border-bottom-color: %s; box-shadow: none;} .window-%d GtkTextView.view {color: @textColorPrimary; font-size: 11px} .window-%d GtkTextView.view:selected {color: #FFFFFF; background-color: #3d9bda; font-size: 11px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid);
+                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; box-shadow: #1a1a1a;} .window-%d GtkTextView,.window-%d GtkHeaderBar {background-color: %s; border-bottom-color: %s; box-shadow: none;} .window-%d GtkTextView.view {color: @textColorPrimary; font-size: 11px;} .window-%d GtkTextView.view:selected {color: #FFFFFF; background-color: #3d9bda; font-size: 11px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid);
             } else {
-                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; box-shadow: transparent;} .window-%d textview.view text,.window-%d headerbar {background-color: %s; border-bottom-color: %s; box-shadow: none;} .window-%d textview.view {color: @textColorPrimary; font-size: 14px} .window-%d textview.view:selected {color: #FFFFFF; background-color: #64baff; font-size: 11px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid);
+                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; box-shadow: #1a1a1a;} .window-%d textview.view text,.window-%d headerbar {background-color: %s; border-bottom-color: %s; box-shadow: none;} .window-%d textview.view {color: @textColorPrimary; font-size: 14px; border-color: %s;} .window-%d textview.view:selected {color: #FFFFFF; background-color: #64baff; font-size: 14px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, selected_color, uid);
             }
 
             try {
