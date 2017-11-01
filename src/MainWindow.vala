@@ -53,6 +53,7 @@ namespace Notejot {
             app_button.tooltip_text = (_("Settings"));
 
             var header = new Gtk.HeaderBar();
+            header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             header.has_subtitle = false;
             header.pack_end(app_button);
             header.set_show_close_button (true);
@@ -91,9 +92,9 @@ namespace Notejot {
             string style = null;
             string selected_color = this.color == -1 ? value_color[default_color] : value_color[color];
             if (Gtk.get_minor_version() < 20) {
-                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; text-shadow: transparent; icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {background-color: %s; background-image: none; border-bottom-color: %s; text-shadow: 0 1px transparent; icon-shadow: 0 1px transparent; box-shadow: none;} .window-%d GtkTextView.view {color: @textColorPrimary; font-size: 11px} .window-%d GtkTextView.view:selected {color: #FFFFFF; background-color: #3d9bda; font-size: 11px} .window-%d GtkTextView.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid, uid);
+                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; box-shadow: transparent;} .window-%d GtkTextView,.window-%d GtkHeaderBar {background-color: %s; border-bottom-color: %s; box-shadow: none;} .window-%d GtkTextView.view {color: @textColorPrimary; font-size: 11px} .window-%d GtkTextView.view:selected {color: #FFFFFF; background-color: #3d9bda; font-size: 11px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid);
             } else {
-                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; text-shadow: transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: transparent;} .window-%d textview.view text,.window-%d headerbar {background-color: %s; background-image: none; border-bottom-color: %s; text-shadow: 0 1px transparent; -gtk-icon-shadow: 0 1px transparent; box-shadow: none;} .window-%d textview.view {color: @textColorPrimary; font-size: 14px} .window-%d textview.view:selected {color: #FFFFFF; background-color: #64baff; font-size: 11px} .window-%d textview.view text{margin : 10px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid, uid);
+                style = (N_("@define-color textColorPrimary #1a1a1a; .mainwindow-%d {background-color: %s; box-shadow: transparent;} .window-%d textview.view text,.window-%d headerbar {background-color: %s; border-bottom-color: %s; box-shadow: none;} .window-%d textview.view {color: @textColorPrimary; font-size: 14px} .window-%d textview.view:selected {color: #FFFFFF; background-color: #64baff; font-size: 11px}")).printf(uid, selected_color, uid, uid, selected_color, selected_color, uid, uid);
             }
 
             try {
