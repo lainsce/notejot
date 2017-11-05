@@ -29,7 +29,7 @@ namespace Notejot {
         public static int[] integer_color = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         public int64 color = 6;
         public string content = "";
-        public string title_name = "";
+        public string title_name = "Notejot";
         public Notejot.EditableLabel label;
 
         public MainWindow (Gtk.Application app, Storage? storage) {
