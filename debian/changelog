@@ -1,6 +1,7 @@
 com.github.lainsce.notejot (1.2.9) xenial; urgency=low
 
   * Only the appmenu item now remains, has all items inside.
+  * Editable title.
 
  -- Lains <lainsce@airmail.cc>  Fri, 03 Nov 2017 22:54:00 -0300
 
