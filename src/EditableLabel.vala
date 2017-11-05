@@ -85,10 +85,12 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         title = new Gtk.Label (title_name);
         title.ellipsize = Pango.EllipsizeMode.END;
         title.hexpand = true;
-        title.margin_top = 4;
+        title.margin_top = 3;
+        // This left margin is used to actually align the label to the position 
+        // of a window title. Only using Gtk.Align.CENTER doesn't do the job.
+        title.margin_left = 32;
         title.valign = Gtk.Align.CENTER;
         title.halign = Gtk.Align.CENTER;
-        ((Gtk.Misc) title).xalign = 1;
 
         var edit_button = new Gtk.Button ();
         edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
@@ -107,6 +109,7 @@ public class Notejot.EditableLabel : Gtk.EventBox {
 
         entry = new Gtk.Entry ();
         entry.margin_top = 3;
+        entry.margin_left = 3;
         entry.halign = Gtk.Align.CENTER;
         entry.secondary_icon_name = "go-jump-symbolic";
 
