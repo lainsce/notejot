@@ -23,12 +23,19 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.3.0" date="2017-11-10">
+            <description>
+                <p>Release: The Notes Strike Back</p>
+                <ul>
+                    <li>A new editable title, for when you want to make your notes extra independent</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.2.9" date="2017-11-03">
             <description>
                 <p>Release: A New Simple UI</p>
                 <ul>
                     <li>Made all items fit into the app menu, making the UI more simplified</li>
-                    <li>A new editable title, for you to name your notes now</li>
                 </ul>
             </description>
         </release>
