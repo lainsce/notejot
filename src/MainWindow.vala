@@ -27,8 +27,10 @@ namespace Notejot {
         // The first two strings here arenot used, they are used as padding on the color widget.
         public static string[] value_color = {" ", " ", "#fafafa", "#a5b3bc", "#ff9c92", "#ffc27d", "#fff394", "#d1ff82", "#8cd5ff", "#aca9fd", "#e29ffc"};
         public static int[] integer_color = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        public int color = 6;
+        public int64 color = 6;
         public string content = "";
+        public string title_name = "";
+        public Notejot.EditableLabel label;
 
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
@@ -56,7 +58,8 @@ namespace Notejot {
             header.has_subtitle = false;
             header.pack_end(app_button);
             header.set_show_close_button (true);
-            header.set_title("Notejot");
+            label = new Notejot.EditableLabel (this.title_name);
+            header.set_custom_title(label);
             this.set_titlebar(header);
 
             Gtk.ScrolledWindow scrolled = new Gtk.ScrolledWindow (null, null);
@@ -140,7 +143,8 @@ namespace Notejot {
         private void init_from_storage(Storage storage) {
             this.color = storage.color;
             this.content = storage.content;
-            this.move(storage.x, storage.y);
+            this.move((int)storage.x, (int)storage.y);
+            this.title_name = storage.title;
         }
 
         private void create_new_note(Gtk.MenuItem new_item) {
@@ -165,12 +169,13 @@ namespace Notejot {
             int x, y, color;
             Gtk.TextIter start,end;
             view.buffer.get_bounds (out start, out end);
-            string content = view.buffer.get_text (start, end, true);
+            this.content = view.buffer.get_text (start, end, true);
+            this.title_name = label.title.get_label ();
 
             this.get_position (out x, out y);
-            color = this.color;
+            color = (int)this.color;
 
-            return new Storage.from_storage(x, y, color, content);
+            return new Storage.from_storage(x, y, color, content, title_name);
         }
 
         public override bool delete_event (Gdk.EventAny event) {

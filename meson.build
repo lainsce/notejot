@@ -38,6 +38,7 @@ executable(
     'src/Application.vala',
     'src/MainWindow.vala',
     'src/ColorWidget.vala',
+    'src/EditableLabel.vala',
     'src/Services/NoteManager.vala',
     'src/Services/Storage.vala',
     'src/Constants/AppSettings.vala',

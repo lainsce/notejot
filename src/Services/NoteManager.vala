@@ -51,14 +51,31 @@ namespace Notejot {
         }
 
         private string prepare_json_from_notes (List<Storage> notes) {
-            string[] json_notes = new string[notes.length()];
-            int index = 0;
+            Json.Builder builder = new Json.Builder ();
 
+            builder.begin_array ();
             foreach (Storage note in notes) {
-                json_notes[index++] = "{\n\t\"x\":\"%d\",\n\t\"y\":\"%d\",\n\t\"color\":\"%d\",\n\t\"content\":\"%s\"\n}".printf(note.x, note.y, note.color, note.content);
-            }
+                builder.begin_object ();
+                builder.set_member_name ("x");
+                builder.add_int_value (note.x);
+                builder.set_member_name ("y");
+                builder.add_int_value (note.y);
+                builder.set_member_name ("color");
+                builder.add_int_value (note.color);
+                builder.set_member_name ("content");
+                builder.add_string_value (note.content);
+                builder.set_member_name ("title");
+                builder.add_string_value (note.title);
+                builder.end_object ();
+            };
+            builder.end_array ();
 
-            return "[%s]".printf(string.joinv(",\n", json_notes));
+            Json.Generator generator = new Json.Generator ();
+            Json.Node root = builder.get_root ();
+            generator.set_root (root);
+        
+            string str = generator.to_data (null);
+            return str;
         }
 
         public Gee.ArrayList<Storage> load_from_file() {
@@ -82,11 +99,12 @@ namespace Notejot {
                     var array = root.get_array();
                     foreach (var item in array.get_elements()) {
                         var node = item.get_object();
-                        int color = int.parse(node.get_string_member("color"));
-                        int x = int.parse(node.get_string_member("x"));
-                        int y = int.parse(node.get_string_member("y"));
+                        int64 color = node.get_int_member("color");
+                        int64 x = node.get_int_member("x");
+                        int64 y = node.get_int_member("y");
                         string content = node.get_string_member("content");
-                        Storage stored_note = new Storage.from_storage(x, y, color, content);
+                        string title = node.get_string_member("title");
+                        Storage stored_note = new Storage.from_storage(x, y, color, content, title);
                         stored_notes.add(stored_note);
                     }
 
