@@ -86,7 +86,7 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         title.ellipsize = Pango.EllipsizeMode.END;
         title.hexpand = true;
         title.margin_top = 3;
-        // This left margin is used to actually align the label to the position 
+        // This left margin is used to actually align the label to the position
         // of a window title. Only using Gtk.Align.CENTER doesn't do the job.
         title.margin_left = 32;
         title.valign = Gtk.Align.CENTER;

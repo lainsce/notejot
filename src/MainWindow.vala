@@ -35,7 +35,6 @@ namespace Notejot {
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
                     resizable: false,
-                    title: "Notejot",
                     height_request: 500,
                     width_request: 500);
 
@@ -80,6 +79,14 @@ namespace Notejot {
                 update_storage ();
                 return false;
             });
+
+            label.changed.connect (() => {
+                update_storage ();
+            });
+        }
+
+        public new void set_title (string title) {
+            this.title = title;
         }
 
         private void update_storage () {
@@ -145,6 +152,7 @@ namespace Notejot {
             this.content = storage.content;
             this.move((int)storage.x, (int)storage.y);
             this.title_name = storage.title;
+            set_title (this.title_name);
         }
 
         private void create_new_note(Gtk.MenuItem new_item) {
@@ -159,6 +167,7 @@ namespace Notejot {
 
         private void delete_note(Gtk.MenuItem delete_item) {
             view.buffer.text = "";
+            set_title ("Notejot");
             this.color = 6;
             ((Application)this.application).update_storage(this);
             ((Application)this.application).remove_note(this);
@@ -171,6 +180,7 @@ namespace Notejot {
             view.buffer.get_bounds (out start, out end);
             this.content = view.buffer.get_text (start, end, true);
             this.title_name = label.title.get_label ();
+            set_title (this.title_name);
 
             this.get_position (out x, out y);
             color = (int)this.color;
@@ -180,6 +190,7 @@ namespace Notejot {
 
         public override bool delete_event (Gdk.EventAny event) {
             var settings = AppSettings.get_default ();
+            set_title ("Notejot");
 
             int x, y;
             this.get_position (out x, out y);
