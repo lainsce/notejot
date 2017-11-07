@@ -24,11 +24,10 @@ namespace Notejot {
 
         public Application () {
             Object (flags: ApplicationFlags.FLAGS_NONE,
-            application_id: "com.github.lainsce.notejot");
+                    application_id: "com.github.lainsce.notejot");
 	    }
 
         construct {
-            app_icon = "com.github.lainsce.notejot";
             app_launcher = "com.github.lainsce.notejot";
             exec_name = "com.github.lainsce.notejot";
 
