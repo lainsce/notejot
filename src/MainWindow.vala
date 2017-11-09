@@ -83,6 +83,10 @@ namespace Notejot {
             label.changed.connect (() => {
                 update_storage ();
             });
+            
+            view.buffer.changed.connect (() => {
+                
+            });
         }
 
         public new void set_title (string title) {

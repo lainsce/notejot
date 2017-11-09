@@ -23,15 +23,23 @@
         </screenshot>
     </screenshots>
     <releases>
-        <release version="1.3.1" date="2017-11-17">
+        <release version="1.3.1" date="2017-11-12">
             <description>
-                <p>Release: Just A Lil' UI Fix</p>
+                <p>Release: Save Those Notes</p>
                 <ul>
-                    <li>Minor fixs in the UI again</li>
+                    <li>Make every change in the notes' text save the contents</li>
                 </ul>
             </description>
         </release>
-        <release version="1.3.0" date="2017-11-10">
+        <release version="1.3.1" date="2017-11-10">
+            <description>
+                <p>Release: Just A Lil' UI Fix</p>
+                <ul>
+                    <li>Minor fixes in the UI again</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.3.0" date="2017-11-05">
             <description>
                 <p>Release: The Notes Strike Back</p>
                 <ul>
