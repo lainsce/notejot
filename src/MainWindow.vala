@@ -83,9 +83,9 @@ namespace Notejot {
             label.changed.connect (() => {
                 update_storage ();
             });
-            
+
             view.buffer.changed.connect (() => {
-                
+                update_storage ();
             });
         }
 

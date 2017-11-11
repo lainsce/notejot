@@ -1,6 +1,12 @@
+com.github.lainsce.notejot (1.3.3) xenial; urgency=low
+
+  * REALLY save note contents on every change.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 17 Nov 2017 14:54:00 -0300
+
 com.github.lainsce.notejot (1.3.2) xenial; urgency=low
 
-  * Small UI fixes.
+  * Save note content.
 
  -- Lains <lainsce@airmail.cc>  Sun, 12 Nov 2017 14:54:00 -0300
 
