@@ -23,6 +23,14 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.3.4" date="2017-11-24">
+            <description>
+                <p>Release: Way Past Cool Title</p>
+                <ul>
+                    <li>Fix: the UI/UX of the editable title.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.3.3" date="2017-11-17">
             <description>
                 <p>Release: Actually Save Notes</p>

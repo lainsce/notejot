@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.3.4) xenial; urgency=low
+
+  * Fix: The UI/UX of the editable Title.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 17 Nov 2017 14:54:00 -0300
+
 com.github.lainsce.notejot (1.3.3) xenial; urgency=low
 
   * REALLY save note contents on every change.

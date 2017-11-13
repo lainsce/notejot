@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.notejot', ['vala', 'c'],
-    version: '1.3.3'
+    version: '1.3.4'
 )
 
 # Import main lib files
