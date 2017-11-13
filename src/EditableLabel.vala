@@ -85,33 +85,34 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         title = new Gtk.Label (title_name);
         title.ellipsize = Pango.EllipsizeMode.END;
         title.hexpand = true;
-        title.margin_top = 3;
-        // This left margin is used to actually align the label to the position
-        // of a window title. Only using Gtk.Align.CENTER doesn't do the job.
-        title.margin_left = 32;
-        title.valign = Gtk.Align.CENTER;
-        title.halign = Gtk.Align.CENTER;
 
         var edit_button = new Gtk.Button ();
         edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
         edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         var button_revealer = new Gtk.Revealer ();
         button_revealer.valign = Gtk.Align.CENTER;
-        button_revealer.margin_top = 3;
         button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         button_revealer.add (edit_button);
+
+        var dummy_spacer = new Gtk.Grid ();
+
+        var size_group = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
+        size_group.add_widget (dummy_spacer);
+        size_group.add_widget (edit_button);
 
         grid = new Gtk.Grid ();
         grid.valign = Gtk.Align.CENTER;
         grid.column_spacing = 6;
+        grid.add (dummy_spacer);
         grid.add (title);
         grid.add (button_revealer);
 
         entry = new Gtk.Entry ();
-        entry.margin_top = 3;
-        entry.margin_left = 3;
-        entry.halign = Gtk.Align.CENTER;
-        entry.secondary_icon_name = "go-jump-symbolic";
+        entry.xalign = 0.5f;
+
+        var entry_style_context = entry.get_style_context ();
+        entry_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        entry_style_context.add_class (Gtk.STYLE_CLASS_TITLE);
 
         stack = new Gtk.Stack ();
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
@@ -122,6 +123,7 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         enter_notify_event.connect ((event) => {
             if (event.detail != Gdk.NotifyType.INFERIOR) {
                 button_revealer.set_reveal_child (true);
+                event.window.set_cursor (new Gdk.Cursor.from_name (Gdk.Display.get_default(), "text"));
             }
 
             return false;
@@ -131,11 +133,12 @@ public class Notejot.EditableLabel : Gtk.EventBox {
             if (event.detail != Gdk.NotifyType.INFERIOR) {
                 button_revealer.set_reveal_child (false);
             }
+            event.window.set_cursor (new Gdk.Cursor.from_name (Gdk.Display.get_default(), "default"));
 
             return false;
         });
 
-        button_press_event.connect ((event) => {
+        button_release_event.connect ((event) => {
             editing = true;
             return false;
         });
