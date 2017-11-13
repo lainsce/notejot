@@ -195,6 +195,7 @@ namespace Notejot {
         public override bool delete_event (Gdk.EventAny event) {
             var settings = AppSettings.get_default ();
             set_title ("Notejot");
+            ((Application)this.application).update_storage(this);
 
             int x, y;
             this.get_position (out x, out y);
