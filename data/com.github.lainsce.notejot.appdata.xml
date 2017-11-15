@@ -23,6 +23,14 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.3.5" date="2017-11-25">
+            <description>
+                <p>Release: Ey Manager, Please Work!</p>
+                <ul>
+                    <li>Fixed notes not being saved properly in every case.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.3.4" date="2017-11-24">
             <description>
                 <p>Release: Way Past Cool Title</p>

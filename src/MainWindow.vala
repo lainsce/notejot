@@ -175,7 +175,7 @@ namespace Notejot {
             this.color = 6;
             ((Application)this.application).update_storage(this);
             ((Application)this.application).remove_note(this);
-            this.close ();
+            this.destroy ();
         }
 
         public Storage get_storage_note() {
