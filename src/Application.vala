@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     public class Application : Granite.Application {
-        private Gee.LinkedList<MainWindow> open_notes = new Gee.LinkedList<MainWindow>();
+        public Gee.ArrayList<MainWindow> open_notes = new Gee.ArrayList<MainWindow>();
         private NoteManager note_manager = new NoteManager();
 
 
@@ -66,16 +66,14 @@ namespace Notejot {
 	    public void create_note(Storage? storage) {
             debug ("Creating a note...\n");
 	        var note = new MainWindow(this, storage);
-	        open_notes.add(note);
+            open_notes.add(note);
+            update_storage();
 	    }
 
         public void remove_note(MainWindow note) {
             debug ("Removing a note...\n");
-            if (open_notes.size > 1) {
-                open_notes.remove(note);
-            } else {
-                open_notes.clear ();
-            }
+            open_notes.remove (note);
+            update_storage();
 	    }
 
 	    public void update_storage() {

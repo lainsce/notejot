@@ -40,6 +40,12 @@ namespace Notejot {
 
             if (storage != null) {
                 init_from_storage(storage);
+            } else {
+                this.color = 6;
+                this.content = "";
+                this.set_position(Gtk.WindowPosition.CENTER);
+                this.title_name = "Notejot";
+                set_title (this.title_name);
             }
 
             this.get_style_context().add_class("rounded");
@@ -170,10 +176,6 @@ namespace Notejot {
         }
 
         private void delete_note(Gtk.MenuItem delete_item) {
-            view.buffer.text = "";
-            this.color = 6;
-            label.title.set_label ("Notejot");
-            ((Application)this.application).update_storage();
             ((Application)this.application).remove_note(this);
             this.destroy ();
         }
