@@ -27,7 +27,7 @@ namespace Notejot {
             debug ("%s".printf(file_name));
         }
 
-        public void save_notes(List<Storage> notes) {
+        public void save_notes(Gee.ArrayList<Storage> notes) {
             string json_string = prepare_json_from_notes(notes);
             var dir = File.new_for_path(app_dir);
             var file = File.new_for_path (file_name);
@@ -50,7 +50,7 @@ namespace Notejot {
 
         }
 
-        private string prepare_json_from_notes (List<Storage> notes) {
+        private string prepare_json_from_notes (Gee.ArrayList<Storage> notes) {
             Json.Builder builder = new Json.Builder ();
 
             builder.begin_array ();

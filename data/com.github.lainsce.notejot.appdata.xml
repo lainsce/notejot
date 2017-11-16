@@ -23,6 +23,14 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="1.3.6" date="2017-11-18">
+            <description>
+                <p>Release: Notes Showing Tonight</p>
+                <ul>
+                    <li>Fix: Intelligently show windows even if opening from the Apps Menu.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.3.5" date="2017-11-18">
             <description>
                 <p>Release: Ey Manager, Please Work!</p>

@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     public class Application : Granite.Application {
-        private List<MainWindow> open_notes = new List<MainWindow>();
+        private Gee.LinkedList<MainWindow> open_notes = new Gee.LinkedList<MainWindow>();
         private NoteManager note_manager = new NoteManager();
 
 
@@ -45,8 +45,10 @@ namespace Notejot {
 
         protected override void activate () {
             if (get_windows ().length () > 0) {
-                foreach (MainWindow windows in open_notes) {
-                    windows.present ();
+                foreach (var window in open_notes) {
+                    if (window.visible) {
+                        window.present ();	
+                    }
                 }
             } else {
                 var list = note_manager.load_from_file();
@@ -64,22 +66,27 @@ namespace Notejot {
 	    public void create_note(Storage? storage) {
             debug ("Creating a note...\n");
 	        var note = new MainWindow(this, storage);
-	        open_notes.append(note);
+	        open_notes.add(note);
 	    }
 
         public void remove_note(MainWindow note) {
             debug ("Removing a note...\n");
-	        open_notes.remove(note);
+            if (open_notes.size > 1) {
+                open_notes.remove(note);
+            } else {
+                open_notes.clear ();
+            }
 	    }
 
 	    public void update_storage() {
             debug ("Updating the storage...\n");
-	        List<Storage> storage = new List<Storage>();
+	        Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
 
 	        foreach (MainWindow w in open_notes) {
-                storage.append(w.get_storage_note());
-                note_manager.save_notes(storage);
-	        }
+                storage.add(w.get_storage_note());
+            }
+
+            note_manager.save_notes(storage);
 	    }
 
         public static int main (string[] args) {
