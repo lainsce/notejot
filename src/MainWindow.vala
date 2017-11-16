@@ -171,8 +171,8 @@ namespace Notejot {
 
         private void delete_note(Gtk.MenuItem delete_item) {
             view.buffer.text = "";
-            set_title ("Notejot");
             this.color = 6;
+            label.title.set_label ("Notejot");
             ((Application)this.application).update_storage();
             ((Application)this.application).remove_note(this);
             this.destroy ();
@@ -194,7 +194,6 @@ namespace Notejot {
 
         public override bool delete_event (Gdk.EventAny event) {
             var settings = AppSettings.get_default ();
-            set_title ("Notejot");
 
             int x, y;
             this.get_position (out x, out y);
