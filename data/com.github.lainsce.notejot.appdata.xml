@@ -23,7 +23,7 @@
         </screenshot>
     </screenshots>
     <releases>
-        <release version="1.3.5" date="2017-11-25">
+        <release version="1.3.5" date="2017-11-18">
             <description>
                 <p>Release: Ey Manager, Please Work!</p>
                 <ul>
@@ -31,7 +31,7 @@
                 </ul>
             </description>
         </release>
-        <release version="1.3.4" date="2017-11-24">
+        <release version="1.3.4" date="2017-11-17">
             <description>
                 <p>Release: Way Past Cool Title</p>
                 <ul>
@@ -39,7 +39,7 @@
                 </ul>
             </description>
         </release>
-        <release version="1.3.3" date="2017-11-17">
+        <release version="1.3.3" date="2017-11-13">
             <description>
                 <p>Release: Actually Save Notes</p>
                 <ul>

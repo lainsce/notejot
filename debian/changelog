@@ -1,20 +1,20 @@
-com.github.lainsce.notejot (1.3.4) xenial; urgency=low
+com.github.lainsce.notejot (1.3.5) xenial; urgency=low
 
   * Fixed saving notes properly in every case.
 
- -- Lains <lainsce@airmail.cc>  Sat, 25 Nov 2017 13:54:00 -0300
+ -- Lains <lainsce@airmail.cc>  Sat, 18 Nov 2017 13:54:00 -0300
 
 com.github.lainsce.notejot (1.3.4) xenial; urgency=low
 
   * Fix: The UI/UX of the editable Title.
 
- -- Lains <lainsce@airmail.cc>  Fri, 24 Nov 2017 16:54:00 -0300
+ -- Lains <lainsce@airmail.cc>  Fri, 17 Nov 2017 16:54:00 -0300
 
 com.github.lainsce.notejot (1.3.3) xenial; urgency=low
 
   * REALLY save note contents on every change.
 
- -- Lains <lainsce@airmail.cc>  Fri, 17 Nov 2017 14:54:00 -0300
+ -- Lains <lainsce@airmail.cc>  Mon, 13 Nov 2017 14:54:00 -0300
 
 com.github.lainsce.notejot (1.3.2) xenial; urgency=low
 
