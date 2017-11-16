@@ -37,7 +37,7 @@ namespace Notejot {
             quit_action.activate.connect (() => {
     	        foreach (MainWindow windows in open_notes) {
                     debug ("Quitting all notes...\n");
-    	            update_storage(windows);
+    	            update_storage();
     	            windows.close();
     	        }
             });
@@ -72,15 +72,14 @@ namespace Notejot {
 	        open_notes.remove(note);
 	    }
 
-	    public void update_storage(MainWindow window) {
+	    public void update_storage() {
             debug ("Updating the storage...\n");
 	        List<Storage> storage = new List<Storage>();
 
 	        foreach (MainWindow w in open_notes) {
-	            storage.append(w.get_storage_note());
+                storage.append(w.get_storage_note());
+                note_manager.save_notes(storage);
 	        }
-
-	        note_manager.save_notes(storage);
 	    }
 
         public static int main (string[] args) {

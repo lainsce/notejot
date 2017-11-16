@@ -95,7 +95,7 @@ namespace Notejot {
 
         private void update_storage () {
             get_storage_note();
-            ((Application)this.application).update_storage(this);
+            ((Application)this.application).update_storage();
         }
 
         private void update_theme() {
@@ -166,14 +166,14 @@ namespace Notejot {
         private void change_color_action(int color) {
             this.color = index_color(color);
             update_theme();
-            ((Application)this.application).update_storage(this);
+            ((Application)this.application).update_storage();
         }
 
         private void delete_note(Gtk.MenuItem delete_item) {
             view.buffer.text = "";
             set_title ("Notejot");
             this.color = 6;
-            ((Application)this.application).update_storage(this);
+            ((Application)this.application).update_storage();
             ((Application)this.application).remove_note(this);
             this.destroy ();
         }
@@ -195,7 +195,6 @@ namespace Notejot {
         public override bool delete_event (Gdk.EventAny event) {
             var settings = AppSettings.get_default ();
             set_title ("Notejot");
-            ((Application)this.application).update_storage(this);
 
             int x, y;
             this.get_position (out x, out y);
