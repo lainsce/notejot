@@ -23,4 +23,4 @@ msgstr "Išvalyti užrašus"
 
 #: src/MainWindow.vala:52
 msgid "Settings"
-msgstr ""
+msgstr "Nustatymai"
