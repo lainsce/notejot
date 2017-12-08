@@ -19,8 +19,8 @@ msgstr "Nauji užrašai"
 
 #: src/MainWindow.vala:116
 msgid "Delete note"
-msgstr "Išvalyti užrašus"
+msgstr "Ištrinti užrašus"
 
 #: src/MainWindow.vala:52
 msgid "Settings"
-msgstr ""
+msgstr "Nustatymai"
