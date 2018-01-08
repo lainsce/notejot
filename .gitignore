@@ -1,6 +1,8 @@
 build/
 ~*
 *~
+.flatpak-builder/
+app-dir/
 debian/com.github.lainsce.notejot.debhelper.log
 debian/com.github.lainsce.notejot.substvars
 debian/com.github.lainsce.notejot/
