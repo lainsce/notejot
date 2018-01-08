@@ -23,6 +23,15 @@
         </screenshot>
     </screenshots>
     <releases>
+      <release version="1.3.7" date="2018-01-08">
+          <description>
+              <p>Release: Build A Flatpak</p>
+              <ul>
+                  <li>Update the Lithuanian translation</li>
+                  <li>Make the app become Flatpak-friendly</li>
+              </ul>
+          </description>
+      </release>
         <release version="1.3.6" date="2017-11-18">
             <description>
                 <p>Release: Notes Showing Tonight</p>
