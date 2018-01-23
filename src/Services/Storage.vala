@@ -20,7 +20,7 @@
 
 namespace Notejot {
     public class Storage : Object {
-        public int64 color;
+        public string color;
         public int64 x;
         public int64 y;
         public string content;
@@ -28,7 +28,7 @@ namespace Notejot {
 
         public Storage() {}
 
-        public Storage.from_storage(int64 x, int64 y, int64 color, string message, string title) {
+        public Storage.from_storage(int64 x, int64 y, string color, string message, string title) {
             this.color = color;
             this.content = message;
             this.x = x;

@@ -1,14 +1,9 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.notejot package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-25 23:53-0200\n"
+"POT-Creation-Date: 2018-01-23 01:00-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +12,50 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:113
+#: src/MainWindow.vala:299
 msgid "New note"
 msgstr ""
 
-#: src/MainWindow.vala:116
+#: src/MainWindow.vala:303
 msgid "Delete note"
 msgstr ""
 
-#: src/MainWindow.vala:52
+#: src/MainWindow.vala:310
+msgid "White"
+msgstr ""
+
+#: src/MainWindow.vala:320
+msgid "Red"
+msgstr ""
+
+#: src/MainWindow.vala:330
+msgid "Orange"
+msgstr ""
+
+#: src/MainWindow.vala:340
+msgid "Yellow"
+msgstr ""
+
+#: src/MainWindow.vala:350
+msgid "Green"
+msgstr ""
+
+#: src/MainWindow.vala:360
+msgid "Blue"
+msgstr ""
+
+#: src/MainWindow.vala:370
+msgid "Indigo"
+msgstr ""
+
+#: src/MainWindow.vala:380
+msgid "Violet"
+msgstr ""
+
+#: src/MainWindow.vala:390
+msgid "Slate"
+msgstr ""
+
+#: src/MainWindow.vala:423
 msgid "Settings"
 msgstr ""

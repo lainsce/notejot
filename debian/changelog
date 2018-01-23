@@ -1,4 +1,10 @@
-com.github.lainsce.notejot (1.3.6) xenial; urgency=low
+com.github.lainsce.notejot (1.3.8) xenial; urgency=low
+
+  * New menu with better & fancier color buttons.
+
+ -- Lains <lainsce@airmail.cc>  Mon, 08 Jan 2018 13:54:00 -0300
+
+com.github.lainsce.notejot (1.3.7) xenial; urgency=low
 
   * Update the Lithuanian translation.
   * Make the app become Flatpak friendly.

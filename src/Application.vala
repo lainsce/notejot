@@ -32,7 +32,7 @@ namespace Notejot {
             exec_name = "com.github.lainsce.notejot";
 
             var quit_action = new SimpleAction ("quit", null);
-            add_accelerator ("<Control>q", "app.quit", null);
+            set_accels_for_action ("app.quit", {"<Control>q"});
             add_action (quit_action);
             quit_action.activate.connect (() => {
     	        foreach (MainWindow windows in open_notes) {
@@ -47,7 +47,7 @@ namespace Notejot {
             if (get_windows ().length () > 0) {
                 foreach (var window in open_notes) {
                     if (window.visible) {
-                        window.present ();	
+                        window.present ();
                     }
                 }
             } else {

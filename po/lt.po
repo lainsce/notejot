@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-25 23:53-0200\n"
+"POT-Creation-Date: 2018-01-23 01:00-0200\n"
 "PO-Revision-Date: 2017-08-28 13:55+0300\n"
 "Last-Translator: Moo\n"
 "Language: lt\n"
@@ -13,14 +13,50 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:113
+#: src/MainWindow.vala:299
 msgid "New note"
 msgstr "Nauji užrašai"
 
-#: src/MainWindow.vala:116
+#: src/MainWindow.vala:303
 msgid "Delete note"
 msgstr "Ištrinti užrašus"
 
-#: src/MainWindow.vala:52
+#: src/MainWindow.vala:310
+msgid "White"
+msgstr ""
+
+#: src/MainWindow.vala:320
+msgid "Red"
+msgstr ""
+
+#: src/MainWindow.vala:330
+msgid "Orange"
+msgstr ""
+
+#: src/MainWindow.vala:340
+msgid "Yellow"
+msgstr ""
+
+#: src/MainWindow.vala:350
+msgid "Green"
+msgstr ""
+
+#: src/MainWindow.vala:360
+msgid "Blue"
+msgstr ""
+
+#: src/MainWindow.vala:370
+msgid "Indigo"
+msgstr ""
+
+#: src/MainWindow.vala:380
+msgid "Violet"
+msgstr ""
+
+#: src/MainWindow.vala:390
+msgid "Slate"
+msgstr ""
+
+#: src/MainWindow.vala:423
 msgid "Settings"
 msgstr "Nustatymai"
