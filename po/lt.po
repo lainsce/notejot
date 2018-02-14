@@ -23,39 +23,39 @@ msgstr "Ištrinti užrašus"
 
 #: src/MainWindow.vala:310
 msgid "White"
-msgstr ""
+msgstr "Balta"
 
 #: src/MainWindow.vala:320
 msgid "Red"
-msgstr ""
+msgstr "Raudona"
 
 #: src/MainWindow.vala:330
 msgid "Orange"
-msgstr ""
+msgstr "Oranžinė"
 
 #: src/MainWindow.vala:340
 msgid "Yellow"
-msgstr ""
+msgstr "Geltona"
 
 #: src/MainWindow.vala:350
 msgid "Green"
-msgstr ""
+msgstr "Žalia"
 
 #: src/MainWindow.vala:360
 msgid "Blue"
-msgstr ""
+msgstr "Mėlyna"
 
 #: src/MainWindow.vala:370
 msgid "Indigo"
-msgstr ""
+msgstr "Indigo"
 
 #: src/MainWindow.vala:380
 msgid "Violet"
-msgstr ""
+msgstr "Violetinė"
 
 #: src/MainWindow.vala:390
 msgid "Slate"
-msgstr ""
+msgstr "Pilkai melsva"
 
 #: src/MainWindow.vala:423
 msgid "Settings"
