@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-17 22:55+0300\n"
+"PO-Revision-Date: 2018-02-17 23:02+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: tr_TR\n"
+
+#: src/MainWindow.vala:299
+msgid "New note"
+msgstr "Yeni not"
+
+#: src/MainWindow.vala:303
+msgid "Delete note"
+msgstr "Notu sil"
+
+#: src/MainWindow.vala:310
+msgid "White"
+msgstr "Beyaz"
+
+#: src/MainWindow.vala:320
+msgid "Red"
+msgstr "Kırmızı"
+
+#: src/MainWindow.vala:330
+msgid "Orange"
+msgstr "Turuncu"
+
+#: src/MainWindow.vala:340
+msgid "Yellow"
+msgstr "Sarı"
+
+#: src/MainWindow.vala:350
+msgid "Green"
+msgstr "Yeşil"
+
+#: src/MainWindow.vala:360
+msgid "Blue"
+msgstr "Mavi"
+
+#: src/MainWindow.vala:370
+msgid "Indigo"
+msgstr "Çivit"
+
+#: src/MainWindow.vala:380
+msgid "Violet"
+msgstr "Menekşe"
+
+#: src/MainWindow.vala:390
+msgid "Slate"
+msgstr "Barut Gri"
+
+#: src/MainWindow.vala:423
+msgid "Settings"
+msgstr "Ayarlar"
