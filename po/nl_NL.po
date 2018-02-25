@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-23 01:00-0200\n"
+"PO-Revision-Date: 2018-02-25 14:47+0100\n"
+"Language-Team: Dutch - vistausss@outlook.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl_NL\n"
+
+#: src/MainWindow.vala:299
+msgid "New note"
+msgstr "Nieuwe notitie"
+
+#: src/MainWindow.vala:303
+msgid "Delete note"
+msgstr "Notitie verwijderen"
+
+#: src/MainWindow.vala:310
+msgid "White"
+msgstr "Wit"
+
+#: src/MainWindow.vala:320
+msgid "Red"
+msgstr "Rood"
+
+#: src/MainWindow.vala:330
+msgid "Orange"
+msgstr "Oranje"
+
+#: src/MainWindow.vala:340
+msgid "Yellow"
+msgstr "Geel"
+
+#: src/MainWindow.vala:350
+msgid "Green"
+msgstr "Groen"
+
+#: src/MainWindow.vala:360
+msgid "Blue"
+msgstr "Blauw"
+
+#: src/MainWindow.vala:370
+msgid "Indigo"
+msgstr "Indigo"
+
+#: src/MainWindow.vala:380
+msgid "Violet"
+msgstr "Paars"
+
+#: src/MainWindow.vala:390
+msgid "Slate"
+msgstr "Blauwgrijs"
+
+#: src/MainWindow.vala:423
+msgid "Settings"
+msgstr "Instellingen"
