@@ -120,9 +120,8 @@ namespace Notejot {
 
             // Create a next window if requested and it's not the app launch
             if (create_new_window) {
-                Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
                 create_new_window = false;
-                create_note (storage);
+                create_note (null);
             }
             return 0;
         }
