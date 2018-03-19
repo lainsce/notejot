@@ -109,6 +109,8 @@ namespace Notejot {
             string[] args = command_line.get_arguments ();
             int unclaimed_args;
 
+            activate ();
+
             try {
                 context.parse_strv (ref args);
                 unclaimed_args = args.length - 1;
