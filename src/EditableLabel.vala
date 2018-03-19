@@ -65,9 +65,9 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         string style = null;
         var css_provider = new Gtk.CssProvider();
         if (Gtk.get_minor_version() < 20) {
-            style = ".notejot-label { font-weight: 700; color: @textColorPrimary; } .notejot-label:backdrop { color: mix (@textColorPrimary, @colorPrimary, 0.3);; }";
+            style = ".notejot-label { font-weight: 700; color: @textColorPrimary; } .notejot-label:backdrop { color: mix (@textColorPrimary, @colorPrimary, 0.3); }";
         } else {
-            style = ".notejot-label { font-weight: 700; color: @textColorPrimary; } .notejot-label:backdrop { color: mix (@textColorPrimary, @colorPrimary, 0.3);; }";
+            style = ".notejot-label { font-weight: 700; color: @textColorPrimary; } .notejot-label:backdrop { color: mix (@textColorPrimary, @colorPrimary, 0.3); }";
         }
 
         try {

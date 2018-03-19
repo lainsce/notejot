@@ -20,10 +20,10 @@ namespace Notejot {
     public class Application : Granite.Application {
         public Gee.ArrayList<MainWindow> open_notes = new Gee.ArrayList<MainWindow>();
         private NoteManager note_manager = new NoteManager();
-
+        private static bool create_new_window = false;
 
         public Application () {
-            Object (flags: ApplicationFlags.FLAGS_NONE,
+            Object (flags: ApplicationFlags.HANDLES_COMMAND_LINE,
                     application_id: "com.github.lainsce.notejot");
 	    }
 
@@ -100,6 +100,37 @@ namespace Notejot {
 
             note_manager.save_notes(storage);
 	    }
+
+        protected override int command_line (ApplicationCommandLine command_line) {
+            var context = new OptionContext ("File");
+            context.add_main_entries (entries, Build.GETTEXT_PACKAGE);
+            context.add_group (Gtk.get_option_group (true));
+
+            string[] args = command_line.get_arguments ();
+            int unclaimed_args;
+
+            try {
+                context.parse_strv (ref args);
+                unclaimed_args = args.length - 1;
+            } catch(Error e) {
+                print (e.message + "\n");
+
+                return 1;
+            }
+
+            // Create a next window if requested and it's not the app launch
+            if (create_new_window) {
+                Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
+                create_new_window = false;
+                create_note (storage);
+            }
+            return 0;
+        }
+
+        const OptionEntry[] entries = {
+            { "new-note", 'n', 0, OptionArg.NONE, out create_new_window, "New Note", null },
+            { null }
+        };
 
         public static int main (string[] args) {
             Intl.setlocale (LocaleCategory.ALL, "");
