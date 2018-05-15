@@ -1,0 +1,64 @@
+# Ryo Nakano <ryonakaknock@gmail.com>, 2018.
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-23 01:00-0200\n"
+"PO-Revision-Date: 2018-05-15 21:49+0900\n"
+"Last-Translator: Ryo Nakano <ryonakaknock@gmail.com>\n"
+"Language-Team: Japanese <>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: src/MainWindow.vala:299
+msgid "New note"
+msgstr "新しいノート"
+
+#: src/MainWindow.vala:303
+msgid "Delete note"
+msgstr "ノートを削除"
+
+#: src/MainWindow.vala:310
+msgid "White"
+msgstr "白"
+
+#: src/MainWindow.vala:320
+msgid "Red"
+msgstr "赤"
+
+#: src/MainWindow.vala:330
+msgid "Orange"
+msgstr "オレンジ"
+
+#: src/MainWindow.vala:340
+msgid "Yellow"
+msgstr "黄"
+
+#: src/MainWindow.vala:350
+msgid "Green"
+msgstr "緑"
+
+#: src/MainWindow.vala:360
+msgid "Blue"
+msgstr "青"
+
+#: src/MainWindow.vala:370
+msgid "Indigo"
+msgstr "藍"
+
+#: src/MainWindow.vala:380
+msgid "Violet"
+msgstr "すみれ"
+
+#: src/MainWindow.vala:390
+msgid "Slate"
+msgstr "スレート"
+
+#: src/MainWindow.vala:423
+msgid "Settings"
+msgstr "設定"
+
