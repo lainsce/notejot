@@ -44,7 +44,7 @@ namespace Notejot {
 
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
-                    resizable: false,
+                    resizable: true,
                     height_request: 500,
                     width_request: 500);
 
