@@ -45,8 +45,8 @@ namespace Notejot {
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
                     resizable: false,
-                    height_request: 500,
-                    width_request: 500);
+                    height_request: 300,
+                    width_request: 300);
 
             var actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
