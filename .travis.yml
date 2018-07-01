@@ -1,12 +1,38 @@
-    sudo: required
-    language: generic
+---
 
-    services:
-    - docker
+language: node_js
 
-    script:
-    - wget -O- https://raw.githubusercontent.com/harisvsulaiman/element-build/master/script.sh | sh -
+node_js:
+  - lts/*
 
-    branches:
-    except:
-        - /^debian\/\d/
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-5-dev
+
+cache:
+  directories:
+    - /tmp/liftoff
+
+matrix:
+  include:
+    - env: DIST=loki
+    - env: DIST=juno
+
+install:
+  - npm install @elementaryos/houston
+
+script:
+  - houston ci
+    --distribution $DIST
+
+branches:
+  only:
+    - master
