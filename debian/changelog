@@ -1,3 +1,9 @@
+com.github.lainsce.notejot (1.4.0) xenial; urgency=low
+
+  * Fixed deleted notes taking others with them.
+
+ -- Lains <lainsce@airmail.cc>  Wed, 04 Jul 2018 19:04:00 -0300
+
 com.github.lainsce.notejot (1.3.9) xenial; urgency=low
 
   * New option to create notes in the Icon.

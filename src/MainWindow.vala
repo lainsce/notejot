@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2417 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -45,8 +45,8 @@ namespace Notejot {
         public MainWindow (Gtk.Application app, Storage? storage) {
             Object (application: app,
                     resizable: false,
-                    height_request: 300,
-                    width_request: 300);
+                    height_request: 450,
+                    width_request: 450);
 
             var actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
@@ -305,8 +305,8 @@ namespace Notejot {
 
             var color_button_white = new Gtk.Button ();
             color_button_white.halign = Gtk.Align.CENTER;
-            color_button_white.height_request = 22;
-            color_button_white.width_request = 22;
+            color_button_white.height_request = 24;
+            color_button_white.width_request = 24;
             color_button_white.tooltip_text = _("White");
 
             var color_button_white_context = color_button_white.get_style_context ();
@@ -315,8 +315,8 @@ namespace Notejot {
 
             var color_button_red = new Gtk.Button ();
             color_button_red.halign = Gtk.Align.CENTER;
-            color_button_red.height_request = 22;
-            color_button_red.width_request = 22;
+            color_button_red.height_request = 24;
+            color_button_red.width_request = 24;
             color_button_red.tooltip_text = _("Red");
 
             var color_button_red_context = color_button_red.get_style_context ();
@@ -325,8 +325,8 @@ namespace Notejot {
 
             var color_button_orange = new Gtk.Button ();
             color_button_orange.halign = Gtk.Align.CENTER;
-            color_button_orange.height_request = 22;
-            color_button_orange.width_request = 22;
+            color_button_orange.height_request = 24;
+            color_button_orange.width_request = 24;
             color_button_orange.tooltip_text = _("Orange");
 
             var color_button_orange_context = color_button_orange.get_style_context ();
@@ -335,8 +335,8 @@ namespace Notejot {
 
             var color_button_yellow = new Gtk.Button ();
             color_button_yellow.halign = Gtk.Align.CENTER;
-            color_button_yellow.height_request = 22;
-            color_button_yellow.width_request = 22;
+            color_button_yellow.height_request = 24;
+            color_button_yellow.width_request = 24;
             color_button_yellow.tooltip_text = _("Yellow");
 
             var color_button_yellow_context = color_button_yellow.get_style_context ();
@@ -345,8 +345,8 @@ namespace Notejot {
 
             var color_button_green = new Gtk.Button ();
             color_button_green.halign = Gtk.Align.CENTER;
-            color_button_green.height_request = 22;
-            color_button_green.width_request = 22;
+            color_button_green.height_request = 24;
+            color_button_green.width_request = 24;
             color_button_green.tooltip_text = _("Green");
 
             var color_button_green_context = color_button_green.get_style_context ();
@@ -355,8 +355,8 @@ namespace Notejot {
 
             var color_button_blue = new Gtk.Button ();
             color_button_blue.halign = Gtk.Align.CENTER;
-            color_button_blue.height_request = 22;
-            color_button_blue.width_request = 22;
+            color_button_blue.height_request = 24;
+            color_button_blue.width_request = 24;
             color_button_blue.tooltip_text = _("Blue");
 
             var color_button_blue_context = color_button_blue.get_style_context ();
@@ -365,8 +365,8 @@ namespace Notejot {
 
             var color_button_indigo = new Gtk.Button ();
             color_button_indigo.halign = Gtk.Align.CENTER;
-            color_button_indigo.height_request = 22;
-            color_button_indigo.width_request = 22;
+            color_button_indigo.height_request = 24;
+            color_button_indigo.width_request = 24;
             color_button_indigo.tooltip_text = _("Indigo");
 
             var color_button_indigo_context = color_button_indigo.get_style_context ();
@@ -375,8 +375,8 @@ namespace Notejot {
 
             var color_button_violet = new Gtk.Button ();
             color_button_violet.halign = Gtk.Align.CENTER;
-            color_button_violet.height_request = 22;
-            color_button_violet.width_request = 22;
+            color_button_violet.height_request = 24;
+            color_button_violet.width_request = 24;
             color_button_violet.tooltip_text = _("Violet");
 
             var color_button_violet_context = color_button_violet.get_style_context ();
@@ -385,8 +385,8 @@ namespace Notejot {
 
             var color_button_slate = new Gtk.Button ();
             color_button_slate.halign = Gtk.Align.CENTER;
-            color_button_slate.height_request = 22;
-            color_button_slate.width_request = 22;
+            color_button_slate.height_request = 24;
+            color_button_slate.width_request = 24;
             color_button_slate.tooltip_text = _("Slate");
 
             var color_button_slate_context = color_button_slate.get_style_context ();
@@ -395,6 +395,7 @@ namespace Notejot {
 
             var color_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             color_button_box.margin_start = 6;
+            color_button_box.margin_end = 6;
             color_button_box.pack_start (color_button_white, false, true, 0);
             color_button_box.pack_start (color_button_red, false, true, 0);
             color_button_box.pack_start (color_button_orange, false, true, 0);
@@ -495,7 +496,7 @@ namespace Notejot {
 
         private void action_delete () {
             ((Application)this.application).remove_note(this);
-            this.destroy ();
+            this.close ();
         }
 
         public Storage get_storage_note() {
