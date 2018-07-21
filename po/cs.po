@@ -1,0 +1,65 @@
+#
+# Jan Marek <janmarek28@gmail.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-23 01:00-0200\n"
+"PO-Revision-Date: 2018-07-21 18:20+0200\n"
+"Last-Translator: Jan Marek <janmarek28@gmail.com>\n"
+"Language-Team: čeština <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: src/MainWindow.vala:299
+msgid "New note"
+msgstr "Nová poznámka"
+
+#: src/MainWindow.vala:303
+msgid "Delete note"
+msgstr "Smazat poznámku"
+
+#: src/MainWindow.vala:310
+msgid "White"
+msgstr "Bílá"
+
+#: src/MainWindow.vala:320
+msgid "Red"
+msgstr "Červená"
+
+#: src/MainWindow.vala:330
+msgid "Orange"
+msgstr "Oranžová"
+
+#: src/MainWindow.vala:340
+msgid "Yellow"
+msgstr "Žlutá"
+
+#: src/MainWindow.vala:350
+msgid "Green"
+msgstr "Zelená"
+
+#: src/MainWindow.vala:360
+msgid "Blue"
+msgstr "Modrá"
+
+#: src/MainWindow.vala:370
+msgid "Indigo"
+msgstr "Indigová"
+
+#: src/MainWindow.vala:380
+msgid "Violet"
+msgstr "Fialová"
+
+#: src/MainWindow.vala:390
+msgid "Slate"
+msgstr "Břidlicová"
+
+#: src/MainWindow.vala:423
+msgid "Settings"
+msgstr "Nastavení"
