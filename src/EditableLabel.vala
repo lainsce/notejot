@@ -64,11 +64,13 @@ public class Notejot.EditableLabel : Gtk.EventBox {
 
         string style = null;
         var css_provider = new Gtk.CssProvider();
-        if (Gtk.get_minor_version() < 20) {
-            style = ".notejot-label { font-weight: 700; color: @textColorPrimary; } .notejot-label:backdrop { color: mix (@textColorPrimary, @colorPrimary, 0.3); }";
-        } else {
-            style = ".notejot-label { font-weight: 700; color: @textColorPrimary; } .notejot-label:backdrop { color: mix (@textColorPrimary, @colorPrimary, 0.3); }";
+        style = """
+        .notejot-label {
+            font-weight: 700;
         }
+        .notejot-label:backdrop {
+            color: mix (@textColorPrimary, @colorPrimary, 0.3);
+        }""";
 
         try {
             css_provider.load_from_data(style, -1);
@@ -103,6 +105,7 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         grid = new Gtk.Grid ();
         grid.valign = Gtk.Align.CENTER;
         grid.column_spacing = 6;
+        grid.hexpand = false;
         grid.add (dummy_spacer);
         grid.add (title);
         grid.add (button_revealer);

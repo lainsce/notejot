@@ -52,6 +52,17 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+      <release version="1.4.1" date="2018-09-07">
+          <description>
+              <p>Release: New Note Tech</p>
+              <ul>
+                  <li>New User Interface.</li>
+                  <li>New font.</li>
+                  <li>Same ol' notes app.</li>
+              </ul>
+              <p><b>Note:</b> You should first backup your notes' file before updating, you could lose data due to the new UI's backend.</p>
+          </description>
+      </release>
       <release version="1.4.0" date="2018-07-04">
           <description>
               <p>Release: Hello Juno!</p>

@@ -19,12 +19,14 @@
 
 namespace Notejot {
     public class MainWindow : Gtk.Window {
-        private Gtk.ModelButton delete_item;
+        private Gtk.Button delete_item;
         private Gtk.SourceView view = new Gtk.SourceView ();
         private Gtk.HeaderBar header;
+        private Gtk.ActionBar actionbar;
         private int uid;
         private static int uid_counter = 0;
         public string color = "#fff394";
+        public string selected_color_text = "#333333";
         public string content = "";
         public string title_name = "Notejot";
         public Notejot.EditableLabel label;
@@ -56,6 +58,7 @@ namespace Notejot {
                 init_from_storage(storage);
             } else {
                 this.color = "#fff394";
+                this.selected_color_text = "#ad5f00";
                 this.content = "";
                 this.set_position(Gtk.WindowPosition.CENTER);
                 this.title_name = "Notejot";
@@ -69,20 +72,25 @@ namespace Notejot {
 
             header = new Gtk.HeaderBar();
             header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            header.get_style_context().add_class("notejot-title");
             header.has_subtitle = false;
-            create_app_menu ();
             header.set_show_close_button (true);
 
             label = new Notejot.EditableLabel (this.title_name);
             header.set_custom_title(label);
             this.set_titlebar(header);
 
+            actionbar = new Gtk.ActionBar ();
+            actionbar.get_style_context().add_class("notejot-bar");
+            create_actionbar ();
+            create_app_menu ();
+
             var scrolled = new Gtk.ScrolledWindow (null, null);
-            this.add (scrolled);
 
             view.bottom_margin = 10;
             view.buffer.text = this.content;
-            view.expand = false;
+            view.get_style_context().add_class("notejot-view");
+            view.expand = true;
             view.left_margin = 10;
             view.margin = 2;
             view.right_margin = 10;
@@ -90,6 +98,14 @@ namespace Notejot {
             view.top_margin = 10;
             scrolled.add (view);
             this.show_all();
+
+            var grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.VERTICAL;
+            grid.expand = true;
+            grid.add (scrolled);
+            grid.add (actionbar);
+            grid.show_all ();
+            this.add (grid);
 
             focus_out_event.connect (() => {
                 update_storage ();
@@ -121,113 +137,49 @@ namespace Notejot {
 
             string style = null;
             string selected_color = this.color;
-            if (Gtk.get_minor_version() < 20) {
-                style = (N_("""
+            style = (N_("""
                 @define-color textColorPrimary #1a1a1a;
 
                 .mainwindow-%d {
                     background-color: %s;
-                    box-shadow: #1a1a1a;
+                    font-weight: 300;
+                    font-family: 'Markery', fantasy;
+                    font-size: 1.33em;
                 }
 
-                GtkTextView.view {
+                .notejot-view:selected {
                     color: @textColorPrimary;
-                    font-size: 11px;
                 }
 
-                GtkTextView.view:selected {
+                .notejot-view:selected {
                     color: #FFFFFF;
                     background-color: #64baff;
-                    font-size: 11px
-                }
-
-                GtkEntry.flat {
-                    background: transparent;
-                }
-
-                .window-%d GtkTextView,
-                .window-%d GtkHeaderBar {
-                    background-color: %s;
-                    border-bottom-color: %s;
-                    box-shadow: none;
-                }
-
-                .color-button {
-                    border-radius: 50%;
-                    box-shadow:
-                        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-                        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-                        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
-                }
-
-                .color-button:focus {
-                    border-color: @colorAccent;
-                }
-
-                .color-slate {
-                    background-color: #a5b3bc;
-                }
-
-                .color-white {
-                    background-color: #fafafa;
-                }
-
-                .color-red {
-                    background-color: #ff9c92;
-                }
-
-                .color-orange {
-                    background-color: #ffc27d;
-                }
-
-                .color-yellow {
-                    background-color: #fff394;
-                }
-
-                .color-green {
-                    background-color: #d1ff82;
-                }
-
-                .color-blue {
-                    background-color: #8cd5ff;
-                }
-
-                .color-indigo {
-                    background-color: #aca9fd;
-                }
-
-                .color-violet {
-                    background-color: #e29ffc;
-                }
-                """)).printf(uid, selected_color, uid, uid, selected_color, selected_color);
-            } else {
-                style = (N_("""
-                @define-color textColorPrimary #1a1a1a;
-
-                .mainwindow-%d {
-                    background-color: %s;
-                    box-shadow: #1a1a1a;
-                }
-
-                textview.view:selected {
-                    color: @textColorPrimary;
-                    font-size: 14px;
-                }
-
-                textview.view:selected {
-                    color: #FFFFFF;
-                    background-color: #64baff;
-                    font-size: 14px
                 }
 
                 entry.flat {
                     background: transparent;
                 }
 
-                .window-%d textview.view text,
-                .window-%d headerbar {
+                .window-%d .notejot-title image,
+                .window-%d .notejot-label {
+                    color: %s;
+                }
+
+                .window-%d .notejot-bar,
+                .window-%d .notejot-bar image {
+                    color: %s;
+                    background-color: %s;
+                    border-top-color: %s;
+                    box-shadow: none;
+                    background-image: none;
+                    padding: 3px;
+                }
+
+                .window-%d .notejot-view text,
+                .window-%d .notejot-title {
                     background-color: %s;
                     border-bottom-color: %s;
+                    color: #000;
                     box-shadow: none;
                 }
 
@@ -239,8 +191,9 @@ namespace Notejot {
                         0 1px 0 0 alpha (@bg_highlight_color, 0.3);
                 }
 
+                .color-button:hover,
                 .color-button:focus {
-                    border-color: @colorAccent;
+                    border: 2px solid @BLACK_300;
                 }
 
                 .color-slate {
@@ -252,7 +205,7 @@ namespace Notejot {
                 }
 
                 .color-red {
-                    background-color: #ff9c92;
+                    background-color: #ff8c82;
                 }
 
                 .color-orange {
@@ -275,11 +228,10 @@ namespace Notejot {
                     background-color: #aca9fd;
                 }
 
-                .color-violet {
-                    background-color: #e29ffc;
+                .color-cocoa {
+                    background-color: #a3907c;
                 }
-                """)).printf(uid, selected_color, uid, uid, selected_color, selected_color);
-            }
+                """)).printf(uid, selected_color, uid, uid, selected_color_text, uid, uid, selected_color_text, selected_color, selected_color, uid, uid, selected_color, selected_color);
 
             try {
                 css_provider.load_from_data(style, -1);
@@ -294,15 +246,22 @@ namespace Notejot {
             );
         }
 
-        private void create_app_menu() {
-            var new_item = new Gtk.ModelButton ();
-            new_item.text = (_("New note"));
+        private void create_actionbar () {
+            var new_item = new Gtk.Button ();
+            new_item.tooltip_text = (_("New note"));
+            new_item.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             new_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_NEW;
 
-            delete_item = new Gtk.ModelButton ();
-            delete_item.text = (_("Delete note"));
+            delete_item = new Gtk.Button ();
+            delete_item.tooltip_text = (_("Delete note"));
+            delete_item.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             delete_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_DELETE;
 
+            actionbar.pack_start (new_item);
+            actionbar.pack_start (delete_item);
+        }
+
+        private void create_app_menu () {
             var color_button_white = new Gtk.Button ();
             color_button_white.halign = Gtk.Align.CENTER;
             color_button_white.height_request = 24;
@@ -373,15 +332,15 @@ namespace Notejot {
             color_button_indigo_context.add_class ("color-button");
             color_button_indigo_context.add_class ("color-indigo");
 
-            var color_button_violet = new Gtk.Button ();
-            color_button_violet.halign = Gtk.Align.CENTER;
-            color_button_violet.height_request = 24;
-            color_button_violet.width_request = 24;
-            color_button_violet.tooltip_text = _("Violet");
+            var color_button_cocoa = new Gtk.Button ();
+            color_button_cocoa.halign = Gtk.Align.CENTER;
+            color_button_cocoa.height_request = 24;
+            color_button_cocoa.width_request = 24;
+            color_button_cocoa.tooltip_text = _("Cocoa");
 
-            var color_button_violet_context = color_button_violet.get_style_context ();
-            color_button_violet_context.add_class ("color-button");
-            color_button_violet_context.add_class ("color-violet");
+            var color_button_cocoa_context = color_button_cocoa.get_style_context ();
+            color_button_cocoa_context.add_class ("color-button");
+            color_button_cocoa_context.add_class ("color-cocoa");
 
             var color_button_slate = new Gtk.Button ();
             color_button_slate.halign = Gtk.Align.CENTER;
@@ -394,8 +353,6 @@ namespace Notejot {
             color_button_slate_context.add_class ("color-slate");
 
             var color_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            color_button_box.margin_start = 6;
-            color_button_box.margin_end = 6;
             color_button_box.pack_start (color_button_white, false, true, 0);
             color_button_box.pack_start (color_button_red, false, true, 0);
             color_button_box.pack_start (color_button_orange, false, true, 0);
@@ -403,17 +360,15 @@ namespace Notejot {
             color_button_box.pack_start (color_button_green, false, true, 0);
             color_button_box.pack_start (color_button_blue, false, true, 0);
             color_button_box.pack_start (color_button_indigo, false, true, 0);
-            color_button_box.pack_start (color_button_violet, false, true, 0);
+            color_button_box.pack_start (color_button_cocoa, false, true, 0);
             color_button_box.pack_start (color_button_slate, false, true, 0);
 
             var setting_grid = new Gtk.Grid ();
-            setting_grid.margin = 6;
+            setting_grid.margin = 12;
             setting_grid.column_spacing = 6;
-            setting_grid.row_spacing = 12;
+            setting_grid.row_spacing = 6;
             setting_grid.orientation = Gtk.Orientation.VERTICAL;
-            setting_grid.attach (new_item, 0, 0, 1, 1);
-            setting_grid.attach (color_button_box, 0, 1, 1, 1);
-            setting_grid.attach (delete_item, 0, 2, 1, 1);
+            setting_grid.attach (color_button_box, 0, 0, 1, 1);
             setting_grid.show_all ();
 
             var popover = new Gtk.Popover (null);
@@ -427,63 +382,73 @@ namespace Notejot {
 
             color_button_white.clicked.connect (() => {
                 this.color = "#F5F5F5";
+                this.selected_color_text = "#666666";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_red.clicked.connect (() => {
-                this.color = "#ff9c92";
+                this.color = "#ff8c82";
+                this.selected_color_text = "#7a0000";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_orange.clicked.connect (() => {
                 this.color = "#ffc27d";
+                this.selected_color_text = "#a62100";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_yellow.clicked.connect (() => {
                 this.color = "#fff394";
+                this.selected_color_text = "#ad5f00";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_green.clicked.connect (() => {
                 this.color = "#d1ff82";
+                this.selected_color_text = "#206b00";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_blue.clicked.connect (() => {
                 this.color = "#8cd5ff";
+                this.selected_color_text = "#002e99";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_indigo.clicked.connect (() => {
                 this.color = "#aca9fd";
+                this.selected_color_text = "#452981";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
-            color_button_violet.clicked.connect (() => {
-                this.color = "#e29ffc";
+            color_button_cocoa.clicked.connect (() => {
+                this.color = "#a3907c";
+                this.selected_color_text = "#3d211b";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
             color_button_slate.clicked.connect (() => {
                 this.color = "#a5b3bc";
+                this.selected_color_text = "#0e141f";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
 
-            header.pack_end(app_button);
+            actionbar.pack_end (app_button);
         }
 
         private void init_from_storage(Storage storage) {
             this.color = storage.color;
+            this.selected_color_text = storage.selected_color_text;
             this.content = storage.content;
             this.move((int)storage.x, (int)storage.y);
             this.title_name = storage.title;
@@ -502,6 +467,7 @@ namespace Notejot {
         public Storage get_storage_note() {
             int x, y;
             string color = this.color;
+            string selected_color_text = this.selected_color_text;
             Gtk.TextIter start,end;
             view.buffer.get_bounds (out start, out end);
             this.content = view.buffer.get_text (start, end, true);
@@ -510,7 +476,7 @@ namespace Notejot {
 
             this.get_position (out x, out y);
 
-            return new Storage.from_storage(x, y, color, content, title_name);
+            return new Storage.from_storage(x, y, color, selected_color_text, content, title_name);
         }
 
         public override bool delete_event (Gdk.EventAny event) {
