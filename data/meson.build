@@ -30,6 +30,6 @@ install_data(
 )
 
 install_data(
-    join_paths('font', 'Markery.ttf'),
+    join_paths('font', 'Lavi.ttf'),
     install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
 )

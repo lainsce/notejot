@@ -66,6 +66,8 @@ namespace Notejot {
             }
 
             this.get_style_context().add_class("rounded");
+            this.get_style_context().add_class("default-decoration");
+            this.get_style_context().add_class("notejot-window");
             this.uid = uid_counter++;
 
             update_theme();
@@ -138,13 +140,10 @@ namespace Notejot {
             string style = null;
             string selected_color = this.color;
             style = (N_("""
-                @define-color textColorPrimary #1a1a1a;
+                @define-color textColorPrimary #323232;
 
                 .mainwindow-%d {
                     background-color: %s;
-                    font-weight: 300;
-                    font-family: 'Markery', fantasy;
-                    font-size: 1.33em;
                 }
 
                 .notejot-view:selected {
@@ -163,10 +162,10 @@ namespace Notejot {
                 .window-%d .notejot-title image,
                 .window-%d .notejot-label {
                     color: %s;
+                    font-family: 'Lavi', fantasy;
                 }
 
-                .window-%d .notejot-bar,
-                .window-%d .notejot-bar image {
+                .window-%d .notejot-bar {
                     color: %s;
                     background-color: %s;
                     border-top-color: %s;
@@ -175,16 +174,29 @@ namespace Notejot {
                     padding: 3px;
                 }
 
+                .window-%d .notejot-bar image {
+                    color: %s;
+                    padding: 3px;
+                    background-image: none;
+                }
+
+                .window-%d .notejot-view,
                 .window-%d .notejot-view text,
                 .window-%d .notejot-title {
                     background-color: %s;
+                    background-image: none;
                     border-bottom-color: %s;
+                    font-family: 'Lavi', fantasy;
+                    font-weight: 300;
+                    font-size: 1.33em;
                     color: #000;
                     box-shadow: none;
                 }
 
                 .color-button {
                     border-radius: 50%;
+                    background-image: none;
+                    border: 2px solid alpha(@BLACK_300, 0.3);
                     box-shadow:
                         inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
                         inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
@@ -192,7 +204,7 @@ namespace Notejot {
                 }
 
                 .color-button:hover,
-                .color-button:focus {
+                .color_button:focus {
                     border: 2px solid @BLACK_300;
                 }
 
@@ -231,7 +243,7 @@ namespace Notejot {
                 .color-cocoa {
                     background-color: #a3907c;
                 }
-                """)).printf(uid, selected_color, uid, uid, selected_color_text, uid, uid, selected_color_text, selected_color, selected_color, uid, uid, selected_color, selected_color);
+                """)).printf(uid, selected_color, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color);
 
             try {
                 css_provider.load_from_data(style, -1);
@@ -263,6 +275,7 @@ namespace Notejot {
 
         private void create_app_menu () {
             var color_button_white = new Gtk.Button ();
+            color_button_white.has_focus = false;
             color_button_white.halign = Gtk.Align.CENTER;
             color_button_white.height_request = 24;
             color_button_white.width_request = 24;
@@ -273,6 +286,7 @@ namespace Notejot {
             color_button_white_context.add_class ("color-white");
 
             var color_button_red = new Gtk.Button ();
+            color_button_red.has_focus = false;
             color_button_red.halign = Gtk.Align.CENTER;
             color_button_red.height_request = 24;
             color_button_red.width_request = 24;
@@ -283,6 +297,7 @@ namespace Notejot {
             color_button_red_context.add_class ("color-red");
 
             var color_button_orange = new Gtk.Button ();
+            color_button_orange.has_focus = false;
             color_button_orange.halign = Gtk.Align.CENTER;
             color_button_orange.height_request = 24;
             color_button_orange.width_request = 24;
@@ -293,6 +308,7 @@ namespace Notejot {
             color_button_orange_context.add_class ("color-orange");
 
             var color_button_yellow = new Gtk.Button ();
+            color_button_yellow.has_focus = false;
             color_button_yellow.halign = Gtk.Align.CENTER;
             color_button_yellow.height_request = 24;
             color_button_yellow.width_request = 24;
@@ -303,6 +319,7 @@ namespace Notejot {
             color_button_yellow_context.add_class ("color-yellow");
 
             var color_button_green = new Gtk.Button ();
+            color_button_green.has_focus = false;
             color_button_green.halign = Gtk.Align.CENTER;
             color_button_green.height_request = 24;
             color_button_green.width_request = 24;
@@ -313,6 +330,7 @@ namespace Notejot {
             color_button_green_context.add_class ("color-green");
 
             var color_button_blue = new Gtk.Button ();
+            color_button_blue.has_focus = false;
             color_button_blue.halign = Gtk.Align.CENTER;
             color_button_blue.height_request = 24;
             color_button_blue.width_request = 24;
@@ -323,6 +341,7 @@ namespace Notejot {
             color_button_blue_context.add_class ("color-blue");
 
             var color_button_indigo = new Gtk.Button ();
+            color_button_indigo.has_focus = false;
             color_button_indigo.halign = Gtk.Align.CENTER;
             color_button_indigo.height_request = 24;
             color_button_indigo.width_request = 24;
@@ -333,6 +352,7 @@ namespace Notejot {
             color_button_indigo_context.add_class ("color-indigo");
 
             var color_button_cocoa = new Gtk.Button ();
+            color_button_cocoa.has_focus = false;
             color_button_cocoa.halign = Gtk.Align.CENTER;
             color_button_cocoa.height_request = 24;
             color_button_cocoa.width_request = 24;
@@ -343,6 +363,7 @@ namespace Notejot {
             color_button_cocoa_context.add_class ("color-cocoa");
 
             var color_button_slate = new Gtk.Button ();
+            color_button_slate.has_focus = false;
             color_button_slate.halign = Gtk.Align.CENTER;
             color_button_slate.height_request = 24;
             color_button_slate.width_request = 24;
@@ -363,12 +384,15 @@ namespace Notejot {
             color_button_box.pack_start (color_button_cocoa, false, true, 0);
             color_button_box.pack_start (color_button_slate, false, true, 0);
 
+            var color_button_label = new Granite.HeaderLabel (_("Note Color"));
+
             var setting_grid = new Gtk.Grid ();
             setting_grid.margin = 12;
             setting_grid.column_spacing = 6;
             setting_grid.row_spacing = 6;
             setting_grid.orientation = Gtk.Orientation.VERTICAL;
-            setting_grid.attach (color_button_box, 0, 0, 1, 1);
+            setting_grid.attach (color_button_label, 0, 0, 1, 1);
+            setting_grid.attach (color_button_box, 0, 1, 1, 1);
             setting_grid.show_all ();
 
             var popover = new Gtk.Popover (null);
