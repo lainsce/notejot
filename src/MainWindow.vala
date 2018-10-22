@@ -162,7 +162,6 @@ namespace Notejot {
                 .window-%d .notejot-title image,
                 .window-%d .notejot-label {
                     color: %s;
-                    font-family: 'Lavi', fantasy;
                 }
 
                 .window-%d .notejot-bar {
@@ -186,7 +185,6 @@ namespace Notejot {
                     background-color: %s;
                     background-image: none;
                     border-bottom-color: %s;
-                    font-family: 'Lavi', fantasy;
                     font-weight: 300;
                     font-size: 1.33em;
                     color: #000;
