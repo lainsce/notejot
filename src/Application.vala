@@ -36,7 +36,7 @@ namespace Notejot {
             add_action (quit_action);
             quit_action.activate.connect (() => {
     	        foreach (MainWindow windows in open_notes) {
-                    debug ("Quitting all notes...\n");
+                    debug ("Quitting all notes…\n");
     	            update_storage();
     	            windows.close();
     	        }
@@ -78,20 +78,20 @@ namespace Notejot {
 	    }
 
 	    public void create_note(Storage? storage) {
-            debug ("Creating a note...\n");
+            debug ("Creating a note…\n");
 	        var note = new MainWindow(this, storage);
             open_notes.add(note);
             update_storage();
 	    }
 
         public void remove_note(MainWindow note) {
-            debug ("Removing a note...\n");
+            debug ("Removing a note…\n");
             open_notes.remove (note);
             update_storage();
 	    }
 
 	    public void update_storage() {
-            debug ("Updating the storage...\n");
+            debug ("Updating the storage…\n");
 	        Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
 
 	        foreach (MainWindow w in open_notes) {
