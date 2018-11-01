@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Application : Granite.Application {
+    public class Application : Gtk.Application {
         public Gee.ArrayList<MainWindow> open_notes = new Gee.ArrayList<MainWindow>();
         private NoteManager note_manager = new NoteManager();
         private static bool create_new_window = false;
@@ -28,9 +28,6 @@ namespace Notejot {
 	    }
 
         construct {
-            app_launcher = "com.github.lainsce.notejot";
-            exec_name = "com.github.lainsce.notejot";
-
             var quit_action = new SimpleAction ("quit", null);
             set_accels_for_action ("app.quit", {"<Control>q"});
             add_action (quit_action);
