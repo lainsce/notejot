@@ -3,62 +3,65 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-23 01:00-0200\n"
-"PO-Revision-Date: 2018-05-15 21:49+0900\n"
-"Last-Translator: Ryo Nakano <ryonakaknock@gmail.com>\n"
+"POT-Creation-Date: 2018-11-01 21:36+0900\n"
+"PO-Revision-Date: 2018-11-01 21:36+0900\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: src/MainWindow.vala:299
+#: src/MainWindow.vala:261
 msgid "New note"
 msgstr "新しいノート"
 
-#: src/MainWindow.vala:303
+#: src/MainWindow.vala:266
 msgid "Delete note"
 msgstr "ノートを削除"
 
-#: src/MainWindow.vala:310
+#: src/MainWindow.vala:280
 msgid "White"
 msgstr "白"
 
-#: src/MainWindow.vala:320
+#: src/MainWindow.vala:291
 msgid "Red"
 msgstr "赤"
 
-#: src/MainWindow.vala:330
+#: src/MainWindow.vala:302
 msgid "Orange"
 msgstr "オレンジ"
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:313
 msgid "Yellow"
 msgstr "黄"
 
-#: src/MainWindow.vala:350
+#: src/MainWindow.vala:324
 msgid "Green"
 msgstr "緑"
 
-#: src/MainWindow.vala:360
+#: src/MainWindow.vala:335
 msgid "Blue"
 msgstr "青"
 
-#: src/MainWindow.vala:370
+#: src/MainWindow.vala:346
 msgid "Indigo"
 msgstr "藍"
 
-#: src/MainWindow.vala:380
-msgid "Violet"
-msgstr "すみれ"
+#: src/MainWindow.vala:357
+msgid "Cocoa"
+msgstr "ココア"
 
-#: src/MainWindow.vala:390
+#: src/MainWindow.vala:368
 msgid "Slate"
 msgstr "スレート"
 
-#: src/MainWindow.vala:423
+#: src/MainWindow.vala:385
+msgid "Note Color"
+msgstr "ノートの色"
+
+#: src/MainWindow.vala:401
 msgid "Settings"
 msgstr "設定"
-
