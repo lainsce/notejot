@@ -8,47 +8,51 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-01 21:12+0900\n"
-"PO-Revision-Date: 2018-11-01 21:12+0900\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2018-11-01 21:26+0900\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:6
 #: data/com.github.lainsce.notejot.desktop.in:3
 msgid "Notejot"
-msgstr ""
+msgstr "Notejot"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:7
 #: data/com.github.lainsce.notejot.desktop.in:4
 msgid "Jot your ideas"
-msgstr ""
+msgstr "アイデアをメモします"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:9
 msgid ""
 "A stupidly-simple sticky notes application for any type of short term notes "
 "or ideas."
 msgstr ""
+"一時的なノートやアイデアをメモするための、非常にシンプルな付箋アプリケーショ"
+"ンです。"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:11
 msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr ""
+msgstr "ショートカット Ctrl + Q で、いつでも終了できます"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:17
 msgid "Lains"
-msgstr ""
+msgstr "Lains"
 
 #: data/com.github.lainsce.notejot.desktop.in:10
 msgid "com.github.lainsce.notejot"
-msgstr ""
+msgstr "com.github.lainsce.notejot"
 
 #: data/com.github.lainsce.notejot.desktop.in:11
 msgid "Text;Plain;Plaintext;Notepad;"
 msgstr ""
+"Text;Plain;Plaintext;Notepad;テキスト;プレーン;プレーンテキスト;メモ帳;"
 
 #: data/com.github.lainsce.notejot.desktop.in:20
 msgid "New note…"
-msgstr ""
+msgstr "新しいノート…"
