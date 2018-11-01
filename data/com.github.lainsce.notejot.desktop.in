@@ -1,10 +1,6 @@
 [Desktop Entry]
 Name=Notejot
 Comment=Jot your ideas
-Comment[lt]=Greitai užsirašykite savo idėjas
-Comment[pt_BR]=Anote suas ideias
-Comment[pl]=Notuj swoje pomysły
-Comment[cs]=Zapiš si své nápady
 Exec=com.github.lainsce.notejot
 Icon=com.github.lainsce.notejot
 Keywords=Text;Plain;Plaintext;Notepad;
@@ -17,4 +13,3 @@ Actions=NewNote;
 [Desktop Action NewNote]
 Exec=com.github.lainsce.notejot --new-note
 Name=New note…
-Name[cs]=Nová poznámka…
