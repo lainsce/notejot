@@ -67,6 +67,7 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         style = """
         .notejot-label {
             font-weight: 700;
+            font-size: 0.88em;
         }
         .notejot-label:backdrop {
             color: mix (@textColorPrimary, @colorPrimary, 0.3);

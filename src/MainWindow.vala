@@ -20,13 +20,13 @@
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.Button delete_item;
-        private Gtk.SourceView view = new Gtk.SourceView ();
+        private Gtk.TextView view = new Gtk.TextView ();
         private Gtk.HeaderBar header;
         private Gtk.ActionBar actionbar;
         private int uid;
         private static int uid_counter = 0;
         public string color = "#fff394";
-        public string selected_color_text = "#333333";
+        public string selected_color_text = "#ad5f00";
         public string content = "";
         public string title_name = "Notejot";
         public Notejot.EditableLabel label;
@@ -146,13 +146,9 @@ namespace Notejot {
                     background-color: %s;
                 }
 
-                .notejot-view:selected {
-                    color: @textColorPrimary;
-                }
-
-                .notejot-view:selected {
-                    color: #FFFFFF;
-                    background-color: #64baff;
+                .notejot-view text selection {
+                    color: shade(%s, 1.88);
+                    background-color: %s;
                 }
 
                 entry.flat {
@@ -162,6 +158,7 @@ namespace Notejot {
                 .window-%d .notejot-title image,
                 .window-%d .notejot-label {
                     color: %s;
+                    box-shadow: none;
                 }
 
                 .window-%d .notejot-bar {
@@ -176,6 +173,7 @@ namespace Notejot {
                 .window-%d .notejot-bar image {
                     color: %s;
                     padding: 3px;
+                    box-shadow: none;
                     background-image: none;
                 }
 
@@ -185,16 +183,16 @@ namespace Notejot {
                     background-color: %s;
                     background-image: none;
                     border-bottom-color: %s;
-                    font-weight: 300;
-                    font-size: 1.33em;
-                    color: #000;
+                    font-weight: 500;
+                    font-size: 1.2em;
+                    color: shade(%s, 0.5);
                     box-shadow: none;
                 }
 
                 .color-button {
                     border-radius: 50%;
                     background-image: none;
-                    border: 2px solid alpha(@BLACK_300, 0.3);
+                    border: 1px solid alpha(@BLACK_300, 0.25);
                     box-shadow:
                         inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
                         inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
@@ -203,7 +201,7 @@ namespace Notejot {
 
                 .color-button:hover,
                 .color_button:focus {
-                    border: 2px solid @BLACK_300;
+                    border: 1px solid @BLACK_300;
                 }
 
                 .color-slate {
@@ -241,7 +239,7 @@ namespace Notejot {
                 .color-cocoa {
                     background-color: #a3907c;
                 }
-                """)).printf(uid, selected_color, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color);
+                """)).printf(uid, selected_color, selected_color, selected_color_text, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color, selected_color_text);
 
             try {
                 css_provider.load_from_data(style, -1);

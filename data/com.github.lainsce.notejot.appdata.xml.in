@@ -52,6 +52,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.4.3" date="2018-11-09">
+            <description>
+                <p>Release: Font Foraging</p>
+                <ul>
+                    <li>Revert font decision.</li>
+                    <li>Some small UI fixes.</li>
+                </ul>
+            </description>
+        </release>
       <release version="1.4.2" date="2018-09-14">
           <description>
               <p>Release: New Note Tech</p>
