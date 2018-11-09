@@ -58,7 +58,7 @@ executable(
 )
 
 # Add in a post install script
-meson.add_install_script('/meson/post_install.py')
+meson.add_install_script(meson.source_root() + '/meson/post_install.py')
 
 # Add subfolders for Meson to look
 subdir('data')
