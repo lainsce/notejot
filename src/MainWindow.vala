@@ -45,10 +45,7 @@ namespace Notejot {
         };
 
         public MainWindow (Gtk.Application app, Storage? storage) {
-            Object (application: app,
-                    resizable: false,
-                    height_request: 450,
-                    width_request: 450);
+            Object (application: app);
 
             var actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
@@ -77,6 +74,7 @@ namespace Notejot {
             header.get_style_context().add_class("notejot-title");
             header.has_subtitle = false;
             header.set_show_close_button (true);
+            header.decoration_layout = "close:";
 
             label = new Notejot.EditableLabel (this.title_name);
             header.set_custom_title(label);
@@ -88,6 +86,7 @@ namespace Notejot {
             create_app_menu ();
 
             var scrolled = new Gtk.ScrolledWindow (null, null);
+            scrolled.set_size_request (330,270);
 
             view.bottom_margin = 10;
             view.buffer.text = this.content;
@@ -185,7 +184,7 @@ namespace Notejot {
                     border-bottom-color: %s;
                     font-weight: 500;
                     font-size: 1.2em;
-                    color: shade(%s, 0.5);
+                    color: shade(%s, 0.77);
                     box-shadow: none;
                 }
 
