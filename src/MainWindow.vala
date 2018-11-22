@@ -23,6 +23,7 @@ namespace Notejot {
         private Gtk.TextView view = new Gtk.TextView ();
         private Gtk.HeaderBar header;
         private Gtk.ActionBar actionbar;
+        private bool pinned;
         private int uid;
         private static int uid_counter = 0;
         public string color = "#fff394";
@@ -76,8 +77,31 @@ namespace Notejot {
             header.set_show_close_button (true);
             header.decoration_layout = "close:";
 
+            var applet_button = new Gtk.ToggleButton ();
+            applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            applet_button.set_image (new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+
+            if (pinned) {
+                applet_button.set_active (false);
+            } else {
+                applet_button.set_active (true);
+            }
+
+            applet_button.toggled.connect (() => {
+                if (applet_button.active) {
+                    pinned = true;
+                    set_keep_below (pinned);
+                    stick ();
+    			} else {
+    			    pinned = false;
+    			    set_keep_below (pinned);
+    			    unstick ();
+                }
+            });
+
             label = new Notejot.EditableLabel (this.title_name);
             header.set_custom_title(label);
+            header.pack_end (applet_button);
             this.set_titlebar(header);
 
             actionbar = new Gtk.ActionBar ();

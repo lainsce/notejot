@@ -52,6 +52,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.4.3" date="2018-11-23">
+            <description>
+                <p>Release: Desktop Notes</p>
+                <ul>
+                    <li>New button to stick the note to show on all workspaces and below all windows.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.4.3" date="2018-11-09">
             <description>
                 <p>Release: Font Foraging</p>
