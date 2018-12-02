@@ -82,9 +82,9 @@ namespace Notejot {
             applet_button.set_image (new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
 
             if (pinned) {
-                applet_button.set_active (false);
-            } else {
                 applet_button.set_active (true);
+            } else {
+                applet_button.set_active (false);
             }
 
             applet_button.toggled.connect (() => {
