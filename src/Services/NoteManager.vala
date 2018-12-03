@@ -64,6 +64,8 @@ namespace Notejot {
                 builder.add_string_value (note.color);
                 builder.set_member_name ("selected_color_text");
                 builder.add_string_value (note.selected_color_text);
+                builder.set_member_name ("pinned");
+                builder.add_boolean_value (note.pinned);
                 builder.set_member_name ("content");
                 builder.add_string_value (note.content);
                 builder.set_member_name ("title");
@@ -103,11 +105,12 @@ namespace Notejot {
                         var node = item.get_object();
                         string color = node.get_string_member("color");
                         string selected_color_text = node.get_string_member("selected_color_text");
+                        bool pinned = node.get_boolean_member("pinned");
                         int64 x = node.get_int_member("x");
                         int64 y = node.get_int_member("y");
                         string content = node.get_string_member("content");
                         string title = node.get_string_member("title");
-                        Storage stored_note = new Storage.from_storage(x, y, color, selected_color_text, content, title);
+                        Storage stored_note = new Storage.from_storage(x, y, color, selected_color_text, pinned, content, title);
                         stored_notes.add(stored_note);
                     }
 

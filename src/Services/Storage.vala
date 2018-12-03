@@ -22,6 +22,7 @@ namespace Notejot {
     public class Storage : Object {
         public string color;
         public string selected_color_text;
+        public bool pinned;
         public int64 x;
         public int64 y;
         public string content;
@@ -29,9 +30,10 @@ namespace Notejot {
 
         public Storage() {}
 
-        public Storage.from_storage(int64 x, int64 y, string color, string selected_color_text, string message, string title) {
+        public Storage.from_storage(int64 x, int64 y, string color, string selected_color_text, bool pinned, string message, string title) {
             this.color = color;
             this.selected_color_text = selected_color_text;
+            this.pinned = pinned;
             this.content = message;
             this.x = x;
             this.y = y;
