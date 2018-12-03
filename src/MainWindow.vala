@@ -27,7 +27,7 @@ namespace Notejot {
         private static int uid_counter = 0;
         public string color = "#fff394";
         public string selected_color_text = "#ad5f00";
-        public bool pinned;
+        public bool pinned = false;
         public string content = "";
         public string title_name = "Notejot";
         public Notejot.EditableLabel label;
@@ -84,6 +84,8 @@ namespace Notejot {
 
             if (pinned) {
                 applet_button.set_active (true);
+                set_keep_below (pinned);
+                stick ();
             } else {
                 applet_button.set_active (false);
             }
