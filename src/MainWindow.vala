@@ -23,11 +23,11 @@ namespace Notejot {
         private Gtk.TextView view = new Gtk.TextView ();
         private Gtk.HeaderBar header;
         private Gtk.ActionBar actionbar;
-        private bool pinned;
         private int uid;
         private static int uid_counter = 0;
         public string color = "#fff394";
         public string selected_color_text = "#ad5f00";
+        public bool pinned = false;
         public string content = "";
         public string title_name = "Notejot";
         public Notejot.EditableLabel label;
@@ -57,6 +57,7 @@ namespace Notejot {
             } else {
                 this.color = "#fff394";
                 this.selected_color_text = "#ad5f00";
+                this.pinned = false;
                 this.content = "";
                 this.set_position(Gtk.WindowPosition.CENTER);
                 this.title_name = "Notejot";
@@ -83,6 +84,8 @@ namespace Notejot {
 
             if (pinned) {
                 applet_button.set_active (true);
+                set_keep_below (pinned);
+                stick ();
             } else {
                 applet_button.set_active (false);
             }
@@ -492,6 +495,7 @@ namespace Notejot {
         private void init_from_storage(Storage storage) {
             this.color = storage.color;
             this.selected_color_text = storage.selected_color_text;
+            this.pinned = storage.pinned;
             this.content = storage.content;
             this.move((int)storage.x, (int)storage.y);
             this.title_name = storage.title;
@@ -511,6 +515,7 @@ namespace Notejot {
             int x, y;
             string color = this.color;
             string selected_color_text = this.selected_color_text;
+            bool pinned = this.pinned;
             Gtk.TextIter start,end;
             view.buffer.get_bounds (out start, out end);
             this.content = view.buffer.get_text (start, end, true);
@@ -519,7 +524,7 @@ namespace Notejot {
 
             this.get_position (out x, out y);
 
-            return new Storage.from_storage(x, y, color, selected_color_text, content, title_name);
+            return new Storage.from_storage(x, y, color, selected_color_text, pinned, content, title_name);
         }
 
         public override bool delete_event (Gdk.EventAny event) {
