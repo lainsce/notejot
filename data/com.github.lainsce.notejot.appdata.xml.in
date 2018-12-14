@@ -314,5 +314,6 @@
     <custom>
         <value key="x-appcenter-color-primary">#fff3ae</value>
         <value key="x-appcenter-color-primary-text">#555864</value>
+        <value key="x-appcenter-suggested-price">3</value>
     </custom>
 </component>
