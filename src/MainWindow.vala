@@ -20,7 +20,8 @@
 namespace Notejot {
     public class MainWindow : Gtk.Window {
         private Gtk.Button delete_item;
-        private Gtk.TextView view = new Gtk.TextView ();
+        private new Gtk.SourceBuffer buffer;
+        private Gtk.SourceView view;
         private Gtk.HeaderBar header;
         private Gtk.ActionBar actionbar;
         private int uid;
@@ -34,15 +35,19 @@ namespace Notejot {
 
         public SimpleActionGroup actions { get; construct; }
 
-        public const string ACTION_PREFIX = "win.";
-        public const string ACTION_NEW = "action_new";
-        public const string ACTION_DELETE = "action_delete";
+        public const string ACTION_PREFIX   = "win.";
+        public const string ACTION_NEW      = "action_new";
+        public const string ACTION_DELETE   = "action_delete";
+        public const string ACTION_UNDO     = "action_undo";
+        public const string ACTION_REDO     = "action_redo";
 
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] action_entries = {
-            { ACTION_NEW, action_new },
-            { ACTION_DELETE, action_delete }
+            { ACTION_NEW,       action_new      },
+            { ACTION_DELETE,    action_delete   },
+            { ACTION_UNDO,      action_new      },
+            { ACTION_REDO,      action_delete   }
         };
 
         public MainWindow (Gtk.Application app, Storage? storage) {
@@ -115,6 +120,9 @@ namespace Notejot {
             var scrolled = new Gtk.ScrolledWindow (null, null);
             scrolled.set_size_request (330,270);
 
+            buffer = new Gtk.SourceBuffer (null);
+            buffer.set_highlight_matching_brackets (false);
+            view = new Gtk.SourceView.with_buffer (buffer);
             view.bottom_margin = 10;
             view.buffer.text = this.content;
             view.get_style_context().add_class("notejot-view");
@@ -146,6 +154,21 @@ namespace Notejot {
 
             view.buffer.changed.connect (() => {
                 update_storage ();
+            });
+
+            key_press_event.connect ((e) => {
+                uint keycode = e.hardware_keycode;
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        action_undo ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        action_redo ();
+                    }
+                }
+                return false;
             });
         }
 
@@ -511,6 +534,14 @@ namespace Notejot {
             this.close ();
         }
 
+        private void action_undo () {
+            buffer.undo ();
+        }
+
+        private void action_redo () {
+            buffer.redo ();
+        }
+
         public Storage get_storage_note() {
             int x, y;
             string color = this.color;
@@ -525,6 +556,23 @@ namespace Notejot {
             this.get_position (out x, out y);
 
             return new Storage.from_storage(x, y, color, selected_color_text, pinned, content, title_name);
+        }
+
+#if VALA_0_42
+        protected bool match_keycode (uint keyval, uint code) {
+#else
+        protected bool match_keycode (int keyval, uint code) {
+#endif
+            Gdk.KeymapKey [] keys;
+            Gdk.Keymap keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
+            if (keymap.get_entries_for_keyval (keyval, out keys)) {
+                foreach (var key in keys) {
+                    if (code == key.keycode)
+                        return true;
+                    }
+                }
+
+            return false;
         }
 
         public override bool delete_event (Gdk.EventAny event) {

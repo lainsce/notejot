@@ -52,6 +52,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.5.3" date="2018-12-15">
+            <description>
+                <p>Release: Undo/Redo Your Notes</p>
+                <ul>
+                    <li>Now you can undo/redo stuff inside your notes!</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.5.2" date="2018-11-23">
             <description>
                 <p>Release: Desktop Notes</p>
