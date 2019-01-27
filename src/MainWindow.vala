@@ -521,6 +521,9 @@ namespace Notejot {
             this.pinned = storage.pinned;
             this.content = storage.content;
             this.move((int)storage.x, (int)storage.y);
+            if ((int)storage.w != 0 && (int)storage.h != 0) {
+                this.resize ((int)storage.w, (int)storage.h);
+            }
             this.title_name = storage.title;
             set_title (this.title_name);
         }
@@ -543,7 +546,7 @@ namespace Notejot {
         }
 
         public Storage get_storage_note() {
-            int x, y;
+            int x, y, w, h;
             string color = this.color;
             string selected_color_text = this.selected_color_text;
             bool pinned = this.pinned;
@@ -554,8 +557,9 @@ namespace Notejot {
             set_title (this.title_name);
 
             this.get_position (out x, out y);
+            this.get_size (out w, out h);
 
-            return new Storage.from_storage(x, y, color, selected_color_text, pinned, content, title_name);
+            return new Storage.from_storage(x, y, w, h, color, selected_color_text, pinned, content, title_name);
         }
 
 #if VALA_0_42

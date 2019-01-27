@@ -52,6 +52,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.5.4" date="2019-01-28">
+            <description>
+                <p>Release: Resized Notes? No problem!</p>
+                <ul>
+                    <li>Notes' resized sizes are now saved.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.5.3" date="2018-12-15">
             <description>
                 <p>Release: Undo/Redo Your Notes</p>
