@@ -52,6 +52,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.5.5" date="2019-02-22">
+            <description>
+                <p>Release: A Small Change of Pace</p>
+                <ul>
+                    <li>Notes are now saved in a better location not prone to autodeletion.</li>
+                    <li>Updated Lithuanian translations.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.5.4" date="2019-01-28">
             <description>
                 <p>Release: Resized Notes? No problem!</p>
