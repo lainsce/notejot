@@ -19,7 +19,7 @@
 
 namespace Notejot {
     public class NoteManager {
-        private string app_dir = Environment.get_user_cache_dir () + "/com.github.lainsce.notejot";
+        private string app_dir = Environment.get_user_data_dir () + "/com.github.lainsce.notejot";
         private string file_name;
 
         public NoteManager () {
