@@ -1,0 +1,68 @@
+# Danish translations for com.github.lainsce.notejot package.
+# Copyright (C) 2019 THE com.github.lainsce.notejot'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.notejot package.
+# Siigdev, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-23 01:00-0200\n"
+"PO-Revision-Date: 2019-04-08 21:15+0100\n"
+"Last-Translator: Siigdev\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/MainWindow.vala:308
+msgid "New note"
+msgstr "Ny note"
+
+#: src/MainWindow.vala:313
+msgid "Delete note"
+msgstr "Slet note"
+
+#: src/MainWindow.vala:327
+msgid "White"
+msgstr "Hvid"
+
+#: src/MainWindow.vala:338
+msgid "Red"
+msgstr "Rød"
+
+#: src/MainWindow.vala:349
+msgid "Orange"
+msgstr "Orange"
+
+#: src/MainWindow.vala:360
+msgid "Yellow"
+msgstr "Gul"
+
+#: src/MainWindow.vala:371
+msgid "Green"
+msgstr "Grøn"
+
+#: src/MainWindow.vala:382
+msgid "Blue"
+msgstr "Blå"
+
+#: src/MainWindow.vala:393
+msgid "Indigo"
+msgstr "Indigo"
+
+#: src/MainWindow.vala:404
+msgid "Cocoa"
+msgstr "Kakao"
+
+#: src/MainWindow.vala:415
+msgid "Slate"
+msgstr "Skifer"
+
+#: src/MainWindow.vala:432
+msgid "Note Color"
+msgstr "Note farve"
+
+#: src/MainWindow.vala:423
+msgid "Settings"
+msgstr "Indstillinger"
