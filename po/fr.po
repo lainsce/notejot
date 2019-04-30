@@ -1,62 +1,68 @@
+# French translations for com.github.lainsce.notejot package.
+# Copyright (C) 2019 THE com.github.lainsce.notejot'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.notejot package.
+# NathanBnm, 2019.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-23 01:00-0200\n"
-"PO-Revision-Date: 2018-01-13 15:43+0300\n"
-"Last-Translator: Alain M. <alain23@protonmail.com>\n"
+"PO-Revision-Date: 2019-01-26 19:36+0100\n"
+"Last-Translator: NathanBnm\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:299
+#: src/MainWindow.vala:308
 msgid "New note"
 msgstr "Nouvelle note"
 
-#: src/MainWindow.vala:303
+#: src/MainWindow.vala:313
 msgid "Delete note"
 msgstr "Effacer la note"
 
-#: src/MainWindow.vala:310
+#: src/MainWindow.vala:327
 msgid "White"
 msgstr "Blanc"
 
-#: src/MainWindow.vala:320
+#: src/MainWindow.vala:338
 msgid "Red"
 msgstr "Rouge"
 
-#: src/MainWindow.vala:330
+#: src/MainWindow.vala:349
 msgid "Orange"
 msgstr "Orange"
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:360
 msgid "Yellow"
 msgstr "Jaune"
 
-#: src/MainWindow.vala:350
+#: src/MainWindow.vala:371
 msgid "Green"
 msgstr "Vert"
 
-#: src/MainWindow.vala:360
+#: src/MainWindow.vala:382
 msgid "Blue"
 msgstr "Bleu"
 
-#: src/MainWindow.vala:370
+#: src/MainWindow.vala:393
 msgid "Indigo"
 msgstr "Indigo"
 
-#: src/MainWindow.vala:380
-msgid "Violet"
-msgstr "Violet"
+#: src/MainWindow.vala:404
+msgid "Cocoa"
+msgstr "Cacao"
 
-#: src/MainWindow.vala:390
+#: src/MainWindow.vala:415
 msgid "Slate"
-msgstr "Gris"
+msgstr "Ardoise"
+
+#: src/MainWindow.vala:432
+msgid "Note Color"
+msgstr "Couleur de note"
 
 #: src/MainWindow.vala:423
 msgid "Settings"
-msgstr "Préférences"
+msgstr "Paramètres"
