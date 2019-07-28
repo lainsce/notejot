@@ -90,10 +90,12 @@ namespace Notejot {
 
             if (pinned) {
                 applet_button.set_active (true);
+                applet_button.get_style_context().add_class("rotated");
                 set_keep_below (pinned);
                 stick ();
             } else {
                 applet_button.set_active (false);
+                applet_button.get_style_context().remove_class("rotated");
             }
 
             applet_button.toggled.connect (() => {
