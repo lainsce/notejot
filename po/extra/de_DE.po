@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# Onno Giesmann <nutzer3105@gmail.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-17 21:29+0400\n"
+"PO-Revision-Date: 2019-06-23 20:48+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../data\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Onno Giesmann <nutzer3105@gmail.com>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: data/com.github.lainsce.notejot.appdata.xml.in:6
+#: data/com.github.lainsce.notejot.desktop.in:2
+msgid "Notejot"
+msgstr "Notejot"
+
+#: data/com.github.lainsce.notejot.appdata.xml.in:7
+#: data/com.github.lainsce.notejot.desktop.in:3
+msgid "Jot your ideas"
+msgstr "Notieren Sie Ihre Ideen"
+
+#: data/com.github.lainsce.notejot.appdata.xml.in:9
+msgid ""
+"A stupidly-simple sticky notes application for any type of short term notes "
+"or ideas."
+msgstr ""
+"Eine total einfache Notizzettel-Anwendung für so ziemlich jede Art von "
+"kleinen Notizen oder Ideen."
+
+#: data/com.github.lainsce.notejot.appdata.xml.in:11
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Beenden jederzeit mit dem Kürzel Strg + Q möglich"
+
+#: data/com.github.lainsce.notejot.appdata.xml.in:17
+msgid "Lains"
+msgstr "Lains"
+
+#: data/com.github.lainsce.notejot.desktop.in:4
+msgid "com.github.lainsce.notejot"
+msgstr "com.github.lainsce.notejot"
+
+#: data/com.github.lainsce.notejot.desktop.in:6
+msgid "Text;Plain;Plaintext;Notepad;"
+msgstr "Text;Klar;Klartext;Notepad;"
+
+#: data/com.github.lainsce.notejot.desktop.in:15
+msgid "New note…"
+msgstr "Neue Notiz…"
