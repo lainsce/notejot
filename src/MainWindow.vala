@@ -85,7 +85,8 @@ namespace Notejot {
 
             var applet_button = new Gtk.ToggleButton ();
             applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            applet_button.set_image (new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            applet_button.set_image (applet_button_image);
 
             if (pinned) {
                 applet_button.set_active (true);
@@ -98,11 +99,13 @@ namespace Notejot {
             applet_button.toggled.connect (() => {
                 if (applet_button.active) {
                     pinned = true;
+                    applet_button.get_style_context().add_class("rotated");
                     set_keep_below (pinned);
                     stick ();
     			} else {
     			    pinned = false;
-    			    set_keep_below (pinned);
+                    set_keep_below (pinned);
+                    applet_button.get_style_context().remove_class("rotated");
     			    unstick ();
                 }
             });
@@ -195,6 +198,22 @@ namespace Notejot {
                     background-color: %s;
                 }
 
+                .mainwindow-%d undershoot.top {
+                    background:
+                        linear-gradient(
+                            %s 0%,
+                            alpha(%s, 0) 50%
+                        );
+                }
+                
+                .mainwindow-%d undershoot.bottom {
+                    background:
+                        linear-gradient(
+                            alpha(%s, 0) 50%,
+                            %s 100%
+                        );
+                }
+
                 .notejot-view text selection {
                     color: shade(%s, 1.88);
                     background-color: %s;
@@ -236,6 +255,10 @@ namespace Notejot {
                     font-size: 1.2em;
                     color: shade(%s, 0.77);
                     box-shadow: none;
+                }
+
+                .window-%d .rotated > widget > box > image {
+                    -gtk-icon-transform: rotate(90deg);
                 }
 
                 .color-button {
@@ -288,7 +311,7 @@ namespace Notejot {
                 .color-cocoa {
                     background-color: #a3907c;
                 }
-                """)).printf(uid, selected_color, selected_color, selected_color_text, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color, selected_color_text);
+                """)).printf(uid, selected_color, uid, selected_color, selected_color, uid, selected_color, selected_color, selected_color, selected_color_text, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color, selected_color_text, uid);
 
             try {
                 css_provider.load_from_data(style, -1);

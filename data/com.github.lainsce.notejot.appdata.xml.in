@@ -52,6 +52,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.5.6" date="2019-08-01">
+            <description>
+                <p>Release: Pin with Gusto</p>
+                <ul>
+                    <li>Notes's pin icon rotates when active.</li>
+                    <li>Under/overshoot style when there more text.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.5.5" date="2019-02-22">
             <description>
                 <p>Release: A Small Change of Pace</p>
