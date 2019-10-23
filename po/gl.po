@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-17 20:58+0400\n"
+"PO-Revision-Date: 2019-10-23 19:40+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../src\n"
+"Last-Translator: Daniel R. <riesp@pm.me>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: gl\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: src/MainWindow.vala:308
+msgid "New note"
+msgstr "Nota nova"
+
+#: src/MainWindow.vala:313
+msgid "Delete note"
+msgstr "Eliminar nota"
+
+#: src/MainWindow.vala:327
+msgid "White"
+msgstr "Branco"
+
+#: src/MainWindow.vala:338
+msgid "Red"
+msgstr "Vermello"
+
+#: src/MainWindow.vala:349
+msgid "Orange"
+msgstr "Laranxa"
+
+#: src/MainWindow.vala:360
+msgid "Yellow"
+msgstr "Amarelo"
+
+#: src/MainWindow.vala:371
+msgid "Green"
+msgstr "Verde"
+
+#: src/MainWindow.vala:382
+msgid "Blue"
+msgstr "Azul"
+
+#: src/MainWindow.vala:393
+msgid "Indigo"
+msgstr "Índigo"
+
+#: src/MainWindow.vala:404
+msgid "Cocoa"
+msgstr "Cacao"
+
+#: src/MainWindow.vala:415
+msgid "Slate"
+msgstr "Gris lousa"
+
+#: src/MainWindow.vala:432
+msgid "Note Color"
+msgstr "Cor da nota"
+
+#: src/MainWindow.vala:448
+msgid "Settings"
+msgstr "Configuración"
