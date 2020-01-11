@@ -52,6 +52,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.6.0" date="2020-01-13">
+            <description>
+                <p>Release: Translations & Searches</p>
+                <ul>
+                    <li>Lots of translations added.</li>
+                    <li>Now one can search for Notejot in the apps menu faster with better keywords.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.5.6" date="2019-08-01">
             <description>
                 <p>Release: Pin with Gusto</p>
