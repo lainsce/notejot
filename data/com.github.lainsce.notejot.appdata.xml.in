@@ -54,7 +54,7 @@
     <releases>
         <release version="1.6.0" date="2020-01-13">
             <description>
-                <p>Release: Translations & Searches</p>
+                <p>Release: Translations &amp; Searches</p>
                 <ul>
                     <li>Lots of translations added.</li>
                     <li>Now one can search for Notejot in the apps menu faster with better keywords.</li>
