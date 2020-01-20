@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.notejot', ['vala', 'c'],
-    version: '1.6.0'
+    version: '1.6.1'
 )
 
 # Import main lib files
@@ -40,7 +40,6 @@ executable(
     'src/EditableLabel.vala',
     'src/Services/NoteManager.vala',
     'src/Services/Storage.vala',
-    'src/Constants/AppSettings.vala',
     c_args: c_args,
     dependencies: [
         dependency('granite'),

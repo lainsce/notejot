@@ -605,12 +605,10 @@ namespace Notejot {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            var settings = AppSettings.get_default ();
-
             int x, y;
             this.get_position (out x, out y);
-            settings.window_x = x;
-            settings.window_y = y;
+            Notejot.Application.gsettings.set_int("window-x", x);
+            Notejot.Application.gsettings.set_int("window-y", y);
             return false;
         }
     }

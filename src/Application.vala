@@ -21,11 +21,16 @@ namespace Notejot {
         public Gee.ArrayList<MainWindow> open_notes = new Gee.ArrayList<MainWindow>();
         private NoteManager note_manager = new NoteManager();
         private static bool create_new_window = false;
+        public static GLib.Settings gsettings;
 
         public Application () {
             Object (flags: ApplicationFlags.HANDLES_COMMAND_LINE,
                     application_id: "com.github.lainsce.notejot");
-	    }
+        }
+        
+        static construct {
+            gsettings = new GLib.Settings ("com.github.lainsce.notejot");
+        }
 
         construct {
             var quit_action = new SimpleAction ("quit", null);
