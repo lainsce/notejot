@@ -266,7 +266,7 @@ namespace Notejot {
                 .color-button {
                     border-radius: 50%;
                     background-image: none;
-                    border: 1px solid alpha(@BLACK_300, 0.25);
+                    border: 1px solid alpha(#333, 0.25);
                     box-shadow:
                         inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
                         inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
@@ -275,7 +275,7 @@ namespace Notejot {
 
                 .color-button:hover,
                 .color_button:focus {
-                    border: 1px solid @BLACK_300;
+                    border: 1px solid @inset_dark_color;
                 }
 
                 .color-slate {
@@ -312,6 +312,29 @@ namespace Notejot {
 
                 .color-cocoa {
                     background-color: #a3907c;
+                }
+
+                .notejot-bar box {
+                    border: none;
+                }
+
+                .image-button,
+                .titlebutton {
+                    background-color: transparent;
+                    background-image: none;
+                    border: 1px solid transparent;
+                    padding: 3px;
+                    box-shadow: none;
+                }
+
+                .image-button:hover,
+                .image-button:focus,
+                .titlebutton:hover,
+                .titlebutton:focus {
+                    background-color: alpha(@fg_color, 0.3);
+                    background-image: none;
+                    border: 1px solid transparent;
+                    box-shadow: none;
                 }
                 """)).printf(uid, selected_color, uid, selected_color, selected_color, uid, selected_color, selected_color, selected_color, selected_color_text, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color, selected_color_text, uid);
 

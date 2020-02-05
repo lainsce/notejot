@@ -52,6 +52,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.6.2" date="2020-02-07">
+            <description>
+                <p>Release: Aesthetics</p>
+                <ul>
+                    <li>Some UI fixes.</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.6.1" date="2020-01-24">
             <description>
                 <p>Release: Minor Bump</p>
