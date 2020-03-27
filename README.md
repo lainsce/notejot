@@ -38,3 +38,6 @@ meson build && cd build
 meson configure -Dprefix=/usr
 sudo ninja install
 ```
+
+## Notes Storage
+Notes are stored in `~/.local/share/com.github.lainsce.notejot/`
