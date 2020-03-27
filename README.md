@@ -26,6 +26,7 @@ gtksourceview-3.0
 libjson-glib
 libgee-0.8
 meson
+vala
 ```
 
 ## Building
