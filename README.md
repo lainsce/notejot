@@ -26,6 +26,7 @@ gtksourceview-3.0
 libjson-glib
 libgee-0.8
 meson
+vala
 ```
 
 ## Building
@@ -37,3 +38,6 @@ meson build && cd build
 meson configure -Dprefix=/usr
 sudo ninja install
 ```
+
+## Notes Storage
+Notes are stored in `~/.local/share/com.github.lainsce.notejot/`
