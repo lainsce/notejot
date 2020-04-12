@@ -22,26 +22,26 @@ namespace Notejot {
         private NoteManager note_manager = new NoteManager();
         private static bool create_new_window = false;
         public static GLib.Settings gsettings;
-
+        
         public Application () {
             Object (flags: ApplicationFlags.HANDLES_COMMAND_LINE,
-                    application_id: "com.github.lainsce.notejot");
+            application_id: "com.github.lainsce.notejot");
         }
         
         static construct {
             gsettings = new GLib.Settings ("com.github.lainsce.notejot");
         }
-
+        
         construct {
             var quit_action = new SimpleAction ("quit", null);
             set_accels_for_action ("app.quit", {"<Control>q"});
             add_action (quit_action);
             quit_action.activate.connect (() => {
-    	        foreach (MainWindow windows in open_notes) {
+                foreach (MainWindow windows in open_notes) {
                     debug ("Quitting all notes…\n");
-    	            update_storage();
-    	            windows.close();
-    	        }
+                    update_storage();
+                    windows.close();
+                }
             });
             var new_action = new SimpleAction ("new", null);
             set_accels_for_action ("app.new", {"<Control>n"});
@@ -58,7 +58,7 @@ namespace Notejot {
                 note.destroy();
             });
         }
-
+        
         protected override void activate () {
             if (get_windows ().length () > 0) {
                 foreach (var window in open_notes) {
@@ -68,7 +68,7 @@ namespace Notejot {
                 }
             } else {
                 var list = note_manager.load_from_file();
-
+                
                 if (list.size == 0) {
                     create_note(null);
                 } else {
@@ -77,50 +77,50 @@ namespace Notejot {
                     }
                 }
             }
-	}
-
-	public void create_note(Storage? storage) {
+        }
+        
+        public void create_note(Storage? storage) {
             debug ("Creating a note…\n");
-	    var note = new MainWindow(this, storage);
+            var note = new MainWindow(this, storage);
             open_notes.add(note);
             update_storage();
-	}
-
+        }
+        
         public void remove_note(MainWindow note) {
             debug ("Removing a note…\n");
             open_notes.remove (note);
             update_storage();
-	}
-
-	public void update_storage() {
+        }
+        
+        public void update_storage() {
             debug ("Updating the storage…\n");
-	    Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
-
-	    foreach (MainWindow w in open_notes) {
+            Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
+            
+            foreach (MainWindow w in open_notes) {
                 storage.add(w.get_storage_note());
-		note_manager.save_notes(storage);
+                note_manager.save_notes(storage);
             }
-	}
-
+        }
+        
         protected override int command_line (ApplicationCommandLine command_line) {
             var context = new OptionContext ("File");
             context.add_main_entries (entries, Build.GETTEXT_PACKAGE);
             context.add_group (Gtk.get_option_group (true));
-
+            
             string[] args = command_line.get_arguments ();
             int unclaimed_args;
-
+            
             activate ();
-
+            
             try {
                 context.parse_strv (ref args);
                 unclaimed_args = args.length - 1;
             } catch(Error e) {
                 print (e.message + "\n");
-
+                
                 return 1;
             }
-
+            
             // Create a next window if requested and it's not the app launch
             if (create_new_window) {
                 create_new_window = false;
@@ -128,16 +128,16 @@ namespace Notejot {
             }
             return 0;
         }
-
+        
         const OptionEntry[] entries = {
             { "new-note", 'n', 0, OptionArg.NONE, out create_new_window, "New Note", null },
             { null }
         };
-
+        
         public static int main (string[] args) {
             Intl.setlocale (LocaleCategory.ALL, "");
             Intl.textdomain (Build.GETTEXT_PACKAGE);
-
+            
             var app = new Application();
             return app.run(args);
         }

@@ -81,7 +81,12 @@ namespace Notejot {
             header.get_style_context().add_class("notejot-title");
             header.has_subtitle = false;
             header.set_show_close_button (true);
-            header.decoration_layout = "close:";
+            header.decoration_layout = ":";
+
+            delete_item = new Gtk.Button ();
+            delete_item.tooltip_text = (_("Delete note"));
+            delete_item.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            delete_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_DELETE;
 
             var applet_button = new Gtk.ToggleButton ();
             applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -115,6 +120,7 @@ namespace Notejot {
             label = new Notejot.EditableLabel (this.title_name);
             header.set_custom_title(label);
             header.pack_end (applet_button);
+            header.pack_start (delete_item);
             this.set_titlebar(header);
 
             actionbar = new Gtk.ActionBar ();
@@ -357,13 +363,7 @@ namespace Notejot {
             new_item.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             new_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_NEW;
 
-            delete_item = new Gtk.Button ();
-            delete_item.tooltip_text = (_("Delete note"));
-            delete_item.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            delete_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_DELETE;
-
             actionbar.pack_start (new_item);
-            actionbar.pack_start (delete_item);
         }
 
         private void create_app_menu () {
