@@ -77,31 +77,30 @@ namespace Notejot {
                     }
                 }
             }
-	    }
+	}
 
-	    public void create_note(Storage? storage) {
+	public void create_note(Storage? storage) {
             debug ("Creating a note…\n");
-	        var note = new MainWindow(this, storage);
+	    var note = new MainWindow(this, storage);
             open_notes.add(note);
             update_storage();
-	    }
+	}
 
         public void remove_note(MainWindow note) {
             debug ("Removing a note…\n");
             open_notes.remove (note);
             update_storage();
-	    }
+	}
 
-	    public void update_storage() {
+	public void update_storage() {
             debug ("Updating the storage…\n");
-	        Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
+	    Gee.ArrayList<Storage> storage = new Gee.ArrayList<Storage>();
 
-	        foreach (MainWindow w in open_notes) {
+	    foreach (MainWindow w in open_notes) {
                 storage.add(w.get_storage_note());
+		note_manager.save_notes(storage);
             }
-
-            note_manager.save_notes(storage);
-	    }
+	}
 
         protected override int command_line (ApplicationCommandLine command_line) {
             var context = new OptionContext ("File");
