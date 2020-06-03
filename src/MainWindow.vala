@@ -279,6 +279,12 @@ namespace Notejot {
                     border: 1px solid transparent;
                     box-shadow: none;
                 }
+
+                .image-button image.
+                .title-button image,
+                .notejot-bar image {
+                    -gtk-icon-shadow: 1px 1px transparent;
+                }
                 """)).printf(uid, selected_color, uid, selected_color, selected_color, uid, selected_color, selected_color, selected_color, selected_color_text, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color, selected_color_text, uid);
 
             try {
