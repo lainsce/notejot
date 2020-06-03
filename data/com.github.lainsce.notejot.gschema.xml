@@ -11,32 +11,6 @@
 			<description>The y axis of window position</description>
 		</key>
 	  <key name="window-w" type="i">
-<<<<<<< HEAD
-			<default>-1</default>
-			<summary>Window size</summary>
-			<description>The width of window</description>
-		</key>
-		<key name="window-h" type="i">
-			<default>-1</default>
-			<summary>Window size</summary>
-			<description>The height of window</description>
-		</key>
-	  <key name="color" type="s">
-			<default>'#fff394'</default>
-			<summary>Window color</summary>
-			<description>The window color</description>
-		</key>
-	  <key name="selected-color" type="s">
-			<default>'#ad5f00'</default>
-			<summary>Window position</summary>
-			<description>The window selected color</description>
-		</key>
-	  <key name="text" type="s">
-			<default>''</default>
-			<summary>Window text contents</summary>
-			<description>The window contents in text</description>
-		</key>
-=======
 			<default>360</default>
 			<summary>Window geometry</summary>
 			<description>The width of window</description>
@@ -46,6 +20,5 @@
 			<summary>Window geometry</summary>
 			<description>The height of window</description>
 		</key>
->>>>>>> origin/master
 	</schema>
 </schemalist>
