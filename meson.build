@@ -26,6 +26,7 @@ config_h_dir = include_directories('.')
 
 # Arguments for C
 c_args = [
+  '-DHANDY_USE_UNSTABLE_API',
   '-include', 'config.h',
   '-w'
 ]
@@ -43,6 +44,7 @@ executable(
     c_args: c_args,
     dependencies: [
         dependency('granite'),
+        dependency('libhandy-1'),
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
         dependency('json-glib-1.0'),

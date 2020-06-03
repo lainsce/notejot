@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2417 Lains
+* Copyright (c) 2417-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -18,7 +18,7 @@
 */
 
 namespace Notejot {
-    public class MainWindow : Gtk.Window {
+    public class MainWindow : Hdy.Window {
         private Gtk.Button delete_item;
         private new Gtk.SourceBuffer buffer;
         private Gtk.SourceView view;
@@ -37,17 +37,11 @@ namespace Notejot {
 
         public const string ACTION_PREFIX   = "win.";
         public const string ACTION_NEW      = "action_new";
-        public const string ACTION_DELETE   = "action_delete";
-        public const string ACTION_UNDO     = "action_undo";
-        public const string ACTION_REDO     = "action_redo";
 
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] action_entries = {
-            { ACTION_NEW,       action_new      },
-            { ACTION_DELETE,    action_delete   },
-            { ACTION_UNDO,      action_new      },
-            { ACTION_REDO,      action_delete   }
+            { ACTION_NEW,       action_new      }
         };
 
         public MainWindow (Gtk.Application app, Storage? storage) {
@@ -69,11 +63,9 @@ namespace Notejot {
                 set_title (this.title_name);
             }
 
-            this.get_style_context().add_class("rounded");
             this.get_style_context().add_class("default-decoration");
             this.get_style_context().add_class("notejot-window");
             this.uid = uid_counter++;
-
             update_theme();
 
             header = new Gtk.HeaderBar();
@@ -81,12 +73,7 @@ namespace Notejot {
             header.get_style_context().add_class("notejot-title");
             header.has_subtitle = false;
             header.set_show_close_button (true);
-            header.decoration_layout = ":";
-
-            delete_item = new Gtk.Button ();
-            delete_item.tooltip_text = (_("Delete note"));
-            delete_item.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            delete_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_DELETE;
+            header.decoration_layout = "close:";
 
             var applet_button = new Gtk.ToggleButton ();
             applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -120,8 +107,9 @@ namespace Notejot {
             label = new Notejot.EditableLabel (this.title_name);
             header.set_custom_title(label);
             header.pack_end (applet_button);
-            header.pack_start (delete_item);
-            this.set_titlebar(header);
+
+            var window_handle = new Hdy.WindowHandle ();
+            window_handle.add (header);
 
             actionbar = new Gtk.ActionBar ();
             actionbar.get_style_context().add_class("notejot-bar");
@@ -139,7 +127,6 @@ namespace Notejot {
             view.get_style_context().add_class("notejot-view");
             view.expand = true;
             view.left_margin = 10;
-            view.margin = 2;
             view.right_margin = 10;
             view.set_wrap_mode (Gtk.WrapMode.WORD);
             view.top_margin = 10;
@@ -149,6 +136,7 @@ namespace Notejot {
             var grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.expand = true;
+            grid.add (window_handle);
             grid.add (scrolled);
             grid.add (actionbar);
             grid.show_all ();
@@ -171,12 +159,12 @@ namespace Notejot {
                 uint keycode = e.hardware_keycode;
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
-                        action_undo ();
+                        buffer.undo ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
-                        action_redo ();
+                        buffer.redo ();
                     }
                 }
                 return false;
@@ -196,7 +184,6 @@ namespace Notejot {
             var css_provider = new Gtk.CssProvider();
             this.get_style_context().add_class("mainwindow-%d".printf(uid));
             this.get_style_context().add_class("window-%d".printf(uid));
-
             string style = null;
             string selected_color = this.color;
             style = (N_("""
@@ -349,7 +336,6 @@ namespace Notejot {
             } catch (GLib.Error e) {
                 warning ("Failed to parse css style : %s", e.message);
             }
-
             Gtk.StyleContext.add_provider_for_screen (
                 Gdk.Screen.get_default (),
                 css_provider,
@@ -362,7 +348,6 @@ namespace Notejot {
             new_item.tooltip_text = (_("New note"));
             new_item.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             new_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_NEW;
-
             actionbar.pack_start (new_item);
         }
 
@@ -559,7 +544,6 @@ namespace Notejot {
                 update_theme();
                 ((Application)this.application).update_storage();
             });
-
             actionbar.pack_end (app_button);
         }
 
@@ -580,19 +564,6 @@ namespace Notejot {
             ((Application)this.application).create_note(null);
         }
 
-        private void action_delete () {
-            ((Application)this.application).remove_note(this);
-            this.close ();
-        }
-
-        private void action_undo () {
-            buffer.undo ();
-        }
-
-        private void action_redo () {
-            buffer.redo ();
-        }
-
         public Storage get_storage_note() {
             int x, y, w, h;
             string color = this.color;
@@ -603,10 +574,8 @@ namespace Notejot {
             this.content = view.buffer.get_text (start, end, true);
             this.title_name = label.title.get_label ();
             set_title (this.title_name);
-
             this.get_position (out x, out y);
             this.get_size (out w, out h);
-
             return new Storage.from_storage(x, y, w, h, color, selected_color_text, pinned, content, title_name);
         }
 
@@ -632,6 +601,8 @@ namespace Notejot {
             this.get_position (out x, out y);
             Notejot.Application.gsettings.set_int("window-x", x);
             Notejot.Application.gsettings.set_int("window-y", y);
+
+            ((Application)this.application).remove_note(this);
             return false;
         }
     }
