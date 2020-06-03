@@ -31,20 +31,12 @@ configure_file(output: 'config.h', configuration: conf)
 config_h_dir = include_directories('.')
 
 # Arguments for C
-<<<<<<< HEAD
-c_args = [
-  '-DHANDY_USE_UNSTABLE_API',
-  '-include', 'config.h',
-  '-w'
-]
-=======
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
         '-DHANDY_USE_UNSTABLE_API'
     ],
     language:'c'
 )
->>>>>>> origin/master
 
 cc = meson.get_compiler('c')
 
@@ -53,16 +45,10 @@ executable(
     meson.project_name(),
     'src/Application.vala',
     'src/MainWindow.vala',
-<<<<<<< HEAD
-    'src/EditableLabel.vala',
-    'src/Services/Storage.vala',
-    c_args: c_args,
-=======
     'src/Services/TaskManager.vala',
     'src/Widgets/Column.vala',
     'src/Widgets/TaskBox.vala',
     asresources,
->>>>>>> origin/master
     dependencies: [
         dependency('granite'),
         dependency('libhandy-1'),
