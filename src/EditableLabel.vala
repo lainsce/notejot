@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -90,7 +90,7 @@ public class Notejot.EditableLabel : Gtk.EventBox {
         title.hexpand = true;
 
         var edit_button = new Gtk.Button ();
-        edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
+        edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.BUTTON);
         edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         var button_revealer = new Gtk.Revealer ();
         button_revealer.valign = Gtk.Align.CENTER;

@@ -25,12 +25,13 @@ namespace Notejot {
         private Gtk.ActionBar actionbar;
         private int uid;
         private static int uid_counter = 0;
-        public string color = "#fff394";
-        public string selected_color_text = "#ad5f00";
+        public string color = "";
+        public string selected_color_text = "";
         public bool pinned = false;
         public string content = "";
         public string title_name = "Notejot";
         public Notejot.EditableLabel label;
+        public string contents = "";
 
         public SimpleActionGroup actions { get; construct; }
 
@@ -43,25 +44,26 @@ namespace Notejot {
             { ACTION_NEW,       action_new      }
         };
 
-        public MainWindow (Gtk.Application app, Storage? storage) {
+        public MainWindow (Gtk.Application app) {
             Object (application: app);
-
             var actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
             insert_action_group ("win", actions);
 
-            if (storage != null) {
-                init_from_storage(storage);
-            } else {
-                this.color = "#fff394";
-                this.selected_color_text = "#ad5f00";
-                this.pinned = false;
-                this.content = "";
-                this.set_position(Gtk.WindowPosition.CENTER);
-                this.title_name = "Notejot";
-                set_title (this.title_name);
+            this.color = Notejot.Application.gsettings.get_string("color");
+            this.selected_color_text = Notejot.Application.gsettings.get_string("selected-color");
+            int x, y, w, h;
+            x = Notejot.Application.gsettings.get_int("window-x");
+            y = Notejot.Application.gsettings.get_int("window-y");
+            w = Notejot.Application.gsettings.get_int("window-w");
+            h = Notejot.Application.gsettings.get_int("window-h");
+            this.resize (w, h);
+            if (x != -1 || y != -1) {
+                this.move (x, y);
             }
 
+            this.title_name = (_("My Note"));
+            set_title (this.title_name);
             this.get_style_context().add_class("default-decoration");
             this.get_style_context().add_class("notejot-window");
             this.uid = uid_counter++;
@@ -72,40 +74,9 @@ namespace Notejot {
             header.get_style_context().add_class("notejot-title");
             header.has_subtitle = false;
             header.set_show_close_button (true);
-            header.decoration_layout = "close:";
-
-            var applet_button = new Gtk.ToggleButton ();
-            applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            applet_button.set_image (applet_button_image);
-
-            if (pinned) {
-                applet_button.set_active (true);
-                applet_button.get_style_context().add_class("rotated");
-                set_keep_below (pinned);
-                stick ();
-            } else {
-                applet_button.set_active (false);
-                applet_button.get_style_context().remove_class("rotated");
-            }
-
-            applet_button.toggled.connect (() => {
-                if (applet_button.active) {
-                    pinned = true;
-                    applet_button.get_style_context().add_class("rotated");
-                    set_keep_below (pinned);
-                    stick ();
-    			} else {
-    			    pinned = false;
-                    set_keep_below (pinned);
-                    applet_button.get_style_context().remove_class("rotated");
-    			    unstick ();
-                }
-            });
 
             label = new Notejot.EditableLabel (this.title_name);
             header.set_custom_title(label);
-            header.pack_end (applet_button);
 
             var window_handle = new Hdy.WindowHandle ();
             window_handle.add (header);
@@ -116,19 +87,23 @@ namespace Notejot {
             create_app_menu ();
 
             var scrolled = new Gtk.ScrolledWindow (null, null);
-            scrolled.set_size_request (330,270);
+            this.set_size_request (360,360);
 
             buffer = new Gtk.SourceBuffer (null);
             buffer.set_highlight_matching_brackets (false);
+            contents = Notejot.Application.gsettings.get_string("text");
+            buffer.set_text (contents);
+
+
+
             view = new Gtk.SourceView.with_buffer (buffer);
-            view.bottom_margin = 10;
-            view.buffer.text = this.content;
+            view.bottom_margin = 6;
             view.get_style_context().add_class("notejot-view");
             view.expand = true;
-            view.left_margin = 10;
-            view.right_margin = 10;
+            view.left_margin = 6;
+            view.right_margin = 6;
             view.set_wrap_mode (Gtk.WrapMode.WORD);
-            view.top_margin = 10;
+            view.top_margin = 6;
             scrolled.add (view);
             this.show_all();
 
@@ -140,19 +115,6 @@ namespace Notejot {
             grid.add (actionbar);
             grid.show_all ();
             this.add (grid);
-
-            focus_out_event.connect (() => {
-                update_storage ();
-                return false;
-            });
-
-            label.changed.connect (() => {
-                update_storage ();
-            });
-
-            view.buffer.changed.connect (() => {
-                update_storage ();
-            });
 
             key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
@@ -172,11 +134,6 @@ namespace Notejot {
 
         public new void set_title (string title) {
             this.title = title;
-        }
-
-        private void update_storage () {
-            get_storage_note();
-            ((Application)this.application).update_storage();
         }
 
         private void update_theme() {
@@ -234,7 +191,6 @@ namespace Notejot {
 
                 .window-%d .notejot-bar image {
                     color: %s;
-                    padding: 3px;
                     box-shadow: none;
                     background-image: none;
                 }
@@ -256,7 +212,7 @@ namespace Notejot {
                 }
 
                 .color-button {
-                    border-radius: 50%;
+                    border-radius: 9999px;
                     background-image: none;
                     border: 1px solid alpha(#333, 0.25);
                     box-shadow:
@@ -302,10 +258,6 @@ namespace Notejot {
                     background-color: #aca9fd;
                 }
 
-                .color-cocoa {
-                    background-color: #a3907c;
-                }
-
                 .notejot-bar box {
                     border: none;
                 }
@@ -315,7 +267,6 @@ namespace Notejot {
                     background-color: transparent;
                     background-image: none;
                     border: 1px solid transparent;
-                    padding: 3px;
                     box-shadow: none;
                 }
 
@@ -344,9 +295,10 @@ namespace Notejot {
 
         private void create_actionbar () {
             var new_item = new Gtk.Button ();
-            new_item.tooltip_text = (_("New note"));
-            new_item.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            new_item.tooltip_text = (_("Clean note"));
+            new_item.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.BUTTON));
             new_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_NEW;
+
             actionbar.pack_start (new_item);
         }
 
@@ -440,7 +392,7 @@ namespace Notejot {
             var color_button_label = new Granite.HeaderLabel (_("Note Color"));
 
             var setting_grid = new Gtk.Grid ();
-            setting_grid.margin = 12;
+            setting_grid.margin = 6;
             setting_grid.column_spacing = 6;
             setting_grid.row_spacing = 6;
             setting_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -461,83 +413,48 @@ namespace Notejot {
                 this.color = "#F5F5F5";
                 this.selected_color_text = "#666666";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
 
             color_button_red.clicked.connect (() => {
                 this.color = "#ff8c82";
                 this.selected_color_text = "#7a0000";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
 
             color_button_orange.clicked.connect (() => {
                 this.color = "#ffc27d";
                 this.selected_color_text = "#a62100";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
 
             color_button_yellow.clicked.connect (() => {
                 this.color = "#fff394";
                 this.selected_color_text = "#ad5f00";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
 
             color_button_green.clicked.connect (() => {
                 this.color = "#d1ff82";
                 this.selected_color_text = "#206b00";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
 
             color_button_blue.clicked.connect (() => {
                 this.color = "#8cd5ff";
                 this.selected_color_text = "#002e99";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
 
             color_button_indigo.clicked.connect (() => {
                 this.color = "#aca9fd";
                 this.selected_color_text = "#452981";
                 update_theme();
-                ((Application)this.application).update_storage();
             });
             actionbar.pack_end (app_button);
         }
 
-        private void init_from_storage(Storage storage) {
-            this.color = storage.color;
-            this.selected_color_text = storage.selected_color_text;
-            this.pinned = storage.pinned;
-            this.content = storage.content;
-            this.move((int)storage.x, (int)storage.y);
-            if ((int)storage.w != 0 && (int)storage.h != 0) {
-                this.resize ((int)storage.w, (int)storage.h);
-            }
-            this.title_name = storage.title;
-            set_title (this.title_name);
-        }
-
         private void action_new () {
-            ((Application)this.application).create_note(null);
-        }
-
-        public Storage get_storage_note() {
-            int x, y, w, h;
-            string color = this.color;
-            string selected_color_text = this.selected_color_text;
-            bool pinned = this.pinned;
-            Gtk.TextIter start,end;
-            view.buffer.get_bounds (out start, out end);
-            this.content = view.buffer.get_text (start, end, true);
-            this.title_name = label.title.get_label ();
-            set_title (this.title_name);
-            this.get_position (out x, out y);
-            this.get_size (out w, out h);
-            return new Storage.from_storage(x, y, w, h, color, selected_color_text, pinned, content, title_name);
+            buffer.text = "";
         }
 
 #if VALA_0_42
@@ -558,12 +475,17 @@ namespace Notejot {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            int x, y;
+            int x, y, w, h;
             this.get_position (out x, out y);
+            this.get_size (out w, out h);
             Notejot.Application.gsettings.set_int("window-x", x);
             Notejot.Application.gsettings.set_int("window-y", y);
+            Notejot.Application.gsettings.set_int("window-w", w);
+            Notejot.Application.gsettings.set_int("window-h", h);
+            Notejot.Application.gsettings.set_string("color", this.color);
+            Notejot.Application.gsettings.set_string("selected-color", this.selected_color_text);
+            Notejot.Application.gsettings.set_string("text", buffer.text);
 
-            ((Application)this.application).remove_note(this);
             return false;
         }
     }
