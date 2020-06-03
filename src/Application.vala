@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 * Copyright (c) 2017-2020 Lains
+=======
+* Copyright (c) 2018-2020 Lains
+>>>>>>> origin/master
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -15,42 +19,38 @@
 * License along with this program; if not, write to the
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
+*
 */
 namespace Notejot {
     public class Application : Gtk.Application {
+        public static MainWindow win = null;
         public static GLib.Settings gsettings;
-        public MainWindow note = null;
-        
+
         public Application () {
             Object (
+                flags: ApplicationFlags.FLAGS_NONE,
                 application_id: "com.github.lainsce.notejot"
             );
         }
-        
+
         static construct {
             gsettings = new GLib.Settings ("com.github.lainsce.notejot");
         }
-        
-        construct {
-            var delete_action = new SimpleAction ("delete", null);
-            set_accels_for_action ("app.delete", {"<Control>w"});
-            add_action (delete_action);
-            delete_action.activate.connect (() => {
-                MainWindow note = (MainWindow)get_active_window ();
-                note.destroy();
-            });
-        }
-        
+
         protected override void activate () {
-            note = new MainWindow(this);
+            if (win != null) {
+                win.present ();
+                return;
+            }
+            win = new MainWindow (this);
         }
-        
+
         public static int main (string[] args) {
             Intl.setlocale (LocaleCategory.ALL, "");
             Intl.textdomain (Build.GETTEXT_PACKAGE);
-            
-            var app = new Application();
-            return app.run(args);
+
+            var app = new Notejot.Application ();
+            return app.run (args);
         }
     }
 }

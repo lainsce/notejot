@@ -11,6 +11,7 @@
 			<description>The y axis of window position</description>
 		</key>
 	  <key name="window-w" type="i">
+<<<<<<< HEAD
 			<default>-1</default>
 			<summary>Window size</summary>
 			<description>The width of window</description>
@@ -35,5 +36,16 @@
 			<summary>Window text contents</summary>
 			<description>The window contents in text</description>
 		</key>
+=======
+			<default>360</default>
+			<summary>Window geometry</summary>
+			<description>The width of window</description>
+		</key>
+		<key name="window-h" type="i">
+			<default>648</default>
+			<summary>Window geometry</summary>
+			<description>The height of window</description>
+		</key>
+>>>>>>> origin/master
 	</schema>
 </schemalist>
