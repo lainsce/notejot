@@ -19,7 +19,6 @@
 
 namespace Notejot {
     public class MainWindow : Hdy.Window {
-        private Gtk.Button delete_item;
         private new Gtk.SourceBuffer buffer;
         private Gtk.SourceView view;
         private Gtk.HeaderBar header;
@@ -429,28 +428,6 @@ namespace Notejot {
             color_button_indigo_context.add_class ("color-button");
             color_button_indigo_context.add_class ("color-indigo");
 
-            var color_button_cocoa = new Gtk.Button ();
-            color_button_cocoa.has_focus = false;
-            color_button_cocoa.halign = Gtk.Align.CENTER;
-            color_button_cocoa.height_request = 24;
-            color_button_cocoa.width_request = 24;
-            color_button_cocoa.tooltip_text = _("Cocoa");
-
-            var color_button_cocoa_context = color_button_cocoa.get_style_context ();
-            color_button_cocoa_context.add_class ("color-button");
-            color_button_cocoa_context.add_class ("color-cocoa");
-
-            var color_button_slate = new Gtk.Button ();
-            color_button_slate.has_focus = false;
-            color_button_slate.halign = Gtk.Align.CENTER;
-            color_button_slate.height_request = 24;
-            color_button_slate.width_request = 24;
-            color_button_slate.tooltip_text = _("Slate");
-
-            var color_button_slate_context = color_button_slate.get_style_context ();
-            color_button_slate_context.add_class ("color-button");
-            color_button_slate_context.add_class ("color-slate");
-
             var color_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             color_button_box.pack_start (color_button_white, false, true, 0);
             color_button_box.pack_start (color_button_red, false, true, 0);
@@ -459,8 +436,6 @@ namespace Notejot {
             color_button_box.pack_start (color_button_green, false, true, 0);
             color_button_box.pack_start (color_button_blue, false, true, 0);
             color_button_box.pack_start (color_button_indigo, false, true, 0);
-            color_button_box.pack_start (color_button_cocoa, false, true, 0);
-            color_button_box.pack_start (color_button_slate, false, true, 0);
 
             var color_button_label = new Granite.HeaderLabel (_("Note Color"));
 
@@ -527,20 +502,6 @@ namespace Notejot {
             color_button_indigo.clicked.connect (() => {
                 this.color = "#aca9fd";
                 this.selected_color_text = "#452981";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_cocoa.clicked.connect (() => {
-                this.color = "#a3907c";
-                this.selected_color_text = "#3d211b";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_slate.clicked.connect (() => {
-                this.color = "#a5b3bc";
-                this.selected_color_text = "#0e141f";
                 update_theme();
                 ((Application)this.application).update_storage();
             });
