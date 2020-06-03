@@ -10,5 +10,15 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
+	  <key name="window-w" type="i">
+			<default>360</default>
+			<summary>Window geometry</summary>
+			<description>The width of window</description>
+		</key>
+		<key name="window-h" type="i">
+			<default>648</default>
+			<summary>Window geometry</summary>
+			<description>The height of window</description>
+		</key>
 	</schema>
 </schemalist>
