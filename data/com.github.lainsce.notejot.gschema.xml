@@ -31,7 +31,7 @@
 			<description>The window selected color</description>
 		</key>
 	  <key name="text" type="s">
-			<default>'#fff394'</default>
+			<default>''</default>
 			<summary>Window text contents</summary>
 			<description>The window contents in text</description>
 		</key>
