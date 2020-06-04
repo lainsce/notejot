@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-* Copyright (c) 2417-2020 Lains
-=======
-* Copyright (c) 2018-2020 Lains
->>>>>>> origin/master
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -190,3 +186,4 @@ namespace Notejot {
         }
     }
 }
+

@@ -52,22 +52,6 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-        <release version="2.0.0" date="2020-?-?">
-            <description>
-                <p>Release: Hello, Odin!</p>
-                <ul>
-                    <li>UI Redesign: Geared towards being an adaptive app, Notes are now stored in a main window in a list</li>
-                </ul>
-            </description>
-        </release>
-        <release version="1.6.3" date="2020-04-17">
-            <description>
-                <p>Release: Small Fixes</p>
-                <ul>
-                    <li>UI Fix: Window Close button replaced by Delete Note button. (does the same action but prevents note loss)</li>
-                </ul>
-            </description>
-        </release>
         <release version="1.6.2" date="2020-02-07">
             <description>
                 <p>Release: Aesthetics</p>

@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.notejot', ['vala', 'c'],
-    version: '2.0.0'
+    version: '1.6.2'
 )
 
 # Import main lib files
@@ -9,12 +9,6 @@ i18n = import('i18n')
 
 # Set this for convenience
 conf = configuration_data()
-
-asresources = gnome.compile_resources(
-    'as-resources', join_paths('data', 'com.github.lainsce.notejot.gresource.xml'),
-    source_dir: 'data',
-    c_name: 'as'
-)
 
 # Get the package data directory under Meson
 pkgdatadir = join_paths([ get_option('prefix'),
@@ -51,11 +45,10 @@ executable(
     asresources,
     dependencies: [
         dependency('granite'),
-        dependency('libhandy-1'),
         dependency('gobject-2.0'),
+        dependency('gtksourceview-3.0'),
         dependency('json-glib-1.0'),
         dependency('gee-0.8'),
-        dependency('libhandy-1'),
         dependency('gtk+-3.0')
     ],
     vala_args: [
@@ -66,7 +59,7 @@ executable(
 )
 
 # Add in a post install script
-meson.add_install_script('meson/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
+meson.add_install_script(meson.source_root() + '/meson/post_install.py')
 
 # Add subfolders for Meson to look
 subdir('data')

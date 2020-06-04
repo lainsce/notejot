@@ -10,7 +10,7 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
-	  <key name="window-w" type="i">
+		<key name="window-w" type="i">
 			<default>360</default>
 			<summary>Window geometry</summary>
 			<description>The width of window</description>
