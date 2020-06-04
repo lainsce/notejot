@@ -47,10 +47,17 @@
     box-shadow: none;
 }
 window.background {
-	background-color: @SLATE_700;
+	background-color: shade(@SLATE_700, 1.2);
 }
 .notejot-mbar {
-	background-color: @SLATE_700;
+	background-color: shade(@SLATE_700, 0.8);
+}
+.notejot-tbar {
+	background-color: shade(@SLATE_700, 0.8);
+}
+
+.notejot-tbar label {
+	background-color: shade(@WHITE_700, 0.8);
 }
 
 .notejot-mbar .image-button {
@@ -75,7 +82,7 @@ windowhandle separator {
 undershoot.top {
     background:
         linear-gradient(
-            @SLATE_700 0%,
+            alpha(@SLATE_700, 0.5) 0%,
             alpha(@SLATE_700, 0) 50%
         );
 }
@@ -84,6 +91,10 @@ undershoot.bottom {
     background:
         linear-gradient(
             alpha(@SLATE_700, 0) 50%,
-            @SLATE_700 100%
+            alpha(@SLATE_700, 0.5) 100%
         );
+}
+
+.rotated > widget > box > image {
+  -gtk-icon-transform: rotate(90deg);
 }

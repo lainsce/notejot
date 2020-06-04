@@ -225,7 +225,7 @@ namespace Notejot {
 
                 .notejot-bar-%d {
                     border-radius: 0 0 10px 10px;
-                    box-shadow: inset 0px -1px 0px 0px rgba(0,0,0,1);
+                    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.5);
                 }
 
                 .notejot-db-%d {
@@ -233,7 +233,7 @@ namespace Notejot {
                     background-color: %s;
                     padding: 9px;
                     box-shadow:
-                        0 -1px 0 0 rgba(255, 255, 255, 0.66);
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
                 }
                 """)).printf(color, uid, color, uid, uid, uid, color, uid, uid, color);
 

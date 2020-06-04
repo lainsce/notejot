@@ -25,6 +25,7 @@ namespace Notejot {
         // Widgets
         public Widgets.Column column;
         public Gtk.Grid grid;
+        public bool pinned = false;
 
         public Services.TaskManager tm;
 
@@ -67,6 +68,8 @@ namespace Notejot {
             this.resize (w, h);
 
             var titlebar = new Gtk.HeaderBar ();
+            var titlebar_c = titlebar.get_style_context ();
+            titlebar_c.add_class ("notejot-tbar");
             titlebar.show_close_button = true;
             set_title (title);
 
@@ -76,6 +79,38 @@ namespace Notejot {
             var bar = new Gtk.ActionBar ();
             var bar_c = bar.get_style_context ();
             bar_c.add_class ("notejot-mbar");
+
+
+            var applet_button = new Gtk.ToggleButton ();
+            applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin", Gtk.IconSize.LARGE_TOOLBAR);
+            applet_button.set_image (applet_button_image);
+
+            if (pinned) {
+                applet_button.set_active (true);
+                applet_button.get_style_context().add_class("rotated");
+                set_keep_below (pinned);
+                stick ();
+            } else {
+                applet_button.set_active (false);
+                applet_button.get_style_context().remove_class("rotated");
+            }
+
+            applet_button.toggled.connect (() => {
+                if (applet_button.active) {
+                    pinned = true;
+                    applet_button.get_style_context().add_class("rotated");
+                    set_keep_below (pinned);
+                    stick ();
+    			} else {
+    			    pinned = false;
+                    set_keep_below (pinned);
+                    applet_button.get_style_context().remove_class("rotated");
+    			    unstick ();
+                }
+            });
+
+            bar.pack_end (applet_button);
 
             var new_button = new Gtk.Button ();
             new_button.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
