@@ -29,6 +29,10 @@ namespace Notejot {
                 win.tm.save_notes ();
             });
 
+            // Used to make up the top part of the notes
+            var dummy_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            dummy_box.get_style_context ().add_class ("notejot-db-%d".printf(uid));
+
             var task_delete_button = new Gtk.Button();
             var task_delete_button_c = task_delete_button.get_style_context ();
             task_delete_button_c.add_class ("flat");
@@ -182,6 +186,7 @@ namespace Notejot {
                 win.tm.save_notes ();
             });
 
+            this.add (dummy_box);
             this.add (view);
             this.add (bar);
             this.show_all ();
@@ -217,7 +222,20 @@ namespace Notejot {
                     font-size: 1.2em;
                     color: @textColorPrimary;
                 }
-                """)).printf(color, uid, color, uid, uid, uid, color);
+
+                .notejot-bar-%d {
+                    border-radius: 0 0 10px 10px;
+                    box-shadow: inset 0px -1px 0px 0px rgba(0,0,0,1);
+                }
+
+                .notejot-db-%d {
+                    border-radius: 10px 10px 0 0;
+                    background-color: %s;
+                    padding: 9px;
+                    box-shadow:
+                        0 -1px 0 0 rgba(255, 255, 255, 0.66);
+                }
+                """)).printf(color, uid, color, uid, uid, uid, color, uid, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);

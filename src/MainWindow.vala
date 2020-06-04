@@ -73,11 +73,15 @@ namespace Notejot {
             var handle = new Hdy.WindowHandle ();
             handle.add(titlebar);
 
+            var bar = new Gtk.ActionBar ();
+            var bar_c = bar.get_style_context ();
+            bar_c.add_class ("notejot-mbar");
+
             var new_button = new Gtk.Button ();
             new_button.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New Note"));
-            titlebar.pack_start (new_button);
+            bar.set_center_widget (new_button);
 
             // Column
             column = new Widgets.Column (this);
@@ -101,9 +105,10 @@ namespace Notejot {
             var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             box.add (handle);
             box.add (scrwindow);
+            box.add (bar);
 
             this.add (box);
-            this.set_size_request (360, 360);
+            this.set_size_request (420, 360);
             this.show_all ();
 
             // Setting CSS

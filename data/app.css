@@ -49,16 +49,21 @@
 window.background {
 	background-color: @SLATE_700;
 }
+.notejot-mbar {
+	background-color: @SLATE_700;
+}
+
+.notejot-mbar .image-button {
+	color: @WHITE_300;
+	margin: 6px;
+	padding: 7px;
+	border-radius: 9999px;
+	border: 1px solid alpha (white, 0.35);
+}
 
 windowhandle separator {
   margin: 0;
   padding: 0;
-}
-
-windowhandle .image-button {
-	color: @WHITE_300;
-	margin: 3px 6px;
-	border: 1px solid alpha (white, 0.35);
 }
 
 .titlebutton {
