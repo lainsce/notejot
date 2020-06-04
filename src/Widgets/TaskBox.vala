@@ -19,9 +19,9 @@ namespace Notejot {
 
             var view = new Gtk.TextView ();
             view.hexpand = true;
+            view.set_size_request (-1, 280);
             view.top_margin = view.bottom_margin = view.left_margin = view.right_margin = 12;
             view.get_style_context ().add_class ("notejot-view-%d".printf(uid));
-            view.set_size_request (300, 270);
             view.buffer.text = this.contents;
 
             view.buffer.changed.connect (() => {
@@ -126,7 +126,7 @@ namespace Notejot {
             var color_button_label = new Granite.HeaderLabel (_("Note Color"));
 
             var setting_grid = new Gtk.Grid ();
-            setting_grid.margin = 12;
+            setting_grid.margin = 6;
             setting_grid.column_spacing = 6;
             setting_grid.row_spacing = 6;
             setting_grid.orientation = Gtk.Orientation.VERTICAL;

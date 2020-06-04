@@ -5,10 +5,10 @@ namespace Notejot {
 
         public Column (MainWindow win) {
             this.win = win;
-            this.row_spacing = 12;
             this.margin = 6;
-            is_modified = false;
             this.orientation = Gtk.Orientation.VERTICAL;
+            this.row_spacing = 12;
+            is_modified = false;
             this.show_all ();
         }
 

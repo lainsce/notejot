@@ -120,8 +120,7 @@ namespace Notejot {
             tm.load_from_file ();
 
             grid = new Gtk.Grid ();
-            grid.margin = 3;
-            grid.hexpand = true;
+            grid.vexpand = true;
             grid.attach (column, 0, 0, 1, 1);
             grid.show_all ();
 
@@ -139,7 +138,7 @@ namespace Notejot {
             box.add (bar);
 
             this.add (box);
-            this.set_size_request (420, 360);
+            this.set_size_request (360, 360);
             this.show_all ();
 
             // Setting CSS
