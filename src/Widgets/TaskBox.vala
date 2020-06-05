@@ -20,6 +20,8 @@ namespace Notejot {
             var view = new Gtk.TextView ();
             view.hexpand = true;
             view.set_size_request (-1, 280);
+            view.margin = 3;
+            view.margin_top = view.margin_bottom = 0;
             view.top_margin = view.bottom_margin = view.left_margin = view.right_margin = 12;
             view.get_style_context ().add_class ("notejot-view-%d".printf(uid));
             view.buffer.text = this.contents;
@@ -31,6 +33,8 @@ namespace Notejot {
 
             // Used to make up the top part of the notes
             var dummy_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            dummy_box.margin = 3;
+            dummy_box.margin_top = dummy_box.margin_bottom = 0;
             dummy_box.get_style_context ().add_class ("notejot-db-%d".printf(uid));
 
             var task_delete_button = new Gtk.Button();
@@ -46,9 +50,12 @@ namespace Notejot {
             task_delete_button.tooltip_text = (_("Delete Note"));
 
             var bar = new Gtk.ActionBar ();
+            bar.margin = 3;
+            bar.margin_top = bar.margin_bottom = 0;
             var bar_c = bar.get_style_context ();
             bar_c.add_class ("notejot-bar-%d".printf(uid));
             bar.pack_start (task_delete_button);
+
             var color_button_red = new Gtk.Button ();
             color_button_red.has_focus = false;
             color_button_red.halign = Gtk.Align.CENTER;
@@ -225,7 +232,10 @@ namespace Notejot {
 
                 .notejot-bar-%d {
                     border-radius: 0 0 10px 10px;
-                    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.5);
+                    box-shadow:
+                        0 0 0 1px rgba (0, 0, 0, 0.1),
+                        0 3px 4px rgba (0, 0, 0, 0.15),
+                        0 3px 3px -3px rgba (0, 0, 0, 0.35);
                 }
 
                 .notejot-db-%d {
@@ -233,7 +243,8 @@ namespace Notejot {
                     background-color: %s;
                     padding: 9px;
                     box-shadow:
-                        inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+                        inset 1px 0 0 0 rgba (255, 255, 255, 0.07),
+                        inset -1px 0 0 0 rgba (255, 255, 255, 0.07);
                 }
                 """)).printf(color, uid, color, uid, uid, uid, color, uid, uid, color);
 

@@ -66,8 +66,9 @@ namespace Notejot {
             var titlebar = new Gtk.HeaderBar ();
             var titlebar_c = titlebar.get_style_context ();
             titlebar_c.add_class ("notejot-tbar");
+            titlebar_c.add_class (Gtk.STYLE_CLASS_FLAT);
             titlebar.show_close_button = true;
-            set_title (title);
+            set_title (titlebar.title);
             titlebar.title = "Notejot";
 
             var handle = new Hdy.WindowHandle ();
@@ -77,8 +78,8 @@ namespace Notejot {
             var bar_c = bar.get_style_context ();
             bar_c.add_class ("notejot-mbar");
 
-
             var applet_button = new Gtk.ToggleButton ();
+            applet_button.tooltip_text = (_("Pin to Desktop"));
             applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             var applet_button_image = new Gtk.Image.from_icon_name ("view-pin", Gtk.IconSize.LARGE_TOOLBAR);
             applet_button.set_image (applet_button_image);

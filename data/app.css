@@ -50,11 +50,12 @@ window.background {
 	background-color: shade(@SLATE_700, 1.2);
 }
 .notejot-mbar {
-	background-color: shade(@SLATE_700, 0.8);
+	background: linear-gradient(to top, shade(@SLATE_700, 0.8), shade(@SLATE_700, 1.2));
+	box-shadow: transparent;
 }
 .notejot-tbar {
-	background-color: shade(@SLATE_700, 0.8);
-	box-shadow: none;
+	background: linear-gradient(to bottom, shade(@SLATE_700, 0.8), shade(@SLATE_700, 1.2));
+	box-shadow: transparent;
 	border: 1px solid transparent;
 }
 
