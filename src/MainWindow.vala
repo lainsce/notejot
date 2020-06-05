@@ -68,6 +68,7 @@ namespace Notejot {
             titlebar_c.add_class ("notejot-tbar");
             titlebar.show_close_button = true;
             set_title (title);
+            titlebar.title = "Notejot";
 
             var handle = new Hdy.WindowHandle ();
             handle.add(titlebar);
@@ -125,7 +126,7 @@ namespace Notejot {
             grid.show_all ();
 
             new_button.clicked.connect (() => {
-                add_task (_("Write a New Note…"), "#D5D5D5");
+                add_task (_("Write a New Note…"), "#fff394");
             });
 
             var scrwindow = new Gtk.ScrolledWindow (null, null);

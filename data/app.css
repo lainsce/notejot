@@ -54,10 +54,13 @@ window.background {
 }
 .notejot-tbar {
 	background-color: shade(@SLATE_700, 0.8);
+	box-shadow: none;
+	border: 1px solid transparent;
 }
 
-.notejot-tbar label {
-	background-color: shade(@WHITE_700, 0.8);
+.notejot-tbar box > label {
+	color: shade(@WHITE_700, 0.8);
+	font-weight: 700;
 }
 
 .notejot-mbar .image-button {
