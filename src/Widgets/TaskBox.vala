@@ -19,7 +19,7 @@ namespace Notejot {
 
             var view = new Gtk.TextView ();
             view.hexpand = true;
-            view.set_size_request (-1, 280);
+            view.set_size_request (-1, 250);
             view.margin = 3;
             view.margin_top = view.margin_bottom = 0;
             view.top_margin = view.bottom_margin = view.left_margin = view.right_margin = 12;
@@ -204,32 +204,25 @@ namespace Notejot {
 
             string style = null;
             style = (N_("""
-                @define-color textColorPrimary #323232;
-
-                .notejot-view text selection {
-                    color: @textColorPrimary;
-                    background-color: %s;
-                }
                 .notejot-bar-%d {
-                    background-color: %s;
+                    background-color: #F7F7F7;
                     box-shadow: none;
                     background-image: none;
                     padding: 3px;
                 }
                 .notejot-bar-%d image {
-                    color: @textColorPrimary;
+                    color: #323232;
                     padding: 3px;
                     box-shadow: none;
                     background-image: none;
                 }
                 .notejot-view-%d,
                 .notejot-view-%d text {
-                    background-color: %s;
+                    background-color: #F7F7F7;
                     background-image: none;
                     font-size: 1.2em;
-                    color: @textColorPrimary;
+                    color: #323232;
                 }
-
                 .notejot-bar-%d {
                     border-radius: 0 0 10px 10px;
                     box-shadow:
@@ -237,16 +230,16 @@ namespace Notejot {
                         0 3px 4px rgba (0, 0, 0, 0.15),
                         0 3px 3px -3px rgba (0, 0, 0, 0.35);
                 }
-
                 .notejot-db-%d {
                     border-radius: 10px 10px 0 0;
-                    background-color: %s;
-                    padding: 9px;
+                    border-bottom: 2px dashed alpha(black, 0.35);
+                    background: %s;
+                    padding: 10px;
                     box-shadow:
                         inset 1px 0 0 0 rgba (255, 255, 255, 0.07),
                         inset -1px 0 0 0 rgba (255, 255, 255, 0.07);
                 }
-                """)).printf(color, uid, color, uid, uid, uid, color, uid, uid, color);
+                """)).printf(uid, uid, uid, uid, uid, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);

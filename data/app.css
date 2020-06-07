@@ -11,7 +11,7 @@
 .color_button:focus {
     border: 1px solid @inset_dark_color;
 }
-.color-slate {
+.color-BLACK {
     background-color: #a5b3bc;
 }
 .color-white {
@@ -47,14 +47,14 @@
     box-shadow: none;
 }
 window.background {
-	background-color: shade(@SLATE_700, 1.2);
+	background-color: shade(@BLACK_700, 1.2);
 }
 .notejot-mbar {
-	background: linear-gradient(to top, shade(@SLATE_700, 0.8), shade(@SLATE_700, 1.2));
+	background: linear-gradient(to top, shade(@BLACK_700, 0.8), shade(@BLACK_700, 1.2));
 	box-shadow: transparent;
 }
 .notejot-tbar {
-	background: linear-gradient(to bottom, shade(@SLATE_700, 0.8), shade(@SLATE_700, 1.2));
+	background: linear-gradient(to bottom, shade(@BLACK_700, 0.8), shade(@BLACK_700, 1.2));
 	box-shadow: transparent;
 	border: 1px solid transparent;
 }
@@ -86,16 +86,18 @@ windowhandle separator {
 undershoot.top {
     background:
         linear-gradient(
-            alpha(@SLATE_700, 0.5) 0%,
-            alpha(@SLATE_700, 0) 50%
+            to bottom,
+            alpha(@BLACK_700, 0.5),
+            alpha(@BLACK_700, 0)
         );
 }
 
 undershoot.bottom {
     background:
         linear-gradient(
-            alpha(@SLATE_700, 0) 50%,
-            alpha(@SLATE_700, 0.5) 100%
+            to bottom,
+            alpha(@BLACK_700, 0),
+            alpha(@BLACK_700, 0.5)
         );
 }
 
