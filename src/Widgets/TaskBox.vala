@@ -203,7 +203,8 @@ namespace Notejot {
             var css_provider = new Gtk.CssProvider();
 
             string style = null;
-            style = (N_("""
+            if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                style = (N_("""
                 .notejot-bar-%d {
                     background-color: #F7F7F7;
                     box-shadow: none;
@@ -240,6 +241,83 @@ namespace Notejot {
                         inset -1px 0 0 0 rgba (255, 255, 255, 0.07);
                 }
                 """)).printf(uid, uid, uid, uid, uid, uid, color);
+            } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                style = (N_("""
+                .notejot-bar-%d {
+                    background-color: #323232;
+                    box-shadow: none;
+                    background-image: none;
+                    padding: 3px;
+                }
+                .notejot-bar-%d image {
+                    color: #F7F7F7;
+                    padding: 3px;
+                    box-shadow: none;
+                    background-image: none;
+                }
+                .notejot-view-%d,
+                .notejot-view-%d text {
+                    background-color: #323232;
+                    background-image: none;
+                    font-size: 1.2em;
+                    color: #F7F7F7;
+                }
+                .notejot-bar-%d {
+                    border-radius: 0 0 10px 10px;
+                    box-shadow:
+                        0 0 0 1px rgba (0, 0, 0, 0.1),
+                        0 3px 4px rgba (0, 0, 0, 0.15),
+                        0 3px 3px -3px rgba (0, 0, 0, 0.35);
+                }
+                .notejot-db-%d {
+                    border-radius: 10px 10px 0 0;
+                    border-bottom: 2px dashed alpha(black, 0.35);
+                    background: shade(%s, 0.8);
+                    padding: 10px;
+                    box-shadow:
+                        inset 1px 0 0 0 rgba (255, 255, 255, 0.07),
+                        inset -1px 0 0 0 rgba (255, 255, 255, 0.07);
+                }
+                """)).printf(uid, uid, uid, uid, uid, uid, color);
+            } else {
+                style = (N_("""
+                .notejot-bar-%d {
+                    background-color: #323232;
+                    box-shadow: none;
+                    background-image: none;
+                    padding: 3px;
+                }
+                .notejot-bar-%d image {
+                    color: #F7F7F7;
+                    padding: 3px;
+                    box-shadow: none;
+                    background-image: none;
+                }
+                .notejot-view-%d,
+                .notejot-view-%d text {
+                    background-color: #323232;
+                    background-image: none;
+                    font-size: 1.2em;
+                    color: #F7F7F7;
+                }
+                .notejot-bar-%d {
+                    border-radius: 0 0 10px 10px;
+                    box-shadow:
+                        0 0 0 1px rgba (0, 0, 0, 0.1),
+                        0 3px 4px rgba (0, 0, 0, 0.15),
+                        0 3px 3px -3px rgba (0, 0, 0, 0.35);
+                }
+                .notejot-db-%d {
+                    border-radius: 10px 10px 0 0;
+                    border-bottom: 2px dashed alpha(black, 0.35);
+                    background: shade(%s, 0.8);
+                    padding: 10px;
+                    box-shadow:
+                        inset 1px 0 0 0 rgba (255, 255, 255, 0.07),
+                        inset -1px 0 0 0 rgba (255, 255, 255, 0.07);
+                }
+                """)).printf(uid, uid, uid, uid, uid, uid, color);
+            }
 
             try {
                 css_provider.load_from_data(style, -1);

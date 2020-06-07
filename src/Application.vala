@@ -21,6 +21,7 @@ namespace Notejot {
     public class Application : Gtk.Application {
         public static MainWindow win = null;
         public static GLib.Settings gsettings;
+        public static Granite.Settings grsettings;
 
         public Application () {
             Object (
@@ -31,6 +32,7 @@ namespace Notejot {
 
         static construct {
             gsettings = new GLib.Settings ("com.github.lainsce.notejot");
+            grsettings = Granite.Settings.get_default ();
         }
 
         protected override void activate () {
