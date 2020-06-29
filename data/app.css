@@ -78,6 +78,11 @@ window.unified decoration-overlay {
 	border-left: none;
 }
 
+.notejot-tbar separator {
+  margin: 0;
+  padding: 0;
+}
+
 .notejot-column,
 .notejot-column list {
     background: mix (@accent_color, @base_color, 0.85);
