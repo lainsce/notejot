@@ -35,7 +35,7 @@ namespace Notejot {
             var bar_c = bar.get_style_context ();
             bar_c.add_class ("notejot-bar");
 
-            task_label = new Gtk.Label (this.title);
+            task_label = new Gtk.Label (title);
             task_label.halign = Gtk.Align.START;
             task_label.wrap = true;
             task_label.hexpand = true;
@@ -180,9 +180,10 @@ namespace Notejot {
                 border-radius: 8px;
                 padding: 5px;
                 box-shadow:
-                    inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-                    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-                    0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+                    0 1px 0 0 alpha(@highlight_color, 0.3),
+                    inset 0 1px 1px alpha(black, 0.05),
+                    inset 0 0 1px 1px alpha(black, 0.05),
+                    0 1px 0 0 alpha(@highlight_color, 0.2);
             }
             """)).printf(uid, color);
 

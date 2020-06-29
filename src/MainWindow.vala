@@ -321,7 +321,8 @@ namespace Notejot {
             });
 
             editablelabel.changed.connect (() => {
-                (((Widgets.TaskBox)column.get_selected_row ())).title = editablelabel.text;
+                (((Widgets.TaskBox)column.get_selected_row ())).task_label.set_label(editablelabel.title.get_label ());
+                (((Widgets.TaskBox)column.get_selected_row ())).title = editablelabel.title.get_label ();
                 tm.save_notes ();
             });
 

@@ -63,6 +63,7 @@ namespace Notejot {
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
 
             this.get_style_context().add_class("notejot-label");
+            this.get_style_context().add_class ("notejot-tview");
 
             title = new Gtk.Label (title_name);
             title.ellipsize = Pango.EllipsizeMode.END;
