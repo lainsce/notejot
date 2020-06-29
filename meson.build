@@ -47,7 +47,9 @@ executable(
     'src/MainWindow.vala',
     'src/Services/TaskManager.vala',
     'src/Widgets/Column.vala',
+    'src/Widgets/EditableLabel.vala',
     'src/Widgets/TaskBox.vala',
+    'src/Widgets/TextView.vala',
     asresources,
     dependencies: [
         dependency('granite'),

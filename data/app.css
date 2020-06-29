@@ -1,3 +1,7 @@
+@define-color accent_color #FFE16B;
+@define-color accent_color_500 #FFE16B;
+@define-color accent_color_300 #FFE16B;
+
 .color-button {
     border-radius: 50%;
     background-image: none;
@@ -11,32 +15,20 @@
 .color_button:focus {
     border: 1px solid @inset_dark_color;
 }
-.color-BLACK {
-    background-color: #a5b3bc;
-}
-.color-white {
-    background-color: #fafafa;
-}
 .color-red {
-    background-color: #ff8c82;
-}
-.color-orange {
-    background-color: #ffc27d;
+    background-color: @STRAWBERRY_300;
 }
 .color-yellow {
-    background-color: #fff394;
+    background-color: @BANANA_300;
 }
 .color-green {
-    background-color: #d1ff82;
+    background-color: @LIME_300;
 }
 .color-blue {
-    background-color: #8cd5ff;
+    background-color: @BLUEBERRY_300;
 }
 .color-indigo {
-    background-color: #aca9fd;
-}
-.color-cocoa {
-    background-color: #a3907c;
+    background-color: @GRAPE_300;
 }
 .image-button,
 .titlebutton {
@@ -46,49 +38,88 @@
     padding: 3px;
     box-shadow: none;
 }
-window.background {
-	background-color: shade(@BLACK_700, 1.2);
+
+.notejot-tview {
+	background-color: #F7F7F7;
+	font-size: 1.2rem;
+	padding: 12px;
 }
-.notejot-mbar {
-	background: linear-gradient(to top, shade(@BLACK_700, 0.8), shade(@BLACK_700, 1.2));
-	box-shadow: transparent;
+
+.notejot-bar {
+    padding: 5px;
 }
+
 .notejot-tbar {
-	background: linear-gradient(to bottom, shade(@BLACK_700, 0.8), shade(@BLACK_700, 1.2));
-	box-shadow: transparent;
-	border: 1px solid transparent;
+	background: #FFF;
+	box-shadow: none;
+	border-bottom: 1px solid alpha (black, 0.25);
+	border-left: none;
 }
 
-.notejot-tbar box > label {
-	color: shade(@WHITE_700, 0.8);
-	font-weight: 700;
+.notejot-tbar .image-button {
+    border-radius: 8px;
 }
 
-.notejot-mbar .image-button {
-	color: @WHITE_300;
-	margin: 6px;
-	padding: 7px;
-	border-radius: 9999px;
-	border: 1px solid alpha (white, 0.35);
+.notejot-tbar .image-button image {
+    padding: 0 6px;
 }
 
-windowhandle separator {
-  margin: 0;
-  padding: 0;
+.notejot-column,
+.notejot-column list {
+    background: mix (@accent_color, @base_color, 0.85);
+    box-shadow: none;
 }
 
-.titlebutton {
-	color: @WHITE_300;
-	padding: 0;
-	margin: 0 6px;
+.notejot-side-tbar {
+    background: mix (@accent_color, @base_color, 0.85);;
+    box-shadow: none;
+}
+
+.vsep {
+    border-right: 1px solid alpha (black, 0.25);
+}
+
+.notejot-column-box {
+    padding: 2px;
+    margin: 6px;
+    border-radius: 8px;
+    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    background: mix (@accent_color, @base_color, 0.85);
+    color: @fg_color;
+}
+
+.notejot-column-box:hover,
+.notejot-column-box:selected {
+    padding: 2px;
+    margin: 6px;
+    border-radius: 8px;
+    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    background: shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    color: @fg_color;
+}
+
+.notejot-label {
+    font-weight: 300;
+    font-size: 2rem;
+    background: #F7F7F7;
+}
+
+.notejot-entry {
+    border-radius: 8px;
+    box-shadow: none;
+    background: shade(@color_primary, 1.2);
+}
+
+.rotated > widget > box > image {
+  -gtk-icon-transform: rotate(90deg);
 }
 
 undershoot.top {
     background:
         linear-gradient(
             to bottom,
-            alpha(@BLACK_700, 0.5),
-            alpha(@BLACK_700, 0)
+            alpha(mix (@accent_color, @base_color, 0.85), 0.5),
+            alpha(mix (@accent_color, @base_color, 0.85), 0)
         );
 }
 
@@ -96,11 +127,7 @@ undershoot.bottom {
     background:
         linear-gradient(
             to bottom,
-            alpha(@BLACK_700, 0),
-            alpha(@BLACK_700, 0.5)
+            alpha(mix (@accent_color, @base_color, 0.85), 0),
+            alpha(mix (@accent_color, @base_color, 0.85), 0.5)
         );
-}
-
-.rotated > widget > box > image {
-  -gtk-icon-transform: rotate(90deg);
 }

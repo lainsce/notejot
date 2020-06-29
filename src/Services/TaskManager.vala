@@ -66,6 +66,7 @@ namespace Notejot {
 	        builder.begin_array ();
 	        foreach (var task in column.get_tasks ()) {
                 builder.begin_array ();
+                builder.add_string_value (task.title);
 		        builder.add_string_value (task.contents);
                 builder.add_string_value (task.color);
                 builder.end_array ();
@@ -90,10 +91,11 @@ namespace Notejot {
                     var columns = array.get_array_element (0);
                     foreach (var tasks in columns.get_elements()) {
                         var task = tasks.get_array ();
-                        string contents = task.get_string_element(0);
-                        string color = task.get_string_element(1);
+                        string title = task.get_string_element(0);
+                        string contents = task.get_string_element(1);
+                        string color = task.get_string_element(2);
 
-                        win.add_task (contents, color);
+                        win.column.add_task (title, contents, color);
                     }
                 }
             } catch (Error e) {
