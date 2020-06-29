@@ -2,6 +2,15 @@
 @define-color accent_color_500 #FFE16B;
 @define-color accent_color_300 #FFE16B;
 
+window.unified decoration,
+window.unified decoration-overlay {
+  border-radius: 8px;
+}
+
+.title {
+    font-weight: 700;
+}
+
 .color-button {
     border-radius: 50%;
     background-image: none;
