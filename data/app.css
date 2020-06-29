@@ -67,6 +67,10 @@ window.unified decoration-overlay {
 	padding: 12px;
 }
 
+.notejot-tview-dark {
+  background: #151515;
+}
+
 .notejot-bar {
     padding: 5px;
 }
@@ -78,9 +82,13 @@ window.unified decoration-overlay {
 	border-left: none;
 }
 
+.notejot-tbar-dark {
+  background: #000;
+}
+
 .notejot-tbar separator {
   margin: 0;
-  padding: 0;
+  padding: 3px;
 }
 
 .notejot-column,
@@ -120,12 +128,12 @@ window.unified decoration-overlay {
 .notejot-label {
     font-weight: 300;
     font-size: 2rem;
-    background: #F7F7F7;
 }
 
 .notejot-entry {
     border-radius: 8px;
     box-shadow: none;
+    font-weight: 300;
     background: shade(@color_primary, 1.2);
 }
 

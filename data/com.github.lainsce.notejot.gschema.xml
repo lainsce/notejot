@@ -20,5 +20,15 @@
 			<summary>Window geometry</summary>
 			<description>The height of window</description>
 		</key>
+		<key type="b" name="dark-mode">
+			<default>false</default>
+			<summary>Dark Mode</summary>
+			<description>Whether to go dark</description>
+		</key>
+		<key type="b" name="pinned">
+			<default>false</default>
+			<summary>Pin To Desktop</summary>
+			<description>Whether to pin the app to the desktop like an applet</description>
+		</key>
 	</schema>
 </schemalist>

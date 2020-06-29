@@ -28,10 +28,11 @@ namespace Notejot {
         public Gtk.Grid normal_view;
         public Gtk.Separator separator;
         public Gtk.Stack stack;
+        public Gtk.Switch mode_switch;
+        public Gtk.Switch applet_switch;
         public Hdy.Leaflet leaflet;
         public Hdy.HeaderBar titlebar;
         public Hdy.HeaderBar fauxtitlebar;
-        public bool pinned = false;
 
         public Services.TaskManager tm;
 
@@ -54,6 +55,68 @@ namespace Notejot {
                     }
                 }
                 return false;
+            });
+
+            if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                Notejot.Application.gsettings.set_boolean("dark-mode", true);
+                mode_switch.sensitive = false;
+            } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                mode_switch.sensitive = true;
+            }
+
+            Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", true);
+                    mode_switch.sensitive = false;
+                } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                    mode_switch.sensitive = true;
+                }
+            });
+
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                titlebar.get_style_context ().add_class ("notejot-tbar-dark");
+                editablelabel.get_style_context ().add_class ("notejot-tview-dark");
+                textview.get_style_context ().add_class ("notejot-tview-dark");
+            } else {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
+                editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
+                textview.get_style_context ().remove_class ("notejot-tview-dark");
+            }
+
+            if (Notejot.Application.gsettings.get_boolean("pinned")) {
+                applet_switch.set_active (true);
+                set_keep_below (Notejot.Application.gsettings.get_boolean("pinned"));
+                stick ();
+            } else {
+                applet_switch.set_active (false);
+            }
+
+            Notejot.Application.gsettings.changed.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    titlebar.get_style_context ().add_class ("notejot-tbar-dark");
+                    editablelabel.get_style_context ().add_class ("notejot-tview-dark");
+                    textview.get_style_context ().add_class ("notejot-tview-dark");
+                } else {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
+                    editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
+                    textview.get_style_context ().remove_class ("notejot-tview-dark");
+                }
+
+                if (Notejot.Application.gsettings.get_boolean("pinned")) {
+                    applet_switch.set_active (true);
+                    set_keep_below (true);
+                    stick ();
+                } else {
+                    applet_switch.set_active (false);
+                    set_keep_below (false);
+                    unstick ();
+                }
             });
         }
 
@@ -98,24 +161,6 @@ namespace Notejot {
             fauxtitlebar.show_close_button = true;
             fauxtitlebar.has_subtitle = false;
 
-            var applet_button = new Gtk.ToggleButton ();
-            applet_button.tooltip_text = (_("Pin to Desktop"));
-            applet_button.get_style_context ().add_class ("notejot-button");
-            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.BUTTON);
-            applet_button.set_image (applet_button_image);
-
-            if (pinned) {
-                applet_button.set_active (true);
-                applet_button.get_style_context().add_class("rotated");
-                set_keep_below (pinned);
-                stick ();
-            } else {
-                applet_button.set_active (false);
-                applet_button.get_style_context().remove_class("rotated");
-            }
-
-            titlebar.pack_end (applet_button);
-
             var new_button = new Gtk.Button ();
             new_button.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON));
             new_button.has_tooltip = true;
@@ -135,7 +180,6 @@ namespace Notejot {
 
             var column_scroller = new Gtk.ScrolledWindow (null, null);
             column_scroller.add (column);
-
 
             var column_label = new Gtk.Label (null);
             column_label.tooltip_text = _("Your notes will appear here.");
@@ -183,6 +227,50 @@ namespace Notejot {
                 note_view.visible = true;
             }
 
+            var alabel = new Gtk.Label (_("Pin To Desktop:"));
+            applet_switch = new Gtk.Switch ();
+            applet_switch.valign = Gtk.Align.CENTER;
+            Notejot.Application.gsettings.bind ("pinned", applet_switch, "active", SettingsBindFlags.DEFAULT);
+            applet_switch.has_focus = false;
+
+            var applet_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            applet_box.margin_start = 12;
+            applet_box.add (alabel);
+            applet_box.add (applet_switch);
+
+            var interface_header = new Granite.HeaderLabel (_("Interface"));
+            var dlabel = new Gtk.Label (_("Dark Mode:"));
+            mode_switch = new Gtk.Switch ();
+            mode_switch.valign = Gtk.Align.CENTER;
+            Notejot.Application.gsettings.bind ("dark-mode", mode_switch, "active", SettingsBindFlags.DEFAULT);
+            mode_switch.has_focus = false;
+
+            var dark_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            dark_box.margin_start = 12;
+            dark_box.add (dlabel);
+            dark_box.add (mode_switch);
+
+            var menu_grid = new Gtk.Grid ();
+            menu_grid.margin = 12;
+            menu_grid.row_spacing = 6;
+            menu_grid.column_spacing = 6;
+            menu_grid.orientation = Gtk.Orientation.VERTICAL;
+            menu_grid.attach (interface_header, 0, 0, 1, 1);
+            menu_grid.attach (dark_box, 0, 1, 1, 1);
+            menu_grid.attach (applet_box, 0, 2, 1, 1);
+            menu_grid.show_all ();
+
+            var menu = new Gtk.Popover (null);
+            menu.add (menu_grid);
+
+            var menu_button = new Gtk.MenuButton ();
+            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
+            menu_button.has_tooltip = true;
+            menu_button.tooltip_text = (_("Settings"));
+            menu_button.popover = menu;
+
+            titlebar.pack_end (menu_button);
+
             sgrid = new Gtk.Grid ();
             sgrid.orientation = Gtk.Orientation.VERTICAL;
             sgrid.get_style_context ().add_class ("notejot-column");
@@ -216,20 +304,6 @@ namespace Notejot {
 
             leaflet.notify["folded"].connect (() => {
                 update ();
-            });
-
-            applet_button.toggled.connect (() => {
-                if (applet_button.active) {
-                    pinned = true;
-                    applet_button.get_style_context().add_class("rotated");
-                    set_keep_below (pinned);
-                    stick ();
-    			} else {
-    			    pinned = false;
-                    set_keep_below (pinned);
-                    applet_button.get_style_context().remove_class("rotated");
-    			    unstick ();
-                }
             });
 
             new_button.clicked.connect (() => {
