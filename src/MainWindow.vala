@@ -101,7 +101,7 @@ namespace Notejot {
             var applet_button = new Gtk.ToggleButton ();
             applet_button.tooltip_text = (_("Pin to Desktop"));
             applet_button.get_style_context ().add_class ("notejot-button");
-            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin", Gtk.IconSize.BUTTON);
+            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.BUTTON);
             applet_button.set_image (applet_button_image);
 
             if (pinned) {
