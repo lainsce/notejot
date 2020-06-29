@@ -265,6 +265,7 @@ namespace Notejot {
 
             var menu_button = new Gtk.MenuButton ();
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
+            menu_button.get_style_context ().add_class ("notejot-button");
             menu_button.has_tooltip = true;
             menu_button.tooltip_text = (_("Settings"));
             menu_button.popover = menu;
