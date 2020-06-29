@@ -91,7 +91,7 @@ namespace Notejot {
             titlebar.title = "Notejot";
 
             fauxtitlebar = new Hdy.HeaderBar ();
-            fauxtitlebar.set_size_request (200, 45);
+            fauxtitlebar.set_size_request (199, 45);
             var fauxtitlebar_c = fauxtitlebar.get_style_context ();
             fauxtitlebar_c.add_class ("notejot-side-tbar");
             fauxtitlebar_c.add_class (Gtk.STYLE_CLASS_FLAT);
@@ -100,7 +100,7 @@ namespace Notejot {
 
             var applet_button = new Gtk.ToggleButton ();
             applet_button.tooltip_text = (_("Pin to Desktop"));
-            applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            applet_button.get_style_context ().add_class ("notejot-button");
             var applet_button_image = new Gtk.Image.from_icon_name ("view-pin", Gtk.IconSize.BUTTON);
             applet_button.set_image (applet_button_image);
 
@@ -121,12 +121,14 @@ namespace Notejot {
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New Note"));
             titlebar.pack_start (new_button);
+            new_button.get_style_context ().add_class ("notejot-button");
 
             var clear_all_button = new Gtk.Button ();
-            clear_all_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON));
+            clear_all_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.BUTTON));
             clear_all_button.has_tooltip = true;
             clear_all_button.tooltip_text = (_("Clear Notes"));
             titlebar.pack_start (clear_all_button);
+            clear_all_button.get_style_context ().add_class ("notejot-button");
 
             // Column
             column = new Widgets.Column (this);
