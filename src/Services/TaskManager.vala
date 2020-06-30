@@ -21,10 +21,10 @@ namespace Notejot {
     public class Services.TaskManager {
         public MainWindow win;
         public Json.Builder builder;
-        private string file_name = Environment.get_user_cache_dir () +
+        private string file_name = Environment.get_user_data_dir () +
                                  "/com.github.lainsce.notejot" +
                                  "/saved_notes.json";
-        private string app_directory = Environment.get_user_cache_dir () +
+        private string app_directory = Environment.get_user_data_dir () +
                                        "/com.github.lainsce.notejot";
 
         public TaskManager (MainWindow win) {
