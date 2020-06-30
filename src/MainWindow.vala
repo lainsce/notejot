@@ -80,11 +80,13 @@ namespace Notejot {
                 titlebar.get_style_context ().add_class ("notejot-tbar-dark");
                 editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                 textview.get_style_context ().add_class ("notejot-tview-dark");
+                stack.get_style_context ().add_class ("notejot-stack-dark");
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
                 editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                 textview.get_style_context ().remove_class ("notejot-tview-dark");
+                stack.get_style_context ().remove_class ("notejot-stack-dark");
             }
 
             if (Notejot.Application.gsettings.get_boolean("pinned")) {
@@ -101,11 +103,13 @@ namespace Notejot {
                     titlebar.get_style_context ().add_class ("notejot-tbar-dark");
                     editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                     textview.get_style_context ().add_class ("notejot-tview-dark");
+                    stack.get_style_context ().add_class ("notejot-stack-dark");
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
                     editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                     textview.get_style_context ().remove_class ("notejot-tview-dark");
+                    stack.get_style_context ().remove_class ("notejot-stack-dark");
                 }
 
                 if (Notejot.Application.gsettings.get_boolean("pinned")) {
@@ -215,6 +219,7 @@ namespace Notejot {
             normal_view.add (normal_label);
 
             stack = new Gtk.Stack ();
+            stack.get_style_context ().add_class ("notejot-stack");
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             stack.add (normal_view);
             stack.add (note_view);

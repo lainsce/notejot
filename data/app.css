@@ -137,8 +137,12 @@ window.unified decoration-overlay {
     background: shade(@color_primary, 1.2);
 }
 
-.rotated > widget > box > image {
-  -gtk-icon-transform: rotate(90deg);
+.notejot-stack {
+    background: #F7F7F7;
+}
+
+.notejot-stack-dark {
+    background: #151515;
 }
 
 undershoot.top {
