@@ -24,6 +24,8 @@ namespace Notejot {
         private string file_name = Environment.get_user_cache_dir () +
                                  "/com.github.lainsce.notejot" +
                                  "/saved_notes.json";
+        private string app_directory = Environment.get_user_cache_dir () +
+                                       "/com.github.lainsce.notejot";
 
         public TaskManager (MainWindow win) {
             this.win = win;
@@ -32,7 +34,11 @@ namespace Notejot {
         public void save_notes() {
             string json_string = prepare_json_from_notes();
             var file = File.new_for_path (file_name);
+            var dir = File.new_for_path (app_directory);
             try {
+                if (!dir.query_exists()) {
+                    dir.make_directory();
+                }
                 if (file.query_exists ()) {
                     file.delete ();
                 }
