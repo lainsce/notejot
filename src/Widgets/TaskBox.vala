@@ -53,6 +53,17 @@ namespace Notejot {
             color_button_red_context.add_class ("color-button");
             color_button_red_context.add_class ("color-red");
 
+            var color_button_orange = new Gtk.Button ();
+            color_button_orange.has_focus = false;
+            color_button_orange.halign = Gtk.Align.CENTER;
+            color_button_orange.height_request = 24;
+            color_button_orange.width_request = 24;
+            color_button_orange.tooltip_text = _("Orange");
+
+            var color_button_orange_context = color_button_orange.get_style_context ();
+            color_button_orange_context.add_class ("color-button");
+            color_button_orange_context.add_class ("color-orange");
+
             var color_button_yellow = new Gtk.Button ();
             color_button_yellow.has_focus = false;
             color_button_yellow.halign = Gtk.Align.CENTER;
@@ -97,12 +108,25 @@ namespace Notejot {
             color_button_indigo_context.add_class ("color-button");
             color_button_indigo_context.add_class ("color-indigo");
 
+            var color_button_neutral = new Gtk.Button ();
+            color_button_neutral.has_focus = false;
+            color_button_neutral.halign = Gtk.Align.CENTER;
+            color_button_neutral.height_request = 24;
+            color_button_neutral.width_request = 24;
+            color_button_neutral.tooltip_text = _("Gray");
+
+            var color_button_neutral_context = color_button_neutral.get_style_context ();
+            color_button_neutral_context.add_class ("color-button");
+            color_button_neutral_context.add_class ("color-neutral");
+
             var color_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             color_button_box.pack_start (color_button_red, false, true, 0);
+            color_button_box.pack_start (color_button_orange, false, true, 0);
             color_button_box.pack_start (color_button_yellow, false, true, 0);
             color_button_box.pack_start (color_button_green, false, true, 0);
             color_button_box.pack_start (color_button_blue, false, true, 0);
             color_button_box.pack_start (color_button_indigo, false, true, 0);
+            color_button_box.pack_start (color_button_neutral, false, true, 0);
 
             var color_button_label = new Granite.HeaderLabel (_("Note Badge Color"));
 
@@ -140,7 +164,13 @@ namespace Notejot {
             app_button.popover = popover;
 
             color_button_red.clicked.connect (() => {
-                this.color = "#ED5353";
+                this.color = "#C85050";
+                update_theme();
+                win.tm.save_notes ();
+            });
+
+            color_button_orange.clicked.connect (() => {
+                this.color = "#FF976B";
                 update_theme();
                 win.tm.save_notes ();
             });
@@ -152,19 +182,25 @@ namespace Notejot {
             });
 
             color_button_green.clicked.connect (() => {
-                this.color = "#9BDB4D";
+                this.color = "#74C02E";
                 update_theme();
                 win.tm.save_notes ();
             });
 
             color_button_blue.clicked.connect (() => {
-                this.color = "#64BAFF";
+                this.color = "#70C0FF";
                 update_theme();
                 win.tm.save_notes ();
             });
 
             color_button_indigo.clicked.connect (() => {
-                this.color = "#CD9EF7";
+                this.color = "#6060C5";
+                update_theme();
+                win.tm.save_notes ();
+            });
+
+            color_button_neutral.clicked.connect (() => {
+                this.color = "#888888";
                 update_theme();
                 win.tm.save_notes ();
             });
