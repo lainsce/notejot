@@ -172,13 +172,6 @@ namespace Notejot {
             titlebar.pack_start (new_button);
             new_button.get_style_context ().add_class ("notejot-button");
 
-            var clear_all_button = new Gtk.Button ();
-            clear_all_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.BUTTON));
-            clear_all_button.has_tooltip = true;
-            clear_all_button.tooltip_text = (_("Clear Notes"));
-            titlebar.pack_start (clear_all_button);
-            clear_all_button.get_style_context ().add_class ("notejot-button");
-
             // Column
             column = new Widgets.Column (this);
 
@@ -316,13 +309,6 @@ namespace Notejot {
                 column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
                 note_view.visible = true;
                 normal_view.visible = false;
-            });
-
-            clear_all_button.clicked.connect (() => {
-                column.clear_column ();
-                normal_view.visible = true;
-                note_view.visible = false;
-                tm.save_notes ();
             });
 
             editablelabel.changed.connect (() => {

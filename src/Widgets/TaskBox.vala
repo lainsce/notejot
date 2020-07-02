@@ -106,6 +106,20 @@ namespace Notejot {
 
             var color_button_label = new Granite.HeaderLabel (_("Note Badge Color"));
 
+            var delete_note_button = new Gtk.ModelButton ();
+			delete_note_button.text = (_("Delete Note"));
+
+			delete_note_button.clicked.connect (() => {
+			    if ((Widgets.TaskBox) win.column.get_selected_row () != null) {
+                    this.destroy ();
+                    win.tm.save_notes ();
+                }
+                if (win.column.get_children () == null) {
+                    win.normal_view.visible = true;
+                    win.note_view.visible = false;
+                }
+			});
+
             var setting_grid = new Gtk.Grid ();
             setting_grid.margin = 6;
             setting_grid.column_spacing = 6;
@@ -113,6 +127,7 @@ namespace Notejot {
             setting_grid.orientation = Gtk.Orientation.VERTICAL;
             setting_grid.attach (color_button_label, 0, 0, 1, 1);
             setting_grid.attach (color_button_box, 0, 1, 1, 1);
+            setting_grid.attach (delete_note_button, 0, 2, 1, 1);
             setting_grid.show_all ();
 
             var popover = new Gtk.Popover (null);
