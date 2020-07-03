@@ -164,7 +164,7 @@ namespace Notejot {
             app_button.popover = popover;
 
             color_button_red.clicked.connect (() => {
-                this.color = "#C85050";
+                this.color = "#D07070";
                 update_theme();
                 win.tm.save_notes ();
             });
