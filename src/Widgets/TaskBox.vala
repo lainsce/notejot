@@ -217,6 +217,7 @@ namespace Notejot {
             main_grid.add (bar);
 
             this.add(main_grid);
+            this.margin_start = this.margin_end = 6;
             this.show_all ();
         }
 

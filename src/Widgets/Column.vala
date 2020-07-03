@@ -13,7 +13,6 @@ namespace Notejot {
 
             this.win = win;
             this.vexpand = true;
-            this.margin_start = this.margin_end = 6;
             is_modified = false;
             activate_on_single_click = true;
             selection_mode = Gtk.SelectionMode.SINGLE;
