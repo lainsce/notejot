@@ -141,6 +141,8 @@ namespace Notejot {
                 if (win.column.get_children () == null) {
                     win.normal_view.visible = true;
                     win.note_view.visible = false;
+                } else {
+                    win.column.select_row (((Widgets.TaskBox)win.column.get_row_at_index (this.uid - 1)));
                 }
 			});
 
