@@ -29,12 +29,12 @@
      inkscape:window-width="2560"
      inkscape:window-height="964"
      id="namedview69"
-     showgrid="true"
+     showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:zoom="2"
-     inkscape:cx="-109.12808"
-     inkscape:cy="37.464161"
+     inkscape:cx="-198.62808"
+     inkscape:cy="32.714161"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -758,19 +758,19 @@
     </rdf:RDF>
   </metadata>
   <rect
-     style="opacity:0.24899998;fill:#000000;fill-opacity:1;stroke:#221a00;stroke-width:1.02611065;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1041)"
+     style="opacity:0.24899998;fill:#000000;fill-opacity:1;stroke:#221a00;stroke-width:1.04332387;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1041)"
      id="rect970-3"
      width="90"
      height="85"
      x="22.318859"
      y="32.30426"
-     transform="matrix(0.94975497,0,0,1,0.35231663,0)" />
+     transform="matrix(0.91867448,0,0,1,2.9379506,1.6837759)" />
   <rect
-     style="opacity:1;fill:#fff394;fill-opacity:1;stroke:#ffe16b;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     style="opacity:1;fill:#fff394;fill-opacity:1;stroke:#ffe16b;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      id="rect970"
-     width="90"
+     width="84"
      height="85"
-     x="20"
+     x="22.5"
      y="33" />
   <path
      style="clip-rule:evenodd;opacity:0.24899998;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#221a00;stroke-width:1.04134762;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1045)"
