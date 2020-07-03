@@ -155,21 +155,3 @@ window.unified decoration-overlay {
 .notejot-stack-dark {
     background: #151515;
 }
-
-undershoot.top {
-    background:
-        linear-gradient(
-            to bottom,
-            alpha(mix (@accent_color, @base_color, 0.85), 0.5),
-            alpha(mix (@accent_color, @base_color, 0.85), 0)
-        );
-}
-
-undershoot.bottom {
-    background:
-        linear-gradient(
-            to bottom,
-            alpha(mix (@accent_color, @base_color, 0.85), 0),
-            alpha(mix (@accent_color, @base_color, 0.85), 0.5)
-        );
-}
