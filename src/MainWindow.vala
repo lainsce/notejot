@@ -150,18 +150,17 @@ namespace Notejot {
             titlebar.set_size_request (-1, 45);
             var titlebar_c = titlebar.get_style_context ();
             titlebar_c.add_class ("notejot-tbar");
-            titlebar_c.add_class (Gtk.STYLE_CLASS_FLAT);
+            titlebar_c.remove_class ("titlebar");
             titlebar.show_close_button = true;
             titlebar.has_subtitle = false;
             titlebar.hexpand = true;
-            set_title (titlebar.title);
             titlebar.title = "Notejot";
 
             fauxtitlebar = new Hdy.HeaderBar ();
             fauxtitlebar.set_size_request (199, 45);
             var fauxtitlebar_c = fauxtitlebar.get_style_context ();
             fauxtitlebar_c.add_class ("notejot-side-tbar");
-            fauxtitlebar_c.add_class (Gtk.STYLE_CLASS_FLAT);
+            fauxtitlebar_c.remove_class ("titlebar");
             fauxtitlebar.show_close_button = true;
             fauxtitlebar.has_subtitle = false;
 
@@ -263,7 +262,6 @@ namespace Notejot {
 
             var menu_button = new Gtk.MenuButton ();
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
-            menu_button.get_style_context ().add_class ("notejot-button");
             menu_button.has_tooltip = true;
             menu_button.tooltip_text = (_("Settings"));
             menu_button.popover = menu;

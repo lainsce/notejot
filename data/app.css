@@ -11,16 +11,22 @@ window.unified decoration-overlay {
     font-weight: 700;
 }
 
-.notejot-button {
+.notejot-tbar .image-button {
     border-radius: 8px;
 }
 
-.notejot-button image {
+.notejot-tbar .image-button image {
     padding: 0 6px;
+    margin: -1px;
 }
 
-.notejot-button:focus,
-.notejot-button:hover {
+.notejot-tbar separator {
+    padding: 0;
+    margin: 0;
+}
+
+.notejot-tbar .image-button:focus,
+.notejot-tbar .image-button:hover {
     background: shade(@base_color, 0.95);
 }
 
@@ -86,15 +92,12 @@ window.unified decoration-overlay {
 	box-shadow: none;
 	border-bottom: 1px solid alpha (black, 0.25);
 	border-left: none;
+	margin: 6px 7px;
+    padding: 0;
 }
 
 .notejot-tbar-dark {
   background: #000;
-}
-
-.notejot-tbar separator {
-  margin: 0;
-  padding: 0;
 }
 
 .notejot-column,
@@ -103,13 +106,15 @@ window.unified decoration-overlay {
     box-shadow: none;
 }
 
+.notejot-column {
+    border-right: 1px solid alpha (black, 0.25);
+}
+
 .notejot-side-tbar {
     background: mix (@accent_color, @base_color, 0.85);;
     box-shadow: none;
-}
-
-.vsep {
-    border-right: 1px solid alpha (black, 0.25);
+    margin: 0 7px;
+    padding: 0;
 }
 
 .notejot-column-box {
