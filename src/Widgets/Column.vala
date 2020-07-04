@@ -21,7 +21,7 @@ namespace Notejot {
 
             this.row_selected.connect ((row) => {
                 if (((Widgets.TaskBox)row) != null) {
-                    win.textview.text = ((Widgets.TaskBox)row).contents;
+                    win.textview.get_buffer ().text = ((Widgets.TaskBox)row).contents;
                     win.editablelabel.text = ((Widgets.TaskBox)row).title;
                     win.tm.save_notes ();
                 }

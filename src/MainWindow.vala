@@ -35,6 +35,10 @@ namespace Notejot {
         public Hdy.HeaderBar fauxtitlebar;
         public Gtk.ActionBar toolbar;
 
+        public Gtk.TextTag bold_font;
+        public Gtk.TextTag italic_font;
+        public Gtk.TextTag ul_font;
+
         public Services.TaskManager tm;
 
         public Gtk.Application app { get; construct; }
@@ -195,13 +199,13 @@ namespace Notejot {
 
             textview = new Widgets.TextView (this);
             Gtk.TextIter start, end;
-            Gtk.TextTag bold_font = new Gtk.TextTag ("bold_font");
+            bold_font = new Gtk.TextTag ("bold_font");
             bold_font.weight = Pango.Weight.BOLD;
             bold_font.style = Pango.Style.NORMAL;
-            Gtk.TextTag italic_font = new Gtk.TextTag ("italic_font");
+            italic_font = new Gtk.TextTag ("italic_font");
             italic_font.style = Pango.Style.ITALIC;
             italic_font.weight = Pango.Weight.NORMAL;
-            Gtk.TextTag ul_font = new Gtk.TextTag ("ul_font");
+            ul_font = new Gtk.TextTag ("ul_font");
             ul_font.style = Pango.Style.NORMAL;
             ul_font.weight = Pango.Weight.NORMAL;
             ul_font.underline = Pango.Underline.SINGLE;
@@ -395,7 +399,7 @@ namespace Notejot {
             });
 
             textview.buffer.changed.connect (() => {
-                (((Widgets.TaskBox)column.get_selected_row ())).contents = textview.get_buffer ().text;
+                (((Widgets.TaskBox)column.get_selected_row ())).contents = textview.buffer.text;
                 tm.save_notes ();
             });
 
