@@ -33,6 +33,7 @@ namespace Notejot {
         public Hdy.Leaflet leaflet;
         public Hdy.HeaderBar titlebar;
         public Hdy.HeaderBar fauxtitlebar;
+        public Gtk.ActionBar toolbar;
 
         public Services.TaskManager tm;
 
@@ -80,11 +81,13 @@ namespace Notejot {
                 titlebar.get_style_context ().add_class ("notejot-tbar-dark");
                 editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                 textview.get_style_context ().add_class ("notejot-tview-dark");
+                toolbar.get_style_context ().add_class ("notejot-abar-dark");
                 stack.get_style_context ().add_class ("notejot-stack-dark");
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
                 editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
+                toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                 textview.get_style_context ().remove_class ("notejot-tview-dark");
                 stack.get_style_context ().remove_class ("notejot-stack-dark");
             }
@@ -103,11 +106,13 @@ namespace Notejot {
                     titlebar.get_style_context ().add_class ("notejot-tbar-dark");
                     editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                     textview.get_style_context ().add_class ("notejot-tview-dark");
+                    toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     stack.get_style_context ().add_class ("notejot-stack-dark");
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
                     editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
+                    toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                     textview.get_style_context ().remove_class ("notejot-tview-dark");
                     stack.get_style_context ().remove_class ("notejot-stack-dark");
                 }
@@ -189,10 +194,83 @@ namespace Notejot {
             tm.load_from_file ();
 
             textview = new Widgets.TextView (this);
+            Gtk.TextIter start, end;
+            Gtk.TextTag bold_font = new Gtk.TextTag ("bold_font");
+            bold_font.weight = Pango.Weight.BOLD;
+            bold_font.style = Pango.Style.NORMAL;
+            Gtk.TextTag italic_font = new Gtk.TextTag ("italic_font");
+            italic_font.style = Pango.Style.ITALIC;
+            italic_font.weight = Pango.Weight.NORMAL;
+            Gtk.TextTag ul_font = new Gtk.TextTag ("ul_font");
+            ul_font.style = Pango.Style.NORMAL;
+            ul_font.weight = Pango.Weight.NORMAL;
+            ul_font.underline = Pango.Underline.SINGLE;
+
+            textview.get_buffer ().tag_table.add (bold_font);
+            textview.get_buffer ().tag_table.add (italic_font);
+            textview.get_buffer ().tag_table.add (ul_font);
 
             editablelabel = new Widgets.EditableLabel (this, "");
 
+            // Toolbar with Note formatting options
+            toolbar = new Gtk.ActionBar ();
+            toolbar.get_style_context ().add_class ("notejot-abar");
+
+            var format_reset_button = new Gtk.Button ();
+            format_reset_button.has_tooltip = true;
+            format_reset_button.tooltip_text = (_("Remove Formatting"));
+            format_reset_button.image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON);
+
+            format_reset_button.clicked.connect (() => {
+                textview.get_buffer ().get_selection_bounds (out start, out end);
+                textview.get_buffer ().remove_tag (italic_font, start, end);
+                textview.get_buffer ().remove_tag (ul_font, start, end);
+                textview.get_buffer ().remove_tag (bold_font, start, end);
+            });
+
+            var format_bold_button = new Gtk.Button ();
+            format_bold_button.has_tooltip = true;
+            format_bold_button.tooltip_text = (_("Bold Selected Text"));
+            format_bold_button.image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON);
+
+            format_bold_button.clicked.connect (() => {
+                textview.get_buffer ().get_selection_bounds (out start, out end);
+                textview.get_buffer ().remove_tag (italic_font, start, end);
+                textview.get_buffer ().remove_tag (ul_font, start, end);
+                textview.get_buffer ().apply_tag (bold_font, start, end);
+            });
+
+            var format_italic_button = new Gtk.Button ();
+            format_italic_button.has_tooltip = true;
+            format_italic_button.tooltip_text = (_("Italic Selected Text"));
+            format_italic_button.image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON);
+
+            format_italic_button.clicked.connect (() => {
+                textview.get_buffer ().get_selection_bounds (out start, out end);
+                textview.get_buffer ().remove_tag (bold_font, start, end);
+                textview.get_buffer ().remove_tag (ul_font, start, end);
+                textview.get_buffer ().apply_tag (italic_font, start, end);
+            });
+
+            var format_ul_button = new Gtk.Button ();
+            format_ul_button.has_tooltip = true;
+            format_ul_button.tooltip_text = (_("Underline Selected Text"));
+            format_ul_button.image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON);
+
+            format_ul_button.clicked.connect (() => {
+                textview.get_buffer ().get_selection_bounds (out start, out end);
+                textview.get_buffer ().remove_tag (italic_font, start, end);
+                textview.get_buffer ().remove_tag (bold_font, start, end);
+                textview.get_buffer ().apply_tag (ul_font, start, end);
+            });
+
+            toolbar.pack_start (format_reset_button);
+            toolbar.pack_start (format_bold_button);
+            toolbar.pack_start (format_italic_button);
+            toolbar.pack_start (format_ul_button);
+
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            note_view.add (toolbar);
             note_view.add (editablelabel);
             note_view.add (textview);
 

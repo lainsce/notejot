@@ -79,8 +79,34 @@ window.unified decoration-overlay {
 	padding: 12px;
 }
 
+.notejot-tview text selection {
+    background: shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    color: @fg_color;
+}
+
 .notejot-tview-dark {
   background: #151515;
+}
+
+.notejot-abar {
+  background-color: #F7F7F7;
+  padding: 6px 10px;
+  border-bottom: 1px solid alpha (black, 0.25);
+}
+
+.notejot-abar .image-button {
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.notejot-abar .image-button:focus,
+.notejot-abar .image-button:hover {
+  background: shade(@base_color, 0.88);
+}
+
+.notejot-abar-dark {
+  background: #151515;
+  border-bottom: 1px solid alpha (white, 0.25);
 }
 
 .notejot-bar {
