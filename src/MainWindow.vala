@@ -268,6 +268,7 @@ namespace Notejot {
             toolbar.pack_start (format_bold_button);
             toolbar.pack_start (format_italic_button);
             toolbar.pack_start (format_ul_button);
+            //
 
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             note_view.add (toolbar);
@@ -394,7 +395,7 @@ namespace Notejot {
             });
 
             textview.buffer.changed.connect (() => {
-                (((Widgets.TaskBox)column.get_selected_row ())).contents = textview.text;
+                (((Widgets.TaskBox)column.get_selected_row ())).contents = textview.get_buffer ().text;
                 tm.save_notes ();
             });
 
