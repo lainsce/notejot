@@ -211,18 +211,7 @@ namespace Notejot {
 
             format_reset_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
-                textview.run_javascript("""
-                    document.getElementById("textarea").innerHTML;
-                """, null, (obj, res) => {
-                    try{
-                        var data = textview.run_javascript.end(res);
-                        if (data.get_js_value ().to_string () != "") {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
-                        } else {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
-                        }
-                    }catch{}
-                });
+                textview.send_text ();
                 tm.save_notes ();
             });
 
@@ -233,18 +222,7 @@ namespace Notejot {
 
             format_bold_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
-                textview.run_javascript("""
-                    document.getElementById("textarea").innerHTML;
-                """, null, (obj, res) => {
-                    try{
-                        var data = textview.run_javascript.end(res);
-                        if (data.get_js_value ().to_string () != "") {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
-                        } else {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
-                        }
-                    }catch{}
-                });
+                textview.send_text ();
                 tm.save_notes ();
             });
 
@@ -255,18 +233,7 @@ namespace Notejot {
 
             format_italic_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
-                textview.run_javascript("""
-                    document.getElementById("textarea").innerHTML;
-                """, null, (obj, res) => {
-                    try{
-                        var data = textview.run_javascript.end(res);
-                        if (data.get_js_value ().to_string () != "") {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
-                        } else {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
-                        }
-                    }catch{}
-                });
+                textview.send_text ();
                 tm.save_notes ();
             });
 
@@ -277,18 +244,7 @@ namespace Notejot {
 
             format_ul_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
-                textview.run_javascript("""
-                    document.getElementById("textarea").innerHTML;
-                """, null, (obj, res) => {
-                    try{
-                        var data = textview.run_javascript.end(res);
-                        if (data.get_js_value ().to_string () != "") {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
-                        } else {
-                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
-                        }
-                    }catch{}
-                });
+                textview.send_text ();
                 tm.save_notes ();
             });
 
@@ -409,12 +365,6 @@ namespace Notejot {
             leaflet.notify["folded"].connect (() => {
                 update ();
             });
-
-            if (column.get_children () == null) {
-                column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
-                note_view.visible = true;
-                normal_view.visible = false;
-            }
 
             new_button.clicked.connect (() => {
                 column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");

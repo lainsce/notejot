@@ -2,8 +2,8 @@ namespace Notejot {
     public class Widgets.TaskBox : Gtk.ListBoxRow {
         private MainWindow win;
         public string color = "#FFE16B";
-        public string title = "";
-        public string contents = "";
+        public string title = "New Note…";
+        public string contents = "Write a new note…";
         private int uid;
         private static int uid_counter;
         public Gtk.Grid main_grid;
@@ -35,7 +35,7 @@ namespace Notejot {
             var bar_c = bar.get_style_context ();
             bar_c.add_class ("notejot-bar");
 
-            task_label = new Gtk.Label (title);
+            task_label = new Gtk.Label (this.title);
             task_label.halign = Gtk.Align.START;
             task_label.wrap = true;
             task_label.hexpand = true;

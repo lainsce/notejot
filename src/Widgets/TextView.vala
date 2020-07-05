@@ -19,8 +19,8 @@
 namespace Notejot {
     public class Widgets.TextView : WebKit.WebView {
         public MainWindow win;
-        public string html;
-        public string text;
+        public string html = "";
+        public string text = "";
 
         public TextView (MainWindow win) {
             this.win = win;
@@ -52,24 +52,31 @@ namespace Notejot {
         private void connect_signals () {
             load_changed.connect ((event) => {
                 if (event == WebKit.LoadEvent.COMMITTED) {
-                    run_javascript("""
-                            document.getElementById("textarea").innerHTML;
-                        """, null, (obj, res) => {
-                            var row = (Widgets.TaskBox)win.column.get_selected_row ();
-                            var val = data.get_js_value ().to_string ();
-                            row.contents = val == "" ? " " : val;
-                        });
+                    send_text ();
                     win.tm.save_notes ();
                 }
                 if (event == WebKit.LoadEvent.FINISHED) {
-                    run_javascript("""
-                            document.getElementById("textarea").innerHTML;
-                        """, null, (obj, res) => {
-                            var row = (Widgets.TaskBox)win.column.get_selected_row ();
-                            var val = data.get_js_value ().to_string ();
-                            row.contents = val == "" ? " " : val;
-                        });
+                    send_text ();
                     win.tm.save_notes ();
+                }
+            });
+        }
+
+        public void send_text () {
+            run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
+                try {
+                    var data = run_javascript.end(res);
+                    if (data != null) { 
+                        if (win.column.get_children () != null) {
+                            var row = (Widgets.TaskBox)win.column.get_selected_row ();
+                            if (data != null) {
+                                var val = data.get_js_value ().to_string ();
+                                row.contents = val == "" ? " " : val;
+                            }
+                        }
+                    }
+                } catch (Error e) {
+                    assert_not_reached ();
                 }
             });
         }
