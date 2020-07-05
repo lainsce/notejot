@@ -20,10 +20,10 @@ namespace Notejot {
             set_placeholder (no_files);
 
             this.row_selected.connect ((row) => {
-                if (((Widgets.TaskBox)row) != null) {
-                    win.textview.get_buffer ().text = ((Widgets.TaskBox)row).contents;
+                if (((Widgets.TaskBox)row) != null && win.editablelabel != null) {
                     win.editablelabel.text = ((Widgets.TaskBox)row).title;
-                    win.tm.save_notes ();
+                    win.textview.text = ((Widgets.TaskBox)row).contents;
+                    win.textview.update_html_view ();
                 }
             });
 

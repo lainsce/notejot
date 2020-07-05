@@ -35,10 +35,6 @@ namespace Notejot {
         public Hdy.HeaderBar fauxtitlebar;
         public Gtk.ActionBar toolbar;
 
-        public Gtk.TextTag bold_font;
-        public Gtk.TextTag italic_font;
-        public Gtk.TextTag ul_font;
-
         public Services.TaskManager tm;
 
         public Gtk.Application app { get; construct; }
@@ -87,6 +83,7 @@ namespace Notejot {
                 textview.get_style_context ().add_class ("notejot-tview-dark");
                 toolbar.get_style_context ().add_class ("notejot-abar-dark");
                 stack.get_style_context ().add_class ("notejot-stack-dark");
+                textview.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
@@ -94,6 +91,7 @@ namespace Notejot {
                 toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                 textview.get_style_context ().remove_class ("notejot-tview-dark");
                 stack.get_style_context ().remove_class ("notejot-stack-dark");
+                textview.update_html_view ();
             }
 
             if (Notejot.Application.gsettings.get_boolean("pinned")) {
@@ -112,6 +110,7 @@ namespace Notejot {
                     textview.get_style_context ().add_class ("notejot-tview-dark");
                     toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     stack.get_style_context ().add_class ("notejot-stack-dark");
+                    textview.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
@@ -119,6 +118,7 @@ namespace Notejot {
                     toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                     textview.get_style_context ().remove_class ("notejot-tview-dark");
                     stack.get_style_context ().remove_class ("notejot-stack-dark");
+                    textview.update_html_view ();
                 }
 
                 if (Notejot.Application.gsettings.get_boolean("pinned")) {
@@ -198,22 +198,6 @@ namespace Notejot {
             tm.load_from_file ();
 
             textview = new Widgets.TextView (this);
-            Gtk.TextIter start, end;
-            bold_font = new Gtk.TextTag ("bold_font");
-            bold_font.weight = Pango.Weight.BOLD;
-            bold_font.style = Pango.Style.NORMAL;
-            italic_font = new Gtk.TextTag ("italic_font");
-            italic_font.style = Pango.Style.ITALIC;
-            italic_font.weight = Pango.Weight.NORMAL;
-            ul_font = new Gtk.TextTag ("ul_font");
-            ul_font.style = Pango.Style.NORMAL;
-            ul_font.weight = Pango.Weight.NORMAL;
-            ul_font.underline = Pango.Underline.SINGLE;
-
-            textview.get_buffer ().tag_table.add (bold_font);
-            textview.get_buffer ().tag_table.add (italic_font);
-            textview.get_buffer ().tag_table.add (ul_font);
-
             editablelabel = new Widgets.EditableLabel (this, "");
 
             // Toolbar with Note formatting options
@@ -226,10 +210,20 @@ namespace Notejot {
             format_reset_button.image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON);
 
             format_reset_button.clicked.connect (() => {
-                textview.get_buffer ().get_selection_bounds (out start, out end);
-                textview.get_buffer ().remove_tag (italic_font, start, end);
-                textview.get_buffer ().remove_tag (ul_font, start, end);
-                textview.get_buffer ().remove_tag (bold_font, start, end);
+                textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
+                textview.run_javascript("""
+                    document.getElementById("textarea").innerHTML;
+                """, null, (obj, res) => {
+                    try{
+                        var data = textview.run_javascript.end(res);
+                        if (data.get_js_value ().to_string () != "") {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
+                        } else {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
+                        }
+                    }catch{}
+                });
+                tm.save_notes ();
             });
 
             var format_bold_button = new Gtk.Button ();
@@ -238,10 +232,20 @@ namespace Notejot {
             format_bold_button.image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON);
 
             format_bold_button.clicked.connect (() => {
-                textview.get_buffer ().get_selection_bounds (out start, out end);
-                textview.get_buffer ().remove_tag (italic_font, start, end);
-                textview.get_buffer ().remove_tag (ul_font, start, end);
-                textview.get_buffer ().apply_tag (bold_font, start, end);
+                textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
+                textview.run_javascript("""
+                    document.getElementById("textarea").innerHTML;
+                """, null, (obj, res) => {
+                    try{
+                        var data = textview.run_javascript.end(res);
+                        if (data.get_js_value ().to_string () != "") {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
+                        } else {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
+                        }
+                    }catch{}
+                });
+                tm.save_notes ();
             });
 
             var format_italic_button = new Gtk.Button ();
@@ -250,10 +254,20 @@ namespace Notejot {
             format_italic_button.image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON);
 
             format_italic_button.clicked.connect (() => {
-                textview.get_buffer ().get_selection_bounds (out start, out end);
-                textview.get_buffer ().remove_tag (bold_font, start, end);
-                textview.get_buffer ().remove_tag (ul_font, start, end);
-                textview.get_buffer ().apply_tag (italic_font, start, end);
+                textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
+                textview.run_javascript("""
+                    document.getElementById("textarea").innerHTML;
+                """, null, (obj, res) => {
+                    try{
+                        var data = textview.run_javascript.end(res);
+                        if (data.get_js_value ().to_string () != "") {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
+                        } else {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
+                        }
+                    }catch{}
+                });
+                tm.save_notes ();
             });
 
             var format_ul_button = new Gtk.Button ();
@@ -262,10 +276,20 @@ namespace Notejot {
             format_ul_button.image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON);
 
             format_ul_button.clicked.connect (() => {
-                textview.get_buffer ().get_selection_bounds (out start, out end);
-                textview.get_buffer ().remove_tag (italic_font, start, end);
-                textview.get_buffer ().remove_tag (bold_font, start, end);
-                textview.get_buffer ().apply_tag (ul_font, start, end);
+                textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
+                textview.run_javascript("""
+                    document.getElementById("textarea").innerHTML;
+                """, null, (obj, res) => {
+                    try{
+                        var data = textview.run_javascript.end(res);
+                        if (data.get_js_value ().to_string () != "") {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = data.get_js_value ().to_string ();
+                        } else {
+                            (((Widgets.TaskBox)column.get_selected_row ())).contents = " ";
+                        }
+                    }catch{}
+                });
+                tm.save_notes ();
             });
 
             toolbar.pack_start (format_reset_button);
@@ -386,6 +410,12 @@ namespace Notejot {
                 update ();
             });
 
+            if (column.get_children () == null) {
+                column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
+                note_view.visible = true;
+                normal_view.visible = false;
+            }
+
             new_button.clicked.connect (() => {
                 column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
                 note_view.visible = true;
@@ -395,11 +425,6 @@ namespace Notejot {
             editablelabel.changed.connect (() => {
                 (((Widgets.TaskBox)column.get_selected_row ())).task_label.set_label(editablelabel.title.get_label ());
                 (((Widgets.TaskBox)column.get_selected_row ())).title = editablelabel.title.get_label ();
-                tm.save_notes ();
-            });
-
-            textview.buffer.changed.connect (() => {
-                (((Widgets.TaskBox)column.get_selected_row ())).contents = textview.buffer.text;
                 tm.save_notes ();
             });
 
