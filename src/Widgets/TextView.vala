@@ -55,14 +55,9 @@ namespace Notejot {
                     run_javascript("""
                             document.getElementById("textarea").innerHTML;
                         """, null, (obj, res) => {
-                            try{
-                                var data = run_javascript.end(res);
-                                if (data.get_js_value ().to_string () != "") {
-                                    (((Widgets.TaskBox)win.column.get_selected_row ())).contents = data.get_js_value ().to_string ();
-                                } else {
-                                    (((Widgets.TaskBox)win.column.get_selected_row ())).contents = " ";
-                                }
-                            }catch{}
+                            var row = (Widgets.TaskBox)win.column.get_selected_row ();
+                            var val = data.get_js_value ().to_string ();
+                            row.contents = val == "" ? " " : val;
                         });
                     win.tm.save_notes ();
                 }
@@ -70,14 +65,9 @@ namespace Notejot {
                     run_javascript("""
                             document.getElementById("textarea").innerHTML;
                         """, null, (obj, res) => {
-                            try{
-                                var data = run_javascript.end(res);
-                                if (data.get_js_value ().to_string () != "") {
-                                    (((Widgets.TaskBox)win.column.get_selected_row ())).contents = data.get_js_value ().to_string ();
-                                } else {
-                                    (((Widgets.TaskBox)win.column.get_selected_row ())).contents = " ";
-                                }
-                            }catch{}
+                            var row = (Widgets.TaskBox)win.column.get_selected_row ();
+                            var val = data.get_js_value ().to_string ();
+                            row.contents = val == "" ? " " : val;
                         });
                     win.tm.save_notes ();
                 }
