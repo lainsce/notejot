@@ -72,6 +72,7 @@ namespace Notejot {
                             if (data != null) {
                                 var val = data.get_js_value ().to_string ();
                                 row.contents = val == "" ? " " : val;
+                                text = val == "" ? " " : val;
                             }
                         }
                     }
