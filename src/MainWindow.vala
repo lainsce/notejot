@@ -195,13 +195,13 @@ namespace Notejot {
             column_scroller.add (column);
 
             var column_label = new Gtk.Label (null);
+            column_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             column_label.tooltip_text = _("Your notes will appear here.");
             column_label.use_markup = true;
             column_label.halign = Gtk.Align.START;
             column_label.margin_start = 15;
             column_label.margin_top = 6;
-            string label = _("NOTES");
-            column_label.label = "<span weight=\"bold\">%s</span>".printf(label);
+            column_label.label = _("NOTES");
 
             tm.load_from_file ();
 
