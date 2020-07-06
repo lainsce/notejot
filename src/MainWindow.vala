@@ -197,7 +197,7 @@ namespace Notejot {
             column_label.tooltip_text = _("Your notes will appear here.");
             column_label.use_markup = true;
             column_label.halign = Gtk.Align.START;
-            column_label.margin_start = 12;
+            column_label.margin_start = 15;
             column_label.margin_top = 6;
             string label = _("NOTES");
             column_label.label = "<span weight=\"bold\">%s</span>".printf(label);
