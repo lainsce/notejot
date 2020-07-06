@@ -30,5 +30,10 @@
 			<summary>Pin To Desktop</summary>
 			<description>Whether to pin the app to the desktop like an applet</description>
 		</key>
+		<key type="b" name="show-formattingbar">
+			<default>false</default>
+			<summary>Show/Hide Formatting Bar</summary>
+			<description>Whether to show or not the Formatting Bar</description>
+		</key>
 	</schema>
 </schemalist>

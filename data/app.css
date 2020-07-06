@@ -11,6 +11,10 @@ window.unified decoration-overlay {
     font-weight: 700;
 }
 
+.destructive-button:hover {
+    color: #D07070;
+}
+
 .notejot-tbar .image-button {
     border-radius: 8px;
 }

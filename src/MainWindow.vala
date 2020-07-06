@@ -180,6 +180,13 @@ namespace Notejot {
             titlebar.pack_start (new_button);
             new_button.get_style_context ().add_class ("notejot-button");
 
+            var format_button = new Gtk.ToggleButton ();
+            format_button.set_image (new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON));
+            format_button.has_tooltip = true;
+            format_button.tooltip_text = (_("Formatting Options"));
+            titlebar.pack_start (format_button);
+            format_button.get_style_context ().add_class ("notejot-button");
+
             // Column
             column = new Widgets.Column (this);
 
@@ -207,7 +214,8 @@ namespace Notejot {
             var format_reset_button = new Gtk.Button ();
             format_reset_button.has_tooltip = true;
             format_reset_button.tooltip_text = (_("Remove Formatting"));
-            format_reset_button.image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON);
+            format_reset_button.image = new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.BUTTON);
+            format_reset_button.get_style_context ().add_class ("destructive-button");
 
             format_reset_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
@@ -252,10 +260,15 @@ namespace Notejot {
             toolbar.pack_start (format_bold_button);
             toolbar.pack_start (format_italic_button);
             toolbar.pack_start (format_ul_button);
+
+            var toolbar_revealer = new Gtk.Revealer ();
+            toolbar_revealer.add (toolbar);
+            toolbar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+            toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
             //
 
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            note_view.add (toolbar);
+            note_view.add (toolbar_revealer);
             note_view.add (editablelabel);
             note_view.add (textview);
 
@@ -370,6 +383,17 @@ namespace Notejot {
                 column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
                 note_view.visible = true;
                 normal_view.visible = false;
+            });
+
+            format_button.toggled.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
+                    toolbar_revealer.reveal_child = false;
+                } else {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
+                    toolbar_revealer.reveal_child = true;
+                }
+                
             });
 
             editablelabel.changed.connect (() => {
