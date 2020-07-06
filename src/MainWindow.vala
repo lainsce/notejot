@@ -191,6 +191,7 @@ namespace Notejot {
             column = new Widgets.Column (this);
 
             var column_scroller = new Gtk.ScrolledWindow (null, null);
+            column_scroller.margin_top = 6;
             column_scroller.add (column);
 
             var column_label = new Gtk.Label (null);
