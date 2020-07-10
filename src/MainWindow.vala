@@ -135,7 +135,7 @@ namespace Notejot {
             view.left_margin = 10;
             view.margin = 2;
             view.right_margin = 10;
-            view.set_wrap_mode (Gtk.WrapMode.WORD);
+            view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
             view.top_margin = 10;
             scrolled.add (view);
             this.show_all();
