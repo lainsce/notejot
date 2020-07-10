@@ -72,7 +72,7 @@ namespace Notejot {
             title.margin_top = title.margin_start = 5;
 
             var edit_button = new Gtk.Button ();
-            edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
+            edit_button.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.MENU);
             edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             var button_revealer = new Gtk.Revealer ();
             button_revealer.valign = Gtk.Align.CENTER;
