@@ -74,6 +74,9 @@ namespace Notejot {
             this.get_style_context().add_class("notejot-window");
             this.uid = uid_counter++;
 
+            this.set_skip_taskbar_hint(true);
+            this.set_skip_pager_hint(true);
+
             update_theme();
 
             header = new Gtk.HeaderBar();
