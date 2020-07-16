@@ -134,6 +134,7 @@ namespace Notejot {
         }
 
         construct {
+            Hdy.init ();
             // Setting CSS
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/notejot/app.css");
