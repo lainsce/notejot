@@ -185,3 +185,7 @@ window.unified decoration-overlay {
 .notejot-stack-dark {
     background: #151515;
 }
+
+.vsep {
+    background: alpha(black, 0.25);
+}

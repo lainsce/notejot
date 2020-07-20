@@ -213,6 +213,9 @@ namespace Notejot {
             toolbar = new Gtk.ActionBar ();
             toolbar.get_style_context ().add_class ("notejot-abar");
 
+            var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+            sep.get_style_context ().add_class ("vsep");
+
             var format_reset_button = new Gtk.Button ();
             format_reset_button.has_tooltip = true;
             format_reset_button.tooltip_text = (_("Remove Formatting"));
@@ -258,10 +261,31 @@ namespace Notejot {
                 tm.save_notes ();
             });
 
+            Gdk.RGBA color;
+            color.red = 0.0;
+            color.blue = 0.0;
+            color.green = 0.0;
+            color.alpha = 255.0;
+
+            var format_color_button = new Gtk.ColorButton.with_rgba (color);
+            format_color_button.has_tooltip = true;
+            format_color_button.tooltip_text = (_("Color Selected Text"));
+            format_color_button.title = (_("Color for Selected Text"));
+            format_color_button.use_alpha = false;
+
+            format_color_button.color_set.connect (() => {
+                color = format_color_button.get_rgba();
+                textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(color.to_string()));
+                textview.send_text ();
+                tm.save_notes ();
+            });
+
             toolbar.pack_start (format_reset_button);
+            toolbar.pack_start (sep);
             toolbar.pack_start (format_bold_button);
             toolbar.pack_start (format_italic_button);
             toolbar.pack_start (format_ul_button);
+            toolbar.pack_start (format_color_button);
 
             var toolbar_revealer = new Gtk.Revealer ();
             toolbar_revealer.add (toolbar);
@@ -361,8 +385,6 @@ namespace Notejot {
             grid.show_all ();
 
             separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            var separator_cx = separator.get_style_context ();
-            separator_cx.add_class ("vsep");
 
             update ();
 
@@ -395,7 +417,7 @@ namespace Notejot {
                     Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
                     toolbar_revealer.reveal_child = true;
                 }
-                
+                tm.save_notes ();
             });
 
             editablelabel.changed.connect (() => {

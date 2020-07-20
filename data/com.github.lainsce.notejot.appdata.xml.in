@@ -52,6 +52,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.0.0" date="2020-??-??">
+            <description>
+                <p>Release: Hello, Odin!</p>
+                <ul>
+                    <li>Lots of fixes: New UI, formatting inside notes, dark mode, backend improvements…</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.6.2" date="2020-02-07">
             <description>
                 <p>Release: Aesthetics</p>
