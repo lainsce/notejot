@@ -57,7 +57,7 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.column);
+            save_column (builder, win.listview.column);
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
@@ -84,7 +84,7 @@ namespace Notejot {
             try {
                 var file = File.new_for_path(file_name);
                 var json_string = "";
-                if (file.query_exists()) {
+                if (file.query_exists() && win.listview != null) {
                     string line;
                     var dis = new DataInputStream (file.read ());
                     while ((line = dis.read_line (null)) != null) {
@@ -101,7 +101,7 @@ namespace Notejot {
                         string contents = task.get_string_element(1);
                         string color = task.get_string_element(2);
 
-                        win.column.add_task (title, contents, color);
+                        win.add_task (title, contents, color);
                     }
                 }
             } catch (Error e) {

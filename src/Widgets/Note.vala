@@ -1,25 +1,20 @@
 namespace Notejot {
-    public class Widgets.TaskBox : Gtk.ListBoxRow {
+    public class Widgets.Note : Gtk.Grid {
         private MainWindow win;
-        private Gtk.CssProvider css_provider;
         private int uid;
         private static int uid_counter;
         public Gtk.Box bar;
         public Gtk.Box dummy_box;
-        public Gtk.Grid main_grid;
         public Gtk.Label task_label;
+        public Gtk.ModelButton delete_note_button;
         public string color = "#FFE16B";
         public string contents = "Write a new note…";
         public string title = "New Note…";
 
-        public TaskBox (MainWindow win, string title, string contents, string color) {
-            this.color = color;
-            this.contents = contents;
-            this.title = title;
+        public Note (MainWindow win) {
             this.win = win;
             this.uid = uid_counter++;
             this.margin_start = this.margin_end = 6;
-            this.get_style_context ().add_class ("notejot-column-box");
 
             update_theme ();
             win.tm.save_notes ();
@@ -32,7 +27,6 @@ namespace Notejot {
                 valign = Gtk.Align.CENTER
             };
             dummy_box.get_style_context ().add_class ("notejot-db-%d".printf(uid));
-            dummy_box.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
 
             bar = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
                 margin = 6,
@@ -45,7 +39,6 @@ namespace Notejot {
                 halign = Gtk.Align.START,
                 wrap = true,
                 hexpand = true,
-                max_width_chars = 20,
                 ellipsize = Pango.EllipsizeMode.END
             };
 
@@ -105,21 +98,8 @@ namespace Notejot {
 
             var color_button_label = new Granite.HeaderLabel (_("Note Badge Color"));
 
-            var delete_note_button = new Gtk.ModelButton ();
+            delete_note_button = new Gtk.ModelButton ();
 			delete_note_button.text = (_("Delete Note"));
-
-			delete_note_button.clicked.connect (() => {
-			    if ((Widgets.TaskBox) win.column.get_selected_row () != null) {
-                    this.destroy ();
-                    win.tm.save_notes ();
-                }
-                if (win.column.get_children () == null) {
-                    win.normal_view.visible = true;
-                    win.note_view.visible = false;
-                } else {
-                    win.column.select_row (((Widgets.TaskBox)win.column.get_row_at_index (this.uid - 1)));
-                }
-			});
 
             var setting_grid = new Gtk.Grid () {
                 margin = 6,
@@ -184,21 +164,38 @@ namespace Notejot {
                 win.tm.save_notes ();
             });
 
-            main_grid = new Gtk.Grid () {
-                margin_bottom = 6,
-                margin_top = 6,
-                expand = false
-            };
-            main_grid.add (dummy_box);
-            main_grid.add (task_label);
-            main_grid.add (bar);
+            delete_note_button.clicked.connect (() => {
+			    this.get_parent ().destroy ();
+                win.tm.save_notes ();
 
-            this.add(main_grid);
+                if (win.listview.column.get_children () == null) {
+                    win.welcomeview.visible = true;
+                    win.noteview.visible = false;
+                    win.listview.visible = false;
+                    win.format_button.visible = false;
+                }
+            });
+
+            if (win.noteview != null) {
+                win.noteview.editablelabel.changed.connect (() => {
+                    task_label.set_label(win.noteview.editablelabel.title.get_label ());
+                    title = win.noteview.editablelabel.title.get_label ();
+                    win.tm.save_notes ();
+                });
+            }
+            
+
+            this.margin_bottom = 6;
+            this.margin_top = 6;
+            this.expand = false;
+            this.add (dummy_box);
+            this.add (task_label);
+            this.add (bar);
             this.show_all ();
         }
 
         private void update_theme() {
-            css_provider = new Gtk.CssProvider();
+            var css_provider = new Gtk.CssProvider();
             string style = null;
             style = ("""
             .notejot-db-%d {
@@ -218,7 +215,11 @@ namespace Notejot {
             } catch (GLib.Error e) {
                 warning ("Failed to parse css style : %s", e.message);
             }
-            dummy_box.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (),
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         }
     }
 }

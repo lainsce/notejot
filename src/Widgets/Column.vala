@@ -12,7 +12,7 @@ namespace Notejot {
             no_files.show_all ();
 
             this.win = win;
-            this.vexpand = true;
+            this.expand = true;
             this.is_modified = false;
             this.activate_on_single_click = true;
             this.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -20,26 +20,23 @@ namespace Notejot {
             this.set_placeholder (no_files);
 
             this.row_selected.connect ((row) => {
-                if (((Widgets.TaskBox)row) != null && win.editablelabel != null) {
-                    win.editablelabel.text = ((Widgets.TaskBox)row).title;
-                    win.textview.text = ((Widgets.TaskBox)row).contents;
-                    win.textview.update_html_view ();
+                if (((Widgets.NoteBox)row) != null && win.noteview.editablelabel != null) {
+                    win.noteview.editablelabel.text = ((Widgets.NoteBox)row).title;
+                    win.noteview.textfield.text = ((Widgets.NoteBox)row).contents;
+                    win.noteview.textfield.update_html_view ();
+                    win.noteview.visible = true;
+                    win.welcomeview.visible = false;
+                    win.listview.visible = false;
+                    win.format_button.visible = true;
+                    win.new_button.visible = false;
                 }
             });
 
             this.show_all ();
         }
 
-        public void add_task (string title, string contents, string color) {
-            var taskbox = new Widgets.TaskBox (win, title, contents, color);
-            this.insert (taskbox, 1);
-            this.select_row (taskbox);
-            win.tm.save_notes ();
-            this.is_modified = true;
-        }
-
-        public GLib.List<unowned TaskBox> get_rows () {
-            return (GLib.List<unowned TaskBox>) this.get_children ();
+        public GLib.List<unowned NoteBox> get_rows () {
+            return (GLib.List<unowned NoteBox>) this.get_children ();
         }
 
         public void clear_column () {
@@ -49,10 +46,10 @@ namespace Notejot {
             win.tm.save_notes ();
         }
 
-        public Gee.ArrayList<TaskBox> get_tasks () {
-            var tasks = new Gee.ArrayList<TaskBox> ();
+        public Gee.ArrayList<NoteBox> get_tasks () {
+            var tasks = new Gee.ArrayList<NoteBox> ();
             foreach (Gtk.Widget item in this.get_children ()) {
-	            tasks.add ((TaskBox)item);
+	            tasks.add ((NoteBox)item);
             }
             return tasks;
         }

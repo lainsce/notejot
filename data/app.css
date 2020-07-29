@@ -136,6 +136,16 @@ window.unified decoration-overlay {
     box-shadow: none;
 }
 
+.notejot-lview,
+.notejot-lview list {
+    background: #F7F7F7;
+}
+
+.notejot-lview-dark,
+.notejot-lview-dark list {
+    background: #151515;
+}
+
 .notejot-column {
     border-right: 1px solid alpha (black, 0.25);
 }
@@ -151,8 +161,6 @@ window.unified decoration-overlay {
     padding: 2px;
     margin: 6px;
     border-radius: 8px;
-    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.88);
-    background: mix (@accent_color, @base_color, 0.85);
     color: @fg_color;
 }
 
@@ -161,8 +169,7 @@ window.unified decoration-overlay {
     padding: 2px;
     margin: 6px;
     border-radius: 8px;
-    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.88);
-    background: shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    background: shade(@base_color, 0.85);
     color: @fg_color;
 }
 
