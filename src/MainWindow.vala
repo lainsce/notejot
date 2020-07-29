@@ -37,6 +37,8 @@ namespace Notejot {
         public Services.TaskManager tm;
         public Gtk.Application app { get; construct; }
 
+        public Gee.ArrayList<Widgets.Note> main_list;
+
         public MainWindow (Gtk.Application application) {
             GLib.Object (
                 application: application,
@@ -280,12 +282,10 @@ namespace Notejot {
             views_box.pack_start (list_view_button);
 
             list_view_button.clicked.connect (() => {
-                listview.visible = true;
-                gridview.visible = false;
+                stack.set_visible_child (listview);
             });
             grid_view_button.clicked.connect (() => {
-                listview.visible = false;
-                gridview.visible = true;
+                stack.set_visible_child (gridview);
             });
             titlebar.pack_end (views_box);
 
@@ -321,18 +321,8 @@ namespace Notejot {
             });
 
             new_button.clicked.connect (() => {
-                if (stack.visible_child == listview) {
-                    if (listview != null) {
-                        add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
-                    }
-                } else if (stack.visible_child == gridview) {
-                    if (gridview != null) {
-                        add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
-                    }
-                }
-
+                add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
                 welcomeview.visible = false;
-                noteview.visible = false;
             });
 
             this.add (leaflet);
@@ -358,32 +348,39 @@ namespace Notejot {
         }
 
         public void add_task (string title, string contents, string color) {
-            var note = new Widgets.Note (this);
-            
-            if (stack.visible_child == listview) {
-                var taskbox = new Widgets.NoteBox (this, title, contents, color);
-                taskbox.add (note);
-                listview.column.insert (taskbox, 1);
-                listview.column.select_row (taskbox);
-                listview.column.is_modified = true;
-                listview.visible = true;
-                gridview.visible = false;
-            } else if (stack.visible_child == gridview) {
-                gridview.grid.add (note);
-                listview.visible = false;
-                gridview.visible = true;
-            }
-            
-            if (titlebar != null) {
-                titlebar.pack_start (format_button);
-            }
+            var task = new Widgets.Note (this, title, contents, color);
 
+            if (stack.visible_child == listview) {
+                widget_unparent (task);
+                var taskbox = new Gtk.ListBoxRow ();
+                taskbox.add (task);
+                listview.column.insert (taskbox, 1);
+                            
+                if (main_list != null) {
+                    main_list.insert (1, task);
+                }
+            }
+            if (stack.visible_child == gridview)  {
+                widget_unparent (task);
+                gridview.grid.add (task);
+                            
+                if (main_list != null) {
+                    main_list.insert (1, task);
+                }
+            }
+            
             tm.save_notes ();
             format_button.visible = false;
             new_button.visible = true;
+        }
 
-            welcomeview.visible = false;
-            noteview.visible = false;
+        private static void widget_unparent (Gtk.Widget widget) {
+            unowned Gtk.Container? parent = widget.get_parent ();
+            if (parent == null) {
+                return;
+            }
+
+            parent.remove (widget);
         }
 
         private void update () {

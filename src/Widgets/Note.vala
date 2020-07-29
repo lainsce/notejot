@@ -11,10 +11,14 @@ namespace Notejot {
         public string contents = "Write a new note…";
         public string title = "New Note…";
 
-        public Note (MainWindow win) {
+        public Note (MainWindow win, string title, string contents, string color) {
+            this.color = color;
+            this.contents = contents;
+            this.title = title;
             this.win = win;
             this.uid = uid_counter++;
             this.margin_start = this.margin_end = 6;
+            this.get_style_context ().add_class ("notejot-column-box");
 
             update_theme ();
             win.tm.save_notes ();
@@ -167,13 +171,6 @@ namespace Notejot {
             delete_note_button.clicked.connect (() => {
 			    this.get_parent ().destroy ();
                 win.tm.save_notes ();
-
-                if (win.listview.column.get_children () == null) {
-                    win.welcomeview.visible = true;
-                    win.noteview.visible = false;
-                    win.listview.visible = false;
-                    win.format_button.visible = false;
-                }
             });
 
             if (win.noteview != null) {
@@ -183,7 +180,6 @@ namespace Notejot {
                     win.tm.save_notes ();
                 });
             }
-            
 
             this.margin_bottom = 6;
             this.margin_top = 6;

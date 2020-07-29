@@ -68,7 +68,7 @@ namespace Notejot {
                     var data = run_javascript.end(res);
                     if (data != null) { 
                         if (win.listview.column.get_children () != null) {
-                            var row = (Widgets.NoteBox)win.listview.column.get_selected_row ();
+                            var row = (Widgets.Note)win.listview.column.get_selected_row ();
                             if (data != null) {
                                 var val = data.get_js_value ().to_string ();
                                 row.contents = val == "" ? " " : val;

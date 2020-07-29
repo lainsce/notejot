@@ -54,7 +54,6 @@ executable(
     'src/Widgets/EditableLabel.vala',
     'src/Widgets/FlowGrid.vala',
     'src/Widgets/Note.vala',
-    'src/Widgets/NoteBox.vala',
     'src/Widgets/TextField.vala',
     'src/Styles/light.vala',
     'src/Styles/dark.vala',
