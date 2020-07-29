@@ -29,7 +29,6 @@ namespace Notejot {
                 application_id: "com.github.lainsce.notejot"
             );
         }
-
         static construct {
             gsettings = new GLib.Settings ("com.github.lainsce.notejot");
             grsettings = Granite.Settings.get_default ();
@@ -42,14 +41,11 @@ namespace Notejot {
             }
             win = new MainWindow (this);
         }
-
         public static int main (string[] args) {
             Intl.setlocale (LocaleCategory.ALL, "");
             Intl.textdomain (Build.GETTEXT_PACKAGE);
-
             var app = new Notejot.Application ();
             return app.run (args);
         }
     }
 }
-

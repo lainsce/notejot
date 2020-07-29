@@ -4,20 +4,20 @@ namespace Notejot {
         public bool is_modified {get; set; default = false;}
 
         public Column (MainWindow win) {
-            var no_files = new Gtk.Label (_("No notes…"));
-            no_files.halign = Gtk.Align.CENTER;
-            var no_files_style_context = no_files.get_style_context ();
-            no_files_style_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
-            no_files_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+            var no_files = new Gtk.Label (_("No notes…")) {
+                halign = Gtk.Align.CENTER
+            };
+            no_files.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            no_files.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
             no_files.show_all ();
 
             this.win = win;
             this.vexpand = true;
-            is_modified = false;
-            activate_on_single_click = true;
-            selection_mode = Gtk.SelectionMode.SINGLE;
-            set_sort_func (list_sort);
-            set_placeholder (no_files);
+            this.is_modified = false;
+            this.activate_on_single_click = true;
+            this.selection_mode = Gtk.SelectionMode.SINGLE;
+            this.set_sort_func (list_sort);
+            this.set_placeholder (no_files);
 
             this.row_selected.connect ((row) => {
                 if (((Widgets.TaskBox)row) != null && win.editablelabel != null) {
@@ -60,10 +60,8 @@ namespace Notejot {
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {
             var row_1 = first_row;
             var row_2 = second_row;
-
             string name_1 = row_1.name;
             string name_2 = row_2.name;
-
             return name_1.collate (name_2);
         }
     }

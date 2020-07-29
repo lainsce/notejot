@@ -57,32 +57,38 @@ namespace Notejot {
 
         public EditableLabel (MainWindow win, string? title_name) {
             this.win = win;
-            valign = Gtk.Align.CENTER;
-            events |= Gdk.EventMask.ENTER_NOTIFY_MASK;
-            events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
-            events |= Gdk.EventMask.BUTTON_PRESS_MASK;
+            this.valign = Gtk.Align.CENTER;
+            this.events |= Gdk.EventMask.ENTER_NOTIFY_MASK /
+                           Gdk.EventMask.LEAVE_NOTIFY_MASK /
+                           Gdk.EventMask.BUTTON_PRESS_MASK;
 
             this.get_style_context().add_class("notejot-label");
             this.get_style_context().add_class ("notejot-tview");
 
-            title = new Gtk.Label (title_name);
-            title.ellipsize = Pango.EllipsizeMode.END;
-            title.hexpand = true;
-            title.halign = Gtk.Align.START;
-            title.margin_top = title.margin_start = 5;
+            title = new Gtk.Label (title_name) {
+                ellipsize = Pango.EllipsizeMode.END,
+                hexpand = true,
+                halign = Gtk.Align.START,
+                margin_top = 5,
+                margin_start = 5
+            };
 
-            var edit_button = new Gtk.Button ();
-            edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
+            var edit_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU)
+            };
             edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            var button_revealer = new Gtk.Revealer ();
-            button_revealer.valign = Gtk.Align.CENTER;
-            button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+
+            var button_revealer = new Gtk.Revealer () {
+                valign = Gtk.Align.CENTER,
+                transition_type = Gtk.RevealerTransitionType.CROSSFADE
+            };
             button_revealer.add (edit_button);
 
-            grid = new Gtk.Grid ();
-            grid.valign = Gtk.Align.START;
-            grid.column_spacing = 6;
-            grid.hexpand = false;
+            grid = new Gtk.Grid () {
+                valign = Gtk.Align.START,
+                column_spacing = 6,
+                hexpand = false
+            };
             grid.add (title);
             grid.add (button_revealer);
 
@@ -93,12 +99,13 @@ namespace Notejot {
             entry_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
             entry_style_context.add_class (Gtk.STYLE_CLASS_TITLE);
 
-            stack = new Gtk.Stack ();
-            stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            stack.margin = 6;
-            stack.margin_top = 6;
-            stack.margin_start = 17;
-            stack.margin_bottom = 0;
+            stack = new Gtk.Stack () {
+                transition_type = Gtk.StackTransitionType.CROSSFADE,
+                margin = 6,
+                margin_top = 6,
+                margin_start = 17,
+                margin_bottom = 0
+            };
             stack.add (grid);
             stack.add (entry);
             add (stack);

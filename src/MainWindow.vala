@@ -156,53 +156,55 @@ namespace Notejot {
             }
             this.resize (w, h);
 
-            titlebar = new Hdy.HeaderBar ();
+            titlebar = new Hdy.HeaderBar () {
+                show_close_button = true,
+                has_subtitle = false,
+                hexpand = true,
+                title = "Notejot"
+            };
             titlebar.set_size_request (-1, 45);
-            var titlebar_c = titlebar.get_style_context ();
-            titlebar_c.add_class ("notejot-tbar");
-            titlebar_c.remove_class ("titlebar");
-            titlebar.show_close_button = true;
-            titlebar.has_subtitle = false;
-            titlebar.hexpand = true;
-            titlebar.title = "Notejot";
+            titlebar.get_style_context ().add_class ("notejot-tbar");
+            titlebar.get_style_context ().remove_class ("titlebar");
 
-            fauxtitlebar = new Hdy.HeaderBar ();
+            fauxtitlebar = new Hdy.HeaderBar () {
+                show_close_button = true,
+                has_subtitle = false
+            };
             fauxtitlebar.set_size_request (199, 45);
-            var fauxtitlebar_c = fauxtitlebar.get_style_context ();
-            fauxtitlebar_c.add_class ("notejot-side-tbar");
-            fauxtitlebar_c.remove_class ("titlebar");
-            fauxtitlebar.show_close_button = true;
-            fauxtitlebar.has_subtitle = false;
+            fauxtitlebar.get_style_context ().add_class ("notejot-side-tbar");
+            fauxtitlebar.get_style_context ().remove_class ("titlebar");
 
-            var new_button = new Gtk.Button ();
-            new_button.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON));
-            new_button.has_tooltip = true;
-            new_button.tooltip_text = (_("New Note"));
-            titlebar.pack_start (new_button);
+            var new_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("New Note"))
+            };
             new_button.get_style_context ().add_class ("notejot-button");
+            titlebar.pack_start (new_button);
 
-            var format_button = new Gtk.ToggleButton ();
-            format_button.set_image (new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON));
-            format_button.has_tooltip = true;
-            format_button.tooltip_text = (_("Formatting Options"));
-            titlebar.pack_start (format_button);
+            var format_button = new Gtk.ToggleButton () {
+                image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Formatting Options"))
+            };
             format_button.get_style_context ().add_class ("notejot-button");
+            titlebar.pack_start (format_button);
 
             // Column
             column = new Widgets.Column (this);
 
-            var column_scroller = new Gtk.ScrolledWindow (null, null);
-            column_scroller.margin_top = 6;
+            var column_scroller = new Gtk.ScrolledWindow (null, null) {
+                margin_top = 6
+            };
             column_scroller.add (column);
 
-            var column_label = new Gtk.Label (null);
+            var column_label = new Gtk.Label (null) {
+                tooltip_text = _("Your notes will appear here."),
+                use_markup = true,
+                halign = Gtk.Align.START,
+                margin_start = 15,
+                margin_top = 6,
+                label = _("NOTES")
+            };
             column_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            column_label.tooltip_text = _("Your notes will appear here.");
-            column_label.use_markup = true;
-            column_label.halign = Gtk.Align.START;
-            column_label.margin_start = 15;
-            column_label.margin_top = 6;
-            column_label.label = _("NOTES");
 
             tm.load_from_file ();
 
@@ -216,10 +218,10 @@ namespace Notejot {
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             sep.get_style_context ().add_class ("vsep");
 
-            var format_reset_button = new Gtk.Button ();
-            format_reset_button.has_tooltip = true;
-            format_reset_button.tooltip_text = (_("Remove Formatting"));
-            format_reset_button.image = new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.BUTTON);
+            var format_reset_button = new Gtk.Button () {
+                tooltip_text = (_("Remove Formatting")),
+                image = new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.BUTTON)
+            };
             format_reset_button.get_style_context ().add_class ("destructive-button");
 
             format_reset_button.clicked.connect (() => {
@@ -228,10 +230,10 @@ namespace Notejot {
                 tm.save_notes ();
             });
 
-            var format_bold_button = new Gtk.Button ();
-            format_bold_button.has_tooltip = true;
-            format_bold_button.tooltip_text = (_("Bold Selected Text"));
-            format_bold_button.image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON);
+            var format_bold_button = new Gtk.Button () {
+                tooltip_text = (_("Bold Selected Text")),
+                image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON)
+            };
 
             format_bold_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
@@ -239,10 +241,10 @@ namespace Notejot {
                 tm.save_notes ();
             });
 
-            var format_italic_button = new Gtk.Button ();
-            format_italic_button.has_tooltip = true;
-            format_italic_button.tooltip_text = (_("Italic Selected Text"));
-            format_italic_button.image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON);
+            var format_italic_button = new Gtk.Button () {
+                tooltip_text = (_("Italic Selected Text")),
+                image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON)
+            };
 
             format_italic_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
@@ -250,10 +252,10 @@ namespace Notejot {
                 tm.save_notes ();
             });
 
-            var format_ul_button = new Gtk.Button ();
-            format_ul_button.has_tooltip = true;
-            format_ul_button.tooltip_text = (_("Underline Selected Text"));
-            format_ul_button.image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON);
+            var format_ul_button = new Gtk.Button () {
+                tooltip_text = (_("Underline Selected Text")),
+                image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON)
+            };
 
             format_ul_button.clicked.connect (() => {
                 textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
@@ -267,11 +269,10 @@ namespace Notejot {
             color.green = 0.0;
             color.alpha = 255.0;
 
-            var format_color_button = new Gtk.ColorButton.with_rgba (color);
-            format_color_button.has_tooltip = true;
-            format_color_button.tooltip_text = (_("Color Selected Text"));
-            format_color_button.title = (_("Color for Selected Text"));
-            format_color_button.use_alpha = false;
+            var format_color_button = new Gtk.ColorButton.with_rgba (color) {
+                tooltip_text = (_("Color Selected Text")),
+                use_alpha = false
+            };
 
             format_color_button.color_set.connect (() => {
                 color = format_color_button.get_rgba();
@@ -287,10 +288,11 @@ namespace Notejot {
             toolbar.pack_start (format_ul_button);
             toolbar.pack_start (format_color_button);
 
-            var toolbar_revealer = new Gtk.Revealer ();
+            var toolbar_revealer = new Gtk.Revealer () {
+                transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+                reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar")
+            };
             toolbar_revealer.add (toolbar);
-            toolbar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-            toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
             //
 
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -304,17 +306,20 @@ namespace Notejot {
             normal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
             normal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
-            normal_view = new Gtk.Grid ();
-            normal_view.column_spacing = 12;
-            normal_view.margin = 24;
-            normal_view.expand = true;
-            normal_view.halign = normal_view.valign = Gtk.Align.CENTER;
+            normal_view = new Gtk.Grid () {
+                column_spacing = 12,
+                margin = 24,
+                expand = true,
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER
+            };
             normal_view.add (normal_icon);
             normal_view.add (normal_label);
 
-            stack = new Gtk.Stack ();
+            stack = new Gtk.Stack () {
+                transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+            };
             stack.get_style_context ().add_class ("notejot-stack");
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             stack.add (normal_view);
             stack.add (note_view);
 
@@ -327,59 +332,65 @@ namespace Notejot {
             }
 
             var alabel = new Gtk.Label (_("Pin To Desktop:"));
-            applet_switch = new Gtk.Switch ();
-            applet_switch.valign = Gtk.Align.CENTER;
+            applet_switch = new Gtk.Switch () {
+                valign = Gtk.Align.CENTER,
+                has_focus = false
+            };
             Notejot.Application.gsettings.bind ("pinned", applet_switch, "active", SettingsBindFlags.DEFAULT);
-            applet_switch.has_focus = false;
 
-            var applet_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            applet_box.margin_start = 12;
+            var applet_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+                margin_start = 12
+            };
             applet_box.add (alabel);
             applet_box.add (applet_switch);
 
             var interface_header = new Granite.HeaderLabel (_("Interface"));
             var dlabel = new Gtk.Label (_("Dark Mode:"));
-            mode_switch = new Gtk.Switch ();
-            mode_switch.valign = Gtk.Align.CENTER;
+            mode_switch = new Gtk.Switch () {
+                valign = Gtk.Align.CENTER,
+                has_focus = false
+            };
             Notejot.Application.gsettings.bind ("dark-mode", mode_switch, "active", SettingsBindFlags.DEFAULT);
-            mode_switch.has_focus = false;
 
-            var dark_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            dark_box.margin_start = 12;
+            var dark_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+                margin_start = 12
+            };
             dark_box.add (dlabel);
             dark_box.add (mode_switch);
 
-            var menu_grid = new Gtk.Grid ();
-            menu_grid.margin = 12;
-            menu_grid.row_spacing = 6;
-            menu_grid.column_spacing = 6;
-            menu_grid.orientation = Gtk.Orientation.VERTICAL;
+            var menu_grid = new Gtk.Grid () {
+                margin = 12,
+                row_spacing = 6,
+                column_spacing = 6,
+                orientation = Gtk.Orientation.VERTICAL
+            };
             menu_grid.attach (interface_header, 0, 0, 1, 1);
             menu_grid.attach (dark_box, 0, 1, 1, 1);
             menu_grid.attach (applet_box, 0, 2, 1, 1);
             menu_grid.show_all ();
 
-            var menu = new Gtk.Popover (null);
-            menu.add (menu_grid);
+            var popover = new Gtk.Popover (null);
+            popover.add (menu_grid);
 
-            var menu_button = new Gtk.MenuButton ();
-            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
-            menu_button.has_tooltip = true;
-            menu_button.tooltip_text = (_("Settings"));
-            menu_button.popover = menu;
-
+            var menu_button = new Gtk.MenuButton () {
+                image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Settings")),
+                popover = popover
+            };
             titlebar.pack_end (menu_button);
 
-            sgrid = new Gtk.Grid ();
-            sgrid.orientation = Gtk.Orientation.VERTICAL;
+            sgrid = new Gtk.Grid () {
+                orientation = Gtk.Orientation.VERTICAL
+            };
             sgrid.get_style_context ().add_class ("notejot-column");
             sgrid.attach (fauxtitlebar, 0, 0, 1, 1);
             sgrid.attach (column_label, 0, 1, 1, 1);
             sgrid.attach (column_scroller, 0, 2, 1, 1);
             sgrid.show_all ();
 
-            grid = new Gtk.Grid ();
-            grid.orientation = Gtk.Orientation.VERTICAL;
+            grid = new Gtk.Grid () {
+                orientation = Gtk.Orientation.VERTICAL
+            };
             grid.attach (titlebar, 0, 0, 1, 1);
             grid.attach (stack, 0, 1, 1, 1);
             grid.show_all ();
@@ -388,15 +399,15 @@ namespace Notejot {
 
             update ();
 
-            leaflet = new Hdy.Leaflet ();
+            leaflet = new Hdy.Leaflet () {
+                transition_type = Hdy.LeafletTransitionType.UNDER,
+                can_swipe_back = true
+            };
             leaflet.add (sgrid);
             leaflet.add (separator);
             leaflet.add (grid);
-            leaflet.transition_type = Hdy.LeafletTransitionType.UNDER;
             leaflet.show_all ();
-            leaflet.can_swipe_back = true;
             leaflet.set_visible_child (grid);
-
             leaflet.child_set_property (separator, "allow-visible", false);
 
             leaflet.notify["folded"].connect (() => {
@@ -427,7 +438,7 @@ namespace Notejot {
             });
 
             this.add (leaflet);
-            this.set_size_request (375, 600);
+            this.set_size_request (300, 500);
             this.show_all ();
         }
 
@@ -474,4 +485,3 @@ namespace Notejot {
         }
     }
 }
-

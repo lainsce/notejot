@@ -34,39 +34,39 @@ window.unified decoration-overlay {
     background: shade(@base_color, 0.95);
 }
 
-.color-button {
-    border-radius: 50%;
-    background-image: none;
-    border: 1px solid alpha(black, 0.25);
-    box-shadow:
-        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+
+.color-button radio,
+.color-button radio:checked {
+   padding: 4px;
+   -gtk-icon-shadow: none;
 }
-.color-button:hover,
-.color_button:focus {
-    border: 1px solid @inset_dark_color;
-}
-.color-red {
+.color-red radio {
     background-color: #D07070;
+    color: #D07070;
 }
-.color-orange {
+.color-orange radio {
     background-color: #FF976B;
+    color: #FF976B;
 }
-.color-yellow {
+.color-yellow radio {
     background-color: #FFE16B;
+    color: #FFE16B;
 }
-.color-green {
+.color-green radio {
     background-color: #74C02E;
+    color: #74C02E;
 }
-.color-blue {
+.color-blue radio {
     background-color: #70C0FF;
+    color: #70C0FF;
 }
-.color-indigo {
+.color-indigo radio {
     background-color: #6060C5;
+    color: #6060C5;
 }
-.color-neutral {
-    background-color: #888888;
+.color-neutral radio {
+    background-color: #888;
+    color: #888;
 }
 .image-button,
 .titlebutton {
