@@ -20,13 +20,16 @@ namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Widgets
         public Widgets.Column column;
+        public Widgets.FlowGrid flowgrid;
         public Widgets.TextView textview;
         public Widgets.EditableLabel editablelabel;
         public Widgets.Menu menu;
         public Gtk.Box note_view;
         public Gtk.Box views_box;
         public Gtk.Button new_button;
+        public Gtk.Button return_button;
         public Gtk.Grid grid;
+        public Gtk.Grid grid_view;
         public Gtk.Grid list_view;
         public Gtk.Grid normal_view;
         public Gtk.Grid sgrid;
@@ -84,6 +87,7 @@ namespace Notejot {
                 editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                 textview.get_style_context ().add_class ("notejot-tview-dark");
                 column.get_style_context ().add_class ("notejot-lview-dark");
+                flowgrid.get_style_context ().add_class ("notejot-lview-dark");
                 toolbar.get_style_context ().add_class ("notejot-abar-dark");
                 stack.get_style_context ().add_class ("notejot-stack-dark");
                 textview.update_html_view ();
@@ -93,6 +97,7 @@ namespace Notejot {
                 editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                 toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                 textview.get_style_context ().remove_class ("notejot-tview-dark");
+                flowgrid.get_style_context ().remove_class ("notejot-lview-dark");
                 column.get_style_context ().remove_class ("notejot-lview-dark");
                 stack.get_style_context ().remove_class ("notejot-stack-dark");
                 textview.update_html_view ();
@@ -113,6 +118,7 @@ namespace Notejot {
                     editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                     textview.get_style_context ().add_class ("notejot-tview-dark");
                     column.get_style_context ().add_class ("notejot-lview-dark");
+                    flowgrid.get_style_context ().add_class ("notejot-lview-dark");
                     toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     stack.get_style_context ().add_class ("notejot-stack-dark");
                     textview.update_html_view ();
@@ -122,6 +128,7 @@ namespace Notejot {
                     editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                     toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                     textview.get_style_context ().remove_class ("notejot-tview-dark");
+                    flowgrid.get_style_context ().remove_class ("notejot-lview-dark");
                     column.get_style_context ().remove_class ("notejot-lview-dark");
                     stack.get_style_context ().remove_class ("notejot-stack-dark");
                     textview.update_html_view ();
@@ -216,17 +223,32 @@ namespace Notejot {
                 stack.set_visible_child (list_view);
                 format_button.sensitive = false;
             });
-            //grid_view_button.clicked.connect (() => {
-            //    stack.set_visible_child (gridview);
-            //});
+            grid_view_button.clicked.connect (() => {
+                stack.set_visible_child (grid_view);
+                format_button.sensitive = false;
+            });
 
-            // Column
+            // Back button
+            return_button = new Gtk.Button ();
+            return_button.get_style_context ().add_class ("notejot-back-button");
+            fauxtitlebar.pack_start (return_button);
+            return_button.no_show_all = true;
+
+            // List
             column = new Widgets.Column (this);
 
             var column_scroller = new Gtk.ScrolledWindow (null, null);
             column_scroller.margin_top = 6;
             column_scroller.add (column);
 
+            // Grid
+            flowgrid = new Widgets.FlowGrid (this);
+
+            var flowgrid_scroller = new Gtk.ScrolledWindow (null, null);
+            flowgrid_scroller.margin_top = 6;
+            flowgrid_scroller.add (flowgrid);
+
+            // Sidebar
             var sidebar_header = new Gtk.Label (null);
             sidebar_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             sidebar_header.tooltip_text = _("Your notes will appear here.");
@@ -238,6 +260,7 @@ namespace Notejot {
 
             tm.load_from_file ();
 
+            // Note
             textview = new Widgets.TextView (this);
             editablelabel = new Widgets.EditableLabel (this, "");
 
@@ -267,11 +290,16 @@ namespace Notejot {
             list_view.margin = 6;
             list_view.add (column_scroller);
 
+            grid_view = new Gtk.Grid ();
+            grid_view.margin = 6;
+            grid_view.add (flowgrid_scroller);
+
             stack = new Gtk.Stack ();
             stack.get_style_context ().add_class ("notejot-stack");
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             stack.add (normal_view);
             stack.add (list_view);
+            stack.add (grid_view);
             stack.add (note_view);
 
             menu = new Widgets.Menu (this);
@@ -300,6 +328,7 @@ namespace Notejot {
                 stack.set_visible_child (normal_view);
             } else {
                 stack.set_visible_child (list_view);
+                views_box.sensitive = true;
             }
 
             leaflet = new Hdy.Leaflet ();
@@ -318,9 +347,19 @@ namespace Notejot {
             });
 
             new_button.clicked.connect (() => {
-                column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
-                stack.set_visible_child (list_view);
+                add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
+                if (stack.get_visible_child () == normal_view) {
+                    stack.set_visible_child (list_view);
+                }
                 views_box.sensitive = true;
+            });
+
+            return_button.clicked.connect (() => {
+                if (stack.get_visible_child () == note_view) {
+                    stack.set_visible_child (list_view);
+                }
+                views_box.sensitive = true;
+                return_button.visible = false;
             });
 
             format_button.toggled.connect (() => {
@@ -360,6 +399,21 @@ namespace Notejot {
                 }
 
             return false;
+        }
+
+        public void add_task (string title, string contents, string color) {
+            if (stack.get_visible_child () == list_view) {
+                var task = new Widgets.TaskBox (this, title, contents, color, false);
+                column.insert (task, 1);
+                task.get_parent ().get_style_context ().add_class ("notejot-note-list");
+                column.is_modified = true;
+                tm.save_notes ();
+            }
+            if (stack.get_visible_child () == grid_view) {
+                var taskbox = new Widgets.TaskBox (this, title, contents, color, true);
+                flowgrid.add (taskbox);
+                tm.save_notes ();
+            }
         }
 
         private void update () {

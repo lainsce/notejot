@@ -1,5 +1,5 @@
 namespace Notejot {
-    public class Widgets.TaskBox : Gtk.ListBoxRow {
+    public class Widgets.TaskBox : Gtk.Grid {
         private MainWindow win;
         public string color = "#FFE16B";
         public string title = "New Note…";
@@ -9,8 +9,9 @@ namespace Notejot {
         public Gtk.Grid main_grid;
         public Gtk.Box bar;
         public Gtk.Label task_label;
+        public bool is_grid  {get; set; default = false;}
 
-        public TaskBox (MainWindow win, string title, string contents, string color) {
+        public TaskBox (MainWindow win, string title, string contents, string color, bool is_grid) {
             this.win = win;
             this.color = color;
             this.title = title;
@@ -23,11 +24,17 @@ namespace Notejot {
             win.tm.save_notes ();
 
             // Used to make up the colored badge
+            var dummy_badge = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            dummy_badge.margin = 6;
+            dummy_badge.valign = Gtk.Align.CENTER;
+            dummy_badge.margin_top = dummy_badge.margin_bottom = 0;
+            dummy_badge.get_style_context ().add_class ("notejot-dbg-%d".printf(uid));
+
             var dummy_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             dummy_box.margin = 6;
             dummy_box.valign = Gtk.Align.CENTER;
             dummy_box.margin_top = dummy_box.margin_bottom = 0;
-            dummy_box.get_style_context ().add_class ("notejot-db-%d".printf(uid));
+            dummy_box.get_style_context ().add_class ("notejot-dbx-%d".printf(uid));
 
             bar = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
             bar.margin = 6;
@@ -102,11 +109,13 @@ namespace Notejot {
 			delete_note_button.text = (_("Delete Note"));
 
 			delete_note_button.clicked.connect (() => {
-                this.destroy ();
+                this.get_parent ().destroy ();
                 win.tm.save_notes ();
                 if (win.column.get_children () == null) {
-                    win.stack.set_visible_child (win.normal_view);
                     win.views_box.sensitive = false;
+                    if (win.stack.get_visible_child () == win.list_view || win.stack.get_visible_child () == win.grid_view) {
+                        win.stack.set_visible_child (win.normal_view);
+                    }
                 }
 			});
 
@@ -173,17 +182,32 @@ namespace Notejot {
 
             bar.pack_end (app_button);
 
-            main_grid = new Gtk.Grid ();
-            main_grid.orientation = Gtk.Orientation.HORIZONTAL;
-            main_grid.margin_bottom = 6;
-            main_grid.margin_top = 6;
-            main_grid.expand = false;
-            main_grid.add (dummy_box);
-            main_grid.add (task_label);
-            main_grid.add (bar);
-
-            this.add(main_grid);
-            this.margin_start = this.margin_end = 6;
+            if (is_grid == false) {
+                this.orientation = Gtk.Orientation.HORIZONTAL;
+                this.add (dummy_badge);
+                this.add (task_label);
+                this.add (bar);
+                app_button.valign = Gtk.Align.CENTER;
+                app_button.vexpand = true;
+            } else {
+                this.set_size_request (200,200);
+                this.get_style_context ().add_class ("notejot-note-grid");
+                this.get_style_context ().add_class ("notejot-note-grid-%d".printf(uid));
+                this.orientation = Gtk.Orientation.VERTICAL;
+                this.halign = Gtk.Align.CENTER;
+                this.valign = Gtk.Align.CENTER;
+                this.row_spacing = 12;
+                this.add (dummy_box);
+                this.add (task_label);
+                this.add (bar);
+                app_button.valign = Gtk.Align.END;
+                app_button.vexpand = true;
+                task_label.margin_start = 6;
+                task_label.margin_top = 6;
+            }
+            
+            this.expand = false;
+            
             this.show_all ();
         }
 
@@ -192,7 +216,11 @@ namespace Notejot {
 
             string style = null;
             style = (N_("""
-            .notejot-db-%d {
+            .notejot-dbx-%d {
+                padding: 10px;
+                border-radius: 8px 8px 0 0;
+            }
+            .notejot-dbg-%d {
                 border: 1px solid alpha(black, 0.25);
                 background: %s;
                 border-radius: 8px;
@@ -203,7 +231,10 @@ namespace Notejot {
                     inset 0 0 1px 1px alpha(black, 0.05),
                     0 1px 0 0 alpha(@highlight_color, 0.2);
             }
-            """)).printf(uid, color);
+            .notejot-note-grid-%d {
+                background: linear-gradient(to bottom, %s, %s, @base_color, @base_color, @base_color, @base_color, @base_color, @base_color, @base_color, @base_color)
+            }
+            """)).printf(uid, uid, color, uid, color, color);
 
             try {
                 css_provider.load_from_data(style, -1);

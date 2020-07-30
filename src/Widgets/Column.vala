@@ -20,29 +20,25 @@ namespace Notejot {
             set_placeholder (no_files);
 
             this.row_selected.connect ((row) => {
-                if (((Widgets.TaskBox)row) != null && win.editablelabel != null && win.stack != null) {
+                if (row != null && win.editablelabel != null && win.stack != null) {
                     win.editablelabel.text = ((Widgets.TaskBox)row).title;
                     win.textview.text = ((Widgets.TaskBox)row).contents;
                     win.textview.update_html_view ();
                     win.stack.set_visible_child (win.note_view);
                     win.format_button.sensitive = true;
+                    win.views_box.sensitive = false;
+                    win.return_button.no_show_all = false;
+                    win.return_button.visible = true;
+                    win.return_button.label = _("«Back");
                 }
-                
             });
 
             this.get_style_context ().add_class ("notejot-lview");
             this.show_all ();
         }
 
-        public void add_task (string title, string contents, string color) {
-            var taskbox = new Widgets.TaskBox (win, title, contents, color);
-            this.insert (taskbox, 1);
-            win.tm.save_notes ();
-            this.is_modified = true;
-        }
-
-        public GLib.List<unowned TaskBox> get_rows () {
-            return (GLib.List<unowned TaskBox>) this.get_children ();
+        public GLib.List<unowned Widgets.TaskBox> get_rows () {
+            return (GLib.List<unowned Widgets.TaskBox>) this.get_children ();
         }
 
         public void clear_column () {
@@ -52,10 +48,10 @@ namespace Notejot {
             win.tm.save_notes ();
         }
 
-        public Gee.ArrayList<TaskBox> get_tasks () {
-            var tasks = new Gee.ArrayList<TaskBox> ();
+        public Gee.ArrayList<Gtk.ListBoxRow> get_tasks () {
+            var tasks = new Gee.ArrayList<Gtk.ListBoxRow> ();
             foreach (Gtk.Widget item in this.get_children ()) {
-	            tasks.add ((TaskBox)item);
+	            tasks.add ((Gtk.ListBoxRow)item);
             }
             return tasks;
         }
