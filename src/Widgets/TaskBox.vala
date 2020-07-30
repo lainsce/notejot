@@ -116,6 +116,7 @@ namespace Notejot {
                         win.stack.set_visible_child (win.normal_view);
                     }
                 }
+                sidebaritem.destroy_item ();
 			});
 
             var setting_grid = new Gtk.Grid ();

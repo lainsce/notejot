@@ -28,5 +28,9 @@ namespace Notejot {
                 }
             });
         }
+
+        public void destroy_item () {
+            win.notes_category.remove(this);
+        }
     }
 }
