@@ -313,7 +313,7 @@ namespace Notejot {
             });
 
             new_button.clicked.connect (() => {
-                add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
+                add_task (_("New Note"), _("Write a New Note…"), "#FCF092");
                 if (stack.get_visible_child () == normal_view) {
                     stack.set_visible_child (grid_view);
                 }
