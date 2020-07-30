@@ -21,6 +21,7 @@ namespace Notejot {
         public MainWindow win;
         public string html = "";
         public string text = "";
+        public string val = "";
 
         public TextView (MainWindow win) {
             this.win = win;
@@ -67,11 +68,9 @@ namespace Notejot {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null) { 
-                        if (win.column.get_children () != null) {
-                            if (data != null) {
-                                var val = data.get_js_value ().to_string ();
-                                text = val == "" ? " " : val;
-                            }
+                        if (data != null) {
+                            val = data.get_js_value ().to_string ();
+                            text = val == "" ? " " : val;
                         }
                     }
                 } catch (Error e) {

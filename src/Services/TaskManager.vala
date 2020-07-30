@@ -69,14 +69,14 @@ namespace Notejot {
 
         private static void save_column (Json.Builder builder,
                                          Widgets.Column column) {
-	        builder.begin_array ();
-	        foreach (var task in column.get_tasks ()) {
+            builder.begin_array ();
+            foreach (Gtk.ListBoxRow item in column.get_tasks ()) {
                 builder.begin_array ();
-                builder.add_string_value (task.title);
-		        builder.add_string_value (task.contents);
-                builder.add_string_value (task.color);
+                builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
+		        builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
+                builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
                 builder.end_array ();
-	        }
+            }
 	        builder.end_array ();
         }
 
@@ -101,7 +101,7 @@ namespace Notejot {
                         string contents = task.get_string_element(1);
                         string color = task.get_string_element(2);
 
-                        win.column.add_task (title, contents, color);
+                        win.add_task (title, contents, color);
                     }
                 }
             } catch (Error e) {

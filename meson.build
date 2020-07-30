@@ -48,6 +48,7 @@ executable(
     'src/Services/TaskManager.vala',
     'src/Widgets/Column.vala',
     'src/Widgets/EditableLabel.vala',
+    'src/Widgets/FlowGrid.vala',
     'src/Widgets/Menu.vala',
     'src/Widgets/TaskBox.vala',
     'src/Widgets/TextView.vala',
