@@ -71,6 +71,10 @@ namespace Notejot {
                         if (data != null) {
                             val = data.get_js_value ().to_string ();
                             text = val == "" ? " " : val;
+                            win.flowgrid.selected_foreach ((item, child) => {
+                                ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);
+                                ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
+                            });
                         }
                     }
                 } catch (Error e) {

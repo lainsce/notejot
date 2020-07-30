@@ -57,7 +57,7 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.column);
+            save_column (builder, win.flowgrid);
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
@@ -68,9 +68,9 @@ namespace Notejot {
         }
 
         private static void save_column (Json.Builder builder,
-                                         Widgets.Column column) {
+                                         Widgets.FlowGrid flowgrid) {
             builder.begin_array ();
-            foreach (Gtk.ListBoxRow item in column.get_tasks ()) {
+            foreach (Gtk.FlowBoxChild item in flowgrid.get_tasks ()) {
                 builder.begin_array ();
                 builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
 		        builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);

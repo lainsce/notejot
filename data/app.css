@@ -41,32 +41,32 @@ window.unified decoration-overlay {
    -gtk-icon-shadow: none;
 }
 .color-red radio {
-    background-color: #D07070;
-    color: #D07070;
+    background-color: #F3ACAA;
+    color: #F3ACAA;
 }
 .color-orange radio {
-    background-color: #FF976B;
-    color: #FF976B;
+    background-color: #FFC78B;
+    color: #FFC78B;
 }
 .color-yellow radio {
-    background-color: #FFE16B;
-    color: #FFE16B;
+    background-color: #FCF092;
+    color: #FCF092;
 }
 .color-green radio {
-    background-color: #74C02E;
-    color: #74C02E;
+    background-color: #B1FBA2;
+    color: #B1FBA2;
 }
 .color-blue radio {
-    background-color: #70C0FF;
-    color: #70C0FF;
+    background-color: #B8EFFA;
+    color: #B8EFFA;
 }
 .color-indigo radio {
-    background-color: #6060C5;
-    color: #6060C5;
+    background-color: #C0C0F5;
+    color: #C0C0F5;
 }
 .color-neutral radio {
-    background-color: #888;
-    color: #888;
+    background-color: #DADADA;
+    color: #DADADA;
 }
 .image-button,
 .titlebutton {
@@ -114,7 +114,15 @@ window.unified decoration-overlay {
 }
 
 .notejot-bar {
-    padding: 5px;
+    padding: 2px;
+    text-shadow: 0 1px alpha(white, 0.25);
+    font-weight: 700;
+    color: #151515;
+}
+
+.notejot-bar image {
+    -gtk-icon-shadow: 0 1px alpha(white, 0.25);
+    color: #151515;
 }
 
 .notejot-tbar {
@@ -131,16 +139,17 @@ window.unified decoration-overlay {
 }
 
 .notejot-column,
-.notejot-column list {
+.notejot-column treeview {
     background: mix (@accent_color, @base_color, 0.85);
     box-shadow: none;
 }
 
-.notejot-lview {
+.notejot-fgview {
     background: #F7F7F7;
+    padding: 12px;
 }
 
-.notejot-lview-dark {
+.notejot-fgview-dark {
     background: #151515;
 }
 
@@ -197,7 +206,7 @@ window.unified decoration-overlay {
 
 .notejot-note-grid {
     border-radius: 8px;
-    border: 1px solid alpha (black, 0.25);
+    box-shadow: 0 1px 5px 5px alpha(black, 0.1);
 }
 
 .notejot-note-list {
@@ -245,5 +254,5 @@ window.unified decoration-overlay {
 }
 
 .notejot-side-button label {
-  margin-right: 6.3rem;
+  margin-right: 4.3rem;
 }

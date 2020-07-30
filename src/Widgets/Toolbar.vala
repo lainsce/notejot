@@ -20,11 +20,12 @@ namespace Notejot {
     public class Widgets.Toolbar : Gtk.Revealer {
         public MainWindow win;
         public Gdk.RGBA color;
+        public Gtk.ActionBar toolbar;
 
         public Toolbar (MainWindow win) {
             this.win = win;
 
-            var toolbar = new Gtk.ActionBar ();
+            toolbar = new Gtk.ActionBar ();
             toolbar.get_style_context ().add_class ("notejot-abar");
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
