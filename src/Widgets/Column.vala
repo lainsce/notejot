@@ -12,7 +12,7 @@ namespace Notejot {
             no_files.show_all ();
 
             this.win = win;
-            this.expand = true;
+            this.vexpand = true;
             is_modified = false;
             activate_on_single_click = true;
             selection_mode = Gtk.SelectionMode.SINGLE;
@@ -21,15 +21,11 @@ namespace Notejot {
 
             this.row_selected.connect ((row) => {
                 if (row != null && win.editablelabel != null && win.stack != null) {
-                    win.editablelabel.text = ((Widgets.TaskBox)row).title;
-                    win.textview.text = ((Widgets.TaskBox)row).contents;
+                    win.editablelabel.text = ((Widgets.TaskBox)row.get_child ()).title;
+                    win.textview.text = ((Widgets.TaskBox)row.get_child ()).contents;
                     win.textview.update_html_view ();
                     win.stack.set_visible_child (win.note_view);
                     win.format_button.sensitive = true;
-                    win.views_box.sensitive = false;
-                    win.return_button.no_show_all = false;
-                    win.return_button.visible = true;
-                    win.return_button.label = _("«Back");
                 }
             });
 

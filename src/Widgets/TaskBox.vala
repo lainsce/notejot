@@ -112,8 +112,7 @@ namespace Notejot {
                 this.get_parent ().destroy ();
                 win.tm.save_notes ();
                 if (win.column.get_children () == null) {
-                    win.views_box.sensitive = false;
-                    if (win.stack.get_visible_child () == win.list_view || win.stack.get_visible_child () == win.grid_view) {
+                    if (win.stack.get_visible_child () == win.grid_view) {
                         win.stack.set_visible_child (win.normal_view);
                     }
                 }
@@ -184,11 +183,10 @@ namespace Notejot {
 
             if (is_grid == false) {
                 this.orientation = Gtk.Orientation.HORIZONTAL;
+                this.expand = true;
                 this.add (dummy_badge);
                 this.add (task_label);
                 this.add (bar);
-                app_button.valign = Gtk.Align.CENTER;
-                app_button.vexpand = true;
             } else {
                 this.set_size_request (200,200);
                 this.get_style_context ().add_class ("notejot-note-grid");
@@ -200,10 +198,9 @@ namespace Notejot {
                 this.add (dummy_box);
                 this.add (task_label);
                 this.add (bar);
-                app_button.valign = Gtk.Align.END;
-                app_button.vexpand = true;
+                app_button.no_show_all = true;
+                app_button.visible = false;
                 task_label.margin_start = 6;
-                task_label.margin_top = 6;
             }
             
             this.expand = false;
@@ -232,9 +229,9 @@ namespace Notejot {
                     0 1px 0 0 alpha(@highlight_color, 0.2);
             }
             .notejot-note-grid-%d {
-                background: linear-gradient(to bottom, %s, %s, @base_color, @base_color, @base_color, @base_color, @base_color, @base_color, @base_color, @base_color)
+                background-image: linear-gradient(to bottom, %s 20px, alpha(black, 0.25) 21px, shade(@base_color, 1.1) 1px);
             }
-            """)).printf(uid, uid, color, uid, color, color);
+            """)).printf(uid, uid, color, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);
