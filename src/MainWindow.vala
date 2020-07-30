@@ -18,26 +18,28 @@
 */
 namespace Notejot {
     public class MainWindow : Hdy.Window {
-        public Views.ListView listview;
-        public Views.GridView gridview;
-        public Views.WelcomeView welcomeview;
-        public Views.NoteView noteview;
+        // Widgets
+        public Widgets.Column column;
+        public Widgets.TextView textview;
+        public Widgets.EditableLabel editablelabel;
+        public Widgets.Menu menu;
+        public Gtk.Box note_view;
         public Gtk.Box views_box;
         public Gtk.Button new_button;
         public Gtk.Grid grid;
+        public Gtk.Grid list_view;
+        public Gtk.Grid normal_view;
         public Gtk.Grid sgrid;
+        public Gtk.Revealer toolbar;
         public Gtk.Separator separator;
         public Gtk.Stack stack;
-        public Gtk.Switch mode_switch;
-        public Gtk.Switch applet_switch;
         public Gtk.ToggleButton format_button;
-        public Hdy.Leaflet leaflet;
-        public Hdy.HeaderBar titlebar;
         public Hdy.HeaderBar fauxtitlebar;
+        public Hdy.HeaderBar titlebar;
+        public Hdy.Leaflet leaflet;
         public Services.TaskManager tm;
-        public Gtk.Application app { get; construct; }
 
-        public Gee.ArrayList<Widgets.Note> main_list;
+        public Gtk.Application app { get; construct; }
 
         public MainWindow (Gtk.Application application) {
             GLib.Object (
@@ -60,77 +62,77 @@ namespace Notejot {
 
             if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                 Notejot.Application.gsettings.set_boolean("dark-mode", true);
-                mode_switch.sensitive = false;
+                menu.mode_switch.sensitive = false;
             } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                 Notejot.Application.gsettings.set_boolean("dark-mode", false);
-                mode_switch.sensitive = true;
+                menu.mode_switch.sensitive = true;
             }
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                     Notejot.Application.gsettings.set_boolean("dark-mode", true);
-                    mode_switch.sensitive = false;
+                    menu.mode_switch.sensitive = false;
                 } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                     Notejot.Application.gsettings.set_boolean("dark-mode", false);
-                    mode_switch.sensitive = true;
+                    menu.mode_switch.sensitive = true;
                 }
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 titlebar.get_style_context ().add_class ("notejot-tbar-dark");
-                noteview.editablelabel.get_style_context ().add_class ("notejot-tview-dark");
-                noteview.textfield.get_style_context ().add_class ("notejot-tview-dark");
-                listview.get_style_context ().add_class ("notejot-lview-dark");
-                noteview.toolbar.get_style_context ().add_class ("notejot-abar-dark");
+                editablelabel.get_style_context ().add_class ("notejot-tview-dark");
+                textview.get_style_context ().add_class ("notejot-tview-dark");
+                column.get_style_context ().add_class ("notejot-lview-dark");
+                toolbar.get_style_context ().add_class ("notejot-abar-dark");
                 stack.get_style_context ().add_class ("notejot-stack-dark");
-                noteview.textfield.update_html_view ();
+                textview.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
-                noteview.editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
-                noteview.toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                noteview.textfield.get_style_context ().remove_class ("notejot-tview-dark");
-                listview.get_style_context ().remove_class ("notejot-lview-dark");
+                editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
+                toolbar.get_style_context ().remove_class ("notejot-abar-dark");
+                textview.get_style_context ().remove_class ("notejot-tview-dark");
+                column.get_style_context ().remove_class ("notejot-lview-dark");
                 stack.get_style_context ().remove_class ("notejot-stack-dark");
-                noteview.textfield.update_html_view ();
+                textview.update_html_view ();
             }
 
             if (Notejot.Application.gsettings.get_boolean("pinned")) {
-                applet_switch.set_active (true);
+                menu.applet_switch.set_active (true);
                 set_keep_below (Notejot.Application.gsettings.get_boolean("pinned"));
                 stick ();
             } else {
-                applet_switch.set_active (false);
+                menu.applet_switch.set_active (false);
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     titlebar.get_style_context ().add_class ("notejot-tbar-dark");
-                    noteview.editablelabel.get_style_context ().add_class ("notejot-tview-dark");
-                    noteview.textfield.get_style_context ().add_class ("notejot-tview-dark");
-                    listview.get_style_context ().add_class ("notejot-lview-dark");
-                    noteview.toolbar.get_style_context ().add_class ("notejot-abar-dark");
+                    editablelabel.get_style_context ().add_class ("notejot-tview-dark");
+                    textview.get_style_context ().add_class ("notejot-tview-dark");
+                    column.get_style_context ().add_class ("notejot-lview-dark");
+                    toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     stack.get_style_context ().add_class ("notejot-stack-dark");
-                    noteview.textfield.update_html_view ();
+                    textview.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
-                    noteview.editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
-                    noteview.toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                    noteview.textfield.get_style_context ().remove_class ("notejot-tview-dark");
-                    listview.get_style_context ().remove_class ("notejot-lview-dark");
+                    editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
+                    toolbar.get_style_context ().remove_class ("notejot-abar-dark");
+                    textview.get_style_context ().remove_class ("notejot-tview-dark");
+                    column.get_style_context ().remove_class ("notejot-lview-dark");
                     stack.get_style_context ().remove_class ("notejot-stack-dark");
-                    noteview.textfield.update_html_view ();
+                    textview.update_html_view ();
                 }
 
                 if (Notejot.Application.gsettings.get_boolean("pinned")) {
-                    applet_switch.set_active (true);
+                    menu.applet_switch.set_active (true);
                     set_keep_below (true);
                     stick ();
                 } else {
-                    applet_switch.set_active (false);
+                    menu.applet_switch.set_active (false);
                     set_keep_below (false);
                     unstick ();
                 }
@@ -160,23 +162,23 @@ namespace Notejot {
             }
             this.resize (w, h);
 
-            titlebar = new Hdy.HeaderBar () {
-                show_close_button = true,
-                has_subtitle = false,
-                hexpand = true,
-                title = "Notejot"
-            };
+            titlebar = new Hdy.HeaderBar ();
             titlebar.set_size_request (-1, 45);
-            titlebar.get_style_context ().add_class ("notejot-tbar");
-            titlebar.get_style_context ().remove_class ("titlebar");
+            var titlebar_c = titlebar.get_style_context ();
+            titlebar_c.add_class ("notejot-tbar");
+            titlebar_c.remove_class ("titlebar");
+            titlebar.show_close_button = true;
+            titlebar.has_subtitle = false;
+            titlebar.hexpand = true;
+            titlebar.title = "Notejot";
 
-            fauxtitlebar = new Hdy.HeaderBar () {
-                show_close_button = true,
-                has_subtitle = false
-            };
-            fauxtitlebar.set_size_request (200, 45);
-            fauxtitlebar.get_style_context ().add_class ("notejot-side-tbar");
-            fauxtitlebar.get_style_context ().remove_class ("titlebar");
+            fauxtitlebar = new Hdy.HeaderBar ();
+            fauxtitlebar.set_size_request (199, 45);
+            var fauxtitlebar_c = fauxtitlebar.get_style_context ();
+            fauxtitlebar_c.add_class ("notejot-side-tbar");
+            fauxtitlebar_c.remove_class ("titlebar");
+            fauxtitlebar.show_close_button = true;
+            fauxtitlebar.has_subtitle = false;
 
             new_button = new Gtk.Button () {
                 image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
@@ -187,133 +189,128 @@ namespace Notejot {
 
             format_button = new Gtk.ToggleButton () {
                 image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Formatting Options"))
+                tooltip_text = (_("Formatting Options")),
+                sensitive = false
             };
             format_button.get_style_context ().add_class ("notejot-button");
-
-            // Column
-            var sidebar_header = new Gtk.Label (null) {
-                tooltip_text = _("Your notes will appear here."),
-                use_markup = true,
-                halign = Gtk.Align.START,
-                margin_start = 15,
-                margin_top = 6,
-                label = _("VIEWS")
-            };
-            sidebar_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            //
-
-            tm.load_from_file ();
-
-            listview = new Views.ListView (this);
-            gridview = new Views.GridView (this);
-            noteview = new Views.NoteView (this);
-            welcomeview = new Views.WelcomeView (this);
-
-            stack = new Gtk.Stack ();
-            stack.get_style_context ().add_class ("notejot-stack");
-            stack.add (welcomeview);
-            stack.add (listview);
-            stack.add (gridview);
-            stack.add (noteview);
-
-            var alabel = new Gtk.Label (_("Pin To Desktop:"));
-            applet_switch = new Gtk.Switch () {
-                valign = Gtk.Align.CENTER,
-                has_focus = false
-            };
-            Notejot.Application.gsettings.bind ("pinned", applet_switch, "active", SettingsBindFlags.DEFAULT);
-
-            var applet_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-                margin_start = 12
-            };
-            applet_box.add (alabel);
-            applet_box.add (applet_switch);
-
-            var interface_header = new Granite.HeaderLabel (_("Interface"));
-            var dlabel = new Gtk.Label (_("Dark Mode:"));
-            mode_switch = new Gtk.Switch () {
-                valign = Gtk.Align.CENTER,
-                has_focus = false
-            };
-            Notejot.Application.gsettings.bind ("dark-mode", mode_switch, "active", SettingsBindFlags.DEFAULT);
-
-            var dark_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-                margin_start = 12
-            };
-            dark_box.add (dlabel);
-            dark_box.add (mode_switch);
-
-            var menu_grid = new Gtk.Grid () {
-                margin = 12,
-                row_spacing = 6,
-                column_spacing = 6,
-                orientation = Gtk.Orientation.VERTICAL
-            };
-            menu_grid.attach (interface_header, 0, 0, 1, 1);
-            menu_grid.attach (dark_box, 0, 1, 1, 1);
-            menu_grid.attach (applet_box, 0, 2, 1, 1);
-            menu_grid.show_all ();
-
-            var popover = new Gtk.Popover (null);
-            popover.add (menu_grid);
-
-            var menu_button = new Gtk.MenuButton () {
-                image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Settings")),
-                popover = popover
-            };
-            titlebar.pack_end (menu_button);
+            titlebar.pack_start (format_button);
 
             var grid_view_button = new Gtk.ToggleButton () {
                 image = new Gtk.Image.from_icon_name ("view-grid-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Formatting Options"))
+                tooltip_text = (_("View as Grid"))
             };
             grid_view_button.get_style_context ().add_class ("notejot-button");
 
             var list_view_button = new Gtk.ToggleButton () {
                 image = new Gtk.Image.from_icon_name ("view-list-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Formatting Options"))
+                tooltip_text = (_("View as List"))
             };
             list_view_button.get_style_context ().add_class ("notejot-button");
 
             views_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            views_box.sensitive = false;
             views_box.pack_start (grid_view_button);
             views_box.pack_start (list_view_button);
 
             list_view_button.clicked.connect (() => {
-                stack.set_visible_child (listview);
+                stack.set_visible_child (list_view);
+                format_button.sensitive = false;
             });
-            grid_view_button.clicked.connect (() => {
-                stack.set_visible_child (gridview);
-            });
+            //grid_view_button.clicked.connect (() => {
+            //    stack.set_visible_child (gridview);
+            //});
+
+            // Column
+            column = new Widgets.Column (this);
+
+            var column_scroller = new Gtk.ScrolledWindow (null, null);
+            column_scroller.margin_top = 6;
+            column_scroller.add (column);
+
+            var sidebar_header = new Gtk.Label (null);
+            sidebar_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
+            sidebar_header.tooltip_text = _("Your notes will appear here.");
+            sidebar_header.use_markup = true;
+            sidebar_header.halign = Gtk.Align.START;
+            sidebar_header.margin_start = 15;
+            sidebar_header.margin_top = 6;
+            sidebar_header.label = _("NOTES");
+
+            tm.load_from_file ();
+
+            textview = new Widgets.TextView (this);
+            editablelabel = new Widgets.EditableLabel (this, "");
+
+            // Toolbar with Note formatting options
+            toolbar = new Widgets.Toolbar (this);
+
+            note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            note_view.add (toolbar);
+            note_view.add (editablelabel);
+            note_view.add (textview);
+
+            var normal_icon = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
+            var normal_label = new Gtk.Label (_("Start by adding some notes…"));
+            var normal_label_context = normal_label.get_style_context ();
+            normal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            normal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+            normal_view = new Gtk.Grid ();
+            normal_view.column_spacing = 12;
+            normal_view.margin = 24;
+            normal_view.expand = true;
+            normal_view.halign = normal_view.valign = Gtk.Align.CENTER;
+            normal_view.add (normal_icon);
+            normal_view.add (normal_label);
+
+            list_view = new Gtk.Grid ();
+            list_view.margin = 6;
+            list_view.add (column_scroller);
+
+            stack = new Gtk.Stack ();
+            stack.get_style_context ().add_class ("notejot-stack");
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.add (normal_view);
+            stack.add (list_view);
+            stack.add (note_view);
+
+            menu = new Widgets.Menu (this);
+
+            titlebar.pack_end (menu);
             titlebar.pack_end (views_box);
 
-            sgrid = new Gtk.Grid () {
-                orientation = Gtk.Orientation.VERTICAL
-            };
+            sgrid = new Gtk.Grid ();
+            sgrid.orientation = Gtk.Orientation.VERTICAL;
             sgrid.get_style_context ().add_class ("notejot-column");
             sgrid.attach (fauxtitlebar, 0, 0, 1, 1);
             sgrid.attach (sidebar_header, 0, 1, 1, 1);
+            sgrid.show_all ();
 
-            grid = new Gtk.Grid () {
-                orientation = Gtk.Orientation.VERTICAL
-            };
+            grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (titlebar, 0, 0, 1, 1);
             grid.attach (stack, 0, 1, 1, 1);
+            grid.show_all ();
 
             separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
 
             update ();
 
-            leaflet = new Hdy.Leaflet () {
-                transition_type = Hdy.LeafletTransitionType.UNDER,
-                can_swipe_back = true
-            };
+            if (column.is_modified == false) {
+                stack.set_visible_child (normal_view);
+            } else {
+                stack.set_visible_child (list_view);
+            }
+
+            leaflet = new Hdy.Leaflet ();
             leaflet.add (sgrid);
             leaflet.add (separator);
             leaflet.add (grid);
+            leaflet.transition_type = Hdy.LeafletTransitionType.UNDER;
+            leaflet.show_all ();
+            leaflet.can_swipe_back = true;
             leaflet.set_visible_child (grid);
+
             leaflet.child_set_property (separator, "allow-visible", false);
 
             leaflet.notify["folded"].connect (() => {
@@ -321,12 +318,30 @@ namespace Notejot {
             });
 
             new_button.clicked.connect (() => {
-                add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
-                welcomeview.visible = false;
+                column.add_task (_("New Note"), _("Write a New Note…"), "#FFE16B");
+                stack.set_visible_child (list_view);
+                views_box.sensitive = true;
+            });
+
+            format_button.toggled.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
+                    toolbar.reveal_child = false;
+                } else {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
+                    toolbar.reveal_child = true;
+                }
+                tm.save_notes ();
+            });
+
+            editablelabel.changed.connect (() => {
+                (((Widgets.TaskBox)column.get_selected_row ())).task_label.set_label(editablelabel.title.get_label ());
+                (((Widgets.TaskBox)column.get_selected_row ())).title = editablelabel.title.get_label ();
+                tm.save_notes ();
             });
 
             this.add (leaflet);
-            this.set_size_request (300, 500);
+            this.set_size_request (375, 600);
             this.show_all ();
         }
 
@@ -345,42 +360,6 @@ namespace Notejot {
                 }
 
             return false;
-        }
-
-        public void add_task (string title, string contents, string color) {
-            var task = new Widgets.Note (this, title, contents, color);
-
-            if (stack.visible_child == listview) {
-                widget_unparent (task);
-                var taskbox = new Gtk.ListBoxRow ();
-                taskbox.add (task);
-                listview.column.insert (taskbox, 1);
-                            
-                if (main_list != null) {
-                    main_list.insert (1, task);
-                }
-            }
-            if (stack.visible_child == gridview)  {
-                widget_unparent (task);
-                gridview.grid.add (task);
-                            
-                if (main_list != null) {
-                    main_list.insert (1, task);
-                }
-            }
-            
-            tm.save_notes ();
-            format_button.visible = false;
-            new_button.visible = true;
-        }
-
-        private static void widget_unparent (Gtk.Widget widget) {
-            unowned Gtk.Container? parent = widget.get_parent ();
-            if (parent == null) {
-                return;
-            }
-
-            parent.remove (widget);
         }
 
         private void update () {

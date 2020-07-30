@@ -136,13 +136,11 @@ window.unified decoration-overlay {
     box-shadow: none;
 }
 
-.notejot-lview,
-.notejot-lview list {
+.notejot-lview {
     background: #F7F7F7;
 }
 
-.notejot-lview-dark,
-.notejot-lview-dark list {
+.notejot-lview-dark {
     background: #151515;
 }
 

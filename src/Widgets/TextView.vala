@@ -17,12 +17,12 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.TextField : WebKit.WebView {
+    public class Widgets.TextView : WebKit.WebView {
         public MainWindow win;
         public string html = "";
         public string text = "";
 
-        public TextField (MainWindow win) {
+        public TextView (MainWindow win) {
             this.win = win;
             this.expand = true;
             this.editable = true;
@@ -67,11 +67,9 @@ namespace Notejot {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null) { 
-                        if (win.listview.column.get_children () != null) {
-                            var row = (Widgets.Note)win.listview.column.get_selected_row ();
+                        if (win.column.get_children () != null) {
                             if (data != null) {
                                 var val = data.get_js_value ().to_string ();
-                                row.contents = val == "" ? " " : val;
                                 text = val == "" ? " " : val;
                             }
                         }
