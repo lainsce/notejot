@@ -208,7 +208,6 @@ namespace Notejot {
             flowgrid = new Widgets.FlowGrid (this);
 
             var flowgrid_scroller = new Gtk.ScrolledWindow (null, null);
-            flowgrid_scroller.margin_top = 6;
             flowgrid_scroller.add (flowgrid);
 
             grid_view = new Gtk.Grid ();
