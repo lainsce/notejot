@@ -4,7 +4,7 @@
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,7 +29,6 @@ namespace Notejot {
                 application_id: "com.github.lainsce.notejot"
             );
         }
-
         static construct {
             gsettings = new GLib.Settings ("com.github.lainsce.notejot");
             grsettings = Granite.Settings.get_default ();
@@ -42,14 +41,9 @@ namespace Notejot {
             }
             win = new MainWindow (this);
         }
-
         public static int main (string[] args) {
-            Intl.setlocale (LocaleCategory.ALL, "");
-            Intl.textdomain (Build.GETTEXT_PACKAGE);
-
             var app = new Notejot.Application ();
             return app.run (args);
         }
     }
 }
-

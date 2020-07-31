@@ -4,7 +4,7 @@
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -52,7 +52,6 @@ namespace Notejot {
 
             key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
-
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.q, keycode)) {
                         this.destroy ();
@@ -149,11 +148,7 @@ namespace Notejot {
             // Ensure use of elementary theme and icons, accent color doesn't matter
             Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
             Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
-
             this.get_style_context ().add_class ("notejot-view");
-
-            tm = new Services.TaskManager (this);
-
             int x = Notejot.Application.gsettings.get_int("window-x");
             int y = Notejot.Application.gsettings.get_int("window-y");
             int w = Notejot.Application.gsettings.get_int("window-w");
@@ -163,6 +158,10 @@ namespace Notejot {
             }
             this.resize (w, h);
 
+            tm = new Services.TaskManager (this);
+            tm.load_from_file ();
+
+            // Main View
             titlebar = new Hdy.HeaderBar ();
             titlebar.set_size_request (-1, 45);
             var titlebar_c = titlebar.get_style_context ();
@@ -173,20 +172,19 @@ namespace Notejot {
             titlebar.hexpand = true;
             titlebar.title = "Notejot";
 
-            fauxtitlebar = new Hdy.HeaderBar ();
-            fauxtitlebar.set_size_request (199, 45);
-            var fauxtitlebar_c = fauxtitlebar.get_style_context ();
-            fauxtitlebar_c.add_class ("notejot-side-tbar");
-            fauxtitlebar_c.remove_class ("titlebar");
-            fauxtitlebar.show_close_button = true;
-            fauxtitlebar.has_subtitle = false;
-
             new_button = new Gtk.Button () {
                 image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
                 tooltip_text = (_("New Note"))
             };
             new_button.get_style_context ().add_class ("notejot-button");
             titlebar.pack_start (new_button);
+
+            new_button.clicked.connect (() => {
+                add_task (_("New Note"), _("Write a New Note…"), "#FCF092");
+                if (stack.get_visible_child () == normal_view) {
+                    stack.set_visible_child (grid_view);
+                }
+            });
 
             format_button = new Gtk.ToggleButton () {
                 image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON),
@@ -196,14 +194,36 @@ namespace Notejot {
             format_button.get_style_context ().add_class ("notejot-button");
             titlebar.pack_start (format_button);
 
-            // Grid
+            format_button.toggled.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
+                    toolbar.reveal_child = false;
+                } else {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
+                    toolbar.reveal_child = true;
+                }
+                tm.save_notes ();
+            });
+
+            // Grid View
             flowgrid = new Widgets.FlowGrid (this);
 
             var flowgrid_scroller = new Gtk.ScrolledWindow (null, null);
             flowgrid_scroller.margin_top = 6;
             flowgrid_scroller.add (flowgrid);
 
+            grid_view = new Gtk.Grid ();
+            grid_view.add (flowgrid_scroller);
+
             // Sidebar
+            fauxtitlebar = new Hdy.HeaderBar ();
+            fauxtitlebar.set_size_request (199, 45);
+            var fauxtitlebar_c = fauxtitlebar.get_style_context ();
+            fauxtitlebar_c.add_class ("notejot-side-tbar");
+            fauxtitlebar_c.remove_class ("titlebar");
+            fauxtitlebar.show_close_button = true;
+            fauxtitlebar.has_subtitle = false;
+
             var sidebar_header = new Gtk.Label (null);
             sidebar_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             sidebar_header.use_markup = true;
@@ -230,13 +250,25 @@ namespace Notejot {
             sidebar_button.tooltip_text = (_("Go Back to Notes Overview"));
             sidebar_button.get_style_context ().add_class ("notejot-side-button");
 
-            tm.load_from_file ();
+            sidebar_button.clicked.connect (() => {
+                if (stack.get_visible_child () == note_view) {
+                    stack.set_visible_child (grid_view);
+                }
+            });
 
-            // Note
+            // Note View
             textfield = new Widgets.TextView (this);
             editablelabel = new Widgets.EditableLabel (this, "");
 
-            // Toolbar with Note formatting options
+            editablelabel.changed.connect (() => {
+                flowgrid.selected_foreach ((item, child) => {
+                    ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
+                    ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
+                    ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();
+                });
+                tm.save_notes ();
+            });
+
             toolbar = new Widgets.Toolbar (this);
 
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -244,6 +276,7 @@ namespace Notejot {
             note_view.add (editablelabel);
             note_view.add (textfield);
 
+            // Welcome View
             var normal_icon = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
             var normal_label = new Gtk.Label (_("Start by adding some notes…"));
             var normal_label_context = normal_label.get_style_context ();
@@ -258,9 +291,6 @@ namespace Notejot {
             normal_view.add (normal_icon);
             normal_view.add (normal_label);
 
-            grid_view = new Gtk.Grid ();
-            grid_view.add (flowgrid_scroller);
-
             stack = new Gtk.Stack ();
             stack.get_style_context ().add_class ("notejot-stack");
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -268,8 +298,13 @@ namespace Notejot {
             stack.add (grid_view);
             stack.add (note_view);
 
-            menu = new Widgets.Menu (this);
+            if (flowgrid.is_modified == false) {
+                stack.set_visible_child (normal_view);
+            } else {
+                stack.set_visible_child (grid_view);
+            }
 
+            menu = new Widgets.Menu (this);
             titlebar.pack_end (menu);
 
             sgrid = new Gtk.Grid ();
@@ -287,62 +322,18 @@ namespace Notejot {
             grid.attach (stack, 0, 1, 1, 1);
             grid.show_all ();
 
-            separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-
-            update ();
-
-            if (flowgrid.is_modified == false) {
-                stack.set_visible_child (normal_view);
-            } else {
-                stack.set_visible_child (grid_view);
-            }
-
             leaflet = new Hdy.Leaflet ();
             leaflet.add (sgrid);
-            leaflet.add (separator);
             leaflet.add (grid);
             leaflet.transition_type = Hdy.LeafletTransitionType.UNDER;
             leaflet.show_all ();
             leaflet.can_swipe_back = true;
             leaflet.set_visible_child (grid);
 
-            leaflet.child_set_property (separator, "allow-visible", false);
+            update ();
 
             leaflet.notify["folded"].connect (() => {
                 update ();
-            });
-
-            new_button.clicked.connect (() => {
-                add_task (_("New Note"), _("Write a New Note…"), "#FCF092");
-                if (stack.get_visible_child () == normal_view) {
-                    stack.set_visible_child (grid_view);
-                }
-            });
-
-            sidebar_button.clicked.connect (() => {
-                if (stack.get_visible_child () == note_view) {
-                    stack.set_visible_child (grid_view);
-                }
-            });
-
-            format_button.toggled.connect (() => {
-                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
-                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
-                    toolbar.reveal_child = false;
-                } else {
-                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
-                    toolbar.reveal_child = true;
-                }
-                tm.save_notes ();
-            });
-
-            editablelabel.changed.connect (() => {
-                flowgrid.selected_foreach ((item, child) => {
-                    ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
-                    ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
-                    ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();
-                });
-                tm.save_notes ();
             });
 
             this.add (leaflet);
@@ -363,7 +354,6 @@ namespace Notejot {
                         return true;
                     }
                 }
-
             return false;
         }
 
@@ -371,7 +361,6 @@ namespace Notejot {
             var taskbox = new Widgets.TaskBox (this, title, contents, color);
             flowgrid.add (taskbox);
             flowgrid.is_modified = true;
-
             tm.save_notes ();
         }
 
@@ -396,7 +385,6 @@ namespace Notejot {
             Notejot.Application.gsettings.set_int("window-h", h);
             Notejot.Application.gsettings.set_int("window-x", x);
             Notejot.Application.gsettings.set_int("window-y", y);
-
             return false;
         }
     }
