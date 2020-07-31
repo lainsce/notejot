@@ -43,7 +43,7 @@ namespace Notejot {
 
             win.tm.save_notes ();
 
-            sidebaritem = new Widgets.SidebarItem (win, title, contents);
+            sidebaritem = new Widgets.SidebarItem (win, title);
             win.notes_category.add (sidebaritem);
 
             bar = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

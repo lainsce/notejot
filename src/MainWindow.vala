@@ -159,7 +159,6 @@ namespace Notejot {
             this.resize (w, h);
 
             tm = new Services.TaskManager (this);
-            tm.load_from_file ();
 
             // Main View
             titlebar = new Hdy.HeaderBar ();
@@ -257,7 +256,8 @@ namespace Notejot {
             });
 
             // Note View
-            textfield = new Widgets.TextView (this);
+            textfield = new Widgets.TextView (this);            
+            toolbar = new Widgets.Toolbar (this);
             editablelabel = new Widgets.EditableLabel (this, "");
 
             editablelabel.changed.connect (() => {
@@ -268,8 +268,6 @@ namespace Notejot {
                 });
                 tm.save_notes ();
             });
-
-            toolbar = new Widgets.Toolbar (this);
 
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             note_view.add (toolbar);
@@ -297,12 +295,6 @@ namespace Notejot {
             stack.add (normal_view);
             stack.add (grid_view);
             stack.add (note_view);
-
-            if (flowgrid.is_modified == false) {
-                stack.set_visible_child (normal_view);
-            } else {
-                stack.set_visible_child (grid_view);
-            }
 
             menu = new Widgets.Menu (this);
             titlebar.pack_end (menu);
@@ -335,6 +327,14 @@ namespace Notejot {
             leaflet.notify["folded"].connect (() => {
                 update ();
             });
+
+            tm.load_from_file ();
+
+            if (flowgrid.is_modified == false) {
+                stack.set_visible_child (normal_view);
+            } else {
+                stack.set_visible_child (grid_view);
+            }
 
             this.add (leaflet);
             this.set_size_request (375, 600);

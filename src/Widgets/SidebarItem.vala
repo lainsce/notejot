@@ -26,25 +26,11 @@ namespace Notejot {
             }
         }
 
-        public SidebarItem (MainWindow win, string title, string contents) {
+        public SidebarItem (MainWindow win, string title) {
             this.title = title;
             this.win = win;
-
-            var icon = new ThemedIcon ("emblem-documents-symbolic");
-
-            this.selectable = true;
-            this.icon = icon;
+            this.icon = new ThemedIcon ("emblem-documents-symbolic");
             this.tooltip = (_("This is a note."));
-
-            this.activated.connect (() => {
-                if (this != null && win.editablelabel != null && win.stack != null) {
-                    win.editablelabel.text = title;
-                    win.textfield.text = contents;
-                    win.textfield.update_html_view ();
-                    win.stack.set_visible_child (win.note_view);
-                    win.format_button.sensitive = true;
-                }
-            });
         }
 
         public void destroy_item () {
