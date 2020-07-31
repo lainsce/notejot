@@ -51,7 +51,7 @@ executable(
     'src/Widgets/Menu.vala',
     'src/Widgets/SidebarItem.vala',
     'src/Widgets/TaskBox.vala',
-    'src/Widgets/TextView.vala',
+    'src/Widgets/TextField.vala',
     'src/Widgets/Toolbar.vala',
     'src/Styles/light.vala',
     'src/Styles/dark.vala',

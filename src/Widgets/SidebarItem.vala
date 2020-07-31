@@ -21,8 +21,8 @@ namespace Notejot {
             this.activated.connect (() => {
                 if (this != null && win.editablelabel != null && win.stack != null) {
                     win.editablelabel.text = title;
-                    win.textview.text = contents;
-                    win.textview.update_html_view ();
+                    win.textfield.text = contents;
+                    win.textfield.update_html_view ();
                     win.stack.set_visible_child (win.note_view);
                     win.format_button.sensitive = true;
                 }

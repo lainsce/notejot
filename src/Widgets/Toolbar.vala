@@ -38,8 +38,8 @@ namespace Notejot {
             format_reset_button.get_style_context ().add_class ("destructive-button");
 
             format_reset_button.clicked.connect (() => {
-                win.textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
-                win.textview.send_text ();
+                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
+                win.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -49,8 +49,8 @@ namespace Notejot {
             format_bold_button.image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON);
 
             format_bold_button.clicked.connect (() => {
-                win.textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
-                win.textview.send_text ();
+                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
+                win.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -60,8 +60,8 @@ namespace Notejot {
             format_italic_button.image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON);
 
             format_italic_button.clicked.connect (() => {
-                win.textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
-                win.textview.send_text ();
+                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
+                win.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -71,8 +71,8 @@ namespace Notejot {
             format_ul_button.image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON);
 
             format_ul_button.clicked.connect (() => {
-                win.textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
-                win.textview.send_text ();
+                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
+                win.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -89,8 +89,8 @@ namespace Notejot {
 
             format_color_button.color_set.connect (() => {
                 color = format_color_button.get_rgba();
-                win.textview.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(color.to_string()));
-                win.textview.send_text ();
+                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(color.to_string()));
+                win.textfield.send_text ();
                 win.tm.save_notes ();
             });
 

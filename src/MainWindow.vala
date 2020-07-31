@@ -20,7 +20,7 @@ namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Widgets
         public Widgets.FlowGrid flowgrid;
-        public Widgets.TextView textview;
+        public Widgets.TextView textfield;
         public Widgets.EditableLabel editablelabel;
         public Widgets.Menu menu;
         public Widgets.Toolbar toolbar;
@@ -83,20 +83,20 @@ namespace Notejot {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 titlebar.get_style_context ().add_class ("notejot-tbar-dark");
                 editablelabel.get_style_context ().add_class ("notejot-tview-dark");
-                textview.get_style_context ().add_class ("notejot-tview-dark");
+                textfield.get_style_context ().add_class ("notejot-tview-dark");
                 flowgrid.get_style_context ().add_class ("notejot-fgview-dark");
                 toolbar.toolbar.get_style_context ().add_class ("notejot-abar-dark");
                 stack.get_style_context ().add_class ("notejot-stack-dark");
-                textview.update_html_view ();
+                textfield.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
                 editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                 toolbar.toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                textview.get_style_context ().remove_class ("notejot-tview-dark");
+                textfield.get_style_context ().remove_class ("notejot-tview-dark");
                 flowgrid.get_style_context ().remove_class ("notejot-fgview-dark");
                 stack.get_style_context ().remove_class ("notejot-stack-dark");
-                textview.update_html_view ();
+                textfield.update_html_view ();
             }
 
             if (Notejot.Application.gsettings.get_boolean("pinned")) {
@@ -112,20 +112,20 @@ namespace Notejot {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     titlebar.get_style_context ().add_class ("notejot-tbar-dark");
                     editablelabel.get_style_context ().add_class ("notejot-tview-dark");
-                    textview.get_style_context ().add_class ("notejot-tview-dark");
+                    textfield.get_style_context ().add_class ("notejot-tview-dark");
                     flowgrid.get_style_context ().add_class ("notejot-fgview-dark");
                     toolbar.toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     stack.get_style_context ().add_class ("notejot-stack-dark");
-                    textview.update_html_view ();
+                    textfield.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     titlebar.get_style_context ().remove_class ("notejot-tbar-dark");
                     editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                     toolbar.toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                    textview.get_style_context ().remove_class ("notejot-tview-dark");
+                    textfield.get_style_context ().remove_class ("notejot-tview-dark");
                     flowgrid.get_style_context ().remove_class ("notejot-fgview-dark");
                     stack.get_style_context ().remove_class ("notejot-stack-dark");
-                    textview.update_html_view ();
+                    textfield.update_html_view ();
                 }
 
                 if (Notejot.Application.gsettings.get_boolean("pinned")) {
@@ -233,7 +233,7 @@ namespace Notejot {
             tm.load_from_file ();
 
             // Note
-            textview = new Widgets.TextView (this);
+            textfield = new Widgets.TextView (this);
             editablelabel = new Widgets.EditableLabel (this, "");
 
             // Toolbar with Note formatting options
@@ -242,7 +242,7 @@ namespace Notejot {
             note_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             note_view.add (toolbar);
             note_view.add (editablelabel);
-            note_view.add (textview);
+            note_view.add (textfield);
 
             var normal_icon = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
             var normal_label = new Gtk.Label (_("Start by adding some notes…"));
