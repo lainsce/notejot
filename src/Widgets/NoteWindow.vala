@@ -3,19 +3,17 @@ namespace Notejot {
         private MainWindow win;
         private static NoteWindow? instance = null;
         private Gtk.ApplicationWindow window;
-        private string title = "";
-        private string contents = "";
+        private Services.Task task;
         private int uid;
 
         public static NoteWindow get_instance () {
             return instance;
         }
 
-        public NoteWindow (MainWindow win, string title, string contents, int uid) {
+        public NoteWindow (MainWindow win, Services.Task task, int uid) {
             this.win = win;
-            this.title = title;
+            this.task = task;
             this.uid = uid;
-            this.contents = contents;
         }
 
         protected override void activate () {
@@ -24,32 +22,47 @@ namespace Notejot {
             var notebar = new Gtk.HeaderBar ();
             notebar.show_close_button = true;
             notebar.has_subtitle = false;
-            notebar.set_decoration_layout ("close:");
             notebar.set_size_request (-1, 30);
             notebar.get_style_context ().add_class ("notejot-nbar-%d".printf(this.uid));
-            notebar.set_title (this.title);
+            notebar.set_title (task.title);
 
             window.set_titlebar (notebar);
-            window.add (Widgets.TextField.get_instance ());
-            window.title = this.title;
+            window.add (win.textfield);
+            window.title = task.title;
+            window.resizable = false;
             window.set_size_request (350, 350);
             window.show_all ();
             window.get_style_context ().add_class ("rounded");
             instance = this;
 
-            Widgets.TextField.get_instance ().update_html_view ();
-            Widgets.TextField.get_instance ().connect_signals ();
+            var sync_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Sync Note")),
+                visible = true
+            };
+            sync_button.get_style_context ().add_class ("notejot-button");
+            notebar.pack_end (sync_button);
+
+            sync_button.clicked.connect (() => {
+                win.textfield.send_text ();
+                win.tm.save_notes ();
+            });
+
+            win.textfield.text = task.contents;
+            win.textfield.update_html_view ();
+            win.textfield.connect_signals ();
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                Widgets.TextField.get_instance ().update_html_view ();
+                win.textfield.update_html_view ();
             });
-        }
 
-        public bool on_delete_event () {
-            window.remove (Widgets.TextField.get_instance ());
-            instance = null;
-
-            return false;
+            window.delete_event.connect (() => {
+                window.remove (win.textfield);
+                win.note_view.add (win.textfield);
+                win.tm.save_notes ();
+                instance = null;
+                return false;
+            });
         }
     }
 }

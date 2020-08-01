@@ -83,8 +83,12 @@ window.rounded {
 
 .notejot-tview {
 	background-color: #F7F7F7;
-	font-size: 1.2rem;
 	padding: 12px;
+}
+
+.notejot-tc {
+    padding: 12px;
+    font-size: 1.2rem;
 }
 
 .notejot-tview text selection {

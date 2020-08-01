@@ -62,6 +62,7 @@ namespace Notejot {
             task_contents.use_markup = true;
             task_contents.max_width_chars = 24;
             task_contents.margin_start = task_contents.margin_end = 6;
+            task_contents.get_style_context ().add_class ("notejot-tc");
 
             var color_button_red = new Gtk.RadioButton (null) {
                 tooltip_text = _("Red")
@@ -194,7 +195,8 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                Widgets.NoteWindow notewindow = new Widgets.NoteWindow (win, title, contents, uid);
+                win.textfield.get_parent ().remove (win.textfield);
+                var notewindow = new Widgets.NoteWindow (win, task, uid);
                 notewindow.run (null);
             });
             
