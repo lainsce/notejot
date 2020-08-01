@@ -28,7 +28,6 @@ namespace Notejot {
         public Services.Task task;
 
         public Widgets.SidebarItem sidebaritem;
-        private Widgets.NoteWindow? notewindow;
 
         public TaskBox (MainWindow win, string title, string contents, string color) {
             this.win = win;
@@ -195,12 +194,8 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                if (notewindow != null) {
-                    notewindow.present ();
-                    return;
-                } else {
-                    notewindow = new Widgets.NoteWindow (win, task, uid);
-                }
+                Widgets.NoteWindow notewindow = new Widgets.NoteWindow (win, title, contents, uid);
+                notewindow.run (null);
             });
             
             bar.pack_start (task_label);
@@ -231,10 +226,10 @@ namespace Notejot {
                 background-image: linear-gradient(to bottom, %s 30px, shade(@base_color, 1.1) 1px);
             }
             .notejot-nbar-%d {
+                border-radius: 8px 8px 0 0;
                 background-color: %s;
                 background-image: none;
-                box-shadow: none;
-                border-bottom: 1px solid alpha(black, 0.25);
+                padding: 0;
             }
             """)).printf(uid, color, uid, color);
 

@@ -19,14 +19,24 @@
 namespace Notejot {
     public class Widgets.TextField : WebKit.WebView {
         public MainWindow win;
+        private static TextField? instance = null;
         public string html = "";
         public string text = "";
         public string val = "";
+
+        public static TextField get_instance () {
+            if (instance == null) {
+                instance = new Widgets.TextField (Application.win);
+            }
+
+            return instance;
+        }
 
         public TextField (MainWindow win) {
             this.win = win;
             this.expand = true;
             this.editable = true;
+            this.margin_bottom = 8;
             this.get_style_context ().add_class ("notejot-tview");
 
             var settings = new WebKit.Settings ();
@@ -50,7 +60,7 @@ namespace Notejot {
             });
         }
 
-        private void connect_signals () {
+        public void connect_signals () {
             load_changed.connect ((event) => {
                 if (event == WebKit.LoadEvent.COMMITTED) {
                     send_text ();
@@ -67,14 +77,12 @@ namespace Notejot {
             run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
-                    if (data != null) { 
-                        if (data != null) {
-                            val = data.get_js_value ().to_string ();
-                            text = val == "" ? " " : val;
-                            win.flowgrid.selected_foreach ((item, child) => {
-                                ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);
-                            });
-                        }
+                    if (data != null) {
+                        val = data.get_js_value ().to_string ();
+                        text = val == "" ? " " : val;
+                        win.flowgrid.selected_foreach ((item, child) => {
+                            ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);
+                        });
                     }
                 } catch (Error e) {
                     assert_not_reached ();

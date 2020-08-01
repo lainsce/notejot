@@ -1,34 +1,55 @@
 namespace Notejot {
-    public class Widgets.NoteWindow : Hdy.Window {
+    public class Widgets.NoteWindow : Gtk.Application {
         private MainWindow win;
+        private static NoteWindow? instance = null;
+        private Gtk.ApplicationWindow window;
+        private string title = "";
+        private string contents = "";
+        private int uid;
 
-        public NoteWindow (MainWindow win, Services.Task task, int uid) {
+        public static NoteWindow get_instance () {
+            return instance;
+        }
+
+        public NoteWindow (MainWindow win, string title, string contents, int uid) {
             this.win = win;
-            var notebar = new Hdy.HeaderBar ();
+            this.title = title;
+            this.uid = uid;
+            this.contents = contents;
+        }
+
+        protected override void activate () {
+            window = new Gtk.ApplicationWindow (this);
+
+            var notebar = new Gtk.HeaderBar ();
             notebar.show_close_button = true;
             notebar.has_subtitle = false;
             notebar.set_decoration_layout ("close:");
-            notebar.set_size_request (-1, 45);
-            notebar.get_style_context ().add_class ("notejot-nbar-%d".printf(uid));
-            notebar.set_title (task.title);
+            notebar.set_size_request (-1, 30);
+            notebar.get_style_context ().add_class ("notejot-nbar-%d".printf(this.uid));
+            notebar.set_title (this.title);
 
-            var textfield = new Widgets.TextField (win);
-            textfield.text = task.contents;
-            textfield.update_html_view ();
+            window.set_titlebar (notebar);
+            window.add (Widgets.TextField.get_instance ());
+            window.title = this.title;
+            window.set_size_request (350, 350);
+            window.show_all ();
+            window.get_style_context ().add_class ("rounded");
+            instance = this;
+
+            Widgets.TextField.get_instance ().update_html_view ();
+            Widgets.TextField.get_instance ().connect_signals ();
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                textfield.update_html_view ();
+                Widgets.TextField.get_instance ().update_html_view ();
             });
+        }
 
-            var notegrid = new Gtk.Grid ();
-            notegrid.orientation = Gtk.Orientation.VERTICAL;
-            notegrid.add (notebar);
-            notegrid.add (textfield);
+        public bool on_delete_event () {
+            window.remove (Widgets.TextField.get_instance ());
+            instance = null;
 
-            this.add (notegrid);
-            this.title = task.title;
-            this.set_size_request (350, 350);
-            this.show_all ();
+            return false;
         }
     }
 }
