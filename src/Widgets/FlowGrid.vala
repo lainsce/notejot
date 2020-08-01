@@ -33,8 +33,8 @@ namespace Notejot {
 
             this.child_activated.connect ((item) => {
                 if (item != null && win.editablelabel != null && win.stack != null) {
-                    win.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).title;
-                    win.textfield.text = ((Widgets.TaskBox)item.get_child ()).contents;
+                    win.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).task_label.get_label();
+                    win.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
                     win.textfield.update_html_view ();
                     win.stack.set_visible_child (win.note_view);
                     win.format_button.sensitive = true;

@@ -116,6 +116,7 @@ window.unified decoration-overlay {
 .notejot-bar {
     padding: 2px;
     text-shadow: 0 1px alpha(white, 0.25);
+    background: none;
     font-weight: 700;
     color: #151515;
 }
@@ -255,4 +256,10 @@ window.unified decoration-overlay {
 
 .notejot-side-button label {
   margin-right: 4.3rem;
+}
+
+.notejot-bar-label {
+    text-shadow: 0 1px alpha(white, 0.25);
+    font-weight: 700;
+    color: #151515;
 }

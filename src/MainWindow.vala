@@ -20,7 +20,7 @@ namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Widgets
         public Widgets.FlowGrid flowgrid;
-        public Widgets.TextView textfield;
+        public Widgets.TextField textfield;
         public Widgets.EditableLabel editablelabel;
         public Widgets.Menu menu;
         public Widgets.Toolbar toolbar;
@@ -255,7 +255,7 @@ namespace Notejot {
             });
 
             // Note View
-            textfield = new Widgets.TextView (this);            
+            textfield = new Widgets.TextField (this);            
             toolbar = new Widgets.Toolbar (this);
             editablelabel = new Widgets.EditableLabel (this, "");
 
@@ -263,7 +263,6 @@ namespace Notejot {
                 flowgrid.selected_foreach ((item, child) => {
                     ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
                     ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
-                    ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();
                 });
                 tm.save_notes ();
             });

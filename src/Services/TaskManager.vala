@@ -69,13 +69,16 @@ namespace Notejot {
         private static void save_column (Json.Builder builder,
                                          Widgets.FlowGrid flowgrid) {
             builder.begin_array ();
-            foreach (Gtk.FlowBoxChild item in flowgrid.get_tasks ()) {
-                builder.begin_array ();
-                builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
-		        builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
-                builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
-                builder.end_array ();
+            if (flowgrid.get_children () != null) {
+                foreach (Gtk.FlowBoxChild item in flowgrid.get_tasks ()) {
+                    builder.begin_array ();
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.title);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.contents);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.color);
+                    builder.end_array ();
+                }
             }
+            
 	        builder.end_array ();
         }
 

@@ -19,38 +19,35 @@
 namespace Notejot {
     public class Widgets.TaskBox : Gtk.Grid {
         private MainWindow win;
-        public string color = "#FFE16B";
-        public string title = "New Note…";
-        public string contents = "Write a new note…";
         private int uid;
         private static int uid_counter;
         public Gtk.Grid main_grid;
-        public Gtk.Box bar;
+        public Gtk.ActionBar bar;
         public Gtk.Label task_label;
         public Gtk.Label task_contents;
+        public Services.Task task;
 
         public Widgets.SidebarItem sidebaritem;
+        private Widgets.NoteWindow? notewindow;
 
         public TaskBox (MainWindow win, string title, string contents, string color) {
             this.win = win;
-            this.color = color;
-            this.title = title;
-            this.contents = contents;
             this.get_style_context ().add_class ("notejot-column-box");
 
             this.uid = uid_counter++;
-            update_theme ();
+            update_theme (color);
 
             win.tm.save_notes ();
 
             sidebaritem = new Widgets.SidebarItem (win, title);
             win.notes_category.add (sidebaritem);
 
-            bar = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            var bar_c = bar.get_style_context ();
-            bar_c.add_class ("notejot-bar");
+            task = new Services.Task (win, title, contents, color);
 
-            task_label = new Gtk.Label (this.title);
+            bar = new Gtk.ActionBar ();
+            bar.get_style_context ().add_class ("notejot-bar");
+
+            task_label = new Gtk.Label (title);
             task_label.halign = Gtk.Align.START;
             task_label.wrap = true;
             task_label.hexpand = true;
@@ -58,7 +55,7 @@ namespace Notejot {
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
-            task_contents = new Gtk.Label (this.contents);
+            task_contents = new Gtk.Label (contents);
             task_contents.halign = Gtk.Align.START;
             task_contents.wrap = true;
             task_contents.wrap_mode = Pango.WrapMode.WORD_CHAR;
@@ -157,47 +154,55 @@ namespace Notejot {
             app_button.popover = popover;
 
             color_button_red.clicked.connect (() => {
-                this.color = "#F3ACAA";
-                update_theme();
+                update_theme("#F3ACAA");
                 win.tm.save_notes ();
             });
 
             color_button_orange.clicked.connect (() => {
-                this.color = "#FFC78B";
-                update_theme();
+                update_theme("#FFC78B");
                 win.tm.save_notes ();
             });
 
             color_button_yellow.clicked.connect (() => {
-                this.color = "#FCF092";
-                update_theme();
+                update_theme("#FCF092");
                 win.tm.save_notes ();
             });
 
             color_button_green.clicked.connect (() => {
-                this.color = "#B1FBA2";
-                update_theme();
+                update_theme("#B1FBA2");
                 win.tm.save_notes ();
             });
 
             color_button_blue.clicked.connect (() => {
-                this.color = "#B8EFFA";
-                update_theme();
+                update_theme("#B8EFFA");
                 win.tm.save_notes ();
             });
 
             color_button_indigo.clicked.connect (() => {
-                this.color = "#C0C0F5";
-                update_theme();
+                update_theme("#C0C0F5");
                 win.tm.save_notes ();
             });
 
             color_button_neutral.clicked.connect (() => {
-                this.color = "#DADADA";
-                update_theme();
+                update_theme("#DADADA");
                 win.tm.save_notes ();
             });
 
+            var popout_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("window-pop-out-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Popout Note to Desktop"))
+            };
+            bar.pack_start (popout_button);
+
+            popout_button.clicked.connect (() => {
+                if (notewindow != null) {
+                    notewindow.present ();
+                    return;
+                } else {
+                    notewindow = new Widgets.NoteWindow (win, task, uid);
+                }
+            });
+            
             bar.pack_start (task_label);
             bar.pack_end (app_button);
 
@@ -217,7 +222,7 @@ namespace Notejot {
             this.show_all ();
         }
 
-        private void update_theme() {
+        private void update_theme(string color) {
             var css_provider = new Gtk.CssProvider();
 
             string style = null;
@@ -225,7 +230,13 @@ namespace Notejot {
             .notejot-note-grid-%d {
                 background-image: linear-gradient(to bottom, %s 30px, shade(@base_color, 1.1) 1px);
             }
-            """)).printf(uid, color);
+            .notejot-nbar-%d {
+                background-color: %s;
+                background-image: none;
+                box-shadow: none;
+                border-bottom: 1px solid alpha(black, 0.25);
+            }
+            """)).printf(uid, color, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);
