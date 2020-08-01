@@ -356,7 +356,8 @@ namespace Notejot {
         }
 
         public void add_task (string title, string contents, string color) {
-            var taskbox = new Widgets.TaskBox (this, title, contents, color);
+            var task = new Services.Task (this, title, contents, color);
+            var taskbox = new Widgets.TaskBox (this, task);
             flowgrid.add (taskbox);
             flowgrid.is_modified = true;
             tm.save_notes ();

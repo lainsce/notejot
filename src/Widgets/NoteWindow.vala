@@ -1,9 +1,8 @@
 namespace Notejot {
     public class Widgets.NoteWindow : Gtk.Application {
-        private MainWindow win;
+        private MainWindow win = null;
         private static NoteWindow? instance = null;
         private Gtk.ApplicationWindow window;
-        private Services.Task task;
         private int uid;
 
         public static NoteWindow get_instance () {
@@ -12,11 +11,8 @@ namespace Notejot {
 
         public NoteWindow (MainWindow win, Services.Task task, int uid) {
             this.win = win;
-            this.task = task;
             this.uid = uid;
-        }
 
-        protected override void activate () {
             window = new Gtk.ApplicationWindow (this);
 
             var notebar = new Gtk.HeaderBar ();
@@ -27,7 +23,7 @@ namespace Notejot {
             notebar.set_title (task.title);
 
             window.set_titlebar (notebar);
-            window.add (win.textfield);
+            
             window.title = task.title;
             window.resizable = false;
             window.set_size_request (350, 350);
@@ -43,22 +39,37 @@ namespace Notejot {
             sync_button.get_style_context ().add_class ("notejot-button");
             notebar.pack_end (sync_button);
 
+            var textfield = Widgets.TextField.get_instance ();
+            textfield.visible = true;
+            window.add (textfield);
             sync_button.clicked.connect (() => {
-                win.textfield.send_text ();
+                textfield.send_text ();
                 win.tm.save_notes ();
             });
 
-            win.textfield.text = task.contents;
-            win.textfield.update_html_view ();
-            win.textfield.connect_signals ();
+            textfield.text = task.contents;
+            textfield.connect_signals ();
+
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                textfield.update_html_view ();
+            } else {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                textfield.update_html_view ();
+            }
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                win.textfield.update_html_view ();
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    textfield.update_html_view ();
+                } else {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    textfield.update_html_view ();
+                }
             });
 
             window.delete_event.connect (() => {
-                window.remove (win.textfield);
-                win.note_view.add (win.textfield);
+                window.remove (Widgets.TextField.get_instance ());
                 win.tm.save_notes ();
                 instance = null;
                 return false;

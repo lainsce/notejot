@@ -25,28 +25,27 @@ namespace Notejot {
         public Gtk.ActionBar bar;
         public Gtk.Label task_label;
         public Gtk.Label task_contents;
-        public Services.Task task;
+        public Services.Task? task;
 
         public Widgets.SidebarItem sidebaritem;
 
-        public TaskBox (MainWindow win, string title, string contents, string color) {
+        public TaskBox (MainWindow win, Services.Task task) {
             this.win = win;
+            this.task = task;
             this.get_style_context ().add_class ("notejot-column-box");
 
             this.uid = uid_counter++;
-            update_theme (color);
+            update_theme ();
 
             win.tm.save_notes ();
 
-            sidebaritem = new Widgets.SidebarItem (win, title);
+            sidebaritem = new Widgets.SidebarItem (win, task.title);
             win.notes_category.add (sidebaritem);
-
-            task = new Services.Task (win, title, contents, color);
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");
 
-            task_label = new Gtk.Label (title);
+            task_label = new Gtk.Label (task.title);
             task_label.halign = Gtk.Align.START;
             task_label.wrap = true;
             task_label.hexpand = true;
@@ -54,7 +53,7 @@ namespace Notejot {
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
-            task_contents = new Gtk.Label (contents);
+            task_contents = new Gtk.Label (task.contents);
             task_contents.halign = Gtk.Align.START;
             task_contents.wrap = true;
             task_contents.wrap_mode = Pango.WrapMode.WORD_CHAR;
@@ -154,38 +153,38 @@ namespace Notejot {
             app_button.popover = popover;
 
             color_button_red.clicked.connect (() => {
-                update_theme("#F3ACAA");
-                win.tm.save_notes ();
+                task.color = "#F3ACAA";
+                update_theme();
             });
 
             color_button_orange.clicked.connect (() => {
-                update_theme("#FFC78B");
-                win.tm.save_notes ();
+                task.color = "#FFC78B";
+                update_theme();
             });
 
             color_button_yellow.clicked.connect (() => {
-                update_theme("#FCF092");
-                win.tm.save_notes ();
+                task.color = "#FCF092";
+                update_theme();
             });
 
             color_button_green.clicked.connect (() => {
-                update_theme("#B1FBA2");
-                win.tm.save_notes ();
+                task.color = "#B1FBA2";
+                update_theme();
             });
 
             color_button_blue.clicked.connect (() => {
-                update_theme("#B8EFFA");
-                win.tm.save_notes ();
+                task.color = "#B8EFFA";
+                update_theme();
             });
 
             color_button_indigo.clicked.connect (() => {
-                update_theme("#C0C0F5");
-                win.tm.save_notes ();
+                task.color = "#C0C0F5";
+                update_theme();
             });
 
             color_button_neutral.clicked.connect (() => {
-                update_theme("#DADADA");
-                win.tm.save_notes ();
+                task.color = "#DADADA";
+                update_theme();
             });
 
             var popout_button = new Gtk.Button () {
@@ -195,7 +194,6 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                win.textfield.get_parent ().remove (win.textfield);
                 var notewindow = new Widgets.NoteWindow (win, task, uid);
                 notewindow.run (null);
             });
@@ -219,7 +217,7 @@ namespace Notejot {
             this.show_all ();
         }
 
-        private void update_theme(string color) {
+        private void update_theme() {
             var css_provider = new Gtk.CssProvider();
 
             string style = null;
@@ -230,10 +228,16 @@ namespace Notejot {
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;
                 background-color: %s;
+                text-shadow: 1px 1px transparent;
                 background-image: none;
                 padding: 0;
+                color: #000;
             }
-            """)).printf(uid, color, uid, color);
+            .notejot-nbar-%d image {
+                -gtk-icon-shadow: 1px 1px transparent;
+                color: #000;
+            }
+            """)).printf(uid, task.color, uid, task.color, uid);
 
             try {
                 css_provider.load_from_data(style, -1);
@@ -246,6 +250,8 @@ namespace Notejot {
                 css_provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
+
+            win.tm.save_notes ();
         }
     }
 }
