@@ -106,6 +106,9 @@ namespace Notejot {
                         int64 uid = task.get_int_element(3);
 
                         var atask = new Services.Task (win, title, contents, color, ((int)uid));
+                        var taskbox = new Widgets.TaskBox (win, atask);
+                        win.main_view.grid_view.flowgrid.add (taskbox);
+                        win.main_view.grid_view.flowgrid.is_modified = true;
                     }
                 }
             } catch (Error e) {

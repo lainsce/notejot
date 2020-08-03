@@ -43,6 +43,10 @@ namespace Notejot {
 
             new_button.clicked.connect (() => {
                 var task = new Services.Task (win, "New Note", "Write a new note…", "#FCF092", 0);
+                var taskbox = new Widgets.TaskBox (win, task);
+                win.main_view.grid_view.flowgrid.add (taskbox);
+                win.main_view.grid_view.flowgrid.is_modified = true;
+                win.tm.save_notes ();
                 if (win.main_view.stack.get_visible_child () == win.main_view.welcome_view) {
                     win.main_view.stack.set_visible_child (win.main_view.grid_view);
                 }

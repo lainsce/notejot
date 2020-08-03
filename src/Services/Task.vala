@@ -30,11 +30,6 @@ namespace Notejot {
             this.contents = contents;
             this.color = color;
             this.uid = uid;
-
-            var taskbox = new Widgets.TaskBox (win, this);
-            win.main_view.grid_view.flowgrid.add (taskbox);
-            win.main_view.grid_view.flowgrid.is_modified = true;
-            win.tm.save_notes ();
         }
     }
 }
