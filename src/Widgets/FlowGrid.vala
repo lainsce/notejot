@@ -32,11 +32,11 @@ namespace Notejot {
             selection_mode = Gtk.SelectionMode.SINGLE;
 
             this.child_activated.connect ((item) => {
-                if (item != null && win.editablelabel != null && win.stack != null) {
-                    win.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).task_label.get_label();
-                    win.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
-                    win.textfield.update_html_view ();
-                    win.stack.set_visible_child (win.note_view);
+                if (item != null && ((Widgets.TaskBox)item.get_child ()).note_view.editablelabel != null && win.stack != null) {
+                    ((Widgets.TaskBox)item.get_child ()).note_view.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).task_label.get_label();
+                    ((Widgets.TaskBox)item.get_child ()).note_view.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
+                    ((Widgets.TaskBox)item.get_child ()).note_view.textfield.update_html_view ();
+                    win.stack.set_visible_child (((Widgets.TaskBox)item.get_child ()).note_view);
                     win.format_button.sensitive = true;
                 }
             });

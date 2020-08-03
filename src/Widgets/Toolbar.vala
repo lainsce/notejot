@@ -19,11 +19,13 @@
 namespace Notejot {
     public class Widgets.Toolbar : Gtk.Revealer {
         public MainWindow win;
+        public Views.NoteView view;
         public Gdk.RGBA color;
         public Gtk.ActionBar toolbar;
 
-        public Toolbar (MainWindow win) {
+        public Toolbar (MainWindow win, Views.NoteView view) {
             this.win = win;
+            this.view = view;
 
             toolbar = new Gtk.ActionBar ();
             toolbar.get_style_context ().add_class ("notejot-abar");
@@ -38,8 +40,8 @@ namespace Notejot {
             format_reset_button.get_style_context ().add_class ("destructive-button");
 
             format_reset_button.clicked.connect (() => {
-                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
-                win.textfield.send_text ();
+                view.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
+                view.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -49,8 +51,8 @@ namespace Notejot {
             format_bold_button.image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON);
 
             format_bold_button.clicked.connect (() => {
-                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
-                win.textfield.send_text ();
+                view.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
+                view.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -60,8 +62,8 @@ namespace Notejot {
             format_italic_button.image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON);
 
             format_italic_button.clicked.connect (() => {
-                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
-                win.textfield.send_text ();
+                view.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
+                view.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -71,8 +73,8 @@ namespace Notejot {
             format_ul_button.image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON);
 
             format_ul_button.clicked.connect (() => {
-                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
-                win.textfield.send_text ();
+                view.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
+                view.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -89,8 +91,8 @@ namespace Notejot {
 
             format_color_button.color_set.connect (() => {
                 color = format_color_button.get_rgba();
-                win.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(color.to_string()));
-                win.textfield.send_text ();
+                view.textfield.run_javascript.begin("""var str = window.getSelection().getRangeAt(0).toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(color.to_string()));
+                view.textfield.send_text ();
                 win.tm.save_notes ();
             });
 
@@ -100,6 +102,17 @@ namespace Notejot {
             toolbar.pack_start (format_italic_button);
             toolbar.pack_start (format_ul_button);
             toolbar.pack_start (format_color_button);
+
+            view.win.format_button.toggled.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
+                    this.reveal_child = false;
+                } else {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
+                    this.reveal_child = true;
+                }
+                win.tm.save_notes ();
+            });
 
             this.add (toolbar);
             this.show_all ();

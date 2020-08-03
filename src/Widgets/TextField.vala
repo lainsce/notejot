@@ -80,7 +80,7 @@ namespace Notejot {
                     if (data != null) {
                         val = data.get_js_value ().to_string ();
                         text = val == "" ? " " : val;
-                        win.flowgrid.selected_foreach ((item, child) => {
+                        win.grid_view.flowgrid.selected_foreach ((item, child) => {
                             if (((Widgets.TaskBox)child.get_child ()).task.uid == ((Widgets.TaskBox)child.get_child ()).uid) {
                                 ((Widgets.TaskBox)child.get_child ()).task.contents = val == "" ? " " : val;
                                 ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);

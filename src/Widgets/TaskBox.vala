@@ -27,6 +27,7 @@ namespace Notejot {
         public Gtk.Label task_contents;
         public Services.Task? task;
 
+        public Views.NoteView note_view;
         public Widgets.SidebarItem sidebaritem;
 
         public TaskBox (MainWindow win, Services.Task task) {
@@ -42,7 +43,11 @@ namespace Notejot {
             win.tm.save_notes ();
 
             sidebaritem = new Widgets.SidebarItem (win, task.title);
-            win.notes_category.add (sidebaritem);
+            win.sidebar.notes_category.add (sidebaritem);
+
+            // Note View
+            note_view = new Views.NoteView (win);
+            win.stack.add (note_view);
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");
@@ -127,9 +132,9 @@ namespace Notejot {
 			delete_note_button.clicked.connect (() => {
                 this.get_parent ().destroy ();
                 win.tm.save_notes ();
-                if (win.flowgrid.get_children () == null) {
+                if (win.grid_view.flowgrid.get_children () == null) {
                     if (win.stack.get_visible_child () == win.grid_view) {
-                        win.stack.set_visible_child (win.normal_view);
+                        win.stack.set_visible_child (win.welcome_view);
                     }
                 }
                 sidebaritem.destroy_item ();
