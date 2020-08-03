@@ -28,7 +28,7 @@ namespace Notejot {
 
         public int uid;
 
-        public Services.Task? task;
+        public Services.Task task;
         public Widgets.SidebarItem sidebaritem;
 
         public TaskBox (MainWindow win, Services.Task task) {
@@ -67,8 +67,7 @@ namespace Notejot {
             task_contents.wrap_mode = Pango.WrapMode.WORD_CHAR;
             task_contents.hexpand = true;
             task_contents.use_markup = true;
-            task_contents.max_width_chars = 24;
-            task_contents.margin_start = task_contents.margin_end = 6;
+            task_contents.max_width_chars = 18;
             task_contents.get_style_context ().add_class ("notejot-tc");
 
             var color_button_red = new Gtk.RadioButton (null) {

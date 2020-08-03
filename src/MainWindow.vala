@@ -113,14 +113,6 @@ namespace Notejot {
             return false;
         }
 
-        public void add_task (string title, string contents, string color, int uid) {
-            var task = new Services.Task (this, title, contents, color, uid);
-            var taskbox = new Widgets.TaskBox (this, task);
-            main_view.grid_view.flowgrid.add (taskbox);
-            main_view.grid_view.flowgrid.is_modified = true;
-            tm.save_notes ();
-        }
-
         private void update () {
             if (leaflet != null && leaflet.get_folded ()) {
                 // On Mobile size, so.... have to have no buttons anywhere.

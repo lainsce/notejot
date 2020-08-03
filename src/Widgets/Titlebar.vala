@@ -42,7 +42,7 @@ namespace Notejot {
             this.pack_start (new_button);
 
             new_button.clicked.connect (() => {
-                win.add_task (_("New Note"), _("Write a New Note…"), "#FCF092", 0);
+                var task = new Services.Task (win, "New Note", "Write a New Note…", "#FCF092", 0);
                 if (win.main_view.stack.get_visible_child () == win.main_view.welcome_view) {
                     win.main_view.stack.set_visible_child (win.main_view.grid_view);
                 }

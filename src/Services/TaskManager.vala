@@ -105,7 +105,7 @@ namespace Notejot {
                         string color = task.get_string_element(2);
                         int64 uid = task.get_int_element(3);
 
-                        win.add_task (title, contents, color, ((int)uid));
+                        var atask = new Services.Task (win, title, contents, color, ((int)uid));
                     }
                 }
             } catch (Error e) {
