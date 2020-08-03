@@ -23,13 +23,14 @@ namespace Notejot {
 
         public FlowGrid (MainWindow win) {
             this.win = win;
+            this.valign = Gtk.Align.START;
             this.expand = true;
             this.column_spacing = this.row_spacing = 12;
-            this.max_children_per_line = 4;
-            this.min_children_per_line = 2;
+            this.max_children_per_line = 3;
+            this.activate_on_single_click = true;
+            this.selection_mode = Gtk.SelectionMode.SINGLE;
+            
             is_modified = false;
-            activate_on_single_click = true;
-            selection_mode = Gtk.SelectionMode.SINGLE;
 
             this.child_activated.connect ((item) => {
                 if (item != null && ((Widgets.TaskBox)item.get_child ()).note_view.editablelabel != null && win.stack != null) {
