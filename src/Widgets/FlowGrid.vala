@@ -33,12 +33,14 @@ namespace Notejot {
             is_modified = false;
 
             this.child_activated.connect ((item) => {
-                if (item != null && ((Widgets.TaskBox)item.get_child ()).note_view.editablelabel != null && win.stack != null) {
-                    ((Widgets.TaskBox)item.get_child ()).note_view.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).task_label.get_label();
-                    ((Widgets.TaskBox)item.get_child ()).note_view.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
-                    ((Widgets.TaskBox)item.get_child ()).note_view.textfield.update_html_view ();
-                    win.stack.set_visible_child (((Widgets.TaskBox)item.get_child ()).note_view);
-                    win.titlebar.format_button.sensitive = true;
+                var note_view = Views.NoteView.get_instance ();
+                win.main_view.stack.add (note_view);
+                if (item != null && note_view != null && win.main_view != null) {
+                    note_view.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).task_label.get_label();
+                    note_view.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
+                    note_view.textfield.update_html_view ();
+                    win.main_view.stack.set_visible_child (note_view);
+                    win.main_view.titlebar.format_button.sensitive = true;
                 }
             });
 

@@ -21,19 +21,34 @@ namespace Notejot {
         public MainWindow win;
         private static TextField? instance = null;
         public string html = "";
-        public string text = "";
         public string val = "";
+
+        public string text {
+            get {
+                return val;
+            }
+
+            set {
+                val = value;
+            }
+        }
 
         public static TextField get_instance () {
             if (instance == null) {
-                instance = new Widgets.TextField (Application.win);
+                string text = "";
+                Application.win.main_view.grid_view.flowgrid.selected_foreach ((item, child) => {
+                    var noteview = Views.NoteView.get_instance ();
+                    text = noteview.textfield.text;
+                });
+                instance = new Widgets.TextField (Application.win, text);
             }
 
             return instance;
         }
 
-        public TextField (MainWindow win) {
+        public TextField (MainWindow win, string text) {
             this.win = win;
+            this.text = text;
             this.expand = true;
             this.editable = true;
             this.margin_bottom = 8;
@@ -77,10 +92,10 @@ namespace Notejot {
             run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
-                    if (data != null) {
+                    if (data != null && win.main_view != null) {
                         val = data.get_js_value ().to_string ();
                         text = val == "" ? " " : val;
-                        win.grid_view.flowgrid.selected_foreach ((item, child) => {
+                        win.main_view.grid_view.flowgrid.selected_foreach ((item, child) => {
                             if (((Widgets.TaskBox)child.get_child ()).task.uid == ((Widgets.TaskBox)child.get_child ()).uid) {
                                 ((Widgets.TaskBox)child.get_child ()).task.contents = val == "" ? " " : val;
                                 ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);

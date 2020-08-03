@@ -43,8 +43,8 @@ namespace Notejot {
 
             new_button.clicked.connect (() => {
                 win.add_task (_("New Note"), _("Write a New Note…"), "#FCF092", 0);
-                if (win.stack.get_visible_child () == win.welcome_view) {
-                    win.stack.set_visible_child (win.grid_view);
+                if (win.main_view.stack.get_visible_child () == win.main_view.welcome_view) {
+                    win.main_view.stack.set_visible_child (win.main_view.grid_view);
                 }
             });
 
@@ -55,6 +55,15 @@ namespace Notejot {
             };
             format_button.get_style_context ().add_class ("notejot-button");
             this.pack_start (format_button);
+
+            format_button.toggled.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
+                } else {
+                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
+                }
+                win.tm.save_notes ();
+            });
 
             menu = new Widgets.Menu (win);
             this.pack_end (menu);

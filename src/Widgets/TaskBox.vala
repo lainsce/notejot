@@ -19,15 +19,16 @@
 namespace Notejot {
     public class Widgets.TaskBox : Gtk.Grid {
         private MainWindow win;
-        public int uid;
         private static int uid_counter;
-        public Gtk.Grid main_grid;
-        public Gtk.ActionBar bar;
-        public Gtk.Label task_label;
-        public Gtk.Label task_contents;
-        public Services.Task? task;
 
-        public Views.NoteView note_view;
+        public Gtk.ActionBar bar;
+        public Gtk.Grid main_grid;
+        public Gtk.Label task_contents;
+        public Gtk.Label task_label;
+
+        public int uid;
+
+        public Services.Task? task;
         public Widgets.SidebarItem sidebaritem;
 
         public TaskBox (MainWindow win, Services.Task task) {
@@ -46,8 +47,8 @@ namespace Notejot {
             win.sidebar.notes_category.add (sidebaritem);
 
             // Note View
-            note_view = new Views.NoteView (win);
-            win.stack.add (note_view);
+            var note_view = new Views.NoteView (win);
+            win.main_view.stack.add (note_view);
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");
@@ -132,12 +133,13 @@ namespace Notejot {
 			delete_note_button.clicked.connect (() => {
                 this.get_parent ().destroy ();
                 win.tm.save_notes ();
-                if (win.grid_view.flowgrid.get_children () == null) {
-                    if (win.stack.get_visible_child () == win.grid_view) {
-                        win.stack.set_visible_child (win.welcome_view);
+                if (win.main_view.grid_view.flowgrid.get_children () == null) {
+                    if (win.main_view.stack.get_visible_child () == win.main_view.grid_view) {
+                        win.main_view.stack.set_visible_child (win.main_view.welcome_view);
                     }
                 }
                 sidebaritem.destroy_item ();
+                win.main_view.stack.remove (note_view);
 			});
 
             var setting_grid = new Gtk.Grid ();

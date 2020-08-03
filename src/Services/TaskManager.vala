@@ -56,7 +56,7 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.grid_view.flowgrid);
+            save_column (builder, win.main_view.grid_view.flowgrid);
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();

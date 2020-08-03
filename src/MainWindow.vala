@@ -19,17 +19,13 @@
 namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Normal Widgets
-        public Gtk.Grid grid;
         public Gtk.Separator separator;
-        public Gtk.Stack stack;
         public Hdy.Leaflet leaflet;
 
         // Custom
         public Services.TaskManager tm;
-        public Views.GridView grid_view;
-        public Views.WelcomeView welcome_view;
         public Widgets.Sidebar sidebar;
-        public Widgets.Titlebar titlebar;
+        public Views.MainView main_view;
 
         public Gtk.Application app { get; construct; }
         public MainWindow (Gtk.Application application) {
@@ -48,28 +44,6 @@ namespace Notejot {
                     }
                 }
                 return false;
-            });
-
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                grid_view.flowgrid.get_style_context ().add_class ("notejot-fgview-dark");
-                stack.get_style_context ().add_class ("notejot-stack-dark");
-            } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                grid_view.flowgrid.get_style_context ().remove_class ("notejot-fgview-dark");
-                stack.get_style_context ().remove_class ("notejot-stack-dark");
-            }
-
-            Notejot.Application.gsettings.changed.connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    grid_view.flowgrid.get_style_context ().add_class ("notejot-fgview-dark");
-                    stack.get_style_context ().add_class ("notejot-stack-dark");
-                } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    grid_view.flowgrid.get_style_context ().remove_class ("notejot-fgview-dark");
-                    stack.get_style_context ().remove_class ("notejot-stack-dark");
-                }
             });
         }
 
@@ -93,34 +67,18 @@ namespace Notejot {
             this.resize (w, h);
             tm = new Services.TaskManager (this);
 
-            // Main Titlebar
-            titlebar = new Widgets.Titlebar (this);
-            // Grid View
-            grid_view = new Views.GridView (this);
             // Sidebar
             sidebar = new Widgets.Sidebar (this);
-            // Welcome View
-            welcome_view = new Views.WelcomeView (this);
             // Main View
-            stack = new Gtk.Stack ();
-            stack.get_style_context ().add_class ("notejot-stack");
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            stack.add (welcome_view);
-            stack.add (grid_view);
-
-            grid = new Gtk.Grid ();
-            grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (titlebar, 0, 0, 1, 1);
-            grid.attach (stack, 0, 1, 1, 1);
-            grid.show_all ();
+            main_view = new Views.MainView (this);
 
             leaflet = new Hdy.Leaflet ();
             leaflet.add (sidebar);
-            leaflet.add (grid);
+            leaflet.add (main_view);
             leaflet.transition_type = Hdy.LeafletTransitionType.UNDER;
             leaflet.show_all ();
             leaflet.can_swipe_back = true;
-            leaflet.set_visible_child (grid);
+            leaflet.set_visible_child (main_view);
             update ();
             leaflet.notify["folded"].connect (() => {
                 update ();
@@ -128,10 +86,10 @@ namespace Notejot {
 
             tm.load_from_file ();
 
-            if (grid_view.flowgrid.is_modified == false) {
-                stack.set_visible_child (welcome_view);
+            if (main_view.grid_view.flowgrid.is_modified == false) {
+                main_view.stack.set_visible_child (main_view.welcome_view);
             } else {
-                stack.set_visible_child (grid_view);
+                main_view.stack.set_visible_child (main_view.grid_view);
             }
 
             this.add (leaflet);
@@ -158,8 +116,8 @@ namespace Notejot {
         public void add_task (string title, string contents, string color, int uid) {
             var task = new Services.Task (this, title, contents, color, uid);
             var taskbox = new Widgets.TaskBox (this, task);
-            grid_view.flowgrid.add (taskbox);
-            grid_view.flowgrid.is_modified = true;
+            main_view.grid_view.flowgrid.add (taskbox);
+            main_view.grid_view.flowgrid.is_modified = true;
             tm.save_notes ();
         }
 
@@ -167,11 +125,11 @@ namespace Notejot {
             if (leaflet != null && leaflet.get_folded ()) {
                 // On Mobile size, so.... have to have no buttons anywhere.
                 sidebar.fauxtitlebar.set_decoration_layout (":");
-                titlebar.set_decoration_layout (":");
+                main_view.titlebar.set_decoration_layout (":");
             } else {
                 // Else you're on Desktop size, so business as usual.
                 sidebar.fauxtitlebar.set_decoration_layout ("close:");
-                titlebar.set_decoration_layout (":maximize");
+                main_view.titlebar.set_decoration_layout (":maximize");
             }
         }
 
