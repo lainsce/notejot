@@ -37,7 +37,7 @@ namespace Notejot {
                     ((Widgets.TaskBox)item.get_child ()).note_view.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
                     ((Widgets.TaskBox)item.get_child ()).note_view.textfield.update_html_view ();
                     win.stack.set_visible_child (((Widgets.TaskBox)item.get_child ()).note_view);
-                    win.format_button.sensitive = true;
+                    win.titlebar.format_button.sensitive = true;
                 }
             });
 

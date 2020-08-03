@@ -103,7 +103,7 @@ namespace Notejot {
             toolbar.pack_start (format_ul_button);
             toolbar.pack_start (format_color_button);
 
-            view.win.format_button.toggled.connect (() => {
+            view.win.titlebar.format_button.toggled.connect (() => {
                 if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
                     Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
                     this.reveal_child = false;
