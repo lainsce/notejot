@@ -19,9 +19,9 @@
 namespace Notejot {
     public class Services.Task {
         public MainWindow win;
-        public string color = "#FFE16B";
-        public string title = "New Note…";
-        public string contents = "Write a new note…";
+        public string color = "";
+        public string title = "";
+        public string contents = "";
         public int64 uid;
 
         public Task (MainWindow win, string title, string contents, string color, int64 uid) {
