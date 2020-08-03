@@ -179,7 +179,7 @@ namespace Notejot {
             titlebar.pack_start (new_button);
 
             new_button.clicked.connect (() => {
-                add_task (_("New Note"), _("Write a New Note…"), "#FCF092");
+                add_task (_("New Note"), _("Write a New Note…"), "#FCF092", 0);
                 if (stack.get_visible_child () == normal_view) {
                     stack.set_visible_child (grid_view);
                 }
@@ -355,8 +355,8 @@ namespace Notejot {
             return false;
         }
 
-        public void add_task (string title, string contents, string color) {
-            var task = new Services.Task (this, title, contents, color);
+        public void add_task (string title, string contents, string color, int uid) {
+            var task = new Services.Task (this, title, contents, color, uid);
             var taskbox = new Widgets.TaskBox (this, task);
             flowgrid.add (taskbox);
             flowgrid.is_modified = true;

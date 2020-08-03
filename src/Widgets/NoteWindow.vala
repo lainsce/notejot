@@ -47,9 +47,10 @@ namespace Notejot {
                 win.tm.save_notes ();
             });
 
-            textfield.text = task.contents;
-            textfield.connect_signals ();
-
+            if (uid == task.uid) {
+                textfield.text = task.contents;
+                textfield.connect_signals ();
+            }
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 textfield.update_html_view ();

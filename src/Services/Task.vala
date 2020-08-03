@@ -22,12 +22,14 @@ namespace Notejot {
         public string color = "#FFE16B";
         public string title = "New Note…";
         public string contents = "Write a new note…";
+        public int64 uid;
 
-        public Task (MainWindow win, string title, string contents, string color) {
+        public Task (MainWindow win, string title, string contents, string color, int64 uid) {
             this.win = win;
             this.title = title;
             this.contents = contents;
             this.color = color;
+            this.uid = uid;
         }
     }
 }

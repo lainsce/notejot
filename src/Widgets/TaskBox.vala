@@ -19,7 +19,7 @@
 namespace Notejot {
     public class Widgets.TaskBox : Gtk.Grid {
         private MainWindow win;
-        private int uid;
+        public int uid;
         private static int uid_counter;
         public Gtk.Grid main_grid;
         public Gtk.ActionBar bar;
@@ -35,6 +35,8 @@ namespace Notejot {
             this.get_style_context ().add_class ("notejot-column-box");
 
             this.uid = uid_counter++;
+            task.uid = this.uid;
+
             update_theme ();
 
             win.tm.save_notes ();

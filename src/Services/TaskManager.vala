@@ -75,6 +75,7 @@ namespace Notejot {
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.title);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.contents);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.color);
+                    builder.add_int_value (((Widgets.TaskBox)item.get_child ()).task.uid);
                     builder.end_array ();
                 }
             }
@@ -102,8 +103,9 @@ namespace Notejot {
                         string title = task.get_string_element(0);
                         string contents = task.get_string_element(1);
                         string color = task.get_string_element(2);
+                        int64 uid = task.get_int_element(3);
 
-                        win.add_task (title, contents, color);
+                        win.add_task (title, contents, color, ((int)uid));
                     }
                 }
             } catch (Error e) {
