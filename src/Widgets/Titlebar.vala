@@ -19,7 +19,6 @@
 namespace Notejot {
     public class Widgets.Titlebar : Hdy.HeaderBar {
         private MainWindow win;
-        public Gtk.ToggleButton format_button;
         public Gtk.Button new_button;
 
         public Widgets.Menu menu;
@@ -50,23 +49,6 @@ namespace Notejot {
                 if (win.main_view.stack.get_visible_child () == win.main_view.welcome_view) {
                     win.main_view.stack.set_visible_child (win.main_view.grid_view);
                 }
-            });
-
-            format_button = new Gtk.ToggleButton () {
-                image = new Gtk.Image.from_icon_name ("font-x-generic-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Formatting Options")),
-                sensitive = false
-            };
-            format_button.get_style_context ().add_class ("notejot-button");
-            this.pack_start (format_button);
-
-            format_button.toggled.connect (() => {
-                if (Notejot.Application.gsettings.get_boolean ("show-formattingbar")) {
-                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", false);
-                } else {
-                    Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
-                }
-                win.tm.save_notes ();
             });
 
             menu = new Widgets.Menu (win);

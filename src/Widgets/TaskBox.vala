@@ -47,7 +47,7 @@ namespace Notejot {
             win.sidebar.notes_category.add (sidebaritem);
 
             // Note View
-            var note_view = new Views.NoteView (win);
+            var note_view = new Views.NoteView (win, task);
             win.main_view.stack.add (note_view);
 
             bar = new Gtk.ActionBar ();
@@ -236,6 +236,7 @@ namespace Notejot {
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;
                 background-color: %s;
+                box-shadow: none;
                 text-shadow: 1px 1px transparent;
                 background-image: none;
                 padding: 0;

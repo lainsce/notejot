@@ -23,7 +23,6 @@ namespace Notejot {
 
         public FlowGrid (MainWindow win) {
             this.win = win;
-            this.valign = Gtk.Align.START;
             this.expand = true;
             this.column_spacing = this.row_spacing = 12;
             this.max_children_per_line = 3;
@@ -32,18 +31,6 @@ namespace Notejot {
             
             is_modified = false;
 
-            this.child_activated.connect ((item) => {
-                var note_view = Views.NoteView.get_instance ();
-                win.main_view.stack.add (note_view);
-                if (item != null && note_view != null && win.main_view != null) {
-                    note_view.editablelabel.text = ((Widgets.TaskBox)item.get_child ()).task_label.get_label();
-                    note_view.textfield.text = ((Widgets.TaskBox)item.get_child ()).task_contents.get_label();
-                    note_view.textfield.update_html_view ();
-                    win.main_view.stack.set_visible_child (note_view);
-                    win.main_view.titlebar.format_button.sensitive = true;
-                }
-            });
-
             this.get_style_context ().add_class ("notejot-fgview");
             this.show_all ();
         }
@@ -51,7 +38,8 @@ namespace Notejot {
         public Gee.ArrayList<Gtk.FlowBoxChild> get_tasks () {
             var tasks = new Gee.ArrayList<Gtk.FlowBoxChild> ();
             foreach (Gtk.Widget item in this.get_children ()) {
-	            tasks.add ((Gtk.FlowBoxChild)item);
+                tasks.add ((Gtk.FlowBoxChild)item);
+                ((Gtk.FlowBoxChild)item).get_style_context ().add_class ("notejot-fgview-child");
             }
             return tasks;
         }

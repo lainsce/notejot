@@ -19,31 +19,22 @@
 namespace Notejot {
     public class Views.NoteView : Gtk.Grid {
         public MainWindow win;
-        private static NoteView? instance = null;
         public Widgets.EditableLabel editablelabel;
         public Widgets.TextField textfield;
 
         public Gdk.RGBA color;
 
-        public static NoteView get_instance () {
-            if (instance == null) {
-                instance = new Views.NoteView (Application.win);
-            }
-
-            return instance;
-        }
-
-        public NoteView (MainWindow win) {
+        public NoteView (MainWindow win, Services.Task task) {
             this.win = win;
-            instance = this;
 
-            textfield = new Widgets.TextField (win, "");            
-            editablelabel = new Widgets.EditableLabel (win, "");
+            textfield = new Widgets.TextField (win, task.contents);            
+            editablelabel = new Widgets.EditableLabel (win, task.title);
 
             editablelabel.changed.connect (() => {
                 win.main_view.grid_view.flowgrid.selected_foreach ((item, child) => {
                     ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
                     ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
+                    task.title = editablelabel.title.get_label ();
                 });
                 win.tm.save_notes ();
             });

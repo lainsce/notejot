@@ -19,7 +19,6 @@
 namespace Notejot {
     public class Widgets.TextField : WebKit.WebView {
         public MainWindow win;
-        private static TextField? instance = null;
         public string html = "";
         public string val = "";
 
@@ -33,25 +32,11 @@ namespace Notejot {
             }
         }
 
-        public static TextField get_instance () {
-            if (instance == null) {
-                string text = "";
-                Application.win.main_view.grid_view.flowgrid.selected_foreach ((item, child) => {
-                    var noteview = Views.NoteView.get_instance ();
-                    text = noteview.textfield.text;
-                });
-                instance = new Widgets.TextField (Application.win, text);
-            }
-
-            return instance;
-        }
-
         public TextField (MainWindow win, string text) {
             this.win = win;
             this.text = text;
             this.expand = true;
             this.editable = true;
-            this.margin_bottom = 8;
             this.get_style_context ().add_class ("notejot-tview");
 
             var settings = new WebKit.Settings ();
@@ -94,11 +79,11 @@ namespace Notejot {
                     var data = run_javascript.end(res);
                     if (data != null && win.main_view != null) {
                         val = data.get_js_value ().to_string ();
-                        text = val == "" ? " " : val;
+                        text = val;
                         win.main_view.grid_view.flowgrid.selected_foreach ((item, child) => {
                             if (((Widgets.TaskBox)child.get_child ()).task.uid == ((Widgets.TaskBox)child.get_child ()).uid) {
-                                ((Widgets.TaskBox)child.get_child ()).task.contents = val == "" ? " " : val;
-                                ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);
+                                ((Widgets.TaskBox)child.get_child ()).task.contents = val;
+                                ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val);
                             }
                         });
                     }

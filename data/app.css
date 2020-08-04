@@ -82,8 +82,9 @@ window.rounded {
 }
 
 .notejot-tview {
-	background-color: #F7F7F7;
-	padding: 6px;
+	background-color: #FFF;
+    padding: 6px;
+    border-top: 1px solid alpha(black, 0.25);
 }
 
 .notejot-tc {
@@ -97,13 +98,13 @@ window.rounded {
 }
 
 .notejot-tview-dark {
-  background: #151515;
+  background: #000;
+  border-top: 1px solid alpha(white, 0.25);
 }
 
 .notejot-abar {
   background-color: #F7F7F7;
   padding: 6px 10px;
-  border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .notejot-abar .image-button {
@@ -118,7 +119,6 @@ window.rounded {
 
 .notejot-abar-dark {
   background: #151515;
-  border-bottom: 1px solid alpha (white, 0.25);
 }
 
 .notejot-bar {
@@ -135,16 +135,15 @@ window.rounded {
 }
 
 .notejot-tbar {
-	background: #FFF;
+	background: #F7F7F7;
 	box-shadow: none;
-	border-bottom: 1px solid alpha (black, 0.25);
 	border-left: none;
 	margin: 6px 7px;
     padding: 0;
 }
 
 .notejot-tbar-dark {
-  background: #000;
+  background: #151515;
 }
 
 .notejot-column,
@@ -158,6 +157,10 @@ window.rounded {
     padding: 12px;
 }
 
+.notejot-fgview-child:selected .notejot-note-grid {
+    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
+}
+
 .notejot-fgview-dark {
     background: #151515;
 }
@@ -167,7 +170,7 @@ window.rounded {
 }
 
 .notejot-side-tbar {
-    background: mix (@accent_color, @base_color, 0.85);;
+    background: mix (@accent_color, @base_color, 0.85);
     box-shadow: none;
     margin: 0 7px;
     padding: 0;
@@ -198,7 +201,7 @@ window.rounded {
     border-radius: 8px;
     box-shadow: none;
     font-weight: 300;
-    background: shade(@color_primary, 1.2);
+    background: #FFF;
 }
 
 .notejot-stack {
