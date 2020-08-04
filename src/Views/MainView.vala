@@ -42,22 +42,18 @@ namespace Notejot {
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                grid_view.flowgrid.get_style_context ().add_class ("notejot-fgview-dark");
                 stack.get_style_context ().add_class ("notejot-stack-dark");
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                grid_view.flowgrid.get_style_context ().remove_class ("notejot-fgview-dark");
                 stack.get_style_context ().remove_class ("notejot-stack-dark");
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    grid_view.flowgrid.get_style_context ().add_class ("notejot-fgview-dark");
                     stack.get_style_context ().add_class ("notejot-stack-dark");
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    grid_view.flowgrid.get_style_context ().remove_class ("notejot-fgview-dark");
                     stack.get_style_context ().remove_class ("notejot-stack-dark");
                 }
             });

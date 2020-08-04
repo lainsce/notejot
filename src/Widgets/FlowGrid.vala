@@ -32,6 +32,24 @@ namespace Notejot {
             is_modified = false;
 
             this.get_style_context ().add_class ("notejot-fgview");
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                this.get_style_context ().add_class ("notejot-fgview-dark");
+            } else {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                this.get_style_context ().remove_class ("notejot-fgview-dark");
+            }
+
+            Notejot.Application.gsettings.changed.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    this.get_style_context ().add_class ("notejot-fgview-dark");
+                } else {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    this.get_style_context ().remove_class ("notejot-fgview-dark");
+                }
+            });
+
             this.show_all ();
         }
 
@@ -39,7 +57,6 @@ namespace Notejot {
             var tasks = new Gee.ArrayList<Gtk.FlowBoxChild> ();
             foreach (Gtk.Widget item in this.get_children ()) {
                 tasks.add ((Gtk.FlowBoxChild)item);
-                ((Gtk.FlowBoxChild)item).get_style_context ().add_class ("notejot-fgview-child");
             }
             return tasks;
         }

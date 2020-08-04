@@ -157,8 +157,12 @@ window.rounded {
     padding: 12px;
 }
 
-.notejot-fgview-child:selected .notejot-note-grid {
+.notejot-fgview flowboxchild:selected .notejot-note-grid {
     box-shadow: 0 1px 5px 5px alpha(black, 0.25);
+}
+
+.notejot-fgview-dark flowboxchild:selected .notejot-note-grid {
+    box-shadow: 0 1px 5px 5px alpha(black, 0.45);
 }
 
 .notejot-fgview-dark {
@@ -221,6 +225,11 @@ window.rounded {
     box-shadow: 0 1px 5px 5px alpha(black, 0.1);
 }
 
+.notejot-note-grid-dark {
+    border-radius: 8px;
+    box-shadow: 0 1px 5px 5px alpha(black, 0.3);
+}
+
 .notejot-note-list {
     border-radius: 8px;
     margin: 3px;
@@ -246,7 +255,6 @@ window.rounded {
 
 .notejot-side-button {
     background: mix (@accent_color, @base_color, 0.85);
-    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.95);
     box-shadow: none;
     padding: 8px;
     margin: 0;
@@ -256,13 +264,14 @@ window.rounded {
 .notejot-side-button:active,
 .notejot-side-button:checked,
 .notejot-side-button:focus {
-  background: shade(mix (@accent_color, @base_color, 0.85), 0.85);
-  border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.85);
+  background: shade(@accent_color, 0.95);
+  border: 1px solid shade(@accent_color, 0.95);
   color: #000;
 }
 
 .notejot-side-button:hover {
-    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.85);
+    background: shade(@accent_color, 1.1);
+    border: 1px solid shade(@accent_color, 1.1);
 }
 
 .notejot-side-button label {

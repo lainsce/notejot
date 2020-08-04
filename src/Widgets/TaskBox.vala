@@ -159,6 +159,7 @@ namespace Notejot {
             app_button.tooltip_text = (_("Settings"));
             app_button.image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             app_button.popover = popover;
+            app_button.halign = Gtk.Align.END;
 
             color_button_red.clicked.connect (() => {
                 task.color = "#F3ACAA";
@@ -216,13 +217,32 @@ namespace Notejot {
             this.halign = Gtk.Align.CENTER;
             this.valign = Gtk.Align.CENTER;
             this.row_spacing = 12;
-            app_button.halign = Gtk.Align.END;
             this.add (bar);
             this.add (task_contents);
-            
             this.expand = false;
-            
             this.show_all ();
+
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                this.get_style_context ().add_class ("notejot-note-grid-dark");
+                this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
+            } else {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                this.get_style_context ().remove_class ("notejot-note-grid-dark");
+                this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
+            }
+
+            Notejot.Application.gsettings.changed.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    this.get_style_context ().add_class ("notejot-note-grid-dark");
+                    this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
+                } else {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    this.get_style_context ().remove_class ("notejot-note-grid-dark");
+                    this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
+                }
+            });
         }
 
         private void update_theme() {
@@ -231,7 +251,10 @@ namespace Notejot {
             string style = null;
             style = (N_("""
             .notejot-note-grid-%d {
-                background-image: linear-gradient(to bottom, %s 30px, shade(@base_color, 1.1) 1px);
+                background-image: linear-gradient(to bottom, %s 30px, shade(#F7F7F7, 1.2) 1px);
+            }
+            .notejot-note-grid-dark-%d {
+                background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, shade(#151515, 1.2) 1px);
             }
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;
@@ -246,7 +269,7 @@ namespace Notejot {
                 -gtk-icon-shadow: 1px 1px transparent;
                 color: #000;
             }
-            """)).printf(uid, task.color, uid, task.color, uid);
+            """)).printf(uid, task.color, uid, task.color, uid, task.color, uid);
 
             try {
                 css_provider.load_from_data(style, -1);
