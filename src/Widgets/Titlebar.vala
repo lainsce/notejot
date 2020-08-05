@@ -31,6 +31,7 @@ namespace Notejot {
             this.show_close_button = true;
             this.has_subtitle = false;
             this.hexpand = true;
+            this.valign = Gtk.Align.START;
             this.title = "Notejot";
 
             new_button = new Gtk.Button () {
@@ -53,24 +54,6 @@ namespace Notejot {
 
             menu = new Widgets.Menu (win);
             this.pack_end (menu);
-
-            if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                Notejot.Application.gsettings.set_boolean("dark-mode", true);
-                menu.mode_switch.sensitive = false;
-            } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                Notejot.Application.gsettings.set_boolean("dark-mode", false);
-                menu.mode_switch.sensitive = true;
-            }
-
-            Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                    Notejot.Application.gsettings.set_boolean("dark-mode", true);
-                    menu.mode_switch.sensitive = false;
-                } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
-                    menu.mode_switch.sensitive = true;
-                }
-            });
 
             if (Notejot.Application.gsettings.get_boolean("pinned")) {
                 menu.applet_switch.set_active (true);

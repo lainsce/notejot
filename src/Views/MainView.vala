@@ -58,9 +58,12 @@ namespace Notejot {
                 }
             });
 
+            var overlay = new Gtk.Overlay ();
+            overlay.add_overlay (titlebar);
+            overlay.add (stack);
+
             this.orientation = Gtk.Orientation.VERTICAL;
-            this.attach (titlebar, 0, 0, 1, 1);
-            this.attach (stack, 0, 1, 1, 1);
+            this.attach (overlay, 0, 0, 1, 1);
             this.show_all ();
         }
     }
