@@ -123,15 +123,19 @@ window.rounded {
 
 .notejot-bar {
     padding: 2px;
-    text-shadow: 0 1px alpha(white, 0.25);
+    text-shadow: 0 1px transparent;
     background: none;
     font-weight: 700;
     color: #151515;
 }
 
 .notejot-bar image {
-    -gtk-icon-shadow: 0 1px alpha(white, 0.25);
+    -gtk-icon-shadow: 0 1px transparent;
     color: #151515;
+}
+
+.notejot-column-box-dark .notejot-bar image {
+    color: #F7F7F7;
 }
 
 .notejot-tbar {
@@ -157,6 +161,16 @@ window.rounded {
 .notejot-column treeview {
     background: mix (@accent_color, @base_color, 0.85);
     box-shadow: none;
+}
+
+.notejot-lview {
+    background: #F7F7F7;
+    padding: 12px;
+    padding-top: 45px;
+}
+
+.notejot-lview-dark {
+    background: #151515;
 }
 
 .notejot-fgview {
@@ -189,19 +203,21 @@ window.rounded {
 }
 
 .notejot-column-box {
-    padding: 2px;
+    padding: 6px;
     margin: 6px;
+    margin-bottom: 30px;
     border-radius: 8px;
     color: @fg_color;
+    background: #f7f7f7;
+    box-shadow: 0 1px 5px 5px alpha(black, 0.1);
 }
 
-.notejot-column-box:hover,
 .notejot-column-box:selected {
-    padding: 2px;
-    margin: 6px;
-    border-radius: 8px;
-    background: shade(@base_color, 0.85);
-    color: @fg_color;
+    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
+}
+
+.notejot-column-box-dark {
+    background: #151515;
 }
 
 .notejot-label {
@@ -268,13 +284,12 @@ window.rounded {
 }
 
 .notejot-side-button {
-    background: @accent_color;
-    border: 1px solid @accent_color;
+    background: mix (@accent_color, @base_color, 0.85);
+    border: 1px solid mix (@accent_color, @base_color, 0.85);
     box-shadow: none;
     padding: 8px;
     margin: 0;
     border-radius: 8px;
-    color: #000;
 }
 
 .notejot-side-button:active,
@@ -288,8 +303,12 @@ window.rounded {
 .notejot-side-button:hover {
     background: shade(@accent_color, 1.1);
     border: 1px solid shade(@accent_color, 1.1);
+    color: #000;
 }
 
 .notejot-side-button label {
-  margin-right: 4.3rem;
+  margin-right: 7rem;
+}
+.notejot-side-button image {
+  margin-left: 1rem;
 }

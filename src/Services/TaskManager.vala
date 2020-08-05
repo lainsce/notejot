@@ -75,7 +75,6 @@ namespace Notejot {
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
-                    builder.add_int_value (((Widgets.TaskBox)item.get_child ()).uid);
                     builder.end_array ();
                 }
             }
@@ -103,11 +102,11 @@ namespace Notejot {
                         string title = task.get_string_element(0);
                         string contents = task.get_string_element(1);
                         string color = task.get_string_element(2);
-                        int64 uid = task.get_int_element(3);
 
-                        var taskbox = new Widgets.TaskBox (win, title, contents, color, ((int)uid));
+                        var taskbox = new Widgets.TaskBox (win, title, contents, color);
                         win.flowgrid.add (taskbox);
                         win.flowgrid.is_modified = true;
+                        save_notes ();
                     }
                 }
             } catch (Error e) {

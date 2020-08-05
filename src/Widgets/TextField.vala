@@ -64,7 +64,7 @@ namespace Notejot {
         }
 
         public void send_text () {
-            run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
+            run_javascript.begin("""document.getElementById("textarea").innerHTML.replace("\n", "<br>");""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null && win != null) {

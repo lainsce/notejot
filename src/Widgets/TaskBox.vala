@@ -32,12 +32,12 @@ namespace Notejot {
         public string color;
 
         public Widgets.SidebarItem sidebaritem;
+        public Widgets.TaskLine taskline;
 
-        public TaskBox (MainWindow win, string? title, string? contents, string? color, int? uid) {
+        public TaskBox (MainWindow win, string? title, string? contents, string? color) {
             this.win = win;
-            this.get_style_context ().add_class ("notejot-column-box");
 
-            this.uid = uid + uid_counter++;
+            this.uid = uid_counter++;
 
             this.title = title;
             this.contents = contents;
@@ -48,6 +48,10 @@ namespace Notejot {
 
             sidebaritem = new Widgets.SidebarItem (win, this.title);
             win.notes_category.add (sidebaritem);
+
+            taskline = new Widgets.TaskLine (win, this, this.title, this.contents, this.uid);
+            win.flowlist.add (taskline);
+            win.flowlist.is_modified = true;
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");
@@ -137,6 +141,7 @@ namespace Notejot {
                     }
                 }
                 sidebaritem.destroy_item ();
+                taskline.destroy ();
 			});
 
             var setting_grid = new Gtk.Grid ();
@@ -217,10 +222,14 @@ namespace Notejot {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 this.get_style_context ().add_class ("notejot-note-grid-dark");
                 this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
+                taskline.get_style_context ().add_class ("notejot-column-box-dark");
+                taskline.dummy_badge.get_style_context ().add_class ("notejot-dbg-dark-%d".printf(uid));
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 this.get_style_context ().remove_class ("notejot-note-grid-dark");
                 this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
+                taskline.get_style_context ().remove_class ("notejot-column-box-dark");
+                taskline.dummy_badge.get_style_context ().remove_class ("notejot-dbg-dark-%d".printf(uid));
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
@@ -228,15 +237,19 @@ namespace Notejot {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     this.get_style_context ().add_class ("notejot-note-grid-dark");
                     this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
+                    taskline.get_style_context ().add_class ("notejot-column-box-dark");
+                    taskline.dummy_badge.get_style_context ().add_class ("notejot-dbg-dark-%d".printf(uid));
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     this.get_style_context ().remove_class ("notejot-note-grid-dark");
                     this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
+                    taskline.get_style_context ().remove_class ("notejot-column-box-dark");
+                    taskline.dummy_badge.get_style_context ().remove_class ("notejot-dbg-dark-%d".printf(uid));
                 }
             });
         }
 
-        private void update_theme(string? color) {
+        public void update_theme(string? color) {
             var css_provider = new Gtk.CssProvider();
             string style = null;
             style = (N_("""
@@ -264,7 +277,29 @@ namespace Notejot {
                 -gtk-icon-shadow: 1px 1px transparent;
                 color: #000;
             }
-            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid);
+            .notejot-dbg-%d {
+                border: 1px solid alpha(black, 0.25);
+                background: %s;
+                border-radius: 8px;
+                padding: 5px;
+                box-shadow:
+                    0 1px 0 0 alpha(@highlight_color, 0.3),
+                    inset 0 1px 1px alpha(black, 0.05),
+                    inset 0 0 1px 1px alpha(black, 0.05),
+                    0 1px 0 0 alpha(@highlight_color, 0.2);
+            }
+            .notejot-dbg-dark-%d {
+                border: 1px solid alpha(black, 0.25);
+                background: shade(%s, 0.8);
+                border-radius: 8px;
+                padding: 5px;
+                box-shadow:
+                    0 1px 0 0 alpha(@highlight_color, 0.3),
+                    inset 0 1px 1px alpha(black, 0.05),
+                    inset 0 0 1px 1px alpha(black, 0.05),
+                    0 1px 0 0 alpha(@highlight_color, 0.2);
+            }
+            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid, uid, color, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);
