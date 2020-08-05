@@ -135,15 +135,22 @@ window.rounded {
 }
 
 .notejot-tbar {
-	background: #F7F7F7;
 	box-shadow: none;
 	border-left: none;
 	margin: 6px 7px;
     padding: 0;
 }
 
-.notejot-tbar-dark {
-  background: #151515;
+.notejot-ntbar {
+	box-shadow: none;
+	border-left: none;
+	margin: 6px 7px;
+    padding: 0;
+    background: #F7F7F7;
+}
+
+.notejot-ntbar-dark {
+	background: #151515;
 }
 
 .notejot-column,
@@ -155,6 +162,7 @@ window.rounded {
 .notejot-fgview {
     background: #F7F7F7;
     padding: 12px;
+    padding-top: 45px;
 }
 
 .notejot-fgview flowboxchild:selected .notejot-note-grid {

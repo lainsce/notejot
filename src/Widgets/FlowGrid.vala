@@ -31,6 +31,26 @@ namespace Notejot {
             
             is_modified = false;
 
+            var provider2 = new Gtk.CssProvider ();
+            string res1 = "\"resource:///com/github/lainsce/notejot/image/bg1.png\"";
+            string res2 = "\"resource:///com/github/lainsce/notejot/image/bg2.png\"";
+            string css = """
+                .notejot-fgview {
+                    background-image: url(%s);
+                    background-repeat: repeat;
+                }
+                .notejot-fgview-dark {
+                    background-image: url(%s);
+                    background-repeat: repeat;
+                }
+             """.printf(res1, res2);
+             try {
+                provider2.load_from_data(css, -1);
+             } catch (GLib.Error e) {
+                warning ("Failed to parse css style : %s", e.message);
+             }
+             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
             this.get_style_context ().add_class ("notejot-fgview");
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
