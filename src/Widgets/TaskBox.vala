@@ -49,7 +49,7 @@ namespace Notejot {
             sidebaritem = new Widgets.SidebarItem (win, this.title);
             win.notes_category.add (sidebaritem);
 
-            taskline = new Widgets.TaskLine (win, this, this.title, this.contents, this.uid);
+            taskline = new Widgets.TaskLine (win, this, this.uid);
             win.flowlist.add (taskline);
             win.flowlist.is_modified = true;
 
@@ -199,7 +199,7 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                var notewindow = new Widgets.NoteWindow (win, this.title, this.contents, this.uid);
+                var notewindow = new Widgets.NoteWindow (win, this.title, this.contents);
                 notewindow.run (null);
             });
             

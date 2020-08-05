@@ -24,14 +24,10 @@ namespace Notejot {
         public Gtk.Grid main_grid;
         public Gtk.Label task_label;
         public Gtk.Box dummy_badge;
-        public string contents;
-        public string title;
         public int uid;
 
-        public TaskLine (MainWindow win, Widgets.TaskBox taskbox, string title, string contents, int uid) {
+        public TaskLine (MainWindow win, Widgets.TaskBox taskbox, int uid) {
             this.win = win;
-            this.title = title;
-            this.contents = contents;
             this.uid = uid;
             this.taskbox = taskbox;
             this.get_style_context ().add_class ("notejot-column-box");
@@ -51,7 +47,7 @@ namespace Notejot {
             var bar_c = bar.get_style_context ();
             bar_c.add_class ("notejot-bar");
 
-            task_label = new Gtk.Label (this.title);
+            task_label = new Gtk.Label (taskbox.title);
             task_label.halign = Gtk.Align.START;
             task_label.wrap = true;
             task_label.hexpand = true;
@@ -183,7 +179,7 @@ namespace Notejot {
             };
 
             popout_button.clicked.connect (() => {
-                var notewindow = new Widgets.NoteWindow (win, this.title, this.contents, this.uid);
+                var notewindow = new Widgets.NoteWindow (win, taskbox.title, taskbox.contents);
                 notewindow.run (null);
             });
 

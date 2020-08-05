@@ -73,6 +73,13 @@ namespace Notejot {
             this.show_all ();
         }
 
+        public void new_taskbox (MainWindow win, string title, string contents, string color) {
+            var taskbox = new Widgets.TaskBox (win, title, contents, color);
+            add (taskbox);
+            win.tm.save_notes ();
+            is_modified = true;
+        }
+
         public Gee.ArrayList<Gtk.FlowBoxChild> get_tasks () {
             var tasks = new Gee.ArrayList<Gtk.FlowBoxChild> ();
             foreach (Gtk.Widget item in this.get_children ()) {

@@ -17,9 +17,8 @@ namespace Notejot {
             return instance;
         }
 
-        public NoteWindow (MainWindow win, string? title, string? contents, int uid) {
+        public NoteWindow (MainWindow win, string title, string contents) {
             this.win = win;
-            this.uid = uid;
             this.title = title;
             this.contents = contents;
 
@@ -149,7 +148,6 @@ namespace Notejot {
                     ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
                     ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
                     ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();
-                    ((Widgets.TaskBox)child.get_child ()).taskline.title = editablelabel.title.get_label ();
                     notebar.set_title (editablelabel.title.get_label ());
                 });
                 win.tm.save_notes ();

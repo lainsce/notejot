@@ -125,18 +125,12 @@ namespace Notejot {
             new_button.get_style_context ().add_class ("notejot-button");
             titlebar.pack_start (new_button);
 
-            new_button.clicked.connect (() => {
-                var taskbox = new Widgets.TaskBox (this, "New Note", "Write a new note…", "#FCF092");
-                flowgrid.add (taskbox);
-                flowgrid.is_modified = true;
-                if (stack.get_visible_child () == welcome_view) {
-                    stack.set_visible_child (grid_view);
-                }
-                tm.save_notes ();
-            });
-
             // Grid View
             flowgrid = new Widgets.FlowGrid (this);
+
+            new_button.clicked.connect (() => {
+                flowgrid.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
+            });
 
             var flowgrid_scroller = new Gtk.ScrolledWindow (null, null);
             flowgrid_scroller.add (flowgrid);

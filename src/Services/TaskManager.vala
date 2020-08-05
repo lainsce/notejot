@@ -99,14 +99,11 @@ namespace Notejot {
                     var columns = array.get_array_element (0);
                     foreach (var tasks in columns.get_elements()) {
                         var task = tasks.get_array ();
-                        string title = task.get_string_element(0);
-                        string contents = task.get_string_element(1);
-                        string color = task.get_string_element(2);
+                        var title = task.get_string_element(0);
+                        var contents = task.get_string_element(1);
+                        var color = task.get_string_element(2);
 
-                        var taskbox = new Widgets.TaskBox (win, title, contents, color);
-                        win.flowgrid.add (taskbox);
-                        win.flowgrid.is_modified = true;
-                        save_notes ();
+                        win.flowgrid.new_taskbox (win, title, contents, color);
                     }
                 }
             } catch (Error e) {
