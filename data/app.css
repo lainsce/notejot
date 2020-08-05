@@ -64,7 +64,7 @@ window.rounded {
     background-color: #B8EFFA;
     color: #B8EFFA;
 }
-.color-indigo radio {
+.color-violet radio {
     background-color: #C0C0F5;
     color: #C0C0F5;
 }
@@ -82,7 +82,7 @@ window.rounded {
 }
 
 .notejot-tview {
-	background-color: #FFF;
+	background: #F7F7F7;
     padding: 6px;
     border-top: 1px solid alpha(black, 0.25);
 }
@@ -98,7 +98,7 @@ window.rounded {
 }
 
 .notejot-tview-dark {
-  background: #000;
+  background: #151515;
   border-top: 1px solid alpha(white, 0.25);
 }
 
@@ -213,15 +213,21 @@ window.rounded {
     border-radius: 8px;
     box-shadow: none;
     font-weight: 300;
-    background: #FFF;
+    background: #F7F7F7;
+}
+
+.notejot-entry-dark {
+    background: #151515;
 }
 
 .notejot-stack {
     background: #F7F7F7;
+    color: #151515;
 }
 
 .notejot-stack-dark {
     background: #151515;
+    color: #F7F7F7;
 }
 
 .vsep {
@@ -262,11 +268,13 @@ window.rounded {
 }
 
 .notejot-side-button {
-    background: mix (@accent_color, @base_color, 0.85);
+    background: @accent_color;
+    border: 1px solid @accent_color;
     box-shadow: none;
     padding: 8px;
     margin: 0;
     border-radius: 8px;
+    color: #000;
 }
 
 .notejot-side-button:active,

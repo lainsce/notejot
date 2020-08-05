@@ -56,7 +56,7 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.main_view.grid_view.flowgrid);
+            save_column (builder, win.flowgrid);
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
@@ -72,10 +72,10 @@ namespace Notejot {
             if (flowgrid.get_children () != null) {
                 foreach (Gtk.FlowBoxChild item in flowgrid.get_tasks ()) {
                     builder.begin_array ();
-                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.title);
-                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.contents);
-                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).task.color);
-                    builder.add_int_value (((Widgets.TaskBox)item.get_child ()).task.uid);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
+                    builder.add_int_value (((Widgets.TaskBox)item.get_child ()).uid);
                     builder.end_array ();
                 }
             }
@@ -105,10 +105,9 @@ namespace Notejot {
                         string color = task.get_string_element(2);
                         int64 uid = task.get_int_element(3);
 
-                        var atask = new Services.Task (win, title, contents, color, ((int)uid));
-                        var taskbox = new Widgets.TaskBox (win, atask);
-                        win.main_view.grid_view.flowgrid.add (taskbox);
-                        win.main_view.grid_view.flowgrid.is_modified = true;
+                        var taskbox = new Widgets.TaskBox (win, title, contents, color, ((int)uid));
+                        win.flowgrid.add (taskbox);
+                        win.flowgrid.is_modified = true;
                     }
                 }
             } catch (Error e) {

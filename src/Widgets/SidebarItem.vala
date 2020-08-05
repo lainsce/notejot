@@ -34,7 +34,7 @@ namespace Notejot {
         }
 
         public void destroy_item () {
-            win.sidebar.notes_category.remove(this);
+            win.notes_category.remove(this);
         }
     }
 }

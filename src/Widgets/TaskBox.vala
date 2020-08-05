@@ -27,47 +27,46 @@ namespace Notejot {
         public Gtk.Label task_label;
 
         public int uid;
+        public string contents;
+        public string title;
+        public string color;
 
-        public Services.Task task;
         public Widgets.SidebarItem sidebaritem;
 
-        public TaskBox (MainWindow win, Services.Task task) {
+        public TaskBox (MainWindow win, string? title, string? contents, string? color, int? uid) {
             this.win = win;
-            this.task = task;
             this.get_style_context ().add_class ("notejot-column-box");
 
-            this.uid = uid_counter++;
-            task.uid = this.uid;
+            this.uid = uid + uid_counter++;
 
-            update_theme ();
+            this.title = title;
+            this.contents = contents;
+            this.color = color;
 
+            update_theme (this.color);
             win.tm.save_notes ();
 
-            sidebaritem = new Widgets.SidebarItem (win, task.title);
-            win.sidebar.notes_category.add (sidebaritem);
-
-            // Note View
-            var note_view = new Views.NoteView (win, task);
-            win.main_view.stack.add (note_view);
+            sidebaritem = new Widgets.SidebarItem (win, this.title);
+            win.notes_category.add (sidebaritem);
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");
 
-            task_label = new Gtk.Label (task.title);
-            task_label.halign = Gtk.Align.START;
+            task_label = new Gtk.Label (this.title);
+            task_label.halign = Gtk.Align.CENTER;
             task_label.wrap = true;
             task_label.hexpand = true;
             task_label.max_width_chars = 24;
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
-            task_contents = new Gtk.Label (task.contents);
+            task_contents = new Gtk.Label (this.contents);
             task_contents.halign = Gtk.Align.START;
             task_contents.wrap = true;
             task_contents.wrap_mode = Pango.WrapMode.WORD_CHAR;
             task_contents.hexpand = true;
             task_contents.use_markup = true;
-            task_contents.max_width_chars = 18;
+            task_contents.max_width_chars = 24;
             task_contents.get_style_context ().add_class ("notejot-tc");
 
             var color_button_red = new Gtk.RadioButton (null) {
@@ -100,11 +99,11 @@ namespace Notejot {
             color_button_blue.get_style_context ().add_class ("color-button");
             color_button_blue.get_style_context ().add_class ("color-blue");
 
-            var color_button_indigo = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Indigo")
+            var color_button_violet = new Gtk.RadioButton.from_widget (color_button_red) {
+                tooltip_text = _("Violet")
             };
-            color_button_indigo.get_style_context ().add_class ("color-button");
-            color_button_indigo.get_style_context ().add_class ("color-indigo");
+            color_button_violet.get_style_context ().add_class ("color-button");
+            color_button_violet.get_style_context ().add_class ("color-violet");
 
             var color_button_neutral = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Gray")
@@ -121,7 +120,7 @@ namespace Notejot {
             color_button_box.add (color_button_yellow);
             color_button_box.add (color_button_green);
             color_button_box.add (color_button_blue);
-            color_button_box.add (color_button_indigo);
+            color_button_box.add (color_button_violet);
             color_button_box.add (color_button_neutral);
 
             var color_button_label = new Granite.HeaderLabel (_("Note Badge Color"));
@@ -132,13 +131,12 @@ namespace Notejot {
 			delete_note_button.clicked.connect (() => {
                 this.get_parent ().destroy ();
                 win.tm.save_notes ();
-                if (win.main_view.grid_view.flowgrid.get_children () == null) {
-                    if (win.main_view.stack.get_visible_child () == win.main_view.grid_view) {
-                        win.main_view.stack.set_visible_child (win.main_view.welcome_view);
+                if (win.flowgrid.get_children () == null) {
+                    if (win.stack.get_visible_child () == win.grid_view) {
+                        win.stack.set_visible_child (win.welcome_view);
                     }
                 }
                 sidebaritem.destroy_item ();
-                win.main_view.stack.remove (note_view);
 			});
 
             var setting_grid = new Gtk.Grid ();
@@ -162,38 +160,31 @@ namespace Notejot {
             app_button.halign = Gtk.Align.END;
 
             color_button_red.clicked.connect (() => {
-                task.color = "#F3ACAA";
-                update_theme();
+                update_theme("#F3ACAA");
             });
 
             color_button_orange.clicked.connect (() => {
-                task.color = "#FFC78B";
-                update_theme();
+                update_theme("#FFC78B");
             });
 
             color_button_yellow.clicked.connect (() => {
-                task.color = "#FCF092";
-                update_theme();
+                update_theme("#FCF092");
             });
 
             color_button_green.clicked.connect (() => {
-                task.color = "#B1FBA2";
-                update_theme();
+                update_theme("#B1FBA2");
             });
 
             color_button_blue.clicked.connect (() => {
-                task.color = "#B8EFFA";
-                update_theme();
+                update_theme("#B8EFFA");
             });
 
-            color_button_indigo.clicked.connect (() => {
-                task.color = "#C0C0F5";
-                update_theme();
+            color_button_violet.clicked.connect (() => {
+                update_theme("#C0C0F5");
             });
 
             color_button_neutral.clicked.connect (() => {
-                task.color = "#DADADA";
-                update_theme();
+                update_theme("#DADADA");
             });
 
             var popout_button = new Gtk.Button () {
@@ -203,7 +194,7 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                var notewindow = new Widgets.NoteWindow (win, task, uid);
+                var notewindow = new Widgets.NoteWindow (win, this.title, this.contents, this.uid);
                 notewindow.run (null);
             });
             
@@ -245,31 +236,35 @@ namespace Notejot {
             });
         }
 
-        private void update_theme() {
+        private void update_theme(string? color) {
             var css_provider = new Gtk.CssProvider();
-
             string style = null;
             style = (N_("""
             .notejot-note-grid-%d {
-                background-image: linear-gradient(to bottom, %s 30px, shade(#F7F7F7, 1.2) 1px);
+                background-image: linear-gradient(to bottom, %s 30px, #F7F7F7 1px);
             }
             .notejot-note-grid-dark-%d {
-                background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, shade(#151515, 1.2) 1px);
+                background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, #151515 1px);
             }
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;
                 background-color: %s;
                 box-shadow: none;
-                text-shadow: 1px 1px transparent;
                 background-image: none;
-                padding: 0;
+                padding: 0 5px;
                 color: #000;
+            }
+            .notejot-nbar-dark-%d {
+                background-color: shade(%s, 0.8);
+            }
+            .notejot-nbar-%d label {
+                text-shadow: 1px 1px transparent;
             }
             .notejot-nbar-%d image {
                 -gtk-icon-shadow: 1px 1px transparent;
                 color: #000;
             }
-            """)).printf(uid, task.color, uid, task.color, uid, task.color, uid);
+            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid);
 
             try {
                 css_provider.load_from_data(style, -1);
@@ -283,6 +278,7 @@ namespace Notejot {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
 
+            this.color = color;
             win.tm.save_notes ();
         }
     }

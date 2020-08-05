@@ -20,21 +20,11 @@ namespace Notejot {
     public class Widgets.TextField : WebKit.WebView {
         public MainWindow win;
         public string html = "";
+        public string text = "";
         public string val = "";
 
-        public string text {
-            get {
-                return val;
-            }
-
-            set {
-                val = value;
-            }
-        }
-
-        public TextField (MainWindow win, string text) {
+        public TextField (MainWindow win) {
             this.win = win;
-            this.text = text;
             this.expand = true;
             this.editable = true;
             this.get_style_context ().add_class ("notejot-tview");
@@ -77,14 +67,12 @@ namespace Notejot {
             run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
-                    if (data != null && win.main_view != null) {
+                    if (data != null && win != null) {
                         val = data.get_js_value ().to_string ();
                         text = val;
-                        win.main_view.grid_view.flowgrid.selected_foreach ((item, child) => {
-                            if (((Widgets.TaskBox)child.get_child ()).task.uid == ((Widgets.TaskBox)child.get_child ()).uid) {
-                                ((Widgets.TaskBox)child.get_child ()).task.contents = val;
-                                ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val);
-                            }
+                        win.flowgrid.selected_foreach ((item, child) => {
+                            ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);
+                            ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
                         });
                     }
                 } catch (Error e) {
