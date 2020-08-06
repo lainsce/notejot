@@ -202,6 +202,10 @@ window.rounded {
     padding: 0;
 }
 
+.notejot-category {
+    opacity: 0.8;
+}
+
 .notejot-column-box {
     padding: 6px;
     margin: 6px;
@@ -290,6 +294,11 @@ window.rounded {
     padding: 8px;
     margin: 0;
     border-radius: 8px;
+    opacity: 0.8;
+}
+
+.notejot-side-button:first-child {
+    margin-bottom: 6px;
 }
 
 .notejot-side-button:active,
@@ -307,8 +316,5 @@ window.rounded {
 }
 
 .notejot-side-button label {
-  margin-right: 7rem;
-}
-.notejot-side-button image {
-  margin-left: 1rem;
+  margin-right: 8.7rem;
 }

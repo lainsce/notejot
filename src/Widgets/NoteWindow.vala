@@ -1,26 +1,30 @@
 namespace Notejot {
     public class Widgets.NoteWindow : Gtk.Application {
-        private MainWindow win = null;
-        private static NoteWindow? instance = null;
         private Hdy.ApplicationWindow window;
-        public Gtk.ToggleButton format_button;
-        public Widgets.TextField textfield;
-        public Widgets.EditableLabel editablelabel;
+        private int uid;
+        private static NoteWindow? instance = null;
+
+        public Gdk.RGBA colors;
         public Gtk.ActionBar toolbar;
         public Gtk.Revealer toolbar_revealer;
-        private int uid;
+        public Gtk.ToggleButton format_button;
+        public MainWindow? win;
+
         public string contents;
         public string title;
-        public Gdk.RGBA colors;
+
+        public Widgets.EditableLabel? editablelabel;
+        public Widgets.TextField? textfield;
 
         public static NoteWindow get_instance () {
             return instance;
         }
 
-        public NoteWindow (MainWindow win, string title, string contents) {
+        public NoteWindow (MainWindow win, string title, string contents, int uid) {
             this.win = win;
             this.title = title;
             this.contents = contents;
+            this.uid = uid;
 
             window = new Hdy.ApplicationWindow ();
 
@@ -148,6 +152,7 @@ namespace Notejot {
                     ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
                     ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
                     ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();
+                    ((Widgets.TaskBox)child.get_child ()).taskline.task_label.label = editablelabel.title.get_label ();
                     notebar.set_title (editablelabel.title.get_label ());
                 });
                 win.tm.save_notes ();

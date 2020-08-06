@@ -160,16 +160,18 @@ namespace Notejot {
             sidebar_categories.margin_top = 4;
 			sidebar_categories.margin_start = sidebar_categories.margin_end = 8;
             notes_category = new Granite.Widgets.SourceList.ExpandableItem ("");
+            notes_category.collapsible = false;
             notes_category.markup = _("NOTES");
             notes_category.tooltip = _("Your notes will appear here.");
-			notes_category.set_data("item-name", "projects");
+            notes_category.set_data("item-name", "projects");
 			sidebar_categories.root.add(notes_category);
-			sidebar_categories.root.expand_all();
+            sidebar_categories.root.expand_all();
+            sidebar_categories.opacity = 0.8;
 
             var sidebar_button_grid = new Gtk.Button.with_label (_("Grid"));
             sidebar_button_grid.image = new Gtk.Image.from_icon_name ("view-grid-symbolic", Gtk.IconSize.BUTTON);
             sidebar_button_grid.always_show_image = true;
-            sidebar_button_grid.tooltip_text = (_("Go Back to Notes Overview"));
+            sidebar_button_grid.tooltip_text = (_("Go Back to Notes Grid"));
             sidebar_button_grid.get_style_context ().add_class ("notejot-side-button");
 
             sidebar_button_grid.clicked.connect (() => {
@@ -179,7 +181,7 @@ namespace Notejot {
             var sidebar_button_list = new Gtk.Button.with_label (_("List "));
             sidebar_button_list.image = new Gtk.Image.from_icon_name ("view-list-symbolic", Gtk.IconSize.BUTTON);
             sidebar_button_list.always_show_image = true;
-            sidebar_button_list.tooltip_text = (_("Go Back to Notes Overview"));
+            sidebar_button_list.tooltip_text = (_("Go Back to Notes List"));
             sidebar_button_list.get_style_context ().add_class ("notejot-side-button");
 
             sidebar_button_list.clicked.connect (() => {

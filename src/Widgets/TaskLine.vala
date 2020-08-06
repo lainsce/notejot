@@ -179,7 +179,7 @@ namespace Notejot {
             };
 
             popout_button.clicked.connect (() => {
-                var notewindow = new Widgets.NoteWindow (win, taskbox.title, taskbox.contents);
+                var notewindow = new Widgets.NoteWindow (win, taskbox.title, taskbox.contents, taskbox.uid);
                 notewindow.run (null);
             });
 

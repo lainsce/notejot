@@ -19,6 +19,7 @@
 namespace Notejot {
     public class Widgets.TaskBox : Gtk.Grid {
         private MainWindow win;
+        public Widgets.NoteWindow notewindow;
         private static int uid_counter;
 
         public Gtk.ActionBar bar;
@@ -65,13 +66,17 @@ namespace Notejot {
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
             task_contents = new Gtk.Label (this.contents);
-            task_contents.halign = Gtk.Align.START;
+            task_contents.halign = task_contents.valign = Gtk.Align.START;
             task_contents.wrap = true;
             task_contents.wrap_mode = Pango.WrapMode.WORD_CHAR;
             task_contents.hexpand = true;
             task_contents.use_markup = true;
             task_contents.max_width_chars = 24;
             task_contents.get_style_context ().add_class ("notejot-tc");
+
+            var task_contents_holder = new Gtk.ScrolledWindow (null, null);
+            task_contents_holder.vexpand = true;
+            task_contents_holder.add (task_contents);
 
             var color_button_red = new Gtk.RadioButton (null) {
                 tooltip_text = _("Red")
@@ -199,7 +204,7 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                var notewindow = new Widgets.NoteWindow (win, this.title, this.contents);
+                notewindow = new Widgets.NoteWindow (win, this.title, this.contents, this.uid);
                 notewindow.run (null);
             });
             
@@ -214,7 +219,7 @@ namespace Notejot {
             this.valign = Gtk.Align.CENTER;
             this.row_spacing = 12;
             this.add (bar);
-            this.add (task_contents);
+            this.add (task_contents_holder);
             this.expand = false;
             this.show_all ();
 
