@@ -17,16 +17,14 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.TextField : WebKit.WebView {
+    public class Widgets.TaskContentView : WebKit.WebView {
         public MainWindow win;
-        public string html = "";
         public string text = "";
-        public string val = "";
 
-        public TextField (MainWindow win) {
+        public TaskContentView (MainWindow win, string text) {
             this.win = win;
             this.expand = true;
-            this.editable = true;
+            this.text = text;
             this.get_style_context ().add_class ("notejot-tview");
 
             var settings = new WebKit.Settings ();
@@ -64,16 +62,15 @@ namespace Notejot {
         }
 
         public void send_text () {
-            run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
+            run_javascript.begin("""document.body.innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null && win != null) {
-                        val = data.get_js_value ().to_string ();
+                        var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
                         win.flowgrid.selected_foreach ((item, child) => {
                             ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
                             ((Widgets.TaskBox)child.get_child ()).notewindow.contents = val == "" ? " " : val;
-                            ((Widgets.TaskBox)child.get_child ()).task_contents.text = val == "" ? " " : val;
                         });
                     }
                 } catch (Error e) {
@@ -102,18 +99,17 @@ namespace Notejot {
 
         public void update_html_view () {
             string style = set_stylesheet ();
-            html = """
+            var html = """
             <!doctype html>
             <html>
                 <head>
                     <meta charset="utf-8">
                     <style>%s</style>
                 </head>
-                <body>
-                    <div id="textarea">%s</div>
-                </body>
-            </html>""".printf(style, text);
+                <body>%s</body>
+            </html>""".printf(style, this.text);
             this.load_html (html, "file:///");
+            win.tm.save_notes ();
         }
     }
 }

@@ -28,10 +28,10 @@ public class Notejot.Styles.light {
       background-color: #F7F7F7;
       font-weight: 400;
       line-height: 1.618rem;
-      margin-left: 1.45rem;
-      margin-right: 1rem;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      margin-left: 8px;
+      margin-right: 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
       text-align: left;
     }
   """;

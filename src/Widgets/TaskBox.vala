@@ -24,7 +24,7 @@ namespace Notejot {
 
         public Gtk.ActionBar bar;
         public Gtk.Grid main_grid;
-        public Gtk.Label task_contents;
+        
         public Gtk.Label task_label;
 
         public int uid;
@@ -34,6 +34,7 @@ namespace Notejot {
 
         public Widgets.SidebarItem sidebaritem;
         public Widgets.TaskLine taskline;
+        public Widgets.TaskContentView task_contents;
 
         public TaskBox (MainWindow win, string? title, string? contents, string? color) {
             this.win = win;
@@ -65,15 +66,8 @@ namespace Notejot {
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
-            task_contents = new Gtk.Label (this.contents);
-            task_contents.halign = task_contents.valign = Gtk.Align.START;
-            task_contents.wrap = true;
-            task_contents.wrap_mode = Pango.WrapMode.WORD_CHAR;
-            task_contents.hexpand = true;
-            task_contents.use_markup = true;
-            task_contents.max_width_chars = 24;
-            task_contents.get_style_context ().add_class ("notejot-tc");
-
+            task_contents = new Widgets.TaskContentView (win, this.contents);
+            task_contents.update_html_view ();
             var task_contents_holder = new Gtk.ScrolledWindow (null, null);
             task_contents_holder.vexpand = true;
             task_contents_holder.add (task_contents);
@@ -204,7 +198,7 @@ namespace Notejot {
             bar.pack_start (popout_button);
 
             popout_button.clicked.connect (() => {
-                notewindow = new Widgets.NoteWindow (win, this.title, this.contents, this.uid);
+                notewindow = new Widgets.NoteWindow (win, this.task_contents, this.title, this.contents, this.uid);
                 notewindow.run (null);
             });
             

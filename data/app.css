@@ -166,7 +166,7 @@ window.rounded {
 .notejot-lview {
     background: #F7F7F7;
     padding: 12px;
-    padding-top: 45px;
+    padding-top: 50px;
 }
 
 .notejot-lview-dark {
@@ -176,7 +176,7 @@ window.rounded {
 .notejot-fgview {
     background: #F7F7F7;
     padding: 12px;
-    padding-top: 45px;
+    padding-top: 50px;
 }
 
 .notejot-fgview flowboxchild:selected .notejot-note-grid {

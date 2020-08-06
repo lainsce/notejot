@@ -20,7 +20,7 @@ namespace Notejot {
             return instance;
         }
 
-        public NoteWindow (MainWindow win, string title, string contents, int uid) {
+        public NoteWindow (MainWindow win, Widgets.TaskContentView tcv, string title, string contents, int uid) {
             this.win = win;
             this.title = title;
             this.contents = contents;
@@ -57,16 +57,25 @@ namespace Notejot {
             notebar.pack_end (sync_button);
             notebar.pack_end (format_button);
 
-            sync_button.clicked.connect (() => {
-                textfield.send_text ();
-                win.tm.save_notes ();
-            });
-
             // Note View
-            textfield = new Widgets.TextField (win);            
+            var textfield = new Widgets.TextField (win);            
             editablelabel = new Widgets.EditableLabel (win, this.title);
             toolbar = new Gtk.ActionBar ();
             toolbar.get_style_context ().add_class ("notejot-abar");
+
+            textfield.text = this.contents;
+            textfield.update_html_view ();
+
+            sync_button.clicked.connect (() => {
+                // Hella hackish JavaScript but to make it work it's needed.
+                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
+                textfield.send_text ();
+                tcv.text = textfield.text;
+                tcv.send_text ();
+                tcv.reload_bypass_cache ();
+                tcv.update_html_view ();
+                win.tm.save_notes ();
+            });
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             sep.get_style_context ().add_class ("vsep");
@@ -177,15 +186,8 @@ namespace Notejot {
                     Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
                     toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
                 }
-                textfield.text = this.contents;
-                textfield.connect_signals ();
-                win.tm.save_notes ();
             });
 
-            if (uid == this.uid) {
-                textfield.text = this.contents;
-                textfield.connect_signals ();
-            }
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 editablelabel.get_style_context ().add_class ("notejot-tview-dark");
