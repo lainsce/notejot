@@ -209,7 +209,7 @@ window.rounded {
 .notejot-column-box {
     padding: 6px;
     margin: 6px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     border-radius: 8px;
     color: @fg_color;
     background: #f7f7f7;
