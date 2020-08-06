@@ -27,9 +27,9 @@ namespace Notejot {
         public Gtk.Label task_label;
 
         public int uid;
-        public string contents;
-        public string title;
-        public string color;
+        public string color = "#FFE16B";
+        public string title = "New Note…";
+        public string contents = "Write a new note…";
 
         public Widgets.SidebarItem sidebaritem;
         public Widgets.TaskLine taskline;

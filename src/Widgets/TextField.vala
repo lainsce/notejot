@@ -64,12 +64,11 @@ namespace Notejot {
         }
 
         public void send_text () {
-            run_javascript.begin("""document.getElementById("textarea").innerHTML.replace("\n", "<br>");""", null, (obj, res) => {
+            run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null && win != null) {
                         val = data.get_js_value ().to_string ();
-                        text = val;
                         win.flowgrid.selected_foreach ((item, child) => {
                             ((Widgets.TaskBox)child.get_child ()).task_contents.set_label(val == "" ? " " : val);
                             ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
