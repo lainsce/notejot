@@ -67,7 +67,9 @@ namespace Notejot {
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
             task_contents = new Widgets.TaskContentView (win, this.contents);
+            task_contents.margin_bottom = 8;
             task_contents.update_html_view ();
+
             var task_contents_holder = new Gtk.ScrolledWindow (null, null);
             task_contents_holder.vexpand = true;
             task_contents_holder.add (task_contents);

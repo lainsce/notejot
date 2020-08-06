@@ -130,6 +130,11 @@ namespace Notejot {
 
             new_button.clicked.connect (() => {
                 flowgrid.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
+                if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
+                    stack.set_visible_child (grid_view);
+                } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
+                    stack.set_visible_child (list_view);
+                }
             });
 
             var flowgrid_scroller = new Gtk.ScrolledWindow (null, null);
@@ -176,6 +181,7 @@ namespace Notejot {
 
             sidebar_button_grid.clicked.connect (() => {
                 stack.set_visible_child (grid_view);
+                Notejot.Application.gsettings.set_string("last-view", "grid");
             });
 
             var sidebar_button_list = new Gtk.Button.with_label (_("List "));
@@ -186,6 +192,7 @@ namespace Notejot {
 
             sidebar_button_list.clicked.connect (() => {
                 stack.set_visible_child (list_view);
+                Notejot.Application.gsettings.set_string("last-view", "list");
             });
 
             var sidebar_button_holder = new Gtk.Grid ();
@@ -265,7 +272,15 @@ namespace Notejot {
             if (flowgrid.is_modified == false) {
                 stack.set_visible_child (welcome_view);
             } else {
-                stack.set_visible_child (grid_view);
+                if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
+                    stack.set_visible_child (grid_view);
+                    sidebar_button_grid.is_focus = true;
+                    sidebar_button_list.is_focus = false;
+                } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
+                    stack.set_visible_child (list_view);
+                    sidebar_button_list.is_focus = true;
+                    sidebar_button_grid.is_focus = false;
+                }
             }
 
             this.add (leaflet);

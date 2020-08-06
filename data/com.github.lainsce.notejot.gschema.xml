@@ -35,5 +35,10 @@
 			<summary>Show/Hide Formatting Bar</summary>
 			<description>Whether to show or not the Formatting Bar</description>
 		</key>
+		<key type="s" name="last-view">
+			<default>"grid"</default>
+			<summary>Last View Used</summary>
+			<description>The last view used in the UI</description>
+		</key>
 	</schema>
 </schemalist>

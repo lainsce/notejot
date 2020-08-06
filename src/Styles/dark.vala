@@ -27,6 +27,7 @@ public class Notejot.Styles.dark {
       color: #F7F7F7;
       background-color: #151515;
       font-weight: 400;
+      font-size: 1rem;
       line-height: 1.618rem;
       margin-left: 8px;
       margin-right: 8px;

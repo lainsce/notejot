@@ -26,6 +26,7 @@ public class Notejot.Styles.light {
     body {
       color: #151515;
       background-color: #F7F7F7;
+      font-size: 1rem;
       font-weight: 400;
       line-height: 1.618rem;
       margin-left: 8px;
