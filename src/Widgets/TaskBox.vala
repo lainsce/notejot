@@ -225,12 +225,14 @@ namespace Notejot {
                 this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
                 taskline.get_style_context ().add_class ("notejot-column-box-dark");
                 taskline.dummy_badge.get_style_context ().add_class ("notejot-dbg-dark-%d".printf(uid));
+                task_contents.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 this.get_style_context ().remove_class ("notejot-note-grid-dark");
                 this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
                 taskline.get_style_context ().remove_class ("notejot-column-box-dark");
                 taskline.dummy_badge.get_style_context ().remove_class ("notejot-dbg-dark-%d".printf(uid));
+                task_contents.update_html_view ();
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
@@ -240,12 +242,14 @@ namespace Notejot {
                     this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
                     taskline.get_style_context ().add_class ("notejot-column-box-dark");
                     taskline.dummy_badge.get_style_context ().add_class ("notejot-dbg-dark-%d".printf(uid));
+                    task_contents.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     this.get_style_context ().remove_class ("notejot-note-grid-dark");
                     this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
                     taskline.get_style_context ().remove_class ("notejot-column-box-dark");
                     taskline.dummy_badge.get_style_context ().remove_class ("notejot-dbg-dark-%d".printf(uid));
+                    task_contents.update_html_view ();
                 }
             });
         }
