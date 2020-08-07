@@ -63,13 +63,12 @@ namespace Notejot {
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
 
             this.get_style_context().add_class("notejot-label");
-            this.get_style_context().add_class ("notejot-tview");
 
             title = new Gtk.Label (title_name);
             title.ellipsize = Pango.EllipsizeMode.END;
             title.hexpand = true;
-            title.halign = Gtk.Align.START;
-            title.margin_top = title.margin_start = 5;
+            title.halign = Gtk.Align.CENTER;
+            title.valign = Gtk.Align.CENTER;
 
             var edit_button = new Gtk.Button ();
             edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
@@ -92,22 +91,18 @@ namespace Notejot {
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 entry.get_style_context ().add_class ("notejot-entry-dark");
-                this.get_style_context ().add_class ("notejot-tview-dark");
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 entry.get_style_context ().remove_class ("notejot-entry-dark");
-                this.get_style_context ().remove_class ("notejot-tview-dark");
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     entry.get_style_context ().add_class ("notejot-entry-dark");
-                    this.get_style_context ().add_class ("notejot-tview-dark");
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     entry.get_style_context ().remove_class ("notejot-entry-dark");
-                    this.get_style_context ().remove_class ("notejot-tview-dark");
                 }
             });
 
@@ -115,11 +110,9 @@ namespace Notejot {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     entry.get_style_context ().add_class ("notejot-entry-dark");
-                    this.get_style_context ().add_class ("notejot-tview-dark");
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     entry.get_style_context ().remove_class ("notejot-entry-dark");
-                    this.get_style_context ().remove_class ("notejot-tview-dark");
                 }
             });
 
@@ -129,8 +122,7 @@ namespace Notejot {
 
             stack = new Gtk.Stack ();
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            stack.margin = 6;
-            stack.margin_bottom = 0;
+            stack.margin_top = stack.margin_bottom = 3;
             stack.add (grid);
             stack.add (entry);
             add (stack);

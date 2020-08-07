@@ -1,6 +1,6 @@
 namespace Notejot {
     public class Widgets.NoteWindow : Gtk.Application {
-        private Hdy.ApplicationWindow window;
+        private Hdy.Window window;
         private int uid;
         private static NoteWindow? instance = null;
 
@@ -26,19 +26,19 @@ namespace Notejot {
             this.contents = contents;
             this.uid = uid;
 
-            window = new Hdy.ApplicationWindow ();
+            window = new Hdy.Window ();
 
             var notebar = new Hdy.HeaderBar ();
             notebar.show_close_button = true;
             notebar.has_subtitle = false;
             notebar.set_size_request (-1, 30);
+            notebar.set_decoration_layout ("close:");
             notebar.get_style_context ().add_class ("notejot-nbar-%d".printf(this.uid));
             notebar.set_title (this.title);
             
             window.title = this.title;
-            window.set_size_request (450, 450);
+            window.set_size_request (375, 375);
             window.show_all ();
-            window.get_style_context ().add_class ("rounded");
             instance = this;
 
             format_button = new Gtk.ToggleButton () {
@@ -172,10 +172,10 @@ namespace Notejot {
             notegrid.orientation = Gtk.Orientation.VERTICAL;
             notegrid.add (notebar);
             notegrid.add (toolbar_revealer);
-            notegrid.add (editablelabel);
             notegrid.add (textfield);
             notegrid.show_all ();
 
+            notebar.set_custom_title (editablelabel);
             window.add (notegrid);
             window.show_all ();
 
@@ -191,14 +191,12 @@ namespace Notejot {
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                 textfield.get_style_context ().add_class ("notejot-tview-dark");
                 toolbar.get_style_context ().add_class ("notejot-abar-dark");
                 notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(uid));
                 textfield.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                 toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                 textfield.get_style_context ().remove_class ("notejot-tview-dark");
                 notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(uid));
@@ -208,14 +206,12 @@ namespace Notejot {
             Notejot.Application.gsettings.changed.connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                     textfield.get_style_context ().add_class ("notejot-tview-dark");
                     toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(uid));
                     textfield.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                     toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                     textfield.get_style_context ().remove_class ("notejot-tview-dark");
                     notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(uid));
@@ -227,14 +223,12 @@ namespace Notejot {
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    editablelabel.get_style_context ().add_class ("notejot-tview-dark");
                     textfield.get_style_context ().add_class ("notejot-tview-dark");
                     toolbar.get_style_context ().add_class ("notejot-abar-dark");
                     notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(uid));
                     textfield.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    editablelabel.get_style_context ().remove_class ("notejot-tview-dark");
                     toolbar.get_style_context ().remove_class ("notejot-abar-dark");
                     textfield.get_style_context ().remove_class ("notejot-tview-dark");
                     notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(uid));
