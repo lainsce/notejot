@@ -27,12 +27,25 @@ public class Notejot.Styles.dark {
       color: #F7F7F7;
       background-color: #151515;
       font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.618rem;
-      margin-left: 8px;
-      margin-right: 8px;
-      margin-top: 8px;
-      margin-bottom: 8px;
+      font-size: 10pt;
+      letter-spacing:	0.12;
+      line-height: 1rem;
+      text-align: left;
+    }
+  """;
+  public const string css_large="""
+    html {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    body {
+      color: #F7F7F7;
+      background-color: #151515;
+      font-weight: 400;
+      font-size: 13pt;
+      letter-spacing: -0.08;
+      line-height: 1.6rem;
       text-align: left;
     }
   """;

@@ -36,7 +36,6 @@ namespace Notejot {
             notebar.set_title (this.title);
             
             window.title = this.title;
-            window.resizable = false;
             window.set_size_request (450, 450);
             window.show_all ();
             window.get_style_context ().add_class ("rounded");

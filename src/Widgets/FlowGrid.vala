@@ -24,7 +24,9 @@ namespace Notejot {
         public FlowGrid (MainWindow win) {
             this.win = win;
             this.expand = true;
-            this.column_spacing = this.row_spacing = 12;
+            this.column_spacing = 30;
+            this.row_spacing = 30;
+            this.homogeneous = true;
             this.max_children_per_line = 3;
             this.activate_on_single_click = true;
             this.selection_mode = Gtk.SelectionMode.SINGLE;

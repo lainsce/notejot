@@ -26,13 +26,26 @@ public class Notejot.Styles.light {
     body {
       color: #151515;
       background-color: #F7F7F7;
-      font-size: 1rem;
+      font-size: 10pt;
+      letter-spacing: 0.12;
       font-weight: 400;
-      line-height: 1.618rem;
-      margin-left: 8px;
-      margin-right: 8px;
-      margin-top: 8px;
-      margin-bottom: 8px;
+      line-height: 1rem;
+      text-align: left;
+    }
+  """;
+  public const string css_large="""
+    html {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    body {
+      color: #151515;
+      background-color: #F7F7F7;
+      font-size: 13pt;
+      letter-spacing: -0.08;
+      font-weight: 400;
+      line-height: 1.6rem;
       text-align: left;
     }
   """;

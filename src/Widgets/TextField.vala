@@ -84,18 +84,18 @@ namespace Notejot {
 
         private string set_stylesheet () {
             if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                string dark = Styles.dark.css;
+                string dark = Styles.dark.css_large;
                 return dark;
             } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode") == true) {
-                    string dark = Styles.dark.css;
+                    string dark = Styles.dark.css_large;
                     return dark;
                 } else {
-                    string normal = Styles.light.css;
+                    string normal = Styles.light.css_large;
                     return normal;
                 }
             } else {
-                string normal = Styles.light.css;
+                string normal = Styles.light.css_large;
                 return normal;
             }
         }

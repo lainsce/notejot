@@ -130,8 +130,6 @@ namespace Notejot {
             stack = new Gtk.Stack ();
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             stack.margin = 6;
-            stack.margin_top = 6;
-            stack.margin_start = 17;
             stack.margin_bottom = 0;
             stack.add (grid);
             stack.add (entry);
