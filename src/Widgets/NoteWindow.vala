@@ -64,11 +64,13 @@ namespace Notejot {
             toolbar.get_style_context ().add_class ("notejot-abar");
 
             textfield.text = this.contents;
+            // Hella hackish JavaScript but to make it work it's needed.
+            textfield.run_javascript.begin("""var str = document.getElementById("textarea").outerHTML;document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
             textfield.update_html_view ();
 
             sync_button.clicked.connect (() => {
                 // Hella hackish JavaScript but to make it work it's needed.
-                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
+                textfield.run_javascript.begin("""var str = document.getElementById("textarea").outerHTML;document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
                 textfield.send_text ();
                 tcv.text = textfield.text;
                 tcv.send_text ();
