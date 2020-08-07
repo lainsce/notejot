@@ -31,6 +31,7 @@ public class Notejot.Styles.dark {
       letter-spacing:	0.12;
       line-height: 1rem;
       text-align: left;
+      overflow-x: hidden;
     }
   """;
   public const string css_large="""

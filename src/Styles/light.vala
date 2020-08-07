@@ -31,6 +31,7 @@ public class Notejot.Styles.light {
       font-weight: 400;
       line-height: 1rem;
       text-align: left;
+      overflow-x: hidden;
     }
   """;
   public const string css_large="""

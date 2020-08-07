@@ -175,8 +175,8 @@ window.rounded {
 
 .notejot-fgview {
     background: #F7F7F7;
-    padding: 12px;
-    padding-top: 50px;
+    padding: 30px;
+    padding-top: 65px;
 }
 
 .notejot-fgview flowboxchild:selected .notejot-note-grid {
@@ -316,5 +316,9 @@ window.rounded {
 }
 
 .notejot-side-button label {
-  margin-right: 8.7rem;
+  margin-right: 8rem;
+}
+
+.notejot-side-button image {
+  margin-left: 0.8rem;
 }
