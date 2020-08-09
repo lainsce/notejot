@@ -145,8 +145,6 @@ namespace Notejot {
             grid_view = new Gtk.Grid ();
             grid_view.add (flowgrid_scroller);
 
-            scrolling_titlebar_change.begin ();
-
             // Sidebar
             fauxtitlebar = new Hdy.HeaderBar ();
             fauxtitlebar.set_size_request (199, 45);
@@ -287,6 +285,10 @@ namespace Notejot {
                 }
             }
 
+            var fgv = flowgrid_scroller.get_vadjustment ();
+            var flv = flowlist_scroller.get_vadjustment ();
+            scrolling_titlebar_change.begin (fgv, flv);
+
             this.add (leaflet);
             this.set_size_request (375, 600);
             this.show_all ();
@@ -308,95 +310,96 @@ namespace Notejot {
             return false;
         }
 
-        private async void scrolling_titlebar_change () {
-            var fgv = flowgrid_scroller.get_vadjustment ();
-            var flv = flowlist_scroller.get_vadjustment ();
-
-            fgv.value_changed.connect (() => {
-                if (fgv.get_value () >= 25.0) {
-                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                        if (fgv.get_value () >= 25.0) {
-                            titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
-                        } else if (fgv.get_value () < 25.0) {
+        private async void scrolling_titlebar_change (Gtk.Adjustment fgv, Gtk.Adjustment flv) {
+            new GLib.Thread<void> (null, () => {
+                fgv.value_changed.connect (() => {
+                    if (fgv.get_value () >= 25.0) {
+                        titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
+                        if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                            if (fgv.get_value () >= 25.0) {
+                                titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
+                            } else if (fgv.get_value () < 25.0) {
+                                titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                            }
+                        } else {
+                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                             titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
                         }
-                    } else {
-                        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                        Notejot.Application.gsettings.changed.connect (() => {
+                            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                                if (fgv.get_value () >= 25.0) {
+                                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
+                                } else if (fgv.get_value () < 25.0) {
+                                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                                }
+                            } else {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                                titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                            }
+                        });
+                        Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                                if (fgv.get_value () >= 25.0) {
+                                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
+                                } else if (fgv.get_value () < 25.0) {
+                                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                                }
+                            } else {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                                titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                            }
+                        });
+                    } else if (fgv.get_value () < 25.0) {
+                        titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
                         titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
                     }
-                    Notejot.Application.gsettings.changed.connect (() => {
-                        if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                            if (fgv.get_value () >= 25.0) {
-                                titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
-                            } else if (fgv.get_value () < 25.0) {
-                                titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                            }
-                        } else {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                            titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                        }
-                    });
-                    Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                        if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                            if (fgv.get_value () >= 25.0) {
-                                titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
-                            } else if (fgv.get_value () < 25.0) {
-                                titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                            }
-                        } else {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                            titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                        }
-                    });
-                } else if (fgv.get_value () < 25.0) {
-                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
-                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                }
-            });
+                });
 
-            flv.value_changed.connect (() => {
-                if (flv.get_value () >= 25.0) {
-                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
-                    Notejot.Application.gsettings.changed.connect (() => {
-                        if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                            if (fgv.get_value () >= 25.0) {
-                                titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
-                            } else if (fgv.get_value () < 25.0) {
+                flv.value_changed.connect (() => {
+                    if (flv.get_value () >= 25.0) {
+                        titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
+                        Notejot.Application.gsettings.changed.connect (() => {
+                            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                                if (fgv.get_value () >= 25.0) {
+                                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
+                                } else if (fgv.get_value () < 25.0) {
+                                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                                }
+                            } else {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                                 titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
                             }
-                        } else {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                            titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                        }
-                    });
-                    Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                        if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                            if (fgv.get_value () >= 25.0) {
-                                titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
-                            } else if (fgv.get_value () < 25.0) {
+                        });
+                        Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                                if (fgv.get_value () >= 25.0) {
+                                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar-dark");
+                                } else if (fgv.get_value () < 25.0) {
+                                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                                }
+                            } else {
+                                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                                 titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
                             }
-                        } else {
-                            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                            titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                        }
-                    });
-                } else if (flv.get_value () < 25.0) {
-                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
-                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
-                }
-            });
+                        });
+                    } else if (flv.get_value () < 25.0) {
+                        titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
+                        titlebar.get_style_context ().remove_class ("notejot-filled-toolbar-dark");
+                    }
+                });
 
-            if (flowgrid_scroller == null && flowlist_scroller == null) {
-                flv.value_changed.disconnect (flv.dispose);
-                fgv.value_changed.disconnect (fgv.dispose);
-            }
+                if (flowgrid_scroller == null && flowlist_scroller == null) {
+                    flv.value_changed.disconnect (flv.dispose);
+                    fgv.value_changed.disconnect (fgv.dispose);
+                }
+                scrolling_titlebar_change.callback ();
+            });
+            yield;
         }
 
         private void update () {
