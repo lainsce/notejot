@@ -59,32 +59,32 @@ namespace Notejot {
                 return false;
             });
 
-            var provider_dark = new Gtk.CssProvider ();
+            var provider = new Gtk.CssProvider ();
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                provider_dark.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_dark, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
+                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             } else {
-                Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider_dark);
+                Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
             }
 
             Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    provider_dark.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
-                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_dark, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                    provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 } else {
-                    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider_dark);
+                    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
                 }
             });
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    provider_dark.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
-                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_dark, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                    provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 } else {
-                    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider_dark);
+                    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
                 }
             });
         }
@@ -314,9 +314,9 @@ namespace Notejot {
 
         private void scrolling_titlebar_change (Gtk.Adjustment adjustment) {
             adjustment.value_changed.connect (() => {
-                if (adjustment.get_value () >= 25.0) {
+                if (adjustment.get_value () >= 30) {
                     titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
-                } else if (adjustment.get_value () < 25.0) {
+                } else if (adjustment.get_value () < 61) {
                     titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
                 }
             });

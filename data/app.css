@@ -48,7 +48,7 @@ window.rounded {
     background: #F7F7F7;
     color: #151515;
     border-bottom: 1px solid alpha (black, 0.25);
-    transition: all 200ms ease-in-out;
+    transition: all 300ms ease-in-out;
 }
 
 .color-button radio,
@@ -201,7 +201,8 @@ window.rounded {
     border-radius: 8px;
     color: @fg_color;
     background: #f7f7f7;
-    box-shadow: 0 1px 5px 5px alpha(black, 0.1);
+    box-shadow: 0 1px 3px 0 alpha(black, 0.1),
+                0 1px 2px 0 alpha(black, 0.06);
 }
 
 .notejot-column-box:selected {

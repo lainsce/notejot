@@ -30,7 +30,6 @@
     background: #151515;
 }
 
-
 .notejot-fgview flowboxchild:selected .notejot-note-grid {
     box-shadow: 0 1px 5px 5px alpha(black, 0.45);
 }
@@ -52,8 +51,8 @@
     color: #F7F7F7;
 }
 
-
 .notejot-note-grid {
     border-radius: 8px;
-    box-shadow: 0 1px 5px 5px alpha(black, 0.3);
+    box-shadow: 0 1px 3px 0 alpha(white, 0.1),
+                0 1px 2px 0 alpha(white, 0.06);
 }
