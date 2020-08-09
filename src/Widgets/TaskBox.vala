@@ -254,7 +254,7 @@ namespace Notejot {
                 background-image: linear-gradient(to bottom, %s 30px, #F7F7F7 1px);
             }
             .notejot-note-grid-dark-%d {
-                background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, #151515 1px);
+                background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, #303030 1px);
             }
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;
