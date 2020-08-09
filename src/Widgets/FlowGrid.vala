@@ -55,19 +55,15 @@ namespace Notejot {
 
             this.get_style_context ().add_class ("notejot-fgview");
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 this.get_style_context ().add_class ("notejot-fgview-dark");
             } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 this.get_style_context ().remove_class ("notejot-fgview-dark");
             }
 
-            Notejot.Application.gsettings.changed.connect (() => {
+            Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     this.get_style_context ().add_class ("notejot-fgview-dark");
                 } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     this.get_style_context ().remove_class ("notejot-fgview-dark");
                 }
             });

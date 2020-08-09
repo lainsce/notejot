@@ -88,34 +88,6 @@ namespace Notejot {
             entry = new Gtk.Entry ();
             entry.get_style_context().add_class("notejot-entry");
 
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                entry.get_style_context ().add_class ("notejot-entry-dark");
-            } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                entry.get_style_context ().remove_class ("notejot-entry-dark");
-            }
-
-            Notejot.Application.gsettings.changed.connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    entry.get_style_context ().add_class ("notejot-entry-dark");
-                } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    entry.get_style_context ().remove_class ("notejot-entry-dark");
-                }
-            });
-
-            Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    entry.get_style_context ().add_class ("notejot-entry-dark");
-                } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    entry.get_style_context ().remove_class ("notejot-entry-dark");
-                }
-            });
-
             var entry_style_context = entry.get_style_context ();
             entry_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
             entry_style_context.add_class (Gtk.STYLE_CLASS_TITLE);

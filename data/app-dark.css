@@ -1,0 +1,59 @@
+.notejot-tbar {
+    color: #F7F7F7;
+}
+
+.notejot-tbar .image-button {
+    color: #F7F7F7;
+}
+
+.notejot-filled-toolbar {
+    background: #151515;
+    color: #F7F7F7;
+    border-bottom: 1px solid alpha (white, 0.25);
+}
+
+.notejot-tview {
+  background: #151515;
+  border-top: 1px solid alpha(white, 0.25);
+}
+
+.notejot-abar {
+  background: #151515;
+  border-bottom: 1px solid alpha(white, 0.25);
+}
+
+.notejot-ntbar {
+	background: #151515;
+}
+
+.notejot-lview {
+    background: #151515;
+}
+
+
+.notejot-fgview flowboxchild:selected .notejot-note-grid {
+    box-shadow: 0 1px 5px 5px alpha(black, 0.45);
+}
+
+.notejot-fgview {
+    background: #151515;
+}
+
+.notejot-column-box {
+    background: #151515;
+}
+
+.notejot-entry {
+    background: #151515;
+}
+
+.notejot-stack {
+    background: #151515;
+    color: #F7F7F7;
+}
+
+
+.notejot-note-grid {
+    border-radius: 8px;
+    box-shadow: 0 1px 5px 5px alpha(black, 0.3);
+}

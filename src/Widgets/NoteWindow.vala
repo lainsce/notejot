@@ -189,54 +189,6 @@ namespace Notejot {
                 }
             });
 
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                textfield.get_style_context ().add_class ("notejot-tview-dark");
-                toolbar.get_style_context ().add_class ("notejot-abar-dark");
-                notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(uid));
-                textfield.update_html_view ();
-            } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                textfield.get_style_context ().remove_class ("notejot-tview-dark");
-                notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(uid));
-                textfield.update_html_view ();
-            }
-
-            Notejot.Application.gsettings.changed.connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    textfield.get_style_context ().add_class ("notejot-tview-dark");
-                    toolbar.get_style_context ().add_class ("notejot-abar-dark");
-                    notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(uid));
-                    textfield.update_html_view ();
-                } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                    textfield.get_style_context ().remove_class ("notejot-tview-dark");
-                    notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(uid));
-                    textfield.update_html_view ();
-                }
-                toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
-            });
-
-            Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    textfield.get_style_context ().add_class ("notejot-tview-dark");
-                    toolbar.get_style_context ().add_class ("notejot-abar-dark");
-                    notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(uid));
-                    textfield.update_html_view ();
-                } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    toolbar.get_style_context ().remove_class ("notejot-abar-dark");
-                    textfield.get_style_context ().remove_class ("notejot-tview-dark");
-                    notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(uid));
-                    textfield.update_html_view ();
-                }
-                toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
-            });
-
             window.delete_event.connect (() => {
                 win.tm.save_notes ();
                 instance = null;

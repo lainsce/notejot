@@ -20,10 +20,12 @@ window.rounded {
 }
 
 .notejot-tbar {
+    color: #151515;
     border-bottom: 1px solid alpha (black, 0);
 }
 
 .notejot-tbar .image-button {
+    color: #151515;
     border-radius: 8px;
 }
 
@@ -44,13 +46,9 @@ window.rounded {
 
 .notejot-filled-toolbar {
     background: #F7F7F7;
+    color: #151515;
     border-bottom: 1px solid alpha (black, 0.25);
-    transition: all 10ms linear;
-}
-
-.notejot-filled-toolbar-dark {
-    background: #151515;
-    border-bottom: 1px solid alpha (white, 0.25);
+    transition: all 200ms ease-in-out;
 }
 
 .color-button radio,
@@ -111,11 +109,6 @@ window.rounded {
     color: @fg_color;
 }
 
-.notejot-tview-dark {
-  background: #151515;
-  border-top: 1px solid alpha(white, 0.25);
-}
-
 .notejot-abar {
   background-color: #F7F7F7;
   border-bottom: 1px solid alpha(black, 0.25);
@@ -130,11 +123,6 @@ window.rounded {
 .notejot-abar .image-button:focus,
 .notejot-abar .image-button:hover {
   background: shade(@base_color, 0.88);
-}
-
-.notejot-abar-dark {
-  background: #151515;
-  border-bottom: 1px solid alpha(white, 0.25);
 }
 
 .notejot-bar {
@@ -169,10 +157,6 @@ window.rounded {
     background: #F7F7F7;
 }
 
-.notejot-ntbar-dark {
-	background: #151515;
-}
-
 .notejot-column,
 .notejot-column treeview {
     background: mix (@accent_color, @base_color, 0.85);
@@ -185,10 +169,6 @@ window.rounded {
     padding-top: 50px;
 }
 
-.notejot-lview-dark {
-    background: #151515;
-}
-
 .notejot-fgview {
     background: #F7F7F7;
     padding: 30px;
@@ -197,14 +177,6 @@ window.rounded {
 
 .notejot-fgview flowboxchild:selected .notejot-note-grid {
     box-shadow: 0 1px 5px 5px alpha(black, 0.25);
-}
-
-.notejot-fgview-dark flowboxchild:selected .notejot-note-grid {
-    box-shadow: 0 1px 5px 5px alpha(black, 0.45);
-}
-
-.notejot-fgview-dark {
-    background: #151515;
 }
 
 .notejot-column {
@@ -250,18 +222,9 @@ window.rounded {
     font-weight: 700;
 }
 
-.notejot-entry-dark {
-    background: #151515;
-}
-
 .notejot-stack {
     background: #F7F7F7;
     color: #151515;
-}
-
-.notejot-stack-dark {
-    background: #151515;
-    color: #F7F7F7;
 }
 
 .vsep {
@@ -271,11 +234,6 @@ window.rounded {
 .notejot-note-grid {
     border-radius: 8px;
     box-shadow: 0 1px 5px 5px alpha(black, 0.1);
-}
-
-.notejot-note-grid-dark {
-    border-radius: 8px;
-    box-shadow: 0 1px 5px 5px alpha(black, 0.3);
 }
 
 .notejot-note-list {
@@ -290,15 +248,6 @@ window.rounded {
     border-radius: 8px;
     background-color: shade(mix (@accent_color, @base_color, 0.85), 0.88);
     color: @fg_color;
-}
-
-.notejot-back-button {
-    background: mix (@accent_color, @base_color, 0.85);
-    box-shadow: none;
-    border: 1px solid shade(mix (@accent_color, @base_color, 0.85), 0.88);
-    border-radius: 8px;
-    padding: 3px;
-    margin: 6px 0;
 }
 
 .notejot-side-button {
