@@ -19,6 +19,10 @@ window.rounded {
     color: #D07070;
 }
 
+.notejot-tbar {
+    border-bottom: 1px solid alpha (black, 0);
+}
+
 .notejot-tbar .image-button {
     border-radius: 8px;
 }
@@ -38,6 +42,16 @@ window.rounded {
     background: shade(@base_color, 0.95);
 }
 
+.notejot-filled-toolbar {
+    background: #F7F7F7;
+    border-bottom: 1px solid alpha (black, 0.25);
+    transition: all 10ms linear;
+}
+
+.notejot-filled-toolbar-dark {
+    background: #151515;
+    border-bottom: 1px solid alpha (white, 0.25);
+}
 
 .color-button radio,
 .color-button radio:checked {
