@@ -31,8 +31,8 @@ namespace Notejot {
         public Gtk.Separator separator;
         public Gtk.Stack stack;
         public Gtk.ToggleButton format_button;
-        public Gtk.ScrolledWindow flowgrid_scroller;
-        public Gtk.ScrolledWindow flowlist_scroller;
+        public Gtk.ScrolledWindow grid_scroller;
+        public Gtk.ScrolledWindow list_scroller;
         public Granite.Widgets.SourceList sidebar_categories;
         public Granite.Widgets.SourceList.ExpandableItem notes_category;
         public Hdy.HeaderBar fauxtitlebar;
@@ -125,12 +125,6 @@ namespace Notejot {
                 image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
                 tooltip_text = (_("New Note"))
             };
-            new_button.get_style_context ().add_class ("notejot-button");
-            titlebar.pack_start (new_button);
-
-            // Grid View
-            flowgrid = new Widgets.FlowGrid (this);
-
             new_button.clicked.connect (() => {
                 flowgrid.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
                 if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
@@ -139,12 +133,8 @@ namespace Notejot {
                     stack.set_visible_child (list_view);
                 }
             });
-
-            flowgrid_scroller = new Gtk.ScrolledWindow (null, null);
-            flowgrid_scroller.add (flowgrid);
-
-            grid_view = new Gtk.Grid ();
-            grid_view.add (flowgrid_scroller);
+            new_button.get_style_context ().add_class ("notejot-button");
+            titlebar.pack_start (new_button);
 
             // Sidebar
             fauxtitlebar = new Hdy.HeaderBar ();
@@ -219,15 +209,45 @@ namespace Notejot {
             welcome_view.add (normal_icon);
             welcome_view.add (normal_label);
 
+            // Grid View
+            flowgrid = new Widgets.FlowGrid (this);
+
+            var grid_view_grid = new Gtk.Grid ();
+            grid_view_grid.add (flowgrid);
+
+            var grid_scrollable = new Widgets.Scrollable ();
+            grid_scrollable.visible = true;
+            grid_scrollable.header = titlebar;
+            grid_scrollable.add (grid_view_grid);
+
+            grid_view_grid.margin_top = grid_scrollable.header_height;
+
+            grid_scroller = new Gtk.ScrolledWindow (null, null);
+            grid_scroller.add (grid_scrollable);
+
+            grid_view = new Gtk.Grid ();
+            grid_view.add (grid_scroller);
+
             // List View
             flowlist = new Widgets.FlowList (this);
 
-            flowlist_scroller = new Gtk.ScrolledWindow (null, null);
-            flowlist_scroller.add (flowlist);
+            var list_view_grid = new Gtk.Grid ();
+            list_view_grid.add (flowlist);
+
+            var list_scrollable = new Widgets.Scrollable ();
+            list_scrollable.visible = true;
+            list_scrollable.header = titlebar;
+            list_scrollable.add (list_view_grid);
+
+            list_view_grid.margin_top = list_scrollable.header_height;
+
+            list_scroller = new Gtk.ScrolledWindow (null, null);
+            list_scroller.add (list_scrollable);
 
             list_view = new Gtk.Grid ();
-            list_view.add (flowlist_scroller);
+            list_view.add (list_scroller);
 
+            // Main View
             stack = new Gtk.Stack ();
             stack.get_style_context ().add_class ("notejot-stack");
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -286,8 +306,8 @@ namespace Notejot {
                 }
             }
 
-            var fgv = flowgrid_scroller.get_vadjustment ();
-            var flv = flowlist_scroller.get_vadjustment ();
+            var fgv = grid_scroller.get_vadjustment ();
+            var flv = list_scroller.get_vadjustment ();
             scrolling_titlebar_change (fgv);
             scrolling_titlebar_change (flv);
 
@@ -314,9 +334,9 @@ namespace Notejot {
 
         private void scrolling_titlebar_change (Gtk.Adjustment adjustment) {
             adjustment.value_changed.connect (() => {
-                if (adjustment.get_value () >= 30) {
+                if (adjustment.get_value () >= 22.12) {
                     titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
-                } else if (adjustment.get_value () < 61) {
+                } else if (adjustment.get_value () < 22.12) {
                     titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
                 }
             });

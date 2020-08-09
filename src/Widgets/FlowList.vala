@@ -19,20 +19,20 @@ namespace Notejot {
 
             this.get_style_context ().add_class ("notejot-lview");
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                this.get_style_context ().add_class ("notejot-lview-dark");
+                this.get_style_context ().add_class ("notejot-lview-bg-dark");
+                this.get_style_context ().remove_class ("notejot-lview-bg");
             } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                this.get_style_context ().remove_class ("notejot-lview-dark");
+                this.get_style_context ().remove_class ("notejot-lview-bg-dark");
+                this.get_style_context ().add_class ("notejot-lview-bg");
             }
 
-            Notejot.Application.gsettings.changed.connect (() => {
+            Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    this.get_style_context ().add_class ("notejot-lview-dark");
+                    this.get_style_context ().add_class ("notejot-lview-bg-dark");
+                    this.get_style_context ().remove_class ("notejot-lview-bg");
                 } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    this.get_style_context ().remove_class ("notejot-lview-dark");
+                    this.get_style_context ().remove_class ("notejot-lview-bg-dark");
+                    this.get_style_context ().add_class ("notejot-lview-bg");
                 }
             });
 
@@ -40,11 +40,11 @@ namespace Notejot {
             string res1 = "\"resource:///com/github/lainsce/notejot/image/bg1.png\"";
             string res2 = "\"resource:///com/github/lainsce/notejot/image/bg2.png\"";
             string css = """
-                .notejot-lview {
+                .notejot-lview-bg {
                     background-image: url(%s);
                     background-repeat: repeat;
                 }
-                .notejot-lview-dark {
+                .notejot-lview-bg-dark {
                     background-image: url(%s);
                     background-repeat: repeat;
                 }

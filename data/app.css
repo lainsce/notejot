@@ -11,6 +11,11 @@ window.rounded {
     border-radius: 0 0 8px 8px; 
 }
 
+.frame {
+    border: none;
+    box-shadow: none;
+}
+
 .title {
     font-weight: 700;
 }
@@ -138,8 +143,8 @@ window.rounded {
     color: #151515;
 }
 
-.notejot-column-box-dark .notejot-bar image {
-    color: #F7F7F7;
+.notejot-column-box .notejot-bar image {
+    color: #151515;
 }
 
 .notejot-tbar {
@@ -209,10 +214,6 @@ window.rounded {
     box-shadow: 0 1px 5px 5px alpha(black, 0.25);
 }
 
-.notejot-column-box-dark {
-    background: #151515;
-}
-
 .notejot-label {
     font-weight: 700;
 }
@@ -234,7 +235,8 @@ window.rounded {
 
 .notejot-note-grid {
     border-radius: 8px;
-    box-shadow: 0 1px 5px 5px alpha(black, 0.1);
+    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+                0 1px 2px 0 alpha(black, 0.26);
 }
 
 .notejot-note-list {

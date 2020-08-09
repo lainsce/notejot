@@ -52,6 +52,7 @@ executable(
     'src/Widgets/FlowList.vala',
     'src/Widgets/Menu.vala',
     'src/Widgets/NoteWindow.vala',
+    'src/Widgets/Scrollable.vala',
     'src/Widgets/SidebarItem.vala',
     'src/Widgets/TaskBox.vala',
     'src/Widgets/TaskLine.vala',
