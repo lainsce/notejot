@@ -44,6 +44,7 @@ namespace Notejot {
 
             update_html_view ();
             connect_signals ();
+            send_text ();
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 update_html_view ();
@@ -64,7 +65,7 @@ namespace Notejot {
         }
 
         public void send_text () {
-            run_javascript.begin("""document.getElementById("textarea").innerHTML;""", null, (obj, res) => {
+            run_javascript.begin("""document.body.innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null && win != null) {
@@ -109,9 +110,7 @@ namespace Notejot {
                     <meta charset="utf-8">
                     <style>%s</style>
                 </head>
-                <body>
-                    <div id="textarea">%s</div>
-                </body>
+                <body>%s</body>
             </html>""".printf(style, text);
             this.load_html (html, "file:///");
         }

@@ -25,6 +25,7 @@ namespace Notejot {
             this.win = win;
             this.expand = true;
             this.text = text;
+            this.set_can_default (false);
             this.get_style_context ().add_class ("notejot-tview");
 
             var settings = new WebKit.Settings ();
@@ -70,6 +71,7 @@ namespace Notejot {
                         this.text = val == "" ? " " : val;
                         win.flowgrid.selected_foreach ((item, child) => {
                             ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
+                            this.text = val == "" ? " " : val;
                             ((Widgets.TaskBox)child.get_child ()).notewindow.contents = val == "" ? " " : val;
                         });
                     }
