@@ -56,7 +56,8 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.gridview, win.trashview);
+            save_column (builder, win.gridview);
+            save_trash_column (builder, win.trashview);
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
@@ -67,8 +68,7 @@ namespace Notejot {
         }
 
         private static void save_column (Json.Builder builder,
-                                         Views.GridView gridview,
-                                         Views.TrashView trashview) {
+                                         Views.GridView gridview) {
             builder.begin_array ();
             if (gridview.get_children () != null) {
                 foreach (Gtk.FlowBoxChild item in gridview.get_tasks ()) {
@@ -79,16 +79,22 @@ namespace Notejot {
                     builder.end_array ();
                 }
             }
+	        builder.end_array ();
+        }
+
+        private static void save_trash_column (Json.Builder builder,
+                                              Views.TrashView trashview) {
+            builder.begin_array ();
             if (trashview.get_children () != null) {
-                foreach (Gtk.FlowBoxChild item in trashview.get_tasks ()) {
+                    foreach (Gtk.FlowBoxChild item in trashview.get_tasks ()) {
                     builder.begin_array ();
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
                     builder.end_array ();
+                    }
                 }
-            }
-	        builder.end_array ();
+            builder.end_array ();
         }
 
         public void load_from_file () {

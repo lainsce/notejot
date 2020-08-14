@@ -78,8 +78,8 @@ namespace Notejot {
             win.tm.save_notes ();
 
             this.set_size_request (200,200);
-            this.get_style_context ().add_class ("notejot-note-grid");
-            this.get_style_context ().add_class ("notejot-note-grid-%d".printf(uid));
+            this.get_style_context ().add_class ("notejot-note-trash");
+            this.get_style_context ().add_class ("notejot-note-trash-%d".printf(uid));
             this.orientation = Gtk.Orientation.VERTICAL;
             this.halign = Gtk.Align.CENTER;
             this.valign = Gtk.Align.CENTER;
@@ -91,22 +91,22 @@ namespace Notejot {
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
+                this.get_style_context ().add_class ("notejot-note-trash-dark-%d".printf(uid));
                 task_contents.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
+                this.get_style_context ().remove_class ("notejot-note-trash-dark-%d".printf(uid));
                 task_contents.update_html_view ();
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
+                    this.get_style_context ().add_class ("notejot-note-trash-dark-%d".printf(uid));
                     task_contents.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
+                    this.get_style_context ().remove_class ("notejot-note-trash-dark-%d".printf(uid));
                     task_contents.update_html_view ();
                 }
             });
@@ -116,31 +116,13 @@ namespace Notejot {
             var css_provider = new Gtk.CssProvider();
             string style = null;
             style = (N_("""
-            .notejot-note-grid-%d {
+            .notejot-note-trash-%d {
                 background-image: linear-gradient(to bottom, %s 30px, #F7F7F7 1px);
             }
-            .notejot-note-grid-dark-%d {
+            .notejot-note-trash-dark-%d {
                 background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, #303030 1px);
             }
-            .notejot-nbar-%d {
-                border-radius: 8px 8px 0 0;
-                background-color: %s;
-                box-shadow: none;
-                background-image: none;
-                padding: 0 5px;
-                color: #000;
-            }
-            .notejot-nbar-dark-%d {
-                background-color: shade(%s, 0.8);
-            }
-            .notejot-nbar-%d label {
-                text-shadow: 1px 1px transparent;
-            }
-            .notejot-nbar-%d image {
-                -gtk-icon-shadow: 1px 1px transparent;
-                color: #000;
-            }
-            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid);
+            """)).printf(uid, color, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);
