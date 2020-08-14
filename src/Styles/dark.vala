@@ -46,7 +46,7 @@ public class Notejot.Styles.dark {
       font-weight: 400;
       font-size: 12pt;
       letter-spacing: -0.08;
-      line-height: 1.6rem;
+      line-height: 1.5rem;
       text-align: left;
     }
   """;

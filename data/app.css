@@ -142,10 +142,10 @@ window.rounded {
 }
 
 .notejot-bar {
-    padding: 2px;
+    padding: 6px;
     text-shadow: 0 1px transparent;
     background: none;
-    font-weight: 700;
+    font-weight: 600;
     color: #151515;
 }
 

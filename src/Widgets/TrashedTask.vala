@@ -45,11 +45,11 @@ namespace Notejot {
             bar.get_style_context ().add_class ("notejot-bar");
 
             task_label = new Gtk.Label (this.title);
-            task_label.halign = Gtk.Align.CENTER;
+            task_label.halign = Gtk.Align.START;
+            task_label.valign = Gtk.Align.CENTER;
             task_label.wrap = true;
             task_label.hexpand = true;
             task_label.max_width_chars = 24;
-            task_label.margin_top = 5;
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
@@ -83,7 +83,7 @@ namespace Notejot {
             this.orientation = Gtk.Orientation.VERTICAL;
             this.halign = Gtk.Align.CENTER;
             this.valign = Gtk.Align.CENTER;
-            this.row_spacing = 12;
+            this.row_spacing = 6;
             this.add (bar);
             this.add (task_contents_holder);
             this.expand = false;
@@ -117,10 +117,10 @@ namespace Notejot {
             string style = null;
             style = (N_("""
             .notejot-note-trash-%d {
-                background-image: linear-gradient(to bottom, %s 30px, #F7F7F7 1px);
+                background-image: linear-gradient(to bottom, %s 35px, #F7F7F7 1px);
             }
             .notejot-note-trash-dark-%d {
-                background-image: linear-gradient(to bottom, shade(%s, 0.8) 30px, #303030 1px);
+                background-image: linear-gradient(to bottom, shade(%s, 0.8) 35px, #303030 1px);
             }
             """)).printf(uid, color, uid, color);
 
