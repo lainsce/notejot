@@ -42,7 +42,7 @@ public class Notejot.Styles.dark {
 
     body {
       color: #F7F7F7;
-      background-color: #151515;
+      background-color: #303030;
       font-weight: 400;
       font-size: 13pt;
       letter-spacing: -0.08;
