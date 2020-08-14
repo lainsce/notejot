@@ -1,23 +1,21 @@
 namespace Notejot {
-    public class Utils.Dialog : Granite.MessageDialog {
+    public class Utils.CleanTrashDialog : Granite.MessageDialog {
         public MainWindow win;
-        private Widgets.TaskBox? tb;
 
-        public Dialog (MainWindow win, Widgets.TaskBox tb) {
+        public CleanTrashDialog (MainWindow win) {
             Object (
                 image_icon: new ThemedIcon ("dialog-warning"),
-                primary_text: (_("Delete this Note?")),
-                secondary_text: (_("Deleting this note means its contents will be permanently lost."))
+                primary_text: (_("Empty Trash?")),
+                secondary_text: (_("Emptying the trash means all the notes in it will be permanently lost."))
             );
             
             this.win = win;
-            this.tb = tb;
             this.transient_for = this.win;
             this.modal = true;
         }
         construct {
             var cws = add_button ((_("Cancel")), Gtk.ResponseType.NO);
-            var save = add_button ((_("Delete Note")), Gtk.ResponseType.OK);
+            var save = add_button ((_("Empty Trash")), Gtk.ResponseType.OK);
             var save_context = save.get_style_context ();
             save_context.add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             
@@ -25,15 +23,8 @@ namespace Notejot {
             response.connect ((response_id) => {
                 switch (response_id) {
                     case Gtk.ResponseType.OK:
-                        if (win.flowgrid != null && win.notes_category != null){
-                            if (win.flowgrid.get_children () == null) {
-                                if (win.stack.get_visible_child () == win.grid_view) {
-                                    win.stack.set_visible_child (win.welcome_view);
-                                }
-                            }
-                            tb.get_parent ().destroy ();
-                            tb.sidebaritem.destroy_item ();
-                            tb.taskline.destroy ();
+                        foreach (Gtk.Widget item in win.trashview.get_children ()) {
+                            item.destroy ();
                         }
                         win.tm.save_notes ();
                         this.close ();

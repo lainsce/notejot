@@ -69,7 +69,7 @@ namespace Notejot {
                     if (data != null && win != null) {
                         var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
-                        win.flowgrid.selected_foreach ((item, child) => {
+                        win.gridview.selected_foreach ((item, child) => {
                             ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
                             this.text = val == "" ? " " : val;
                             ((Widgets.TaskBox)child.get_child ()).notewindow.contents = val == "" ? " " : val;

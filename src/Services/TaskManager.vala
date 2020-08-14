@@ -56,7 +56,7 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.flowgrid);
+            save_column (builder, win.gridview, win.trashview);
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
@@ -67,10 +67,11 @@ namespace Notejot {
         }
 
         private static void save_column (Json.Builder builder,
-                                         Widgets.FlowGrid flowgrid) {
+                                         Views.GridView gridview,
+                                         Views.TrashView trashview) {
             builder.begin_array ();
-            if (flowgrid.get_children () != null) {
-                foreach (Gtk.FlowBoxChild item in flowgrid.get_tasks ()) {
+            if (gridview.get_children () != null) {
+                foreach (Gtk.FlowBoxChild item in gridview.get_tasks ()) {
                     builder.begin_array ();
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
                     builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
@@ -78,7 +79,15 @@ namespace Notejot {
                     builder.end_array ();
                 }
             }
-            
+            if (trashview.get_children () != null) {
+                foreach (Gtk.FlowBoxChild item in trashview.get_tasks ()) {
+                    builder.begin_array ();
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
+                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
+                    builder.end_array ();
+                }
+            }
 	        builder.end_array ();
         }
 
@@ -96,14 +105,23 @@ namespace Notejot {
                     parser.load_from_data(json_string);
                     var root = parser.get_root();
                     var array = root.get_array();
-                    var columns = array.get_array_element (0);
-                    foreach (var tasks in columns.get_elements()) {
+                    var columns1 = array.get_array_element (0);
+                    foreach (var tasks in columns1.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
                         var contents = task.get_string_element(1);
                         var color = task.get_string_element(2);
 
-                        win.flowgrid.new_taskbox (win, title, contents, color);
+                        win.gridview.new_taskbox (win, title, contents, color);
+                    }
+                    var columns2 = array.get_array_element (1);
+                    foreach (var tasks2 in columns2.get_elements()) {
+                        var task2 = tasks2.get_array ();
+                        var title2 = task2.get_string_element(0);
+                        var contents2 = task2.get_string_element(1);
+                        var color2 = task2.get_string_element(2);
+
+                        win.trashview.new_taskbox (win, title2, contents2, color2);
                     }
                 }
             } catch (Error e) {

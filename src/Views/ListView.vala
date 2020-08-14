@@ -1,9 +1,9 @@
 namespace Notejot {
-    public class Widgets.FlowList : Gtk.ListBox {
+    public class Views.ListView : Gtk.ListBox {
         private MainWindow win;
         public bool is_modified {get; set; default = false;}
 
-        public FlowList (MainWindow win) {
+        public ListView (MainWindow win) {
             var no_files = new Gtk.Label (_("No notes…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();

@@ -19,25 +19,26 @@
 namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Widgets
-        public Widgets.FlowGrid flowgrid;
-        public Widgets.FlowList flowlist;
         public Widgets.Menu menu;
         public Gtk.Button new_button;
         public Gtk.Grid grid;
-        public Gtk.Grid grid_view;
-        public Gtk.Grid list_view;
         public Gtk.Grid welcome_view;
         public Gtk.Grid sgrid;
         public Gtk.Separator separator;
         public Gtk.Stack stack;
         public Gtk.ToggleButton format_button;
-        public Gtk.ScrolledWindow grid_scroller;
-        public Gtk.ScrolledWindow list_scroller;
         public Granite.Widgets.SourceList sidebar_categories;
         public Granite.Widgets.SourceList.ExpandableItem notes_category;
         public Hdy.HeaderBar fauxtitlebar;
         public Hdy.HeaderBar titlebar;
         public Hdy.Leaflet leaflet;
+
+        // Views
+        public Views.GridView gridview;
+        public Views.ListView listview;
+        public Views.TrashView trashview;
+
+        // Services
         public Services.TaskManager tm;
 
         public Gtk.Application app { get; construct; }
@@ -125,14 +126,6 @@ namespace Notejot {
                 image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
                 tooltip_text = (_("New Note"))
             };
-            new_button.clicked.connect (() => {
-                flowgrid.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
-                if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
-                    stack.set_visible_child (grid_view);
-                } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
-                    stack.set_visible_child (list_view);
-                }
-            });
             new_button.get_style_context ().add_class ("notejot-button");
             titlebar.pack_start (new_button);
 
@@ -170,29 +163,29 @@ namespace Notejot {
             sidebar_button_grid.image = new Gtk.Image.from_icon_name ("view-grid-symbolic", Gtk.IconSize.BUTTON);
             sidebar_button_grid.always_show_image = true;
             sidebar_button_grid.tooltip_text = (_("Go Back to Notes Grid"));
+            sidebar_button_grid.get_child ().halign = Gtk.Align.START;
             sidebar_button_grid.get_style_context ().add_class ("notejot-side-button");
 
-            sidebar_button_grid.clicked.connect (() => {
-                stack.set_visible_child (grid_view);
-                Notejot.Application.gsettings.set_string("last-view", "grid");
-            });
-
-            var sidebar_button_list = new Gtk.Button.with_label (_("List "));
+            var sidebar_button_list = new Gtk.Button.with_label (_("List"));
             sidebar_button_list.image = new Gtk.Image.from_icon_name ("view-list-symbolic", Gtk.IconSize.BUTTON);
             sidebar_button_list.always_show_image = true;
             sidebar_button_list.tooltip_text = (_("Go Back to Notes List"));
+            sidebar_button_list.get_child ().halign = Gtk.Align.START;
             sidebar_button_list.get_style_context ().add_class ("notejot-side-button");
 
-            sidebar_button_list.clicked.connect (() => {
-                stack.set_visible_child (list_view);
-                Notejot.Application.gsettings.set_string("last-view", "list");
-            });
+            var sidebar_button_trash = new Gtk.Button.with_label (_("Trash"));
+            sidebar_button_trash.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON);
+            sidebar_button_trash.always_show_image = true;
+            sidebar_button_trash.get_child ().halign = Gtk.Align.START;
+            sidebar_button_trash.tooltip_text = (_("Go to Trash"));
+            sidebar_button_trash.get_style_context ().add_class ("notejot-side-button");
 
             var sidebar_button_holder = new Gtk.Grid ();
             sidebar_button_holder.orientation = Gtk.Orientation.VERTICAL;
             sidebar_button_holder.margin_start = sidebar_button_holder.margin_end = 12;
             sidebar_button_holder.add (sidebar_button_grid);
             sidebar_button_holder.add (sidebar_button_list);
+            sidebar_button_holder.add (sidebar_button_trash);
 
             // Welcome View
             var normal_icon = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
@@ -210,50 +203,83 @@ namespace Notejot {
             welcome_view.add (normal_label);
 
             // Grid View
-            flowgrid = new Widgets.FlowGrid (this);
+            gridview = new Views.GridView (this);
 
-            var grid_view_grid = new Gtk.Grid ();
-            grid_view_grid.add (flowgrid);
+            var grid_box_grid = new Gtk.Grid ();
+            grid_box_grid.add (gridview);
 
             var grid_scrollable = new Widgets.Scrollable ();
             grid_scrollable.visible = true;
             grid_scrollable.header = titlebar;
-            grid_scrollable.add (grid_view_grid);
+            grid_scrollable.add (grid_box_grid);
 
-            grid_view_grid.margin_top = grid_scrollable.header_height;
+            grid_box_grid.margin_top = grid_scrollable.header_height;
 
-            grid_scroller = new Gtk.ScrolledWindow (null, null);
+            var grid_scroller = new Gtk.ScrolledWindow (null, null);
             grid_scroller.add (grid_scrollable);
 
-            grid_view = new Gtk.Grid ();
-            grid_view.add (grid_scroller);
+            var grid_box = new Gtk.Grid ();
+            grid_box.add (grid_scroller);
 
             // List View
-            flowlist = new Widgets.FlowList (this);
+            listview = new Views.ListView (this);
 
-            var list_view_grid = new Gtk.Grid ();
-            list_view_grid.add (flowlist);
+            var list_box_grid = new Gtk.Grid ();
+            list_box_grid.add (listview);
 
             var list_scrollable = new Widgets.Scrollable ();
             list_scrollable.visible = true;
             list_scrollable.header = titlebar;
-            list_scrollable.add (list_view_grid);
+            list_scrollable.add (list_box_grid);
 
-            list_view_grid.margin_top = list_scrollable.header_height;
+            list_box_grid.margin_top = list_scrollable.header_height;
 
-            list_scroller = new Gtk.ScrolledWindow (null, null);
+            var list_scroller = new Gtk.ScrolledWindow (null, null);
             list_scroller.add (list_scrollable);
 
-            list_view = new Gtk.Grid ();
-            list_view.add (list_scroller);
+            var list_box = new Gtk.Grid ();
+            list_box.add (list_scroller);
+
+            // Trash View
+            trashview = new Views.TrashView (this);
+
+            var trash_box_grid = new Gtk.Grid ();
+            trash_box_grid.add (trashview);
+
+            var trash_scrollable = new Widgets.Scrollable ();
+            trash_scrollable.visible = true;
+            trash_scrollable.header = titlebar;
+            trash_scrollable.add (trash_box_grid);
+
+            var trash_scroller = new Gtk.ScrolledWindow (null, null);
+            trash_scroller.add (trash_scrollable);
+
+            var trash_bar = new Gtk.ActionBar ();
+            trash_bar.get_style_context ().add_class ("notejot-abar");
+            trash_bar.margin_top = 45;
+            var trash_button = new Gtk.Button () {
+                label = _("Empty Trash…")
+            };
+            trash_button.clicked.connect (() => {
+                var dialog = new Utils.CleanTrashDialog (this);
+                dialog.run ();
+            });
+            trash_button.get_style_context ().add_class ("notejot-button");
+            trash_bar.pack_end (trash_button);
+
+            var trash_box = new Gtk.Grid ();
+            trash_box.orientation = Gtk.Orientation.VERTICAL;
+            trash_box.add (trash_bar);
+            trash_box.add (trash_scroller);
 
             // Main View
             stack = new Gtk.Stack ();
             stack.get_style_context ().add_class ("notejot-stack");
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            stack.add (welcome_view);
-            stack.add (grid_view);
-            stack.add (list_view);
+            stack.add_named (welcome_view, "welcome");
+            stack.add_named (grid_box, "grid");
+            stack.add_named (list_box, "list");
+            stack.add_named (trash_box, "trash");
 
             menu = new Widgets.Menu (this);
             titlebar.pack_end (menu);
@@ -292,19 +318,42 @@ namespace Notejot {
 
             tm.load_from_file ();
 
-            if (flowgrid.is_modified == false) {
+            if (gridview.is_modified == false) {
                 stack.set_visible_child (welcome_view);
             } else {
                 if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
-                    stack.set_visible_child (grid_view);
+                    stack.set_visible_child (grid_box);
                     sidebar_button_grid.is_focus = true;
                     sidebar_button_list.is_focus = false;
                 } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
-                    stack.set_visible_child (list_view);
+                    stack.set_visible_child (list_box);
                     sidebar_button_list.is_focus = true;
                     sidebar_button_grid.is_focus = false;
                 }
             }
+
+            new_button.clicked.connect (() => {
+                gridview.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
+                if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
+                    stack.set_visible_child (grid_box);
+                } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
+                    stack.set_visible_child (list_box);
+                }
+            });
+
+            sidebar_button_grid.clicked.connect (() => {
+                stack.set_visible_child (grid_box);
+                Notejot.Application.gsettings.set_string("last-view", "grid");
+            });
+
+            sidebar_button_list.clicked.connect (() => {
+                stack.set_visible_child (list_box);
+                Notejot.Application.gsettings.set_string("last-view", "list");
+            });
+
+            sidebar_button_trash.clicked.connect (() => {
+                stack.set_visible_child (trash_box);
+            });
 
             var fgv = grid_scroller.get_vadjustment ();
             var flv = list_scroller.get_vadjustment ();

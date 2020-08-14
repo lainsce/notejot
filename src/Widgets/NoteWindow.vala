@@ -145,7 +145,7 @@ namespace Notejot {
             toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
 
             editablelabel.changed.connect (() => {
-                win.flowgrid.selected_foreach ((item, child) => {
+                win.gridview.selected_foreach ((item, child) => {
                     ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
                     ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
                     ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();

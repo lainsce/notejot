@@ -55,123 +55,7 @@ namespace Notejot {
             task_label.ellipsize = Pango.EllipsizeMode.END;
             task_label.get_style_context ().add_class ("notejot-tc");
 
-            var color_button_red = new Gtk.RadioButton (null) {
-                tooltip_text = _("Red")
-            };
-            color_button_red.get_style_context ().add_class ("color-button");
-            color_button_red.get_style_context ().add_class ("color-red");
-
-            var color_button_orange = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Orange")
-            };
-            color_button_orange.get_style_context ().add_class ("color-button");
-            color_button_orange.get_style_context ().add_class ("color-orange");
-
-            var color_button_yellow = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Yellow")
-            };
-            color_button_yellow.get_style_context ().add_class ("color-button");
-            color_button_yellow.get_style_context ().add_class ("color-yellow");
-
-            var color_button_green = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Green")
-            };
-            color_button_green.get_style_context ().add_class ("color-button");
-            color_button_green.get_style_context ().add_class ("color-green");
-
-            var color_button_blue = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Blue")
-            };
-            color_button_blue.get_style_context ().add_class ("color-button");
-            color_button_blue.get_style_context ().add_class ("color-blue");
-
-            var color_button_violet = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Indigo")
-            };
-            color_button_violet.get_style_context ().add_class ("color-button");
-            color_button_violet.get_style_context ().add_class ("color-violet");
-
-            var color_button_neutral = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Gray")
-            };
-            color_button_neutral.get_style_context ().add_class ("color-button");
-            color_button_neutral.get_style_context ().add_class ("color-neutral");
-
-            var color_button_box = new Gtk.Grid () {
-                margin_start = 12,
-                column_spacing = 6
-            };
-            color_button_box.add (color_button_red);
-            color_button_box.add (color_button_orange);
-            color_button_box.add (color_button_yellow);
-            color_button_box.add (color_button_green);
-            color_button_box.add (color_button_blue);
-            color_button_box.add (color_button_violet);
-            color_button_box.add (color_button_neutral);
-
-            var color_button_label = new Granite.HeaderLabel (_("Note Badge Color"));
-
-            var delete_note_button = new Gtk.ModelButton ();
-			delete_note_button.text = (_("Delete Note"));
-
-			delete_note_button.clicked.connect (() => {
-                this.destroy ();
-                win.tm.save_notes ();
-                if (win.flowgrid.get_children () == null) {
-                    if (win.stack.get_visible_child () == win.list_view) {
-                        win.stack.set_visible_child (win.welcome_view);
-                    }
-                }
-                taskbox.sidebaritem.destroy_item ();
-                taskbox.get_parent ().destroy ();
-			});
-
-            var setting_grid = new Gtk.Grid ();
-            setting_grid.margin = 6;
-            setting_grid.column_spacing = 6;
-            setting_grid.row_spacing = 6;
-            setting_grid.orientation = Gtk.Orientation.VERTICAL;
-            setting_grid.attach (color_button_label, 0, 0, 1, 1);
-            setting_grid.attach (color_button_box, 0, 1, 1, 1);
-            setting_grid.attach (delete_note_button, 0, 2, 1, 1);
-            setting_grid.show_all ();
-
-            var popover = new Gtk.Popover (null);
-            popover.add (setting_grid);
-
-            var app_button = new Gtk.MenuButton();
-            app_button.has_tooltip = true;
-            app_button.tooltip_text = (_("Settings"));
-            app_button.image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            app_button.popover = popover;
-
-            color_button_red.clicked.connect (() => {
-                taskbox.update_theme("#F3ACAA");
-            });
-
-            color_button_orange.clicked.connect (() => {
-                taskbox.update_theme("#FFC78B");
-            });
-
-            color_button_yellow.clicked.connect (() => {
-                taskbox.update_theme("#FCF092");
-            });
-
-            color_button_green.clicked.connect (() => {
-                taskbox.update_theme("#B1FBA2");
-            });
-
-            color_button_blue.clicked.connect (() => {
-                taskbox.update_theme("#B8EFFA");
-            });
-
-            color_button_violet.clicked.connect (() => {
-                taskbox.update_theme("#C0C0F5");
-            });
-
-            color_button_neutral.clicked.connect (() => {
-                taskbox.update_theme("#DADADA");
-            });
+            var setting_menu = new Widgets.SettingMenu (win, taskbox);
 
             var popout_button = new Gtk.Button () {
                 image = new Gtk.Image.from_icon_name ("window-pop-out-symbolic", Gtk.IconSize.BUTTON),
@@ -183,7 +67,7 @@ namespace Notejot {
                 notewindow.run (null);
             });
 
-            bar.pack_end (app_button);
+            bar.pack_end (setting_menu);
             bar.pack_end (popout_button);
 
             main_grid = new Gtk.Grid ();

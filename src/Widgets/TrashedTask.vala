@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.TaskBox : Gtk.Grid {
+    public class Widgets.TrashedTask : Gtk.Grid {
         private MainWindow win;
         public Widgets.NoteWindow notewindow;
         public Widgets.SidebarItem sidebaritem;
@@ -33,19 +33,13 @@ namespace Notejot {
         public string title = "New Note…";
         public string contents = "Write a new note…";
 
-        public TaskBox (MainWindow win, string? title, string? contents, string? color) {
+        public TrashedTask (MainWindow win, string? title, string? contents, string? color) {
             this.win = win;
             this.uid = uid_counter++;
             this.title = title;
             this.contents = contents;
             this.color = color;
-
-            sidebaritem = new Widgets.SidebarItem (win, this.title);
-            win.notes_category.add (sidebaritem);
-
-            taskline = new Widgets.TaskLine (win, this, this.uid);
-            win.listview.add (taskline);
-            win.listview.is_modified = true;
+            this.opacity = 0.8;
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");
@@ -55,6 +49,7 @@ namespace Notejot {
             task_label.wrap = true;
             task_label.hexpand = true;
             task_label.max_width_chars = 24;
+            task_label.margin_top = 5;
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
@@ -66,20 +61,18 @@ namespace Notejot {
             task_contents_holder.vexpand = true;
             task_contents_holder.add (task_contents);
 
-            var setting_menu = new Widgets.SettingMenu (win, this);
-
-            var popout_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("window-pop-out-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Popout Note to Desktop"))
+            var recover_note_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("go-previous-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = _("Restore this note…")
             };
-            popout_button.clicked.connect (() => {
-                notewindow = new Widgets.NoteWindow (win, this.task_contents, this.title, this.contents, this.uid);
-                notewindow.run (null);
+
+			recover_note_button.clicked.connect (() => {
+                win.gridview.new_taskbox (win, this.title, this.contents, this.color);
+                this.get_parent ().destroy ();
             });
 
-            bar.pack_start (popout_button);
             bar.pack_start (task_label);
-            bar.pack_end (setting_menu);
+            bar.pack_end (recover_note_button);
 
             update_theme (this.color);
             win.tm.save_notes ();
@@ -99,12 +92,10 @@ namespace Notejot {
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
-                taskline.dummy_badge.get_style_context ().add_class ("notejot-dbg-dark-%d".printf(uid));
                 task_contents.update_html_view ();
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
-                taskline.dummy_badge.get_style_context ().remove_class ("notejot-dbg-dark-%d".printf(uid));
                 task_contents.update_html_view ();
             }
 
@@ -112,12 +103,10 @@ namespace Notejot {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     this.get_style_context ().add_class ("notejot-note-grid-dark-%d".printf(uid));
-                    taskline.dummy_badge.get_style_context ().add_class ("notejot-dbg-dark-%d".printf(uid));
                     task_contents.update_html_view ();
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     this.get_style_context ().remove_class ("notejot-note-grid-dark-%d".printf(uid));
-                    taskline.dummy_badge.get_style_context ().remove_class ("notejot-dbg-dark-%d".printf(uid));
                     task_contents.update_html_view ();
                 }
             });
@@ -151,29 +140,7 @@ namespace Notejot {
                 -gtk-icon-shadow: 1px 1px transparent;
                 color: #000;
             }
-            .notejot-dbg-%d {
-                border: 1px solid alpha(black, 0.25);
-                background: %s;
-                border-radius: 8px;
-                padding: 5px;
-                box-shadow:
-                    0 1px 0 0 alpha(@highlight_color, 0.3),
-                    inset 0 1px 1px alpha(black, 0.05),
-                    inset 0 0 1px 1px alpha(black, 0.05),
-                    0 1px 0 0 alpha(@highlight_color, 0.2);
-            }
-            .notejot-dbg-dark-%d {
-                border: 1px solid alpha(black, 0.25);
-                background: shade(%s, 0.8);
-                border-radius: 8px;
-                padding: 5px;
-                box-shadow:
-                    0 1px 0 0 alpha(@highlight_color, 0.3),
-                    inset 0 1px 1px alpha(black, 0.05),
-                    inset 0 0 1px 1px alpha(black, 0.05),
-                    0 1px 0 0 alpha(@highlight_color, 0.2);
-            }
-            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid, uid, color, uid, color);
+            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid);
 
             try {
                 css_provider.load_from_data(style, -1);

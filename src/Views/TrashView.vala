@@ -17,11 +17,11 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.FlowGrid : Gtk.FlowBox {
+    public class Views.TrashView : Gtk.FlowBox {
         private MainWindow win;
         public bool is_modified {get; set; default = false;}
 
-        public FlowGrid (MainWindow win) {
+        public TrashView (MainWindow win) {
             this.win = win;
             this.expand = true;
             this.column_spacing = 30;
@@ -52,7 +52,7 @@ namespace Notejot {
                 }
             });
 
-            var provider2 = new Gtk.CssProvider ();
+            var provider4 = new Gtk.CssProvider ();
             string res1 = "\"resource:///com/github/lainsce/notejot/image/bg1.png\"";
             string res2 = "\"resource:///com/github/lainsce/notejot/image/bg2.png\"";
             string css = """
@@ -66,17 +66,17 @@ namespace Notejot {
                 }
              """.printf(res1, res2);
              try {
-                provider2.load_from_data(css, -1);
+                provider4.load_from_data(css, -1);
              } catch (GLib.Error e) {
                 warning ("Failed to parse css style : %s", e.message);
              }
-             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider4, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             this.show_all ();
         }
 
         public void new_taskbox (MainWindow win, string title, string contents, string color) {
-            var taskbox = new Widgets.TaskBox (win, title, contents, color);
+            var taskbox = new Widgets.TrashedTask (win, title, contents, color);
             add (taskbox);
             win.tm.save_notes ();
             is_modified = true;

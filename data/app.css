@@ -278,6 +278,10 @@ window.rounded {
     margin-bottom: 6px;
 }
 
+.notejot-side-button:last-child {
+    margin-top: 6px;
+}
+
 .notejot-side-button:active,
 .notejot-side-button:checked,
 .notejot-side-button:focus {
