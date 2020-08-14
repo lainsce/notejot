@@ -33,22 +33,22 @@ namespace Notejot {
             
             is_modified = false;
 
-            this.get_style_context ().add_class ("notejot-fgview");
+            this.get_style_context ().add_class ("notejot-tvview");
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                this.get_style_context ().add_class ("notejot-fgview-bg-dark");
-                this.get_style_context ().remove_class ("notejot-fgview-bg");
+                this.get_style_context ().add_class ("notejot-tvview-bg-dark");
+                this.get_style_context ().remove_class ("notejot-tvview-bg");
             } else {
-                this.get_style_context ().remove_class ("notejot-fgview-bg-dark");
-                this.get_style_context ().add_class ("notejot-fgview-bg");
+                this.get_style_context ().remove_class ("notejot-tvview-bg-dark");
+                this.get_style_context ().add_class ("notejot-tvview-bg");
             }
 
             Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    this.get_style_context ().add_class ("notejot-fgview-bg-dark");
-                    this.get_style_context ().remove_class ("notejot-fgview-bg");
+                    this.get_style_context ().add_class ("notejot-tvview-bg-dark");
+                    this.get_style_context ().remove_class ("notejot-tvview-bg");
                 } else {
-                    this.get_style_context ().remove_class ("notejot-fgview-bg-dark");
-                    this.get_style_context ().add_class ("notejot-fgview-bg");
+                    this.get_style_context ().remove_class ("notejot-tvview-bg-dark");
+                    this.get_style_context ().add_class ("notejot-tvview-bg");
                 }
             });
 
@@ -56,11 +56,11 @@ namespace Notejot {
             string res1 = "\"resource:///com/github/lainsce/notejot/image/bg1.png\"";
             string res2 = "\"resource:///com/github/lainsce/notejot/image/bg2.png\"";
             string css = """
-                .notejot-fgview-bg {
+                .notejot-tvview-bg {
                     background-image: url(%s);
                     background-repeat: repeat;
                 }
-                .notejot-fgview-bg-dark {
+                .notejot-tvview-bg-dark {
                     background-image: url(%s);
                     background-repeat: repeat;
                 }

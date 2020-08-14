@@ -34,6 +34,10 @@
     background: #151515;
 }
 
+.notejot-tvview {
+    background-color: #151515;
+}
+
 .notejot-fgview flowboxchild:selected .notejot-note-grid {
     box-shadow: 0 1px 5px 5px alpha(black, 0.45);
 }

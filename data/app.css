@@ -185,6 +185,11 @@ window.rounded {
     padding-top: 50px;
 }
 
+.notejot-tvview {
+    background-color: #F7F7F7;
+    padding: 30px;
+}
+
 .notejot-fgview {
     background-color: #F7F7F7;
     padding: 30px;

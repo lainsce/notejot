@@ -246,13 +246,8 @@ namespace Notejot {
             var trash_box_grid = new Gtk.Grid ();
             trash_box_grid.add (trashview);
 
-            var trash_scrollable = new Widgets.Scrollable ();
-            trash_scrollable.visible = true;
-            trash_scrollable.header = titlebar;
-            trash_scrollable.add (trash_box_grid);
-
             var trash_scroller = new Gtk.ScrolledWindow (null, null);
-            trash_scroller.add (trash_scrollable);
+            trash_scroller.add (trash_box_grid);
 
             var trash_bar = new Gtk.ActionBar ();
             trash_bar.get_style_context ().add_class ("notejot-abar");
