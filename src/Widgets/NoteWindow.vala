@@ -46,14 +46,6 @@ namespace Notejot {
                 tooltip_text = (_("Formatting Options"))
             };
             format_button.get_style_context ().add_class ("notejot-button");
-
-            var sync_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Sync Note")),
-                visible = true
-            };
-            sync_button.get_style_context ().add_class ("notejot-button");
-            notebar.pack_end (sync_button);
             notebar.pack_end (format_button);
 
             // Note View
@@ -65,12 +57,12 @@ namespace Notejot {
             textfield.text = this.contents;
             textfield.update_html_view ();
 
-            sync_button.clicked.connect (() => {
-                textfield.send_text ();
-                tcv.text = textfield.text;
+            Timeout.add_seconds (3, () => {
+                tcv.text = this.contents;
                 tcv.send_text ();
                 tcv.update_html_view ();
                 win.tm.save_notes ();
+                return true;
             });
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -83,7 +75,7 @@ namespace Notejot {
             format_reset_button.get_style_context ().add_class ("destructive-button");
 
             format_reset_button.clicked.connect (() => {
-                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, str);""");
+                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, str);""");
                 textfield.send_text ();
                 win.tm.save_notes ();
             });
@@ -94,7 +86,7 @@ namespace Notejot {
             format_bold_button.image = new Gtk.Image.from_icon_name ("format-text-bold-symbolic", Gtk.IconSize.BUTTON);
 
             format_bold_button.clicked.connect (() => {
-                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<b>"+str+"</b>");""");
+                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<b>"+str+"</b>");""");
                 textfield.send_text ();
                 win.tm.save_notes ();
             });
@@ -105,7 +97,7 @@ namespace Notejot {
             format_italic_button.image = new Gtk.Image.from_icon_name ("format-text-italic-symbolic", Gtk.IconSize.BUTTON);
 
             format_italic_button.clicked.connect (() => {
-                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<i>"+str+"</i>");""");
+                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<i>"+str+"</i>");""");
                 textfield.send_text ();
                 win.tm.save_notes ();
             });
@@ -116,7 +108,7 @@ namespace Notejot {
             format_ul_button.image = new Gtk.Image.from_icon_name ("format-text-underline-symbolic", Gtk.IconSize.BUTTON);
 
             format_ul_button.clicked.connect (() => {
-                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<u>"+str+"</u>");""");
+                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<u>"+str+"</u>");""");
                 textfield.send_text ();
                 win.tm.save_notes ();
             });
@@ -134,7 +126,7 @@ namespace Notejot {
 
             format_color_button.color_set.connect (() => {
                 colors = format_color_button.get_rgba();
-                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.getElementById("textarea").innerHTML = document.getElementById("textarea").innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(colors.to_string()));
+                textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(colors.to_string()));
                 textfield.send_text ();
                 win.tm.save_notes ();
             });

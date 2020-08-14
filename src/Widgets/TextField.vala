@@ -19,9 +19,7 @@
 namespace Notejot {
     public class Widgets.TextField : WebKit.WebView {
         public MainWindow win;
-        public string html = "";
         public string text = "";
-        public string val = "";
 
         public TextField (MainWindow win) {
             this.win = win;
@@ -69,7 +67,7 @@ namespace Notejot {
                 try {
                     var data = run_javascript.end(res);
                     if (data != null && win != null) {
-                        val = data.get_js_value ().to_string ();
+                        var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
                         win.flowgrid.selected_foreach ((item, child) => {
                             ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
@@ -103,7 +101,7 @@ namespace Notejot {
 
         public void update_html_view () {
             string style = set_stylesheet ();
-            html = """
+            var html = """
             <!doctype html>
             <html>
                 <head>
