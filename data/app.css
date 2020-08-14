@@ -20,6 +20,17 @@ window.rounded {
     font-weight: 700;
 }
 
+.destructive-text {
+    color: #D07070;
+    border: 1px solid transparent;
+}
+
+.destructive-text:hover {
+    color: #151515;
+    background: alpha(#D07070, 0.25);
+    border: 1px solid #D07070;
+}
+
 .destructive-button:hover {
     color: #D07070;
 }

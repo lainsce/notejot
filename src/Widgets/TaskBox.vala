@@ -38,9 +38,7 @@ namespace Notejot {
 
         public TaskBox (MainWindow win, string? title, string? contents, string? color) {
             this.win = win;
-
             this.uid = uid_counter++;
-
             this.title = title;
             this.contents = contents;
             this.color = color;
@@ -118,6 +116,7 @@ namespace Notejot {
 
             var color_button_box = new Gtk.Grid () {
                 margin_start = 12,
+                margin_end = 12,
                 column_spacing = 6
             };
             color_button_box.add (color_button_red);
@@ -128,21 +127,22 @@ namespace Notejot {
             color_button_box.add (color_button_violet);
             color_button_box.add (color_button_neutral);
 
-            var color_button_label = new Granite.HeaderLabel (_("Note Badge Color"));
+            var color_button_label = new Granite.HeaderLabel (_("Note Badge Color")) {
+                margin_start = 6,
+                margin_end = 12
+            };
 
-            var delete_note_button = new Gtk.ModelButton ();
-			delete_note_button.text = (_("Delete Note"));
+            var delete_note_button = new Gtk.Button () {
+                margin = 3,
+                halign = Gtk.Align.END
+            };
+            delete_note_button.label = (_("Delete Note"));
+            delete_note_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            delete_note_button.get_style_context ().add_class ("destructive-text");
 
 			delete_note_button.clicked.connect (() => {
-                this.get_parent ().destroy ();
-                win.tm.save_notes ();
-                if (win.flowgrid.get_children () == null) {
-                    if (win.stack.get_visible_child () == win.grid_view) {
-                        win.stack.set_visible_child (win.welcome_view);
-                    }
-                }
-                sidebaritem.destroy_item ();
-                taskline.destroy ();
+                var dialog = new Utils.Dialog (win, this);
+                dialog.run ();
 			});
 
             var setting_grid = new Gtk.Grid ();

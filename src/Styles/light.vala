@@ -43,7 +43,7 @@ public class Notejot.Styles.light {
     body {
       color: #151515;
       background-color: #F7F7F7;
-      font-size: 13pt;
+      font-size: 12pt;
       letter-spacing: -0.08;
       font-weight: 400;
       line-height: 1.6rem;
