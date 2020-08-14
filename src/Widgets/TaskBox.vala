@@ -40,7 +40,7 @@ namespace Notejot {
             this.contents = contents;
             this.color = color;
 
-            sidebaritem = new Widgets.SidebarItem (win, this.title);
+            sidebaritem = new Widgets.SidebarItem (win, title);
             win.notes_category.add (sidebaritem);
 
             taskline = new Widgets.TaskLine (win, this, this.uid);

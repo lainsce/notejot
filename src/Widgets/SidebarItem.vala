@@ -30,7 +30,6 @@ namespace Notejot {
             this.title = title;
             this.win = win;
             this.icon = new ThemedIcon ("emblem-documents-symbolic");
-            this.tooltip = (_("This is a note."));
         }
 
         public void destroy_item () {
