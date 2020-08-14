@@ -58,7 +58,7 @@ namespace Notejot {
             task_label.margin_start = task_label.margin_end = 6;
             task_label.ellipsize = Pango.EllipsizeMode.END;
 
-            task_contents = new Widgets.TaskContentView (win, this.contents);
+            task_contents = new Widgets.TaskContentView (win, this.contents, this.uid);
             task_contents.margin_bottom = 8;
             task_contents.update_html_view ();
 

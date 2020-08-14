@@ -20,9 +20,11 @@ namespace Notejot {
     public class Widgets.TaskContentView : WebKit.WebView {
         public MainWindow win;
         public string text = "";
+        public int uid;
 
-        public TaskContentView (MainWindow win, string text) {
+        public TaskContentView (MainWindow win, string text, int uid) {
             this.win = win;
+            this.uid = uid;
             this.expand = true;
             this.text = text;
             this.set_can_default (false);
@@ -69,11 +71,12 @@ namespace Notejot {
                     if (data != null && win != null) {
                         var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
-                        win.gridview.selected_foreach ((item, child) => {
-                            ((Widgets.TaskBox)child.get_child ()).contents = val == "" ? " " : val;
-                            this.text = val == "" ? " " : val;
-                            ((Widgets.TaskBox)child.get_child ()).notewindow.contents = val == "" ? " " : val;
-                        });
+                        foreach (Gtk.FlowBoxChild item in win.gridview.get_tasks ()) {
+                            if (((Widgets.TaskBox)item.get_child ()).uid == this.uid) {
+                                ((Widgets.TaskBox)item.get_child ()).contents = val == "" ? " " : val;
+                                this.text = val == "" ? " " : val;
+                            }
+                        }
                     }
                 } catch (Error e) {
                     assert_not_reached ();
