@@ -7,7 +7,7 @@ namespace Notejot {
             Object (
                 image_icon: new ThemedIcon ("dialog-warning"),
                 primary_text: (_("Delete this Note?")),
-                secondary_text: (_("Deleting this note means its contents will be permeanently lost."))
+                secondary_text: (_("Deleting this note means its contents will be permanently lost."))
             );
             
             this.win = win;
