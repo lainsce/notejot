@@ -35,20 +35,6 @@ namespace Notejot {
             notebar.set_decoration_layout ("close:");
             notebar.get_style_context ().add_class ("notejot-nbar-%d".printf(this.uid));
             notebar.set_title (this.title);
-
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(this.uid));
-            } else {
-                notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(this.uid));
-            }
-
-            Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(this.uid));
-                } else {
-                    notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(this.uid));
-                }
-            });
             
             window.title = this.title;
             window.set_size_request (375, 375);
@@ -187,6 +173,24 @@ namespace Notejot {
                 } else {
                     Notejot.Application.gsettings.set_boolean ("show-formattingbar", true);
                     toolbar_revealer.reveal_child = Notejot.Application.gsettings.get_boolean ("show-formattingbar");
+                }
+            });
+
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(this.uid));
+                textfield.update_html_view ();
+            } else {
+                notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(this.uid));
+                textfield.update_html_view ();
+            }
+
+            Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    notebar.get_style_context ().add_class ("notejot-nbar-dark-%d".printf(this.uid));
+                    textfield.update_html_view ();
+                } else {
+                    notebar.get_style_context ().remove_class ("notejot-nbar-dark-%d".printf(this.uid));
+                    textfield.update_html_view ();
                 }
             });
 
