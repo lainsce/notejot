@@ -2,9 +2,8 @@
 @define-color accent_color_500 #FFE16B;
 @define-color accent_color_300 #FFE16B;
 
-window.unified decoration,
-window.unified decoration-overlay {
-  border-radius: 8px;
+window.unified {
+    border-radius: 8px;
 }
 
 window.rounded {
