@@ -32,7 +32,7 @@ namespace Notejot {
             this.taskbox = taskbox;
             this.get_style_context ().add_class ("notejot-column-box");
 
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
 
             // Used to make up the colored badge
             dummy_badge = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

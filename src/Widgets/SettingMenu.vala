@@ -85,7 +85,7 @@ namespace Notejot {
                 taskbox.get_parent ().destroy ();
                 taskbox.sidebaritem.destroy_item ();
                 taskbox.taskline.destroy ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
             
             color_button_red.clicked.connect (() => {

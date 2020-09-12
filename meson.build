@@ -33,7 +33,6 @@ config_h_dir = include_directories('.')
 # Arguments for C
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
-        '-DHANDY_USE_UNSTABLE_API'
     ],
     language:'c'
 )
@@ -71,7 +70,6 @@ executable(
         dependency('webkit2gtk-4.0'),
         dependency('json-glib-1.0'),
         dependency('gee-0.8'),
-        dependency('libhandy-1'),
         dependency('gtk+-3.0')
     ],
     vala_args: [

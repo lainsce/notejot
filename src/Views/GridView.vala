@@ -77,8 +77,8 @@ namespace Notejot {
 
         public void new_taskbox (MainWindow win, string title, string contents, string color) {
             var taskbox = new Widgets.TaskBox (win, title, contents, color);
-            add (taskbox);
-            win.tm.save_notes ();
+            insert (taskbox, -1);
+            win.tm.save_notes.begin ();
             is_modified = true;
         }
 

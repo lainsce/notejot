@@ -75,7 +75,7 @@ namespace Notejot {
             bar.pack_end (recover_note_button);
 
             update_theme (this.color);
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
 
             this.set_size_request (200,200);
             this.get_style_context ().add_class ("notejot-note-trash");
@@ -137,7 +137,7 @@ namespace Notejot {
             );
 
             this.color = color;
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Notejot {
                 tcv.text = this.contents;
                 tcv.send_text ();
                 tcv.update_html_view ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
                 return true;
             });
 
@@ -77,7 +77,7 @@ namespace Notejot {
             format_reset_button.clicked.connect (() => {
                 textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, str);""");
                 textfield.send_text ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
 
             var format_bold_button = new Gtk.Button ();
@@ -88,7 +88,7 @@ namespace Notejot {
             format_bold_button.clicked.connect (() => {
                 textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<b>"+str+"</b>");""");
                 textfield.send_text ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
 
             var format_italic_button = new Gtk.Button ();
@@ -99,7 +99,7 @@ namespace Notejot {
             format_italic_button.clicked.connect (() => {
                 textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<i>"+str+"</i>");""");
                 textfield.send_text ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
 
             var format_ul_button = new Gtk.Button ();
@@ -110,7 +110,7 @@ namespace Notejot {
             format_ul_button.clicked.connect (() => {
                 textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<u>"+str+"</u>");""");
                 textfield.send_text ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
 
             colors.red = 0.0;
@@ -128,7 +128,7 @@ namespace Notejot {
                 colors = format_color_button.get_rgba();
                 textfield.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<span style='color: %s'>"+str+"</span>");""".printf(colors.to_string()));
                 textfield.send_text ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
 
             toolbar.pack_start (format_reset_button);
@@ -152,7 +152,7 @@ namespace Notejot {
                     ((Widgets.TaskBox)child.get_child ()).taskline.task_label.label = editablelabel.title.get_label ();
                     notebar.set_title (editablelabel.title.get_label ());
                 });
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
             });
 
             var notegrid = new Gtk.Grid ();
@@ -195,7 +195,7 @@ namespace Notejot {
             });
 
             window.delete_event.connect (() => {
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
                 instance = null;
                 return false;
             });

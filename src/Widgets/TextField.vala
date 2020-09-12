@@ -53,11 +53,11 @@ namespace Notejot {
             load_changed.connect ((event) => {
                 if (event == WebKit.LoadEvent.COMMITTED) {
                     send_text ();
-                    win.tm.save_notes ();
+                    win.tm.save_notes.begin ();
                 }
                 if (event == WebKit.LoadEvent.FINISHED) {
                     send_text ();
-                    win.tm.save_notes ();
+                    win.tm.save_notes.begin ();
                 }
             });
         }
