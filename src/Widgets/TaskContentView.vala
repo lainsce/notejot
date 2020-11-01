@@ -45,9 +45,11 @@ namespace Notejot {
 
             update_html_view ();
             connect_signals ();
+            win.tm.save_notes ();
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 update_html_view ();
+                win.tm.save_notes ();
             });
         }
 
@@ -55,11 +57,9 @@ namespace Notejot {
             load_changed.connect ((event) => {
                 if (event == WebKit.LoadEvent.COMMITTED) {
                     send_text ();
-                    win.tm.save_notes.begin ();
                 }
                 if (event == WebKit.LoadEvent.FINISHED) {
                     send_text ();
-                    win.tm.save_notes.begin ();
                 }
             });
         }
@@ -114,7 +114,6 @@ namespace Notejot {
                 <body>%s</body>
             </html>""".printf(style, this.text);
             this.load_html (html, "file:///");
-            win.tm.save_notes.begin ();
         }
     }
 }

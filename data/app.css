@@ -7,7 +7,7 @@ window.unified {
 }
 
 window.rounded {
-    border-radius: 0 0 8px 8px; 
+    border-radius: 0 0 8px 8px;
 }
 
 .frame {
@@ -143,6 +143,8 @@ window.rounded {
 .notejot-bar {
     padding: 6px;
     text-shadow: 0 1px transparent;
+    box-shadow: none;
+    border: none;
     background: none;
     font-weight: 600;
     color: #151515;

@@ -8,7 +8,7 @@ namespace Notejot {
                 primary_text: (_("Empty Trash?")),
                 secondary_text: (_("Emptying the trash means all the notes in it will be permanently lost."))
             );
-            
+
             this.win = win;
             this.transient_for = this.win;
             this.modal = true;
@@ -18,7 +18,7 @@ namespace Notejot {
             var save = add_button ((_("Empty Trash")), Gtk.ResponseType.OK);
             var save_context = save.get_style_context ();
             save_context.add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            
+
 
             response.connect ((response_id) => {
                 switch (response_id) {
@@ -26,7 +26,7 @@ namespace Notejot {
                         foreach (Gtk.Widget item in win.trashview.get_children ()) {
                             item.destroy ();
                         }
-                        win.tm.save_notes.begin ();
+                        win.tm.save_notes ();
                         this.close ();
                         break;
                     case Gtk.ResponseType.NO:

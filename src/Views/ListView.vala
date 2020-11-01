@@ -66,7 +66,7 @@ namespace Notejot {
             foreach (Gtk.Widget item in this.get_children ()) {
                 item.destroy ();
             }
-            win.tm.save_notes.begin ();
+            win.tm.save_notes ();
         }
 
         public Gee.ArrayList<Gtk.ListBoxRow> get_tasks () {

@@ -323,7 +323,7 @@ namespace Notejot {
                 update ();
             });
 
-            tm.load_from_file ();
+            tm.load_from_file (this, gridview, trashview);
 
             if (gridview.is_modified == false) {
                 stack.set_visible_child (welcome_view);

@@ -83,7 +83,6 @@ namespace Notejot {
             bar.pack_end (popout_button);
 
             update_theme (this.color);
-            win.tm.save_notes.begin ();
 
             this.set_size_request (200,200);
             this.get_style_context ().add_class ("notejot-note-grid");
@@ -137,7 +136,6 @@ namespace Notejot {
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;
                 background-color: %s;
-                box-shadow: none;
                 background-image: none;
                 padding: 0 5px;
                 color: #000;
@@ -189,7 +187,7 @@ namespace Notejot {
             );
 
             this.color = color;
-            win.tm.save_notes.begin ();
+            win.tm.save_notes ();
         }
     }
 }

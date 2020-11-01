@@ -85,9 +85,9 @@ namespace Notejot {
                 taskbox.get_parent ().destroy ();
                 taskbox.sidebaritem.destroy_item ();
                 taskbox.taskline.destroy ();
-                win.tm.save_notes.begin ();
+                win.tm.save_notes ();
             });
-            
+
             color_button_red.clicked.connect (() => {
                 taskbox.update_theme("#F3ACAA");
             });

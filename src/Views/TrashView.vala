@@ -30,7 +30,7 @@ namespace Notejot {
             this.max_children_per_line = 3;
             this.activate_on_single_click = true;
             this.selection_mode = Gtk.SelectionMode.SINGLE;
-            
+
             is_modified = false;
 
             this.get_style_context ().add_class ("notejot-tvview");
@@ -78,7 +78,7 @@ namespace Notejot {
         public void new_taskbox (MainWindow win, string title, string contents, string color) {
             var taskbox = new Widgets.TrashedTask (win, title, contents, color);
             insert (taskbox, -1);
-            win.tm.save_notes.begin ();
+            win.tm.save_notes ();
             is_modified = true;
         }
 

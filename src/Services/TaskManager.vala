@@ -26,7 +26,7 @@ namespace Notejot {
             this.win = win;
         }
 
-        public async void save_notes() {
+        public void save_notes () {
             try {
                 GLib.FileUtils.set_contents (file_name, prepare_json_from_notes ());
             } catch (Error e) {
@@ -80,7 +80,9 @@ namespace Notejot {
             builder.end_array ();
         }
 
-        public void load_from_file () {
+        public void load_from_file (MainWindow win,
+                                    Views.GridView gridview,
+                                    Views.TrashView trashview) {
             string text;
             try {
                 GLib.FileUtils.get_contents (file_name, out text);
@@ -95,7 +97,7 @@ namespace Notejot {
                     var contents = task.get_string_element(1);
                     var color = task.get_string_element(2);
 
-                    win.gridview.new_taskbox (win, title, contents, color);
+                    gridview.new_taskbox (win, title, contents, color);
                 }
                 var columns2 = array.get_array_element (1);
                 foreach (var tasks2 in columns2.get_elements()) {
@@ -104,7 +106,7 @@ namespace Notejot {
                     var contents2 = task2.get_string_element(1);
                     var color2 = task2.get_string_element(2);
 
-                    win.trashview.new_taskbox (win, title2, contents2, color2);
+                    trashview.new_taskbox (win, title2, contents2, color2);
                 }
             } catch (Error e) {
                 warning ("Failed to load file: %s\n", e.message);
