@@ -10,11 +10,6 @@ window.rounded {
     border-radius: 0 0 8px 8px;
 }
 
-.frame {
-    border: none;
-    box-shadow: none;
-}
-
 .title {
     font-weight: 700;
 }
@@ -46,7 +41,6 @@ window.rounded {
 
 .notejot-tbar .image-button image {
     padding: 0 6px;
-    margin: -1px;
 }
 
 .notejot-tbar separator {
@@ -56,7 +50,11 @@ window.rounded {
 
 .notejot-tbar .image-button:focus,
 .notejot-tbar .image-button:hover {
-    background: shade(@base_color, 0.95);
+    background: shade(@base_color, 0.85);
+}
+
+.notejot-sbutton {
+    margin-right: 5px;
 }
 
 .notejot-filled-toolbar {

@@ -194,7 +194,8 @@ namespace Notejot {
 
             var sidebar_button_holder = new Gtk.Grid ();
             sidebar_button_holder.orientation = Gtk.Orientation.VERTICAL;
-            sidebar_button_holder.margin_start = sidebar_button_holder.margin_end = 12;
+            sidebar_button_holder.margin_start = 12;
+            sidebar_button_holder.margin_end = 11;
             sidebar_button_holder.add (sidebar_button_grid);
             sidebar_button_holder.add (sidebar_button_list);
             sidebar_button_holder.add (sidebar_button_trash);
