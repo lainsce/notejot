@@ -19,8 +19,8 @@
 namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Widgets
-        public Widgets.Menu menu;
         public Gtk.Button new_button;
+        public Gtk.ToggleButton pin_button;
         public Gtk.Grid grid;
         public Gtk.Grid welcome_view;
         public Gtk.Grid sgrid;
@@ -40,6 +40,9 @@ namespace Notejot {
 
         // Services
         public Services.TaskManager tm;
+
+        // Etc
+        public bool pinned = false;
 
         public Gtk.Application app { get; construct; }
         public MainWindow (Gtk.Application application) {
@@ -122,9 +125,19 @@ namespace Notejot {
             this.resize (w, h);
             tm = new Services.TaskManager (this);
 
+            if (pinned) {
+                pin_button.set_active (true);
+                pin_button.get_style_context().add_class("rotated");
+                set_keep_below (pinned);
+                stick ();
+            } else {
+                pin_button.set_active (false);
+                pin_button.get_style_context().remove_class("rotated");
+            }
+
             // Main View
             titlebar = new Hdy.HeaderBar ();
-            titlebar.set_size_request (-1, 45);
+            titlebar.set_size_request (-1, 38);
             var titlebar_c = titlebar.get_style_context ();
             titlebar_c.add_class ("notejot-tbar");
             titlebar_c.remove_class ("titlebar");
@@ -141,9 +154,17 @@ namespace Notejot {
             new_button.get_style_context ().add_class ("notejot-button");
             titlebar.pack_start (new_button);
 
+            pin_button = new Gtk.ToggleButton () {
+                image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Pin To Desktop"))
+            };
+            pin_button.get_style_context ().add_class ("notejot-button");
+            pin_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            titlebar.pack_end (pin_button);
+
             // Sidebar
             fauxtitlebar = new Hdy.HeaderBar ();
-            fauxtitlebar.set_size_request (199, 45);
+            fauxtitlebar.set_size_request (199, 38);
             var fauxtitlebar_c = fauxtitlebar.get_style_context ();
             fauxtitlebar_c.add_class ("notejot-side-tbar");
             fauxtitlebar_c.remove_class ("titlebar");
@@ -264,21 +285,24 @@ namespace Notejot {
 
             var trash_bar = new Gtk.ActionBar ();
             trash_bar.get_style_context ().add_class ("notejot-abar");
-            trash_bar.margin_top = 45;
+            trash_bar.get_style_context ().add_class ("inline-toolbar");
             var trash_button = new Gtk.Button () {
-                label = _("Empty Trash…")
+                label = _("Empty Trash…"),
+                image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON),
+                always_show_image = true
             };
             trash_button.clicked.connect (() => {
                 var dialog = new Utils.CleanTrashDialog (this);
                 dialog.run ();
             });
             trash_button.get_style_context ().add_class ("notejot-button");
+            trash_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             trash_bar.pack_end (trash_button);
 
             var trash_box = new Gtk.Grid ();
             trash_box.orientation = Gtk.Orientation.VERTICAL;
-            trash_box.add (trash_bar);
             trash_box.add (trash_scroller);
+            trash_box.add (trash_bar);
 
             // Main View
             stack = new Gtk.Stack ();
@@ -288,9 +312,6 @@ namespace Notejot {
             stack.add_named (grid_box, "grid");
             stack.add_named (list_box, "list");
             stack.add_named (trash_box, "trash");
-
-            menu = new Widgets.Menu (this);
-            titlebar.pack_end (menu);
 
             sgrid = new Gtk.Grid ();
             sgrid.orientation = Gtk.Orientation.VERTICAL;
@@ -346,6 +367,20 @@ namespace Notejot {
                     stack.set_visible_child (grid_box);
                 } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
                     stack.set_visible_child (list_box);
+                }
+            });
+
+            pin_button.clicked.connect (() => {
+                if (pin_button.active) {
+                    pinned = true;
+                    pin_button.get_style_context().add_class("rotated");
+                    set_keep_below (pinned);
+                    stick ();
+    			} else {
+    			    pinned = false;
+                    set_keep_below (pinned);
+                    pin_button.get_style_context().remove_class("rotated");
+    			    unstick ();
                 }
             });
 

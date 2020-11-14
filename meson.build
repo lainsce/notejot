@@ -29,7 +29,6 @@ sources = files(
     'src/Views/ListView.vala',
     'src/Views/TrashView.vala',
     'src/Widgets/EditableLabel.vala',
-    'src/Widgets/Menu.vala',
     'src/Widgets/NoteWindow.vala',
     'src/Widgets/Scrollable.vala',
     'src/Widgets/SettingMenu.vala',

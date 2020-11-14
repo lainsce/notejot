@@ -29,6 +29,10 @@ window.rounded {
     color: #D07070;
 }
 
+.rotated > widget > box > image {
+    -gtk-icon-transform: rotate(90deg);
+}
+
 .notejot-tbar {
     color: #151515;
     border-bottom: 1px solid alpha (black, 0);
@@ -124,7 +128,7 @@ window.rounded {
 
 .notejot-abar {
   background-color: #F7F7F7;
-  border-bottom: 1px solid alpha(black, 0.25);
+  border-top: 1px solid alpha(black, 0.25);
   padding: 6px 10px;
 }
 
@@ -181,7 +185,7 @@ window.rounded {
 .notejot-lview {
     background: #F7F7F7;
     padding: 12px;
-    padding-top: 50px;
+    padding-top: 45px;
 }
 
 .notejot-tvview {
@@ -192,11 +196,15 @@ window.rounded {
 .notejot-fgview {
     background-color: #F7F7F7;
     padding: 30px;
-    padding-top: 65px;
+    padding-top: 45px;
+}
+
+.notejot-fgview flowboxchild:selected {
+    background: none;
 }
 
 .notejot-fgview flowboxchild:selected .notejot-note-grid {
-    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
+    box-shadow: 0 1px 5px 5px alpha(black, 0.25);   
 }
 
 .notejot-column {
