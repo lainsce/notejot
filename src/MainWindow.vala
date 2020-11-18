@@ -64,23 +64,26 @@ namespace Notejot {
             });
 
             var provider = new Gtk.CssProvider ();
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+
+            if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                Notejot.Application.gsettings.set_boolean("dark-mode", true);
                 provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            } else {
-                Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
-            }
-
-            Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
+            } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    Notejot.Application.gsettings.set_boolean("dark-mode", true);
                     provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
                     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 } else {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
                     Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
                 }
-            });
+            } else {
+                Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
+            }
 
             Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
@@ -125,16 +128,6 @@ namespace Notejot {
             this.resize (w, h);
             tm = new Services.TaskManager (this);
 
-            if (pinned) {
-                pin_button.set_active (true);
-                pin_button.get_style_context().add_class("rotated");
-                set_keep_below (pinned);
-                stick ();
-            } else {
-                pin_button.set_active (false);
-                pin_button.get_style_context().remove_class("rotated");
-            }
-
             // Main View
             titlebar = new Hdy.HeaderBar ();
             titlebar.set_size_request (-1, 38);
@@ -161,6 +154,16 @@ namespace Notejot {
             pin_button.get_style_context ().add_class ("notejot-button");
             pin_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             titlebar.pack_end (pin_button);
+
+            if (pinned) {
+                pin_button.set_active (true);
+                pin_button.get_style_context().add_class("rotated");
+                set_keep_below (pinned);
+                stick ();
+            } else {
+                pin_button.set_active (false);
+                pin_button.get_style_context().remove_class("rotated");
+            }
 
             // Sidebar
             fauxtitlebar = new Hdy.HeaderBar ();
