@@ -126,7 +126,7 @@ window.rounded {
 }
 
 .notejot-tview text selection {
-    background: shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    background: shade(mix (@accent_color, @base_color, 0.90), 0.88);
     color: @fg_color;
 }
 
@@ -182,7 +182,7 @@ window.rounded {
 
 .notejot-column,
 .notejot-column treeview {
-    background: mix (@accent_color, @base_color, 0.85);
+    background: mix (@accent_color, @base_color, 0.90);
     box-shadow: none;
 }
 
@@ -216,7 +216,7 @@ window.rounded {
 }
 
 .notejot-side-tbar {
-    background: mix (@accent_color, @base_color, 0.85);
+    background: mix (@accent_color, @base_color, 0.90);
     box-shadow: none;
     margin: 0 7px;
     padding: 0;
@@ -282,13 +282,13 @@ window.rounded {
 .notejot-note-list:focus,
 .notejot-note-list:hover {
     border-radius: 8px;
-    background-color: shade(mix (@accent_color, @base_color, 0.85), 0.88);
+    background-color: shade(mix (@accent_color, @base_color, 0.90), 0.88);
     color: @fg_color;
 }
 
 .notejot-side-button {
-    background: mix (@accent_color, @base_color, 0.85);
-    border: 1px solid mix (@accent_color, @base_color, 0.85);
+    background: mix (@accent_color, @base_color, 0.90);
+    border: 1px solid mix (@accent_color, @base_color, 0.90);
     box-shadow: none;
     padding: 8px;
     margin: 0;
