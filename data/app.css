@@ -325,3 +325,24 @@ window.rounded {
 .notejot-side-button image {
   margin-left: 0.8rem;
 }
+
+.notejot-lview:backdrop {
+    background: #F0F0F0;
+}
+
+.notejot-tvview:backdrop {
+    background-color: #F0F0F0;
+}
+
+.notejot-fgview:backdrop {
+    background-color: #F0F0F0;
+}
+
+.notejot-tview:backdrop {
+	background: #F0F0F0;
+}
+
+.notejot-stack:backdrop {
+    background: #F0F0F0;
+    color: #333333;
+}

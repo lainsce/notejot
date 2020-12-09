@@ -70,3 +70,24 @@
     box-shadow: 0 1px 3px 0 alpha(black, 0.3),
                 0 1px 2px 0 alpha(black, 0.26);
 }
+
+.notejot-lview:backdrop {
+    background: #333333;
+}
+
+.notejot-tvview:backdrop {
+    background-color: #333333;
+}
+
+.notejot-fgview:backdrop {
+    background-color: #333333;
+}
+
+.notejot-tview:backdrop {
+	background: #333333;
+}
+
+.notejot-stack:backdrop {
+    background: #333333;
+    color: #CCCCCC;
+}
