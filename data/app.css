@@ -342,6 +342,18 @@ window.rounded {
 	background: #F0F0F0;
 }
 
+.notejot-filled-toolbar:backdrop {
+    background: #F0F0F0;
+}
+
+.notejot-abar:backdrop {
+	background: #F0F0F0;
+}
+
+.notejot-ntbar:backdrop {
+	background: #F0F0F0;
+}
+
 .notejot-stack:backdrop {
     background: #F0F0F0;
     color: #333333;

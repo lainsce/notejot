@@ -87,6 +87,18 @@
 	background: #333333;
 }
 
+.notejot-filled-toolbar:backdrop {
+    background: #333333;
+}
+
+.notejot-abar:backdrop {
+	background: #333333;
+}
+
+.notejot-ntbar:backdrop {
+	background: #333333;
+}
+
 .notejot-stack:backdrop {
     background: #333333;
     color: #CCCCCC;
