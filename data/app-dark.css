@@ -2,12 +2,16 @@
     color: #F7F7F7;
 }
 
-.notejot-tbar {
-    color: #F7F7F7;
+.notejot-tbar .image-button,
+.notejot-tbar .title,
+.notejot-tbar .titlebutton {
+    color: #FFF;
 }
 
-.notejot-tbar .image-button {
-    color: #F7F7F7;
+.notejot-tbar:backdrop .image-button,
+.notejot-tbar:backdrop .title,
+.notejot-tbar:backdrop .titlebutton {
+    color: #CCC;
 }
 
 .notejot-filled-toolbar {
