@@ -2,12 +2,12 @@
 @define-color accent_color_500 #FFE16B;
 @define-color accent_color_300 #FFE16B;
 
-window.unified {
-    border-radius: 8px;
-}
-
-window.rounded {
-    border-radius: 0 0 8px 8px;
+window .csd:not(.popup):not(.menu) .titlebar,
+window:not(.popup):not(.menu) > decoration,
+window.unified,
+window.unified decoration,
+window.unified decoration-overlay {
+  border-radius: 8px;
 }
 
 .title {
