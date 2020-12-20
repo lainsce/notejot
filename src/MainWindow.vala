@@ -103,6 +103,7 @@ namespace Notejot {
             // Ensure use of elementary theme and icons, accent color doesn't matter
             Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
             Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
+            Gtk.Settings.get_default().set_property("gtk-font-name", "Inter 9");
             this.get_style_context ().add_class ("notejot-view");
             int x = Notejot.Application.gsettings.get_int("window-x");
             int y = Notejot.Application.gsettings.get_int("window-y");
