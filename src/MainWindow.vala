@@ -128,10 +128,12 @@ namespace Notejot {
 
             new_button = new Gtk.Button () {
                 image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("New Note"))
+                always_show_image = true,
+                label = (_("New Note…")),
+                tooltip_text = (_("Create a new note."))
             };
-            new_button.get_style_context ().add_class ("notejot-button");
-            titlebar.pack_start (new_button);
+            new_button.get_style_context ().add_class ("notejot-sabutton");
+            new_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
             pin_button = new Gtk.ToggleButton () {
                 image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.BUTTON),
@@ -139,7 +141,6 @@ namespace Notejot {
             };
             pin_button.get_style_context ().add_class ("notejot-button");
             pin_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            titlebar.pack_end (pin_button);
 
             if (pinned) {
                 pin_button.set_active (true);
@@ -210,6 +211,11 @@ namespace Notejot {
             sidebar_button_holder.add (sidebar_button_list);
             sidebar_button_holder.add (sidebar_button_trash);
 
+            var sidebar_actionbar = new Gtk.ActionBar ();
+            sidebar_actionbar.get_style_context ().add_class ("notejot-sabar");
+            sidebar_actionbar.add (new_button);
+            sidebar_actionbar.pack_end (pin_button);
+
             // Welcome View
             var normal_icon = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
             var normal_label = new Gtk.Label (_("Start by adding some notes…"));
@@ -274,7 +280,6 @@ namespace Notejot {
 
             var trash_bar = new Gtk.ActionBar ();
             trash_bar.get_style_context ().add_class ("notejot-abar");
-            trash_bar.get_style_context ().add_class ("inline-toolbar");
             var trash_button = new Gtk.Button () {
                 label = _("Empty Trash…"),
                 image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON),
@@ -284,7 +289,7 @@ namespace Notejot {
                 var dialog = new Utils.CleanTrashDialog (this);
                 dialog.run ();
             });
-            trash_button.get_style_context ().add_class ("notejot-button");
+            trash_button.get_style_context ().add_class ("notejot-abutton");
             trash_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             trash_bar.pack_end (trash_button);
 
@@ -309,6 +314,7 @@ namespace Notejot {
             sgrid.attach (sidebar_header, 0, 1, 1, 1);
             sgrid.attach (sidebar_button_holder, 0, 2, 1, 1);
             sgrid.attach (sidebar_categories, 0, 4, 1, 1);
+            sgrid.attach (sidebar_actionbar, 0, 5, 1, 1);
             sgrid.show_all ();
 
             var overlay = new Gtk.Overlay ();

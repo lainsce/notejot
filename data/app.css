@@ -151,9 +151,39 @@ window.unified decoration-overlay {
   padding: 6px;
 }
 
+.notejot-abutton {
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.notejot-abutton:focus,
+.notejot-abutton:hover {
+  background: shade(@base_color, 0.88);
+}
+
 .notejot-abar .image-button:focus,
 .notejot-abar .image-button:hover {
   background: shade(@base_color, 0.88);
+}
+
+.notejot-sabar {
+  background-color: shade(mix (@accent_color, @base_color, 0.90), 0.95);
+  border-top: 1px solid alpha(black, 0.25);
+  padding: 6px 10px;
+  box-shadow: none;
+}
+
+.notejot-sabar .image-button,
+.notejot-sabutton {
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.notejot-sabar .image-button:focus,
+.notejot-sabar .image-button:hover,
+.notejot-sabutton:focus,
+.notejot-sabutton:hover {
+  background: shade(mix (@accent_color, @base_color, 0.90), 0.88);
 }
 
 .notejot-bar {
