@@ -17,28 +17,37 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Services.TaskManager {
+    public class TaskManager {
         public MainWindow win;
         public Json.Builder builder;
-        private string app_dir = Environment.get_user_data_dir () + "/com.github.lainsce.notejot";
-        private string file_name = Environment.get_user_data_dir () + "/com.github.lainsce.notejot/saved_notes.json";
+        private string app_dir = Environment.get_user_cache_dir () +
+                                 "/com.github.lainsce.notejot";
+        private string file_name;
 
         public TaskManager (MainWindow win) {
             this.win = win;
-            save_notes ();
+            file_name = this.app_dir + "/saved_tasks.json";
+            debug ("%s".printf(file_name));
         }
 
-        public void save_notes () {
+        public void save_notes() {
+            string json_string = prepare_json_from_notes();
             var dir = File.new_for_path(app_dir);
-
+            var file = File.new_for_path (file_name);
             try {
                 if (!dir.query_exists()) {
                     dir.make_directory();
                 }
-
-                GLib.FileUtils.set_contents (file_name, prepare_json_from_notes ());
+                if (file.query_exists ()) {
+                    file.delete ();
+                }
+                var file_stream = file.create (
+                                        FileCreateFlags.REPLACE_DESTINATION
+                                        );
+                var data_stream = new DataOutputStream (file_stream);
+                data_stream.put_string(json_string);
             } catch (Error e) {
-                warning ("Failed to save notes: %s\n", e.message);
+                warning ("Failed to save timetable: %s\n", e.message);
             }
 
         }
@@ -47,8 +56,10 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            save_column (builder, win.gridview);
-            save_trash_column (builder, win.trashview);
+            if (win.gridview != null && win.trashview != null) {
+                save_column (builder, win.gridview);
+                save_trash_column (builder, win.trashview);
+            }
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
@@ -88,33 +99,38 @@ namespace Notejot {
             builder.end_array ();
         }
 
-        public void load_from_file (MainWindow win,
-                                    Views.GridView gridview,
-                                    Views.TrashView trashview) {
-            string text;
+        public void load_from_file () {
             try {
-                GLib.FileUtils.get_contents (file_name, out text);
-                var parser = new Json.Parser();
-                parser.load_from_data(text);
-                var root = parser.get_root();
-                var array = root.get_array();
-                var columns1 = array.get_array_element (0);
-                foreach (var tasks in columns1.get_elements()) {
-                    var task = tasks.get_array ();
-                    var title = task.get_string_element(0);
-                    var contents = task.get_string_element(1);
-                    var color = task.get_string_element(2);
+                var file = File.new_for_path(file_name);
+                var json_string = "";
+                if (file.query_exists()) {
+                    string line;
+                    var dis = new DataInputStream (file.read ());
+                    while ((line = dis.read_line (null)) != null) {
+                        json_string += line;
+                    }
+                    var parser = new Json.Parser();
+                    parser.load_from_data(json_string);
+                    var root = parser.get_root();
+                    var array = root.get_array();
+                    var columns = array.get_array_element (0);
+                    foreach (var tasks in columns.get_elements()) {
+                        var task = tasks.get_array ();
+                        var title = task.get_string_element(0);
+                        var contents = task.get_string_element(1);
+                        var color = task.get_string_element(2);
 
-                    gridview.new_taskbox (win, title, contents, color);
-                }
-                var columns2 = array.get_array_element (1);
-                foreach (var tasks2 in columns2.get_elements()) {
-                    var task2 = tasks2.get_array ();
-                    var title2 = task2.get_string_element(0);
-                    var contents2 = task2.get_string_element(1);
-                    var color2 = task2.get_string_element(2);
+                        win.gridview.new_taskbox (win, title, contents, color);
+                    }
+                    var columns2 = array.get_array_element (1);
+                    foreach (var tasks2 in columns2.get_elements()) {
+                        var task2 = tasks2.get_array ();
+                        var title2 = task2.get_string_element(0);
+                        var contents2 = task2.get_string_element(1);
+                        var color2 = task2.get_string_element(2);
 
-                    trashview.new_taskbox (win, title2, contents2, color2);
+                        win.trashview.new_taskbox (win, title2, contents2, color2);
+                    }
                 }
             } catch (Error e) {
                 warning ("Failed to load file: %s\n", e.message);
@@ -122,4 +138,3 @@ namespace Notejot {
         }
     }
 }
-

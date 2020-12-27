@@ -31,8 +31,6 @@ namespace Notejot {
             this.activate_on_single_click = true;
             this.selection_mode = Gtk.SelectionMode.SINGLE;
 
-            is_modified = false;
-
             this.get_style_context ().add_class ("notejot-fgview");
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 this.get_style_context ().add_class ("notejot-fgview-bg-dark");

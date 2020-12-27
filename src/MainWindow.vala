@@ -43,7 +43,7 @@ namespace Notejot {
         public Views.TrashView trashview;
 
         // Services
-        public Services.TaskManager tm;
+        public TaskManager tm;
 
         // Etc
         public bool pinned = false;
@@ -114,7 +114,7 @@ namespace Notejot {
                 this.move (x, y);
             }
             this.resize (w, h);
-            tm = new Services.TaskManager (this);
+            tm = new TaskManager (this);
 
             // Main View
             titlebar = new Hdy.HeaderBar ();
@@ -365,7 +365,7 @@ namespace Notejot {
                 update ();
             });
 
-            tm.load_from_file (this, gridview, trashview);
+            tm.load_from_file ();
 
             if (gridview.is_modified == false) {
                 stack.set_visible_child (welcome_view);
@@ -378,15 +378,19 @@ namespace Notejot {
                     stack.set_visible_child (grid_box);
                     sidebar_button_grid.is_focus = true;
                     sidebar_button_list.is_focus = false;
+                    welcome_titlebar.visible = false;
+                    titlebar.visible = true;
+                    sgrid.no_show_all = false;
+                    sgrid.visible = true;
                 } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
                     stack.set_visible_child (list_box);
                     sidebar_button_list.is_focus = true;
                     sidebar_button_grid.is_focus = false;
+                    welcome_titlebar.visible = false;
+                    titlebar.visible = true;
+                    sgrid.no_show_all = false;
+                    sgrid.visible = true;
                 }
-                welcome_titlebar.visible = false;
-                titlebar.visible = true;
-                sgrid.no_show_all = false;
-                sgrid.visible = true;
             }
 
             welcome_view.activated.connect ((option) => {

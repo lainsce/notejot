@@ -13,12 +13,6 @@ namespace Notejot {
             color_button_red.get_style_context ().add_class ("color-button");
             color_button_red.get_style_context ().add_class ("color-red");
 
-            var color_button_orange = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Orange")
-            };
-            color_button_orange.get_style_context ().add_class ("color-button");
-            color_button_orange.get_style_context ().add_class ("color-orange");
-
             var color_button_yellow = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Yellow")
             };
@@ -37,12 +31,6 @@ namespace Notejot {
             color_button_blue.get_style_context ().add_class ("color-button");
             color_button_blue.get_style_context ().add_class ("color-blue");
 
-            var color_button_violet = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Violet")
-            };
-            color_button_violet.get_style_context ().add_class ("color-button");
-            color_button_violet.get_style_context ().add_class ("color-violet");
-
             var color_button_neutral = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Gray")
             };
@@ -55,11 +43,9 @@ namespace Notejot {
                 column_spacing = 6
             };
             color_button_box.add (color_button_red);
-            color_button_box.add (color_button_orange);
             color_button_box.add (color_button_yellow);
             color_button_box.add (color_button_green);
             color_button_box.add (color_button_blue);
-            color_button_box.add (color_button_violet);
             color_button_box.add (color_button_neutral);
 
             var color_button_label = new Granite.HeaderLabel (_("Note Color")) {
@@ -99,10 +85,6 @@ namespace Notejot {
                 taskbox.update_theme("#F3ACAA");
             });
 
-            color_button_orange.clicked.connect (() => {
-                taskbox.update_theme("#FFC78B");
-            });
-
             color_button_yellow.clicked.connect (() => {
                 taskbox.update_theme("#FCF092");
             });
@@ -113,10 +95,6 @@ namespace Notejot {
 
             color_button_blue.clicked.connect (() => {
                 taskbox.update_theme("#B8EFFA");
-            });
-
-            color_button_violet.clicked.connect (() => {
-                taskbox.update_theme("#C0C0F5");
             });
 
             color_button_neutral.clicked.connect (() => {
