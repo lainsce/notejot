@@ -16,6 +16,10 @@
               0 1px 2px transparent;
 }
 
+.welcome-title:backdrop {
+	background: #333;
+}
+
 .notejot-tbar .image-button,
 .notejot-tbar .title,
 .notejot-tbar .titlebutton {
