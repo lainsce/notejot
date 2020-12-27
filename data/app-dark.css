@@ -17,7 +17,7 @@
 }
 
 .welcome-title:backdrop,
-.welcome-title:backdrop > *:disabled {
+.welcome-title:backdrop > *:disabled:backdrop {
 	background: #333;
 }
 

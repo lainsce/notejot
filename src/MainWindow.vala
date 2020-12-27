@@ -255,7 +255,7 @@ namespace Notejot {
 
             var welcome_view = new Granite.Widgets.Welcome (
                 _("No File Open"),
-                _("Create a note to begin")
+                _("Create a note to begin jotting ideas")
             );
             welcome_view.append ("document-new-symbolic", _("New Note"), "Creates a new note.");
             welcome_view.get_style_context ().add_class ("notejot-stack");

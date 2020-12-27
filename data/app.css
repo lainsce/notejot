@@ -55,6 +55,11 @@ window.unified decoration-overlay {
 	background: #F0F0F0;
 }
 
+.welcome-title:backdrop,
+.welcome-title:backdrop > *:disabled:backdrop {
+	background: #F0F0F0;
+}
+
 .notejot-tbar {
     border-bottom: 1px solid alpha (black, 0);
 }
