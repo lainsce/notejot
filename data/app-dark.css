@@ -16,7 +16,8 @@
               0 1px 2px transparent;
 }
 
-.welcome-title:backdrop {
+.welcome-title:backdrop,
+.welcome-title:backdrop > *:disabled {
 	background: #333;
 }
 
