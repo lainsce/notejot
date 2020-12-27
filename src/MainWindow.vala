@@ -24,13 +24,17 @@ namespace Notejot {
         public Gtk.Grid grid;
         public Gtk.Grid welcome_view;
         public Gtk.Grid sgrid;
+        public Gtk.Grid grid_box;
+        public Gtk.Grid list_box;
         public Gtk.Separator separator;
         public Gtk.Stack stack;
+        public Gtk.Stack titlebar_stack;
         public Gtk.ToggleButton format_button;
         public Granite.Widgets.SourceList sidebar_categories;
         public Granite.Widgets.SourceList.ExpandableItem notes_category;
         public Hdy.HeaderBar fauxtitlebar;
         public Hdy.HeaderBar titlebar;
+        public Hdy.HeaderBar welcome_titlebar;
         public Hdy.Leaflet leaflet;
 
         // Views
@@ -100,10 +104,7 @@ namespace Notejot {
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/notejot/app.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            // Ensure use of elementary theme and icons, accent color doesn't matter
-            Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
-            Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
-            Gtk.Settings.get_default().set_property("gtk-font-name", "Inter 9");
+
             this.get_style_context ().add_class ("notejot-view");
             int x = Notejot.Application.gsettings.get_int("window-x");
             int y = Notejot.Application.gsettings.get_int("window-y");
@@ -217,20 +218,47 @@ namespace Notejot {
             sidebar_actionbar.add (new_button);
             sidebar_actionbar.pack_end (pin_button);
 
-            // Welcome View
-            var normal_icon = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
-            var normal_label = new Gtk.Label (_("Start by adding some notes…"));
-            var normal_label_context = normal_label.get_style_context ();
-            normal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
-            normal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+            var sidebar = new Gtk.Grid ();
+            sidebar.orientation = Gtk.Orientation.VERTICAL;
+            sidebar.get_style_context ().add_class ("notejot-column");
+            sidebar.attach (fauxtitlebar, 0, 0, 1, 1);
+            sidebar.attach (sidebar_header, 0, 1, 1, 1);
+            sidebar.attach (sidebar_button_holder, 0, 2, 1, 1);
+            sidebar.attach (sidebar_categories, 0, 4, 1, 1);
+            sidebar.attach (sidebar_actionbar, 0, 5, 1, 1);
+            sidebar.show_all ();
 
-            welcome_view = new Gtk.Grid ();
-            welcome_view.column_spacing = 12;
-            welcome_view.margin = 24;
-            welcome_view.expand = true;
-            welcome_view.halign = welcome_view.valign = Gtk.Align.CENTER;
-            welcome_view.add (normal_icon);
-            welcome_view.add (normal_label);
+            // Welcome View
+
+            // Used so the welcome titlebar, which is flat, and with no buttons
+            // doesn't jump in size when transtitioning to the preview titlebar.
+            var dummy_welcome_title_button = new Gtk.Button ();
+            dummy_welcome_title_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            dummy_welcome_title_button.sensitive = false;
+
+            welcome_titlebar = new Hdy.HeaderBar ();
+            welcome_titlebar.show_close_button = true;
+            welcome_titlebar.has_subtitle = false;
+            welcome_titlebar.title = "Notejot";
+            welcome_titlebar.set_decoration_layout ("close:maximize");
+            welcome_titlebar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            welcome_titlebar.get_style_context ().add_class ("welcome-title");
+            welcome_titlebar.valign = Gtk.Align.START;
+
+            welcome_titlebar.pack_start (dummy_welcome_title_button);
+
+            titlebar_stack = new Gtk.Stack ();
+            titlebar_stack.valign = Gtk.Align.START;
+            titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
+            titlebar_stack.add_named (welcome_titlebar, "welcome-title");
+            titlebar_stack.add_named (titlebar, "title");
+
+            var welcome_view = new Granite.Widgets.Welcome (
+                _("No File Open"),
+                _("Create a note to begin")
+            );
+            welcome_view.append ("document-new-symbolic", _("New Note"), "Creates a new note.");
+            welcome_view.get_style_context ().add_class ("notejot-stack");
 
             // Grid View
             gridview = new Views.GridView (this);
@@ -248,7 +276,7 @@ namespace Notejot {
             var grid_scroller = new Gtk.ScrolledWindow (null, null);
             grid_scroller.add (grid_scrollable);
 
-            var grid_box = new Gtk.Grid ();
+            grid_box = new Gtk.Grid ();
             grid_box.add (grid_scroller);
 
             // List View
@@ -267,7 +295,7 @@ namespace Notejot {
             var list_scroller = new Gtk.ScrolledWindow (null, null);
             list_scroller.add (list_scrollable);
 
-            var list_box = new Gtk.Grid ();
+            list_box = new Gtk.Grid ();
             list_box.add (list_scroller);
 
             // Trash View
@@ -310,16 +338,12 @@ namespace Notejot {
 
             sgrid = new Gtk.Grid ();
             sgrid.orientation = Gtk.Orientation.VERTICAL;
-            sgrid.get_style_context ().add_class ("notejot-column");
-            sgrid.attach (fauxtitlebar, 0, 0, 1, 1);
-            sgrid.attach (sidebar_header, 0, 1, 1, 1);
-            sgrid.attach (sidebar_button_holder, 0, 2, 1, 1);
-            sgrid.attach (sidebar_categories, 0, 4, 1, 1);
-            sgrid.attach (sidebar_actionbar, 0, 5, 1, 1);
-            sgrid.show_all ();
+            sgrid.attach (sidebar, 0, 0, 1, 1);
+            sgrid.no_show_all = true;
+            sgrid.visible = false;
 
             var overlay = new Gtk.Overlay ();
-            overlay.add_overlay (titlebar);
+            overlay.add_overlay (titlebar_stack);
             overlay.add (stack);
 
             grid = new Gtk.Grid ();
@@ -345,6 +369,10 @@ namespace Notejot {
 
             if (gridview.is_modified == false) {
                 stack.set_visible_child (welcome_view);
+                welcome_titlebar.visible = true;
+                titlebar.visible = false;
+                sgrid.no_show_all = true;
+                sgrid.visible = false;
             } else {
                 if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
                     stack.set_visible_child (grid_box);
@@ -355,15 +383,22 @@ namespace Notejot {
                     sidebar_button_list.is_focus = true;
                     sidebar_button_grid.is_focus = false;
                 }
+                welcome_titlebar.visible = false;
+                titlebar.visible = true;
+                sgrid.no_show_all = false;
+                sgrid.visible = true;
             }
 
-            new_button.clicked.connect (() => {
-                gridview.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
-                if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
-                    stack.set_visible_child (grid_box);
-                } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
-                    stack.set_visible_child (list_box);
+            welcome_view.activated.connect ((option) => {
+                switch (option) {
+                    case 0:
+                        on_create_new ();
+                        break;
                 }
+            });
+
+            new_button.clicked.connect (() => {
+                on_create_new ();
             });
 
             pin_button.clicked.connect (() => {
@@ -452,6 +487,19 @@ namespace Notejot {
             Notejot.Application.gsettings.set_int("window-x", x);
             Notejot.Application.gsettings.set_int("window-y", y);
             return false;
+        }
+
+        // IO?
+        public void on_create_new () {
+            gridview.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
+            if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
+                stack.set_visible_child (grid_box);
+            } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
+                stack.set_visible_child (list_box);
+            }
+            titlebar_stack.set_visible_child (titlebar);
+            sgrid.no_show_all = false;
+            sgrid.visible = true;
         }
     }
 }

@@ -2,6 +2,20 @@
     color: #F7F7F7;
 }
 
+.welcome-title {
+  background: #151515;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title > *:disabled {
+  background: #151515;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
 .notejot-tbar .image-button,
 .notejot-tbar .title,
 .notejot-tbar .titlebutton {

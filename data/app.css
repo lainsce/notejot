@@ -37,6 +37,20 @@ window.unified decoration-overlay {
     -gtk-icon-transform: rotate(90deg);
 }
 
+.welcome-title {
+  background: #F7F7F7;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title > *:disabled {
+  background: #F7F7F7;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
 .notejot-tbar {
     border-bottom: 1px solid alpha (black, 0);
 }
@@ -248,7 +262,7 @@ window.unified decoration-overlay {
 }
 
 .notejot-fgview flowboxchild:selected .notejot-note-grid {
-    box-shadow: 0 1px 5px 5px alpha(black, 0.25);   
+    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
 }
 
 .notejot-column {

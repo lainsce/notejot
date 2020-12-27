@@ -62,7 +62,7 @@ namespace Notejot {
             color_button_box.add (color_button_violet);
             color_button_box.add (color_button_neutral);
 
-            var color_button_label = new Granite.HeaderLabel (_("Note Badge Color")) {
+            var color_button_label = new Granite.HeaderLabel (_("Note Color")) {
                 margin_start = 6,
                 margin_end = 12
             };
@@ -79,6 +79,13 @@ namespace Notejot {
                 if (win.gridview.get_children () == null) {
                     if (win.stack.get_visible_child_name () == "grid") {
                         win.stack.set_visible_child (win.welcome_view);
+                        win.titlebar_stack.set_visible_child (win.welcome_titlebar);
+                    }
+                }
+                if (win.listview.get_children () == null) {
+                    if (win.stack.get_visible_child_name () == "list") {
+                        win.stack.set_visible_child (win.welcome_view);
+                        win.titlebar_stack.set_visible_child (win.welcome_titlebar);
                     }
                 }
                 win.trashview.new_taskbox (win, taskbox.title, taskbox.contents, taskbox.color);
