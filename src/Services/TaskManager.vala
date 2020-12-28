@@ -26,7 +26,7 @@ namespace Notejot {
 
         public TaskManager (MainWindow win) {
             this.win = win;
-            file_name = this.app_dir + "/saved_tasks.json";
+            file_name = this.app_dir + "/saved_notes.json";
             debug ("%s".printf(file_name));
         }
 
