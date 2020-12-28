@@ -56,7 +56,7 @@ namespace Notejot {
             var setting_menu = new Widgets.SettingMenu (win, taskbox);
 
             var popout_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("window-pop-out-symbolic", Gtk.IconSize.BUTTON),
+                image = new Gtk.Image.from_icon_name ("window-new-symbolic", Gtk.IconSize.BUTTON),
                 tooltip_text = (_("Popout Note to Desktop"))
             };
 

@@ -1,3 +1,4 @@
+@define-color accent #FFE16B;
 @define-color accent_color #FFE16B;
 @define-color accent_color_500 #FFE16B;
 @define-color accent_color_300 #FFE16B;
@@ -39,6 +40,8 @@ window.unified decoration-overlay {
 
 .welcome-title {
   background: #F7F7F7;
+  padding: 0;
+  margin: 0 4px;
   border-bottom: 1px solid transparent;
   box-shadow: 0 1px 3px transparent,
               0 1px 2px transparent;
@@ -62,6 +65,10 @@ window.unified decoration-overlay {
 
 .notejot-tbar {
     border-bottom: 1px solid alpha (black, 0);
+    background: transparent;
+    box-shadow: none;
+    -gtk-icon-shadow: none;
+    -gtk-text-shadow: none;
 }
 
 .notejot-tbar .image-button {
@@ -81,7 +88,7 @@ window.unified decoration-overlay {
 }
 
 .notejot-tbar .image-button image {
-    padding: 0 6px;
+    padding: 0;
 }
 
 .notejot-tbar separator {
@@ -91,7 +98,7 @@ window.unified decoration-overlay {
 
 .notejot-tbar .image-button:focus,
 .notejot-tbar .image-button:hover {
-    background: shade(@base_color, 0.85);
+    background: shade(#FAFAFA, 0.85);
 }
 
 .notejot-sbutton {
@@ -101,6 +108,8 @@ window.unified decoration-overlay {
 .notejot-filled-toolbar {
     background: #F7F7F7;
     color: #151515;
+    margin: 0 4px;
+    padding: 0;
     border-bottom: 1px solid alpha (black, 0.25);
     transition: all 300ms ease-in-out;
 }
@@ -111,31 +120,31 @@ window.unified decoration-overlay {
    -gtk-icon-shadow: none;
 }
 .color-red radio {
-    background-color: #F3ACAA;
+    background: #F3ACAA;
     color: #F3ACAA;
 }
 .color-orange radio {
-    background-color: #FFC78B;
+    background: #FFC78B;
     color: #FFC78B;
 }
 .color-yellow radio {
-    background-color: #FCF092;
+    background: #FCF092;
     color: #FCF092;
 }
 .color-green radio {
-    background-color: #B1FBA2;
+    background: #B1FBA2;
     color: #B1FBA2;
 }
 .color-blue radio {
-    background-color: #B8EFFA;
+    background: #B8EFFA;
     color: #B8EFFA;
 }
 .color-violet radio {
-    background-color: #C0C0F5;
+    background: #C0C0F5;
     color: #C0C0F5;
 }
 .color-neutral radio {
-    background-color: #DADADA;
+    background: #DADADA;
     color: #DADADA;
 }
 .image-button,
@@ -159,7 +168,7 @@ window.unified decoration-overlay {
 }
 
 .notejot-tview text selection {
-    background: shade(mix (@accent_color, @base_color, 0.90), 0.88);
+    background: shade(mix (@accent, #FAFAFA, 0.90), 0.88);
     color: @fg_color;
 }
 
@@ -167,6 +176,12 @@ window.unified decoration-overlay {
   background-color: #F7F7F7;
   border-top: 1px solid alpha(black, 0.25);
   padding: 6px 10px;
+}
+
+.notejot-abar box {
+  border-top: none;
+  padding: 0;
+  margin: 0;
 }
 
 .notejot-abar .image-button {
@@ -181,18 +196,18 @@ window.unified decoration-overlay {
 
 .notejot-abutton:focus,
 .notejot-abutton:hover {
-  background: shade(@base_color, 0.88);
+  background: shade(#FAFAFA, 0.88);
 }
 
 .notejot-abar .image-button:focus,
 .notejot-abar .image-button:hover {
-  background: shade(@base_color, 0.88);
+  background: shade(#FAFAFA, 0.88);
 }
 
 .notejot-sabar {
-  background-color: shade(mix (@accent_color, @base_color, 0.90), 0.95);
+  background-color: shade(mix (@accent, #FAFAFA, 0.90), 0.95);
   border-top: 1px solid alpha(black, 0.25);
-  padding: 6px 10px;
+  padding: 6px;
   box-shadow: none;
 }
 
@@ -206,7 +221,13 @@ window.unified decoration-overlay {
 .notejot-sabar .image-button:hover,
 .notejot-sabutton:focus,
 .notejot-sabutton:hover {
-  background: shade(mix (@accent_color, @base_color, 0.90), 0.88);
+  background: shade(mix (@accent, #FAFAFA, 0.90), 0.88);
+}
+
+.notejot-sabar box {
+  border-top: none;
+  padding: 0;
+  margin: 0;
 }
 
 .notejot-bar {
@@ -219,6 +240,12 @@ window.unified decoration-overlay {
     color: #151515;
 }
 
+.notejot-bar box {
+  border-top: none;
+  padding: 0;
+  margin: 0;
+}
+
 .notejot-bar image {
     -gtk-icon-shadow: 0 1px transparent;
     color: #151515;
@@ -226,13 +253,6 @@ window.unified decoration-overlay {
 
 .notejot-column-box .notejot-bar image {
     color: #151515;
-}
-
-.notejot-tbar {
-	box-shadow: none;
-	border-left: none;
-	margin: 6px 7px;
-    padding: 0;
 }
 
 .notejot-ntbar {
@@ -243,9 +263,13 @@ window.unified decoration-overlay {
     background: #F7F7F7;
 }
 
+.notejot-sidecat treeview {
+  border: none;
+}
+
 .notejot-column,
 .notejot-column treeview {
-    background: mix (@accent_color, @base_color, 0.90);
+    background: mix (@accent, #FAFAFA, 0.90);
     box-shadow: none;
 }
 
@@ -279,8 +303,9 @@ window.unified decoration-overlay {
 }
 
 .notejot-side-tbar {
-    background: mix (@accent_color, @base_color, 0.90);
+    background: mix (@accent, #FAFAFA, 0.90);
     box-shadow: none;
+    border-bottom: none;
     margin: 0 7px;
     padding: 0;
 }
@@ -294,10 +319,10 @@ window.unified decoration-overlay {
     margin: 6px;
     margin-bottom: 15px;
     border-radius: 8px;
-    color: @fg_color;
+    color: @theme_fg_color;
     background: #f7f7f7;
-    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
-                0 1px 2px 0 alpha(black, 0.26);
+    box-shadow: 0 1px 3px alpha(black, 0.1),
+                0 1px 2px alpha(black, 0.24);
 }
 
 .notejot-column-box:selected {
@@ -325,8 +350,8 @@ window.unified decoration-overlay {
 
 .notejot-note-grid {
     border-radius: 8px;
-    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
-                0 1px 2px 0 alpha(black, 0.26);
+    box-shadow: 0 1px 3px alpha(black, 0.1),
+                0 1px 2px alpha(black, 0.24);
 }
 
 .notejot-note-trash {
@@ -345,13 +370,13 @@ window.unified decoration-overlay {
 .notejot-note-list:focus,
 .notejot-note-list:hover {
     border-radius: 8px;
-    background-color: shade(mix (@accent_color, @base_color, 0.90), 0.88);
+    background-color: shade(mix (@accent, #FAFAFA, 0.90), 0.88);
     color: @fg_color;
 }
 
 .notejot-side-button {
-    background: mix (@accent_color, @base_color, 0.90);
-    border: 1px solid mix (@accent_color, @base_color, 0.90);
+    background: mix (@accent, #FAFAFA, 0.90);
+    border: 1px solid mix (@accent, #FAFAFA, 0.90);
     box-shadow: none;
     padding: 8px;
     margin: 0;
@@ -370,14 +395,14 @@ window.unified decoration-overlay {
 .notejot-side-button:active,
 .notejot-side-button:checked,
 .notejot-side-button:focus {
-  background: shade(@accent_color, 0.95);
-  border: 1px solid shade(@accent_color, 0.95);
+  background: shade(@accent, 0.95);
+  border: 1px solid shade(@accent, 0.95);
   color: #000;
 }
 
 .notejot-side-button:hover {
-    background: shade(@accent_color, 1.1);
-    border: 1px solid shade(@accent_color, 1.1);
+    background: shade(@accent, 1.1);
+    border: 1px solid shade(@accent, 1.1);
     color: #000;
 }
 

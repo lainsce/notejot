@@ -121,7 +121,6 @@ namespace Notejot {
             titlebar.set_size_request (-1, 38);
             var titlebar_c = titlebar.get_style_context ();
             titlebar_c.add_class ("notejot-tbar");
-            titlebar_c.remove_class ("titlebar");
             titlebar.show_close_button = true;
             titlebar.has_subtitle = false;
             titlebar.hexpand = true;
@@ -159,7 +158,6 @@ namespace Notejot {
             fauxtitlebar.set_size_request (199, 38);
             var fauxtitlebar_c = fauxtitlebar.get_style_context ();
             fauxtitlebar_c.add_class ("notejot-side-tbar");
-            fauxtitlebar_c.remove_class ("titlebar");
             fauxtitlebar.show_close_button = true;
             fauxtitlebar.has_subtitle = false;
 
@@ -172,6 +170,8 @@ namespace Notejot {
             sidebar_header.label = _("VIEWS");
 
             sidebar_categories = new Granite.Widgets.SourceList ();
+            sidebar_categories.get_style_context ().add_class ("notejot-sidecat");
+            sidebar_categories.get_style_context ().remove_class ("sidebar");
             sidebar_categories.hexpand = false;
             sidebar_categories.margin_top = 4;
 			sidebar_categories.margin_start = sidebar_categories.margin_end = 8;
@@ -199,7 +199,7 @@ namespace Notejot {
             sidebar_button_list.get_style_context ().add_class ("notejot-side-button");
 
             var sidebar_button_trash = new Gtk.Button.with_label (_("Trash"));
-            sidebar_button_trash.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON);
+            sidebar_button_trash.image = new Gtk.Image.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
             sidebar_button_trash.always_show_image = true;
             sidebar_button_trash.get_child ().halign = Gtk.Align.START;
             sidebar_button_trash.tooltip_text = (_("Go to Trash"));

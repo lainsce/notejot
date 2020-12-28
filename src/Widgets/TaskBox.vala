@@ -70,7 +70,7 @@ namespace Notejot {
             var setting_menu = new Widgets.SettingMenu (win, this);
 
             var popout_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("window-pop-out-symbolic", Gtk.IconSize.BUTTON),
+                image = new Gtk.Image.from_icon_name ("window-new-symbolic", Gtk.IconSize.BUTTON),
                 tooltip_text = (_("Popout Note to Desktop"))
             };
             popout_button.clicked.connect (() => {
@@ -156,10 +156,10 @@ namespace Notejot {
                 border-radius: 8px;
                 padding: 5px;
                 box-shadow:
-                    0 1px 0 0 alpha(@highlight_color, 0.3),
+                    0 1px 0 0 alpha(white, 0.3),
                     inset 0 1px 1px alpha(black, 0.05),
                     inset 0 0 1px 1px alpha(black, 0.05),
-                    0 1px 0 0 alpha(@highlight_color, 0.2);
+                    0 1px 0 0 alpha(white, 0.2);
             }
             .notejot-dbg-dark-%d {
                 border: 1px solid alpha(black, 0.25);
@@ -167,10 +167,10 @@ namespace Notejot {
                 border-radius: 8px;
                 padding: 5px;
                 box-shadow:
-                    0 1px 0 0 alpha(@highlight_color, 0.3),
+                    0 1px 0 0 alpha(white, 0.3),
                     inset 0 1px 1px alpha(black, 0.05),
                     inset 0 0 1px 1px alpha(black, 0.05),
-                    0 1px 0 0 alpha(@highlight_color, 0.2);
+                    0 1px 0 0 alpha(white, 0.2);
             }
             """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid, uid, color, uid, color);
 
