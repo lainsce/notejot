@@ -211,6 +211,11 @@ window.unified decoration-overlay {
   box-shadow: none;
 }
 
+.notejot-sabutton {
+  border: none;
+  box-shadow: none;
+}
+
 .notejot-sabar .image-button,
 .notejot-sabutton {
   border-radius: 8px;
