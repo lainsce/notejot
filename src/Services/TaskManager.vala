@@ -20,7 +20,7 @@ namespace Notejot {
     public class TaskManager {
         public MainWindow win;
         public Json.Builder builder;
-        private string app_dir = Environment.get_user_cache_dir () +
+        private string app_dir = Environment.get_user_data_dir () +
                                  "/com.github.lainsce.notejot";
         private string file_name;
 
@@ -31,21 +31,15 @@ namespace Notejot {
         }
 
         public void save_notes() {
-            string json_string = prepare_json_from_notes();
+            string json_string = prepare_json_from_notes().replace ("\"", "\\\"").replace ("/", "\\/");
+            debug ("%s", json_string);
             var dir = File.new_for_path(app_dir);
             var file = File.new_for_path (file_name);
             try {
                 if (!dir.query_exists()) {
                     dir.make_directory();
                 }
-                if (file.query_exists ()) {
-                    file.delete ();
-                }
-                var file_stream = file.create (
-                                        FileCreateFlags.REPLACE_DESTINATION
-                                        );
-                var data_stream = new DataOutputStream (file_stream);
-                data_stream.put_string(json_string);
+                GLib.FileUtils.set_contents (file.get_path (), json_string);
             } catch (Error e) {
                 warning ("Failed to save timetable: %s\n", e.message);
             }
@@ -102,15 +96,12 @@ namespace Notejot {
         public void load_from_file () {
             try {
                 var file = File.new_for_path(file_name);
-                var json_string = "";
+
                 if (file.query_exists()) {
                     string line;
-                    var dis = new DataInputStream (file.read ());
-                    while ((line = dis.read_line (null)) != null) {
-                        json_string += line;
-                    }
+                    GLib.FileUtils.get_contents (file.get_path (), out line);
                     var parser = new Json.Parser();
-                    parser.load_from_data(json_string);
+                    parser.load_from_data(line.replace ("\\\"", "\"").replace ("\\/", "/"));
                     var root = parser.get_root();
                     var array = root.get_array();
                     var columns = array.get_array_element (0);
