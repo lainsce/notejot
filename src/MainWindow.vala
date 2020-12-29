@@ -317,10 +317,17 @@ namespace Notejot {
                 always_show_image = true
             };
             trash_button.clicked.connect (() => {
-                dialog = new Widgets.Dialog (this);
+                dialog = new Widgets.Dialog (this,
+                                             _("Empty the Trashed Notes?"),
+                                             _("Emptying the trash means all the notes in it will be permanently lost with no recovery."),
+                                             "dialog-warning-symbolic",
+                                             _("Cancel"),
+                                             _("Empty Trash"));
                 if (dialog != null) {
                     dialog.present ();
                     return;
+                } else {
+                    dialog.run ();
                 }
             });
             trash_button.get_style_context ().add_class ("notejot-abutton");
