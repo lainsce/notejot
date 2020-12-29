@@ -35,6 +35,7 @@ namespace Notejot {
         public Hdy.HeaderBar titlebar;
         public Hdy.HeaderBar welcome_titlebar;
         public Hdy.Leaflet leaflet;
+        public Widgets.Dialog dialog = null;
 
         // Views
         public Views.GridView gridview;
@@ -316,8 +317,11 @@ namespace Notejot {
                 always_show_image = true
             };
             trash_button.clicked.connect (() => {
-                var dialog = new Utils.CleanTrashDialog (this);
-                dialog.run ();
+                dialog = new Widgets.Dialog (this);
+                if (dialog != null) {
+                    dialog.present ();
+                    return;
+                }
             });
             trash_button.get_style_context ().add_class ("notejot-abutton");
             trash_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);

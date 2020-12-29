@@ -192,6 +192,8 @@ window.unified decoration-overlay {
 .notejot-abutton {
   border-radius: 8px;
   padding: 6px;
+  box-shadow: none;
+  border: none;
 }
 
 .notejot-abutton:focus,
