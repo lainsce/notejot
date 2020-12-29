@@ -147,7 +147,6 @@ namespace Notejot {
             editablelabel.changed.connect (() => {
                 win.gridview.selected_foreach ((item, child) => {
                     ((Widgets.TaskBox)child.get_child ()).task_label.set_label(editablelabel.title.get_label ());
-                    ((Widgets.TaskBox)child.get_child ()).sidebaritem.title = editablelabel.title.get_label ();
                     ((Widgets.TaskBox)child.get_child ()).title = editablelabel.title.get_label ();
                     ((Widgets.TaskBox)child.get_child ()).taskline.task_label.label = editablelabel.title.get_label ();
                     notebar.set_title (editablelabel.title.get_label ());

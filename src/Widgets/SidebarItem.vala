@@ -17,23 +17,36 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.SidebarItem : Granite.Widgets.SourceList.Item {
+    public class Widgets.SidebarItem : Gtk.ListBoxRow {
         private MainWindow win;
+        public Widgets.TaskBox? taskbox;
+        public int uid;
+        private Gtk.Label label;
 
-        public string title {
-            set {
-                this.markup = value;
-            }
-        }
-
-        public SidebarItem (MainWindow win, string title) {
-            this.title = title;
+        public SidebarItem (MainWindow win, Widgets.TaskBox taskbox, int uid) {
             this.win = win;
-            this.icon = new ThemedIcon ("emblem-documents-symbolic");
+            this.uid = uid;
+            this.taskbox = taskbox;
+
+            // Icon intentionally null so it becomes a badge instead.
+            var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.SMALL_TOOLBAR);
+            icon.get_style_context ().add_class ("notejot-sidebar-dbg-%d".printf(uid));
+
+            label = new Gtk.Label (taskbox.title);
+
+            var grid = new Gtk.Grid ();
+            grid.column_spacing = 6;
+            grid.attach (icon, 0, 0);
+            grid.attach (label, 1, 0);
+            grid.show_all ();
+
+            this.show_all ();
+            this.add (grid);
+            this.get_style_context ().add_class ("notejot-sidebar-dbg");
         }
 
         public void destroy_item () {
-            win.notes_category.remove(this);
+            this.destroy ();
         }
     }
 }

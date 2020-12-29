@@ -39,7 +39,7 @@ namespace Notejot {
             this.title = title;
             this.contents = contents;
             this.color = color;
-            this.opacity = 0.5;
+            this.opacity = 0.66;
 
             bar = new Gtk.ActionBar ();
             bar.get_style_context ().add_class ("notejot-bar");

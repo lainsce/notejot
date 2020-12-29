@@ -68,7 +68,7 @@ window.unified decoration-overlay {
     background: transparent;
     box-shadow: none;
     -gtk-icon-shadow: none;
-    -gtk-text-shadow: none;
+    text-shadow: none;
 }
 
 .notejot-tbar .image-button {
@@ -98,7 +98,7 @@ window.unified decoration-overlay {
 
 .notejot-tbar .image-button:focus,
 .notejot-tbar .image-button:hover {
-    background: shade(#FAFAFA, 0.85);
+    background: shade(@theme_bg_color, 0.85);
 }
 
 .notejot-sbutton {
@@ -168,7 +168,7 @@ window.unified decoration-overlay {
 }
 
 .notejot-tview text selection {
-    background: shade(mix (@accent, #FAFAFA, 0.90), 0.88);
+    background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
     color: @fg_color;
 }
 
@@ -196,16 +196,16 @@ window.unified decoration-overlay {
 
 .notejot-abutton:focus,
 .notejot-abutton:hover {
-  background: shade(#FAFAFA, 0.88);
+  background: shade(@theme_bg_color, 0.88);
 }
 
 .notejot-abar .image-button:focus,
 .notejot-abar .image-button:hover {
-  background: shade(#FAFAFA, 0.88);
+  background: shade(@theme_bg_color, 0.88);
 }
 
 .notejot-sabar {
-  background-color: shade(mix (@accent, #FAFAFA, 0.90), 0.95);
+  background-color: shade(mix (@accent, @theme_bg_color, 0.90), 0.95);
   border-top: 1px solid alpha(black, 0.25);
   padding: 6px;
   box-shadow: none;
@@ -226,7 +226,7 @@ window.unified decoration-overlay {
 .notejot-sabar .image-button:hover,
 .notejot-sabutton:focus,
 .notejot-sabutton:hover {
-  background: shade(mix (@accent, #FAFAFA, 0.90), 0.88);
+  background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
 }
 
 .notejot-sabar box {
@@ -268,13 +268,14 @@ window.unified decoration-overlay {
     background: #F7F7F7;
 }
 
-.notejot-sidecat treeview {
+.notejot-sidecat {
   border: none;
+  background: mix (@accent, @theme_bg_color, 0.90);
+  padding-top: 6px;
 }
 
-.notejot-column,
-.notejot-column treeview {
-    background: mix (@accent, #FAFAFA, 0.90);
+.notejot-column {
+    background: mix (@accent, @theme_bg_color, 0.90);
     box-shadow: none;
 }
 
@@ -308,7 +309,7 @@ window.unified decoration-overlay {
 }
 
 .notejot-side-tbar {
-    background: mix (@accent, #FAFAFA, 0.90);
+    background: mix (@accent, @theme_bg_color, 0.90);
     box-shadow: none;
     border-bottom: none;
     margin: 0 7px;
@@ -375,16 +376,17 @@ window.unified decoration-overlay {
 .notejot-note-list:focus,
 .notejot-note-list:hover {
     border-radius: 8px;
-    background-color: shade(mix (@accent, #FAFAFA, 0.90), 0.88);
+    background-color: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+    border: 1px solid mix (@accent, @theme_bg_color, 0.90);
     color: @fg_color;
 }
 
 .notejot-side-button {
-    background: mix (@accent, #FAFAFA, 0.90);
-    border: 1px solid mix (@accent, #FAFAFA, 0.90);
+    background: mix (@accent, @theme_bg_color, 0.90);
+    border: 1px solid mix (@accent, @theme_bg_color, 0.90);
     box-shadow: none;
     padding: 8px;
-    margin: 0;
+    margin: 4px 0;
     border-radius: 8px;
     opacity: 0.8;
 }
@@ -417,6 +419,22 @@ window.unified decoration-overlay {
 
 .notejot-side-button image {
   margin-left: 0.8rem;
+}
+
+.notejot-sidebar-dbg {
+  padding: 10px;
+  margin: 0 12px;
+  border-radius: 8px;
+  box-shadow: none;
+  color: @theme_fg_color;
+  opacity: 0.8;
+}
+
+.notejot-sidebar-dbg:active,
+.notejot-sidebar-dbg:checked,
+.notejot-sidebar-dbg:focus,
+.notejot-sidebar-dbg:hover  {
+  background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
 }
 
 .notejot-lview:backdrop {

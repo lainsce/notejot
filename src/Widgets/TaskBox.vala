@@ -40,8 +40,10 @@ namespace Notejot {
             this.contents = contents;
             this.color = color;
 
-            sidebaritem = new Widgets.SidebarItem (win, title);
-            win.notes_category.add (sidebaritem);
+            sidebaritem = new Widgets.SidebarItem (win, this, this.uid);
+            if (win.sidebar_categories != null) {
+                win.sidebar_categories.add (sidebaritem);
+            }
 
             taskline = new Widgets.TaskLine (win, this, this.uid);
             win.listview.add (taskline);
@@ -161,6 +163,18 @@ namespace Notejot {
                     inset 0 0 1px 1px alpha(black, 0.05),
                     0 1px 0 0 alpha(white, 0.2);
             }
+            .notejot-sidebar-dbg-%d {
+                border: 1px solid alpha(black, 0.25);
+                background: %s;
+                border-radius: 50px;
+                margin-left: 12px;
+            }
+            .notejot-sidebar-dbg-dark-%d {
+                border: 1px solid alpha(black, 0.25);
+                background: shade(%s, 0.8);
+                border-radius: 50px;
+                margin-left: 12px;
+            }
             .notejot-dbg-dark-%d {
                 border: 1px solid alpha(black, 0.25);
                 background: shade(%s, 0.8);
@@ -172,7 +186,7 @@ namespace Notejot {
                     inset 0 0 1px 1px alpha(black, 0.05),
                     0 1px 0 0 alpha(white, 0.2);
             }
-            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid, uid, color, uid, color);
+            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, uid, uid, color, uid, color, uid, color, uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);

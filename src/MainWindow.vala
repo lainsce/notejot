@@ -30,8 +30,7 @@ namespace Notejot {
         public Gtk.Stack stack;
         public Gtk.Stack titlebar_stack;
         public Gtk.ToggleButton format_button;
-        public Granite.Widgets.SourceList sidebar_categories;
-        public Granite.Widgets.SourceList.ExpandableItem notes_category;
+        public Gtk.ListBox sidebar_categories;
         public Hdy.HeaderBar fauxtitlebar;
         public Hdy.HeaderBar titlebar;
         public Hdy.HeaderBar welcome_titlebar;
@@ -169,20 +168,21 @@ namespace Notejot {
             sidebar_header.margin_top = 6;
             sidebar_header.label = _("VIEWS");
 
-            sidebar_categories = new Granite.Widgets.SourceList ();
+            var sidebar_header2 = new Gtk.Label (null);
+            sidebar_header2.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
+            sidebar_header2.use_markup = true;
+            sidebar_header2.halign = Gtk.Align.START;
+            sidebar_header2.margin_start = 15;
+            sidebar_header2.margin_top = 6;
+            sidebar_header2.label = _("NOTES");
+
+            sidebar_categories = new Gtk.ListBox ();
             sidebar_categories.get_style_context ().add_class ("notejot-sidecat");
-            sidebar_categories.get_style_context ().remove_class ("sidebar");
-            sidebar_categories.hexpand = false;
-            sidebar_categories.margin_top = 4;
-			sidebar_categories.margin_start = sidebar_categories.margin_end = 8;
-            notes_category = new Granite.Widgets.SourceList.ExpandableItem ("");
-            notes_category.collapsible = false;
-            notes_category.markup = _("NOTES");
-            notes_category.tooltip = _("Your notes will appear here.");
-            notes_category.set_data("item-name", "projects");
-			sidebar_categories.root.add(notes_category);
-            sidebar_categories.root.expand_all();
-            sidebar_categories.opacity = 0.8;
+
+            var sidebar_categories_holder = new Gtk.ScrolledWindow (null, null);
+            sidebar_categories_holder.add (sidebar_categories);
+			sidebar_categories_holder.hexpand = false;
+            sidebar_categories_holder.vexpand = true;
 
             var sidebar_button_grid = new Gtk.Button.with_label (_("Grid"));
             sidebar_button_grid.image = new Gtk.Image.from_icon_name ("view-grid-symbolic", Gtk.IconSize.BUTTON);
@@ -224,8 +224,9 @@ namespace Notejot {
             sidebar.attach (fauxtitlebar, 0, 0, 1, 1);
             sidebar.attach (sidebar_header, 0, 1, 1, 1);
             sidebar.attach (sidebar_button_holder, 0, 2, 1, 1);
-            sidebar.attach (sidebar_categories, 0, 4, 1, 1);
-            sidebar.attach (sidebar_actionbar, 0, 5, 1, 1);
+            sidebar.attach (sidebar_header2, 0, 4, 1, 1);
+            sidebar.attach (sidebar_categories_holder, 0, 5, 1, 1);
+            sidebar.attach (sidebar_actionbar, 0, 6, 1, 1);
             sidebar.show_all ();
 
             // Welcome View
@@ -330,7 +331,7 @@ namespace Notejot {
             // Main View
             stack = new Gtk.Stack ();
             stack.get_style_context ().add_class ("notejot-stack");
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
             stack.add_named (welcome_view, "welcome");
             stack.add_named (grid_box, "grid");
             stack.add_named (list_box, "list");
