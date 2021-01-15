@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,6 +19,7 @@
 namespace Notejot {
     public class MainWindow : Hdy.Window {
         // Widgets
+        public Gtk.Button fab;
         public Gtk.Button new_button;
         public Gtk.ToggleButton pin_button;
         public Gtk.Grid grid;
@@ -26,6 +27,7 @@ namespace Notejot {
         public Gtk.Grid sgrid;
         public Gtk.Grid grid_box;
         public Gtk.Grid list_box;
+        public Gtk.Overlay overlay;
         public Gtk.Separator separator;
         public Gtk.Stack stack;
         public Gtk.Stack titlebar_stack;
@@ -127,32 +129,6 @@ namespace Notejot {
             titlebar.valign = Gtk.Align.START;
             titlebar.title = "Notejot";
 
-            new_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
-                always_show_image = true,
-                label = (_("New Note…")),
-                tooltip_text = (_("Create a new note."))
-            };
-            new_button.get_style_context ().add_class ("notejot-sabutton");
-            new_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-            pin_button = new Gtk.ToggleButton () {
-                image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Pin To Desktop"))
-            };
-            pin_button.get_style_context ().add_class ("notejot-button");
-            pin_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-            if (pinned) {
-                pin_button.set_active (true);
-                pin_button.get_style_context().add_class("rotated");
-                set_keep_below (pinned);
-                stick ();
-            } else {
-                pin_button.set_active (false);
-                pin_button.get_style_context().remove_class("rotated");
-            }
-
             // Sidebar
             fauxtitlebar = new Hdy.HeaderBar ();
             fauxtitlebar.set_size_request (199, 38);
@@ -214,11 +190,6 @@ namespace Notejot {
             sidebar_button_holder.add (sidebar_button_list);
             sidebar_button_holder.add (sidebar_button_trash);
 
-            var sidebar_actionbar = new Gtk.ActionBar ();
-            sidebar_actionbar.get_style_context ().add_class ("notejot-sabar");
-            sidebar_actionbar.add (new_button);
-            sidebar_actionbar.pack_end (pin_button);
-
             var sidebar = new Gtk.Grid ();
             sidebar.orientation = Gtk.Orientation.VERTICAL;
             sidebar.get_style_context ().add_class ("notejot-column");
@@ -227,7 +198,6 @@ namespace Notejot {
             sidebar.attach (sidebar_button_holder, 0, 2, 1, 1);
             sidebar.attach (sidebar_header2, 0, 4, 1, 1);
             sidebar.attach (sidebar_categories_holder, 0, 5, 1, 1);
-            sidebar.attach (sidebar_actionbar, 0, 6, 1, 1);
             sidebar.show_all ();
 
             // Welcome View
@@ -354,13 +324,32 @@ namespace Notejot {
             sgrid.no_show_all = true;
             sgrid.visible = false;
 
-            var overlay = new Gtk.Overlay ();
+            overlay = new Gtk.Overlay ();
             overlay.add_overlay (titlebar_stack);
             overlay.add (stack);
 
+            // Mobile stuff
+            fab = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Create a new note.")),
+                halign = Gtk.Align.END,
+                valign = Gtk.Align.END
+            };
+            fab.get_style_context ().add_class ("notejot-fabbutton");
+            fab.get_style_context ().add_class ("circular");
+
+            fab.clicked.connect (() => {
+                on_create_new ();
+            });
+
+            var fab_overlay = new Gtk.Overlay ();
+            fab_overlay.add_overlay (fab);
+            fab_overlay.add (overlay);
+            //
+
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (overlay, 0, 0, 1, 1);
+            grid.attach (fab_overlay, 0, 0, 1, 1);
             grid.show_all ();
 
             leaflet = new Hdy.Leaflet ();
@@ -434,15 +423,18 @@ namespace Notejot {
             sidebar_button_grid.clicked.connect (() => {
                 stack.set_visible_child (grid_box);
                 Notejot.Application.gsettings.set_string("last-view", "grid");
+                fab.visible = true;
             });
 
             sidebar_button_list.clicked.connect (() => {
                 stack.set_visible_child (list_box);
                 Notejot.Application.gsettings.set_string("last-view", "list");
+                fab.visible = true;
             });
 
             sidebar_button_trash.clicked.connect (() => {
                 stack.set_visible_child (trash_box);
+                fab.visible = false;
             });
 
             var fgv = grid_scroller.get_vadjustment ();
