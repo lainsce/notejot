@@ -9,7 +9,7 @@
 
 ![Screenshot](data/shot.png)
 
-## Donations
+## Donations 
 
 Would you like to support the development of this app to new heights? Then:
 

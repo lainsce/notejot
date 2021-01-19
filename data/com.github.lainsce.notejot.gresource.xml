@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/com/github/lainsce/notejot">
+        <file alias="app.css" compressed="true">app.css</file>
+        <file alias="app-dark.css" compressed="true">app-dark.css</file>
+        <file alias="image/bg1.png">image/bg1.png</file>
+        <file alias="image/bg2.png">image/bg2.png</file>
+    </gresource>
+</gresources>
+

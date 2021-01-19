@@ -8,8 +8,3 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=GTK;Utility;
-Actions=NewNote;
-
-[Desktop Action NewNote]
-Exec=com.github.lainsce.notejot --new-note
-Name=New note…

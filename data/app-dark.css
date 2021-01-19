@@ -1,0 +1,128 @@
+.destructive-text:hover {
+    color: #F7F7F7;
+}
+
+.welcome-title {
+  background: #151515;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title > *:disabled {
+  background: #151515;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title:backdrop,
+.welcome-title:backdrop > *:disabled:backdrop {
+	background: #333;
+}
+
+.notejot-tbar .image-button,
+.notejot-tbar .title,
+.notejot-tbar .titlebutton {
+    color: #FFF;
+}
+
+.notejot-tbar:backdrop .image-button,
+.notejot-tbar:backdrop .title,
+.notejot-tbar:backdrop .titlebutton {
+    color: #CCC;
+}
+
+.notejot-filled-toolbar {
+    background: #151515;
+    color: #F7F7F7;
+    border-bottom: 1px solid alpha (white, 0.25);
+}
+
+.notejot-tview {
+  background: #303030;
+  border-top: 1px solid alpha(white, 0.25);
+}
+
+.notejot-abar {
+  background: #151515;
+  border-bottom: 1px solid alpha(white, 0.25);
+}
+
+.notejot-ntbar {
+	background: #151515;
+}
+
+.notejot-lview {
+    background: #151515;
+}
+
+.notejot-tvview {
+    background-color: #151515;
+}
+
+.notejot-fgview flowboxchild:selected .notejot-note-grid {
+    box-shadow: 0 1px 5px 5px alpha(black, 0.45);
+}
+
+.notejot-fgview {
+    background-color: #151515;
+}
+
+.notejot-column-box {
+    background: #151515;
+    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+                0 1px 2px 0 alpha(black, 0.26);
+}
+
+.notejot-column-box .notejot-bar image {
+    color: #F7F7F7;
+}
+
+.notejot-entry {
+    background: #151515;
+}
+
+.notejot-stack {
+    background: #151515;
+    color: #F7F7F7;
+}
+
+.notejot-note-grid {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+                0 1px 2px 0 alpha(black, 0.26);
+}
+
+.notejot-lview:backdrop {
+    background: #333333;
+}
+
+.notejot-tvview:backdrop {
+    background-color: #333333;
+}
+
+.notejot-fgview:backdrop {
+    background-color: #333333;
+}
+
+.notejot-tview:backdrop {
+	background: #333333;
+}
+
+.notejot-filled-toolbar:backdrop {
+    background: #333333;
+}
+
+.notejot-abar:backdrop {
+	background: #333333;
+}
+
+.notejot-ntbar:backdrop {
+	background: #333333;
+}
+
+.notejot-stack:backdrop {
+    background: #333333;
+    color: #CCCCCC;
+}

@@ -1,0 +1,482 @@
+@define-color accent #FFE16B;
+@define-color accent_color #FFE16B;
+@define-color accent_color_500 #FFE16B;
+@define-color accent_color_300 #FFE16B;
+
+window .csd:not(.popup):not(.menu) .titlebar,
+window:not(.popup):not(.menu) > decoration,
+window.unified,
+window.unified decoration,
+window.unified decoration-overlay {
+  border-radius: 8px;
+}
+
+.title {
+    font-weight: 700;
+}
+
+.frame {
+    border: none;
+}
+
+.destructive-text {
+    color: #D07070;
+    border: 1px solid transparent;
+}
+
+.destructive-text:hover {
+    color: #151515;
+    background: alpha(#D07070, 0.25);
+    border: 1px solid #D07070;
+}
+
+.destructive-button:hover {
+    color: #D07070;
+}
+
+.rotated > widget > box > image {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.welcome-title {
+  background: #F7F7F7;
+  padding: 0;
+  margin: 0 4px;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title > *:disabled {
+  background: #F7F7F7;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title:backdrop {
+	background: #F0F0F0;
+}
+
+.welcome-title:backdrop,
+.welcome-title:backdrop > *:disabled:backdrop {
+	background: #F0F0F0;
+}
+
+.notejot-tbar {
+    border-bottom: 1px solid alpha (black, 0);
+    background: transparent;
+    box-shadow: none;
+    -gtk-icon-shadow: none;
+    text-shadow: none;
+}
+
+.notejot-tbar .image-button {
+    border-radius: 8px;
+}
+
+.notejot-tbar .image-button,
+.notejot-tbar .title,
+.notejot-tbar .titlebutton {
+    color: #000;
+}
+
+.notejot-tbar:backdrop .image-button,
+.notejot-tbar:backdrop .title,
+.notejot-tbar:backdrop .titlebutton {
+    color: #333;
+}
+
+.notejot-tbar .image-button image {
+    padding: 0;
+}
+
+.notejot-tbar separator {
+    padding: 0;
+    margin: 0;
+}
+
+.notejot-tbar .image-button:focus,
+.notejot-tbar .image-button:hover {
+    background: shade(@theme_bg_color, 0.85);
+}
+
+.notejot-sbutton {
+    margin-right: 5px;
+}
+
+.notejot-filled-toolbar {
+    background: #F7F7F7;
+    color: #151515;
+    margin: 0 4px;
+    padding: 0;
+    border-bottom: 1px solid alpha (black, 0.25);
+    transition: all 300ms ease-in-out;
+}
+
+.color-button radio,
+.color-button radio:checked {
+   padding: 4px;
+   -gtk-icon-shadow: none;
+}
+.color-red radio {
+    background: #F3ACAA;
+    color: #F3ACAA;
+}
+.color-orange radio {
+    background: #FFC78B;
+    color: #FFC78B;
+}
+.color-yellow radio {
+    background: #FCF092;
+    color: #FCF092;
+}
+.color-green radio {
+    background: #B1FBA2;
+    color: #B1FBA2;
+}
+.color-blue radio {
+    background: #B8EFFA;
+    color: #B8EFFA;
+}
+.color-violet radio {
+    background: #C0C0F5;
+    color: #C0C0F5;
+}
+.color-neutral radio {
+    background: #DADADA;
+    color: #DADADA;
+}
+.image-button,
+.titlebutton {
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 3px;
+    box-shadow: none;
+}
+
+.notejot-tview {
+	background: #F7F7F7;
+    padding: 6px;
+    border-top: 1px solid alpha(black, 0.25);
+}
+
+.notejot-tc {
+    padding: 6px;
+    font-size: 1.2rem;
+}
+
+.notejot-tview text selection {
+    background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+    color: @fg_color;
+}
+
+.notejot-abar {
+  background-color: #F7F7F7;
+  border-top: 1px solid alpha(black, 0.25);
+  padding: 6px 10px;
+}
+
+.notejot-abar box {
+  border-top: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notejot-abar .image-button {
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.notejot-abutton {
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: none;
+  border: none;
+}
+
+.notejot-abutton:focus,
+.notejot-abutton:hover {
+  background: shade(@theme_bg_color, 0.88);
+}
+
+.notejot-abar .image-button:focus,
+.notejot-abar .image-button:hover {
+  background: shade(@theme_bg_color, 0.88);
+}
+
+.notejot-sabar {
+  background-color: shade(mix (@accent, @theme_bg_color, 0.90), 0.95);
+  border-top: 1px solid alpha(black, 0.25);
+  padding: 6px;
+  box-shadow: none;
+}
+
+.notejot-sabutton {
+  border: none;
+  box-shadow: none;
+}
+
+.notejot-sabar .image-button,
+.notejot-sabutton {
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.notejot-sabar .image-button:focus,
+.notejot-sabar .image-button:hover,
+.notejot-sabutton:focus,
+.notejot-sabutton:hover {
+  background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+}
+
+.notejot-sabar box {
+  border-top: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notejot-bar {
+    padding: 6px;
+    text-shadow: 0 1px transparent;
+    box-shadow: none;
+    border: none;
+    background: none;
+    font-weight: 600;
+    color: #151515;
+}
+
+.notejot-bar box {
+  border-top: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notejot-bar image {
+    -gtk-icon-shadow: 0 1px transparent;
+    color: #151515;
+}
+
+.notejot-column-box .notejot-bar image {
+    color: #151515;
+}
+
+.notejot-ntbar {
+	box-shadow: none;
+	border-left: none;
+	margin: 6px 7px;
+    padding: 0;
+    background: #F7F7F7;
+}
+
+.notejot-sidecat {
+  border: none;
+  background: mix (@accent, @theme_bg_color, 0.90);
+  padding-top: 6px;
+}
+
+.notejot-column {
+    background: mix (@accent, @theme_bg_color, 0.90);
+    box-shadow: none;
+}
+
+.notejot-lview {
+    background: #F7F7F7;
+    padding: 12px;
+    padding-top: 45px;
+}
+
+.notejot-tvview {
+    background-color: #F7F7F7;
+    padding: 30px;
+}
+
+.notejot-fgview {
+    background-color: #F7F7F7;
+    padding: 30px;
+    padding-top: 45px;
+}
+
+.notejot-fgview flowboxchild:selected {
+    background: none;
+}
+
+.notejot-fgview flowboxchild:selected .notejot-note-grid {
+    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
+}
+
+.notejot-column {
+    border-right: 1px solid alpha (black, 0.25);
+}
+
+.notejot-side-tbar {
+    background: mix (@accent, @theme_bg_color, 0.90);
+    box-shadow: none;
+    border-bottom: none;
+    margin: 0 7px;
+    padding: 0;
+}
+
+.notejot-category {
+    opacity: 0.8;
+}
+
+.notejot-column-box {
+    padding: 6px;
+    margin: 6px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    color: @theme_fg_color;
+    background: #f7f7f7;
+    box-shadow: 0 1px 3px alpha(black, 0.1),
+                0 1px 2px alpha(black, 0.24);
+}
+
+.notejot-column-box:selected {
+    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
+}
+
+.notejot-label {
+    font-weight: 700;
+}
+
+.notejot-entry {
+    border-radius: 8px;
+    box-shadow: none;
+    font-weight: 700;
+}
+
+.notejot-stack {
+    background: #F7F7F7;
+    color: #151515;
+}
+
+.vsep {
+    background: alpha(black, 0.25);
+}
+
+.notejot-note-grid {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px alpha(black, 0.1),
+                0 1px 2px alpha(black, 0.24);
+}
+
+.notejot-note-trash {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+                0 1px 2px 0 alpha(black, 0.26);
+}
+
+.notejot-note-list {
+    border-radius: 8px;
+    margin: 3px;
+}
+
+.notejot-note-list:active,
+.notejot-note-list:checked,
+.notejot-note-list:focus,
+.notejot-note-list:hover {
+    border-radius: 8px;
+    background-color: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+    border: 1px solid mix (@accent, @theme_bg_color, 0.90);
+    color: @fg_color;
+}
+
+.notejot-side-button {
+    background: mix (@accent, @theme_bg_color, 0.90);
+    border: 1px solid mix (@accent, @theme_bg_color, 0.90);
+    box-shadow: none;
+    padding: 8px;
+    margin: 4px 0;
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.notejot-side-button:first-child {
+    margin-bottom: 6px;
+}
+
+.notejot-side-button:last-child {
+    margin-top: 6px;
+}
+
+.notejot-side-button:active,
+.notejot-side-button:checked,
+.notejot-side-button:focus {
+  background: shade(@accent, 0.95);
+  border: 1px solid shade(@accent, 0.95);
+  color: #000;
+}
+
+.notejot-side-button:hover {
+    background: shade(@accent, 1.1);
+    border: 1px solid shade(@accent, 1.1);
+    color: #000;
+}
+
+.notejot-side-button label {
+  margin-right: 8rem;
+}
+
+.notejot-side-button image {
+  margin-left: 0.8rem;
+}
+
+.notejot-fabbutton {
+  padding: 10px;
+  margin: 10px;
+  background: shade(@accent, 1.1);
+  border: 1px solid shade(@accent, 0.95);
+  box-shadow: 0 1px 3px alpha(black, 0.1),
+              0 1px 2px alpha(black, 0.24);
+}
+
+.notejot-sidebar-dbg {
+  padding: 10px;
+  margin: 0 12px;
+  border-radius: 8px;
+  box-shadow: none;
+  color: @theme_fg_color;
+  opacity: 0.8;
+}
+
+.notejot-sidebar-dbg:active,
+.notejot-sidebar-dbg:checked,
+.notejot-sidebar-dbg:focus,
+.notejot-sidebar-dbg:hover  {
+  background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+}
+
+.notejot-lview:backdrop {
+    background: #F0F0F0;
+}
+
+.notejot-tvview:backdrop {
+    background-color: #F0F0F0;
+}
+
+.notejot-fgview:backdrop {
+    background-color: #F0F0F0;
+}
+
+.notejot-tview:backdrop {
+	background: #F0F0F0;
+}
+
+.notejot-filled-toolbar:backdrop {
+    background: #F0F0F0;
+}
+
+.notejot-abar:backdrop {
+	background: #F0F0F0;
+}
+
+.notejot-ntbar:backdrop {
+	background: #F0F0F0;
+}
+
+.notejot-stack:backdrop {
+    background: #F0F0F0;
+    color: #333333;
+}

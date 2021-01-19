@@ -1,10 +1,10 @@
 /*
-* Copyright (c) 2417 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,598 +16,435 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-
 namespace Notejot {
-    public class MainWindow : Gtk.Window {
-        private Gtk.Button delete_item;
-        private new Gtk.SourceBuffer buffer;
-        private Gtk.SourceView view;
-        private Gtk.HeaderBar header;
-        private Gtk.ActionBar actionbar;
-        private int uid;
-        private static int uid_counter = 0;
-        public string color = "#fff394";
-        public string selected_color_text = "#ad5f00";
+    public class MainWindow : Hdy.Window {
+        // Widgets
+        public Gtk.Button fab;
+        public Gtk.Button new_button;
+        public Gtk.ToggleButton pin_button;
+        public Gtk.Grid grid;
+        public Gtk.Grid welcome_view;
+        public Gtk.Grid sgrid;
+        public Gtk.Grid grid_box;
+        public Gtk.Grid list_box;
+        public Gtk.Overlay overlay;
+        public Gtk.Separator separator;
+        public Gtk.Stack stack;
+        public Gtk.Stack titlebar_stack;
+        public Gtk.ToggleButton format_button;
+        public Gtk.ListBox sidebar_categories;
+        public Hdy.HeaderBar fauxtitlebar;
+        public Hdy.HeaderBar titlebar;
+        public Hdy.HeaderBar welcome_titlebar;
+        public Hdy.Leaflet leaflet;
+        public Widgets.Dialog dialog = null;
+
+        // Views
+        public Views.GridView gridview;
+        public Views.ListView listview;
+        public Views.TrashView trashview;
+
+        // Services
+        public TaskManager tm;
+
+        // Etc
         public bool pinned = false;
-        public string content = "";
-        public string title_name = "Notejot";
-        public Notejot.EditableLabel label;
 
-        public SimpleActionGroup actions { get; construct; }
+        public Gtk.Application app { get; construct; }
+        public MainWindow (Gtk.Application application) {
+            GLib.Object (
+                application: application,
+                app: application,
+                icon_name: "com.github.lainsce.notejot",
+                title: (_("Notejot"))
+            );
 
-        public const string ACTION_PREFIX   = "win.";
-        public const string ACTION_NEW      = "action_new";
-        public const string ACTION_DELETE   = "action_delete";
-        public const string ACTION_UNDO     = "action_undo";
-        public const string ACTION_REDO     = "action_redo";
+            key_press_event.connect ((e) => {
+                uint keycode = e.hardware_keycode;
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.q, keycode)) {
+                        this.destroy ();
+                    }
+                }
+                return false;
+            });
 
-        public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
+            var provider = new Gtk.CssProvider ();
 
-        private const GLib.ActionEntry[] action_entries = {
-            { ACTION_NEW,       action_new      },
-            { ACTION_DELETE,    action_delete   },
-            { ACTION_UNDO,      action_new      },
-            { ACTION_REDO,      action_delete   }
-        };
-
-        public MainWindow (Gtk.Application app, Storage? storage) {
-            Object (application: app);
-
-            var actions = new SimpleActionGroup ();
-            actions.add_action_entries (action_entries, this);
-            insert_action_group ("win", actions);
-
-            if (storage != null) {
-                init_from_storage(storage);
+            if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                Notejot.Application.gsettings.set_boolean("dark-mode", true);
+                provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
+                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
             } else {
-                this.color = "#fff394";
-                this.selected_color_text = "#ad5f00";
-                this.pinned = false;
-                this.content = "";
-                this.set_position(Gtk.WindowPosition.CENTER);
-                this.title_name = "Notejot";
-                set_title (this.title_name);
+                Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
             }
 
-            this.get_style_context().add_class("rounded");
-            this.get_style_context().add_class("default-decoration");
-            this.get_style_context().add_class("notejot-window");
-            this.uid = uid_counter++;
+            Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    Notejot.Application.gsettings.set_boolean("dark-mode", true);
+                    provider.load_from_resource ("/com/github/lainsce/notejot/app-dark.css");
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
+                } else {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (), provider);
+                }
+            });
+        }
 
-            update_theme();
+        construct {
+            Hdy.init ();
+            // Setting CSS
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/lainsce/notejot/app.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-            header = new Gtk.HeaderBar();
-            header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            header.get_style_context().add_class("notejot-title");
-            header.has_subtitle = false;
-            header.set_show_close_button (true);
-            header.decoration_layout = "close:";
+            this.get_style_context ().add_class ("notejot-view");
+            int x = Notejot.Application.gsettings.get_int("window-x");
+            int y = Notejot.Application.gsettings.get_int("window-y");
+            int w = Notejot.Application.gsettings.get_int("window-w");
+            int h = Notejot.Application.gsettings.get_int("window-h");
+            if (x != -1 && y != -1) {
+                this.move (x, y);
+            }
+            this.resize (w, h);
+            tm = new TaskManager (this);
 
-            var applet_button = new Gtk.ToggleButton ();
-            applet_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            var applet_button_image = new Gtk.Image.from_icon_name ("view-pin-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            applet_button.set_image (applet_button_image);
+            // Main View
+            titlebar = new Hdy.HeaderBar ();
+            titlebar.set_size_request (-1, 38);
+            var titlebar_c = titlebar.get_style_context ();
+            titlebar_c.add_class ("notejot-tbar");
+            titlebar.show_close_button = true;
+            titlebar.has_subtitle = false;
+            titlebar.hexpand = true;
+            titlebar.valign = Gtk.Align.START;
+            titlebar.title = "Notejot";
 
-            if (pinned) {
-                applet_button.set_active (true);
-                applet_button.get_style_context().add_class("rotated");
-                set_keep_below (pinned);
-                stick ();
+            // Sidebar
+            fauxtitlebar = new Hdy.HeaderBar ();
+            fauxtitlebar.set_size_request (199, 38);
+            var fauxtitlebar_c = fauxtitlebar.get_style_context ();
+            fauxtitlebar_c.add_class ("notejot-side-tbar");
+            fauxtitlebar.show_close_button = true;
+            fauxtitlebar.has_subtitle = false;
+
+            var sidebar_header = new Gtk.Label (null);
+            sidebar_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
+            sidebar_header.use_markup = true;
+            sidebar_header.halign = Gtk.Align.START;
+            sidebar_header.margin_start = 15;
+            sidebar_header.margin_top = 6;
+            sidebar_header.label = _("VIEWS");
+
+            var sidebar_header2 = new Gtk.Label (null);
+            sidebar_header2.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
+            sidebar_header2.use_markup = true;
+            sidebar_header2.halign = Gtk.Align.START;
+            sidebar_header2.margin_start = 15;
+            sidebar_header2.margin_top = 6;
+            sidebar_header2.label = _("NOTES");
+
+            sidebar_categories = new Gtk.ListBox ();
+            sidebar_categories.get_style_context ().add_class ("notejot-sidecat");
+
+            var sidebar_categories_holder = new Gtk.ScrolledWindow (null, null);
+            sidebar_categories_holder.add (sidebar_categories);
+			sidebar_categories_holder.hexpand = false;
+            sidebar_categories_holder.vexpand = true;
+
+            var sidebar_button_grid = new Gtk.Button.with_label (_("Grid"));
+            sidebar_button_grid.image = new Gtk.Image.from_icon_name ("view-grid-symbolic", Gtk.IconSize.BUTTON);
+            sidebar_button_grid.always_show_image = true;
+            sidebar_button_grid.tooltip_text = (_("Go Back to Notes Grid"));
+            sidebar_button_grid.get_child ().halign = Gtk.Align.START;
+            sidebar_button_grid.get_style_context ().add_class ("notejot-side-button");
+
+            var sidebar_button_list = new Gtk.Button.with_label (_("List"));
+            sidebar_button_list.image = new Gtk.Image.from_icon_name ("view-list-symbolic", Gtk.IconSize.BUTTON);
+            sidebar_button_list.always_show_image = true;
+            sidebar_button_list.tooltip_text = (_("Go Back to Notes List"));
+            sidebar_button_list.get_child ().halign = Gtk.Align.START;
+            sidebar_button_list.get_style_context ().add_class ("notejot-side-button");
+
+            var sidebar_button_trash = new Gtk.Button.with_label (_("Trash"));
+            sidebar_button_trash.image = new Gtk.Image.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
+            sidebar_button_trash.always_show_image = true;
+            sidebar_button_trash.get_child ().halign = Gtk.Align.START;
+            sidebar_button_trash.tooltip_text = (_("Go to Trash"));
+            sidebar_button_trash.get_style_context ().add_class ("notejot-side-button");
+
+            var sidebar_button_holder = new Gtk.Grid ();
+            sidebar_button_holder.orientation = Gtk.Orientation.VERTICAL;
+            sidebar_button_holder.margin_start = 12;
+            sidebar_button_holder.margin_end = 11;
+            sidebar_button_holder.add (sidebar_button_grid);
+            sidebar_button_holder.add (sidebar_button_list);
+            sidebar_button_holder.add (sidebar_button_trash);
+
+            var sidebar = new Gtk.Grid ();
+            sidebar.orientation = Gtk.Orientation.VERTICAL;
+            sidebar.get_style_context ().add_class ("notejot-column");
+            sidebar.attach (fauxtitlebar, 0, 0, 1, 1);
+            sidebar.attach (sidebar_header, 0, 1, 1, 1);
+            sidebar.attach (sidebar_button_holder, 0, 2, 1, 1);
+            sidebar.attach (sidebar_header2, 0, 4, 1, 1);
+            sidebar.attach (sidebar_categories_holder, 0, 5, 1, 1);
+            sidebar.show_all ();
+
+            // Welcome View
+
+            // Used so the welcome titlebar, which is flat, and with no buttons
+            // doesn't jump in size when transtitioning to the preview titlebar.
+            var dummy_welcome_title_button = new Gtk.Button ();
+            dummy_welcome_title_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            dummy_welcome_title_button.sensitive = false;
+
+            welcome_titlebar = new Hdy.HeaderBar ();
+            welcome_titlebar.show_close_button = true;
+            welcome_titlebar.has_subtitle = false;
+            welcome_titlebar.title = "Notejot";
+            welcome_titlebar.set_decoration_layout ("close:maximize");
+            welcome_titlebar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            welcome_titlebar.get_style_context ().add_class ("welcome-title");
+            welcome_titlebar.valign = Gtk.Align.START;
+
+            welcome_titlebar.pack_start (dummy_welcome_title_button);
+
+            titlebar_stack = new Gtk.Stack ();
+            titlebar_stack.valign = Gtk.Align.START;
+            titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
+            titlebar_stack.add_named (welcome_titlebar, "welcome-title");
+            titlebar_stack.add_named (titlebar, "title");
+
+            var welcome_view = new Granite.Widgets.Welcome (
+                _("No File Open"),
+                _("Create a note to begin jotting ideas")
+            );
+            welcome_view.append ("document-new-symbolic", _("New Note"), "Creates a new note.");
+            welcome_view.get_style_context ().add_class ("notejot-stack");
+
+            // Grid View
+            gridview = new Views.GridView (this);
+
+            var grid_box_grid = new Gtk.Grid ();
+            grid_box_grid.add (gridview);
+
+            var grid_scrollable = new Widgets.Scrollable ();
+            grid_scrollable.visible = true;
+            grid_scrollable.header = titlebar;
+            grid_scrollable.add (grid_box_grid);
+
+            grid_box_grid.margin_top = grid_scrollable.header_height;
+
+            var grid_scroller = new Gtk.ScrolledWindow (null, null);
+            grid_scroller.add (grid_scrollable);
+
+            grid_box = new Gtk.Grid ();
+            grid_box.add (grid_scroller);
+
+            // List View
+            listview = new Views.ListView (this);
+
+            var list_box_grid = new Gtk.Grid ();
+            list_box_grid.add (listview);
+
+            var list_scrollable = new Widgets.Scrollable ();
+            list_scrollable.visible = true;
+            list_scrollable.header = titlebar;
+            list_scrollable.add (list_box_grid);
+
+            list_box_grid.margin_top = list_scrollable.header_height;
+
+            var list_scroller = new Gtk.ScrolledWindow (null, null);
+            list_scroller.add (list_scrollable);
+
+            list_box = new Gtk.Grid ();
+            list_box.add (list_scroller);
+
+            // Trash View
+            trashview = new Views.TrashView (this);
+
+            var trash_box_grid = new Gtk.Grid ();
+            trash_box_grid.add (trashview);
+
+            var trash_scroller = new Gtk.ScrolledWindow (null, null);
+            trash_scroller.add (trash_box_grid);
+
+            var trash_bar = new Gtk.ActionBar ();
+            trash_bar.get_style_context ().add_class ("notejot-abar");
+            var trash_button = new Gtk.Button () {
+                label = _("Empty Trash…"),
+                image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON),
+                always_show_image = true
+            };
+            trash_button.clicked.connect (() => {
+                dialog = new Widgets.Dialog (this,
+                                             _("Empty the Trashed Notes?"),
+                                             _("Emptying the trash means all the notes in it will be permanently lost with no recovery."),
+                                             "dialog-warning-symbolic",
+                                             _("Cancel"),
+                                             _("Empty Trash"));
+                if (dialog != null) {
+                    dialog.present ();
+                    return;
+                } else {
+                    dialog.run ();
+                }
+            });
+            trash_button.get_style_context ().add_class ("notejot-abutton");
+            trash_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            trash_bar.pack_end (trash_button);
+
+            var trash_box = new Gtk.Grid ();
+            trash_box.orientation = Gtk.Orientation.VERTICAL;
+            trash_box.add (trash_scroller);
+            trash_box.add (trash_bar);
+
+            // Main View
+            stack = new Gtk.Stack ();
+            stack.get_style_context ().add_class ("notejot-stack");
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+            stack.add_named (welcome_view, "welcome");
+            stack.add_named (grid_box, "grid");
+            stack.add_named (list_box, "list");
+            stack.add_named (trash_box, "trash");
+
+            sgrid = new Gtk.Grid ();
+            sgrid.orientation = Gtk.Orientation.VERTICAL;
+            sgrid.attach (sidebar, 0, 0, 1, 1);
+            sgrid.no_show_all = true;
+            sgrid.visible = false;
+
+            overlay = new Gtk.Overlay ();
+            overlay.add_overlay (titlebar_stack);
+            overlay.add (stack);
+
+            // Mobile stuff
+            fab = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Create a new note.")),
+                halign = Gtk.Align.END,
+                valign = Gtk.Align.END
+            };
+            fab.get_style_context ().add_class ("notejot-fabbutton");
+            fab.get_style_context ().add_class ("circular");
+
+            fab.clicked.connect (() => {
+                on_create_new ();
+            });
+
+            var fab_overlay = new Gtk.Overlay ();
+            fab_overlay.add_overlay (fab);
+            fab_overlay.add (overlay);
+            //
+
+            grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.VERTICAL;
+            grid.attach (fab_overlay, 0, 0, 1, 1);
+            grid.show_all ();
+
+            leaflet = new Hdy.Leaflet ();
+            leaflet.add (sgrid);
+            leaflet.add (grid);
+            leaflet.transition_type = Hdy.LeafletTransitionType.UNDER;
+            leaflet.show_all ();
+            leaflet.can_swipe_back = true;
+            leaflet.set_visible_child (grid);
+
+            update ();
+
+            leaflet.notify["folded"].connect (() => {
+                update ();
+            });
+
+            tm.load_from_file ();
+
+            if (gridview.is_modified == false) {
+                stack.set_visible_child (welcome_view);
+                welcome_titlebar.visible = true;
+                titlebar.visible = false;
+                sgrid.no_show_all = true;
+                sgrid.visible = false;
             } else {
-                applet_button.set_active (false);
-                applet_button.get_style_context().remove_class("rotated");
+                if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
+                    stack.set_visible_child (grid_box);
+                    sidebar_button_grid.is_focus = true;
+                    sidebar_button_list.is_focus = false;
+                    welcome_titlebar.visible = false;
+                    titlebar.visible = true;
+                    sgrid.no_show_all = false;
+                    sgrid.visible = true;
+                } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
+                    stack.set_visible_child (list_box);
+                    sidebar_button_list.is_focus = true;
+                    sidebar_button_grid.is_focus = false;
+                    welcome_titlebar.visible = false;
+                    titlebar.visible = true;
+                    sgrid.no_show_all = false;
+                    sgrid.visible = true;
+                }
             }
 
-            applet_button.toggled.connect (() => {
-                if (applet_button.active) {
+            welcome_view.activated.connect ((option) => {
+                switch (option) {
+                    case 0:
+                        on_create_new ();
+                        break;
+                }
+            });
+
+            new_button.clicked.connect (() => {
+                on_create_new ();
+            });
+
+            pin_button.clicked.connect (() => {
+                if (pin_button.active) {
                     pinned = true;
-                    applet_button.get_style_context().add_class("rotated");
+                    pin_button.get_style_context().add_class("rotated");
                     set_keep_below (pinned);
                     stick ();
     			} else {
     			    pinned = false;
                     set_keep_below (pinned);
-                    applet_button.get_style_context().remove_class("rotated");
+                    pin_button.get_style_context().remove_class("rotated");
     			    unstick ();
                 }
             });
 
-            label = new Notejot.EditableLabel (this.title_name);
-            header.set_custom_title(label);
-            header.pack_end (applet_button);
-            this.set_titlebar(header);
-
-            actionbar = new Gtk.ActionBar ();
-            actionbar.get_style_context().add_class("notejot-bar");
-            create_actionbar ();
-            create_app_menu ();
-
-            var scrolled = new Gtk.ScrolledWindow (null, null);
-            scrolled.set_size_request (330,270);
-
-            buffer = new Gtk.SourceBuffer (null);
-            buffer.set_highlight_matching_brackets (false);
-            view = new Gtk.SourceView.with_buffer (buffer);
-            view.bottom_margin = 10;
-            view.buffer.text = this.content;
-            view.get_style_context().add_class("notejot-view");
-            view.expand = true;
-            view.left_margin = 10;
-            view.margin = 2;
-            view.right_margin = 10;
-            view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
-            view.top_margin = 10;
-            scrolled.add (view);
-            this.show_all();
-
-            var grid = new Gtk.Grid ();
-            grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.expand = true;
-            grid.add (scrolled);
-            grid.add (actionbar);
-            grid.show_all ();
-            this.add (grid);
-
-            focus_out_event.connect (() => {
-                update_storage ();
-                return false;
+            sidebar_button_grid.clicked.connect (() => {
+                stack.set_visible_child (grid_box);
+                Notejot.Application.gsettings.set_string("last-view", "grid");
+                fab.visible = true;
             });
 
-            label.changed.connect (() => {
-                update_storage ();
+            sidebar_button_list.clicked.connect (() => {
+                stack.set_visible_child (list_box);
+                Notejot.Application.gsettings.set_string("last-view", "list");
+                fab.visible = true;
             });
 
-            view.buffer.changed.connect (() => {
-                update_storage ();
+            sidebar_button_trash.clicked.connect (() => {
+                stack.set_visible_child (trash_box);
+                fab.visible = false;
             });
 
-            key_press_event.connect ((e) => {
-                uint keycode = e.hardware_keycode;
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.z, keycode)) {
-                        action_undo ();
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.z, keycode)) {
-                        action_redo ();
-                    }
-                }
-                return false;
-            });
-        }
-
-        public new void set_title (string title) {
-            this.title = title;
-        }
-
-        private void update_storage () {
-            get_storage_note();
-            ((Application)this.application).update_storage();
-        }
-
-        private void update_theme() {
-            var css_provider = new Gtk.CssProvider();
-            this.get_style_context().add_class("mainwindow-%d".printf(uid));
-            this.get_style_context().add_class("window-%d".printf(uid));
-
-            string style = null;
-            string selected_color = this.color;
-            style = (N_("""
-                @define-color textColorPrimary #323232;
-
-                .mainwindow-%d {
-                    background-color: %s;
-                }
-
-                .mainwindow-%d undershoot.top {
-                    background:
-                        linear-gradient(
-                            %s 0%,
-                            alpha(%s, 0) 50%
-                        );
-                }
-                
-                .mainwindow-%d undershoot.bottom {
-                    background:
-                        linear-gradient(
-                            alpha(%s, 0) 50%,
-                            %s 100%
-                        );
-                }
-
-                .notejot-view text selection {
-                    color: shade(%s, 1.88);
-                    background-color: %s;
-                }
-
-                entry.flat {
-                    background: transparent;
-                }
-
-                .window-%d .notejot-title image,
-                .window-%d .notejot-label {
-                    color: %s;
-                    box-shadow: none;
-                }
-
-                .window-%d .notejot-bar {
-                    color: %s;
-                    background-color: %s;
-                    border-top-color: %s;
-                    box-shadow: none;
-                    background-image: none;
-                    padding: 3px;
-                }
-
-                .window-%d .notejot-bar image {
-                    color: %s;
-                    padding: 3px;
-                    box-shadow: none;
-                    background-image: none;
-                }
-
-                .window-%d .notejot-view,
-                .window-%d .notejot-view text,
-                .window-%d .notejot-title {
-                    background-color: %s;
-                    background-image: none;
-                    border-bottom-color: %s;
-                    font-weight: 500;
-                    font-size: 1.2em;
-                    color: shade(%s, 0.77);
-                    box-shadow: none;
-                }
-
-                .window-%d .rotated > widget > box > image {
-                    -gtk-icon-transform: rotate(90deg);
-                }
-
-                .color-button {
-                    border-radius: 50%;
-                    background-image: none;
-                    border: 1px solid alpha(#333, 0.25);
-                    box-shadow:
-                        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-                        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-                        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
-                }
-
-                .color-button:hover,
-                .color_button:focus {
-                    border: 1px solid @inset_dark_color;
-                }
-
-                .color-slate {
-                    background-color: #a5b3bc;
-                }
-
-                .color-white {
-                    background-color: #fafafa;
-                }
-
-                .color-red {
-                    background-color: #ff8c82;
-                }
-
-                .color-orange {
-                    background-color: #ffc27d;
-                }
-
-                .color-yellow {
-                    background-color: #fff394;
-                }
-
-                .color-green {
-                    background-color: #d1ff82;
-                }
-
-                .color-blue {
-                    background-color: #8cd5ff;
-                }
-
-                .color-indigo {
-                    background-color: #aca9fd;
-                }
-
-                .color-cocoa {
-                    background-color: #a3907c;
-                }
-
-                .notejot-bar box {
-                    border: none;
-                }
-
-                .image-button,
-                .titlebutton {
-                    background-color: transparent;
-                    background-image: none;
-                    border: 1px solid transparent;
-                    padding: 3px;
-                    box-shadow: none;
-                }
-
-                .image-button:hover,
-                .image-button:focus,
-                .titlebutton:hover,
-                .titlebutton:focus {
-                    background-color: alpha(@fg_color, 0.3);
-                    background-image: none;
-                    border: 1px solid transparent;
-                    box-shadow: none;
-                }
-                """)).printf(uid, selected_color, uid, selected_color, selected_color, uid, selected_color, selected_color, selected_color, selected_color_text, uid, uid, selected_color_text, uid, selected_color_text, selected_color, selected_color, uid, selected_color_text, uid, uid, uid, selected_color, selected_color, selected_color_text, uid);
-
-            try {
-                css_provider.load_from_data(style, -1);
-            } catch (GLib.Error e) {
-                warning ("Failed to parse css style : %s", e.message);
-            }
-
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (),
-                css_provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        }
-
-        private void create_actionbar () {
-            var new_item = new Gtk.Button ();
-            new_item.tooltip_text = (_("New note"));
-            new_item.set_image (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            new_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_NEW;
-
-            delete_item = new Gtk.Button ();
-            delete_item.tooltip_text = (_("Delete note"));
-            delete_item.set_image (new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            delete_item.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_DELETE;
-
-            actionbar.pack_start (new_item);
-            actionbar.pack_start (delete_item);
-        }
-
-        private void create_app_menu () {
-            var color_button_white = new Gtk.Button ();
-            color_button_white.has_focus = false;
-            color_button_white.halign = Gtk.Align.CENTER;
-            color_button_white.height_request = 24;
-            color_button_white.width_request = 24;
-            color_button_white.tooltip_text = _("White");
-
-            var color_button_white_context = color_button_white.get_style_context ();
-            color_button_white_context.add_class ("color-button");
-            color_button_white_context.add_class ("color-white");
-
-            var color_button_red = new Gtk.Button ();
-            color_button_red.has_focus = false;
-            color_button_red.halign = Gtk.Align.CENTER;
-            color_button_red.height_request = 24;
-            color_button_red.width_request = 24;
-            color_button_red.tooltip_text = _("Red");
-
-            var color_button_red_context = color_button_red.get_style_context ();
-            color_button_red_context.add_class ("color-button");
-            color_button_red_context.add_class ("color-red");
-
-            var color_button_orange = new Gtk.Button ();
-            color_button_orange.has_focus = false;
-            color_button_orange.halign = Gtk.Align.CENTER;
-            color_button_orange.height_request = 24;
-            color_button_orange.width_request = 24;
-            color_button_orange.tooltip_text = _("Orange");
-
-            var color_button_orange_context = color_button_orange.get_style_context ();
-            color_button_orange_context.add_class ("color-button");
-            color_button_orange_context.add_class ("color-orange");
-
-            var color_button_yellow = new Gtk.Button ();
-            color_button_yellow.has_focus = false;
-            color_button_yellow.halign = Gtk.Align.CENTER;
-            color_button_yellow.height_request = 24;
-            color_button_yellow.width_request = 24;
-            color_button_yellow.tooltip_text = _("Yellow");
-
-            var color_button_yellow_context = color_button_yellow.get_style_context ();
-            color_button_yellow_context.add_class ("color-button");
-            color_button_yellow_context.add_class ("color-yellow");
-
-            var color_button_green = new Gtk.Button ();
-            color_button_green.has_focus = false;
-            color_button_green.halign = Gtk.Align.CENTER;
-            color_button_green.height_request = 24;
-            color_button_green.width_request = 24;
-            color_button_green.tooltip_text = _("Green");
-
-            var color_button_green_context = color_button_green.get_style_context ();
-            color_button_green_context.add_class ("color-button");
-            color_button_green_context.add_class ("color-green");
-
-            var color_button_blue = new Gtk.Button ();
-            color_button_blue.has_focus = false;
-            color_button_blue.halign = Gtk.Align.CENTER;
-            color_button_blue.height_request = 24;
-            color_button_blue.width_request = 24;
-            color_button_blue.tooltip_text = _("Blue");
-
-            var color_button_blue_context = color_button_blue.get_style_context ();
-            color_button_blue_context.add_class ("color-button");
-            color_button_blue_context.add_class ("color-blue");
-
-            var color_button_indigo = new Gtk.Button ();
-            color_button_indigo.has_focus = false;
-            color_button_indigo.halign = Gtk.Align.CENTER;
-            color_button_indigo.height_request = 24;
-            color_button_indigo.width_request = 24;
-            color_button_indigo.tooltip_text = _("Indigo");
-
-            var color_button_indigo_context = color_button_indigo.get_style_context ();
-            color_button_indigo_context.add_class ("color-button");
-            color_button_indigo_context.add_class ("color-indigo");
-
-            var color_button_cocoa = new Gtk.Button ();
-            color_button_cocoa.has_focus = false;
-            color_button_cocoa.halign = Gtk.Align.CENTER;
-            color_button_cocoa.height_request = 24;
-            color_button_cocoa.width_request = 24;
-            color_button_cocoa.tooltip_text = _("Cocoa");
-
-            var color_button_cocoa_context = color_button_cocoa.get_style_context ();
-            color_button_cocoa_context.add_class ("color-button");
-            color_button_cocoa_context.add_class ("color-cocoa");
-
-            var color_button_slate = new Gtk.Button ();
-            color_button_slate.has_focus = false;
-            color_button_slate.halign = Gtk.Align.CENTER;
-            color_button_slate.height_request = 24;
-            color_button_slate.width_request = 24;
-            color_button_slate.tooltip_text = _("Slate");
-
-            var color_button_slate_context = color_button_slate.get_style_context ();
-            color_button_slate_context.add_class ("color-button");
-            color_button_slate_context.add_class ("color-slate");
-
-            var color_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            color_button_box.pack_start (color_button_white, false, true, 0);
-            color_button_box.pack_start (color_button_red, false, true, 0);
-            color_button_box.pack_start (color_button_orange, false, true, 0);
-            color_button_box.pack_start (color_button_yellow, false, true, 0);
-            color_button_box.pack_start (color_button_green, false, true, 0);
-            color_button_box.pack_start (color_button_blue, false, true, 0);
-            color_button_box.pack_start (color_button_indigo, false, true, 0);
-            color_button_box.pack_start (color_button_cocoa, false, true, 0);
-            color_button_box.pack_start (color_button_slate, false, true, 0);
-
-            var color_button_label = new Granite.HeaderLabel (_("Note Color"));
-
-            var setting_grid = new Gtk.Grid ();
-            setting_grid.margin = 12;
-            setting_grid.column_spacing = 6;
-            setting_grid.row_spacing = 6;
-            setting_grid.orientation = Gtk.Orientation.VERTICAL;
-            setting_grid.attach (color_button_label, 0, 0, 1, 1);
-            setting_grid.attach (color_button_box, 0, 1, 1, 1);
-            setting_grid.show_all ();
-
-            var popover = new Gtk.Popover (null);
-            popover.add (setting_grid);
-
-            var app_button = new Gtk.MenuButton();
-            app_button.has_tooltip = true;
-            app_button.tooltip_text = (_("Settings"));
-            app_button.image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            app_button.popover = popover;
-
-            color_button_white.clicked.connect (() => {
-                this.color = "#F5F5F5";
-                this.selected_color_text = "#666666";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_red.clicked.connect (() => {
-                this.color = "#ff8c82";
-                this.selected_color_text = "#7a0000";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_orange.clicked.connect (() => {
-                this.color = "#ffc27d";
-                this.selected_color_text = "#a62100";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_yellow.clicked.connect (() => {
-                this.color = "#fff394";
-                this.selected_color_text = "#ad5f00";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_green.clicked.connect (() => {
-                this.color = "#d1ff82";
-                this.selected_color_text = "#206b00";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_blue.clicked.connect (() => {
-                this.color = "#8cd5ff";
-                this.selected_color_text = "#002e99";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_indigo.clicked.connect (() => {
-                this.color = "#aca9fd";
-                this.selected_color_text = "#452981";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_cocoa.clicked.connect (() => {
-                this.color = "#a3907c";
-                this.selected_color_text = "#3d211b";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            color_button_slate.clicked.connect (() => {
-                this.color = "#a5b3bc";
-                this.selected_color_text = "#0e141f";
-                update_theme();
-                ((Application)this.application).update_storage();
-            });
-
-            actionbar.pack_end (app_button);
-        }
-
-        private void init_from_storage(Storage storage) {
-            this.color = storage.color;
-            this.selected_color_text = storage.selected_color_text;
-            this.pinned = storage.pinned;
-            this.content = storage.content;
-            this.move((int)storage.x, (int)storage.y);
-            if ((int)storage.w != 0 && (int)storage.h != 0) {
-                this.resize ((int)storage.w, (int)storage.h);
-            }
-            this.title_name = storage.title;
-            set_title (this.title_name);
-        }
-
-        private void action_new () {
-            ((Application)this.application).create_note(null);
-        }
-
-        private void action_delete () {
-            ((Application)this.application).remove_note(this);
-            this.close ();
-        }
-
-        private void action_undo () {
-            buffer.undo ();
-        }
-
-        private void action_redo () {
-            buffer.redo ();
-        }
-
-        public Storage get_storage_note() {
-            int x, y, w, h;
-            string color = this.color;
-            string selected_color_text = this.selected_color_text;
-            bool pinned = this.pinned;
-            Gtk.TextIter start,end;
-            view.buffer.get_bounds (out start, out end);
-            this.content = view.buffer.get_text (start, end, true);
-            this.title_name = label.title.get_label ();
-            set_title (this.title_name);
-
-            this.get_position (out x, out y);
-            this.get_size (out w, out h);
-
-            return new Storage.from_storage(x, y, w, h, color, selected_color_text, pinned, content, title_name);
+            var fgv = grid_scroller.get_vadjustment ();
+            var flv = list_scroller.get_vadjustment ();
+            scrolling_titlebar_change (fgv);
+            scrolling_titlebar_change (flv);
+
+            this.add (leaflet);
+            this.set_size_request (375, 600);
+            this.show_all ();
         }
 
 #if VALA_0_42
@@ -623,16 +460,54 @@ namespace Notejot {
                         return true;
                     }
                 }
-
             return false;
+        }
+
+        private void scrolling_titlebar_change (Gtk.Adjustment adjustment) {
+            adjustment.value_changed.connect (() => {
+                if (adjustment.get_value () >= 22.12) {
+                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
+                } else if (adjustment.get_value () < 22.12) {
+                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
+                }
+            });
+        }
+
+        private void update () {
+            if (leaflet != null && leaflet.get_folded ()) {
+                // On Mobile size, so.... have to have no buttons anywhere.
+                fauxtitlebar.set_decoration_layout (":");
+                titlebar.set_decoration_layout (":");
+            } else {
+                // Else you're on Desktop size, so business as usual.
+                fauxtitlebar.set_decoration_layout ("close:");
+                titlebar.set_decoration_layout (":maximize");
+            }
         }
 
         public override bool delete_event (Gdk.EventAny event) {
             int x, y;
-            this.get_position (out x, out y);
+            get_position (out x, out y);
+            int w, h;
+            get_size (out w, out h);
+            Notejot.Application.gsettings.set_int("window-w", w);
+            Notejot.Application.gsettings.set_int("window-h", h);
             Notejot.Application.gsettings.set_int("window-x", x);
             Notejot.Application.gsettings.set_int("window-y", y);
             return false;
+        }
+
+        // IO?
+        public void on_create_new () {
+            gridview.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
+            if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
+                stack.set_visible_child (grid_box);
+            } else if (Notejot.Application.gsettings.get_string("last-view") == "list") {
+                stack.set_visible_child (list_box);
+            }
+            titlebar_stack.set_visible_child (titlebar);
+            sgrid.no_show_all = false;
+            sgrid.visible = true;
         }
     }
 }
