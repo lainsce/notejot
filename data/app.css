@@ -3,9 +3,22 @@
 @define-color accent_color_500 #FFE16B;
 @define-color accent_color_300 #FFE16B;
 
+.rename-button {
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    border-top-style: none;
+    border-bottom-style: none;
+    font-weight: 700;
+}
+.rename-button:hover:not(:backdrop) {
+    background-image: none;
+    text-shadow: none;
+}
+
 .color-button radio,
 .color-button radio:checked {
-   padding: 4px;
+   padding: 8px;
    -gtk-icon-shadow: none;
 }
 .color-red radio {
@@ -28,29 +41,13 @@
     background: #99c1f1;
     color: #99c1f1;
 }
-.color-violet radio {
+.color-purple radio {
     background: #dc8add;
     color: #dc8add;
 }
 .color-neutral radio {
     background: #c0bfbc;
     color: #c0bfbc;
-}
-
-.notejot-tview {
-	background: #F7F7F7;
-    padding: 6px;
-    border-top: 1px solid alpha(black, 0.25);
-}
-
-.notejot-tc {
-    padding: 6px;
-    font-size: 1.2rem;
-}
-
-.notejot-tview text selection {
-    background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
-    color: @fg_color;
 }
 
 .notejot-abar {
@@ -151,44 +148,16 @@
     background: #F7F7F7;
 }
 
-.notejot-sidecat {
+.notejot-sidecat{
   border: none;
   background: mix (@accent, @theme_bg_color, 0.90);
   padding-top: 6px;
 }
 
-.notejot-column {
+.notejot-column,
+.notejot-column list {
     background: mix (@accent, @theme_bg_color, 0.90);
     box-shadow: none;
-}
-
-.notejot-lview {
-    background: #F7F7F7;
-    padding: 12px;
-    padding-top: 45px;
-}
-
-.notejot-tvview {
-    background-color: #F7F7F7;
-    padding: 30px;
-}
-
-.notejot-fgview {
-    background-color: #F7F7F7;
-    padding: 30px;
-    padding-top: 45px;
-}
-
-.notejot-fgview flowboxchild:selected {
-    background: none;
-}
-
-.notejot-fgview flowboxchild:selected .notejot-note-grid {
-    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
-}
-
-.notejot-column {
-    border-right: 1px solid alpha (black, 0.25);
 }
 
 .notejot-side-tbar {
@@ -323,14 +292,22 @@
 }
 
 .notejot-sidebar-dbg:active,
-.notejot-sidebar-dbg:checked,
+.notejot-sidebar-dbg:selected,
 .notejot-sidebar-dbg:focus,
 .notejot-sidebar-dbg:hover  {
   background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
 }
 
-.notejot-lview:backdrop {
-    background: #F0F0F0;
+.notejot-tview {
+  font-family: "Cantarell", sans;
+  font-size: 1.2rem;
+}
+
+.notejot-sidebar-dbg:active:backdrop,
+.notejot-sidebar-dbg:selected:backdrop,
+.notejot-sidebar-dbg:focus:backdrop,
+.notejot-sidebar-dbg:hover:backdrop  {
+  background: alpha(shade(mix (@accent, @theme_bg_color, 0.90), 0.88), 0.88);
 }
 
 .notejot-tvview:backdrop {
@@ -339,10 +316,6 @@
 
 .notejot-fgview:backdrop {
     background-color: #F0F0F0;
-}
-
-.notejot-tview:backdrop {
-	background: #F0F0F0;
 }
 
 .notejot-filled-toolbar:backdrop {
@@ -355,9 +328,4 @@
 
 .notejot-ntbar:backdrop {
 	background: #F0F0F0;
-}
-
-.notejot-stack:backdrop {
-    background: #F0F0F0;
-    color: #333333;
 }

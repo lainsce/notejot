@@ -51,19 +51,13 @@ sources = files(
     'src/Services/TaskManager.vala',
     'src/Styles/dark.vala',
     'src/Styles/light.vala',
-    'src/Views/GridView.vala',
     'src/Views/ListView.vala',
     'src/Views/TrashView.vala',
     'src/Widgets/Dialog.vala',
     'src/Widgets/EditableLabel.vala',
-    'src/Widgets/NoteWindow.vala',
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/SidebarItem.vala',
-    'src/Widgets/TaskBox.vala',
-    'src/Widgets/TaskContentView.vala',
-    'src/Widgets/TaskLine.vala',
     'src/Widgets/TextField.vala',
-    'src/Widgets/TrashedTask.vala',
 )
 
 dependencies = [

@@ -1,30 +1,26 @@
 namespace Notejot {
-    public class Widgets.Dialog : Gtk.Dialog {
+    public class Widgets.Dialog : Gtk.MessageDialog {
         public MainWindow win;
         private string ltitle;
         private string subtitle;
-        private string icon_named;
         private string ok_label;
         private string cancel_label;
 
-        public Dialog (MainWindow win, string ltitle, string subtitle, string icon_named, string cancel_label, string ok_label) {
+        public Dialog (MainWindow win, string ltitle, string subtitle, string cancel_label, string ok_label) {
             this.win = win;
             this.ltitle = ltitle;
             this.subtitle = subtitle;
-            this.icon_named = icon_named;
             this.cancel_label = cancel_label;
             this.ok_label = ok_label;
 
             transient_for = win;
             modal = true;
             resizable = false;
-            border_width = 7;
             title = " ";
 
             var label_title = new Gtk.Label (ltitle);
             label_title.get_style_context ().add_class (Gtk.STYLE_CLASS_TITLE);
             label_title.halign = Gtk.Align.START;
-            label_title.margin_start = 13;
 
             var label_subtitle = new Gtk.Label (subtitle);
             label_subtitle.get_style_context ().add_class (Gtk.STYLE_CLASS_SUBTITLE);
@@ -43,9 +39,6 @@ namespace Notejot {
             label_box.margin_bottom = 12;
             label_box.attach (label_title, 0, 0);
             label_box.attach (label_subtitle, 0, 1);
-
-            var image = new Gtk.Image.from_icon_name (icon_named, Gtk.IconSize.DIALOG);
-            image.pixel_size = 64;
 
             var cancel_button = add_button (cancel_label, Gtk.ResponseType.CANCEL);
             cancel_button.is_focus = cancel_button.can_focus = false;
@@ -80,7 +73,6 @@ namespace Notejot {
             grid.column_spacing = 6;
             grid.hexpand = true;
             grid.vexpand = true;
-            grid.attach (image, 0, 0);
             grid.attach (label_box, 1, 0);
 
             this.get_content_area ().add (grid);

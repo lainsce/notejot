@@ -1,17 +1,22 @@
 namespace Notejot {
     public class Widgets.SettingMenu : Gtk.MenuButton {
         private MainWindow win;
-        public Widgets.TaskBox? taskbox;
+        public Widgets.SidebarItem controller;
 
-        public SettingMenu (MainWindow win, Widgets.TaskBox taskbox) {
+        public SettingMenu (MainWindow win) {
             this.win = win;
-            this.taskbox = taskbox;
 
             var color_button_red = new Gtk.RadioButton (null) {
                 tooltip_text = _("Red")
             };
             color_button_red.get_style_context ().add_class ("color-button");
             color_button_red.get_style_context ().add_class ("color-red");
+
+            var color_button_orange = new Gtk.RadioButton.from_widget (color_button_red) {
+                tooltip_text = _("Orange")
+            };
+            color_button_orange.get_style_context ().add_class ("color-button");
+            color_button_orange.get_style_context ().add_class ("color-orange");
 
             var color_button_yellow = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Yellow")
@@ -31,6 +36,12 @@ namespace Notejot {
             color_button_blue.get_style_context ().add_class ("color-button");
             color_button_blue.get_style_context ().add_class ("color-blue");
 
+            var color_button_purple = new Gtk.RadioButton.from_widget (color_button_red) {
+                tooltip_text = _("Purple")
+            };
+            color_button_purple.get_style_context ().add_class ("color-button");
+            color_button_purple.get_style_context ().add_class ("color-purple");
+
             var color_button_neutral = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Gray")
             };
@@ -40,61 +51,56 @@ namespace Notejot {
             var color_button_box = new Gtk.Grid () {
                 margin_start = 12,
                 margin_end = 12,
-                column_spacing = 6
+                column_spacing = 6,
+                row_spacing = 6
             };
-            color_button_box.add (color_button_red);
-            color_button_box.add (color_button_yellow);
-            color_button_box.add (color_button_green);
-            color_button_box.add (color_button_blue);
-            color_button_box.add (color_button_neutral);
+            color_button_box.attach (color_button_red, 0, 0);
+            color_button_box.attach (color_button_orange, 1, 0);
+            color_button_box.attach (color_button_yellow, 2, 0);
+            color_button_box.attach (color_button_green, 3, 0);
+            color_button_box.attach (color_button_blue, 0, 1);
+            color_button_box.attach (color_button_purple, 1, 1);
+            color_button_box.attach (color_button_neutral, 2, 1);
 
-            var delete_note_button = new Gtk.Button () {
-                margin = 3,
-                halign = Gtk.Align.END
-            };
-            delete_note_button.label = (_("Delete Note"));
-            delete_note_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            delete_note_button.get_style_context ().add_class ("destructive-text");
+            var delete_note_button = new Gtk.ModelButton ();
+            delete_note_button.label = (_("Move to Trash"));
 
 			delete_note_button.clicked.connect (() => {
-                if (win.gridview.get_children () == null) {
-                    if (win.stack.get_visible_child_name () == "grid") {
-                        win.stack.set_visible_child (win.welcome_view);
-                        win.titlebar_stack.set_visible_child (win.welcome_titlebar);
-                    }
-                }
-                if (win.listview.get_children () == null) {
-                    if (win.stack.get_visible_child_name () == "list") {
-                        win.stack.set_visible_child (win.welcome_view);
-                        win.titlebar_stack.set_visible_child (win.welcome_titlebar);
-                    }
-                }
-                win.trashview.new_taskbox (win, taskbox.title, taskbox.contents, taskbox.color);
-                taskbox.get_parent ().destroy ();
-                taskbox.sidebaritem.destroy_item ();
-                taskbox.taskline.destroy ();
+			    win.trashview.new_taskbox (win, controller.title, controller.subtitle, controller.text, controller.color);
+                win.main_stack.set_visible_child (win.empty_state);
+                controller.destroy_item ();
                 win.tm.save_notes ();
             });
 
             color_button_red.clicked.connect (() => {
-                taskbox.update_theme("#f66151");
+                controller.update_theme("#f66151");
+            });
+
+            color_button_orange.clicked.connect (() => {
+                controller.update_theme("#ffbe6f");
             });
 
             color_button_yellow.clicked.connect (() => {
-                taskbox.update_theme("#f9f06b");
+                controller.update_theme("#f9f06b");
             });
 
             color_button_green.clicked.connect (() => {
-                taskbox.update_theme("#8ff0a4");
+                controller.update_theme("#8ff0a4");
             });
 
             color_button_blue.clicked.connect (() => {
-                taskbox.update_theme("#99c1f1");
+                controller.update_theme("#99c1f1");
+            });
+
+            color_button_purple.clicked.connect (() => {
+                controller.update_theme("#dc8add");
             });
 
             color_button_neutral.clicked.connect (() => {
-                taskbox.update_theme("#c0bfbc");
+                controller.update_theme("#c0bfbc");
             });
+
+            var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;
@@ -102,7 +108,8 @@ namespace Notejot {
             grid.row_spacing = 6;
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (color_button_box, 0, 1, 1, 1);
-            grid.attach (delete_note_button, 0, 2, 1, 1);
+            grid.attach (sep, 0, 2, 1, 1);
+            grid.attach (delete_note_button, 0, 3, 1, 1);
             grid.show_all ();
 
             var popover = new Gtk.Popover (null);
@@ -110,9 +117,10 @@ namespace Notejot {
 
             this.has_tooltip = true;
             this.tooltip_text = (_("Settings"));
-            this.image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            this.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             this.popover = popover;
             this.halign = Gtk.Align.END;
+            this.show_all ();
         }
     }
 }

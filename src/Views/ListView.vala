@@ -4,61 +4,23 @@ namespace Notejot {
         public bool is_modified {get; set; default = false;}
 
         public ListView (MainWindow win) {
-            var no_files = new Gtk.Label (_("No notes…"));
-            no_files.halign = Gtk.Align.CENTER;
-            var no_files_style_context = no_files.get_style_context ();
-            no_files_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-            no_files.show_all ();
-
             this.win = win;
-            this.expand = true;
+            this.vexpand = true;
             is_modified = false;
             set_sort_func (list_sort);
-            set_placeholder (no_files);
+            this.show_all ();
 
-            this.get_style_context ().add_class ("notejot-lview");
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                this.get_style_context ().add_class ("notejot-lview-bg-dark");
-                this.get_style_context ().remove_class ("notejot-lview-bg");
-            } else {
-                this.get_style_context ().remove_class ("notejot-lview-bg-dark");
-                this.get_style_context ().add_class ("notejot-lview-bg");
-            }
-
-            Notejot.Application.gsettings.changed["dark-mode"].connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    this.get_style_context ().add_class ("notejot-lview-bg-dark");
-                    this.get_style_context ().remove_class ("notejot-lview-bg");
-                } else {
-                    this.get_style_context ().remove_class ("notejot-lview-bg-dark");
-                    this.get_style_context ().add_class ("notejot-lview-bg");
+            this.row_selected.connect ((selected_row) => {
+                foreach (var row in get_rows ()) {
+                    win.settingmenu.controller = ((Widgets.SidebarItem)selected_row);
+                    win.main_stack.set_visible_child (((Widgets.SidebarItem)selected_row).textfield);
+                    win.titlebar_title_stack.set_visible_child (((Widgets.SidebarItem)selected_row).editablelabel);
                 }
             });
-
-            var provider2 = new Gtk.CssProvider ();
-            string res1 = "\"resource:///com/github/lainsce/notejot/image/bg1.png\"";
-            string res2 = "\"resource:///com/github/lainsce/notejot/image/bg2.png\"";
-            string css = """
-                .notejot-lview-bg {
-                    background-image: url(%s);
-                    background-repeat: repeat;
-                }
-                .notejot-lview-bg-dark {
-                    background-image: url(%s);
-                    background-repeat: repeat;
-                }
-             """.printf(res1, res2);
-             try {
-                provider2.load_from_data(css, -1);
-             } catch (GLib.Error e) {
-                warning ("Failed to parse css style : %s", e.message);
-             }
-             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            this.show_all ();
         }
 
-        public GLib.List<unowned Widgets.TaskBox> get_rows () {
-            return (GLib.List<unowned Widgets.TaskBox>) this.get_children ();
+        public GLib.List<unowned Widgets.SidebarItem> get_rows () {
+            return (GLib.List<unowned Widgets.SidebarItem>) this.get_children ();
         }
 
         public void clear_column () {
@@ -68,12 +30,11 @@ namespace Notejot {
             win.tm.save_notes ();
         }
 
-        public Gee.ArrayList<Gtk.ListBoxRow> get_tasks () {
-            var tasks = new Gee.ArrayList<Gtk.ListBoxRow> ();
-            foreach (Gtk.Widget item in this.get_children ()) {
-	            tasks.add ((Gtk.ListBoxRow)item);
-            }
-            return tasks;
+        public void new_taskbox (MainWindow win, string title, string contents, string text, string color) {
+            var taskbox = new Widgets.SidebarItem (win, title, contents, text, color);
+            insert (taskbox, -1);
+            win.tm.save_notes ();
+            is_modified = true;
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {

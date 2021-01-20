@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2020 Lains
+* Copyright (C) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -21,7 +21,7 @@ namespace Notejot {
         public MainWindow win;
         public Json.Builder builder;
         private string app_dir = Environment.get_user_data_dir () +
-                                 "/com.github.lainsce.notejot";
+                                 "/io.github.lainsce.Notejot";
         private string file_name;
 
         public TaskManager (MainWindow win) {
@@ -41,7 +41,7 @@ namespace Notejot {
                 }
                 GLib.FileUtils.set_contents (file.get_path (), json_string);
             } catch (Error e) {
-                warning ("Failed to save timetable: %s\n", e.message);
+                warning ("Failed to save: %s\n", e.message);
             }
 
         }
@@ -50,9 +50,8 @@ namespace Notejot {
             builder = new Json.Builder ();
 
             builder.begin_array ();
-            if (win.gridview != null && win.trashview != null) {
-                save_column (builder, win.gridview);
-                save_trash_column (builder, win.trashview);
+            if (win.listview != null) {
+                save_column (builder, win.listview);
             }
             builder.end_array ();
 
@@ -64,33 +63,21 @@ namespace Notejot {
         }
 
         private static void save_column (Json.Builder builder,
-                                         Views.GridView gridview) {
+                                         Views.ListView listview) {
             builder.begin_array ();
-            if (gridview.get_children () != null) {
-                foreach (Gtk.FlowBoxChild item in gridview.get_tasks ()) {
+            if (listview.get_children () != null) {
+                foreach (Widgets.SidebarItem item in listview.get_rows ()) {
                     builder.begin_array ();
-                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).title);
-                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).contents);
-                    builder.add_string_value (((Widgets.TaskBox)item.get_child ()).color);
+                    builder.add_string_value (item.title);
+                    builder.add_string_value (item.subtitle);
+                    Gtk.TextIter start, end;
+                    item.textfield.get_buffer ().get_bounds (out start, out end);
+                    builder.add_string_value (item.textfield.get_buffer ().get_text(start, end, false));
+                    builder.add_string_value (item.color);
                     builder.end_array ();
                 }
             }
 	        builder.end_array ();
-        }
-
-        private static void save_trash_column (Json.Builder builder,
-                                              Views.TrashView trashview) {
-            builder.begin_array ();
-            if (trashview.get_children () != null) {
-                foreach (Gtk.FlowBoxChild item in trashview.get_tasks ()) {
-                    builder.begin_array ();
-                    builder.add_string_value (((Widgets.TrashedTask)item.get_child ()).title);
-                    builder.add_string_value (((Widgets.TrashedTask)item.get_child ()).contents);
-                    builder.add_string_value (((Widgets.TrashedTask)item.get_child ()).color);
-                    builder.end_array ();
-                }
-            }
-            builder.end_array ();
         }
 
         public void load_from_file () {
@@ -108,19 +95,11 @@ namespace Notejot {
                     foreach (var tasks in columns.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
-                        var contents = task.get_string_element(1);
-                        var color = task.get_string_element(2);
+                        var subtitle = task.get_string_element(1);
+                        var text = task.get_string_element(2);
+                        var color = task.get_string_element(3);
 
-                        win.gridview.new_taskbox (win, title, contents, color);
-                    }
-                    var columns2 = array.get_array_element (1);
-                    foreach (var tasks2 in columns2.get_elements()) {
-                        var task2 = tasks2.get_array ();
-                        var title2 = task2.get_string_element(0);
-                        var contents2 = task2.get_string_element(1);
-                        var color2 = task2.get_string_element(2);
-
-                        win.trashview.new_taskbox (win, title2, contents2, color2);
+                        win.listview.new_taskbox (win, title, subtitle, text, color);
                     }
                 }
             } catch (Error e) {

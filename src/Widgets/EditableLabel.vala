@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -71,7 +71,7 @@ namespace Notejot {
             title.valign = Gtk.Align.CENTER;
 
             var edit_button = new Gtk.Button ();
-            edit_button.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
+            edit_button.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.MENU);
             edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             var button_revealer = new Gtk.Revealer ();
             button_revealer.valign = Gtk.Align.CENTER;
@@ -94,10 +94,10 @@ namespace Notejot {
 
             stack = new Gtk.Stack ();
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            stack.margin_top = stack.margin_bottom = 3;
             stack.add (grid);
             stack.add (entry);
             add (stack);
+            show_all ();
 
             enter_notify_event.connect ((event) => {
                 if (event.detail != Gdk.NotifyType.INFERIOR) {
