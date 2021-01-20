@@ -3,77 +3,38 @@
 @define-color accent_color_500 #FFE16B;
 @define-color accent_color_300 #FFE16B;
 
-window .csd:not(.popup):not(.menu) .titlebar,
-window:not(.popup):not(.menu) > decoration,
-window.unified,
-window.unified decoration,
-window.unified decoration-overlay {
-  border-radius: 8px;
-}
-
-.title {
-    font-weight: 700;
-}
-
-.frame {
-    border: none;
-}
-
-.destructive-text {
-    color: #D07070;
-    border: 1px solid transparent;
-}
-
-.destructive-text:hover {
-    color: #151515;
-    background: alpha(#D07070, 0.25);
-    border: 1px solid #D07070;
-}
-
-.destructive-button:hover {
-    color: #D07070;
-}
-
-.rotated > widget > box > image {
-    -gtk-icon-transform: rotate(90deg);
-}
-
-.notejot-sbutton {
-    margin-right: 5px;
-}
-
 .color-button radio,
 .color-button radio:checked {
    padding: 4px;
    -gtk-icon-shadow: none;
 }
 .color-red radio {
-    background: #F3ACAA;
-    color: #F3ACAA;
+    background: #f66151;
+    color: #f66151;
 }
 .color-orange radio {
-    background: #FFC78B;
-    color: #FFC78B;
+    background: #ffbe6f;
+    color: #ffbe6f;
 }
 .color-yellow radio {
-    background: #FCF092;
-    color: #FCF092;
+    background: #f9f06b;
+    color: #f9f06b;
 }
 .color-green radio {
-    background: #B1FBA2;
-    color: #B1FBA2;
+    background: #8ff0a4;
+    color: #8ff0a4;
 }
 .color-blue radio {
-    background: #B8EFFA;
-    color: #B8EFFA;
+    background: #99c1f1;
+    color: #99c1f1;
 }
 .color-violet radio {
-    background: #C0C0F5;
-    color: #C0C0F5;
+    background: #dc8add;
+    color: #dc8add;
 }
 .color-neutral radio {
-    background: #DADADA;
-    color: #DADADA;
+    background: #c0bfbc;
+    color: #c0bfbc;
 }
 
 .notejot-tview {

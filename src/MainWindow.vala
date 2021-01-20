@@ -412,7 +412,7 @@ namespace Notejot {
 
         // IO?
         public void on_create_new () {
-            gridview.new_taskbox (this, "New Note", "Write a new note…", "#FCF092");
+            gridview.new_taskbox (this, "New Note", "Write a new note…", "#f6d32d");
             if (Notejot.Application.gsettings.get_string("last-view") == "grid") {
                 stack.set_visible_child (grid_box);
                 main_stack.set_visible_child (stack);

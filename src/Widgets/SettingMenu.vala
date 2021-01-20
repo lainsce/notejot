@@ -77,23 +77,23 @@ namespace Notejot {
             });
 
             color_button_red.clicked.connect (() => {
-                taskbox.update_theme("#F3ACAA");
+                taskbox.update_theme("#f66151");
             });
 
             color_button_yellow.clicked.connect (() => {
-                taskbox.update_theme("#FCF092");
+                taskbox.update_theme("#f9f06b");
             });
 
             color_button_green.clicked.connect (() => {
-                taskbox.update_theme("#B1FBA2");
+                taskbox.update_theme("#8ff0a4");
             });
 
             color_button_blue.clicked.connect (() => {
-                taskbox.update_theme("#B8EFFA");
+                taskbox.update_theme("#99c1f1");
             });
 
             color_button_neutral.clicked.connect (() => {
-                taskbox.update_theme("#DADADA");
+                taskbox.update_theme("#c0bfbc");
             });
 
             var grid = new Gtk.Grid ();
