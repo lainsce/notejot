@@ -210,6 +210,8 @@ namespace Notejot {
             trashview = new Views.TrashView (this);
 
             var trash_scroller = new Gtk.ScrolledWindow (null, null);
+            trash_scroller.margin_top = 12;
+            trash_scroller.vexpand = true;
             trash_scroller.add (trashview);
 
             var sidebar_stack = new Gtk.Stack ();
@@ -253,12 +255,14 @@ namespace Notejot {
                 sidebar_stack.set_visible_child (list_scroller);
                 Notejot.Application.gsettings.set_string("last-view", "notes");
                 sidebar_title_button.label = (_("Notes"));
+                settingmenu.visible = true;
             });
 
             delete_note_button.clicked.connect (() => {
                 sidebar_stack.set_visible_child (trash_scroller);
                 Notejot.Application.gsettings.set_string("last-view", "trash");
                 sidebar_title_button.label = (_("Trash"));
+                settingmenu.visible = false;
             });
 
 
@@ -449,6 +453,11 @@ namespace Notejot {
             var sidebaritem = new Widgets.SidebarItem (this, "New Note", "Write a new note…", "This is an example of text.", "#f9f06b");
             listview.add (sidebaritem);
             listview.is_modified = true;
+
+            main_stack.set_visible_child (empty_state);
+            titlebar_stack.set_visible_child (titlebar);
+            sgrid.no_show_all = false;
+            sgrid.visible = true;
         }
 
         public void action_about () {

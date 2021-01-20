@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.SidebarItem : Gtk.ListBoxRow {
+    public class Widgets.TrashedItem : Gtk.ListBoxRow {
         private MainWindow win;
         public Widgets.TextField textfield;
         public Widgets.EditableLabel editablelabel;
@@ -30,7 +30,7 @@ namespace Notejot {
         public string text;
         public string color;
 
-        public SidebarItem (MainWindow win, string title, string subtitle, string text, string color) {
+        public TrashedItem (MainWindow win, string title, string subtitle, string text, string color) {
             this.win = win;
             this.uid = uid_counter++;
             this.title = title;
@@ -63,11 +63,11 @@ namespace Notejot {
             update_theme (color);
 
             textfield = new Widgets.TextField (win);
-            win.main_stack.add_named (textfield, "textfield-%d".printf(uid));
+            win.main_stack.add_named (textfield, "textfield-trash-%d".printf(uid));
             textfield.get_buffer ().set_text (this.text);
 
             editablelabel = new Widgets.EditableLabel (win, this.title);
-            win.titlebar_title_stack.add_named (editablelabel, "note-title-%d".printf(uid));
+            win.titlebar_title_stack.add_named (editablelabel, "note-title-trash-%d".printf(uid));
 
             editablelabel.changed.connect (() => {
                label.label = editablelabel.text;
@@ -78,11 +78,6 @@ namespace Notejot {
 
         public void destroy_item () {
             this.destroy ();
-        }
-
-        public void select_item () {
-            win.main_stack.set_visible_child_name ("textfield-%d".printf(uid));
-            win.titlebar_title_stack.set_visible_child_name ("note-title-%d".printf(uid));
         }
 
         public void update_theme(string? color) {

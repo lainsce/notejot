@@ -9,12 +9,12 @@ namespace Notejot {
             is_modified = false;
             set_sort_func (list_sort);
             this.show_all ();
+            this.set_selection_mode (Gtk.SelectionMode.SINGLE);
 
             this.row_selected.connect ((selected_row) => {
                 foreach (var row in get_rows ()) {
                     win.settingmenu.controller = ((Widgets.SidebarItem)selected_row);
-                    win.main_stack.set_visible_child (((Widgets.SidebarItem)selected_row).textfield);
-                    win.titlebar_title_stack.set_visible_child (((Widgets.SidebarItem)selected_row).editablelabel);
+                    ((Widgets.SidebarItem)selected_row).select_item ();
                 }
             });
         }
