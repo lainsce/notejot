@@ -48,11 +48,6 @@ namespace Notejot {
             color_button_box.add (color_button_blue);
             color_button_box.add (color_button_neutral);
 
-            var color_button_label = new Granite.HeaderLabel (_("Note Color")) {
-                margin_start = 6,
-                margin_end = 12
-            };
-
             var delete_note_button = new Gtk.Button () {
                 margin = 3,
                 halign = Gtk.Align.END
@@ -106,7 +101,6 @@ namespace Notejot {
             grid.column_spacing = 6;
             grid.row_spacing = 6;
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (color_button_label, 0, 0, 1, 1);
             grid.attach (color_button_box, 0, 1, 1, 1);
             grid.attach (delete_note_button, 0, 2, 1, 1);
             grid.show_all ();

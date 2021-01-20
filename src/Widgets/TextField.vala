@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2020 Lains
+* Copyright (C) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -44,11 +44,6 @@ namespace Notejot {
             connect_signals ();
             send_text ();
             win.tm.save_notes ();
-
-            Notejot.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                update_html_view ();
-                win.tm.save_notes ();
-            });
         }
 
         public void connect_signals () {
@@ -82,17 +77,9 @@ namespace Notejot {
         }
 
         private string set_stylesheet () {
-            if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+            if (Notejot.Application.gsettings.get_boolean("dark-mode") == true) {
                 string dark = Styles.dark.css_large;
                 return dark;
-            } else if (Notejot.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode") == true) {
-                    string dark = Styles.dark.css_large;
-                    return dark;
-                } else {
-                    string normal = Styles.light.css_large;
-                    return normal;
-                }
             } else {
                 string normal = Styles.light.css_large;
                 return normal;

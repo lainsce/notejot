@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2020 Lains
+* Copyright (C) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -130,10 +130,10 @@ namespace Notejot {
             string style = null;
             style = (N_("""
             .notejot-note-grid-%d {
-                background-image: linear-gradient(to bottom, %s 35px, #F7F7F7 1px);
+                background-image: linear-gradient(to bottom, %s 45px, #FFF 1px);
             }
             .notejot-note-grid-dark-%d {
-                background-image: linear-gradient(to bottom, shade(%s, 0.8) 35px, #303030 1px);
+                background-image: linear-gradient(to bottom, shade(%s, 0.8) 45px, #222 1px);
             }
             .notejot-nbar-%d {
                 border-radius: 8px 8px 0 0;

@@ -7,7 +7,6 @@ namespace Notejot {
             var no_files = new Gtk.Label (_("No notes…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();
-            no_files_style_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
             no_files_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
             no_files.show_all ();
 

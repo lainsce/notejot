@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2020 Lains
+* Copyright (C) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -25,7 +25,7 @@ public class Notejot.Styles.dark {
 
     body {
       color: #F7F7F7;
-      background-color: #303030;
+      background-color: inherit;
       font-weight: 400;
       font-size: 10pt;
       letter-spacing:	0.12;
@@ -42,7 +42,7 @@ public class Notejot.Styles.dark {
 
     body {
       color: #F7F7F7;
-      background-color: #303030;
+      background-color: inherit;
       font-weight: 400;
       font-size: 12pt;
       letter-spacing: -0.08;

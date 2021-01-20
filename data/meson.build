@@ -1,21 +1,15 @@
-icon_sizes = ['32', '48', '64', '128']
-
-foreach i : icon_sizes
-    install_data(
-        join_paths('icons', i, meson.project_name() + '.svg'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
-    )
-endforeach
-
-foreach i : icon_sizes
-    install_data(
-        join_paths('icons', i, meson.project_name() + '.svg'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps')
-    )
-endforeach
+install_data(
+    join_paths('icons', '128', 'io.github.lainsce.Notejot.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
+)
 
 install_data(
-    join_paths('icons', '16', meson.project_name() + '-symbolic.svg'),
+    join_paths('icons', '128', 'io.github.lainsce.Notejot.Devel.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
+)
+
+install_data(
+    join_paths('icons', '16', 'io.github.lainsce.Notejot-symbolic.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
 

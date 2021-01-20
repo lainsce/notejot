@@ -32,7 +32,6 @@ namespace Notejot {
             notebar.show_close_button = true;
             notebar.has_subtitle = false;
             notebar.set_size_request (-1, 30);
-            notebar.set_decoration_layout ("close:");
             notebar.get_style_context ().add_class ("notejot-nbar-%d".printf(this.uid));
             notebar.set_title (this.title);
 

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -21,17 +21,15 @@ namespace Notejot {
     public class Application : Gtk.Application {
         public static MainWindow win = null;
         public static GLib.Settings gsettings;
-        public static Granite.Settings grsettings;
 
         public Application () {
             Object (
                 flags: ApplicationFlags.FLAGS_NONE,
-                application_id: "com.github.lainsce.notejot"
+                application_id: "io.github.lainsce.Notejot"
             );
         }
         static construct {
-            gsettings = new GLib.Settings ("com.github.lainsce.notejot");
-            grsettings = Granite.Settings.get_default ();
+            gsettings = new GLib.Settings ("io.github.lainsce.Notejot");
         }
 
         protected override void activate () {

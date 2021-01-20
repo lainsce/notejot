@@ -1,5 +1,5 @@
 <schemalist>
-	<schema id="com.github.lainsce.notejot" path="/com/github/lainsce/notejot/">
+	<schema id="io.github.lainsce.Notejot" path="/io/github/lainsce/Notejot/">
 		<key name="window-x" type="i">
 			<default>-1</default>
 			<summary>Window position</summary>
