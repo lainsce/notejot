@@ -24,30 +24,17 @@ public class Notejot.Styles.dark {
     }
 
     body {
-      color: #F7F7F7;
-      background-color: inherit;
+      color: #f6f5f4;
+      background-color: #222;
+      font-family: "Cantarell", sans;
       font-weight: 400;
-      font-size: 10pt;
-      letter-spacing:	0.12;
+      font-size: 1.1rem;
+      letter-spacing: 0.12;
       line-height: 1rem;
       text-align: left;
+      margin-left: 40px;
+      margin-top: 20px;
       overflow-x: hidden;
-    }
-  """;
-  public const string css_large="""
-    html {
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    body {
-      color: #F7F7F7;
-      background-color: inherit;
-      font-weight: 400;
-      font-size: 12pt;
-      letter-spacing: -0.08;
-      line-height: 1.5rem;
-      text-align: left;
     }
   """;
 }

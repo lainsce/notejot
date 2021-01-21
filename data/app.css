@@ -1,5 +1,3 @@
-@define-color accent #FFE16B;
-
 .rename-button {
     margin-top: 0;
     margin-bottom: 0;
@@ -13,10 +11,19 @@
     text-shadow: none;
 }
 
+.popover-list .horizontal,
+.popover-list .text-button {
+  min-width: 150px;
+}
+
+.circular-button {
+    padding: 10px;
+    border-radius: 9999px;
+}
+
 .color-button radio,
 .color-button radio:checked {
    padding: 8px;
-   -gtk-icon-shadow: none;
 }
 .color-red radio {
     background: #f66151;
@@ -51,36 +58,27 @@
     color: #fff;
 }
 
-.notejot-column,
-.notejot-column list {
-    background: mix (@accent, @theme_bg_color, 0.90);
-    box-shadow: none;
-}
-
-.notejot-sidebar-box {
-  padding: 10px;
-  margin: 0 12px;
-  border-radius: 8px;
-  box-shadow: none;
-  color: @theme_fg_color;
-  opacity: 0.8;
-}
-
 .notejot-sidebar-box:active,
 .notejot-sidebar-box:selected,
 .notejot-sidebar-box:focus,
 .notejot-sidebar-box:hover  {
-  background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+  background: shade(@theme_base_color, 0.9);
+  color: @theme_fg_color;
 }
 
 .notejot-sidebar-box:active:backdrop,
 .notejot-sidebar-box:selected:backdrop,
 .notejot-sidebar-box:focus:backdrop,
 .notejot-sidebar-box:hover:backdrop  {
-  background: alpha(shade(mix (@accent, @theme_bg_color, 0.90), 0.88), 0.88);
+  background: alpha(shade(@theme_base_color, 0.9), 0.5);
+  color: alpha(@theme_fg_color, 0.5);
 }
 
 .notejot-tview {
   font-family: "Cantarell", sans;
   font-size: 1.2rem;
+}
+
+.notejot-bar {
+  background: @theme_bg_color;
 }

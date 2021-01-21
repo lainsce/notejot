@@ -70,9 +70,7 @@ namespace Notejot {
                     builder.begin_array ();
                     builder.add_string_value (item.title);
                     builder.add_string_value (item.subtitle);
-                    Gtk.TextIter start, end;
-                    item.textfield.get_buffer ().get_bounds (out start, out end);
-                    builder.add_string_value (item.textfield.get_buffer ().get_text(start, end, false));
+                    builder.add_string_value (item.text);
                     builder.add_string_value (item.color);
                     builder.end_array ();
                 }
@@ -88,7 +86,7 @@ namespace Notejot {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
                     var parser = new Json.Parser();
-                    parser.load_from_data(line.replace ("\\\"", "\"").replace ("\\/", "/"));
+                    parser.load_from_data(line.replace ("\\/", "/").replace ("\\\"", "\""));
                     var root = parser.get_root();
                     var array = root.get_array();
                     var columns = array.get_array_element (0);

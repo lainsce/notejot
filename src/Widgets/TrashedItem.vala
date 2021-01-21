@@ -17,16 +17,14 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class Widgets.TrashedItem : Gtk.ListBoxRow {
+    public class Widgets.TrashedItem : Hdy.ActionRow {
         private MainWindow win;
         public Widgets.TextField textfield;
         public Widgets.EditableLabel editablelabel;
-        private Gtk.Label label;
-        private Gtk.Label label2;
         private static int uid_counter;
         public int uid;
-        public string title;
-        public string subtitle;
+        public new string title;
+        public new string subtitle;
         public string text;
         public string color;
 
@@ -43,38 +41,15 @@ namespace Notejot {
             icon.valign = Gtk.Align.CENTER;
             icon.get_style_context ().add_class ("notejot-sidebar-dbg-%d".printf(uid));
 
-            label = new Gtk.Label (this.title);
-            label.halign = Gtk.Align.START;
-            label.get_style_context ().add_class ("title-4");
-            label2 = new Gtk.Label (this.subtitle);
-            label2.halign = Gtk.Align.START;
+            add_prefix (icon);
 
-            var grid = new Gtk.Grid ();
-            grid.column_spacing = 6;
-            grid.attach (icon, 0, 0, 1, 2);
-            grid.attach (label, 1, 0);
-            grid.attach (label2, 1, 1);
-            grid.show_all ();
+            set_title (this.title);
+            set_subtitle (this.subtitle);
 
             this.show_all ();
-            this.add (grid);
-            this.get_style_context ().add_class ("notejot-sidebar-dbg");
+            this.get_style_context ().add_class ("notejot-sidebar-box");
 
             update_theme (color);
-
-            textfield = new Widgets.TextField (win);
-            win.main_stack.add_named (textfield, "textfield-trash-%d".printf(uid));
-            textfield.get_buffer ().set_text (this.text);
-
-            editablelabel = new Widgets.EditableLabel (win, this.title);
-
-            editablelabel.changed.connect (() => {
-               label.label = editablelabel.text;
-               this.title = editablelabel.text;
-               win.tm.save_notes ();
-            });
-
-
         }
 
         public void destroy_item () {

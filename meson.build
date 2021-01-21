@@ -55,6 +55,7 @@ sources = files(
     'src/Views/TrashView.vala',
     'src/Widgets/Dialog.vala',
     'src/Widgets/EditableLabel.vala',
+    'src/Widgets/FormatBar.vala',
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/Note.vala',
@@ -70,6 +71,7 @@ dependencies = [
     dependency('gee-0.8'),
     dependency('gtksourceview-4'),
     dependency('libhandy-1'),
+    dependency('webkit2gtk-4.0'),
     dependency('json-glib-1.0')
 ]
 
