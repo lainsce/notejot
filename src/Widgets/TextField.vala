@@ -28,6 +28,7 @@ namespace Notejot {
 
             // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
+            this.margin_top = 20;
             this.left_margin = this.right_margin = this.bottom_margin = 40;
             this.set_pixels_inside_wrap((int)(1.5*4));
             this.set_pixels_above_lines((int)(1.5*4));

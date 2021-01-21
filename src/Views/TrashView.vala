@@ -12,8 +12,8 @@ namespace Notejot {
             this.set_selection_mode (Gtk.SelectionMode.NONE);
         }
 
-        public GLib.List<unowned Widgets.SidebarItem> get_rows () {
-            return (GLib.List<unowned Widgets.SidebarItem>) this.get_children ();
+        public GLib.List<unowned Widgets.Note> get_rows () {
+            return (GLib.List<unowned Widgets.Note>) this.get_children ();
         }
 
         public void clear_column () {

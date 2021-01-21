@@ -57,7 +57,7 @@ sources = files(
     'src/Widgets/EditableLabel.vala',
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
-    'src/Widgets/SidebarItem.vala',
+    'src/Widgets/Note.vala',
     'src/Widgets/TrashedItem.vala',
     'src/Widgets/TextField.vala',
 )

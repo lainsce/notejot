@@ -481,7 +481,7 @@ namespace Notejot {
 
         // IO?
         public void on_create_new () {
-            var sidebaritem = new Widgets.SidebarItem (this, "New Note", "Write a new note…", "This is an example of text.", "#f6f5f4");
+            var sidebaritem = new Widgets.Note (this, "New Note", "Subtitle of the Note", "This is an example of text.", "#f6f5f4");
             listview.add (sidebaritem);
             listview.is_modified = true;
 
@@ -489,6 +489,7 @@ namespace Notejot {
             titlebar_stack.set_visible_child (titlebar);
             sgrid.no_show_all = false;
             sgrid.visible = true;
+            settingmenu.visible = false;
         }
 
         public void action_about () {

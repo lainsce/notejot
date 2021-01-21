@@ -13,15 +13,16 @@ namespace Notejot {
 
             this.row_selected.connect ((selected_row) => {
                 foreach (var row in get_rows ()) {
-                    win.settingmenu.controller = ((Widgets.SidebarItem)selected_row);
-                    ((Widgets.SidebarItem)selected_row).select_item ();
+                    win.settingmenu.controller = ((Widgets.Note)selected_row);
+                    ((Widgets.Note)selected_row).select_item ();
                     win.leaflet.set_visible_child (win.grid);
+                    win.settingmenu.visible = true;
                 }
             });
         }
 
-        public GLib.List<unowned Widgets.SidebarItem> get_rows () {
-            return (GLib.List<unowned Widgets.SidebarItem>) this.get_children ();
+        public GLib.List<unowned Widgets.Note> get_rows () {
+            return (GLib.List<unowned Widgets.Note>) this.get_children ();
         }
 
         public void clear_column () {
@@ -32,7 +33,7 @@ namespace Notejot {
         }
 
         public void new_taskbox (MainWindow win, string title, string contents, string text, string color) {
-            var taskbox = new Widgets.SidebarItem (win, title, contents, text, color);
+            var taskbox = new Widgets.Note (win, title, contents, text, color);
             insert (taskbox, -1);
             win.tm.save_notes ();
             is_modified = true;

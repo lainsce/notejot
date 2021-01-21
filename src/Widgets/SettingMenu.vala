@@ -1,7 +1,7 @@
 namespace Notejot {
     public class Widgets.SettingMenu : Gtk.MenuButton {
         private MainWindow win;
-        public Widgets.SidebarItem controller;
+        public Widgets.Note controller;
 
         public SettingMenu (MainWindow win) {
             this.win = win;
@@ -77,6 +77,7 @@ namespace Notejot {
                 win.main_stack.set_visible_child (win.empty_state);
                 controller.destroy_item ();
                 win.tm.save_notes ();
+                win.settingmenu.visible = false;
             });
 
             color_button_red.clicked.connect (() => {

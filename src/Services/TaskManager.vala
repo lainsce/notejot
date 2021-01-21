@@ -66,7 +66,7 @@ namespace Notejot {
                                          Views.ListView listview) {
             builder.begin_array ();
             if (listview.get_children () != null) {
-                foreach (Widgets.SidebarItem item in listview.get_rows ()) {
+                foreach (Widgets.Note item in listview.get_rows ()) {
                     builder.begin_array ();
                     builder.add_string_value (item.title);
                     builder.add_string_value (item.subtitle);
