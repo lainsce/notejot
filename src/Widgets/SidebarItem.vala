@@ -113,10 +113,16 @@ namespace Notejot {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
                 icon.get_style_context ().add_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+                titlelabel.get_style_context ().add_class ("notejot-label-dark-%d".printf(uid));
+                subtitlelabel.get_style_context ().add_class ("notejot-label-dark-%d".printf(uid));
+                note_grid.get_style_context ().add_class ("notejot-stack-dark-%d".printf(uid));
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
                 icon.get_style_context ().remove_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+                titlelabel.get_style_context ().remove_class ("notejot-label-dark-%d".printf(uid));
+                subtitlelabel.get_style_context ().remove_class ("notejot-label-dark-%d".printf(uid));
+                note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
@@ -124,10 +130,16 @@ namespace Notejot {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
                     icon.get_style_context ().add_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+                    titlelabel.get_style_context ().add_class ("notejot-label-dark-%d".printf(uid));
+                    subtitlelabel.get_style_context ().add_class ("notejot-label-dark-%d".printf(uid));
+                    note_grid.get_style_context ().add_class ("notejot-stack-dark-%d".printf(uid));
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
                     icon.get_style_context ().remove_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+                    titlelabel.get_style_context ().remove_class ("notejot-label-dark-%d".printf(uid));
+                    subtitlelabel.get_style_context ().remove_class ("notejot-label-dark-%d".printf(uid));
+                    note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
                 }
             });
         }
