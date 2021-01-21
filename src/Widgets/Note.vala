@@ -89,14 +89,13 @@ namespace Notejot {
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
             titlelabel.changed.connect (() => {
-               set_title (this.title);
+               set_title (titlelabel.text);
                this.title = titlelabel.text;
-               win.titlebar.title = titlelabel.text;
                win.tm.save_notes ();
             });
 
             subtitlelabel.changed.connect (() => {
-               set_subtitle (this.subtitle);
+               set_subtitle (subtitlelabel.text);
                this.subtitle = subtitlelabel.text;
                win.tm.save_notes ();
             });
