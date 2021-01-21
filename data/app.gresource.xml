@@ -6,6 +6,7 @@
         <file alias="welcome.png">assets/welcome.png</file>
 
         <file alias="header_button.ui">ui/header_button.ui</file>
+        <file alias="shortcuts.ui">ui/shortcuts.ui</file>
     </gresource>
 </gresources>
 

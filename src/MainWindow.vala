@@ -155,6 +155,21 @@ namespace Notejot {
                 on_create_new ();
             });
 
+            var sc_button = new Gtk.ModelButton ();
+            sc_button.text = _("Keyboard Shortcuts");
+
+            sc_button.clicked.connect (() => {
+                try {
+                    var build = new Gtk.Builder ();
+                    build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
+                    var window =  (Gtk.ApplicationWindow) build.get_object ("shortcuts-notejot");
+                    window.set_transient_for (this);
+                    window.show_all ();
+                } catch (Error e) {
+                    warning ("Failed to open shortcuts window: %s\n", e.message);
+                }
+            });
+
             var about_button = new Gtk.ModelButton ();
             about_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_ABOUT;
             about_button.text = _("About Notejot");
@@ -190,12 +205,16 @@ namespace Notejot {
                 }
             });
 
+            var sep3 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+
             var menu_grid = new Gtk.Grid ();
             menu_grid.margin = 6;
             menu_grid.row_spacing = 6;
             menu_grid.attach (dark_mode_button, 0, 0);
             menu_grid.attach (trash_button, 0, 1);
-            menu_grid.attach (about_button, 0, 2);
+            menu_grid.attach (sep3, 0, 2);
+            menu_grid.attach (sc_button, 0, 3);
+            menu_grid.attach (about_button, 0, 4);
             menu_grid.show_all ();
 
             var menu = new Gtk.Popover (null);

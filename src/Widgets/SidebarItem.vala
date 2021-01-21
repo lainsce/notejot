@@ -36,6 +36,7 @@ namespace Notejot {
             this.title = title;
             this.subtitle = subtitle;
             this.text = text;
+            this.margin_bottom = 6;
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.SMALL_TOOLBAR);
