@@ -1,6 +1,6 @@
 # ![icon](data/icon.png) Notejot
 
-## Stupidly simple sticky notes applet
+## Stupidly simple notes app
 
 [![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.notejot)
 
@@ -26,6 +26,7 @@ gtk+-3.0
 gtksourceview-3.0
 libjson-glib
 libgee-0.8
+libhandy-1
 meson
 vala
 ```
@@ -35,10 +36,9 @@ vala
 Simply clone this repo, then:
 
 ```bash
-meson build && cd build
-meson configure -Dprefix=/usr
+meson build --prefix=/usr && cd build
 sudo ninja install
 ```
 
 ## Notes Storage
-Notes are stored in `~/.local/share/com.github.lainsce.notejot/`
+Notes are stored in `~/.local/share/io.github.lainsce.Notejot/`

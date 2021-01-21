@@ -6,7 +6,7 @@
     <name>Notejot</name>
     <summary>Jot your ideas</summary>
     <description>
-        <p>A stupidly-simple sticky notes application for any type of short term notes or ideas.</p>
+        <p>A stupidly-simple notes application for any type of short term notes or ideas.</p>
         <ul>
             <li>Quit anytime with the shortcut Ctrl + Q</li>
         </ul>
