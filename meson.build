@@ -1,4 +1,4 @@
-project('io.github.lainsce.Notejot', ['vala', 'c'], version: '2.0.0')
+project('io.github.lainsce.Notejot', ['vala', 'c'], version: '2.5.0')
 gnome = import('gnome')
 i18n = import('i18n')
 
@@ -68,10 +68,7 @@ dependencies = [
     dependency('glib-2.0'),
     dependency('gobject-2.0'),
     dependency('gee-0.8'),
-    dependency('libhandy-1'),
     dependency('gtksourceview-4'),
-    dependency('webkit2gtk-4.0'),
-    dependency('gtkspell3-3.0'),
     dependency('libhandy-1'),
     dependency('json-glib-1.0')
 ]

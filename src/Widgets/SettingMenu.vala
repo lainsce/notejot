@@ -109,7 +109,7 @@ namespace Notejot {
             });
 
             color_button_reset.clicked.connect (() => {
-                controller.update_theme("#f6f5f4");
+                controller.update_theme("#ffffff");
             });
 
             var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
