@@ -61,8 +61,6 @@ namespace Notejot {
             events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
 
-            this.get_style_context().add_class("notejot-label");
-
             title = new Gtk.Label (title_name);
             title.margin_start = 40;
             title.ellipsize = Pango.EllipsizeMode.END;
@@ -80,7 +78,7 @@ namespace Notejot {
             grid.add (button_revealer);
 
             entry = new Gtk.Entry ();
-            entry.get_style_context().add_class("notejot-entry");
+            entry.margin_start = 40;
 
             var entry_style_context = entry.get_style_context ();
             entry_style_context.add_class (Gtk.STYLE_CLASS_TITLE);
