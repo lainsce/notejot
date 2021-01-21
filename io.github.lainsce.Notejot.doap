@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+  <name xml:lang="en">Notejot</name>
+  <shortdesc xml:lang="en">
+      Jot your ideas
+  </shortdesc>
+  <description xml:lang="en">
+    <p>A stupidly-simple notes application for any type of short term notes or ideas.</p>
+    <ul>
+        <li>Quit anytime with the shortcut Ctrl + Q</li>
+    </ul>
+  </description>
+  <bug-database rdf:resource="https://github.com/lainsce/notejot"/>
+  <category rdf:resource="http://api.gnome.org/doap-extensions#apps"/>
+  <programming-language>Vala</programming-language>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Lains</foaf:name>
+      <foaf:mbox rdf:resource="mailto:lains@airmail.cc"/>
+      <gnome:userid>lainsce</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+</Project>
