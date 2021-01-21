@@ -38,19 +38,24 @@ namespace Notejot {
             this.text = text;
 
             // Icon intentionally null so it becomes a badge instead.
-            var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.BUTTON);
+            var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.SMALL_TOOLBAR);
             icon.halign = Gtk.Align.START;
             icon.valign = Gtk.Align.CENTER;
             icon.get_style_context ().add_class ("notejot-sidebar-dbg-%d".printf(uid));
 
             label = new Gtk.Label (this.title);
             label.halign = Gtk.Align.START;
+            label.ellipsize = Pango.EllipsizeMode.END;
+            label.max_width_chars = 16;
             label.get_style_context ().add_class ("title-4");
             label2 = new Gtk.Label (this.subtitle);
             label2.halign = Gtk.Align.START;
+            label2.ellipsize = Pango.EllipsizeMode.END;
+            label2.max_width_chars = 19;
 
             var grid = new Gtk.Grid ();
-            grid.column_spacing = 6;
+            grid.column_spacing = 12;
+            grid.row_spacing = 6;
             grid.attach (icon, 0, 0, 1, 2);
             grid.attach (label, 1, 0);
             grid.attach (label2, 1, 1);
@@ -58,21 +63,72 @@ namespace Notejot {
 
             this.show_all ();
             this.add (grid);
-            this.get_style_context ().add_class ("notejot-sidebar-dbg");
+            this.get_style_context ().add_class ("notejot-sidebar-box");
 
             update_theme (color);
 
             textfield = new Widgets.TextField (win);
-            win.main_stack.add_named (textfield, "textfield-%d".printf(uid));
+            textfield.get_style_context ().add_class ("notejot-tview-%d".printf(uid));
+            var text_scroller = new Gtk.ScrolledWindow (null, null);
+            text_scroller.vexpand = true;
+            text_scroller.add(textfield);
             textfield.get_buffer ().set_text (this.text);
 
-            editablelabel = new Widgets.EditableLabel (win, this.title);
-            win.titlebar_title_stack.add_named (editablelabel, "note-title-%d".printf(uid));
+            var titlelabel = new Widgets.EditableLabel (win, this.title);
+            titlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
+            titlelabel.halign = Gtk.Align.START;
+            titlelabel.margin_top = 20;
+            titlelabel.title.get_style_context ().add_class ("title-1");
 
-            editablelabel.changed.connect (() => {
-               label.label = editablelabel.text;
-               this.title = editablelabel.text;
+            var subtitlelabel = new Widgets.EditableLabel (win, this.subtitle);
+            subtitlelabel.halign = Gtk.Align.START;
+            subtitlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
+            subtitlelabel.title.get_style_context ().add_class ("title-3");
+
+            var note_grid = new Gtk.Grid ();
+            note_grid.column_spacing = 12;
+            note_grid.row_spacing = 6;
+            note_grid.attach (titlelabel, 0, 0);
+            note_grid.attach (subtitlelabel, 0, 1);
+            note_grid.attach (text_scroller, 0, 2);
+            note_grid.show_all ();
+
+            win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
+            note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
+
+            titlelabel.changed.connect (() => {
+               label.label = titlelabel.text;
+               this.title = titlelabel.text;
+               win.titlebar.title = titlelabel.text;
                win.tm.save_notes ();
+            });
+
+            subtitlelabel.changed.connect (() => {
+               label2.label = subtitlelabel.text;
+               this.subtitle = subtitlelabel.text;
+               win.tm.save_notes ();
+            });
+
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
+                icon.get_style_context ().add_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+            } else {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
+                icon.get_style_context ().remove_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+            }
+
+            Notejot.Application.gsettings.changed.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
+                    icon.get_style_context ().add_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+                } else {
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
+                    icon.get_style_context ().remove_class ("notejot-sidebar-dbg-dark-%d".printf(uid));
+                }
             });
         }
 
@@ -82,7 +138,7 @@ namespace Notejot {
 
         public void select_item () {
             win.main_stack.set_visible_child_name ("textfield-%d".printf(uid));
-            win.titlebar_title_stack.set_visible_child_name ("note-title-%d".printf(uid));
+            win.titlebar.title = this.title;
         }
 
         public void update_theme(string? color) {
@@ -101,7 +157,33 @@ namespace Notejot {
                 border-radius: 50px;
                 margin-left: 12px;
             }
-            """)).printf(uid, color, uid, color);
+            .notejot-tview-%d text {
+                background: mix(%s, @theme_bg_color, 0.95);
+                color: shade(%s, 0.3);
+            }
+            .notejot-tview-dark-%d text {
+                background: mix(%s, @theme_bg_color, 0.95);
+                color: shade(%s, 1.25);
+            }
+            .notejot-label-%d {
+                background: mix(%s, @theme_bg_color, 0.95);
+                color: shade(%s, 0.3);
+            }
+            .notejot-label-dark-%d {
+                background: mix(%s, @theme_bg_color, 0.95);
+                color: shade(%s, 1.25);
+            }
+            .notejot-stack-%d {
+                background: mix(%s, @theme_bg_color, 0.95);
+                color: shade(%s, 0.3);
+            }
+            .notejot-stack-dark-%d {
+                background: mix(%s, @theme_bg_color, 0.95);
+                color: shade(%s, 0.3);
+            }
+            """)).printf(uid, color, uid, color, uid, color, color, uid, color,
+                         color, uid, color, color, uid, color, color, uid, color,
+                         color, uid, color, color);
 
             try {
                 css_provider.load_from_data(style, -1);

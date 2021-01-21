@@ -15,6 +15,7 @@ namespace Notejot {
                 foreach (var row in get_rows ()) {
                     win.settingmenu.controller = ((Widgets.SidebarItem)selected_row);
                     ((Widgets.SidebarItem)selected_row).select_item ();
+                    win.leaflet.set_visible_child (win.grid);
                 }
             });
         }

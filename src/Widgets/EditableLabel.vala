@@ -57,7 +57,6 @@ namespace Notejot {
 
         public EditableLabel (MainWindow win, string? title_name) {
             this.win = win;
-            valign = Gtk.Align.CENTER;
             events |= Gdk.EventMask.ENTER_NOTIFY_MASK;
             events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
@@ -65,23 +64,18 @@ namespace Notejot {
             this.get_style_context().add_class("notejot-label");
 
             title = new Gtk.Label (title_name);
+            title.margin_start = 40;
             title.ellipsize = Pango.EllipsizeMode.END;
-            title.hexpand = true;
-            title.halign = Gtk.Align.CENTER;
-            title.valign = Gtk.Align.CENTER;
 
             var edit_button = new Gtk.Button ();
-            edit_button.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.MENU);
-            edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            edit_button.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.BUTTON);
             var button_revealer = new Gtk.Revealer ();
             button_revealer.valign = Gtk.Align.CENTER;
             button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
             button_revealer.add (edit_button);
 
             grid = new Gtk.Grid ();
-            grid.valign = Gtk.Align.START;
-            grid.column_spacing = 6;
-            grid.hexpand = false;
+            grid.column_spacing = 12;
             grid.add (title);
             grid.add (button_revealer);
 
@@ -89,10 +83,11 @@ namespace Notejot {
             entry.get_style_context().add_class("notejot-entry");
 
             var entry_style_context = entry.get_style_context ();
-            entry_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
             entry_style_context.add_class (Gtk.STYLE_CLASS_TITLE);
 
             stack = new Gtk.Stack ();
+            stack.hexpand = true;
+            stack.halign = Gtk.Align.CENTER;
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             stack.add (grid);
             stack.add (entry);

@@ -23,17 +23,15 @@ namespace Notejot {
 
         public TextField (MainWindow win) {
             this.win = win;
-            this.expand = true;
             this.editable = true;
             this.get_style_context ().add_class ("notejot-tview");
 
             // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.top_margin = 60;
-            this.left_margin = 40;
+            this.left_margin = this.right_margin = this.bottom_margin = 40;
             this.set_pixels_inside_wrap((int)(1.5*4));
-            this.set_pixels_above_lines(4);
-            this.set_pixels_below_lines(4);
+            this.set_pixels_above_lines((int)(1.5*4));
+            this.set_pixels_below_lines((int)(1.5*4));
             this.has_focus = true;
 
             this.get_buffer ().set_text (this.text);

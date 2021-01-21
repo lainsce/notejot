@@ -21,8 +21,8 @@ namespace Notejot {
         delegate void HookFunc ();
         // Widgets
         public Gtk.Button new_button;
+        public Gtk.Button back_button;
         public Gtk.Button welcome_new_button;
-        public Gtk.ToggleButton pin_button;
         public Gtk.Grid grid;
         public Gtk.Grid welcome_view;
         public Gtk.Grid empty_state;
@@ -34,9 +34,8 @@ namespace Notejot {
         public Gtk.Stack stack;
         public Gtk.Stack main_stack;
         public Gtk.Stack titlebar_stack;
-        public Gtk.Stack titlebar_title_stack;
-        public Gtk.ToggleButton format_button;
-        public Gtk.ListBox sidebar_categories;
+        public Gtk.Grid sidebar;
+        public Gtk.Label titlebar_label;
         public Hdy.HeaderBar stitlebar;
         public Hdy.HeaderBar titlebar;
         public Hdy.HeaderBar welcome_titlebar;
@@ -120,20 +119,24 @@ namespace Notejot {
             titlebar.has_subtitle = false;
             titlebar.hexpand = true;
             titlebar.set_size_request (-1, 41);
+            titlebar.title = "";
 
             settingmenu = new Widgets.SettingMenu(this);
+            settingmenu.visible = false;
             titlebar.pack_end (settingmenu);
 
-            var label = new Gtk.Label ("");
-            var labelt = new Gtk.Label ("Trash");
+            back_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("go-previous-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Create a new note"))
+            };
+            back_button.show_all ();
 
-            titlebar_title_stack = new Gtk.Stack ();
-            titlebar_title_stack.valign = Gtk.Align.START;
-            titlebar_title_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
-            titlebar_title_stack.add_named (label, "normal-title");
-            titlebar_title_stack.add_named (labelt, "trash-title");
+            back_button.clicked.connect (() => {
+                leaflet.set_visible_child (sgrid);
+            });
+            back_button.no_show_all = true;
 
-            titlebar.set_custom_title (titlebar_title_stack);
+            titlebar.pack_start (back_button);
 
             // Sidebar Titlebar
             stitlebar = new Hdy.HeaderBar ();
@@ -177,11 +180,22 @@ namespace Notejot {
                 }
             });
 
+            var dark_mode_button = new Gtk.ModelButton ();
+            dark_mode_button.text = _("Dark Mode…");
+            dark_mode_button.clicked.connect (() => {
+                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
+                } else {
+                    Notejot.Application.gsettings.set_boolean("dark-mode", true);
+                }
+            });
+
             var menu_grid = new Gtk.Grid ();
             menu_grid.margin = 6;
             menu_grid.row_spacing = 6;
-            menu_grid.attach (trash_button, 0, 0);
-            menu_grid.attach (about_button, 0, 1);
+            menu_grid.attach (dark_mode_button, 0, 0);
+            menu_grid.attach (trash_button, 0, 1);
+            menu_grid.attach (about_button, 0, 2);
             menu_grid.show_all ();
 
             var menu = new Gtk.Popover (null);
@@ -218,20 +232,20 @@ namespace Notejot {
             sidebar_stack.add_named (list_scroller, "list");
             sidebar_stack.add_named (trash_scroller, "trash");
 
-            var sidebar = new Gtk.Grid ();
+            sidebar = new Gtk.Grid ();
             sidebar.orientation = Gtk.Orientation.VERTICAL;
             sidebar.get_style_context ().add_class ("notejot-column");
             sidebar.attach (sidebar_stack, 0, 0, 1, 1);
             sidebar.show_all ();
 
             var note_button = new Gtk.ModelButton ();
-            note_button.label = (_("Notes"));
+            note_button.label = (_("All Notes"));
 
             var delete_note_button = new Gtk.ModelButton ();
             delete_note_button.label = (_("Trash"));
 
             var sidebar_title_grid = new Gtk.Grid ();
-            sidebar_title_grid.margin = 6;
+            sidebar_title_grid.margin = 10;
             sidebar_title_grid.row_spacing = 6;
             sidebar_title_grid.attach (note_button, 0, 0);
             sidebar_title_grid.attach (delete_note_button, 0, 1);
@@ -240,11 +254,10 @@ namespace Notejot {
             var sidebar_title_menu = new Gtk.Popover (null);
             sidebar_title_menu.add (sidebar_title_grid);
 
-            var sidebar_title_button = new Gtk.MenuButton ();
+            var sidebar_title_button = new Widgets.HeaderBarButton ();
             sidebar_title_button.has_tooltip = true;
-            sidebar_title_button.label = (_("Notes"));
-            sidebar_title_button.tooltip_text = (_("Settings"));
-            sidebar_title_button.popover = sidebar_title_menu;
+            sidebar_title_button.title = (_("All Notes"));
+            sidebar_title_button.menu.popover = sidebar_title_menu;
             sidebar_title_button.show_all ();
             sidebar_title_button.get_style_context ().add_class ("rename-button");
             sidebar_title_button.get_style_context ().add_class ("flat");
@@ -254,15 +267,16 @@ namespace Notejot {
             note_button.clicked.connect (() => {
                 sidebar_stack.set_visible_child (list_scroller);
                 Notejot.Application.gsettings.set_string("last-view", "notes");
-                sidebar_title_button.label = (_("Notes"));
+                sidebar_title_button.title = (_("All Notes"));
                 settingmenu.visible = true;
             });
 
             delete_note_button.clicked.connect (() => {
                 sidebar_stack.set_visible_child (trash_scroller);
                 Notejot.Application.gsettings.set_string("last-view", "trash");
-                sidebar_title_button.label = (_("Trash"));
+                sidebar_title_button.title = (_("Trash"));
                 settingmenu.visible = false;
+                titlebar.title = "";
             });
 
 
@@ -322,10 +336,9 @@ namespace Notejot {
             var empty_state_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot-symbolic", Gtk.IconSize.BUTTON);
             empty_state_image.pixel_size = 96;
             empty_state_image.margin_bottom = 24;
-            empty_state_image.opacity = 0.6;
+            empty_state_image.opacity = 0.5501;
 
             empty_state = new Gtk.Grid () {
-              expand = true,
               orientation = Gtk.Orientation.VERTICAL,
               halign = Gtk.Align.CENTER,
               valign = Gtk.Align.CENTER,
@@ -356,7 +369,7 @@ namespace Notejot {
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (titlebar_stack, 0, 0, 1, 1);
-            grid.attach (main_stack, 0, 0, 1, 1);
+            grid.attach (main_stack, 0, 1, 1, 1);
             grid.show_all ();
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -382,7 +395,6 @@ namespace Notejot {
             if (listview.is_modified == false) {
                 main_stack.set_visible_child (welcome_view);
                 titlebar_stack.set_visible_child (welcome_titlebar);
-                titlebar_title_stack.set_visible_child (label);
                 sgrid.no_show_all = true;
                 sgrid.visible = false;
             } else {
@@ -392,11 +404,11 @@ namespace Notejot {
                 sgrid.visible = true;
             }
 
-            var flv = list_scroller.get_vadjustment ();
-            scrolling_titlebar_change (flv);
+            var cgrid = new Gtk.Grid ();
+            cgrid.add (leaflet);
 
-            this.add (leaflet);
-            this.set_size_request (375, 600);
+            this.add (cgrid);
+            this.set_size_request (375, 280);
             this.show_all ();
         }
 
@@ -416,23 +428,23 @@ namespace Notejot {
             return false;
         }
 
-        private void scrolling_titlebar_change (Gtk.Adjustment adjustment) {
-            adjustment.value_changed.connect (() => {
-                if (adjustment.get_value () >= 22.12) {
-                    titlebar.get_style_context ().add_class ("notejot-filled-toolbar");
-                } else if (adjustment.get_value () < 22.12) {
-                    titlebar.get_style_context ().remove_class ("notejot-filled-toolbar");
-                }
-            });
-        }
-
         private void update () {
             if (leaflet != null && leaflet.get_folded ()) {
                 // On Mobile size, so.... have to have no buttons anywhere.
                 titlebar.set_decoration_layout (":");
+                sidebar.expand = true;
+                listview.expand = true;
+                trashview.expand = true;
+                back_button.visible = true;
+                back_button.no_show_all = false;
             } else {
                 // Else you're on Desktop size, so business as usual.
                 titlebar.set_decoration_layout (":close");
+                sidebar.hexpand = false;
+                listview.hexpand = false;
+                trashview.hexpand = false;
+                back_button.visible = false;
+                back_button.no_show_all = true;
             }
         }
 
@@ -450,7 +462,7 @@ namespace Notejot {
 
         // IO?
         public void on_create_new () {
-            var sidebaritem = new Widgets.SidebarItem (this, "New Note", "Write a new note…", "This is an example of text.", "#f9f06b");
+            var sidebaritem = new Widgets.SidebarItem (this, "New Note", "Write a new note…", "This is an example of text.", "#f6f5f4");
             listview.add (sidebaritem);
             listview.is_modified = true;
 

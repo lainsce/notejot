@@ -67,13 +67,14 @@ namespace Notejot {
             textfield.get_buffer ().set_text (this.text);
 
             editablelabel = new Widgets.EditableLabel (win, this.title);
-            win.titlebar_title_stack.add_named (editablelabel, "note-title-trash-%d".printf(uid));
 
             editablelabel.changed.connect (() => {
                label.label = editablelabel.text;
                this.title = editablelabel.text;
                win.tm.save_notes ();
             });
+
+
         }
 
         public void destroy_item () {

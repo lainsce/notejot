@@ -42,11 +42,17 @@ namespace Notejot {
             color_button_purple.get_style_context ().add_class ("color-button");
             color_button_purple.get_style_context ().add_class ("color-purple");
 
-            var color_button_neutral = new Gtk.RadioButton.from_widget (color_button_red) {
-                tooltip_text = _("Gray")
+            var color_button_brown = new Gtk.RadioButton.from_widget (color_button_red) {
+                tooltip_text = _("Brown")
             };
-            color_button_neutral.get_style_context ().add_class ("color-button");
-            color_button_neutral.get_style_context ().add_class ("color-neutral");
+            color_button_brown.get_style_context ().add_class ("color-button");
+            color_button_brown.get_style_context ().add_class ("color-brown");
+
+            var color_button_reset = new Gtk.RadioButton.from_widget (color_button_red) {
+                tooltip_text = _("No Color")
+            };
+            color_button_reset.get_style_context ().add_class ("color-button");
+            color_button_reset.get_style_context ().add_class ("color-reset");
 
             var color_button_box = new Gtk.Grid () {
                 margin_start = 12,
@@ -60,7 +66,8 @@ namespace Notejot {
             color_button_box.attach (color_button_green, 3, 0);
             color_button_box.attach (color_button_blue, 0, 1);
             color_button_box.attach (color_button_purple, 1, 1);
-            color_button_box.attach (color_button_neutral, 2, 1);
+            color_button_box.attach (color_button_brown, 2, 1);
+            color_button_box.attach (color_button_reset, 3, 1);
 
             var delete_note_button = new Gtk.ModelButton ();
             delete_note_button.label = (_("Move to Trash"));
@@ -96,8 +103,12 @@ namespace Notejot {
                 controller.update_theme("#dc8add");
             });
 
-            color_button_neutral.clicked.connect (() => {
-                controller.update_theme("#c0bfbc");
+            color_button_brown.clicked.connect (() => {
+                controller.update_theme("#cdab8f");
+            });
+
+            color_button_reset.clicked.connect (() => {
+                controller.update_theme("#f6f5f4");
             });
 
             var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);

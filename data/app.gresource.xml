@@ -3,10 +3,9 @@
     <gresource prefix="/io/github/lainsce/Notejot">
         <file alias="app.css" compressed="true">app.css</file>
 
-        <file alias="image/bg1.png">image/bg1.png</file>
-        <file alias="image/bg2.png">image/bg2.png</file>
-
         <file alias="welcome.png">assets/welcome.png</file>
+
+        <file alias="header_button.ui">ui/header_button.ui</file>
     </gresource>
 </gresources>
 

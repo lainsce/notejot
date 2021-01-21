@@ -1,7 +1,4 @@
 @define-color accent #FFE16B;
-@define-color accent_color #FFE16B;
-@define-color accent_color_500 #FFE16B;
-@define-color accent_color_300 #FFE16B;
 
 .rename-button {
     margin-top: 0;
@@ -45,113 +42,13 @@
     background: #dc8add;
     color: #dc8add;
 }
-.color-neutral radio {
-    background: #c0bfbc;
-    color: #c0bfbc;
+.color-brown radio {
+    background: #cdab8f;
+    color: #cdab8f;
 }
-
-.notejot-abar {
-  background-color: #F7F7F7;
-  border-top: 1px solid alpha(black, 0.25);
-  padding: 6px 10px;
-}
-
-.notejot-abar box {
-  border-top: none;
-  padding: 0;
-  margin: 0;
-}
-
-.notejot-abar .image-button {
-  border-radius: 8px;
-  padding: 6px;
-}
-
-.notejot-abutton {
-  border-radius: 8px;
-  padding: 6px;
-  box-shadow: none;
-  border: none;
-}
-
-.notejot-abutton:focus,
-.notejot-abutton:hover {
-  background: shade(@theme_bg_color, 0.88);
-}
-
-.notejot-abar .image-button:focus,
-.notejot-abar .image-button:hover {
-  background: shade(@theme_bg_color, 0.88);
-}
-
-.notejot-sabar {
-  background-color: shade(mix (@accent, @theme_bg_color, 0.90), 0.95);
-  border-top: 1px solid alpha(black, 0.25);
-  padding: 6px;
-  box-shadow: none;
-}
-
-.notejot-sabutton {
-  border: none;
-  box-shadow: none;
-}
-
-.notejot-sabar .image-button,
-.notejot-sabutton {
-  border-radius: 8px;
-  padding: 6px;
-}
-
-.notejot-sabar .image-button:focus,
-.notejot-sabar .image-button:hover,
-.notejot-sabutton:focus,
-.notejot-sabutton:hover {
-  background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
-}
-
-.notejot-sabar box {
-  border-top: none;
-  padding: 0;
-  margin: 0;
-}
-
-.notejot-bar {
-    padding: 6px;
-    text-shadow: 0 1px transparent;
-    box-shadow: none;
-    border: none;
-    background: none;
-    font-weight: 600;
-    color: #151515;
-}
-
-.notejot-bar box {
-  border-top: none;
-  padding: 0;
-  margin: 0;
-}
-
-.notejot-bar image {
-    -gtk-icon-shadow: 0 1px transparent;
-    color: #151515;
-}
-
-.notejot-column-box .notejot-bar image {
-    color: #151515;
-}
-
-.notejot-ntbar {
-	box-shadow: none;
-	border-left: none;
-	margin: 6px 7px;
-    padding: 0;
-    background: #F7F7F7;
-}
-
-.notejot-sidecat{
-  border: none;
-  background: mix (@accent, @theme_bg_color, 0.90);
-  padding-top: 6px;
+.color-reset radio {
+    background: #f6f5f4;
+    color: #f6f5f4;
 }
 
 .notejot-column,
@@ -160,129 +57,7 @@
     box-shadow: none;
 }
 
-.notejot-side-tbar {
-    background: mix (@accent, @theme_bg_color, 0.90);
-    box-shadow: none;
-    border-bottom: none;
-    margin: 0 7px;
-    padding: 0;
-}
-
-.notejot-category {
-    opacity: 0.8;
-}
-
-.notejot-column-box {
-    padding: 6px;
-    margin: 6px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    color: @theme_fg_color;
-    background: #f7f7f7;
-    box-shadow: 0 1px 3px alpha(black, 0.1),
-                0 1px 2px alpha(black, 0.24);
-}
-
-.notejot-column-box:selected {
-    box-shadow: 0 1px 5px 5px alpha(black, 0.25);
-}
-
-.notejot-label {
-    font-weight: 700;
-}
-
-.notejot-entry {
-    border-radius: 8px;
-    box-shadow: none;
-    font-weight: 700;
-}
-
-.notejot-stack {
-    background: #F7F7F7;
-    color: #151515;
-}
-
-.vsep {
-    background: alpha(black, 0.25);
-}
-
-.notejot-note-grid {
-    border-radius: 8px;
-    box-shadow: 0 1px 3px alpha(black, 0.1),
-                0 1px 2px alpha(black, 0.24);
-}
-
-.notejot-note-trash {
-    border-radius: 8px;
-    box-shadow: 0 1px 3px 0 alpha(black, 0.3),
-                0 1px 2px 0 alpha(black, 0.26);
-}
-
-.notejot-note-list {
-    border-radius: 8px;
-    margin: 3px;
-}
-
-.notejot-note-list:active,
-.notejot-note-list:checked,
-.notejot-note-list:focus,
-.notejot-note-list:hover {
-    border-radius: 8px;
-    background-color: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
-    border: 1px solid mix (@accent, @theme_bg_color, 0.90);
-    color: @fg_color;
-}
-
-.notejot-side-button {
-    background: mix (@accent, @theme_bg_color, 0.90);
-    border: 1px solid mix (@accent, @theme_bg_color, 0.90);
-    box-shadow: none;
-    padding: 8px;
-    margin: 4px 0;
-    border-radius: 8px;
-    opacity: 0.8;
-}
-
-.notejot-side-button:first-child {
-    margin-bottom: 6px;
-}
-
-.notejot-side-button:last-child {
-    margin-top: 6px;
-}
-
-.notejot-side-button:active,
-.notejot-side-button:checked,
-.notejot-side-button:focus {
-  background: shade(@accent, 0.95);
-  border: 1px solid shade(@accent, 0.95);
-  color: #000;
-}
-
-.notejot-side-button:hover {
-    background: shade(@accent, 1.1);
-    border: 1px solid shade(@accent, 1.1);
-    color: #000;
-}
-
-.notejot-side-button label {
-  margin-right: 8rem;
-}
-
-.notejot-side-button image {
-  margin-left: 0.8rem;
-}
-
-.notejot-fabbutton {
-  padding: 10px;
-  margin: 10px;
-  background: shade(@accent, 1.1);
-  border: 1px solid shade(@accent, 0.95);
-  box-shadow: 0 1px 3px alpha(black, 0.1),
-              0 1px 2px alpha(black, 0.24);
-}
-
-.notejot-sidebar-dbg {
+.notejot-sidebar-box {
   padding: 10px;
   margin: 0 12px;
   border-radius: 8px;
@@ -291,41 +66,21 @@
   opacity: 0.8;
 }
 
-.notejot-sidebar-dbg:active,
-.notejot-sidebar-dbg:selected,
-.notejot-sidebar-dbg:focus,
-.notejot-sidebar-dbg:hover  {
+.notejot-sidebar-box:active,
+.notejot-sidebar-box:selected,
+.notejot-sidebar-box:focus,
+.notejot-sidebar-box:hover  {
   background: shade(mix (@accent, @theme_bg_color, 0.90), 0.88);
+}
+
+.notejot-sidebar-box:active:backdrop,
+.notejot-sidebar-box:selected:backdrop,
+.notejot-sidebar-box:focus:backdrop,
+.notejot-sidebar-box:hover:backdrop  {
+  background: alpha(shade(mix (@accent, @theme_bg_color, 0.90), 0.88), 0.88);
 }
 
 .notejot-tview {
   font-family: "Cantarell", sans;
   font-size: 1.2rem;
-}
-
-.notejot-sidebar-dbg:active:backdrop,
-.notejot-sidebar-dbg:selected:backdrop,
-.notejot-sidebar-dbg:focus:backdrop,
-.notejot-sidebar-dbg:hover:backdrop  {
-  background: alpha(shade(mix (@accent, @theme_bg_color, 0.90), 0.88), 0.88);
-}
-
-.notejot-tvview:backdrop {
-    background-color: #F0F0F0;
-}
-
-.notejot-fgview:backdrop {
-    background-color: #F0F0F0;
-}
-
-.notejot-filled-toolbar:backdrop {
-    background: #F0F0F0;
-}
-
-.notejot-abar:backdrop {
-	background: #F0F0F0;
-}
-
-.notejot-ntbar:backdrop {
-	background: #F0F0F0;
 }
