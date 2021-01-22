@@ -82,3 +82,8 @@
 .notejot-bar {
   background: @theme_bg_color;
 }
+
+.notejot-flat-title {
+    background: none;
+    border: none;
+}

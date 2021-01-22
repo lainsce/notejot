@@ -304,8 +304,8 @@ namespace Notejot {
             welcome_titlebar = new Hdy.HeaderBar ();
             welcome_titlebar.show_close_button = true;
             welcome_titlebar.has_subtitle = false;
-            welcome_titlebar.title = "Notejot";
             welcome_titlebar.valign = Gtk.Align.START;
+            welcome_titlebar.get_style_context ().add_class ("notejot-flat-title");
 
             welcome_titlebar.pack_start (dummy_welcome_title_button);
 
@@ -322,6 +322,7 @@ namespace Notejot {
             var welcome_image = new Gtk.Image.from_resource ("/io/github/lainsce/Notejot/welcome.png");
 
             welcome_new_button = new Gtk.Button ();
+            welcome_new_button.margin_bottom = 12;
             welcome_new_button.set_label (_("New Note"));
             welcome_new_button.get_style_context ().add_class ("suggested-action");
             welcome_new_button.get_style_context ().add_class ("circular-button");
