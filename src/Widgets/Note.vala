@@ -160,16 +160,16 @@ namespace Notejot {
                 margin-left: 1px;
             }
             .notejot-label-%d {
-                background: mix(%s, @theme_base_color, 0.95);
+                background: mix(%s, @theme_base_color, 0.8);
             }
             .notejot-label-dark-%d {
-                background: mix(%s, @theme_base_color, 0.95);
+                background: mix(%s, @theme_base_color, 0.8);
             }
             .notejot-stack-%d {
-                background: mix(%s, @theme_base_color, 0.95);
+                background: mix(%s, @theme_base_color, 0.8);
             }
             .notejot-stack-dark-%d {
-                background: mix(%s, @theme_base_color, 0.95);
+                background: mix(%s, @theme_base_color, 0.8);
             }
             """)).printf(uid, color, uid, color, uid, color, uid, color, uid, color, uid, color);
 
