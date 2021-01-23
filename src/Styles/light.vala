@@ -29,8 +29,8 @@ public class Notejot.Styles.light {
       font-family: "Cantarell", sans;
       font-weight: 400;
       font-size: 1.1rem;
-      letter-spacing: 0.12;
-      line-height: 1rem;
+      letter-spacing: 0.2;
+      line-height: 1.2rem;
       text-align: left;
       margin-left: 40px;
       margin-top: 20px;

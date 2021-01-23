@@ -24,13 +24,13 @@ public class Notejot.Styles.dark {
     }
 
     body {
-      color: #f6f5f4;
+      color: #FAFAFA;
       background-color: #222;
       font-family: "Cantarell", sans;
       font-weight: 400;
       font-size: 1.1rem;
-      letter-spacing: 0.12;
-      line-height: 1rem;
+      letter-spacing: 0.2;
+      line-height: 1.2rem;
       text-align: left;
       margin-left: 40px;
       margin-top: 20px;
