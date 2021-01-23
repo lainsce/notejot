@@ -53,7 +53,7 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-        <release version="2.0.0" date="2020-??-??">
+        <release version="2.0.0" date="2020-01-25">
             <description>
                 <p>Release: Hello, Flatpak!</p>
                 <ul>
