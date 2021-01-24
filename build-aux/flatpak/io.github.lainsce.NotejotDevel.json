@@ -14,6 +14,10 @@
         "--share=network",
         "--share=ipc"
     ],
+    "tags" : [
+        "nightly"
+    ],
+    "desktop-file-name-suffix" : " (Devel)",
     "cleanup" : [
         "/cache",
         "/man",

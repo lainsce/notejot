@@ -87,7 +87,7 @@ namespace Notejot {
             );
 
             this.color = color;
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
         }
     }
 }

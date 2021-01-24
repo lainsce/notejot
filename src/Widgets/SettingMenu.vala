@@ -1,6 +1,7 @@
 namespace Notejot {
     public class Widgets.SettingMenu : Gtk.MenuButton {
         private MainWindow win;
+        public Gtk.Popover bpopover;
         public Widgets.Note controller;
 
         public SettingMenu (MainWindow win) {
@@ -73,10 +74,10 @@ namespace Notejot {
             delete_note_button.label = (_("Move to Trash"));
 
 			delete_note_button.clicked.connect (() => {
-			    win.trashview.new_taskbox (win, controller.title, controller.subtitle, controller.text, controller.color);
+			    win.trashview.new_taskbox.begin (win, controller.title, controller.subtitle, controller.text, controller.color);
                 win.main_stack.set_visible_child (win.empty_state);
                 controller.destroy_item ();
-                win.tm.save_notes ();
+                win.tm.save_notes.begin ();
                 win.settingmenu.visible = false;
             });
 
@@ -124,13 +125,13 @@ namespace Notejot {
             grid.attach (delete_note_button, 0, 3, 1, 1);
             grid.show_all ();
 
-            var popover = new Gtk.Popover (null);
-            popover.add (grid);
+            bpopover = new Gtk.Popover (null);
+            bpopover.add (grid);
 
             this.has_tooltip = true;
             this.tooltip_text = (_("Settings"));
             this.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            this.popover = popover;
+            this.popover = bpopover;
             this.halign = Gtk.Align.END;
             this.show_all ();
         }

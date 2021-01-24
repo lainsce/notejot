@@ -14,8 +14,8 @@ namespace Notejot {
 
             normal_button.clicked.connect (() => {
                 controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, str);""");
-                controller.send_text ();
-                win.tm.save_notes ();
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
             });
 
             var bold_button = new Gtk.Button () {
@@ -25,8 +25,8 @@ namespace Notejot {
 
             bold_button.clicked.connect (() => {
                 controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<b>"+str+"</b>");""");
-                controller.send_text ();
-                win.tm.save_notes ();
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
             });
 
             var italic_button = new Gtk.Button () {
@@ -36,8 +36,8 @@ namespace Notejot {
 
             italic_button.clicked.connect (() => {
                 controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<i>"+str+"</i>");""");
-                controller.send_text ();
-                win.tm.save_notes ();
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
             });
 
             var ul_button = new Gtk.Button () {
@@ -47,8 +47,8 @@ namespace Notejot {
 
             ul_button.clicked.connect (() => {
                 controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<u>"+str+"</u>");""");
-                controller.send_text ();
-                win.tm.save_notes ();
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
             });
 
             var s_button = new Gtk.Button () {
@@ -58,8 +58,8 @@ namespace Notejot {
 
             s_button.clicked.connect (() => {
                 controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<s>"+str+"</s>");""");
-                controller.send_text ();
-                win.tm.save_notes ();
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
             });
 
             var grid = new Gtk.Grid ();

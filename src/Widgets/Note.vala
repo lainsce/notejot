@@ -57,7 +57,7 @@ namespace Notejot {
             text_scroller.add(textfield);
             textfield.text = this.text;
             textfield.controller = this;
-            textfield.update_html_view ();
+            textfield.update_html_view.begin ();
 
             var titlelabel = new Widgets.EditableLabel (win, this.title);
             titlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
@@ -91,13 +91,13 @@ namespace Notejot {
             titlelabel.changed.connect (() => {
                set_title (titlelabel.text);
                this.title = titlelabel.text;
-               win.tm.save_notes ();
+               win.tm.save_notes.begin ();
             });
 
             subtitlelabel.changed.connect (() => {
                set_subtitle (subtitlelabel.text);
                this.subtitle = subtitlelabel.text;
-               win.tm.save_notes ();
+               win.tm.save_notes.begin ();
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
@@ -186,7 +186,7 @@ namespace Notejot {
             );
 
             this.color = color;
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
         }
     }
 }

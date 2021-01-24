@@ -20,13 +20,13 @@ namespace Notejot {
             foreach (Gtk.Widget item in this.get_children ()) {
                 item.destroy ();
             }
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
         }
 
-        public void new_taskbox (MainWindow win, string title, string contents, string text, string color) {
+        public async void new_taskbox (MainWindow win, string title, string contents, string text, string color) {
             var taskbox = new Widgets.TrashedItem (win, title, contents, text, color);
             insert (taskbox, -1);
-            win.tm.save_notes ();
+            win.tm.save_notes.begin ();
             is_modified = true;
         }
 

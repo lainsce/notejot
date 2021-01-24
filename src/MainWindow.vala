@@ -160,7 +160,7 @@ namespace Notejot {
             new_button.show_all ();
 
             new_button.clicked.connect (() => {
-                on_create_new ();
+                on_create_new.begin ();
             });
 
             var sc_button = new Gtk.ModelButton ();
@@ -327,7 +327,7 @@ namespace Notejot {
             welcome_new_button.get_style_context ().add_class ("suggested-action");
             welcome_new_button.get_style_context ().add_class ("circular-button");
             welcome_new_button.clicked.connect (() => {
-                on_create_new ();
+                on_create_new.begin ();
             });
 
             welcome_view = new Gtk.Grid () {
@@ -398,7 +398,7 @@ namespace Notejot {
                 update ();
             });
 
-            tm.load_from_file ();
+            tm.load_from_file.begin ();
 
             if (listview.is_modified == false) {
                 main_stack.set_visible_child (welcome_view);
@@ -469,7 +469,7 @@ namespace Notejot {
         }
 
         // IO?
-        public void on_create_new () {
+        public async void on_create_new () {
             var sidebaritem = new Widgets.Note (this, "New Note", "Subtitle of the Note", "This is an example of text.", "#f6f5f4");
             listview.add (sidebaritem);
             listview.is_modified = true;

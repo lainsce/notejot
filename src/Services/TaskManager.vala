@@ -27,15 +27,13 @@ namespace Notejot {
         public TaskManager (MainWindow win) {
             this.win = win;
             file_name = this.app_dir + "/saved_notes.json";
-            debug ("%s".printf(file_name));
         }
 
-        public void save_notes() {
-            string json_string = prepare_json_from_notes().replace ("\"", "\\\"").replace ("/", "\\/");
-            debug ("%s", json_string);
-            var dir = File.new_for_path(app_dir);
-            var file = File.new_for_path (file_name);
+        public async void save_notes() {
             try {
+                string json_string = prepare_json_from_notes().replace ("\"", "\\\"").replace ("/", "\\/");
+                var dir = File.new_for_path(app_dir);
+                var file = File.new_for_path (file_name);
                 if (!dir.query_exists()) {
                     dir.make_directory();
                 }
@@ -51,7 +49,7 @@ namespace Notejot {
 
             builder.begin_array ();
             if (win.listview != null) {
-                save_column (builder, win.listview);
+                save_column.begin (builder, win.listview);
             }
             builder.end_array ();
 
@@ -62,7 +60,7 @@ namespace Notejot {
             return str;
         }
 
-        private static void save_column (Json.Builder builder,
+        private async void save_column (Json.Builder builder,
                                          Views.ListView listview) {
             builder.begin_array ();
             if (listview.get_children () != null) {
@@ -78,7 +76,7 @@ namespace Notejot {
 	        builder.end_array ();
         }
 
-        public void load_from_file () {
+        public async void load_from_file () {
             try {
                 var file = File.new_for_path(file_name);
 
@@ -97,7 +95,7 @@ namespace Notejot {
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
 
-                        win.listview.new_taskbox (win, title, subtitle, text, color);
+                        win.listview.new_taskbox.begin (win, title, subtitle, text, color);
                     }
                 }
             } catch (Error e) {

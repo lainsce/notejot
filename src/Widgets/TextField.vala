@@ -22,29 +22,29 @@ namespace Notejot {
 		    settings.set_javascript_can_open_windows_automatically(false);
 		    settings.set_media_playback_requires_user_gesture(true);
 
-            update_html_view ();
-            connect_signals ();
-            send_text ();
-            win.tm.save_notes ();
+            update_html_view.begin ();
+            connect_signals.begin ();
+            send_text.begin ();
+            win.tm.save_notes.begin ();
 
             Notejot.Application.gsettings.changed.connect (() => {
-                update_html_view ();
-                win.tm.save_notes ();
+                update_html_view.begin ();
+                win.tm.save_notes.begin ();
             });
         }
 
-        public void connect_signals () {
+        public async void connect_signals () {
             load_changed.connect ((event) => {
                 if (event == WebKit.LoadEvent.COMMITTED) {
-                    send_text ();
+                    send_text.begin ();
                 }
                 if (event == WebKit.LoadEvent.FINISHED) {
-                    send_text ();
+                    send_text.begin ();
                 }
             });
         }
 
-        public void send_text () {
+        public async void send_text () {
             run_javascript.begin("""document.body.innerHTML;""", null, (obj, res) => {
                 try {
                     var data = run_javascript.end(res);
@@ -67,7 +67,7 @@ namespace Notejot {
             }
         }
 
-        public void update_html_view () {
+        public async void update_html_view () {
             string style = set_stylesheet ();
             var html = """
             <!doctype html>
