@@ -87,4 +87,4 @@ executable(
 subdir('data')
 subdir('po')
 
-meson.add_install_script('meson/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
+meson.add_install_script('build-aux/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
