@@ -5,7 +5,6 @@
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Notejot",
     "finish-args" : [
-    	"--filesystem=xdg-data",
         "--filesystem=xdg-documents",
         "--filesystem=xdg-download",
         "--socket=wayland",
