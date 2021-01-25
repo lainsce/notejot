@@ -21,7 +21,6 @@ Would you like to support the development of this app to new heights? Then:
 Please make sure you have these dependencies first before building.
 
 ```bash
-granite
 gtk+-3.0
 gtksourceview-3.0
 libjson-glib
