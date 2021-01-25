@@ -97,6 +97,11 @@ namespace Notejot {
             provider.load_from_resource ("/io/github/lainsce/Notejot/app.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+            Gtk.StyleContext style = get_style_context ();
+            if (Config.PROFILE == "Devel") {
+                style.add_class ("devel");
+            }
+
             this.get_style_context ().add_class ("notejot-view");
             int x = Notejot.Application.gsettings.get_int("window-x");
             int y = Notejot.Application.gsettings.get_int("window-y");
