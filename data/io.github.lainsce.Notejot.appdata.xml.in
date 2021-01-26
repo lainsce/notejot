@@ -53,7 +53,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-        <release version="2.0.0" date="2020-01-25">
+        <release version="2.5.2" date="2020-01-26">
+            <description>
+                <p>Release: Just A Little More</p>
+                <ul>
+                    <li>Minor UI fixes, and the format buttons actually format only the selected text this time.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="2.5.0" date="2020-01-25">
             <description>
                 <p>Release: Hello, Flatpak!</p>
                 <ul>

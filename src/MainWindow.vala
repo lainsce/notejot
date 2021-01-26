@@ -329,8 +329,8 @@ namespace Notejot {
             welcome_new_button = new Gtk.Button ();
             welcome_new_button.margin_bottom = 12;
             welcome_new_button.set_label (_("New Note"));
-            welcome_new_button.get_style_context ().add_class ("suggested-action");
             welcome_new_button.get_style_context ().add_class ("circular-button");
+            welcome_new_button.get_style_context ().add_class ("suggested-action");
             welcome_new_button.clicked.connect (() => {
                 on_create_new.begin ();
             });

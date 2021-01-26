@@ -17,14 +17,19 @@
 }
 
 .circular-button {
-    padding: 10px;
+    padding: 5px;
     border-radius: 9999px;
 }
 
-.color-button radio,
-.color-button radio:checked {
-   padding: 8px;
+.circular {
+    -gtk-outline-radius: 9999px;
 }
+
+.circular radio,
+.circular radio:checked {
+    padding: 8px;
+}
+
 .color-red radio {
     background: #f66151;
     color: #f66151;

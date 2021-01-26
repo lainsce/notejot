@@ -10,49 +10,49 @@ namespace Notejot {
             var color_button_red = new Gtk.RadioButton (null) {
                 tooltip_text = _("Red")
             };
-            color_button_red.get_style_context ().add_class ("color-button");
+            color_button_red.get_style_context ().add_class ("circular");
             color_button_red.get_style_context ().add_class ("color-red");
 
             var color_button_orange = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Orange")
             };
-            color_button_orange.get_style_context ().add_class ("color-button");
+            color_button_orange.get_style_context ().add_class ("circular");
             color_button_orange.get_style_context ().add_class ("color-orange");
 
             var color_button_yellow = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Yellow")
             };
-            color_button_yellow.get_style_context ().add_class ("color-button");
+            color_button_yellow.get_style_context ().add_class ("circular");
             color_button_yellow.get_style_context ().add_class ("color-yellow");
 
             var color_button_green = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Green")
             };
-            color_button_green.get_style_context ().add_class ("color-button");
+            color_button_green.get_style_context ().add_class ("circular");
             color_button_green.get_style_context ().add_class ("color-green");
 
             var color_button_blue = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Blue")
             };
-            color_button_blue.get_style_context ().add_class ("color-button");
+            color_button_blue.get_style_context ().add_class ("circular");
             color_button_blue.get_style_context ().add_class ("color-blue");
 
             var color_button_purple = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Purple")
             };
-            color_button_purple.get_style_context ().add_class ("color-button");
+            color_button_purple.get_style_context ().add_class ("circular");
             color_button_purple.get_style_context ().add_class ("color-purple");
 
             var color_button_brown = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("Brown")
             };
-            color_button_brown.get_style_context ().add_class ("color-button");
+            color_button_brown.get_style_context ().add_class ("circular");
             color_button_brown.get_style_context ().add_class ("color-brown");
 
             var color_button_reset = new Gtk.RadioButton.from_widget (color_button_red) {
                 tooltip_text = _("No Color")
             };
-            color_button_reset.get_style_context ().add_class ("color-button");
+            color_button_reset.get_style_context ().add_class ("circular");
             color_button_reset.get_style_context ().add_class ("color-reset");
 
             var color_button_box = new Gtk.Grid () {

@@ -13,7 +13,7 @@ namespace Notejot {
             };
 
             normal_button.clicked.connect (() => {
-                controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, str);""");
+                controller.run_javascript.begin("""document.execCommand('removeFormat');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
             });
@@ -24,7 +24,7 @@ namespace Notejot {
             };
 
             bold_button.clicked.connect (() => {
-                controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<b>"+str+"</b>");""");
+                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('bold');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
             });
@@ -35,7 +35,7 @@ namespace Notejot {
             };
 
             italic_button.clicked.connect (() => {
-                controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<i>"+str+"</i>");""");
+                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('italic');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
             });
@@ -46,7 +46,7 @@ namespace Notejot {
             };
 
             ul_button.clicked.connect (() => {
-                controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<u>"+str+"</u>");""");
+                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('underline');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
             });
@@ -57,7 +57,7 @@ namespace Notejot {
             };
 
             s_button.clicked.connect (() => {
-                controller.run_javascript.begin("""var str = window.getSelection().toString();document.execCommand('removeFormat');document.body.innerHTML = document.body.innerHTML.replace(str, "<s>"+str+"</s>");""");
+                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('strikethrough');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
             });
