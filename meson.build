@@ -16,7 +16,7 @@ else
   profile = ''
 endif
 
-app_id = 'io.github.lainsce.Notejot@0@'.format(profile)
+app_id = 'io.github.lainsce.Notejot.@0@'.format(profile)
 
 conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)
