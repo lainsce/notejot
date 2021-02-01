@@ -53,6 +53,18 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.6.0" date="2020-02-01">
+            <description>
+                <p>Release: User Interface Improved</p>
+                <p>In many places, the UI has improved to make the experience better:</p>
+                <ul>
+                    <li>Note settings button hiding when necessary</li>
+                    <li>"No Open Notes" showing only when it's supposed to</li>
+                    <li>Notes' hover being rounded</li>
+                    <li>Minor UI improvements</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.5.2" date="2020-01-26">
             <description>
                 <p>Release: Just A Little More</p>

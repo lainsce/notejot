@@ -136,11 +136,13 @@ namespace Notejot {
         }
 
         public void destroy_item () {
-            this.destroy ();
+            this.dispose ();
         }
 
         public void select_item () {
-            win.main_stack.set_visible_child_name ("textfield-%d".printf(uid));
+            if (win.main_stack != null) {
+                win.main_stack.set_visible_child_name ("textfield-%d".printf(uid));
+            }
         }
 
         public void update_theme(string? color) {

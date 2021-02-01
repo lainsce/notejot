@@ -58,6 +58,7 @@ namespace Notejot {
             var color_button_box = new Gtk.Grid () {
                 margin_start = 12,
                 margin_end = 12,
+                margin_top = 6,
                 column_spacing = 6,
                 row_spacing = 6
             };
@@ -76,6 +77,8 @@ namespace Notejot {
 			delete_note_button.clicked.connect (() => {
 			    win.trashview.new_taskbox.begin (win, controller.title, controller.subtitle, controller.text, controller.color);
                 win.main_stack.set_visible_child (win.empty_state);
+                var row = win.main_stack.get_child_by_name ("textfield-%d".printf(controller.uid));
+                win.main_stack.remove (row);
                 controller.destroy_item ();
                 win.tm.save_notes.begin ();
                 win.settingmenu.visible = false;
@@ -129,7 +132,7 @@ namespace Notejot {
             bpopover.add (grid);
 
             this.has_tooltip = true;
-            this.tooltip_text = (_("Settings"));
+            this.tooltip_text = (_("Note Settings"));
             this.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             this.popover = bpopover;
             this.halign = Gtk.Align.END;

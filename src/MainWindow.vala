@@ -62,12 +62,18 @@ namespace Notejot {
         public const string ACTION_ABOUT = "action_about";
         public const string ACTION_ALL_NOTES = "action_all_notes";
         public const string ACTION_TRASH = "action_trash";
+        public const string ACTION_KEYS = "action_keys";
+        public const string ACTION_TRASH_NOTES = "action_trash_notes";
+        public const string ACTION_DARK_MODE = "action_dark_mode";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
               {ACTION_ABOUT, action_about },
               {ACTION_ALL_NOTES, action_all_notes},
               {ACTION_TRASH, action_trash},
+              {ACTION_KEYS, action_keys},
+              {ACTION_TRASH_NOTES, action_trash_notes},
+              {ACTION_DARK_MODE, action_dark_mode, null, "false", null},
         };
 
         public Gtk.Application app { get; construct; }
@@ -84,6 +90,11 @@ namespace Notejot {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.q, keycode)) {
                         this.destroy ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.n, keycode)) {
+                         on_create_new.begin ();
                     }
                 }
                 return false;
@@ -136,11 +147,10 @@ namespace Notejot {
 
             settingmenu = new Widgets.SettingMenu(this);
             settingmenu.visible = false;
-            titlebar.pack_end (settingmenu);
 
             back_button = new Gtk.Button () {
                 image = new Gtk.Image.from_icon_name ("go-previous-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Create a new note"))
+                tooltip_text = (_("Go back to notes list"))
             };
             back_button.show_all ();
 
@@ -155,7 +165,6 @@ namespace Notejot {
             stitlebar = new Hdy.HeaderBar ();
             stitlebar.show_close_button = true;
             stitlebar.has_subtitle = false;
-            stitlebar.set_decoration_layout (":");
             stitlebar.show_all ();
 
             new_button = new Gtk.Button () {
@@ -168,77 +177,13 @@ namespace Notejot {
                 on_create_new.begin ();
             });
 
-            var sc_button = new Gtk.ModelButton ();
-            sc_button.text = _("Keyboard Shortcuts");
-
-            sc_button.clicked.connect (() => {
-                try {
-                    var build = new Gtk.Builder ();
-                    build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
-                    var window =  (Gtk.ApplicationWindow) build.get_object ("shortcuts-notejot");
-                    window.set_transient_for (this);
-                    window.show_all ();
-                } catch (Error e) {
-                    warning ("Failed to open shortcuts window: %s\n", e.message);
-                }
-            });
-
-            var about_button = new Gtk.ModelButton ();
-            about_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_ABOUT;
-            about_button.text = _("About Notejot");
-
-            about_button.clicked.connect (() => {
-                action_about ();
-            });
-
-            var trash_button = new Gtk.ModelButton () {
-                text = _("Empty Trash")
-            };
-            trash_button.clicked.connect (() => {
-                dialog = new Widgets.Dialog (this,
-                                             _("Empty the Trashed Notes?"),
-                                             _("Emptying the trash means all the notes in it will be permanently lost with no recovery."),
-                                             _("Cancel"),
-                                             _("Empty Trash"));
-                if (dialog != null) {
-                    dialog.present ();
-                    return;
-                } else {
-                    dialog.run ();
-                }
-            });
-
-            var dark_mode_button = new Gtk.ModelButton ();
-            dark_mode_button.text = _("Dark Mode…");
-            dark_mode_button.clicked.connect (() => {
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Notejot.Application.gsettings.set_boolean("dark-mode", false);
-                } else {
-                    Notejot.Application.gsettings.set_boolean("dark-mode", true);
-                }
-            });
-
-            var sep3 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-
-            var menu_grid = new Gtk.Grid ();
-            menu_grid.margin = 6;
-            menu_grid.row_spacing = 6;
-            menu_grid.attach (dark_mode_button, 0, 0);
-            menu_grid.attach (trash_button, 0, 1);
-            menu_grid.attach (sep3, 0, 2);
-            menu_grid.attach (sc_button, 0, 3);
-            menu_grid.attach (about_button, 0, 4);
-            menu_grid.show_all ();
-
-            var menu = new Gtk.Popover (null);
-            menu.add (menu_grid);
+            var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
 
             var menu_button = new Gtk.MenuButton ();
             menu_button.has_tooltip = true;
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
             menu_button.tooltip_text = (_("Settings"));
-            menu_button.popover = menu;
-            menu_button.show_all ();
+            menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
             stitlebar.pack_start (new_button);
             stitlebar.pack_end (menu_button);
@@ -268,30 +213,12 @@ namespace Notejot {
             sidebar.attach (sidebar_stack, 0, 0, 1, 1);
             sidebar.show_all ();
 
-            var note_button = new Gtk.ModelButton ();
-            note_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_ALL_NOTES;
-            note_button.centered = false;
-            note_button.label = (_("All Notes"));
-
-            var delete_note_button = new Gtk.ModelButton ();
-            delete_note_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRASH;
-            delete_note_button.centered = false;
-            delete_note_button.label = (_("Trash"));
-
-            var sidebar_title_grid = new Gtk.Grid ();
-            sidebar_title_grid.margin = 10;
-            sidebar_title_grid.row_spacing = 6;
-            sidebar_title_grid.attach (note_button, 0, 0);
-            sidebar_title_grid.attach (delete_note_button, 0, 1);
-            sidebar_title_grid.show_all ();
-
-            var sidebar_title_menu = new Gtk.Popover (null);
-            sidebar_title_menu.add (sidebar_title_grid);
+            var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
 
             sidebar_title_button = new Widgets.HeaderBarButton ();
             sidebar_title_button.has_tooltip = true;
             sidebar_title_button.title = (_("All Notes"));
-            sidebar_title_button.menu.popover = sidebar_title_menu;
+            sidebar_title_button.menu.menu_model = (MenuModel)tbuilder.get_object ("menu");
             sidebar_title_button.show_all ();
             sidebar_title_button.get_style_context ().add_class ("rename-button");
             sidebar_title_button.get_style_context ().add_class ("flat");
@@ -349,26 +276,25 @@ namespace Notejot {
             empty_state_title = new Gtk.Label (_("No Open Notes"));
             empty_state_title.get_style_context ().add_class ("title-1");
             empty_state_title.get_style_context ().add_class ("dim-label");
-            empty_state_title.margin_bottom = 24;
 
             var empty_state_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot-symbolic", Gtk.IconSize.BUTTON);
             empty_state_image.pixel_size = 96;
-            empty_state_image.margin_bottom = 24;
+            empty_state_image.margin_bottom = 12;
             empty_state_image.opacity = 0.5501;
 
             empty_state = new Gtk.Grid () {
               orientation = Gtk.Orientation.VERTICAL,
               halign = Gtk.Align.CENTER,
-              valign = Gtk.Align.CENTER,
-              row_spacing = 12
+              valign = Gtk.Align.CENTER
             };
             empty_state.attach (empty_state_image, 0, 0);
             empty_state.attach (empty_state_title, 0, 1);
 
             // Main View
+
             main_stack = new Gtk.Stack ();
             main_stack.get_style_context ().add_class ("notejot-stack");
-            main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             main_stack.add_named (welcome_view, "welcome");
             main_stack.add_named (empty_state, "empty");
 
@@ -392,10 +318,10 @@ namespace Notejot {
             leaflet.add (sgrid);
             leaflet.add (sep);
             leaflet.add (grid);
-            leaflet.transition_type = Hdy.LeafletTransitionType.UNDER;
             leaflet.show_all ();
             leaflet.can_swipe_back = true;
             leaflet.set_visible_child (grid);
+            leaflet.child_set_property (sep, "navigatable", false);
 
             update ();
 
@@ -410,11 +336,13 @@ namespace Notejot {
                 titlebar_stack.set_visible_child (welcome_titlebar);
                 sgrid.no_show_all = true;
                 sgrid.visible = false;
+                settingmenu.visible = false;
             } else {
                 main_stack.set_visible_child (empty_state);
                 titlebar_stack.set_visible_child (titlebar);
                 sgrid.no_show_all = false;
                 sgrid.visible = true;
+                settingmenu.visible = false;
             }
 
             var cgrid = new Gtk.Grid ();
@@ -443,21 +371,19 @@ namespace Notejot {
 
         private void update () {
             if (leaflet != null && leaflet.get_folded ()) {
-                // On Mobile size, so.... have to have no buttons anywhere.
-                titlebar.set_decoration_layout (":");
                 sidebar.expand = true;
                 listview.expand = true;
                 trashview.expand = true;
                 back_button.visible = true;
                 back_button.no_show_all = false;
+                stitlebar.set_decoration_layout (":close");
             } else {
-                // Else you're on Desktop size, so business as usual.
-                titlebar.set_decoration_layout (":close");
                 sidebar.hexpand = false;
                 listview.hexpand = false;
                 trashview.hexpand = false;
                 back_button.visible = false;
                 back_button.no_show_all = true;
+                stitlebar.set_decoration_layout (":");
             }
         }
 
@@ -475,11 +401,14 @@ namespace Notejot {
 
         // IO?
         public async void on_create_new () {
-            var sidebaritem = new Widgets.Note (this, "New Note", "Subtitle of the Note", "This is an example of text.", "#f6f5f4");
+            var sidebaritem = new Widgets.Note (this, "New Note", "Note Subtitle", "This is a text example.", "#f6f5f4");
             listview.add (sidebaritem);
             listview.is_modified = true;
+            listview.select_row (sidebaritem);
 
-            main_stack.set_visible_child (empty_state);
+            if (listview.get_selected_row () == null) {
+                main_stack.set_visible_child (empty_state);
+            }
             titlebar_stack.set_visible_child (titlebar);
             sgrid.no_show_all = false;
             sgrid.visible = true;
@@ -496,11 +425,12 @@ namespace Notejot {
             var program_name = Config.NAME_PREFIX + _("Notejot");
             Gtk.show_about_dialog (this,
                                    "program-name", program_name,
-                                   "logo-icon-name", Config.APP_ID,
+                                   "logo-icon-name", "io.github.lainsce.Notejot",
                                    "version", Config.VERSION,
                                    "comments", _("Jot your ideas."),
                                    "copyright", COPYRIGHT,
                                    "authors", AUTHORS,
+                                   "artists", null,
                                    "license-type", Gtk.License.GPL_3_0,
                                    "wrap-license", false,
                                    "translator-credits", _("translator-credits"),
@@ -512,6 +442,9 @@ namespace Notejot {
             Notejot.Application.gsettings.set_string("last-view", "list");
             sidebar_title_button.title = (_("All Notes"));
             main_stack.set_visible_child (empty_state);
+            if (listview.get_selected_row () != null) {
+                listview.unselect_row(listview.get_selected_row ());
+            }
             settingmenu.visible = false;
             titlebar.title = "";
         }
@@ -521,8 +454,43 @@ namespace Notejot {
             Notejot.Application.gsettings.set_string("last-view", "trash");
             sidebar_title_button.title = (_("Trash"));
             main_stack.set_visible_child (empty_state);
+            if (trashview.get_selected_row () != null) {
+                trashview.unselect_row(trashview.get_selected_row ());
+            }
             settingmenu.visible = false;
             titlebar.title = "";
+        }
+
+        public void action_trash_notes () {
+            dialog = new Widgets.Dialog (this,
+                                         _("Empty the Trashed Notes?"),
+                                         _("Emptying the trash means all the notes in it will be permanently lost with no recovery."),
+                                         _("Cancel"),
+                                         _("Empty Trash"));
+            if (dialog != null) {
+                dialog.present ();
+                return;
+            } else {
+                dialog.run ();
+            }
+        }
+
+        public void action_keys () {
+            try {
+                var build = new Gtk.Builder ();
+                build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
+                var window =  (Gtk.ApplicationWindow) build.get_object ("shortcuts-notejot");
+                window.set_transient_for (this);
+                window.show_all ();
+            } catch (Error e) {
+                warning ("Failed to open shortcuts window: %s\n", e.message);
+            }
+        }
+
+        public void action_dark_mode (GLib.SimpleAction action, GLib.Variant? parameter) {
+            var state = ((!) action.get_state ()).get_boolean ();
+            action.set_state (new Variant.boolean (!state));
+            Notejot.Application.gsettings.set_boolean("dark-mode", !state);
         }
     }
 }

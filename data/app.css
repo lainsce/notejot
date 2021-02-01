@@ -7,7 +7,7 @@
     font-weight: 700;
 }
 .rename-button:hover:not(:backdrop) {
-    background-image: none;
+    background: shade(@theme_bg_color, 0.88);
     text-shadow: none;
 }
 
@@ -61,6 +61,13 @@
 .color-reset radio {
     background: #fff;
     color: #fff;
+}
+
+.notejot-sidebar-box {
+    box-shadow: none;
+    margin: 6px;
+    margin-bottom: 0px;
+    border-radius: 8px;
 }
 
 .notejot-sidebar-box:active,

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/io/github/lainsce/Notejot">
-        <file alias="app.css" compressed="true">app.css</file>
+      <file alias="app.css" compressed="true">app.css</file>
 
-        <file alias="welcome.png">assets/welcome.png</file>
+      <file alias="welcome.png">assets/welcome.png</file>
 
-        <file alias="header_button.ui">ui/header_button.ui</file>
-        <file alias="shortcuts.ui">ui/shortcuts.ui</file>
+      <file alias="header_button.ui">ui/header_button.ui</file>
+      <file alias="shortcuts.ui">ui/shortcuts.ui</file>
+      <file alias="menu.ui">ui/menu.ui</file>
+      <file alias="title_menu.ui">ui/title_menu.ui</file>
     </gresource>
 </gresources>
 

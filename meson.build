@@ -1,4 +1,4 @@
-project('io.github.lainsce.Notejot', ['vala', 'c'], version: '2.5.2')
+project('io.github.lainsce.Notejot', ['vala', 'c'], version: '2.6.0')
 gnome = import('gnome')
 i18n = import('i18n')
 
@@ -16,11 +16,11 @@ else
   profile = ''
 endif
 
-app_id = 'io.github.lainsce.Notejot.@0@'.format(profile)
+app_id = '@0@.@1@'.format(meson.project_name(), profile)
 
 conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)
-conf.set_quoted('G_LOG_DOMAIN', 'io.github.lainsce.Notejot@0@'.format(profile))
+conf.set_quoted('G_LOG_DOMAIN', '@0@@1@'.format(meson.project_name(), profile))
 conf.set_quoted('NAME_PREFIX', name_prefix)
 conf.set_quoted('PACKAGE_NAME', meson.project_name())
 conf.set_quoted('PACKAGE_VERSION', meson.project_version())
