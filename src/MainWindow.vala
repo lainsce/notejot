@@ -273,6 +273,9 @@ namespace Notejot {
             welcome_view.attach (welcome_title, 0, 1);
             welcome_view.attach (welcome_new_button, 0, 2);
 
+            var welcome_view_handle = new Hdy.WindowHandle ();
+            welcome_view_handle.add (welcome_view);
+
             empty_state_title = new Gtk.Label (_("No Open Notes"));
             empty_state_title.get_style_context ().add_class ("title-1");
             empty_state_title.get_style_context ().add_class ("dim-label");
@@ -295,7 +298,7 @@ namespace Notejot {
             main_stack = new Gtk.Stack ();
             main_stack.get_style_context ().add_class ("notejot-stack");
             main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            main_stack.add_named (welcome_view, "welcome");
+            main_stack.add_named (welcome_view_handle, "welcome");
             main_stack.add_named (empty_state, "empty");
 
             sgrid = new Gtk.Grid ();

@@ -64,13 +64,11 @@ namespace Notejot {
                 border: 1px solid alpha(black, 0.25);
                 background: %s;
                 border-radius: 50px;
-                margin-left: 12px;
             }
             .notejot-sidebar-dbg-dark-%d {
                 border: 1px solid alpha(black, 0.25);
                 background: shade(%s, 0.8);
                 border-radius: 50px;
-                margin-left: 12px;
             }
             """)).printf(uid, color, uid, color);
 
