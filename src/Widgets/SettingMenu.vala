@@ -56,11 +56,9 @@ namespace Notejot {
             color_button_reset.get_style_context ().add_class ("color-reset");
 
             var color_button_box = new Gtk.Grid () {
-                margin_start = 12,
-                margin_end = 12,
-                margin_top = 6,
                 column_spacing = 6,
-                row_spacing = 6
+                row_spacing = 6,
+                margin = 6
             };
             color_button_box.attach (color_button_red, 0, 0);
             color_button_box.attach (color_button_orange, 1, 0);

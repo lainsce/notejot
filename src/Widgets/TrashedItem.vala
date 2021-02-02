@@ -27,6 +27,7 @@ namespace Notejot {
         public new string subtitle;
         public string text;
         public string color;
+        private Gtk.CssProvider css_provider;
 
         public TrashedItem (MainWindow win, string title, string subtitle, string text, string color) {
             this.win = win;
@@ -53,11 +54,12 @@ namespace Notejot {
         }
 
         public void destroy_item () {
-            this.destroy ();
+            this.dispose ();
+            css_provider.dispose ();
         }
 
         public void update_theme(string? color) {
-            var css_provider = new Gtk.CssProvider();
+            css_provider = new Gtk.CssProvider();
             string style = null;
             style = (N_("""
             .notejot-sidebar-dbg-%d {

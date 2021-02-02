@@ -47,6 +47,7 @@ namespace Notejot {
         public Widgets.SettingMenu settingmenu;
         public Widgets.HeaderBarButton sidebar_title_button;
         public Gtk.Label empty_state_title;
+        public Hdy.HeaderGroup titlegroup;
 
         // Views
         public Views.ListView listview;
@@ -165,6 +166,7 @@ namespace Notejot {
             stitlebar = new Hdy.HeaderBar ();
             stitlebar.show_close_button = true;
             stitlebar.has_subtitle = false;
+            stitlebar.set_size_request (250, -1);
             stitlebar.show_all ();
 
             new_button = new Gtk.Button () {
@@ -212,6 +214,10 @@ namespace Notejot {
             sidebar.get_style_context ().add_class ("view");
             sidebar.attach (sidebar_stack, 0, 0, 1, 1);
             sidebar.show_all ();
+
+            var sidebar_revealer = new Gtk.Revealer ();
+            sidebar_revealer.add (sidebar);
+            sidebar_revealer.reveal_child = true;
 
             var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
 
@@ -304,9 +310,10 @@ namespace Notejot {
             sgrid = new Gtk.Grid ();
             sgrid.orientation = Gtk.Orientation.VERTICAL;
             sgrid.attach (stitlebar, 0, 0, 1, 1);
-            sgrid.attach (sidebar, 0, 1, 1, 1);
+            sgrid.attach (sidebar_revealer, 0, 1, 1, 1);
             sgrid.no_show_all = true;
             sgrid.visible = false;
+            sgrid.hexpand = false;
 
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
@@ -323,7 +330,7 @@ namespace Notejot {
             leaflet.add (grid);
             leaflet.show_all ();
             leaflet.can_swipe_back = true;
-            leaflet.set_visible_child (grid);
+            leaflet.set_visible_child (sgrid);
             leaflet.child_set_property (sep, "navigatable", false);
 
             update ();
@@ -332,6 +339,10 @@ namespace Notejot {
                 update ();
             });
 
+            titlegroup = new Hdy.HeaderGroup ();
+            titlegroup.add_header_bar (stitlebar);
+            titlegroup.add_header_bar (titlebar);
+
             tm.load_from_file.begin ();
 
             if (listview.is_modified == false) {
@@ -339,12 +350,14 @@ namespace Notejot {
                 titlebar_stack.set_visible_child (welcome_titlebar);
                 sgrid.no_show_all = true;
                 sgrid.visible = false;
+                menu_button.visible = true;
                 settingmenu.visible = false;
             } else {
                 main_stack.set_visible_child (empty_state);
                 titlebar_stack.set_visible_child (titlebar);
                 sgrid.no_show_all = false;
                 sgrid.visible = true;
+                menu_button.visible = true;
                 settingmenu.visible = false;
             }
 
@@ -373,20 +386,14 @@ namespace Notejot {
         }
 
         private void update () {
-            if (leaflet != null && leaflet.get_folded ()) {
-                sidebar.expand = true;
-                listview.expand = true;
-                trashview.expand = true;
+            if (leaflet != null && titlegroup != null && leaflet.get_folded ()) {
                 back_button.visible = true;
                 back_button.no_show_all = false;
-                stitlebar.set_decoration_layout (":close");
+                titlegroup.set_decorate_all (true);
             } else {
-                sidebar.hexpand = false;
-                listview.hexpand = false;
-                trashview.hexpand = false;
                 back_button.visible = false;
                 back_button.no_show_all = true;
-                stitlebar.set_decoration_layout (":");
+                titlegroup.set_decorate_all (false);
             }
         }
 
@@ -415,7 +422,8 @@ namespace Notejot {
             titlebar_stack.set_visible_child (titlebar);
             sgrid.no_show_all = false;
             sgrid.visible = true;
-            settingmenu.visible = false;
+            sgrid.show_all ();
+            settingmenu.visible = true;
         }
 
         public void action_about () {
