@@ -23,19 +23,15 @@ namespace Notejot {
         public Gtk.Button new_button;
         public Gtk.Button back_button;
         public Gtk.Button welcome_new_button;
-        public Gtk.Grid grid;
-        public Gtk.Grid welcome_view;
-        public Gtk.Grid empty_state;
-        public Gtk.Grid sgrid;
-        public Gtk.Grid grid_box;
-        public Gtk.Grid list_box;
+        public Gtk.Box grid;
+        public Gtk.Box welcome_view;
+        public Gtk.Box empty_state;
+        public Gtk.Box sgrid;
         public Gtk.Overlay overlay;
-        public Gtk.Separator separator;
         public Gtk.Stack stack;
         public Gtk.Stack main_stack;
         public Gtk.Stack titlebar_stack;
         public Gtk.Stack sidebar_stack;
-        public Gtk.Grid sidebar;
         public Gtk.Label titlebar_label;
         public Gtk.ScrolledWindow trash_scroller;
         public Gtk.ScrolledWindow list_scroller;
@@ -209,14 +205,8 @@ namespace Notejot {
             sidebar_stack.add_named (list_scroller, "list");
             sidebar_stack.add_named (trash_scroller, "trash");
 
-            sidebar = new Gtk.Grid ();
-            sidebar.orientation = Gtk.Orientation.VERTICAL;
-            sidebar.get_style_context ().add_class ("view");
-            sidebar.attach (sidebar_stack, 0, 0, 1, 1);
-            sidebar.show_all ();
-
             var sidebar_revealer = new Gtk.Revealer ();
-            sidebar_revealer.add (sidebar);
+            sidebar_revealer.add (sidebar_stack);
             sidebar_revealer.reveal_child = true;
 
             var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
@@ -271,16 +261,14 @@ namespace Notejot {
                 on_create_new.begin ();
             });
 
-            welcome_view = new Gtk.Grid () {
+            welcome_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
               expand = true,
-              orientation = Gtk.Orientation.VERTICAL,
               halign = Gtk.Align.CENTER,
-              valign = Gtk.Align.CENTER,
-              row_spacing = 12
+              valign = Gtk.Align.CENTER
             };
-            welcome_view.attach (welcome_image, 0, 0);
-            welcome_view.attach (welcome_title, 0, 1);
-            welcome_view.attach (welcome_new_button, 0, 2);
+            welcome_view.add (welcome_image);
+            welcome_view.add (welcome_title);
+            welcome_view.add (welcome_new_button);
 
             var welcome_view_handle = new Hdy.WindowHandle ();
             welcome_view_handle.add (welcome_view);
@@ -295,15 +283,13 @@ namespace Notejot {
             empty_state_image.margin_bottom = 12;
             empty_state_image.opacity = 0.5501;
 
-            empty_state = new Gtk.Grid () {
-              orientation = Gtk.Orientation.VERTICAL,
+            empty_state = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
               halign = Gtk.Align.CENTER,
-              valign = Gtk.Align.CENTER,
-              row_spacing = 6
+              valign = Gtk.Align.CENTER
             };
-            empty_state.attach (empty_state_image, 0, 0);
-            empty_state.attach (empty_state_title, 0, 1);
-            empty_state.attach (empty_state_subtitle, 0, 2);
+            empty_state.add (empty_state_image);
+            empty_state.add (empty_state_title);
+            empty_state.add (empty_state_subtitle);
 
             // Main View
 
@@ -313,18 +299,16 @@ namespace Notejot {
             main_stack.add_named (welcome_view_handle, "welcome");
             main_stack.add_named (empty_state, "empty");
 
-            sgrid = new Gtk.Grid ();
-            sgrid.orientation = Gtk.Orientation.VERTICAL;
-            sgrid.attach (stitlebar, 0, 0, 1, 1);
-            sgrid.attach (sidebar_revealer, 0, 1, 1, 1);
+            sgrid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            sgrid.add (stitlebar);
+            sgrid.add (sidebar_revealer);
             sgrid.no_show_all = true;
             sgrid.visible = false;
             sgrid.hexpand = false;
 
-            grid = new Gtk.Grid ();
-            grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (titlebar_stack, 0, 0, 1, 1);
-            grid.attach (main_stack, 0, 1, 1, 1);
+            grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            grid.add (titlebar_stack);
+            grid.add (main_stack);
             grid.show_all ();
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -367,10 +351,7 @@ namespace Notejot {
                 settingmenu.visible = false;
             }
 
-            var cgrid = new Gtk.Grid ();
-            cgrid.add (leaflet);
-
-            this.add (cgrid);
+            this.add (leaflet);
             this.set_size_request (375, 280);
             this.show_all ();
         }

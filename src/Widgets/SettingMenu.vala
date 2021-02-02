@@ -57,8 +57,7 @@ namespace Notejot {
 
             var color_button_box = new Gtk.Grid () {
                 column_spacing = 6,
-                row_spacing = 6,
-                margin = 6
+                row_spacing = 6
             };
             color_button_box.attach (color_button_red, 0, 0);
             color_button_box.attach (color_button_orange, 1, 0);
@@ -70,6 +69,7 @@ namespace Notejot {
             color_button_box.attach (color_button_reset, 3, 1);
 
             var delete_note_button = new Gtk.ModelButton ();
+            delete_note_button.xalign = 0;
             delete_note_button.label = (_("Move to Trash"));
 
 			delete_note_button.clicked.connect (() => {
@@ -117,7 +117,7 @@ namespace Notejot {
             var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
             var grid = new Gtk.Grid ();
-            grid.margin = 6;
+            grid.margin = 12;
             grid.column_spacing = 6;
             grid.row_spacing = 6;
             grid.orientation = Gtk.Orientation.VERTICAL;

@@ -10,19 +10,18 @@ namespace Notejot {
             set_sort_func (list_sort);
             this.show_all ();
             this.set_selection_mode (Gtk.SelectionMode.SINGLE);
+            this.set_activate_on_single_click (true);
 
             this.row_selected.connect ((selected_row) => {
-                foreach (var row in get_rows ()) {
-                    win.settingmenu.controller = ((Widgets.Note)selected_row);
-                    ((Widgets.Note)selected_row).select_item ();
-                    win.leaflet.set_visible_child (win.grid);
-                    win.settingmenu.visible = true;
+                win.settingmenu.controller = ((Widgets.Note)selected_row);
+                ((Widgets.Note)selected_row).select_item ();
+                win.leaflet.set_visible_child (win.grid);
+                win.settingmenu.visible = true;
 
-                    if (((Widgets.Note)selected_row) != null) {
-                        win.titlebar.pack_end (win.settingmenu);
-                    } else {
-                        win.titlebar.remove (win.settingmenu);
-                    }
+                if (((Widgets.Note)selected_row) != null) {
+                    win.titlebar.pack_end (win.settingmenu);
+                } else {
+                    win.titlebar.remove (win.settingmenu);
                 }
             });
         }
