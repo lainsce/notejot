@@ -28,6 +28,7 @@
 .circular radio,
 .circular radio:checked {
     padding: 8px;
+    border: 1px solid alpha(black, 0.25);
 }
 
 .color-red radio {
