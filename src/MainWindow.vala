@@ -253,11 +253,14 @@ namespace Notejot {
             titlebar_stack.add_named (welcome_titlebar, "welcome-title");
             titlebar_stack.add_named (titlebar, "title");
 
-            var welcome_title = new Gtk.Label (_("Jot some Notes"));
-            welcome_title.get_style_context ().add_class ("title-1");
+            var welcome_title = new Gtk.Label (_("Jot Some Notes"));
+            welcome_title.get_style_context ().add_class ("large-title");
             welcome_title.margin_bottom = 24;
 
-            var welcome_image = new Gtk.Image.from_resource ("/io/github/lainsce/Notejot/welcome.png");
+            var welcome_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot", Gtk.IconSize.BUTTON);
+            welcome_image.pixel_size = 128;
+            welcome_image.margin_bottom = 12;
+            welcome_image.opacity = 0.5501;
 
             welcome_new_button = new Gtk.Button ();
             welcome_new_button.margin_bottom = 12;
@@ -283,8 +286,10 @@ namespace Notejot {
             welcome_view_handle.add (welcome_view);
 
             empty_state_title = new Gtk.Label (_("No Open Notes"));
-            empty_state_title.get_style_context ().add_class ("title-1");
-            empty_state_title.get_style_context ().add_class ("dim-label");
+            empty_state_title.get_style_context ().add_class ("large-title");
+
+            var empty_state_subtitle = new Gtk.Label (_("Use the + button to add a note."));
+
 
             var empty_state_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot-symbolic", Gtk.IconSize.BUTTON);
             empty_state_image.pixel_size = 96;
@@ -294,10 +299,12 @@ namespace Notejot {
             empty_state = new Gtk.Grid () {
               orientation = Gtk.Orientation.VERTICAL,
               halign = Gtk.Align.CENTER,
-              valign = Gtk.Align.CENTER
+              valign = Gtk.Align.CENTER,
+              row_spacing = 6
             };
             empty_state.attach (empty_state_image, 0, 0);
             empty_state.attach (empty_state_title, 0, 1);
+            empty_state.attach (empty_state_subtitle, 0, 2);
 
             // Main View
 

@@ -3,8 +3,6 @@
     <gresource prefix="/io/github/lainsce/Notejot">
       <file alias="app.css" compressed="true">app.css</file>
 
-      <file alias="welcome.png">assets/welcome.png</file>
-
       <file alias="header_button.ui">ui/header_button.ui</file>
       <file alias="shortcuts.ui">ui/shortcuts.ui</file>
       <file alias="menu.ui">ui/menu.ui</file>
