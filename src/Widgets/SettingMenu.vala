@@ -70,7 +70,7 @@ namespace Notejot {
             color_button_box.attach (color_button_reset, 3, 1);
 
             var delete_note_button = new Gtk.ModelButton ();
-            delete_note_button.label = (_("Move to Trash"));
+            delete_note_button.label = (_("Move To Trash"));
 
 			delete_note_button.clicked.connect (() => {
 			    win.trashview.new_taskbox.begin (win, controller.title, controller.subtitle, controller.text, controller.color);

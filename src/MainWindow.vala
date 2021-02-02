@@ -290,7 +290,6 @@ namespace Notejot {
 
             var empty_state_subtitle = new Gtk.Label (_("Use the + button to add a note."));
 
-
             var empty_state_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot-symbolic", Gtk.IconSize.BUTTON);
             empty_state_image.pixel_size = 96;
             empty_state_image.margin_bottom = 12;
