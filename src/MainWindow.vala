@@ -17,38 +17,53 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
+    [GtkTemplate (ui = "/io/github/lainsce/Notejot/main_window.ui")]
     public class MainWindow : Hdy.ApplicationWindow {
         delegate void HookFunc ();
-        // Widgets
+
+        [GtkChild]
         public Gtk.Button new_button;
+        [GtkChild]
         public Gtk.Button back_button;
+        [GtkChild]
         public Gtk.Button welcome_new_button;
+        [GtkChild]
+        public Gtk.MenuButton menu_button;
+
+        [GtkChild]
         public Gtk.Box grid;
-        public Gtk.Box welcome_view;
-        public Gtk.Box empty_state;
+        [GtkChild]
         public Gtk.Box sgrid;
-        public Gtk.Overlay overlay;
-        public Gtk.Stack stack;
+        [GtkChild]
+        public Gtk.Box welcome_view;
+        [GtkChild]
+        public Gtk.Box empty_state;
+        [GtkChild]
+        public Hdy.Leaflet leaflet;
+
+        [GtkChild]
         public Gtk.Stack main_stack;
-        public Gtk.Stack titlebar_stack;
+        [GtkChild]
         public Gtk.Stack sidebar_stack;
-        public Gtk.Label titlebar_label;
+        [GtkChild]
+        public Gtk.Stack titlebar_stack;
+        [GtkChild]
+        public Hdy.HeaderBar titlebar;
+        [GtkChild]
+        public Hdy.HeaderBar stitlebar;
+        [GtkChild]
+        public Hdy.HeaderBar welcome_titlebar;
+        [GtkChild]
+        public Hdy.HeaderGroup titlegroup;
+
+        // Custom
         public Gtk.ScrolledWindow trash_scroller;
         public Gtk.ScrolledWindow list_scroller;
-        public Hdy.HeaderBar stitlebar;
-        public Hdy.HeaderBar titlebar;
-        public Hdy.HeaderBar welcome_titlebar;
-        public Hdy.Leaflet leaflet;
         public Widgets.Dialog dialog = null;
         public Widgets.SettingMenu settingmenu;
         public Widgets.HeaderBarButton sidebar_title_button;
-        public Gtk.Label empty_state_title;
-        public Hdy.HeaderGroup titlegroup;
-
-        // Views
         public Views.ListView listview;
         public Views.TrashView trashview;
-        // Services
         public TaskManager tm;
 
         // Etc
@@ -133,58 +148,22 @@ namespace Notejot {
             }
 
             // Main View
-            titlebar = new Hdy.HeaderBar ();
-            var titlebar_c = titlebar.get_style_context ();
-            titlebar_c.add_class ("notejot-tbar");
-            titlebar.show_close_button = true;
-            titlebar.has_subtitle = false;
-            titlebar.hexpand = true;
-            titlebar.set_size_request (-1, 41);
-            titlebar.title = "";
-
             settingmenu = new Widgets.SettingMenu(this);
             settingmenu.visible = false;
 
-            back_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("go-previous-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Go back to notes list"))
-            };
             back_button.show_all ();
-
             back_button.clicked.connect (() => {
                 leaflet.set_visible_child (sgrid);
             });
             back_button.no_show_all = true;
 
-            titlebar.pack_start (back_button);
-
             // Sidebar Titlebar
-            stitlebar = new Hdy.HeaderBar ();
-            stitlebar.show_close_button = true;
-            stitlebar.has_subtitle = false;
-            stitlebar.set_size_request (250, -1);
-            stitlebar.show_all ();
-
-            new_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON),
-                tooltip_text = (_("Create a new note"))
-            };
-            new_button.show_all ();
-
             new_button.clicked.connect (() => {
                 on_create_new.begin ();
             });
 
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
-
-            var menu_button = new Gtk.MenuButton ();
-            menu_button.has_tooltip = true;
-            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
-            menu_button.tooltip_text = (_("Settings"));
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
-
-            stitlebar.pack_start (new_button);
-            stitlebar.pack_end (menu_button);
 
             // List View
             listview = new Views.ListView (this);
@@ -201,13 +180,8 @@ namespace Notejot {
             trash_scroller.vexpand = true;
             trash_scroller.add (trashview);
 
-            sidebar_stack = new Gtk.Stack ();
             sidebar_stack.add_named (list_scroller, "list");
             sidebar_stack.add_named (trash_scroller, "trash");
-
-            var sidebar_revealer = new Gtk.Revealer ();
-            sidebar_revealer.add (sidebar_stack);
-            sidebar_revealer.reveal_child = true;
 
             var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
 
@@ -222,116 +196,18 @@ namespace Notejot {
             stitlebar.set_custom_title (sidebar_title_button);
 
             // Welcome View
-
-            // Used so the welcome titlebar, which is flat, and with no buttons
-            // doesn't jump in size when transtitioning to the preview titlebar.
-            var dummy_welcome_title_button = new Gtk.Button ();
-            dummy_welcome_title_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            dummy_welcome_title_button.sensitive = false;
-
-            welcome_titlebar = new Hdy.HeaderBar ();
-            welcome_titlebar.show_close_button = true;
-            welcome_titlebar.has_subtitle = false;
-            welcome_titlebar.valign = Gtk.Align.START;
-            welcome_titlebar.get_style_context ().add_class ("notejot-flat-title");
-
-            welcome_titlebar.pack_start (dummy_welcome_title_button);
-
-            titlebar_stack = new Gtk.Stack ();
-            titlebar_stack.valign = Gtk.Align.START;
-            titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
-            titlebar_stack.add_named (welcome_titlebar, "welcome-title");
-            titlebar_stack.add_named (titlebar, "title");
-
-            var welcome_title = new Gtk.Label (_("Jot Some Notes"));
-            welcome_title.get_style_context ().add_class ("large-title");
-            welcome_title.margin_bottom = 24;
-
-            var welcome_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot", Gtk.IconSize.BUTTON);
-            welcome_image.pixel_size = 128;
-            welcome_image.margin_bottom = 12;
-            welcome_image.opacity = 0.5501;
-
-            welcome_new_button = new Gtk.Button ();
-            welcome_new_button.margin_bottom = 12;
-            welcome_new_button.set_label (_("New Note"));
-            welcome_new_button.get_style_context ().add_class ("circular-button");
-            welcome_new_button.get_style_context ().add_class ("suggested-action");
             welcome_new_button.clicked.connect (() => {
                 on_create_new.begin ();
             });
 
-            welcome_view = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-              expand = true,
-              halign = Gtk.Align.CENTER,
-              valign = Gtk.Align.CENTER
-            };
-            welcome_view.add (welcome_image);
-            welcome_view.add (welcome_title);
-            welcome_view.add (welcome_new_button);
-
-            var welcome_view_handle = new Hdy.WindowHandle ();
-            welcome_view_handle.add (welcome_view);
-
-            empty_state_title = new Gtk.Label (_("No Open Notes"));
-            empty_state_title.get_style_context ().add_class ("large-title");
-
-            var empty_state_subtitle = new Gtk.Label (_("Use the + button to add a note."));
-
-            var empty_state_image = new Gtk.Image.from_icon_name ("io.github.lainsce.Notejot-symbolic", Gtk.IconSize.BUTTON);
-            empty_state_image.pixel_size = 96;
-            empty_state_image.margin_bottom = 12;
-            empty_state_image.opacity = 0.5501;
-
-            empty_state = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-              halign = Gtk.Align.CENTER,
-              valign = Gtk.Align.CENTER
-            };
-            empty_state.add (empty_state_image);
-            empty_state.add (empty_state_title);
-            empty_state.add (empty_state_subtitle);
-
             // Main View
-
-            main_stack = new Gtk.Stack ();
-            main_stack.get_style_context ().add_class ("notejot-stack");
-            main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            main_stack.add_named (welcome_view_handle, "welcome");
-            main_stack.add_named (empty_state, "empty");
-
-            sgrid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            sgrid.add (stitlebar);
-            sgrid.add (sidebar_revealer);
-            sgrid.no_show_all = true;
-            sgrid.visible = false;
-            sgrid.hexpand = false;
-
-            grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            grid.add (titlebar_stack);
-            grid.add (main_stack);
-            grid.show_all ();
-
-            var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            sep.get_style_context ().add_class ("sidebar");
-
-            leaflet = new Hdy.Leaflet ();
-            leaflet.add (sgrid);
-            leaflet.add (sep);
-            leaflet.add (grid);
             leaflet.show_all ();
-            leaflet.can_swipe_back = true;
-            leaflet.set_visible_child (sgrid);
-            leaflet.child_set_property (sep, "navigatable", false);
 
             update ();
 
             leaflet.notify["folded"].connect (() => {
                 update ();
             });
-
-            titlegroup = new Hdy.HeaderGroup ();
-            titlegroup.add_header_bar (stitlebar);
-            titlegroup.add_header_bar (titlebar);
 
             tm.load_from_file.begin ();
 
@@ -351,7 +227,6 @@ namespace Notejot {
                 settingmenu.visible = false;
             }
 
-            this.add (leaflet);
             this.set_size_request (375, 280);
             this.show_all ();
         }
