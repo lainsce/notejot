@@ -20,7 +20,7 @@ namespace Notejot {
     public class Widgets.Note : Hdy.ActionRow {
         private MainWindow win;
         public Widgets.TextField textfield;
-        public Widgets.EditableLabel editablelabel;
+        public Widgets.EditableLabel titlelabel;
         private static int uid_counter;
         public int uid;
         public new string title;
@@ -32,7 +32,7 @@ namespace Notejot {
         public Note (MainWindow win, string title, string subtitle, string text, string color) {
             this.win = win;
             this.uid = uid_counter++;
-            this.title = title;
+            this.title = title + " " + (uid + 1).to_string();
             this.subtitle = subtitle;
             this.text = text;
 
@@ -60,7 +60,7 @@ namespace Notejot {
             textfield.controller = this;
             textfield.update_html_view.begin ();
 
-            var titlelabel = new Widgets.EditableLabel (win, this.title);
+            titlelabel = new Widgets.EditableLabel (win, this.title);
             titlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             titlelabel.halign = Gtk.Align.START;
             titlelabel.margin_top = 20;

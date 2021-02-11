@@ -29,7 +29,7 @@ namespace Notejot {
         public Gtk.Label title;
 
         [GtkChild]
-        private Gtk.Entry entry;
+        public Gtk.Entry entry;
 
         [GtkChild]
         private Gtk.Stack stack;
