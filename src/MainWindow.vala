@@ -273,7 +273,7 @@ namespace Notejot {
 
         // IO?
         public async void on_create_new () {
-            var sidebaritem = new Widgets.Note (this, "New Note", "Note Subtitle", "This is a text example.", "#f6f5f4");
+            var sidebaritem = new Widgets.Note (this, "", "Note Subtitle", "This is a text example.", "#f6f5f4");
             listview.add (sidebaritem);
             listview.is_modified = true;
             listview.select_row (sidebaritem);

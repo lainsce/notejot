@@ -33,8 +33,8 @@ namespace Notejot {
             this.win = win;
             this.uid = uid_counter++;
 
-            if (this.title == "") {
-                this.title = title + " " + (uid + 1).to_string();
+            if (title == "") {
+                this.title = "New Note " + (uid + 1).to_string();
             } else {
                 this.title = title;
             }
