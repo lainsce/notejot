@@ -62,14 +62,43 @@ namespace Notejot {
                 win.tm.save_notes.begin ();
             });
 
+            var u_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("view-list-bullet-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Selected text becomes an unordered list"))
+            };
+
+            u_button.clicked.connect (() => {
+                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertUnorderedList');""");
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
+            });
+
+            var o_button = new Gtk.Button () {
+                image = new Gtk.Image.from_icon_name ("view-list-ordered-symbolic", Gtk.IconSize.BUTTON),
+                tooltip_text = (_("Selected text becomes an ordered list"))
+            };
+
+            o_button.clicked.connect (() => {
+                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertOrderedList');""");
+                controller.send_text.begin ();
+                win.tm.save_notes.begin ();
+            });
+
+            var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+            var sep2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+
             var grid = new Gtk.Grid ();
             grid.column_spacing = 6;
             grid.row_spacing = 6;
             grid.add (normal_button);
+            grid.add (sep);
             grid.add (bold_button);
             grid.add (italic_button);
             grid.add (ul_button);
             grid.add (s_button);
+            grid.add (sep2);
+            grid.add (u_button);
+            grid.add (o_button);
             grid.show_all ();
 
             this.add(grid);
