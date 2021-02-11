@@ -32,7 +32,13 @@ namespace Notejot {
         public Note (MainWindow win, string title, string subtitle, string text, string color) {
             this.win = win;
             this.uid = uid_counter++;
-            this.title = title + " " + (uid + 1).to_string();
+
+            if (this.title = "") {
+                this.title = title + " " + (uid + 1).to_string();
+            } else {
+                this.title = title;
+            }
+
             this.subtitle = subtitle;
             this.text = text;
 
