@@ -31,6 +31,12 @@ namespace Notejot {
                 update_html_view.begin ();
                 win.tm.save_notes.begin ();
             });
+
+            Timeout.add_seconds (3, () => {
+                send_text.begin ();
+                win.tm.save_notes.begin ();
+                return true;
+            });
         }
 
         public async void connect_signals () {

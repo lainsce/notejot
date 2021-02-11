@@ -59,6 +59,7 @@ sources = files(
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/Note.vala',
+    'src/Widgets/NoteMenuPopover.vala',
     'src/Widgets/TrashedItem.vala',
     'src/Widgets/TextField.vala',
 )
@@ -71,6 +72,7 @@ dependencies = [
     dependency('gee-0.8'),
     dependency('gtksourceview-4'),
     dependency('libhandy-1'),
+    dependency('gmodule-2.0'),
     dependency('webkit2gtk-4.0'),
     dependency('json-glib-1.0')
 ]

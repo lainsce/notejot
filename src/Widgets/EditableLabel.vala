@@ -20,13 +20,28 @@
 *
 */
 namespace Notejot {
+    [GtkTemplate (ui = "/io/github/lainsce/Notejot/editable_label.ui")]
     public class Widgets.EditableLabel : Gtk.EventBox {
         private MainWindow win;
         public signal void changed (string new_title);
+
+        [GtkChild]
         public Gtk.Label title;
+
+        [GtkChild]
         private Gtk.Entry entry;
+
+        [GtkChild]
         private Gtk.Stack stack;
-        private Gtk.Grid grid;
+
+        [GtkChild]
+        private Gtk.Box grid;
+
+        [GtkChild]
+        private Gtk.Button edit_button;
+
+        [GtkChild]
+        private Gtk.Revealer button_revealer;
 
         public string text {
             get {
@@ -61,35 +76,8 @@ namespace Notejot {
             events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
 
-            title = new Gtk.Label (title_name);
-            title.margin_start = 40;
-            title.ellipsize = Pango.EllipsizeMode.END;
+            title.set_label (title_name);
 
-            var edit_button = new Gtk.Button ();
-            edit_button.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.BUTTON);
-            var button_revealer = new Gtk.Revealer ();
-            button_revealer.valign = Gtk.Align.CENTER;
-            button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            button_revealer.add (edit_button);
-
-            grid = new Gtk.Grid ();
-            grid.column_spacing = 12;
-            grid.add (title);
-            grid.add (button_revealer);
-
-            entry = new Gtk.Entry ();
-            entry.margin_start = 40;
-
-            var entry_style_context = entry.get_style_context ();
-            entry_style_context.add_class (Gtk.STYLE_CLASS_TITLE);
-
-            stack = new Gtk.Stack ();
-            stack.hexpand = true;
-            stack.halign = Gtk.Align.CENTER;
-            stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            stack.add (grid);
-            stack.add (entry);
-            add (stack);
             show_all ();
 
             enter_notify_event.connect ((event) => {

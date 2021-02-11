@@ -134,6 +134,19 @@ namespace Notejot {
                     note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
                 }
             });
+
+            this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
+            this.button_release_event.connect ((event) => {
+                if (event.type == Gdk.EventType.BUTTON_RELEASE && event.button == 3) {
+                    var popover = new Widgets.NoteMenuPopover (win);
+
+                    popover_listener (popover);
+
+                    popover.set_relative_to (this);
+                    popover.popup ();
+                }
+                return true;
+            });
         }
 
         public void destroy_item () {
@@ -189,6 +202,50 @@ namespace Notejot {
 
             this.color = color;
             win.tm.save_notes.begin ();
+        }
+
+        public void popover_listener (Widgets.NoteMenuPopover? popover) {
+            popover.delete_note_button.clicked.connect (() => {
+	            win.trashview.new_taskbox.begin (win, title, subtitle, text, color);
+                win.main_stack.set_visible_child (win.empty_state);
+                var row = win.main_stack.get_child_by_name ("textfield-%d".printf(uid));
+                win.main_stack.remove (row);
+                destroy_item ();
+                win.tm.save_notes.begin ();
+                win.settingmenu.visible = false;
+            });
+
+            popover.color_button_red.clicked.connect (() => {
+                update_theme("#f66151");
+            });
+
+            popover.color_button_orange.clicked.connect (() => {
+                update_theme("#ffbe6f");
+            });
+
+            popover.color_button_yellow.clicked.connect (() => {
+                update_theme("#f9f06b");
+            });
+
+            popover.color_button_green.clicked.connect (() => {
+                update_theme("#8ff0a4");
+            });
+
+            popover.color_button_blue.clicked.connect (() => {
+                update_theme("#99c1f1");
+            });
+
+            popover.color_button_purple.clicked.connect (() => {
+                update_theme("#dc8add");
+            });
+
+            popover.color_button_brown.clicked.connect (() => {
+                update_theme("#cdab8f");
+            });
+
+            popover.color_button_reset.clicked.connect (() => {
+                update_theme("#ffffff");
+            });
         }
     }
 }

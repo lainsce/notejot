@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <template class="NotejotWidgetsEditableLabel" parent="GtkEventBox">
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="halign">center</property>
+        <property name="hexpand">True</property>
+        <property name="transition-type">crossfade</property>
+        <child>
+          <object class="GtkBox" id="grid">
+            <property name="spacing">12</property>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="margin-start">40</property>
+                <property name="ellipsize">end</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRevealer" id="button_revealer">
+                <property name="transition-type">crossfade</property>
+                <property name="transition-duration">200</property>
+                <child>
+                  <object class="GtkButton" id="edit_button">
+                    <property name="receives-default">True</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="icon-name">document-edit-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="circular"/>
+                      <class name="image-button"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry">
+            <property name="can-focus">True</property>
+            <property name="margin-start">40</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
