@@ -17,6 +17,7 @@ namespace Notejot {
                 ((Widgets.Note)selected_row).select_item ();
                 win.leaflet.set_visible_child (win.grid);
                 win.settingmenu.visible = true;
+                ((Widgets.Note)selected_row).textfield.grab_focus ();
 
                 if (((Widgets.Note)selected_row) != null) {
                     win.titlebar.pack_end (win.settingmenu);

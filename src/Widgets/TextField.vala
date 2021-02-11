@@ -8,6 +8,7 @@ namespace Notejot {
             this.win = win;
             this.expand = true;
             this.editable = true;
+            this.set_can_focus (true);
 
             var settings = new WebKit.Settings ();
 		    settings.set_enable_accelerated_2d_canvas(true);
