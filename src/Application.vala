@@ -25,7 +25,7 @@ namespace Notejot {
         public Application () {
             Object (
                 flags: ApplicationFlags.FLAGS_NONE,
-                application_id: "io.github.lainsce.Notejot"
+                application_id: Config.APP_ID
             );
         }
         static construct {
