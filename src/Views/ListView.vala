@@ -1,6 +1,7 @@
 namespace Notejot {
     public class Views.ListView : Gtk.ListBox {
         private MainWindow win;
+        Gtk.GestureMultiPress press;
         public bool is_modified {get; set; default = false;}
 
         public ListView (MainWindow win) {
@@ -24,6 +25,33 @@ namespace Notejot {
                 } else {
                     win.titlebar.remove (win.settingmenu);
                 }
+            });
+
+            this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
+            this.button_release_event.connect ((event) => {
+                if (event.type == Gdk.EventType.BUTTON_RELEASE && event.button == 3) {
+                    if (((Widgets.Note)this.get_selected_row()) != null) {
+                        var popover = new Widgets.NoteMenuPopover ();
+                        ((Widgets.Note)this.get_selected_row()).popover_listener (popover);
+
+                        popover.set_relative_to (((Widgets.Note)this.get_selected_row()));
+                        popover.popup ();
+                    }
+                }
+                return true;
+            });
+
+            press = new Gtk.GestureMultiPress (this);
+            press.set_button (Gdk.BUTTON_SECONDARY);
+            press.pressed.connect ((gesture, n_press, x, y) => {
+                Gtk.Widget menu_row;
+                var row = this.get_row_at_y ((int)y);
+                var popover = new Widgets.NoteMenuPopover ();
+                ((Widgets.Note)row).popover_listener (popover);
+
+                popover.set_relative_to (((Widgets.Note)row));
+                popover.popup ();
+                menu_row = row;
             });
         }
 

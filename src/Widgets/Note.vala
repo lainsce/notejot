@@ -140,21 +140,6 @@ namespace Notejot {
                     note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
                 }
             });
-
-            var note_box = new Gtk.EventBox ();
-            note_box.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
-            this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
-            note_box.button_release_event.connect ((event) => {
-                if (event.type == Gdk.EventType.BUTTON_RELEASE && event.button == 3) {
-                    var popover = new Widgets.NoteMenuPopover ();
-
-                    popover_listener (popover);
-
-                    popover.set_relative_to (note_box);
-                    popover.popup ();
-                }
-                return true;
-            });
         }
 
         public void destroy_item () {
