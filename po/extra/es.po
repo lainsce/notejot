@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 21:12+0900\n"
-"PO-Revision-Date: 2018-11-01 21:12+0900\n"
+"POT-Creation-Date: 2019-01-17 21:29+0400\n"
+"PO-Revision-Date: 2021-02-12 09:38+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -16,39 +16,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:6
-#: data/com.github.lainsce.notejot.desktop.in:3
+#: data/com.github.lainsce.notejot.desktop.in:2
 msgid "Notejot"
-msgstr ""
+msgstr "Notejot"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:7
-#: data/com.github.lainsce.notejot.desktop.in:4
+#: data/com.github.lainsce.notejot.desktop.in:3
 msgid "Jot your ideas"
-msgstr ""
+msgstr "Anota tus ideas"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:9
 msgid ""
 "A stupidly-simple sticky notes application for any type of short term notes "
 "or ideas."
 msgstr ""
+"Una aplicación de notas adhesivas estúpidamente simple para cualquier tipo "
+"de notas o ideas a corto plazo."
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:11
 msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr ""
+msgstr "Salir en cualquier momento con el atajo Ctrl + Q"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:17
 msgid "Lains"
-msgstr ""
+msgstr "Lains"
 
-#: data/com.github.lainsce.notejot.desktop.in:10
+#: data/com.github.lainsce.notejot.desktop.in:4
 msgid "com.github.lainsce.notejot"
-msgstr ""
+msgstr "com.github.lainsce.notejot"
 
-#: data/com.github.lainsce.notejot.desktop.in:11
+#: data/com.github.lainsce.notejot.desktop.in:6
 msgid "Text;Plain;Plaintext;Notepad;"
-msgstr ""
+msgstr "Text;Plain;Plaintext;Notepad;Texto;Bloc;Notas;"
 
-#: data/com.github.lainsce.notejot.desktop.in:20
+#: data/com.github.lainsce.notejot.desktop.in:15
 msgid "New note…"
-msgstr ""
+msgstr "Nota nueva…"
