@@ -292,7 +292,8 @@ namespace Notejot {
             const string COPYRIGHT = "Copyright \xc2\xa9 2017-2021 Paulo \"Lains\" Galardi\n";
 
             const string? AUTHORS[] = {
-                "Paulo \"Lains\" Galardi"
+                "Paulo \"Lains\" Galardi",
+                null
             };
 
             var program_name = Config.NAME_PREFIX + _("Notejot");
