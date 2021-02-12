@@ -16,6 +16,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var bold_button = new Gtk.Button () {
@@ -27,6 +28,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('bold');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var italic_button = new Gtk.Button () {
@@ -38,6 +40,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('italic');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var ul_button = new Gtk.Button () {
@@ -49,6 +52,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('underline');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var s_button = new Gtk.Button () {
@@ -60,6 +64,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('strikethrough');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var u_button = new Gtk.Button () {
@@ -71,6 +76,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertUnorderedList');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var o_button = new Gtk.Button () {
@@ -82,6 +88,7 @@ namespace Notejot {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertOrderedList');""");
                 controller.send_text.begin ();
                 win.tm.save_notes.begin ();
+                controller.grab_focus ();
             });
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);

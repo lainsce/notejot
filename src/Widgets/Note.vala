@@ -141,14 +141,16 @@ namespace Notejot {
                 }
             });
 
+            var note_box = new Gtk.EventBox ();
+            note_box.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
             this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
-            this.button_release_event.connect ((event) => {
+            note_box.button_release_event.connect ((event) => {
                 if (event.type == Gdk.EventType.BUTTON_RELEASE && event.button == 3) {
-                    var popover = new Widgets.NoteMenuPopover (win);
+                    var popover = new Widgets.NoteMenuPopover ();
 
                     popover_listener (popover);
 
-                    popover.set_relative_to (this);
+                    popover.set_relative_to (note_box);
                     popover.popup ();
                 }
                 return true;
@@ -181,16 +183,16 @@ namespace Notejot {
                 border-radius: 50px;
             }
             .notejot-label-%d {
-                background: mix(%s, @theme_base_color, 0.8);
+                background: mix(%s, @theme_bg_color, 0.8);
             }
             .notejot-label-dark-%d {
-                background: mix(%s, @theme_base_color, 0.8);
+                background: mix(%s, @theme_bg_color, 0.8);
             }
             .notejot-stack-%d {
-                background: mix(%s, @theme_base_color, 0.8);
+                background: mix(%s, @theme_bg_color, 0.8);
             }
             .notejot-stack-dark-%d {
-                background: mix(%s, @theme_base_color, 0.8);
+                background: mix(%s, @theme_bg_color, 0.8);
             }
             """)).printf(uid, color, uid, color, uid, color, uid, color, uid, color, uid, color);
 

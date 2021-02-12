@@ -19,7 +19,6 @@
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/note_menu.ui")]
     public class Widgets.NoteMenuPopover : Gtk.Popover {
-
         [GtkChild]
         public Gtk.ModelButton delete_note_button;
         [GtkChild]
@@ -39,10 +38,5 @@ namespace Notejot {
         [GtkChild]
         public Gtk.RadioButton color_button_reset;
 
-        private MainWindow win;
-
-        public NoteMenuPopover (MainWindow win) {
-            this.win = win;
-        }
     }
 }

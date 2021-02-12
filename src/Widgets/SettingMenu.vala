@@ -5,7 +5,7 @@ namespace Notejot {
 
         public SettingMenu (MainWindow win) {
             this.win = win;
-            var vpopover = new Widgets.NoteMenuPopover (win);
+            var vpopover = new Widgets.NoteMenuPopover ();
 
             vpopover.delete_note_button.clicked.connect (() => {
 			    win.trashview.new_taskbox.begin (win, controller.title, controller.subtitle, controller.text, controller.color);
