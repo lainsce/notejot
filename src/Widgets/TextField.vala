@@ -38,6 +38,43 @@ namespace Notejot {
                 win.tm.save_notes.begin ();
                 return true;
             });
+
+            key_press_event.connect ((e) => {
+                uint keycode = e.hardware_keycode;
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        run_javascript.begin ("document.execCommand('undo', false, false);");
+                        send_text.begin ();
+                        win.tm.save_notes.begin ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if ((e.state & Gdk.ModifierType.SHIFT_MASK) != 0) {
+                        if (match_keycode (Gdk.Key.z, keycode)) {
+                            run_javascript.begin ("document.execCommand('redo', false, false);");
+                            send_text.begin ();
+                            win.tm.save_notes.begin ();
+                        }
+                    }
+                }
+                return false;
+            });
+        }
+
+#if VALA_0_42
+        protected bool match_keycode (uint keyval, uint code) {
+#else
+        protected bool match_keycode (int keyval, uint code) {
+#endif
+            Gdk.KeymapKey [] keys;
+            Gdk.Keymap keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
+            if (keymap.get_entries_for_keyval (keyval, out keys)) {
+                foreach (var key in keys) {
+                    if (code == key.keycode)
+                        return true;
+                    }
+                }
+            return false;
         }
 
         public async void connect_signals () {
