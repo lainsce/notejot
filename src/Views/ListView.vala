@@ -27,31 +27,29 @@ namespace Notejot {
                 }
             });
 
-            this.events |= Gdk.EventMask.BUTTON_RELEASE_MASK;
-            this.button_release_event.connect ((event) => {
-                if (event.type == Gdk.EventType.BUTTON_RELEASE && event.button == 3) {
-                    if (((Widgets.Note)this.get_selected_row()) != null) {
-                        var popover = new Widgets.NoteMenuPopover ();
-                        ((Widgets.Note)this.get_selected_row()).popover_listener (popover);
-
-                        popover.set_relative_to (((Widgets.Note)this.get_selected_row()));
-                        popover.popup ();
-                    }
-                }
-                return true;
-            });
-
             press = new Gtk.GestureMultiPress (this);
-            press.set_button (Gdk.BUTTON_SECONDARY);
-            press.pressed.connect ((gesture, n_press, x, y) => {
-                var row = this.get_row_at_y ((int)y);
-                if (row != null) {
-                    var popover = new Widgets.NoteMenuPopover ();
-                    ((Widgets.Note)row).popover_listener (popover);
+            press.button =Gdk.BUTTON_SECONDARY;
 
-                    popover.set_relative_to (((Widgets.Note)row));
-                    popover.popup ();
+            press.pressed.connect ((gesture, n_press, x, y) => {
+                if (n_press > 1) {
+                    press.set_state (Gtk.EventSequenceState.DENIED);
+                    return;
                 }
+
+                var row = get_row_at_y ((int)y);
+
+                if (row == null) {
+                    press.set_state (Gtk.EventSequenceState.DENIED);
+                    return;
+                }
+
+                var popover = new Widgets.NoteMenuPopover ();
+                ((Widgets.Note)row).popover_listener (popover);
+
+                popover.set_relative_to (((Widgets.Note)row));
+                popover.popup ();
+
+                press.set_state (Gtk.EventSequenceState.CLAIMED);
             });
         }
 
