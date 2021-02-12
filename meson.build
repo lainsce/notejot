@@ -16,7 +16,7 @@ else
   profile = ''
 endif
 
-app_id = '@0@.@1@'.format(meson.project_name(), profile)
+app_id = '@0@@1@'.format(meson.project_name(), profile)
 
 conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)

@@ -1,10 +1,10 @@
 {
-    "app-id" : "io.github.lainsce.Notejot.Devel",
+    "app-id" : "io.github.lainsce.NotejotDevel",
     "runtime" : "org.gnome.Sdk",
     "runtime-version" : "3.38",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Notejot",
-    "rename-icon" : "io.github.lainsce.Notejot.Devel",
+    "rename-icon" : "io.github.lainsce.NotejotDevel",
     "finish-args" : [
         "--filesystem=xdg-documents",
         "--filesystem=xdg-download",
