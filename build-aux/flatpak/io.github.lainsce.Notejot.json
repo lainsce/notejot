@@ -1,9 +1,9 @@
 {
-    "app-id" : "io.github.lainsce.Notejot",
+    "app-id" : "io.github.lainsce.Notejot.Devel",
     "runtime" : "org.gnome.Sdk",
     "runtime-version" : "3.38",
     "sdk" : "org.gnome.Sdk",
-    "command" : "io.github.lainsce.Notejot",
+    "command" : "io.github.lainsce.Notejot.Devel",
     "rename-icon" : "io.github.lainsce.Notejot.Devel",
     "finish-args" : [
         "--filesystem=xdg-documents",
@@ -29,7 +29,6 @@
         "/share/gtk-doc",
         "/share/man",
         "/share/vala",
-        "/bin/vapi*",
         "*.a",
         "*.la"
     ],
@@ -39,16 +38,13 @@
             "buildsystem" : "meson",
             "config-opts" : [
                 "-Dexamples=false",
-                "-Dprofiling=false",
                 "-Dglade_catalog=disabled",
-                "-Dtests=false",
-                "-Dvapi=true"
+                "-Dtests=false"
             ],
             "sources" : [
                 {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/libhandy/1.0/libhandy-1.0.0.tar.xz",
-                    "sha256": "a9398582f47b7d729205d6eac0c068fef35aaf249fdd57eea3724f8518d26699"
+                    "type": "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libhandy.git"
                 }
             ]
         },
@@ -56,7 +52,7 @@
             "name" : "notejot",
             "buildsystem" : "meson",
             "config-opts" : [
-                "-Dprofile=development",
+                "-Dprofile=development"
             ],
             "sources" : [
                 {
