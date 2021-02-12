@@ -2,62 +2,66 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-23 01:00-0200\n"
-"PO-Revision-Date: 2018-03-16 14:51-0600\n"
+"POT-Creation-Date: 2019-01-17 20:58+0400\n"
+"PO-Revision-Date: 2021-02-12 09:35+0100\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"Language-Team: \n"
 
-#: src/MainWindow.vala:299
+#: src/MainWindow.vala:308
 msgid "New note"
 msgstr "Nota nueva"
 
-#: src/MainWindow.vala:303
+#: src/MainWindow.vala:313
 msgid "Delete note"
 msgstr "Eliminar nota"
 
-#: src/MainWindow.vala:310
+#: src/MainWindow.vala:327
 msgid "White"
 msgstr "Blanco"
 
-#: src/MainWindow.vala:320
+#: src/MainWindow.vala:338
 msgid "Red"
 msgstr "Rojo"
 
-#: src/MainWindow.vala:330
+#: src/MainWindow.vala:349
 msgid "Orange"
 msgstr "Naranja"
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:360
 msgid "Yellow"
 msgstr "Amarillo"
 
-#: src/MainWindow.vala:350
+#: src/MainWindow.vala:371
 msgid "Green"
 msgstr "Verde"
 
-#: src/MainWindow.vala:360
+#: src/MainWindow.vala:382
 msgid "Blue"
 msgstr "Azul"
 
-#: src/MainWindow.vala:370
+#: src/MainWindow.vala:393
 msgid "Indigo"
 msgstr "Índigo"
 
-#: src/MainWindow.vala:380
-msgid "Violet"
-msgstr "Violeta"
+#: src/MainWindow.vala:404
+msgid "Cocoa"
+msgstr "Cacao"
 
-#: src/MainWindow.vala:390
+#: src/MainWindow.vala:415
 msgid "Slate"
 msgstr "Gris pizarra"
 
-#: src/MainWindow.vala:423
+#: src/MainWindow.vala:432
+msgid "Note Color"
+msgstr "Color de la nota"
+
+#: src/MainWindow.vala:448
 msgid "Settings"
 msgstr "Configuración"
