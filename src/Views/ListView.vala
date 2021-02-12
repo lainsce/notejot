@@ -44,14 +44,14 @@ namespace Notejot {
             press = new Gtk.GestureMultiPress (this);
             press.set_button (Gdk.BUTTON_SECONDARY);
             press.pressed.connect ((gesture, n_press, x, y) => {
-                Gtk.Widget menu_row;
                 var row = this.get_row_at_y ((int)y);
-                var popover = new Widgets.NoteMenuPopover ();
-                ((Widgets.Note)row).popover_listener (popover);
+                if (row != null) {
+                    var popover = new Widgets.NoteMenuPopover ();
+                    ((Widgets.Note)row).popover_listener (popover);
 
-                popover.set_relative_to (((Widgets.Note)row));
-                popover.popup ();
-                menu_row = row;
+                    popover.set_relative_to (((Widgets.Note)row));
+                    popover.popup ();
+                }
             });
         }
 
