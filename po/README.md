@@ -2,7 +2,8 @@
 
 ## First Things First
 
-* Clone this repository by opening the terminal in a folder of your choice and typing ```git clone https://github.com/lainsce/notejot```
+* Fork the repository here on github with the Fork button at the top-right
+* Clone this repository by opening the terminal in a folder of your choice and typing `git clone https://github.com/<you_username>/notejot`
 
 ## Basics
 
