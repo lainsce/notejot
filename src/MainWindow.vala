@@ -273,7 +273,8 @@ namespace Notejot {
 
         // IO?
         public async void on_create_new () {
-            var sidebaritem = new Widgets.Note (this, "", "Note Subtitle", "This is a text example.", "#f6f5f4");
+            var dt = new GLib.DateTime.now_local ();
+            var sidebaritem = new Widgets.Note (this, "", "%s".printf (dt.format ("%A, %d/%m %H∶%M")), "This is a text example.", "#f6f5f4");
             listview.add (sidebaritem);
             listview.is_modified = true;
             listview.select_row (sidebaritem);

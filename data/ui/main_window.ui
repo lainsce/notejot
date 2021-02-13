@@ -1,48 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <requires lib="libhandy" version="0.0"/>
+  <requires lib="libhandy" version="1.0"/>
   <template class="NotejotMainWindow" parent="HdyApplicationWindow">
-    <property name="can-focus">False</property>
     <property name="window-position">center</property>
     <child>
       <object class="GtkBox" id="main_box">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="homogeneous">True</property>
         <child>
           <object class="HdyLeaflet" id="leaflet">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <property name="interpolate-size">True</property>
             <property name="can-swipe-back">True</property>
             <property name="can-swipe-forward">True</property>
             <child>
               <object class="GtkBox" id="sgrid">
                 <property name="width-request">250</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="hexpand">False</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="HdyHeaderBar" id="stitlebar">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="show-close-button">True</property>
                     <child type="title">
                       <placeholder/>
                     </child>
                     <child>
                       <object class="GtkButton" id="new_button">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
                         <child>
                           <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="icon-name">list-add-symbolic</property>
                           </object>
                         </child>
@@ -53,14 +39,10 @@
                     </child>
                     <child>
                       <object class="GtkMenuButton" id="menu_button">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
                         <property name="focus-on-click">False</property>
                         <property name="receives-default">True</property>
                         <child>
                           <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="icon-name">open-menu-symbolic</property>
                           </object>
                         </child>
@@ -82,8 +64,6 @@
                 </child>
                 <child>
                   <object class="GtkStack" id="sidebar_stack">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="transition-type">crossfade</property>
                     <child>
                       <placeholder/>
@@ -99,8 +79,6 @@
             </child>
             <child>
               <object class="GtkSeparator" id="sep">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="orientation">vertical</property>
                 <style>
                   <class name="sidebar"/>
@@ -112,27 +90,18 @@
             </child>
             <child>
               <object class="GtkBox" id="grid">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkStack" id="titlebar_stack">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <child>
                       <object class="HdyHeaderBar" id="titlebar">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="show-close-button">True</property>
                         <child>
                           <object class="GtkButton" id="back_button">
-                            <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
                             <child>
                               <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
                                 <property name="icon-name">go-previous-symbolic</property>
                               </object>
                             </child>
@@ -152,8 +121,6 @@
                     </child>
                     <child>
                       <object class="HdyHeaderBar" id="welcome_titlebar">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="show-close-button">True</property>
                         <style>
                           <class name="notejot-flat-title"/>
@@ -174,25 +141,16 @@
                 </child>
                 <child>
                   <object class="GtkStack" id="main_stack">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <property name="transition-type">crossfade</property>
                     <child>
                       <object class="HdyWindowHandle" id="welcome_view_handle">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <child>
                           <object class="GtkBox" id="welcome_view">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="orientation">vertical</property>
                             <child>
-                              <!-- n-columns=1 n-rows=3 -->
                               <object class="GtkGrid">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
                                 <property name="margin-start">12</property>
@@ -204,8 +162,6 @@
                                 <property name="row-spacing">12</property>
                                 <child>
                                   <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
                                     <property name="pixel-size">128</property>
                                     <property name="icon-name">io.github.lainsce.Notejot</property>
                                     <property name="icon_size">6</property>
@@ -217,8 +173,6 @@
                                 </child>
                                 <child>
                                   <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
                                     <property name="label" translatable="yes">Jot Some Notes</property>
                                     <style>
                                       <class name="large-title"/>
@@ -233,8 +187,6 @@
                                   <object class="GtkButton" id="welcome_new_button">
                                     <property name="label" translatable="yes">Create New Note</property>
                                     <property name="width-request">200</property>
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">True</property>
                                     <property name="receives-default">True</property>
                                     <style>
                                       <class name="circular-button"/>
@@ -263,8 +215,6 @@
                     </child>
                     <child>
                       <object class="GtkBox" id="empty_state">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="margin-start">12</property>
                         <property name="margin-end">12</property>
                         <property name="margin-top">12</property>
@@ -274,10 +224,7 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">12</property>
                         <child>
-                          <!-- n-columns=1 n-rows=3 -->
                           <object class="GtkGrid">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="halign">center</property>
                             <property name="valign">center</property>
                             <property name="margin-start">12</property>
@@ -289,8 +236,6 @@
                             <property name="row-spacing">12</property>
                             <child>
                               <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
                                 <property name="pixel-size">128</property>
                                 <property name="icon-name">io.github.lainsce.Notejot-symbolic</property>
                                 <property name="icon_size">6</property>
@@ -305,8 +250,6 @@
                             </child>
                             <child>
                               <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">No Open Notes</property>
                                 <style>
                                   <class name="large-title"/>
@@ -319,8 +262,6 @@
                             </child>
                             <child>
                               <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">Use the + button to add a note.</property>
                               </object>
                               <packing>

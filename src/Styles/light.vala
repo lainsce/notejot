@@ -26,13 +26,14 @@ public class Notejot.Styles.light {
     body {
       color: #000;
       background-color: #FFF;
-      font-family: "Cantarell", sans;
+      font-family: "Cantarell", Arial, Helvetica, sans-serif;
       font-weight: 400;
       font-size: 1.1rem;
       letter-spacing: 0.2;
-      line-height: 1.2rem;
+      line-height: 1.45rem;
       text-align: left;
       margin-left: 40px;
+      margin-right: 40px;
       margin-top: 20px;
       overflow-x: hidden;
     }

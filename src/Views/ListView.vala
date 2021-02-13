@@ -75,8 +75,8 @@ namespace Notejot {
             var row_1 = first_row;
             var row_2 = second_row;
 
-            string name_1 = row_1.name;
-            string name_2 = row_2.name;
+            string name_1 = ((Widgets.Note)row_1).title;
+            string name_2 = ((Widgets.Note)row_2).title;
 
             return name_1.collate (name_2);
         }

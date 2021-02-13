@@ -72,10 +72,11 @@ namespace Notejot {
             titlelabel.margin_top = 20;
             titlelabel.title.get_style_context ().add_class ("title-1");
 
-            var subtitlelabel = new Widgets.EditableLabel (win, this.subtitle);
+            var subtitlelabel = new Gtk.Label (this.subtitle);
             subtitlelabel.halign = Gtk.Align.START;
+            subtitlelabel.margin_start = 40;
             subtitlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
-            subtitlelabel.title.get_style_context ().add_class ("title-3");
+            subtitlelabel.get_style_context ().add_class ("dim-label");
 
             var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             sep.margin_top = 12;
@@ -101,9 +102,9 @@ namespace Notejot {
                win.tm.save_notes.begin ();
             });
 
-            subtitlelabel.changed.connect (() => {
-               set_subtitle (subtitlelabel.text);
-               this.subtitle = subtitlelabel.text;
+            subtitlelabel.notify["get-text"].connect (() => {
+               set_subtitle (subtitlelabel.get_text());
+               this.subtitle = subtitlelabel.get_text();
                win.tm.save_notes.begin ();
             });
 

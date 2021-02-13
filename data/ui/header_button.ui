@@ -4,33 +4,22 @@
   <template class="NotejotWidgetsHeaderBarButton" parent="GtkBin">
     <child>
       <object class="GtkMenuButton" id="menu">
-        <property name="visible">True</property>
         <child>
           <object class="GtkBox">
-            <property name="visible">True</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkBox" id="title_label_box">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
                     <property name="valign">center</property>
                     <child>
                       <object class="GtkLabel" id="title">
-                        <property name="visible">True</property>
                         <property name="label" bind-source="NotejotWidgetsHeaderBarButton" bind-property="title" bind-flags="sync-create"/>
-                        <property name="ellipsize">end</property>
                         <property name="halign">center</property>
-                        <property name="wrap">False</property>
-                        <property name="single-line-mode">True</property>
-                        <property name="width-chars">5</property>
                         <style>
                           <class name="title"/>
                         </style>
@@ -42,8 +31,6 @@
             </child>
             <child>
               <object class="GtkImage" id="pan_down_image">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="icon_name">pan-down-symbolic</property>
               </object>
             </child>

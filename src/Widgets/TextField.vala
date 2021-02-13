@@ -114,8 +114,8 @@ namespace Notejot {
         public async void update_html_view () {
             string style = set_stylesheet ();
             var html = """
-            <!doctype html>
-            <html>
+            <!DOCTYPE html>
+            <html lang="en-us">
                 <head>
                     <meta charset="utf-8">
                     <style>%s</style>

@@ -12,7 +12,7 @@ namespace Notejot {
                 win.main_stack.set_visible_child (win.empty_state);
                 var row = win.main_stack.get_child_by_name ("textfield-%d".printf(controller.uid));
                 win.main_stack.remove (row);
-                controller.destroy_item ();
+                controller.destroy ();
                 win.tm.save_notes.begin ();
                 win.settingmenu.visible = false;
             });
