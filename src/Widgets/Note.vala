@@ -27,6 +27,7 @@ namespace Notejot {
     public class Widgets.Note : Hdy.ActionRow {
         public Widgets.TextField textfield;
         public Widgets.EditableLabel titlelabel;
+        public Gtk.Label subtitlelabel;
         private static int uid_counter;
         public int uid;
         private Gtk.CssProvider css_provider;
@@ -44,8 +45,6 @@ namespace Notejot {
             } else {
                 set_title (log.title);
             }
-
-            set_subtitle (log.subtitle);
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.SMALL_TOOLBAR);
@@ -75,7 +74,7 @@ namespace Notejot {
             titlelabel.margin_top = 20;
             titlelabel.title.get_style_context ().add_class ("title-1");
 
-            var subtitlelabel = new Gtk.Label (log.subtitle);
+            subtitlelabel = new Gtk.Label (log.subtitle);
             subtitlelabel.halign = Gtk.Align.START;
             subtitlelabel.margin_start = 40;
             subtitlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
@@ -102,32 +101,19 @@ namespace Notejot {
             titlelabel.changed.connect (() => {
                 set_title (titlelabel.text);
                 log.title = titlelabel.text;
+                win.tm.save_notes.begin (win.notestore);
             });
 
+            sync_subtitles ();
             Timeout.add_seconds(1, () => {
-                try {
-                    var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
-                    GLib.MatchInfo match;
-
-                    if (reg.match (subtitlelabel.get_text(), 0, out match)) {
-                        var e = new GLib.DateTime.now_local ();
-                        var d = new DateTime.local (e.get_year (),
-                                                    int.parse(match.fetch_named ("month")),
-                                                    int.parse(match.fetch_named ("day")),
-                                                    int.parse(match.fetch_named ("hour")),
-                                                    int.parse(match.fetch_named ("minute")),
-                                                    e.get_second ());
-                        subtitlelabel.set_text("%s".printf(Utils.get_relative_datetime(d)));
-                    }
-                } catch (GLib.RegexError re) {
-                    warning ("%s".printf(re.message));
-                }
+                sync_subtitles ();
                 return true;
             });
 
             subtitlelabel.notify["get-text"].connect (() => {
                 set_subtitle (subtitlelabel.get_text());
                 log.subtitle = subtitlelabel.get_text();
+                sync_subtitles ();
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
@@ -168,6 +154,7 @@ namespace Notejot {
         public void destroy_item () {
             this.dispose ();
             css_provider.dispose ();
+            win.tm.save_notes.begin (win.notestore);
         }
 
         public void select_item () {
@@ -217,6 +204,51 @@ namespace Notejot {
             );
 
             log.color = color;
+            win.tm.save_notes.begin (win.notestore);
+        }
+
+        public void sync_subtitles () {
+            try {
+                var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+                GLib.MatchInfo match;
+
+                if (reg.match (subtitlelabel.get_text(), 0, out match)) {
+                    var e = new GLib.DateTime.now_local ();
+                    var d = new DateTime.local (e.get_year (),
+                                                int.parse(match.fetch_named ("month")),
+                                                int.parse(match.fetch_named ("day")),
+                                                int.parse(match.fetch_named ("hour")),
+                                                int.parse(match.fetch_named ("minute")),
+                                                e.get_second ());
+                    subtitlelabel.set_text("%s".printf(Utils.get_relative_datetime(d)));
+
+                    Timeout.add_seconds(1, () => {
+                        set_subtitle ("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_first_line (log.text)));
+                        return true;
+                    });
+                }
+                win.tm.save_notes.begin (win.notestore);
+            } catch (GLib.RegexError re) {
+                warning ("%s".printf(re.message));
+            }
+        }
+
+        public string get_first_line (string text) {
+            string first_line = "";
+
+            try {
+                var reg = new Regex("""(?m)^(?<first_line>.+\.)""");
+                GLib.MatchInfo match;
+
+                if (reg.match (text, 0, out match)) {
+                    first_line = match.fetch_named ("first_line");
+                } else {
+                    first_line = "Empty note.";
+                }
+            } catch (RegexError re) {
+                warning ("%s".printf(re.message));
+            }
+            return first_line;
         }
 
         public void popover_listener (Widgets.NoteMenuPopover? popover) {
@@ -236,6 +268,7 @@ namespace Notejot {
                 win.notestore.find (log, out pos);
                 win.notestore.remove (pos);
                 win.settingmenu.visible = false;
+                win.tm.save_notes.begin (win.notestore);
             });
 
             popover.color_button_red.clicked.connect (() => {

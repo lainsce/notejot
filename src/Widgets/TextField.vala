@@ -29,6 +29,7 @@ namespace Notejot {
 
             Notejot.Application.gsettings.changed.connect (() => {
                 update_html_view.begin ();
+                win.tm.save_notes.begin (win.notestore);
             });
 
             Timeout.add_seconds (3, () => {
@@ -91,9 +92,12 @@ namespace Notejot {
                         var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
                         controller.log.text = val == "" ? " " : val;
+                        controller.sync_subtitles ();
+
+                        win.tm.save_notes.begin (win.notestore);
                     }
                 } catch (Error e) {
-                    assert_not_reached ();
+                    warning ("%s".printf(e.message));
                 }
             });
         }

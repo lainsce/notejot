@@ -60,6 +60,16 @@ namespace Notejot {
             }
         }
 
+        // Makes a relative time label, elementary OS-style:
+        //
+        // - Is it today and is now? Show "Now".
+        // - Is it still today but some minutes passed? Show "X minute(s) ago".
+        // - Is it still today but some hours passed? Show "X hour(s) ago".
+        // - Is it one day after the creation? Show "Yesterday".
+        // - Is it yesterday and before in this week? Show weekday.
+        // - Is it even further back than this week? Show full local date.
+        // - Is it one day before the creation? Show "Tomorrow".
+        //
         public static string get_relative_datetime (GLib.DateTime date_time) {
             var now = new GLib.DateTime.now_local ();
             var diff = now.difference (date_time);
@@ -97,6 +107,31 @@ namespace Notejot {
                 return date_time.format (get_default_date_format (false, true, false));
             } else {
                 return date_time.format ("%x");
+            }
+        }
+
+        // Makes a relative time label, compact-style:
+        //
+        // - Is it today? Show time.
+        // - Is it yesterday and before in this week? Show weekday.
+        // - Is it even further back than this week? Show date.
+        //
+        public static string get_relative_datetime_compact (GLib.DateTime date_time) {
+            var now = new GLib.DateTime.now_local ();
+            var diff = now.difference (date_time);
+
+            if (is_same_day (date_time, now)) {
+                if (diff > 0) {
+                    if (diff < 12 * TimeSpan.HOUR) {
+                        return date_time.format ("%H:%M");
+                    }
+                }
+
+                return date_time.format (get_default_time_format (is_clock_format_12h (), false));
+            } if (diff < 6 * TimeSpan.DAY && diff > -6 * TimeSpan.DAY) {
+                return date_time.format ("%A");
+            } else {
+                return date_time.format ("%d/%m");
             }
         }
     }

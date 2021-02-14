@@ -403,7 +403,7 @@ namespace Notejot {
             try {
                 var build = new Gtk.Builder ();
                 build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
-                var window =  (Gtk.ApplicationWindow) build.get_object ("shortcuts-notejot");
+                var window =  (Gtk.ShortcutsWindow) build.get_object ("shortcuts-notejot");
                 window.set_transient_for (this);
                 window.show_all ();
             } catch (Error e) {
