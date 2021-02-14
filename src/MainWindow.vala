@@ -37,6 +37,8 @@ namespace Notejot {
         [GtkChild]
         public Gtk.Box welcome_view;
         [GtkChild]
+        public Hdy.WindowHandle welcome_view_handle;
+        [GtkChild]
         public Gtk.Box empty_state;
         [GtkChild]
         public Hdy.Leaflet leaflet;
@@ -153,6 +155,9 @@ namespace Notejot {
             // Main View
             settingmenu = new Widgets.SettingMenu(this);
             settingmenu.visible = false;
+            settingmenu.no_show_all = true;
+
+            titlebar.pack_end (settingmenu);
 
             back_button.show_all ();
             back_button.clicked.connect (() => {
@@ -169,6 +174,10 @@ namespace Notejot {
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
             notestore = new GLib.ListStore (typeof (Log));
+            notestore.sort ((a, b) => {
+                return ((Log) a).subtitle.collate (((Log) b).subtitle);
+            });
+
             trashstore = new GLib.ListStore (typeof (Log));
 
             // List View
@@ -228,7 +237,7 @@ namespace Notejot {
             tm.load_from_file.begin ();
 
             if (listview.is_modified == false) {
-                main_stack.set_visible_child (welcome_view);
+                main_stack.set_visible_child (welcome_view_handle);
                 titlebar_stack.set_visible_child (welcome_titlebar);
                 sgrid.no_show_all = true;
                 sgrid.visible = false;
@@ -289,10 +298,12 @@ namespace Notejot {
 
         // IO?
         public Widgets.Note make_item (MainWindow win, GLib.Object item) {
+            listview.is_modified = true;
             return new Widgets.Note (this, (Log) item);
         }
 
         public Widgets.TrashedItem make_trash_item (MainWindow win, GLib.Object item) {
+            trashview.is_modified = true;
             return new Widgets.TrashedItem (this, (TrashLog) item);
         }
 
@@ -302,6 +313,7 @@ namespace Notejot {
             log.subtitle = subtitle;
             log.text = text;
             log.color = color;
+            listview.is_modified = true;
 
             notestore.append(log);
         }

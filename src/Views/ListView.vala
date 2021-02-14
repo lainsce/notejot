@@ -15,14 +15,14 @@ namespace Notejot {
             this.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
                 win.settingmenu.visible = true;
+                win.settingmenu.no_show_all = false;
 
                 if (((Widgets.Note)selected_row) != null) {
-                    win.titlebar.pack_end (win.settingmenu);
                     ((Widgets.Note)selected_row).textfield.grab_focus ();
                     ((Widgets.Note)selected_row).select_item ();
                     win.settingmenu.controller = ((Widgets.Note)selected_row);
                 } else {
-                    win.titlebar.remove (win.settingmenu);
+                    win.settingmenu.no_show_all = true;
                 }
             });
 
