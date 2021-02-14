@@ -29,51 +29,42 @@ namespace Notejot {
             file_name = this.app_dir + "/saved_notes.json";
         }
 
-        public async void save_notes() {
-            try {
-                string json_string = prepare_json_from_notes().replace ("\"", "\\\"").replace ("/", "\\/");
-                var dir = File.new_for_path(app_dir);
-                var file = File.new_for_path (file_name);
-                if (!dir.query_exists()) {
-                    dir.make_directory();
-                }
-                GLib.FileUtils.set_contents (file.get_path (), json_string);
-            } catch (Error e) {
-                warning ("Failed to save: %s\n", e.message);
-            }
-
-        }
-
-        private string prepare_json_from_notes () {
-            builder = new Json.Builder ();
+        public async void save_notes (ListStore liststore) {
+            string json_string = "";
+            var b = new Json.Builder ();
+            builder = b;
 
             builder.begin_array ();
-            if (win.listview != null) {
-                save_column.begin (builder, win.listview);
+	        uint i, n = liststore.get_n_items ();
+            for (i = 0; i < n; i++) {
+                builder.begin_array ();
+                var item = liststore.get_item (i);
+                builder.add_string_value (((Log)item).title);
+                builder.add_string_value (((Log)item).subtitle);
+                builder.add_string_value (((Log)item).text);
+                builder.add_string_value (((Log)item).color);
+                builder.end_array ();
             }
             builder.end_array ();
 
             Json.Generator generator = new Json.Generator ();
             Json.Node root = builder.get_root ();
             generator.set_root (root);
-            string str = generator.to_data (null);
-            return str;
-        }
+            json_string = generator.to_data (null);
 
-        private async void save_column (Json.Builder builder,
-                                         Views.ListView listview) {
-            builder.begin_array ();
-            if (listview.get_children () != null) {
-                foreach (Widgets.Note item in listview.get_rows ()) {
-                    builder.begin_array ();
-                    builder.add_string_value (item.title);
-                    builder.add_string_value (item.subtitle);
-                    builder.add_string_value (item.text);
-                    builder.add_string_value (item.color);
-                    builder.end_array ();
+            var dir = File.new_for_path(app_dir);
+            var file = File.new_for_path (file_name);
+            try {
+                if (!dir.query_exists()) {
+                    dir.make_directory();
                 }
+                if (file.query_exists ()) {
+                    file.delete ();
+                }
+                GLib.FileUtils.set_contents (file.get_path (), json_string);
+            } catch (Error e) {
+                warning ("Failed to save file: %s\n", e.message);
             }
-	        builder.end_array ();
         }
 
         public async void load_from_file () {
@@ -87,15 +78,14 @@ namespace Notejot {
                     parser.load_from_data(line.replace ("\\/", "/").replace ("\\\"", "\""));
                     var root = parser.get_root();
                     var array = root.get_array();
-                    var columns = array.get_array_element (0);
-                    foreach (var tasks in columns.get_elements()) {
+                    foreach (var tasks in array.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
                         var subtitle = task.get_string_element(1);
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
 
-                        win.listview.new_taskbox.begin (win, title, subtitle, text, color);
+                        win.make_note (title, subtitle, text, color);
                     }
                 }
             } catch (Error e) {

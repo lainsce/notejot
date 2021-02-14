@@ -17,24 +17,28 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
+    public class TrashLog : Object {
+        public string title { get; set; }
+        public string subtitle { get; set; }
+        public string text { get; set; }
+        public string color { get; set; }
+    }
+
     public class Widgets.TrashedItem : Hdy.ActionRow {
-        private MainWindow win;
         public Widgets.TextField textfield;
         public Widgets.EditableLabel editablelabel;
         private static int uid_counter;
         public int uid;
-        public new string title;
-        public new string subtitle;
-        public string text;
-        public string color;
         private Gtk.CssProvider css_provider;
 
-        public TrashedItem (MainWindow win, string title, string subtitle, string text, string color) {
-            this.win = win;
+        public unowned TrashLog tlog { get; construct; }
+        public unowned MainWindow win { get; construct; }
+
+        public TrashedItem (MainWindow win, TrashLog? tlog) {
+            Object (tlog: tlog,
+                    win: win);
+
             this.uid = uid_counter++;
-            this.title = title;
-            this.subtitle = subtitle;
-            this.text = text;
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.BUTTON);
@@ -44,13 +48,13 @@ namespace Notejot {
 
             add_prefix (icon);
 
-            set_title (this.title);
-            set_subtitle (this.subtitle);
+            set_title (tlog.title);
+            set_subtitle (tlog.subtitle);
 
             this.show_all ();
             this.get_style_context ().add_class ("notejot-sidebar-box");
 
-            update_theme (color);
+            update_theme (tlog.color);
         }
 
         public void destroy_item () {
@@ -86,8 +90,7 @@ namespace Notejot {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
 
-            this.color = color;
-            win.tm.save_notes.begin ();
+            tlog.color = color;
         }
     }
 }

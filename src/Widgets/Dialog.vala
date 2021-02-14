@@ -31,7 +31,6 @@ namespace Notejot {
                         foreach (Gtk.Widget item in win.trashview.get_children ()) {
                             item.destroy ();
                         }
-                        win.tm.save_notes.begin ();
                         this.close ();
                         break;
                     case Gtk.ResponseType.NO:

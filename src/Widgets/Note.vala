@@ -17,30 +17,35 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
+    public class Log : Object {
+        public string title { get; set; }
+        public string subtitle { get; set; }
+        public string text { get; set; }
+        public string color { get; set; }
+    }
+
     public class Widgets.Note : Hdy.ActionRow {
-        private MainWindow win;
         public Widgets.TextField textfield;
         public Widgets.EditableLabel titlelabel;
         private static int uid_counter;
         public int uid;
-        public new string title;
-        public new string subtitle;
-        public string text;
-        public string color;
         private Gtk.CssProvider css_provider;
 
-        public Note (MainWindow win, string title, string subtitle, string text, string color) {
-            this.win = win;
+        public unowned Log log { get; construct; }
+        public unowned MainWindow win { get; construct; }
+
+        public Note (MainWindow win, Log? log) {
+            Object (log: log,
+                    win: win);
             this.uid = uid_counter++;
 
-            if (title == "") {
-                this.title = "New Note " + (uid + 1).to_string();
+            if (log.title == "") {
+                set_title ("New Note " + (uid + 1).to_string());
             } else {
-                this.title = title;
+                set_title (log.title);
             }
 
-            this.subtitle = subtitle;
-            this.text = text;
+            set_subtitle (log.subtitle);
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("", Gtk.IconSize.SMALL_TOOLBAR);
@@ -50,29 +55,27 @@ namespace Notejot {
 
             add_prefix (icon);
 
-            set_title (this.title);
-            set_subtitle (this.subtitle);
-
             this.show_all ();
             this.get_style_context ().add_class ("notejot-sidebar-box");
 
-            update_theme (color);
+            update_theme (log.color);
 
             textfield = new Widgets.TextField (win);
             var text_scroller = new Gtk.ScrolledWindow (null, null);
             text_scroller.vexpand = true;
             text_scroller.add(textfield);
-            textfield.text = this.text;
+            textfield.text = log.text;
             textfield.controller = this;
             textfield.update_html_view.begin ();
 
-            titlelabel = new Widgets.EditableLabel (win, this.title);
+            titlelabel = new Widgets.EditableLabel (win, "");
+            titlelabel.title.set_text (title);
             titlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             titlelabel.halign = Gtk.Align.START;
             titlelabel.margin_top = 20;
             titlelabel.title.get_style_context ().add_class ("title-1");
 
-            var subtitlelabel = new Gtk.Label (this.subtitle);
+            var subtitlelabel = new Gtk.Label (log.subtitle);
             subtitlelabel.halign = Gtk.Align.START;
             subtitlelabel.margin_start = 40;
             subtitlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
@@ -98,8 +101,7 @@ namespace Notejot {
 
             titlelabel.changed.connect (() => {
                 set_title (titlelabel.text);
-                this.title = titlelabel.text;
-                win.tm.save_notes.begin ();
+                log.title = titlelabel.text;
             });
 
             Timeout.add_seconds(1, () => {
@@ -125,8 +127,7 @@ namespace Notejot {
 
             subtitlelabel.notify["get-text"].connect (() => {
                 set_subtitle (subtitlelabel.get_text());
-                this.subtitle = subtitlelabel.get_text();
-                win.tm.save_notes.begin ();
+                log.subtitle = subtitlelabel.get_text();
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
@@ -215,18 +216,25 @@ namespace Notejot {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
 
-            this.color = color;
-            win.tm.save_notes.begin ();
+            log.color = color;
         }
 
         public void popover_listener (Widgets.NoteMenuPopover? popover) {
             popover.delete_note_button.clicked.connect (() => {
-	            win.trashview.new_taskbox.begin (win, title, subtitle, text, color);
+                var tlog = new Log ();
+                tlog.title = log.title;
+                tlog.subtitle = log.subtitle;
+                tlog.text = log.text;
+                tlog.color = log.color;
+			    win.trashstore.append (tlog);
+
                 win.main_stack.set_visible_child (win.empty_state);
-                var row = win.main_stack.get_child_by_name ("textfield-%d".printf(uid));
+                var row = win.main_stack.get_child_by_name ("textfield-%d".printf(this.uid));
                 win.main_stack.remove (row);
-                destroy_item ();
-                win.tm.save_notes.begin ();
+
+                uint pos;
+                win.notestore.find (log, out pos);
+                win.notestore.remove (pos);
                 win.settingmenu.visible = false;
             });
 

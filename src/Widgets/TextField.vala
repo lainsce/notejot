@@ -26,16 +26,13 @@ namespace Notejot {
             update_html_view.begin ();
             connect_signals.begin ();
             send_text.begin ();
-            win.tm.save_notes.begin ();
 
             Notejot.Application.gsettings.changed.connect (() => {
                 update_html_view.begin ();
-                win.tm.save_notes.begin ();
             });
 
             Timeout.add_seconds (3, () => {
                 send_text.begin ();
-                win.tm.save_notes.begin ();
                 return true;
             });
 
@@ -45,7 +42,6 @@ namespace Notejot {
                     if (match_keycode (Gdk.Key.z, keycode)) {
                         run_javascript.begin ("document.execCommand('undo', false, false);");
                         send_text.begin ();
-                        win.tm.save_notes.begin ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -53,7 +49,6 @@ namespace Notejot {
                         if (match_keycode (Gdk.Key.z, keycode)) {
                             run_javascript.begin ("document.execCommand('redo', false, false);");
                             send_text.begin ();
-                            win.tm.save_notes.begin ();
                         }
                     }
                 }
@@ -95,7 +90,7 @@ namespace Notejot {
                     if (data != null && win != null) {
                         var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
-                        controller.text = val == "" ? " " : val;
+                        controller.log.text = val == "" ? " " : val;
                     }
                 } catch (Error e) {
                     assert_not_reached ();

@@ -8,12 +8,20 @@ namespace Notejot {
             var vpopover = new Widgets.NoteMenuPopover ();
 
             vpopover.delete_note_button.clicked.connect (() => {
-			    win.trashview.new_taskbox.begin (win, controller.title, controller.subtitle, controller.text, controller.color);
+                var tlog = new Log ();
+                tlog.title = controller.log.title;
+                tlog.subtitle = controller.log.subtitle;
+                tlog.text = controller.log.text;
+                tlog.color = controller.log.color;
+			    win.trashstore.append (tlog);
+
                 win.main_stack.set_visible_child (win.empty_state);
                 var row = win.main_stack.get_child_by_name ("textfield-%d".printf(controller.uid));
                 win.main_stack.remove (row);
-                controller.destroy ();
-                win.tm.save_notes.begin ();
+
+                uint pos;
+                win.notestore.find (controller.log, out pos);
+                win.notestore.remove (pos);
                 win.settingmenu.visible = false;
             });
 

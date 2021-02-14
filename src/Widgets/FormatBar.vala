@@ -15,7 +15,6 @@ namespace Notejot {
             normal_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 
@@ -27,7 +26,6 @@ namespace Notejot {
             bold_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('bold');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 
@@ -39,7 +37,6 @@ namespace Notejot {
             italic_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('italic');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 
@@ -51,7 +48,6 @@ namespace Notejot {
             ul_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('underline');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 
@@ -63,7 +59,6 @@ namespace Notejot {
             s_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('strikethrough');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 
@@ -75,7 +70,6 @@ namespace Notejot {
             u_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertUnorderedList');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 
@@ -87,7 +81,6 @@ namespace Notejot {
             o_button.clicked.connect (() => {
                 controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertOrderedList');""");
                 controller.send_text.begin ();
-                win.tm.save_notes.begin ();
                 controller.grab_focus ();
             });
 

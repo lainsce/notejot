@@ -8,7 +8,6 @@ namespace Notejot {
             this.win = win;
             this.vexpand = true;
             is_modified = false;
-            set_sort_func (list_sort);
             this.show_all ();
             this.set_selection_mode (Gtk.SelectionMode.SINGLE);
             this.set_activate_on_single_click (true);
@@ -61,24 +60,6 @@ namespace Notejot {
             foreach (Gtk.Widget item in this.get_children ()) {
                 item.destroy ();
             }
-            win.tm.save_notes.begin ();
-        }
-
-        public async void new_taskbox (MainWindow win, string title, string contents, string text, string color) {
-            var taskbox = new Widgets.Note (win, title, contents, text, color);
-            insert (taskbox, -1);
-            win.tm.save_notes.begin ();
-            is_modified = true;
-        }
-
-        public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {
-            var row_1 = first_row;
-            var row_2 = second_row;
-
-            string name_1 = ((Widgets.Note)row_1).title;
-            string name_2 = ((Widgets.Note)row_2).title;
-
-            return name_1.collate (name_2);
         }
     }
 }

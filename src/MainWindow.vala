@@ -69,6 +69,9 @@ namespace Notejot {
         // Etc
         public bool pinned = false;
 
+        public GLib.ListStore notestore;
+        public GLib.ListStore trashstore;
+
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";
@@ -165,8 +168,16 @@ namespace Notejot {
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
+            notestore = new GLib.ListStore (typeof (Log));
+            trashstore = new GLib.ListStore (typeof (Log));
+
             // List View
             listview = new Views.ListView (this);
+            listview.bind_model (notestore, item => make_item (this, item));
+
+            notestore.items_changed.connect (() => {
+                tm.save_notes.begin (notestore);
+            });
 
             list_scroller = new Gtk.ScrolledWindow (null, null);
             list_scroller.vexpand = true;
@@ -175,6 +186,11 @@ namespace Notejot {
 
             // Trash View
             trashview = new Views.TrashView (this);
+            trashview.bind_model (trashstore, item => make_item (this, item));
+
+            trashstore.items_changed.connect (() => {
+                tm.save_notes.begin (trashstore);
+            });
 
             trash_scroller = new Gtk.ScrolledWindow (null, null);
             trash_scroller.vexpand = true;
@@ -272,12 +288,33 @@ namespace Notejot {
         }
 
         // IO?
+        public Widgets.Note make_item (MainWindow win, GLib.Object item) {
+            return new Widgets.Note (this, (Log) item);
+        }
+
+        public Widgets.TrashedItem make_trash_item (MainWindow win, GLib.Object item) {
+            return new Widgets.TrashedItem (this, (TrashLog) item);
+        }
+
+        public void make_note (string title, string subtitle, string text, string color) {
+            var log = new Log ();
+            log.title = title;
+            log.subtitle = subtitle;
+            log.text = text;
+            log.color = color;
+
+            notestore.append(log);
+        }
+
         public async void on_create_new () {
             var dt = new GLib.DateTime.now_local ();
-            var sidebaritem = new Widgets.Note (this, "", "%s".printf (dt.format ("%A, %d/%m %H∶%M")), "This is a text example.", "#f6f5f4");
-            listview.add (sidebaritem);
+            var log = new Log ();
+            log.title = "";
+            log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
+            log.text = "This is a text example.";
+            log.color = "#f6f5f4";
             listview.is_modified = true;
-            listview.select_row (sidebaritem);
+            notestore.append (log);
 
             if (listview.get_selected_row () == null) {
                 main_stack.set_visible_child (empty_state);
