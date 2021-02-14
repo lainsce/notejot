@@ -1,0 +1,1 @@
+[{"cmd": ["/usr/bin/desktop-file-validate", "/home/lains/Projects/notejot/_build/data/io.github.lainsce.NotejotDevel.desktop"], "env": {}, "name": "validate-desktop", "workdir": null, "timeout": 30, "suite": ["io.github.lainsce.Notejot"], "is_parallel": true, "priority": 0, "protocol": "exitcode"}]

@@ -1,0 +1,9 @@
+# List of files installed by Meson
+# Does not contain files installed by custom scripts.
+/app/bin/io.github.lainsce.Notejot
+/app/share/applications/io.github.lainsce.NotejotDevel.desktop
+/app/share/metainfo/io.github.lainsce.Notejot.appdata.xml
+/app/share/icons/hicolor/scalable/apps/io.github.lainsce.Notejot.svg
+/app/share/icons/hicolor/scalable/apps/io.github.lainsce.NotejotDevel.svg
+/app/share/icons/hicolor/symbolic/apps/io.github.lainsce.Notejot-symbolic.svg
+/app/share/glib-2.0/schemas/io.github.lainsce.Notejot.gschema.xml

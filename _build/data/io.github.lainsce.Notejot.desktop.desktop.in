@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Notejot
+Comment=Jot your ideas
+Exec=io.github.lainsce.Notejot
+Icon=io.github.lainsce.NotejotDevel
+Keywords=text;plain;plaintext;notepad;notes;sticky;post-it;
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Utility;

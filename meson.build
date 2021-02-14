@@ -49,6 +49,7 @@ sources = files(
    'src/Application.vala',
     'src/MainWindow.vala',
     'src/Services/TaskManager.vala',
+    'src/Services/Utils.vala',
     'src/Styles/dark.vala',
     'src/Styles/light.vala',
     'src/Views/ListView.vala',
@@ -74,7 +75,8 @@ dependencies = [
     dependency('libhandy-1'),
     dependency('gmodule-2.0'),
     dependency('webkit2gtk-4.0'),
-    dependency('json-glib-1.0')
+    dependency('json-glib-1.0'),
+    meson.get_compiler('c').find_library('m', required: true)
 ]
 
 executable(

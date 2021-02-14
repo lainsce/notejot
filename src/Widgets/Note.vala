@@ -97,15 +97,36 @@ namespace Notejot {
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
             titlelabel.changed.connect (() => {
-               set_title (titlelabel.text);
-               this.title = titlelabel.text;
-               win.tm.save_notes.begin ();
+                set_title (titlelabel.text);
+                this.title = titlelabel.text;
+                win.tm.save_notes.begin ();
+            });
+
+            Timeout.add_seconds(1, () => {
+                try {
+                    var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+                    GLib.MatchInfo match;
+
+                    if (reg.match (subtitlelabel.get_text(), 0, out match)) {
+                        var e = new GLib.DateTime.now_local ();
+                        var d = new DateTime.local (e.get_year (),
+                                                    int.parse(match.fetch_named ("month")),
+                                                    int.parse(match.fetch_named ("day")),
+                                                    int.parse(match.fetch_named ("hour")),
+                                                    int.parse(match.fetch_named ("minute")),
+                                                    e.get_second ());
+                        subtitlelabel.set_text("%s".printf(Utils.get_relative_datetime(d)));
+                    }
+                } catch (GLib.RegexError re) {
+                    warning ("%s".printf(re.message));
+                }
+                return true;
             });
 
             subtitlelabel.notify["get-text"].connect (() => {
-               set_subtitle (subtitlelabel.get_text());
-               this.subtitle = subtitlelabel.get_text();
-               win.tm.save_notes.begin ();
+                set_subtitle (subtitlelabel.get_text());
+                this.subtitle = subtitlelabel.get_text();
+                win.tm.save_notes.begin ();
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {

@@ -1,0 +1,7 @@
+[options]
+profile = development
+prefix = /app
+backend = ninja
+
+[properties]
+

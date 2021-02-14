@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>io.github.lainsce.Notejot</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Notejot</name>
+  <name xml:lang="ru">Notejot</name>
+  <name xml:lang="pt">Notejot</name>
+  <name xml:lang="lt">Notejot</name>
+  <name xml:lang="ja">Notejot</name>
+  <name xml:lang="gl">Notejot</name>
+  <name xml:lang="fr">Notejot</name>
+  <name xml:lang="es">Notejot</name>
+  <name xml:lang="de_DE">Notejot</name>
+  <name xml:lang="da">Notejot</name>
+  <summary>Jot your ideas</summary>
+  <summary xml:lang="ru">Запишите ваши идеи</summary>
+  <summary xml:lang="pt">Anote as suas ideias</summary>
+  <summary xml:lang="pt_BR">Anote suas ideias</summary>
+  <summary xml:lang="pl">Notuj swoje pomysły</summary>
+  <summary xml:lang="lt">Greitai užsirašykite savo idėjas</summary>
+  <summary xml:lang="ja">アイデアをメモします</summary>
+  <summary xml:lang="gl">Apunte as súas ideas</summary>
+  <summary xml:lang="fr">Notez vos idées</summary>
+  <summary xml:lang="es">Anota tus ideas</summary>
+  <summary xml:lang="de_DE">Notieren Sie Ihre Ideen</summary>
+  <summary xml:lang="da">Notér dine ideer</summary>
+  <summary xml:lang="cs">Zapiš si své nápady</summary>
+  <description>
+    <p>A stupidly-simple notes application for any type of short term notes or ideas.</p>
+    <ul>
+      <li>Quit anytime with the shortcut Ctrl + Q</li>
+      <li xml:lang="ru">Выход в любой момент с помощью сочетания клавиш Ctrl + Q</li>
+      <li xml:lang="pt">Saía a qualquer momento com o atalho Ctrl + Q</li>
+      <li xml:lang="lt">Išeikite bet kuriuo metu, naudodami susiejimą Ctrl (Vald) + Q</li>
+      <li xml:lang="ja">ショートカット Ctrl + Q で、いつでも終了できます</li>
+      <li xml:lang="gl">Saia en calquera momento co atallo Ctrl + Q</li>
+      <li xml:lang="fr">Quittez à tout moment avec le raccourci Ctrl + Q</li>
+      <li xml:lang="es">Salir en cualquier momento con el atajo Ctrl + Q</li>
+      <li xml:lang="de_DE">Beenden jederzeit mit dem Kürzel Strg + Q möglich</li>
+      <li xml:lang="da">Luk på et ethvert tidspunkt med genvejen Ctrl + Q</li>
+    </ul>
+  </description>
+  <provides>
+    <binary>io.github.lainsce.Notejot</binary>
+  </provides>
+  <developer_name>Lains</developer_name>
+  <developer_name xml:lang="ru">Lains</developer_name>
+  <developer_name xml:lang="pt">Lains</developer_name>
+  <developer_name xml:lang="lt">Lains</developer_name>
+  <developer_name xml:lang="ja">Lains</developer_name>
+  <developer_name xml:lang="gl">Lains</developer_name>
+  <developer_name xml:lang="fr">Lains</developer_name>
+  <developer_name xml:lang="es">Lains</developer_name>
+  <developer_name xml:lang="de_DE">Lains</developer_name>
+  <developer_name xml:lang="da">Lains</developer_name>
+  <url type="homepage">https://github.com/lainsce/notejot/</url>
+  <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
+  <url type="donation">https://liberapay.com/Lains/</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/lainsce/notejot/master/data/shot.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="violence-desecration">none</content_attribute>
+    <content_attribute id="violence-slavery">none</content_attribute>
+    <content_attribute id="violence-worship">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="sex-homosexuality">none</content_attribute>
+    <content_attribute id="sex-prostitution">none</content_attribute>
+    <content_attribute id="sex-adultery">none</content_attribute>
+    <content_attribute id="sex-appearance">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="2.6.0" date="2020-02-01">
+      <description>
+        <p>Release: User Interface Improved</p>
+        <p>In many places, the UI has improved to make the experience better:</p>
+        <ul>
+          <li>Note settings button hiding when necessary</li>
+          <li>"No Open Notes" showing only when it's supposed to</li>
+          <li>Notes' hover being rounded</li>
+          <li>Minor UI improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.5.2" date="2020-01-26">
+      <description>
+        <p>Release: Just A Little More</p>
+        <ul>
+          <li>Minor UI fixes, and the format buttons actually format only the selected text this time.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.5.0" date="2020-01-25">
+      <description>
+        <p>Release: Hello, Flatpak!</p>
+        <ul>
+          <li>Lots of fixes: New UI, formatting inside notes, dark mode, backend improvements…</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>
