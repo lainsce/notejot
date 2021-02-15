@@ -237,10 +237,10 @@ namespace Notejot {
             string first_line = "";
 
             try {
-                var reg = new Regex("""(?m)^(?<first_line>.+\.)""");
+                var reg = new Regex("""(?m)^(?<first_line>.+)$""");
                 GLib.MatchInfo match;
 
-                if (reg.match (text, 0, out match)) {
+                if (reg.match (text, 0, out match) && text != null) {
                     first_line = match.fetch_named ("first_line");
                 } else {
                     first_line = "Empty note.";
