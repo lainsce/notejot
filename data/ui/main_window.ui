@@ -215,67 +215,11 @@
                     </child>
                     <child>
                       <object class="GtkBox" id="empty_state">
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
-                        <property name="margin-top">12</property>
-                        <property name="margin-bottom">12</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">12</property>
-                        <child>
-                          <object class="GtkGrid">
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin-top">12</property>
-                            <property name="margin-bottom">12</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
-                            <property name="row-spacing">12</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="pixel-size">128</property>
-                                <property name="icon-name">io.github.lainsce.Notejot-symbolic</property>
-                                <property name="icon_size">6</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="label" translatable="yes">No Open Notes</property>
-                                <style>
-                                  <class name="large-title"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="label" translatable="yes">Use the + button to add a note.</property>
-                              </object>
-                              <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">2</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
+                        <style>
+                          <class name="empty-state"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="name">page0</property>

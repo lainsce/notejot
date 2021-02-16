@@ -100,3 +100,7 @@
     background: none;
     border: none;
 }
+
+.empty-state {
+  background: shade(@theme_bg_color, 0.95);
+}

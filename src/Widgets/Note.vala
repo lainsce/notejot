@@ -67,8 +67,7 @@ namespace Notejot {
             textfield.controller = this;
             textfield.update_html_view.begin ();
 
-            titlelabel = new Widgets.EditableLabel (win, "");
-            titlelabel.title.set_text (title);
+            titlelabel = new Widgets.EditableLabel (win, title);
             titlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             titlelabel.halign = Gtk.Align.START;
             titlelabel.margin_top = 20;
@@ -212,20 +211,22 @@ namespace Notejot {
                 var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
                 GLib.MatchInfo match;
 
-                if (reg.match (subtitlelabel.get_text(), 0, out match)) {
-                    var e = new GLib.DateTime.now_local ();
-                    var d = new DateTime.local (e.get_year (),
-                                                int.parse(match.fetch_named ("month")),
-                                                int.parse(match.fetch_named ("day")),
-                                                int.parse(match.fetch_named ("hour")),
-                                                int.parse(match.fetch_named ("minute")),
-                                                e.get_second ());
-                    subtitlelabel.set_text("%s".printf(Utils.get_relative_datetime(d)));
+                if (this != null && subtitlelabel != null) {
+                    if (reg.match (subtitlelabel.get_text(), 0, out match)) {
+                        var e = new GLib.DateTime.now_local ();
+                        var d = new DateTime.local (e.get_year (),
+                                                    int.parse(match.fetch_named ("month")),
+                                                    int.parse(match.fetch_named ("day")),
+                                                    int.parse(match.fetch_named ("hour")),
+                                                    int.parse(match.fetch_named ("minute")),
+                                                    e.get_second ());
+                        subtitlelabel.set_text("%s".printf(Utils.get_relative_datetime(d)));
 
-                    Timeout.add_seconds(1, () => {
-                        set_subtitle ("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_first_line (log.text)));
-                        return true;
-                    });
+                        Timeout.add_seconds(1, () => {
+                            set_subtitle ("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_first_line (log.text)));
+                            return true;
+                        });
+                    }
                 }
                 win.tm.save_notes.begin (win.notestore);
             } catch (GLib.RegexError re) {

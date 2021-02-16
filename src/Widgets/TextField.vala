@@ -92,7 +92,6 @@ namespace Notejot {
                         var val = data.get_js_value ().to_string ();
                         this.text = val == "" ? " " : val;
                         controller.log.text = val == "" ? " " : val;
-                        controller.sync_subtitles ();
 
                         win.tm.save_notes.begin (win.notestore);
                     }

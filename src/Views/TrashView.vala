@@ -9,6 +9,14 @@ namespace Notejot {
             is_modified = false;
             this.show_all ();
             this.set_selection_mode (Gtk.SelectionMode.NONE);
+
+            var empty_state = new Hdy.StatusPage ();
+            empty_state.visible = true;
+            empty_state.icon_name = "user-trash-symbolic";
+            empty_state.title = _("No Trash");
+            empty_state.description = _("Trashed notes appear here.");
+
+            this.set_placeholder (empty_state);
         }
 
         public void clear_column () {

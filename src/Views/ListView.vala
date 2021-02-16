@@ -12,6 +12,14 @@ namespace Notejot {
             this.set_selection_mode (Gtk.SelectionMode.SINGLE);
             this.set_activate_on_single_click (true);
 
+            var empty_state = new Hdy.StatusPage ();
+            empty_state.visible = true;
+            empty_state.icon_name = "document-new-symbolic";
+            empty_state.title = _("No Notes");
+            empty_state.description = _("Use the + button to add a note.");
+
+            this.set_placeholder (empty_state);
+
             this.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
                 win.settingmenu.visible = true;
