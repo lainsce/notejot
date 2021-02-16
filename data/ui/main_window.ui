@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <requires lib="libhandy" version="1.0"/>
@@ -63,6 +64,24 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkSearchEntry" id="note_search">
+                    <property name="can-focus">True</property>
+                    <property name="margin-start">8</property>
+                    <property name="margin-end">8</property>
+                    <property name="margin-top">8</property>
+                    <property name="margin-bottom">8</property>
+                    <property name="primary-icon-name">edit-find-symbolic</property>
+                    <property name="primary-icon-activatable">False</property>
+                    <property name="primary-icon-sensitive">False</property>
+                    <property name="placeholder-text" translatable="yes">Search for notes</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkStack" id="sidebar_stack">
                     <property name="transition-type">crossfade</property>
                     <child>
@@ -72,7 +91,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -93,42 +112,21 @@
                 <property name="hexpand">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkStack" id="titlebar_stack">
+                  <object class="HdyHeaderBar" id="titlebar">
+                    <property name="show-close-button">True</property>
                     <child>
-                      <object class="HdyHeaderBar" id="titlebar">
-                        <property name="show-close-button">True</property>
+                      <object class="GtkButton" id="back_button">
+                        <property name="receives-default">True</property>
                         <child>
-                          <object class="GtkButton" id="back_button">
-                            <property name="receives-default">True</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="icon-name">go-previous-symbolic</property>
-                              </object>
-                            </child>
-                            <style>
-                              <class name="image-button"/>
-                            </style>
+                          <object class="GtkImage">
+                            <property name="icon-name">go-previous-symbolic</property>
                           </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
-                      </object>
-                      <packing>
-                        <property name="name">page0</property>
-                        <property name="title" translatable="yes">page0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="HdyHeaderBar" id="welcome_titlebar">
-                        <property name="show-close-button">True</property>
                         <style>
-                          <class name="notejot-flat-title"/>
+                          <class name="image-button"/>
                         </style>
                       </object>
                       <packing>
-                        <property name="name">page1</property>
-                        <property name="title" translatable="yes">page1</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -145,75 +143,6 @@
                     <property name="vexpand">True</property>
                     <property name="transition-type">crossfade</property>
                     <child>
-                      <object class="HdyWindowHandle" id="welcome_view_handle">
-                        <child>
-                          <object class="GtkBox" id="welcome_view">
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkGrid">
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-start">12</property>
-                                <property name="margin-end">12</property>
-                                <property name="margin-top">12</property>
-                                <property name="margin-bottom">12</property>
-                                <property name="hexpand">True</property>
-                                <property name="vexpand">True</property>
-                                <property name="row-spacing">12</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="pixel-size">128</property>
-                                    <property name="icon-name">io.github.lainsce.Notejot</property>
-                                    <property name="icon_size">6</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left-attach">0</property>
-                                    <property name="top-attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Jot Some Notes</property>
-                                    <style>
-                                      <class name="large-title"/>
-                                    </style>
-                                  </object>
-                                  <packing>
-                                    <property name="left-attach">0</property>
-                                    <property name="top-attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkButton" id="welcome_new_button">
-                                    <property name="label" translatable="yes">Create New Note</property>
-                                    <property name="width-request">200</property>
-                                    <property name="receives-default">True</property>
-                                    <style>
-                                      <class name="circular-button"/>
-                                      <class name="suggested-action"/>
-                                    </style>
-                                  </object>
-                                  <packing>
-                                    <property name="left-attach">0</property>
-                                    <property name="top-attach">2</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="name">page1</property>
-                        <property name="title" translatable="yes">page1</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkBox" id="empty_state">
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
@@ -224,7 +153,6 @@
                       <packing>
                         <property name="name">page0</property>
                         <property name="title" translatable="yes">page0</property>
-                        <property name="position">1</property>
                       </packing>
                     </child>
                   </object>

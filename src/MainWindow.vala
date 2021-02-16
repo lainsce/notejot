@@ -26,18 +26,14 @@ namespace Notejot {
         [GtkChild]
         public Gtk.Button back_button;
         [GtkChild]
-        public Gtk.Button welcome_new_button;
-        [GtkChild]
         public Gtk.MenuButton menu_button;
+        [GtkChild]
+        public Gtk.SearchEntry note_search;
 
         [GtkChild]
         public Gtk.Box grid;
         [GtkChild]
         public Gtk.Box sgrid;
-        [GtkChild]
-        public Gtk.Box welcome_view;
-        [GtkChild]
-        public Hdy.WindowHandle welcome_view_handle;
         [GtkChild]
         public Gtk.Box empty_state;
         [GtkChild]
@@ -48,13 +44,9 @@ namespace Notejot {
         [GtkChild]
         public Gtk.Stack sidebar_stack;
         [GtkChild]
-        public Gtk.Stack titlebar_stack;
-        [GtkChild]
         public Hdy.HeaderBar titlebar;
         [GtkChild]
         public Hdy.HeaderBar stitlebar;
-        [GtkChild]
-        public Hdy.HeaderBar welcome_titlebar;
         [GtkChild]
         public Hdy.HeaderGroup titlegroup;
 
@@ -220,9 +212,10 @@ namespace Notejot {
 
             stitlebar.set_custom_title (sidebar_title_button);
 
-            // Welcome View
-            welcome_new_button.clicked.connect (() => {
-                on_create_new.begin ();
+            sgrid.show_all ();
+
+            note_search.notify["text"].connect (() => {
+               listview.set_search_text (note_search.get_text ());
             });
 
             // Main View
@@ -235,22 +228,6 @@ namespace Notejot {
             });
 
             tm.load_from_file.begin ();
-
-            if (listview.is_modified == false) {
-                main_stack.set_visible_child (welcome_view_handle);
-                titlebar_stack.set_visible_child (welcome_titlebar);
-                sgrid.no_show_all = true;
-                sgrid.visible = false;
-                menu_button.visible = true;
-                settingmenu.visible = false;
-            } else {
-                main_stack.set_visible_child (empty_state);
-                titlebar_stack.set_visible_child (titlebar);
-                sgrid.no_show_all = false;
-                sgrid.visible = true;
-                menu_button.visible = true;
-                settingmenu.visible = false;
-            }
 
             this.set_size_request (375, 280);
             this.show_all ();
@@ -331,10 +308,6 @@ namespace Notejot {
             if (listview.get_selected_row () == null) {
                 main_stack.set_visible_child (empty_state);
             }
-            titlebar_stack.set_visible_child (titlebar);
-            sgrid.no_show_all = false;
-            sgrid.visible = true;
-            sgrid.show_all ();
             settingmenu.visible = true;
         }
 

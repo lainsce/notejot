@@ -4,6 +4,8 @@ namespace Notejot {
         Gtk.GestureMultiPress press;
         public bool is_modified {get; set; default = false;}
 
+        private string search_text = "";
+
         public ListView (MainWindow win) {
             this.win = win;
             this.vexpand = true;
@@ -11,6 +13,8 @@ namespace Notejot {
             this.show_all ();
             this.set_selection_mode (Gtk.SelectionMode.SINGLE);
             this.set_activate_on_single_click (true);
+
+            set_filter_func (do_filter_list);
 
             var empty_state = new Hdy.StatusPage ();
             empty_state.visible = true;
@@ -58,6 +62,19 @@ namespace Notejot {
 
                 press.set_state (Gtk.EventSequenceState.CLAIMED);
             });
+        }
+
+        public void set_search_text (string search_text) {
+            this.search_text = search_text;
+            invalidate_filter ();
+        }
+
+        protected bool do_filter_list (Gtk.ListBoxRow row) {
+            if (search_text.length > 0) {
+                return ((Widgets.Note)row).get_title ().down ().contains (search_text);
+            }
+
+            return true;
         }
 
         public GLib.List<unowned Widgets.Note> get_rows () {
