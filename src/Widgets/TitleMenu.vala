@@ -1,10 +1,10 @@
 /*
 * Copyright (C) 2017-2021 Lains
 *
-* This program is free software; you can redistribute it &&/or
+* This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
+* version 2 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,26 +16,16 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-public class Notejot.Styles.dark {
-  public const string css="""
-    html {
-      width: 100%;
-      margin: 0 auto;
-    }
+namespace Notejot.Widgets {
+    [GtkTemplate (ui = "/io/github/lainsce/Notejot/title_menu.ui")]
+    public class TitleMenu : Gtk.Popover {
+        public unowned MainWindow win { get; construct; }
 
-    body {
-      color: #FAFAFA;
-      background-color: #222;
-      font-family: "Cantarell", Arial, Helvetica, sans-serif;
-      font-weight: 400;
-      font-size: 1.1rem;
-      letter-spacing: 0.2;
-      line-height: 1.45rem;
-      text-align: left;
-      margin-left: 20px;
-      margin-right: 20px;
-      margin-top: 20px;
-      overflow-x: hidden;
+        [GtkChild]
+        public Gtk.Box nb_box;
+
+        public TitleMenu (MainWindow win) {
+            Object (win: win);
+        }
     }
-  """;
 }

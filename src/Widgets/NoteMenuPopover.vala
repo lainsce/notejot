@@ -37,6 +37,5 @@ namespace Notejot {
         public Gtk.RadioButton color_button_brown;
         [GtkChild]
         public Gtk.RadioButton color_button_reset;
-
     }
 }

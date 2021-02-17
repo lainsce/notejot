@@ -24,5 +24,9 @@ namespace Notejot.Widgets {
 
         [GtkChild]
         public Gtk.MenuButton menu;
+
+        construct {
+            this.show_all ();
+        }
     }
 }

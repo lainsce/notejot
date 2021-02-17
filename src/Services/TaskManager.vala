@@ -23,10 +23,12 @@ namespace Notejot {
         private string app_dir = Environment.get_user_data_dir () +
                                  "/io.github.lainsce.Notejot";
         private string file_name;
+        private string file_name_nb;
 
         public TaskManager (MainWindow win) {
             this.win = win;
             file_name = this.app_dir + "/saved_notes.json";
+            file_name_nb = this.app_dir + "/saved_notebooks.json";
         }
 
         public async void save_notes (ListStore liststore) {
@@ -43,6 +45,7 @@ namespace Notejot {
                 builder.add_string_value (((Log)item).subtitle);
                 builder.add_string_value (((Log)item).text);
                 builder.add_string_value (((Log)item).color);
+                builder.add_string_value (((Log)item).notebook);
                 builder.end_array ();
             }
             builder.end_array ();
@@ -84,8 +87,67 @@ namespace Notejot {
                         var subtitle = task.get_string_element(1);
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
+                        var notebook = task.get_string_element(4);
 
-                        win.make_note (title, subtitle, text, color);
+                        win.make_note (title, subtitle, text, color, notebook);
+                    }
+                }
+            } catch (Error e) {
+                warning ("Failed to load file: %s\n", e.message);
+            }
+        }
+
+        public async void save_notebooks (ListStore liststore) {
+            string json_string = "";
+            var b = new Json.Builder ();
+            builder = b;
+
+            builder.begin_array ();
+	        uint i, n = liststore.get_n_items ();
+            for (i = 0; i < n; i++) {
+                builder.begin_array ();
+                var item = liststore.get_item (i);
+                builder.add_string_value (((Notebook)item).title);
+                builder.end_array ();
+            }
+            builder.end_array ();
+
+            Json.Generator generator = new Json.Generator ();
+            Json.Node root = builder.get_root ();
+            generator.set_root (root);
+            json_string = generator.to_data (null);
+
+            var dir = File.new_for_path(app_dir);
+            var file = File.new_for_path (file_name_nb);
+            try {
+                if (!dir.query_exists()) {
+                    dir.make_directory();
+                }
+                if (file.query_exists ()) {
+                    file.delete ();
+                }
+                GLib.FileUtils.set_contents (file.get_path (), json_string);
+            } catch (Error e) {
+                warning ("Failed to save file: %s\n", e.message);
+            }
+        }
+
+        public async void load_from_file_nb (Widgets.EditNotebooksDialog endiag) {
+            try {
+                var file = File.new_for_path(file_name_nb);
+
+                if (file.query_exists()) {
+                    string line;
+                    GLib.FileUtils.get_contents (file.get_path (), out line);
+                    var parser = new Json.Parser();
+                    parser.load_from_data(line.replace ("\\/", "/").replace ("\\\"", "\""));
+                    var root = parser.get_root();
+                    var array = root.get_array();
+                    foreach (var tasks in array.get_elements()) {
+                        var task = tasks.get_array ();
+                        var title = task.get_string_element(0);
+
+                        endiag.make_notebook (title);
                     }
                 }
             } catch (Error e) {

@@ -70,13 +70,14 @@ namespace Notejot {
             }
         }
 
-        public EditableLabel (MainWindow win, string? title_name) {
+        public EditableLabel (MainWindow win, string titles) {
             this.win = win;
             events |= Gdk.EventMask.ENTER_NOTIFY_MASK;
             events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
 
-            title.set_label (title_name);
+            title.get_style_context ().add_class ("title-1");
+            title.set_label (titles);
 
             show_all ();
 

@@ -17,13 +17,6 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    public class TrashLog : Object {
-        public string title { get; set; }
-        public string subtitle { get; set; }
-        public string text { get; set; }
-        public string color { get; set; }
-    }
-
     public class Widgets.TrashedItem : Hdy.ActionRow {
         public Widgets.TextField textfield;
         public Widgets.EditableLabel editablelabel;
@@ -31,10 +24,10 @@ namespace Notejot {
         public int uid;
         private Gtk.CssProvider css_provider;
 
-        public unowned TrashLog tlog { get; construct; }
+        public unowned Log tlog { get; construct; }
         public unowned MainWindow win { get; construct; }
 
-        public TrashedItem (MainWindow win, TrashLog? tlog) {
+        public TrashedItem (MainWindow win, Log? tlog) {
             Object (tlog: tlog,
                     win: win);
 

@@ -22,12 +22,14 @@ namespace Notejot {
         public string subtitle { get; set; }
         public string text { get; set; }
         public string color { get; set; }
+        public string notebook { get; set; }
     }
 
     public class Widgets.Note : Hdy.ActionRow {
         public Widgets.TextField textfield;
         public Widgets.EditableLabel titlelabel;
         public Gtk.Label subtitlelabel;
+        public Gtk.Label notebooklabel;
         private static int uid_counter;
         public int uid;
         private Gtk.CssProvider css_provider;
@@ -74,21 +76,34 @@ namespace Notejot {
             titlelabel.title.get_style_context ().add_class ("title-1");
 
             subtitlelabel = new Gtk.Label (log.subtitle);
-            subtitlelabel.halign = Gtk.Align.START;
-            subtitlelabel.margin_start = 40;
             subtitlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             subtitlelabel.get_style_context ().add_class ("dim-label");
 
-            var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-            sep.margin_top = 12;
+            notebooklabel = new Gtk.Label (log.notebook);
+            notebooklabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
+            notebooklabel.get_style_context ().add_class ("dim-label");
 
-            var formatbar = new Widgets.FormatBar (win);
+            var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            notebookicon.valign = Gtk.Align.CENTER;
+            notebookicon.get_style_context ().add_class ("dim-label");
+
+            var nb_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            nb_box.halign = Gtk.Align.START;
+            nb_box.margin_start = 20;
+            nb_box.pack_start (subtitlelabel);
+            nb_box.pack_start (notebookicon);
+            nb_box.pack_start (notebooklabel);
+
+            var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            sep.margin_top = 20;
+
+            var formatbar = new Widgets.FormatBar ();
             formatbar.controller = textfield;
 
             var note_grid = new Gtk.Grid ();
             note_grid.column_spacing = 12;
             note_grid.attach (titlelabel, 0, 0);
-            note_grid.attach (subtitlelabel, 0, 1);
+            note_grid.attach (nb_box, 0, 1);
             note_grid.attach (sep, 0, 2);
             note_grid.attach (text_scroller, 0, 3);
             note_grid.attach (formatbar, 0, 4);
@@ -113,6 +128,10 @@ namespace Notejot {
                 set_subtitle (subtitlelabel.get_text());
                 log.subtitle = subtitlelabel.get_text();
                 sync_subtitles ();
+            });
+
+            notebooklabel.notify["get-text"].connect (() => {
+                log.notebook = notebooklabel.get_text();
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {

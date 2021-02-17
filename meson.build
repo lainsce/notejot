@@ -63,6 +63,9 @@ sources = files(
     'src/Widgets/NoteMenuPopover.vala',
     'src/Widgets/TrashedItem.vala',
     'src/Widgets/TextField.vala',
+    'src/Widgets/TitleMenu.vala',
+    'src/Widgets/EditNotebookDialog.vala',
+    'src/Widgets/MoveToDialog.vala',
 )
 
 dependencies = [

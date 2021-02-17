@@ -38,6 +38,10 @@ namespace Notejot {
         public Gtk.Box empty_state;
         [GtkChild]
         public Hdy.Leaflet leaflet;
+        [GtkChild]
+        public Gtk.ScrolledWindow list_scroller;
+        [GtkChild]
+        public Gtk.ScrolledWindow trash_scroller;
 
         [GtkChild]
         public Gtk.Stack main_stack;
@@ -51,8 +55,6 @@ namespace Notejot {
         public Hdy.HeaderGroup titlegroup;
 
         // Custom
-        public Gtk.ScrolledWindow trash_scroller;
-        public Gtk.ScrolledWindow list_scroller;
         public Widgets.Dialog dialog = null;
         public Widgets.SettingMenu settingmenu;
         public Widgets.HeaderBarButton sidebar_title_button;
@@ -65,6 +67,7 @@ namespace Notejot {
 
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
+        public GLib.ListStore notebookstore;
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -74,6 +77,8 @@ namespace Notejot {
         public const string ACTION_KEYS = "action_keys";
         public const string ACTION_TRASH_NOTES = "action_trash_notes";
         public const string ACTION_DARK_MODE = "action_dark_mode";
+        public const string ACTION_MOVE_TO = "action_move_to";
+        public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
@@ -82,6 +87,8 @@ namespace Notejot {
               {ACTION_TRASH, action_trash},
               {ACTION_KEYS, action_keys},
               {ACTION_TRASH_NOTES, action_trash_notes},
+              {ACTION_MOVE_TO, action_move_to},
+              {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
               {ACTION_DARK_MODE, action_dark_mode, null, "false", null},
         };
 
@@ -116,6 +123,9 @@ namespace Notejot {
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Notejot/app.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/io/github/lainsce/Notejot");
 
             Gtk.StyleContext style = get_style_context ();
             if (Config.PROFILE == "Devel") {
@@ -180,10 +190,7 @@ namespace Notejot {
                 tm.save_notes.begin (notestore);
             });
 
-            list_scroller = new Gtk.ScrolledWindow (null, null);
-            list_scroller.vexpand = true;
             list_scroller.add (listview);
-            list_scroller.set_size_request (250, -1);
 
             // Trash View
             trashview = new Views.TrashView (this);
@@ -193,19 +200,17 @@ namespace Notejot {
                 tm.save_notes.begin (trashstore);
             });
 
-            trash_scroller = new Gtk.ScrolledWindow (null, null);
-            trash_scroller.vexpand = true;
             trash_scroller.add (trashview);
 
             sidebar_stack.add_named (list_scroller, "list");
             sidebar_stack.add_named (trash_scroller, "trash");
 
-            var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
+            var title_pop = new Widgets.TitleMenu (this);
 
             sidebar_title_button = new Widgets.HeaderBarButton ();
             sidebar_title_button.has_tooltip = true;
             sidebar_title_button.title = (_("All Notes"));
-            sidebar_title_button.menu.menu_model = (MenuModel)tbuilder.get_object ("menu");
+            sidebar_title_button.menu.popover = title_pop;
             sidebar_title_button.show_all ();
             sidebar_title_button.get_style_context ().add_class ("rename-button");
             sidebar_title_button.get_style_context ().add_class ("flat");
@@ -228,6 +233,11 @@ namespace Notejot {
             });
 
             tm.load_from_file.begin ();
+
+            notebookstore = new GLib.ListStore (typeof (Notebook));
+            notebookstore.items_changed.connect (() => {
+                tm.save_notebooks.begin (notebookstore);
+            });
 
             this.set_size_request (375, 280);
             this.show_all ();
@@ -279,17 +289,13 @@ namespace Notejot {
             return new Widgets.Note (this, (Log) item);
         }
 
-        public Widgets.TrashedItem make_trash_item (MainWindow win, GLib.Object item) {
-            trashview.is_modified = true;
-            return new Widgets.TrashedItem (this, (TrashLog) item);
-        }
-
-        public void make_note (string title, string subtitle, string text, string color) {
+        public void make_note (string title, string subtitle, string text, string color, string notebook) {
             var log = new Log ();
             log.title = title;
             log.subtitle = subtitle;
             log.text = text;
             log.color = color;
+            log.notebook = notebook;
             listview.is_modified = true;
 
             notestore.append(log);
@@ -301,7 +307,8 @@ namespace Notejot {
             log.title = "";
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = "This is a text example.";
-            log.color = "#f6f5f4";
+            log.color = "#fff";
+            log.notebook = "";
             listview.is_modified = true;
             notestore.append (log);
 
@@ -382,6 +389,15 @@ namespace Notejot {
             } catch (Error e) {
                 warning ("Failed to open shortcuts window: %s\n", e.message);
             }
+        }
+
+        public void action_move_to () {
+            var move_to_dialog = new Widgets.MoveToDialog (this);
+        }
+
+        public void action_edit_notebooks () {
+            var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
+            tm.load_from_file_nb.begin (edit_nb_dialog);
         }
 
         public void action_dark_mode (GLib.SimpleAction action, GLib.Variant? parameter) {

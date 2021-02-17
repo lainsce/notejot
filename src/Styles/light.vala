@@ -32,8 +32,8 @@ public class Notejot.Styles.light {
       letter-spacing: 0.2;
       line-height: 1.45rem;
       text-align: left;
-      margin-left: 40px;
-      margin-right: 40px;
+      margin-left: 20px;
+      margin-right: 20px;
       margin-top: 20px;
       overflow-x: hidden;
     }
