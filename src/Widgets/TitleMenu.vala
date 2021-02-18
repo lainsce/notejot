@@ -26,6 +26,8 @@ namespace Notejot.Widgets {
 
         public TitleMenu (MainWindow win) {
             Object (win: win);
+
+            nb_box.show_all ();
         }
     }
 }

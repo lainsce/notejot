@@ -202,9 +202,6 @@ namespace Notejot {
 
             trash_scroller.add (trashview);
 
-            sidebar_stack.add_named (list_scroller, "list");
-            sidebar_stack.add_named (trash_scroller, "trash");
-
             var title_pop = new Widgets.TitleMenu (this);
 
             sidebar_title_button = new Widgets.HeaderBarButton ();
@@ -235,6 +232,28 @@ namespace Notejot {
             notebookstore = new GLib.ListStore (typeof (Notebook));
             notebookstore.items_changed.connect (() => {
                 tm.save_notebooks.begin (notebookstore);
+
+                uint i, n = notebookstore.get_n_items ();
+                for (i = 0; i < n; i++) {
+                    var item = notebookstore.get_item (i);
+
+                    var nb_label = new Gtk.ModelButton ();
+                    nb_label.text = (((Notebook)item).title);
+                    nb_label.visible = true;
+                    title_pop.nb_box.add (nb_label);
+
+                    nb_label.clicked.connect (() => {
+                        sidebar_title_button.title = nb_label.text;
+                        listview.set_search_text (sidebar_title_button.title);
+
+                        main_stack.set_visible_child (empty_state);
+                        if (listview.get_selected_row () != null) {
+                            listview.unselect_row(listview.get_selected_row ());
+                        }
+                        settingmenu.visible = false;
+                        titlebar.title = "";
+                    });
+                }
             });
 
             tm.load_from_file.begin ();
@@ -359,6 +378,7 @@ namespace Notejot {
             }
             settingmenu.visible = false;
             titlebar.title = "";
+            listview.set_search_text ("");
         }
 
         public void action_trash () {
@@ -371,6 +391,7 @@ namespace Notejot {
             }
             settingmenu.visible = false;
             titlebar.title = "";
+            listview.set_search_text ("");
         }
 
         public void action_trash_notes () {

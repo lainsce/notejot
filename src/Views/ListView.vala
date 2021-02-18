@@ -4,7 +4,7 @@ namespace Notejot {
         Gtk.GestureMultiPress press;
         public bool is_modified {get; set; default = false;}
 
-        private string search_text = "";
+        public string search_text = "";
 
         public ListView (MainWindow win) {
             this.win = win;
@@ -71,7 +71,11 @@ namespace Notejot {
 
         protected bool do_filter_list (Gtk.ListBoxRow row) {
             if (search_text.length > 0) {
-                return ((Widgets.Note)row).get_title ().down ().contains (search_text);
+                if (((Widgets.Note)row).log.notebook.contains (search_text)) {
+                    return ((Widgets.Note)row).log.notebook.contains (search_text);
+                } else {
+                    return ((Widgets.Note)row).get_title ().down ().contains (search_text);
+                }
             }
 
             return true;
