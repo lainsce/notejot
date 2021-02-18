@@ -6,7 +6,7 @@
       <object class="GtkStack" id="stack">
         <property name="visible">True</property>
         <property name="halign">start</property>
-        <property name="margin-top">20</property>
+        <property name="valign">center</property>
         <property name="hexpand">True</property>
         <property name="transition-type">crossfade</property>
         <child>
@@ -16,7 +16,6 @@
             <child>
               <object class="GtkLabel" id="title">
                 <property name="visible">True</property>
-                <property name="margin-start">20</property>
                 <property name="ellipsize">end</property>
               </object>
               <packing>
@@ -59,7 +58,6 @@
           <object class="GtkEntry" id="entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="margin-start">20</property>
           </object>
           <packing>
             <property name="position">1</property>

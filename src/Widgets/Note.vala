@@ -72,7 +72,7 @@ namespace Notejot {
             titlelabel = new Widgets.EditableLabel (win, title);
             titlelabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             titlelabel.halign = Gtk.Align.START;
-            titlelabel.margin_top = 20;
+            titlelabel.margin_top = titlelabel.margin_start = 20;
             titlelabel.title.get_style_context ().add_class ("title-1");
 
             subtitlelabel = new Gtk.Label (log.subtitle);
@@ -139,6 +139,19 @@ namespace Notejot {
 
             notebooklabel.notify["get-text"].connect (() => {
                 log.notebook = notebooklabel.get_text();
+            });
+
+            win.notebookstore.items_changed.connect (() => {
+                uint i, n = win.notestore.get_n_items ();
+                for (i = 0; i < n; i++) {
+                    var item = win.notestore.get_item (i);
+                    if (((Log)item).notebook == "") {
+                        notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
+                    } else {
+                        notebooklabel.label = ((Log)item).notebook;
+                    }
+                    win.tm.save_notes.begin (win.notestore);
+                }
             });
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {

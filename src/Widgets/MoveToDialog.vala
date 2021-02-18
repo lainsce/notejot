@@ -36,7 +36,6 @@ namespace Notejot {
         public MoveToDialog (MainWindow win) {
             Object (win: win);
             set_transient_for (win);
-            this.show_all ();
 
             notebook_listbox.bind_model (win.notebookstore, item => make_item (win, item));
             notebook_listbox.set_selection_mode (Gtk.SelectionMode.SINGLE);

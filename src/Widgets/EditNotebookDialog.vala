@@ -58,6 +58,7 @@ namespace Notejot {
 
                 win.notebookstore.append (nb);
                 win.tm.save_notebooks.begin (win.notebookstore);
+                notebook_name_entry.set_text ("");
             });
         }
 
@@ -80,6 +81,8 @@ namespace Notejot {
                     var im = win.notebookstore.get_item (i);
                     if (actionrow.get_title () == ((Notebook)im).title) {
                         win.notebookstore.remove (i);
+                        ((Notebook)im).title == "";
+                        win.tm.save_notebooks.begin (win.notebookstore);
                     }
                 }
             });

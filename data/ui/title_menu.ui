@@ -8,7 +8,6 @@
       </item>
     </section>
     <section id="edit">
-      <attribute name="label" translatable="yes">Notebooks</attribute>
     </section>
     <section>
       <item>

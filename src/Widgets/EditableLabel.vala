@@ -76,7 +76,6 @@ namespace Notejot {
             events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
             events |= Gdk.EventMask.BUTTON_PRESS_MASK;
 
-            title.get_style_context ().add_class ("title-1");
             title.set_label (titles);
 
             show_all ();
