@@ -132,7 +132,7 @@ namespace Notejot {
             }
         }
 
-        public async void load_from_file_nb (Widgets.EditNotebooksDialog endiag) {
+        public async void load_from_file_nb () {
             try {
                 var file = File.new_for_path(file_name_nb);
 
@@ -147,7 +147,7 @@ namespace Notejot {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
 
-                        endiag.make_notebook (title);
+                        win.make_notebook (title);
                     }
                 }
             } catch (Error e) {

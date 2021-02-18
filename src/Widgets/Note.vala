@@ -83,6 +83,12 @@ namespace Notejot {
             notebooklabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             notebooklabel.get_style_context ().add_class ("dim-label");
 
+            if (log.notebook == "") {
+                notebooklabel.label = _("No Notebook");
+            } else {
+                notebooklabel.label = log.notebook;
+            }
+
             var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             notebookicon.valign = Gtk.Align.CENTER;
             notebookicon.get_style_context ().add_class ("dim-label");

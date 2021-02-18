@@ -87,12 +87,5 @@ namespace Notejot {
 
             return actionrow;
         }
-
-        public void make_notebook (string title) {
-            var nb = new Notebook ();
-            nb.title = title;
-
-            win.notebookstore.append(nb);
-        }
     }
 }

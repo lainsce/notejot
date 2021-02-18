@@ -7,68 +7,385 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-17 20:58+0400\n"
+"POT-Creation-Date: 2021-02-17 22:07-0300\n"
 "PO-Revision-Date: 2020-09-02 13:27+0100\n"
+"Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Language-Team: none\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../src\n"
-"Last-Translator: André Barata <andretiagob@protonmail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: pt\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: src/MainWindow.vala:308
-msgid "New note"
+#: src/MainWindow.vala:101 src/MainWindow.vala:337
+msgid "Notejot"
+msgstr ""
+
+#: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
+msgid "All Notes"
+msgstr ""
+
+#: src/MainWindow.vala:342
+msgid "Jot your ideas."
+msgstr ""
+
+#: src/MainWindow.vala:348
+msgid "translator-credits"
+msgstr ""
+
+#: src/MainWindow.vala:367 data/ui/title_menu.ui:110
+msgid "Trash"
+msgstr ""
+
+#: src/MainWindow.vala:378
+msgid "Empty the Trashed Notes?"
+msgstr ""
+
+#: src/MainWindow.vala:379
+msgid ""
+"Emptying the trash means all the notes in it will be permanently lost with "
+"no recovery."
+msgstr ""
+
+#: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
+msgid "Cancel"
+msgstr ""
+
+#: src/MainWindow.vala:381 data/ui/menu.ui:10
+msgid "Empty Trash"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
+#: src/Services/Utils.vala:16
+msgid "%a, %b %e, %Y"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
+#: src/Services/Utils.vala:19
+msgid "%b %e %Y"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the year
+#: src/Services/Utils.vala:22
+msgid "%Y"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date
+#: src/Services/Utils.vala:25
+msgid "%b %e"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
+#: src/Services/Utils.vala:28
+msgid "%a %Y"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
+#: src/Services/Utils.vala:31
+#, c-format
+msgid "%a"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
+#: src/Services/Utils.vala:34
+msgid "%a, %b %e"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
+#: src/Services/Utils.vala:37
+msgid "%b"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
+#: src/Services/Utils.vala:47
+msgid "%-l:%M:%S %p"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
+#: src/Services/Utils.vala:50
+msgid "%-l:%M %p"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
+#: src/Services/Utils.vala:55
+msgid "%H:%M:%S"
+msgstr ""
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
+#: src/Services/Utils.vala:58
+msgid "%H:%M"
+msgstr ""
+
+#: src/Services/Utils.vala:80
+msgid "Now"
+msgstr ""
+
+#: src/Services/Utils.vala:83
+#, c-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Services/Utils.vala:86
+#, c-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Services/Utils.vala:92
+#, c-format
+msgid "in %d minute"
+msgid_plural "in %d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Services/Utils.vala:95
+#, c-format
+msgid "in %d hour"
+msgid_plural "in %d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Services/Utils.vala:101
+msgid "Yesterday"
+msgstr ""
+
+#: src/Services/Utils.vala:103
+msgid "Tomorrow"
+msgstr ""
+
+#: src/Views/ListView.vala:22
+msgid "No Notes"
+msgstr ""
+
+#: src/Views/ListView.vala:23
+msgid "Use the + button to add a note."
+msgstr ""
+
+#: src/Views/TrashView.vala:16
+msgid "No Trash"
+msgstr ""
+
+#: src/Views/TrashView.vala:17
+msgid "Trashed notes appear here."
+msgstr ""
+
+#: src/Widgets/SettingMenu.vala:61
+#, fuzzy
+msgid "Note Settings"
+msgstr "Definições"
+
+#: src/Widgets/Note.vala:87
+msgid "No Notebook"
+msgstr ""
+
+#: src/Widgets/Note.vala:193
+#, c-format
+msgid ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: %s;\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: shade(%s, 0.8);\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-label-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-label-dark-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-dark-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            "
+msgstr ""
+
+#: src/Widgets/TrashedItem.vala:61
+#, c-format
+msgid ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: %s;\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: shade(%s, 0.8);\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            "
+msgstr ""
+
+#: src/Widgets/EditNotebookDialog.vala:69
+msgid "Remove notebook"
+msgstr ""
+
+#: data/ui/edit_notebooks.ui:7 data/ui/edit_notebooks.ui:19
+#: data/ui/move_to_dialog.ui:8
+msgid "Edit Notebooks"
+msgstr ""
+
+#: data/ui/edit_notebooks.ui:44
+#, fuzzy
+msgid "New Notebook…"
 msgstr "Nova nota"
 
-#: src/MainWindow.vala:313
-msgid "Delete note"
-msgstr "Apagar nota"
+#: data/ui/edit_notebooks.ui:55
+msgid "Add"
+msgstr ""
 
-#: src/MainWindow.vala:327
-msgid "White"
-msgstr "Branco"
+#: data/ui/formatbar.ui:18
+msgid "Removes formatting from selected text"
+msgstr ""
 
-#: src/MainWindow.vala:338
+#: data/ui/formatbar.ui:52
+msgid "Makes selected text emboldened"
+msgstr ""
+
+#: data/ui/formatbar.ui:75
+msgid "Makes selected text italicized"
+msgstr ""
+
+#: data/ui/formatbar.ui:98
+msgid "Makes selected text underlined"
+msgstr ""
+
+#: data/ui/formatbar.ui:121
+msgid "Makes selected text striked through"
+msgstr ""
+
+#: data/ui/formatbar.ui:155
+msgid "Makes selected text an unordered list"
+msgstr ""
+
+#: data/ui/formatbar.ui:178
+msgid "Makes selected text an ordered list"
+msgstr ""
+
+#: data/ui/main_window.ui:76
+msgid "Search for notes"
+msgstr ""
+
+#: data/ui/main_window.ui:96 data/ui/main_window.ui:176
+msgid "page0"
+msgstr ""
+
+#: data/ui/main_window.ui:107
+msgid "page1"
+msgstr ""
+
+#: data/ui/menu.ui:6
+msgid "Dark Mode"
+msgstr ""
+
+#: data/ui/menu.ui:16
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: data/ui/menu.ui:20
+msgid "About Notejot"
+msgstr ""
+
+#: data/ui/move_to_dialog.ui:22
+msgid "Move To"
+msgstr ""
+
+#: data/ui/move_to_dialog.ui:25
+msgid "Move"
+msgstr ""
+
+#: data/ui/note_menu.ui:22
+msgid "Move To…"
+msgstr ""
+
+#: data/ui/note_menu.ui:57
 msgid "Red"
 msgstr "Vermelho"
 
-#: src/MainWindow.vala:349
+#: data/ui/note_menu.ui:78
 msgid "Orange"
 msgstr "Laranja"
 
-#: src/MainWindow.vala:360
+#: data/ui/note_menu.ui:100
 msgid "Yellow"
 msgstr "Amarelo"
 
-#: src/MainWindow.vala:371
-msgid "Green"
-msgstr "Verde"
-
-#: src/MainWindow.vala:382
+#: data/ui/note_menu.ui:122
 msgid "Blue"
 msgstr "Azul"
 
-#: src/MainWindow.vala:393
-msgid "Indigo"
-msgstr "Anil"
+#: data/ui/note_menu.ui:144
+msgid "Purple"
+msgstr ""
 
-#: src/MainWindow.vala:404
-msgid "Cocoa"
-msgstr "Castanho"
+#: data/ui/note_menu.ui:166
+msgid "Brown"
+msgstr ""
 
-#: src/MainWindow.vala:415
-msgid "Slate"
-msgstr "Ardósia"
+#: data/ui/note_menu.ui:188
+msgid "Green"
+msgstr "Verde"
 
-#: src/MainWindow.vala:432
-msgid "Note Color"
+#: data/ui/note_menu.ui:210
+#, fuzzy
+msgid "No Color"
 msgstr "Cor da Nota"
 
-#: src/MainWindow.vala:448
-msgid "Settings"
-msgstr "Definições"
+#: data/ui/note_menu.ui:265
+msgid "Move to Trash"
+msgstr ""
+
+#: data/ui/shortcuts.ui:15
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: data/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
+
+#: data/ui/shortcuts.ui:27
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Create New Note"
+msgstr "Nova nota"
+
+#: data/ui/title_menu.ui:48
+#, fuzzy
+msgid "Notebooks"
+msgstr "Cor da Nota"
+
+#: data/ui/title_menu.ui:83
+msgid "Edit Notebooks…"
+msgstr ""
+
+#~ msgid "Delete note"
+#~ msgstr "Apagar nota"
+
+#~ msgid "White"
+#~ msgstr "Branco"
+
+#~ msgid "Indigo"
+#~ msgstr "Anil"
+
+#~ msgid "Cocoa"
+#~ msgstr "Castanho"
+
+#~ msgid "Slate"
+#~ msgstr "Ardósia"

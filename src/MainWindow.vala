@@ -232,12 +232,13 @@ namespace Notejot {
                 update ();
             });
 
-            tm.load_from_file.begin ();
-
             notebookstore = new GLib.ListStore (typeof (Notebook));
             notebookstore.items_changed.connect (() => {
                 tm.save_notebooks.begin (notebookstore);
             });
+
+            tm.load_from_file.begin ();
+            tm.load_from_file_nb.begin ();
 
             this.set_size_request (375, 280);
             this.show_all ();
@@ -299,6 +300,13 @@ namespace Notejot {
             listview.is_modified = true;
 
             notestore.append(log);
+        }
+
+        public void make_notebook (string title) {
+            var nb = new Notebook ();
+            nb.title = title;
+
+            notebookstore.append(nb);
         }
 
         public async void on_create_new () {
@@ -397,7 +405,6 @@ namespace Notejot {
 
         public void action_edit_notebooks () {
             var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
-            tm.load_from_file_nb.begin (edit_nb_dialog);
         }
 
         public void action_dark_mode (GLib.SimpleAction action, GLib.Variant? parameter) {
