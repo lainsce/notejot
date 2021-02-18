@@ -9,12 +9,12 @@
     </section>
     <section id="edit">
       <attribute name="label" translatable="yes">Notebooks</attribute>
-      <item>
-        <attribute name="label" translatable="yes">Edit Notebooks…</attribute>
-        <attribute name="action">win.action_edit_notebooks</attribute>
-      </item>
     </section>
     <section>
+      <item>
+        <attribute name="label" translatable="yes">Manage Notebooks…</attribute>
+        <attribute name="action">win.action_edit_notebooks</attribute>
+      </item>
       <item>
         <attribute name="label" translatable="yes">Trash</attribute>
         <attribute name="action">win.action_trash</attribute>

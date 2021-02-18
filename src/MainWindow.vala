@@ -235,16 +235,17 @@ namespace Notejot {
             notebookstore = new GLib.ListStore (typeof (Notebook));
             notebookstore.items_changed.connect (() => {
                 tm.save_notebooks.begin (notebookstore);
+                ((Menu)tbuilder.get_object ("edit")).remove_all ();
 
                 uint i, n = notebookstore.get_n_items ();
                 for (i = 0; i < n; i++) {
                     var item = notebookstore.get_item (i);
-
                     string notebook_name = (((Notebook)item).title);
 
                     var menuitem = new GLib.MenuItem (notebook_name, null);
                     menuitem.set_action_and_target_value ("win.select_notebook", notebook_name);
-                    ((Menu)tbuilder.get_object ("edit")).insert_item (0, menuitem);
+
+                    ((Menu)tbuilder.get_object ("edit")).insert_item (-1, menuitem);
                 }
             });
 
@@ -426,10 +427,12 @@ namespace Notejot {
 
         public void action_move_to () {
             var move_to_dialog = new Widgets.MoveToDialog (this);
+            move_to_dialog.show_all ();
         }
 
         public void action_edit_notebooks () {
             var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
+            edit_nb_dialog.show_all ();
         }
 
         public void action_dark_mode (GLib.SimpleAction action, GLib.Variant? parameter) {
