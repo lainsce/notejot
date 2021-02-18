@@ -79,6 +79,7 @@ namespace Notejot {
         public const string ACTION_DARK_MODE = "action_dark_mode";
         public const string ACTION_MOVE_TO = "action_move_to";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
+        public const string ACTION_NOTEBOOK = "select_notebook";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
@@ -90,6 +91,7 @@ namespace Notejot {
               {ACTION_MOVE_TO, action_move_to},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
               {ACTION_DARK_MODE, action_dark_mode, null, "false", null},
+              {ACTION_NOTEBOOK, select_notebook, "s"},
         };
 
         public Gtk.Application app { get; construct; }
@@ -202,12 +204,13 @@ namespace Notejot {
 
             trash_scroller.add (trashview);
 
-            var title_pop = new Widgets.TitleMenu (this);
+            var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
+            var tmenu = (Menu)tbuilder.get_object ("tmenu");
 
             sidebar_title_button = new Widgets.HeaderBarButton ();
             sidebar_title_button.has_tooltip = true;
             sidebar_title_button.title = (_("All Notes"));
-            sidebar_title_button.menu.popover = title_pop;
+            sidebar_title_button.menu.menu_model = tmenu;
             sidebar_title_button.show_all ();
             sidebar_title_button.get_style_context ().add_class ("rename-button");
             sidebar_title_button.get_style_context ().add_class ("flat");
@@ -237,22 +240,11 @@ namespace Notejot {
                 for (i = 0; i < n; i++) {
                     var item = notebookstore.get_item (i);
 
-                    var nb_label = new Gtk.ModelButton ();
-                    nb_label.text = (((Notebook)item).title);
-                    nb_label.visible = true;
-                    title_pop.nb_box.add (nb_label);
+                    string notebook_name = (((Notebook)item).title);
 
-                    nb_label.clicked.connect (() => {
-                        sidebar_title_button.title = nb_label.text;
-                        listview.set_search_text (sidebar_title_button.title);
-
-                        main_stack.set_visible_child (empty_state);
-                        if (listview.get_selected_row () != null) {
-                            listview.unselect_row(listview.get_selected_row ());
-                        }
-                        settingmenu.visible = false;
-                        titlebar.title = "";
-                    });
+                    var menuitem = new GLib.MenuItem (notebook_name, null);
+                    menuitem.set_action_and_target_value ("win.select_notebook", notebook_name);
+                    ((Menu)tbuilder.get_object ("edit")).insert_item (0, menuitem);
                 }
             });
 
@@ -343,6 +335,18 @@ namespace Notejot {
                 main_stack.set_visible_child (empty_state);
             }
             settingmenu.visible = true;
+        }
+
+        public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
+            sidebar_title_button.title = parameter.get_string ();
+            listview.set_search_text (parameter.get_string ());
+
+            main_stack.set_visible_child (empty_state);
+            if (listview.get_selected_row () != null) {
+                listview.unselect_row(listview.get_selected_row ());
+            }
+            settingmenu.visible = false;
+            titlebar.title = "";
         }
 
         public void action_about () {

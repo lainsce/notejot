@@ -80,11 +80,12 @@ namespace Notejot {
             subtitlelabel.get_style_context ().add_class ("dim-label");
 
             notebooklabel = new Gtk.Label (log.notebook);
+            notebooklabel.set_use_markup (true);
             notebooklabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             notebooklabel.get_style_context ().add_class ("dim-label");
 
             if (log.notebook == "") {
-                notebooklabel.label = _("No Notebook");
+                notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
             } else {
                 notebooklabel.label = log.notebook;
             }
