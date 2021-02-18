@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-17 22:07-0300\n"
-"PO-Revision-Date: 2021-02-15 14:04+0100\n"
+"PO-Revision-Date: 2021-02-18 13:50+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
 "Language: nl_NL\n"
@@ -15,167 +15,166 @@ msgstr ""
 
 #: src/MainWindow.vala:101 src/MainWindow.vala:337
 msgid "Notejot"
-msgstr ""
+msgstr "Notejot"
 
 #: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
 msgid "All Notes"
-msgstr ""
+msgstr "Alle notities"
 
 #: src/MainWindow.vala:342
 msgid "Jot your ideas."
-msgstr ""
+msgstr "Noteer je ideeën."
 
 #: src/MainWindow.vala:348
 msgid "translator-credits"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: src/MainWindow.vala:367 data/ui/title_menu.ui:110
 msgid "Trash"
-msgstr ""
+msgstr "Prullenbak"
 
 #: src/MainWindow.vala:378
 msgid "Empty the Trashed Notes?"
-msgstr ""
+msgstr "Weet je zeker dat je de prullenbak wilt legen?"
 
 #: src/MainWindow.vala:379
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
-msgstr ""
+msgstr "Hierdoor worden alle notities permanent verwijderd."
 
 #: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: src/MainWindow.vala:381 data/ui/menu.ui:10
 msgid "Empty Trash"
-msgstr ""
+msgstr "Prullenbak legen"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
 msgid "%a, %b %e, %Y"
-msgstr ""
+msgstr "%a, %e %B, %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Services/Utils.vala:19
 msgid "%b %e %Y"
-msgstr ""
+msgstr "%e %B %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Services/Utils.vala:22
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Services/Utils.vala:25
 msgid "%b %e"
-msgstr ""
+msgstr "%e %B"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Services/Utils.vala:28
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: src/Services/Utils.vala:31
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Services/Utils.vala:34
 msgid "%a, %b %e"
-msgstr ""
+msgstr "%a, %e %B"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Services/Utils.vala:37
 msgid "%b"
-msgstr ""
+msgstr "%B"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: src/Services/Utils.vala:47
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: src/Services/Utils.vala:50
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: src/Services/Utils.vala:55
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: src/Services/Utils.vala:58
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: src/Services/Utils.vala:80
 msgid "Now"
-msgstr ""
+msgstr "Zojuist"
 
 #: src/Services/Utils.vala:83
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minuut geleden"
+msgstr[1] "%d minuten geleden"
 
 #: src/Services/Utils.vala:86
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d uur geleden"
+msgstr[1] "%d uur geleden"
 
 #: src/Services/Utils.vala:92
 #, c-format
 msgid "in %d minute"
 msgid_plural "in %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %d minuut"
+msgstr[1] "over %d minuten"
 
 #: src/Services/Utils.vala:95
 #, c-format
 msgid "in %d hour"
 msgid_plural "in %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %d uur"
+msgstr[1] "over %d uur"
 
 #: src/Services/Utils.vala:101
 msgid "Yesterday"
-msgstr ""
+msgstr "Gisteren"
 
 #: src/Services/Utils.vala:103
 msgid "Tomorrow"
-msgstr ""
+msgstr "Morgen"
 
 #: src/Views/ListView.vala:22
 msgid "No Notes"
-msgstr ""
+msgstr "Geen notities"
 
 #: src/Views/ListView.vala:23
 msgid "Use the + button to add a note."
-msgstr ""
+msgstr "Klik op de '+'-knop om een notitie te maken."
 
 #: src/Views/TrashView.vala:16
 msgid "No Trash"
-msgstr ""
+msgstr "Geen prulllenbakitems"
 
 #: src/Views/TrashView.vala:17
 msgid "Trashed notes appear here."
-msgstr ""
+msgstr "Items in de prullenbak verschijnen hier."
 
 #: src/Widgets/SettingMenu.vala:61
-#, fuzzy
 msgid "Note Settings"
-msgstr "Instellingen"
+msgstr "Notitie-instellingen"
 
 #: src/Widgets/Note.vala:87
 msgid "No Notebook"
-msgstr ""
+msgstr "Geen notitieboek"
 
 #: src/Widgets/Note.vala:193
 #, c-format
@@ -205,6 +204,30 @@ msgid ""
 "            }\n"
 "            "
 msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: %s;\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: shade(%s, 0.8);\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-label-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-label-dark-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-dark-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            "
 
 #: src/Widgets/TrashedItem.vala:61
 #, c-format
@@ -222,88 +245,99 @@ msgid ""
 "            }\n"
 "            "
 msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: %s;\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: shade(%s, 0.8);\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            "
 
 #: src/Widgets/EditNotebookDialog.vala:69
 msgid "Remove notebook"
-msgstr ""
+msgstr "Notitieboek verwijderen"
 
 #: data/ui/edit_notebooks.ui:7 data/ui/edit_notebooks.ui:19
 #: data/ui/move_to_dialog.ui:8
 msgid "Edit Notebooks"
-msgstr ""
+msgstr "Notitieboeken bewerken"
 
 #: data/ui/edit_notebooks.ui:44
-#, fuzzy
 msgid "New Notebook…"
-msgstr "Nieuwe notitie"
+msgstr "Nieuw notitieboek…"
 
 #: data/ui/edit_notebooks.ui:55
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #: data/ui/formatbar.ui:18
 msgid "Removes formatting from selected text"
-msgstr ""
+msgstr "Verwijder opmaak uit geselecteerde tekst"
 
 #: data/ui/formatbar.ui:52
 msgid "Makes selected text emboldened"
-msgstr ""
+msgstr "Maak geselecteerde tekst vetgedrukt"
 
 #: data/ui/formatbar.ui:75
 msgid "Makes selected text italicized"
-msgstr ""
+msgstr "Maak geselecteerde tekst cursief"
 
 #: data/ui/formatbar.ui:98
 msgid "Makes selected text underlined"
-msgstr ""
+msgstr "Onderstreep geselecteerde tekst"
 
 #: data/ui/formatbar.ui:121
 msgid "Makes selected text striked through"
-msgstr ""
+msgstr "Haal geselecteerde tekst door"
 
 #: data/ui/formatbar.ui:155
 msgid "Makes selected text an unordered list"
-msgstr ""
+msgstr "Maak een ongeordende lijst van de geselecteerde tekst"
 
 #: data/ui/formatbar.ui:178
 msgid "Makes selected text an ordered list"
-msgstr ""
+msgstr "Maak een geordende lijst van de geselecteerde tekst"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
-msgstr ""
+msgstr "Zoeken naar notities"
 
 #: data/ui/main_window.ui:96 data/ui/main_window.ui:176
 msgid "page0"
-msgstr ""
+msgstr "pagina0"
 
 #: data/ui/main_window.ui:107
 msgid "page1"
-msgstr ""
+msgstr "pagina1"
 
 #: data/ui/menu.ui:6
 msgid "Dark Mode"
-msgstr ""
+msgstr "Donker thema"
 
 #: data/ui/menu.ui:16
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
 #: data/ui/menu.ui:20
 msgid "About Notejot"
-msgstr ""
+msgstr "Over Notejot"
 
 #: data/ui/move_to_dialog.ui:22
 msgid "Move To"
-msgstr ""
+msgstr "Verplaatsen naar"
 
 #: data/ui/move_to_dialog.ui:25
 msgid "Move"
-msgstr ""
+msgstr "Verplaatsen"
 
 #: data/ui/note_menu.ui:22
 msgid "Move To…"
-msgstr ""
+msgstr "Verplaatsen naar…"
 
 #: data/ui/note_menu.ui:57
 msgid "Red"
@@ -323,49 +357,46 @@ msgstr "Blauw"
 
 #: data/ui/note_menu.ui:144
 msgid "Purple"
-msgstr ""
+msgstr "Paars"
 
 #: data/ui/note_menu.ui:166
 msgid "Brown"
-msgstr ""
+msgstr "Bruin"
 
 #: data/ui/note_menu.ui:188
 msgid "Green"
 msgstr "Groen"
 
 #: data/ui/note_menu.ui:210
-#, fuzzy
 msgid "No Color"
-msgstr "Notitiekleur"
+msgstr "Kleurloos"
 
 #: data/ui/note_menu.ui:265
 msgid "Move to Trash"
-msgstr ""
+msgstr "Verplaatsen naar prullenbak"
 
 #: data/ui/shortcuts.ui:15
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: data/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Afsluiten"
 
 #: data/ui/shortcuts.ui:27
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Create New Note"
-msgstr "Nieuwe notitie"
+msgstr "Nieuwe notitie maken"
 
 #: data/ui/title_menu.ui:48
-#, fuzzy
 msgid "Notebooks"
-msgstr "Notitiekleur"
+msgstr "Notitieboeken"
 
 #: data/ui/title_menu.ui:83
 msgid "Edit Notebooks…"
-msgstr ""
+msgstr "Notitieboeken bewerken…"
 
 #~ msgid "Delete note"
 #~ msgstr "Notitie verwijderen"
