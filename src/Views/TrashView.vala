@@ -9,6 +9,7 @@ namespace Notejot {
             is_modified = false;
             this.show_all ();
             this.set_selection_mode (Gtk.SelectionMode.NONE);
+            this.get_style_context ().add_class ("notejot-view");
 
             var empty_state = new Hdy.StatusPage ();
             empty_state.visible = true;

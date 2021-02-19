@@ -104,3 +104,7 @@
 .empty-state {
   background: shade(@theme_bg_color, 0.95);
 }
+
+.notejot-view {
+  background: @theme_bg_color;
+}

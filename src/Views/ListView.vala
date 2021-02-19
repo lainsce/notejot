@@ -13,6 +13,7 @@ namespace Notejot {
             this.show_all ();
             this.set_selection_mode (Gtk.SelectionMode.SINGLE);
             this.set_activate_on_single_click (true);
+            this.get_style_context ().add_class ("notejot-view");
 
             set_filter_func (do_filter_list);
 

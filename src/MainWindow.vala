@@ -132,7 +132,6 @@ namespace Notejot {
                 style.add_class ("devel");
             }
 
-            this.get_style_context ().add_class ("notejot-view");
             int w = Notejot.Application.gsettings.get_int("window-w");
             int h = Notejot.Application.gsettings.get_int("window-h");
             this.resize (w, h);
