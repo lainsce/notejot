@@ -76,8 +76,6 @@ namespace Notejot {
         public const string ACTION_TRASH = "action_trash";
         public const string ACTION_KEYS = "action_keys";
         public const string ACTION_TRASH_NOTES = "action_trash_notes";
-        public const string ACTION_DARK_MODE = "action_dark_mode";
-        public const string ACTION_FONT_SIZE = "action_font_size";
         public const string ACTION_MOVE_TO = "action_move_to";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public const string ACTION_NOTEBOOK = "select_notebook";
@@ -90,9 +88,7 @@ namespace Notejot {
               {ACTION_KEYS, action_keys},
               {ACTION_TRASH_NOTES, action_trash_notes},
               {ACTION_MOVE_TO, action_move_to},
-              {ACTION_FONT_SIZE, action_font_size, "s", "'medium'", change_font_size},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
-              {ACTION_DARK_MODE, action_dark_mode, null, "false", null},
               {ACTION_NOTEBOOK, select_notebook, "s"},
         };
 
@@ -122,8 +118,8 @@ namespace Notejot {
         }
 
         construct {
+            // Initial settings
             Hdy.init ();
-            // Setting CSS
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Notejot/app.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -137,16 +133,12 @@ namespace Notejot {
             }
 
             this.get_style_context ().add_class ("notejot-view");
-            int x = Notejot.Application.gsettings.get_int("window-x");
-            int y = Notejot.Application.gsettings.get_int("window-y");
             int w = Notejot.Application.gsettings.get_int("window-w");
             int h = Notejot.Application.gsettings.get_int("window-h");
-            if (x != -1 && y != -1) {
-                this.move (x, y);
-            }
             this.resize (w, h);
-            tm = new TaskManager (this);
+            //
 
+            // Actions
             actions = new SimpleActionGroup ();
             actions.add_action_entries (ACTION_ENTRIES, this);
             insert_action_group ("win", actions);
@@ -158,7 +150,16 @@ namespace Notejot {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
 
+            var action_darkmode = Notejot.Application.gsettings.create_action ("dark-mode");
+            app.add_action(action_darkmode);
+
+            var action_fontsize = Notejot.Application.gsettings.create_action ("font-size");
+            app.add_action(action_fontsize);
+            //
+
             // Main View
+            tm = new TaskManager (this);
+
             settingmenu = new Widgets.SettingMenu(this);
             settingmenu.visible = false;
             settingmenu.no_show_all = true;
@@ -287,14 +288,10 @@ namespace Notejot {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            int x, y;
-            get_position (out x, out y);
             int w, h;
             get_size (out w, out h);
             Notejot.Application.gsettings.set_int("window-w", w);
             Notejot.Application.gsettings.set_int("window-h", h);
-            Notejot.Application.gsettings.set_int("window-x", x);
-            Notejot.Application.gsettings.set_int("window-y", y);
             return false;
         }
 
@@ -338,14 +335,6 @@ namespace Notejot {
                 main_stack.set_visible_child (empty_state);
             }
             settingmenu.visible = true;
-        }
-
-        public void action_font_size (GLib.SimpleAction action, GLib.Variant? parameter) {
-            action.change_state (parameter);
-        }
-        public void change_font_size (GLib.SimpleAction action, GLib.Variant? state) {
-            action.set_state (state);
-            Notejot.Application.gsettings.set_string("font-size", state.get_string ());
         }
 
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
@@ -443,16 +432,6 @@ namespace Notejot {
         public void action_edit_notebooks () {
             var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
             edit_nb_dialog.show_all ();
-        }
-
-        public void action_dark_mode (GLib.SimpleAction action, GLib.Variant? parameter) {
-            if (action.state.get_boolean ()) {
-                action.set_state (new Variant.boolean (false));
-                Notejot.Application.gsettings.set_boolean("dark-mode", false);
-            } else {
-                action.set_state (new Variant.boolean (true));
-                Notejot.Application.gsettings.set_boolean("dark-mode", true);
-            }
         }
     }
 }

@@ -1,15 +1,5 @@
 <schemalist>
 	<schema id="io.github.lainsce.Notejot" path="/io/github/lainsce/Notejot/">
-		<key name="window-x" type="i">
-			<default>-1</default>
-			<summary>Window position</summary>
-			<description>The x axis of window position</description>
-		</key>
-		<key name="window-y" type="i">
-			<default>-1</default>
-			<summary>Window position</summary>
-			<description>The y axis of window position</description>
-		</key>
 		<key name="window-w" type="i">
 			<default>800</default>
 			<summary>Window geometry</summary>
@@ -24,16 +14,6 @@
 			<default>false</default>
 			<summary>Dark Mode</summary>
 			<description>Whether to go dark</description>
-		</key>
-		<key type="b" name="pinned">
-			<default>false</default>
-			<summary>Pin To Desktop</summary>
-			<description>Whether to pin the app to the desktop like an applet</description>
-		</key>
-		<key type="b" name="show-formattingbar">
-			<default>false</default>
-			<summary>Show/Hide Formatting Bar</summary>
-			<description>Whether to show or not the Formatting Bar</description>
 		</key>
 		<key type="s" name="last-view">
 			<default>"grid"</default>

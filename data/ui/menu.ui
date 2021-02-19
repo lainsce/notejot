@@ -7,23 +7,23 @@
     </item>
     <item>
       <attribute name="label" translatable="yes">Small</attribute>
-      <attribute name="action">win.action_font_size</attribute>
+      <attribute name="action">app.font-size</attribute>
       <attribute name="target">'small'</attribute>
     </item>
     <item>
       <attribute name="label" translatable="yes">Medium</attribute>
-      <attribute name="action">win.action_font_size</attribute>
+      <attribute name="action">app.font-size</attribute>
       <attribute name="target">'medium'</attribute>
     </item>
     <item>
       <attribute name="label" translatable="yes">Large</attribute>
-      <attribute name="action">win.action_font_size</attribute>
+      <attribute name="action">app.font-size</attribute>
       <attribute name="target">'large'</attribute>
     </item>
     <section>
       <item>
         <attribute name="label" translatable="yes">Dark Mode</attribute>
-        <attribute name="action">win.action_dark_mode</attribute>
+        <attribute name="action">app.dark-mode</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Empty Trash</attribute>
