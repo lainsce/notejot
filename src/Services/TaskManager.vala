@@ -87,9 +87,13 @@ namespace Notejot {
                         var subtitle = task.get_string_element(1);
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
-                        var notebook = task.get_string_element(4);
+                        if (task.get_string_element(4) != null) {
+                            var notebook = task.get_string_element(4);
 
-                        win.make_note (title, subtitle, text, color, notebook);
+                            win.make_note (title, subtitle, text, color, notebook);
+                        } else {
+                            win.make_note (title, subtitle, text, color, "");
+                        }
                     }
                 }
             } catch (Error e) {

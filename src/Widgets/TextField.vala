@@ -124,15 +124,7 @@ namespace Notejot {
         public async void update_html_view () {
             string style = set_stylesheet ();
             string fstyle = set_font_stylesheet ();
-            var html = """
-            <!DOCTYPE html>
-            <html lang="en-us">
-                <head>
-                    <meta charset="utf-8">
-                    <style>%s %s</style>
-                </head>
-                <body>%s</body>
-            </html>""".printf(style, fstyle, text);
+            var html = """<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><style>%s %s</style></head><body>%s</body></html>""".printf(style, fstyle, text);
             this.load_html (html, "file:///");
         }
     }
