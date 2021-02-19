@@ -62,8 +62,7 @@
                     <li>Text Size of the Notes can be adjusted in 3 sizes</li>
                     <li>Minor UI improvements all around</li>
                 </ul>
-                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak
-                   Otherwise, they're in ~/.local/config/io.github.lainsce.Notejot. Happy notetaking!</p>
+                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
         </release>
         <release version="2.6.0" date="2020-02-01">
