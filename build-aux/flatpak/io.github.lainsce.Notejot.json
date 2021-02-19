@@ -57,9 +57,8 @@
             ],
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/lainsce/notejot",
-                    "branch" : "master"
+                    "type" : "dir",
+                    "path": "../../"
                 }
             ]
         }
