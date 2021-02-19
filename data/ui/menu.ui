@@ -1,6 +1,25 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <menu id="menu">
+    <item>
+      <attribute name="label" translatable="yes">Text Size</attribute>
+      <attribute name="action">none</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Small</attribute>
+      <attribute name="action">win.action_font_size</attribute>
+      <attribute name="target">'small'</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Medium</attribute>
+      <attribute name="action">win.action_font_size</attribute>
+      <attribute name="target">'medium'</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Large</attribute>
+      <attribute name="action">win.action_font_size</attribute>
+      <attribute name="target">'large'</attribute>
+    </item>
     <section>
       <item>
         <attribute name="label" translatable="yes">Dark Mode</attribute>

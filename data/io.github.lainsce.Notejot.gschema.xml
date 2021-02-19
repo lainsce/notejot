@@ -40,5 +40,10 @@
 			<summary>Last View Used</summary>
 			<description>The last view used in the UI</description>
 		</key>
+	  <key type="s" name="font-size">
+			<default>"medium"</default>
+			<summary>Notes Font Size</summary>
+			<description>The size of the font used in notes. (Small, Medium, Large)</description>
+		</key>
 	</schema>
 </schemalist>

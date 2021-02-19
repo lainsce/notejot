@@ -109,17 +109,30 @@ namespace Notejot {
             }
         }
 
+        private string set_font_stylesheet () {
+            if (Notejot.Application.gsettings.get_string("font-size") == "'small'") {
+                return Styles.small.css;
+            } else if (Notejot.Application.gsettings.get_string("font-size") == "'medium'") {
+                return Styles.medium.css;
+            } else if (Notejot.Application.gsettings.get_string("font-size") == "'large'") {
+                return Styles.large.css;
+            } else {
+                return Styles.medium.css;
+            }
+        }
+
         public async void update_html_view () {
             string style = set_stylesheet ();
+            string fstyle = set_font_stylesheet ();
             var html = """
             <!DOCTYPE html>
             <html lang="en-us">
                 <head>
                     <meta charset="utf-8">
-                    <style>%s</style>
+                    <style>%s %s</style>
                 </head>
                 <body>%s</body>
-            </html>""".printf(style, text);
+            </html>""".printf(style, fstyle, text);
             this.load_html (html, "file:///");
         }
     }

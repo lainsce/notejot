@@ -28,7 +28,6 @@ public class Notejot.Styles.dark {
       background-color: #222;
       font-family: "Cantarell", Arial, Helvetica, sans-serif;
       font-weight: 400;
-      font-size: 1.1rem;
       letter-spacing: 0.2;
       line-height: 1.45rem;
       text-align: left;

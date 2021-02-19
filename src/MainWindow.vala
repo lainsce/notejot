@@ -77,6 +77,7 @@ namespace Notejot {
         public const string ACTION_KEYS = "action_keys";
         public const string ACTION_TRASH_NOTES = "action_trash_notes";
         public const string ACTION_DARK_MODE = "action_dark_mode";
+        public const string ACTION_FONT_SIZE = "action_font_size";
         public const string ACTION_MOVE_TO = "action_move_to";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public const string ACTION_NOTEBOOK = "select_notebook";
@@ -89,6 +90,7 @@ namespace Notejot {
               {ACTION_KEYS, action_keys},
               {ACTION_TRASH_NOTES, action_trash_notes},
               {ACTION_MOVE_TO, action_move_to},
+              {ACTION_FONT_SIZE, action_font_size, "s", "'medium'", change_font_size},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
               {ACTION_DARK_MODE, action_dark_mode, null, "false", null},
               {ACTION_NOTEBOOK, select_notebook, "s"},
@@ -338,6 +340,14 @@ namespace Notejot {
             settingmenu.visible = true;
         }
 
+        public void action_font_size (GLib.SimpleAction action, GLib.Variant? parameter) {
+            action.change_state (parameter);
+        }
+        public void change_font_size (GLib.SimpleAction action, GLib.Variant? state) {
+            action.set_state (state);
+            Notejot.Application.gsettings.set_string("font-size", state.get_string ());
+        }
+
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
             sidebar_title_button.title = parameter.get_string ();
             listview.set_search_text (parameter.get_string ());
@@ -436,9 +446,13 @@ namespace Notejot {
         }
 
         public void action_dark_mode (GLib.SimpleAction action, GLib.Variant? parameter) {
-            var state = ((!) action.get_state ()).get_boolean ();
-            action.set_state (new Variant.boolean (!state));
-            Notejot.Application.gsettings.set_boolean("dark-mode", !state);
+            if (action.state.get_boolean ()) {
+                action.set_state (new Variant.boolean (false));
+                Notejot.Application.gsettings.set_boolean("dark-mode", false);
+            } else {
+                action.set_state (new Variant.boolean (true));
+                Notejot.Application.gsettings.set_boolean("dark-mode", true);
+            }
         }
     }
 }
