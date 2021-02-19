@@ -84,12 +84,6 @@ namespace Notejot {
             notebooklabel.get_style_context ().add_class ("notejot-label-%d".printf(uid));
             notebooklabel.get_style_context ().add_class ("dim-label");
 
-            if (log.notebook == "") {
-                notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
-            } else {
-                notebooklabel.label = log.notebook;
-            }
-
             var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             notebookicon.valign = Gtk.Align.CENTER;
             notebookicon.get_style_context ().add_class ("dim-label");
@@ -137,18 +131,24 @@ namespace Notejot {
                 sync_subtitles ();
             });
 
-            notebooklabel.notify["get-text"].connect (() => {
+            if (log.notebook != "") {
+                notebooklabel.label = log.notebook;
                 log.notebook = notebooklabel.get_text();
-            });
+            } else {
+                notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
+                log.notebook = notebooklabel.get_text();
+            }
 
             win.notebookstore.items_changed.connect (() => {
                 uint i, n = win.notestore.get_n_items ();
                 for (i = 0; i < n; i++) {
                     var item = win.notestore.get_item (i);
-                    if (((Log)item).notebook == "") {
-                        notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
-                    } else {
+                    if (((Log)item).notebook != "") {
                         notebooklabel.label = ((Log)item).notebook;
+                        ((Log)item).notebook = notebooklabel.get_text();
+                    } else {
+                        notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
+                        ((Log)item).notebook = notebooklabel.get_text();
                     }
                     win.tm.save_notes.begin (win.notestore);
                 }
