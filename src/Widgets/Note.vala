@@ -139,6 +139,10 @@ namespace Notejot {
                 log.notebook = notebooklabel.get_text();
             }
 
+            notebooklabel.notify["get-text"].connect (() => {
+                log.notebook = notebooklabel.get_text();
+            });
+
             win.notebookstore.items_changed.connect (() => {
                 uint i, n = win.notestore.get_n_items ();
                 for (i = 0; i < n; i++) {
@@ -263,6 +267,7 @@ namespace Notejot {
 
                         Timeout.add_seconds(1, () => {
                             set_subtitle ("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_first_line (log.text)));
+                            notebooklabel.label = log.notebook;
                             return true;
                         });
                     }
