@@ -17,7 +17,7 @@
     <developer_name>Lains</developer_name>
     <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
-    <url type="donation">https://liberapay.com/Lains/</url>
+    <url type="donation">https://www.patreon.com/lainsce/</url>
     <screenshots>
         <screenshot type="default">
             <image>https://raw.githubusercontent.com/lainsce/notejot/master/data/shot.png</image>
@@ -53,6 +53,16 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.7.0" date="2020-02-20">
+            <description>
+                <p>Release: Notebooks Noted Up</p>
+                <ul>
+                    <li>Notes now can be put into Notebooks, for more categorization</li>
+                    <li>Text Size of the Notes can be adjusted in 3 sizes</li>
+                    <li>Minor UI improvements all around</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.6.0" date="2020-02-01">
             <description>
                 <p>Release: User Interface Improved</p>

@@ -1,4 +1,4 @@
-project('io.github.lainsce.Notejot', ['vala', 'c'], version: '2.6.0')
+project('io.github.lainsce.Notejot', ['vala', 'c'], version: '2.7.0')
 gnome = import('gnome')
 i18n = import('i18n')
 
