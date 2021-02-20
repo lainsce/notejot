@@ -59,7 +59,7 @@ msgstr "Svuota Cestino"
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
 msgid "%a, %b %e, %Y"
-%a, %b %e, %Ymsgstr ""
+msgstr "%a, %b %e, %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Services/Utils.vala:19
@@ -91,7 +91,7 @@ msgstr "%a"
 #: src/Services/Utils.vala:34
 msgid "%a, %b %e"
 msgstr "%a, %b %e"
-%a %Y
+
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Services/Utils.vala:37
 msgid "%b"
