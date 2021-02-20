@@ -1,0 +1,406 @@
+# Swedish translation for Notejot.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lainsce.Notejot package.
+# Åke Engelbrektson <eson@svenskasprakfiler.se>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: io.github.lainsce.Notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-17 22:07-0300\n"
+"PO-Revision-Date: 2021-02-20 20:13+0100\n"
+"Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+#: src/MainWindow.vala:101 src/MainWindow.vala:337
+msgid "Notejot"
+msgstr "Notejot"
+
+#: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
+msgid "All Notes"
+msgstr "Alla anteckningar"
+
+#: src/MainWindow.vala:342
+msgid "Jot your ideas."
+msgstr "Skriv ner dina idéer."
+
+#: src/MainWindow.vala:348
+msgid "translator-credits"
+msgstr "Åke Engelbrektson <eson@svenskasprakfiler.se>"
+
+#: src/MainWindow.vala:367 data/ui/title_menu.ui:110
+msgid "Trash"
+msgstr "Papperskorg"
+
+#: src/MainWindow.vala:378
+msgid "Empty the Trashed Notes?"
+msgstr "Vill du tömma papperskorgen?"
+
+#: src/MainWindow.vala:379
+msgid ""
+"Emptying the trash means all the notes in it will be permanently lost with "
+"no recovery."
+msgstr ""
+"Tömning av papperskorgen innebär att alla anteckningar i den kommer att gå "
+"permanent förlorade utan möjlighet till återställning."
+
+#: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/MainWindow.vala:381 data/ui/menu.ui:10
+msgid "Empty Trash"
+msgstr "Töm papperskorgen"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
+#: src/Services/Utils.vala:16
+msgid "%a, %b %e, %Y"
+msgstr "%a %e %b %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
+#: src/Services/Utils.vala:19
+msgid "%b %e %Y"
+msgstr "%e %b %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the year
+#: src/Services/Utils.vala:22
+msgid "%Y"
+msgstr "%Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date
+#: src/Services/Utils.vala:25
+msgid "%b %e"
+msgstr "%e %b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
+#: src/Services/Utils.vala:28
+msgid "%a %Y"
+msgstr "%a %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
+#: src/Services/Utils.vala:31
+#, c-format
+msgid "%a"
+msgstr "%a"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
+#: src/Services/Utils.vala:34
+msgid "%a, %b %e"
+msgstr "%a %e %b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
+#: src/Services/Utils.vala:37
+msgid "%b"
+msgstr "%b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
+#: src/Services/Utils.vala:47
+msgid "%-l:%M:%S %p"
+msgstr "%-l:%M:%S %p"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
+#: src/Services/Utils.vala:50
+msgid "%-l:%M %p"
+msgstr "%-l:%M %p"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
+#: src/Services/Utils.vala:55
+msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
+#: src/Services/Utils.vala:58
+msgid "%H:%M"
+msgstr "%H:%M"
+
+#: src/Services/Utils.vala:80
+msgid "Now"
+msgstr "Nu"
+
+#: src/Services/Utils.vala:83
+#, c-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "%d minut sedan"
+msgstr[1] "%d minuter sedan"
+
+#: src/Services/Utils.vala:86
+#, c-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "%d timma sedan"
+msgstr[1] "%d timmar sedan"
+
+#: src/Services/Utils.vala:92
+#, c-format
+msgid "in %d minute"
+msgid_plural "in %d minutes"
+msgstr[0] "om %d minut"
+msgstr[1] "om %d minuter"
+
+#: src/Services/Utils.vala:95
+#, c-format
+msgid "in %d hour"
+msgid_plural "in %d hours"
+msgstr[0] "om %d timma"
+msgstr[1] "om %d timmar"
+
+#: src/Services/Utils.vala:101
+msgid "Yesterday"
+msgstr "Igår"
+
+#: src/Services/Utils.vala:103
+msgid "Tomorrow"
+msgstr "I morgon"
+
+#: src/Views/ListView.vala:22
+msgid "No Notes"
+msgstr "Inga anteckningar"
+
+#: src/Views/ListView.vala:23
+msgid "Use the + button to add a note."
+msgstr "Använd + för att lägga till en anteckning."
+
+#: src/Views/TrashView.vala:16
+msgid "No Trash"
+msgstr "Inget skräp"
+
+#: src/Views/TrashView.vala:17
+msgid "Trashed notes appear here."
+msgstr "Kasserade anteckningar visas här."
+
+#: src/Widgets/SettingMenu.vala:61
+msgid "Note Settings"
+msgstr "Anteckningsinställningar"
+
+#: src/Widgets/Note.vala:87
+msgid "No Notebook"
+msgstr "Ingen anteckningsbok"
+
+#: src/Widgets/Note.vala:193
+#, c-format
+msgid ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: %s;\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: shade(%s, 0.8);\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-label-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-label-dark-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-dark-%d {\n"
+"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            "
+msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                kant: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: %s;\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"              kant: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: skugga(%s, 0.8);\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            .notejot-label-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-label-dark-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-dark-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            "
+
+#: src/Widgets/TrashedItem.vala:61
+#, c-format
+msgid ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: %s;\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                border: 1px solid alpha(black, 0.25);\n"
+"                background: shade(%s, 0.8);\n"
+"                border-radius: 50px;\n"
+"            }\n"
+"            "
+msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                kantr: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: %s;\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                kant: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: skugga(%s, 0.8);\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            "
+
+#: src/Widgets/EditNotebookDialog.vala:69
+msgid "Remove notebook"
+msgstr "Ta bort anteckningsbok"
+
+#: data/ui/edit_notebooks.ui:7 data/ui/edit_notebooks.ui:19
+#: data/ui/move_to_dialog.ui:8
+msgid "Edit Notebooks"
+msgstr "Redigera anteckningsböcker"
+
+#: data/ui/edit_notebooks.ui:44
+msgid "New Notebook…"
+msgstr "Ny anteckningsbok…"
+
+#: data/ui/edit_notebooks.ui:55
+msgid "Add"
+msgstr "Lägg till"
+
+#: data/ui/formatbar.ui:18
+msgid "Removes formatting from selected text"
+msgstr "Tar bort formatering från markerad text"
+
+#: data/ui/formatbar.ui:52
+msgid "Makes selected text emboldened"
+msgstr "Gör markerad text fet"
+
+#: data/ui/formatbar.ui:75
+msgid "Makes selected text italicized"
+msgstr "Gör markerad text kursiv"
+
+#: data/ui/formatbar.ui:98
+msgid "Makes selected text underlined"
+msgstr "Gör markerad text understruken"
+
+#: data/ui/formatbar.ui:121
+msgid "Makes selected text striked through"
+msgstr "Gör markerad text genomstruken"
+
+#: data/ui/formatbar.ui:155
+msgid "Makes selected text an unordered list"
+msgstr "Gör markerad text till oordnad lista"
+
+#: data/ui/formatbar.ui:178
+msgid "Makes selected text an ordered list"
+msgstr "Gör markerad text till ordnad lista"
+
+#: data/ui/main_window.ui:76
+msgid "Search for notes"
+msgstr "Sök efter anteckningar"
+
+#: data/ui/main_window.ui:96 data/ui/main_window.ui:176
+msgid "page0"
+msgstr "sida0"
+
+#: data/ui/main_window.ui:107
+msgid "page1"
+msgstr "sida1"
+
+#: data/ui/menu.ui:6
+msgid "Dark Mode"
+msgstr "Mörk läge"
+
+#: data/ui/menu.ui:16
+msgid "Keyboard Shortcuts"
+msgstr "Tangenbordsgenvägar"
+
+#: data/ui/menu.ui:20
+msgid "About Notejot"
+msgstr "Om Notejot"
+
+#: data/ui/move_to_dialog.ui:22
+msgid "Move To"
+msgstr "Flytta till"
+
+#: data/ui/move_to_dialog.ui:25
+msgid "Move"
+msgstr "Flytta"
+
+#: data/ui/note_menu.ui:22
+msgid "Move To…"
+msgstr "Flytta till…"
+
+#: data/ui/note_menu.ui:57
+msgid "Red"
+msgstr "Röd"
+
+#: data/ui/note_menu.ui:78
+msgid "Orange"
+msgstr "Orange"
+
+#: data/ui/note_menu.ui:100
+msgid "Yellow"
+msgstr "Gul"
+
+#: data/ui/note_menu.ui:122
+msgid "Blue"
+msgstr "Blå"
+
+#: data/ui/note_menu.ui:144
+msgid "Purple"
+msgstr "Lila"
+
+#: data/ui/note_menu.ui:166
+msgid "Brown"
+msgstr "Brun"
+
+#: data/ui/note_menu.ui:188
+msgid "Green"
+msgstr "Grön"
+
+#: data/ui/note_menu.ui:210
+msgid "No Color"
+msgstr "Ingen färg"
+
+#: data/ui/note_menu.ui:265
+msgid "Move to Trash"
+msgstr "Flytta till papperskorgen"
+
+#: data/ui/shortcuts.ui:15
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Allmänt"
+
+#: data/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Avsluta"
+
+#: data/ui/shortcuts.ui:27
+msgctxt "shortcut window"
+msgid "Create New Note"
+msgstr "Skapa ny anteckning"
+
+#: data/ui/title_menu.ui:48
+msgid "Notebooks"
+msgstr "Anteckningsböcker"
+
+#: data/ui/title_menu.ui:83
+msgid "Edit Notebooks…"
+msgstr "Redigera anteckningsböcker…"
