@@ -371,7 +371,7 @@ msgstr "Modifica Quaderni..."
 #~ msgstr "Elimina nota"
 
 #~ msgid "White"
-#~ msgstr "Buanco"
+#~ msgstr "Bianco"
 
 #~ msgid "Indigo"
 #~ msgstr "Indaco"
