@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-17 21:29+0400\n"
-"PO-Revision-Date: 2021-02-12 09:38+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2021-02-22 00:11+0100\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Notejot"
 #: data/com.github.lainsce.notejot.appdata.xml.in:7
 #: data/com.github.lainsce.notejot.desktop.in:3
 msgid "Jot your ideas"
-msgstr "Anota tus ideas"
+msgstr "Anote sus ideas"
 
 #: data/com.github.lainsce.notejot.appdata.xml.in:9
 msgid ""
