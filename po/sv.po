@@ -1,20 +1,22 @@
+# Swedish translation for Notejot.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lainsce.Notejot package.
+# Åke Engelbrektson <eson@svenskasprakfiler.se>, 2021.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.lainsce.notejot\n"
+"Project-Id-Version: io.github.lainsce.Notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-17 22:07-0300\n"
-"PO-Revision-Date: 2021-02-20 11:35+0100\n"
-"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
-"Language-Team:IT\n"
-"Language: it\n"
+"PO-Revision-Date: 2021-02-20 20:13+0100\n"
+"Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
+"Language-Team: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../src\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Generator: Poedit 2.3\n"
 
 #: src/MainWindow.vala:101 src/MainWindow.vala:337
 msgid "Notejot"
@@ -22,49 +24,49 @@ msgstr "Notejot"
 
 #: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
 msgid "All Notes"
-msgstr "Tutte le note"
+msgstr "Alla anteckningar"
 
 #: src/MainWindow.vala:342
 msgid "Jot your ideas."
-msgstr "Annota le tue idee."
+msgstr "Skriv ner dina idéer."
 
 #: src/MainWindow.vala:348
 msgid "translator-credits"
-msgstr "Albano Battistella"
+msgstr "Åke Engelbrektson <eson@svenskasprakfiler.se>"
 
 #: src/MainWindow.vala:367 data/ui/title_menu.ui:110
 msgid "Trash"
-msgstr "Cestino"
+msgstr "Papperskorg"
 
 #: src/MainWindow.vala:378
 msgid "Empty the Trashed Notes?"
-msgstr "Svuotare le note nel cestino?"
+msgstr "Vill du tömma papperskorgen?"
 
 #: src/MainWindow.vala:379
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr ""
-"Svuotare il cestino significa che tutte le note in esso verranno perse definitivamente con "
-"nessun recupero."
+"Tömning av papperskorgen innebär att alla anteckningar i den kommer att gå "
+"permanent förlorade utan möjlighet till återställning."
 
 #: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
 msgid "Cancel"
-msgstr "Cancella"
+msgstr "Avbryt"
 
 #: src/MainWindow.vala:381 data/ui/menu.ui:10
 msgid "Empty Trash"
-msgstr "Svuota Cestino"
+msgstr "Töm papperskorgen"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
 msgid "%a, %b %e, %Y"
-msgstr "%a, %b %e, %Y"
+msgstr "%a %e %b %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Services/Utils.vala:19
 msgid "%b %e %Y"
-msgstr "%b %e %Y"
+msgstr "%e %b %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Services/Utils.vala:22
@@ -74,7 +76,7 @@ msgstr "%Y"
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Services/Utils.vala:25
 msgid "%b %e"
-msgstr "%b %e"
+msgstr "%e %b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Services/Utils.vala:28
@@ -90,7 +92,7 @@ msgstr "%a"
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Services/Utils.vala:34
 msgid "%a, %b %e"
-msgstr "%a, %b %e"
+msgstr "%a %e %b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Services/Utils.vala:37
@@ -119,67 +121,67 @@ msgstr "%H:%M"
 
 #: src/Services/Utils.vala:80
 msgid "Now"
-msgstr "Adesso"
+msgstr "Nu"
 
 #: src/Services/Utils.vala:83
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%d minuto fa"
-msgstr[1] "%d minuti fa"
+msgstr[0] "%d minut sedan"
+msgstr[1] "%d minuter sedan"
 
 #: src/Services/Utils.vala:86
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] "%d ora fa"
-msgstr[1] "%d ore fa"
+msgstr[0] "%d timma sedan"
+msgstr[1] "%d timmar sedan"
 
 #: src/Services/Utils.vala:92
 #, c-format
 msgid "in %d minute"
 msgid_plural "in %d minutes"
-msgstr[0] "in %d minuto"
-msgstr[1] "in %d minuti"
+msgstr[0] "om %d minut"
+msgstr[1] "om %d minuter"
 
 #: src/Services/Utils.vala:95
 #, c-format
 msgid "in %d hour"
 msgid_plural "in %d hours"
-msgstr[0] "in %d ora"
-msgstr[1] "in %d ore"
+msgstr[0] "om %d timma"
+msgstr[1] "om %d timmar"
 
 #: src/Services/Utils.vala:101
 msgid "Yesterday"
-msgstr "Ieri"
+msgstr "Igår"
 
 #: src/Services/Utils.vala:103
 msgid "Tomorrow"
-msgstr "Domani"
+msgstr "I morgon"
 
 #: src/Views/ListView.vala:22
 msgid "No Notes"
-msgstr "Nessuna Nota"
+msgstr "Inga anteckningar"
 
 #: src/Views/ListView.vala:23
 msgid "Use the + button to add a note."
-msgstr "Usa il pulsante + per aggiungere una nota."
+msgstr "Använd + för att lägga till en anteckning."
 
 #: src/Views/TrashView.vala:16
 msgid "No Trash"
-msgstr "Niente nel Cestino"
+msgstr "Inget skräp"
 
 #: src/Views/TrashView.vala:17
 msgid "Trashed notes appear here."
-msgstr "Le note nel cestino vengono visualizzate qui."
+msgstr "Kasserade anteckningar visas här."
 
 #: src/Widgets/SettingMenu.vala:61
 msgid "Note Settings"
-msgstr "Impostazioni Note"
+msgstr "Anteckningsinställningar"
 
 #: src/Widgets/Note.vala:87
 msgid "No Notebook"
-msgstr "Nessun Quaderno"
+msgstr "Ingen anteckningsbok"
 
 #: src/Widgets/Note.vala:193
 #, c-format
@@ -209,6 +211,30 @@ msgid ""
 "            }\n"
 "            "
 msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                kant: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: %s;\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"              kant: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: skugga(%s, 0.8);\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            .notejot-label-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-label-dark-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            .notejot-stack-dark-%d {\n"
+"                bakgrund: mix(%s, @theme_bg_color, 0.8);\n"
+"            }\n"
+"            "
 
 #: src/Widgets/TrashedItem.vala:61
 #, c-format
@@ -226,158 +252,155 @@ msgid ""
 "            }\n"
 "            "
 msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                kantr: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: %s;\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            .notejot-sidebar-dbg-dark-%d {\n"
+"                kant: 1px solid alpha(svart, 0.25);\n"
+"                bakgrund: skugga(%s, 0.8);\n"
+"                kantradie: 50px;\n"
+"            }\n"
+"            "
 
 #: src/Widgets/EditNotebookDialog.vala:69
 msgid "Remove notebook"
-msgstr "Rimuovi Quaderno"
+msgstr "Ta bort anteckningsbok"
 
 #: data/ui/edit_notebooks.ui:7 data/ui/edit_notebooks.ui:19
 #: data/ui/move_to_dialog.ui:8
 msgid "Edit Notebooks"
-msgstr "Modifica Quaderni"
+msgstr "Redigera anteckningsböcker"
 
 #: data/ui/edit_notebooks.ui:44
 msgid "New Notebook…"
-msgstr "Nuovo Quaderno..."
+msgstr "Ny anteckningsbok…"
 
 #: data/ui/edit_notebooks.ui:55
 msgid "Add"
-msgstr "Aggiungi"
+msgstr "Lägg till"
 
 #: data/ui/formatbar.ui:18
 msgid "Removes formatting from selected text"
-msgstr "Rimuove la formattazione dal testo selezionato"
+msgstr "Tar bort formatering från markerad text"
 
 #: data/ui/formatbar.ui:52
 msgid "Makes selected text emboldened"
-msgstr "Rende il testo selezionato in grassetto"
+msgstr "Gör markerad text fet"
 
 #: data/ui/formatbar.ui:75
 msgid "Makes selected text italicized"
-msgstr "Rende il testo selezionato in corsivo"
+msgstr "Gör markerad text kursiv"
 
 #: data/ui/formatbar.ui:98
 msgid "Makes selected text underlined"
-msgstr "Rende il testo selezionato sottolineato"
+msgstr "Gör markerad text understruken"
 
 #: data/ui/formatbar.ui:121
 msgid "Makes selected text striked through"
-msgstr "Rende il testo selezionato barrato"
+msgstr "Gör markerad text genomstruken"
 
 #: data/ui/formatbar.ui:155
 msgid "Makes selected text an unordered list"
-msgstr "Rende il testo selezionato un elenco non ordinato"
+msgstr "Gör markerad text till oordnad lista"
 
 #: data/ui/formatbar.ui:178
 msgid "Makes selected text an ordered list"
-msgstr "Rende il testo selezionato un elenco ordinato"
+msgstr "Gör markerad text till ordnad lista"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
-msgstr "Cerca note"
+msgstr "Sök efter anteckningar"
 
 #: data/ui/main_window.ui:96 data/ui/main_window.ui:176
 msgid "page0"
-msgstr "pagina0"
+msgstr "sida0"
 
 #: data/ui/main_window.ui:107
 msgid "page1"
-msgstr "pagina1"
+msgstr "sida1"
 
 #: data/ui/menu.ui:6
 msgid "Dark Mode"
-msgstr "Modalità Scura"
+msgstr "Mörk läge"
 
 #: data/ui/menu.ui:16
 msgid "Keyboard Shortcuts"
-msgstr "Scorciatoie da tastiera"
+msgstr "Tangenbordsgenvägar"
 
 #: data/ui/menu.ui:20
 msgid "About Notejot"
-msgstr "Informazioni su Notejot"
+msgstr "Om Notejot"
 
 #: data/ui/move_to_dialog.ui:22
 msgid "Move To"
-msgstr "Sposta in"
+msgstr "Flytta till"
 
 #: data/ui/move_to_dialog.ui:25
 msgid "Move"
-msgstr "Sposta"
+msgstr "Flytta"
 
 #: data/ui/note_menu.ui:22
 msgid "Move To…"
-msgstr "Sposta in..."
+msgstr "Flytta till…"
 
 #: data/ui/note_menu.ui:57
 msgid "Red"
-msgstr "Rosso"
+msgstr "Röd"
 
 #: data/ui/note_menu.ui:78
 msgid "Orange"
-msgstr "Arancione"
+msgstr "Orange"
 
 #: data/ui/note_menu.ui:100
 msgid "Yellow"
-msgstr "Giallo"
+msgstr "Gul"
 
 #: data/ui/note_menu.ui:122
 msgid "Blue"
-msgstr "Blu"
+msgstr "Blå"
 
 #: data/ui/note_menu.ui:144
 msgid "Purple"
-msgstr "Viola"
+msgstr "Lila"
 
 #: data/ui/note_menu.ui:166
 msgid "Brown"
-msgstr "Marrone"
+msgstr "Brun"
 
 #: data/ui/note_menu.ui:188
 msgid "Green"
-msgstr "Verde"
+msgstr "Grön"
 
 #: data/ui/note_menu.ui:210
 msgid "No Color"
-msgstr "Nesun Colore"
+msgstr "Ingen färg"
 
 #: data/ui/note_menu.ui:265
 msgid "Move to Trash"
-msgstr "Sposta nel Cestino"
+msgstr "Flytta till papperskorgen"
 
 #: data/ui/shortcuts.ui:15
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Generale"
+msgstr "Allmänt"
 
 #: data/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Esci"
+msgstr "Avsluta"
 
 #: data/ui/shortcuts.ui:27
 msgctxt "shortcut window"
 msgid "Create New Note"
-msgstr "Crea Nuova nota"
+msgstr "Skapa ny anteckning"
 
 #: data/ui/title_menu.ui:48
 msgid "Notebooks"
-msgstr "Quaderni"
+msgstr "Anteckningsböcker"
 
 #: data/ui/title_menu.ui:83
 msgid "Edit Notebooks…"
-msgstr "Modifica Quaderni..."
-
-#~ msgid "Delete note"
-#~ msgstr "Elimina nota"
-
-#~ msgid "White"
-#~ msgstr "Bianco"
-
-#~ msgid "Indigo"
-#~ msgstr "Indaco"
-
-#~ msgid "Cocoa"
-#~ msgstr "Cacao"
-
-#~ msgid "Slate"
-#~ msgstr "Ardesia"
+msgstr "Redigera anteckningsböcker…"
