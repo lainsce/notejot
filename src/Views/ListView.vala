@@ -74,9 +74,7 @@ namespace Notejot {
 
         protected bool do_filter_list (Gtk.ListBoxRow row) {
             if (search_text.length > 0) {
-                if (((Widgets.Note)row).get_title ().down ().contains (search_text.down ())) {
-                    return ((Widgets.Note)row).get_title ().down ().contains (search_text.down ());
-                }
+                return ((Widgets.Note)row).get_title ().down ().contains (search_text.down ());
             }
 
             return true;
