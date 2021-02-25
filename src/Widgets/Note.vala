@@ -283,10 +283,22 @@ namespace Notejot {
 
             try {
                 var reg = new Regex("""(?m)^(?<first_line>.+)$""");
+                var reg2 = new Regex("""(?m)(?<html><([A-Za-z][A-Za-z0-9]*)>)""");
+                var reg3 = new Regex("""(?m)(?<html2></([A-Za-z][A-Za-z0-9]*)>)""");
                 GLib.MatchInfo match;
+                GLib.MatchInfo match2;
+                GLib.MatchInfo match3;
 
                 if (reg.match (text, 0, out match) && text != null) {
-                    first_line = match.fetch_named ("first_line");
+                    if (reg2.match (text, 0, out match2)) {
+                        if (reg3.match (text, 0, out match3)) {
+                            first_line = match.fetch_named ("first_line")
+                                         .replace(match2.fetch_named ("html"),"")
+                                         .replace(match3.fetch_named ("html2"),"");
+                        }
+                    } else {
+                        first_line = match.fetch_named ("first_line");
+                    }
                 } else {
                     first_line = "Empty note.";
                 }
