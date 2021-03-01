@@ -47,7 +47,7 @@ msgstr ""
 
 #: data/com.github.lainsce.notejot.desktop.in:4
 msgid "com.github.lainsce.notejot"
-com.github.lainsce.notejotmsgstr ""
+msgstr "com.github.lainsce.notejot"
 
 #: data/com.github.lainsce.notejot.desktop.in:6
 msgid "Text;Plain;Plaintext;Notepad;"
