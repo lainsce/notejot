@@ -32,6 +32,12 @@ namespace Notejot {
             gsettings = new GLib.Settings ("io.github.lainsce.Notejot");
         }
 
+        construct {
+            Intl.setlocale (LocaleCategory.ALL, "");
+            Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.GNOMELOCALEDIR);
+            Intl.textdomain (Config.GETTEXT_PACKAGE);
+        }
+
         protected override void activate () {
             if (win != null) {
                 win.present ();
