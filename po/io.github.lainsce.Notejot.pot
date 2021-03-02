@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.lainsce.Notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 22:07-0300\n"
+"POT-Creation-Date: 2021-03-01 21:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,41 +18,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/MainWindow.vala:101 src/MainWindow.vala:337
+#: src/MainWindow.vala:101 src/MainWindow.vala:359
 msgid "Notejot"
 msgstr ""
 
-#: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
+#: src/MainWindow.vala:214 src/MainWindow.vala:377 data/ui/title_menu.ui:6
 msgid "All Notes"
 msgstr ""
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:327
+msgid "This is a text example."
+msgstr ""
+
+#: src/MainWindow.vala:364
 msgid "Jot your ideas."
 msgstr ""
 
-#: src/MainWindow.vala:348
+#: src/MainWindow.vala:370
 msgid "translator-credits"
 msgstr ""
 
-#: src/MainWindow.vala:367 data/ui/title_menu.ui:110
+#: src/MainWindow.vala:390 data/ui/title_menu.ui:10
 msgid "Trash"
 msgstr ""
 
-#: src/MainWindow.vala:378
+#: src/MainWindow.vala:402
 msgid "Empty the Trashed Notes?"
 msgstr ""
 
-#: src/MainWindow.vala:379
+#: src/MainWindow.vala:403
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr ""
 
-#: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
+#: src/MainWindow.vala:404 data/ui/move_to_dialog.ui:41
 msgid "Cancel"
 msgstr ""
 
-#: src/MainWindow.vala:381 data/ui/menu.ui:10
+#: src/MainWindow.vala:405 data/ui/menu.ui:29
 msgid "Empty Trash"
 msgstr ""
 
@@ -157,19 +161,19 @@ msgstr ""
 msgid "Tomorrow"
 msgstr ""
 
-#: src/Views/ListView.vala:22
+#: src/Views/ListView.vala:25
 msgid "No Notes"
 msgstr ""
 
-#: src/Views/ListView.vala:23
+#: src/Views/ListView.vala:26
 msgid "Use the + button to add a note."
 msgstr ""
 
-#: src/Views/TrashView.vala:16
+#: src/Views/TrashView.vala:17
 msgid "No Trash"
 msgstr ""
 
-#: src/Views/TrashView.vala:17
+#: src/Views/TrashView.vala:18
 msgid "Trashed notes appear here."
 msgstr ""
 
@@ -177,11 +181,16 @@ msgstr ""
 msgid "Note Settings"
 msgstr ""
 
-#: src/Widgets/Note.vala:87
+#: src/Widgets/Note.vala:46
+msgid "New Note "
+msgstr ""
+
+#: src/Widgets/Note.vala:138 src/Widgets/Note.vala:154
+#: src/Widgets/MoveToDialog.vala:43 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
 msgstr ""
 
-#: src/Widgets/Note.vala:193
+#: src/Widgets/Note.vala:211
 #, c-format
 msgid ""
 "\n"
@@ -227,7 +236,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: src/Widgets/EditNotebookDialog.vala:69
+#: src/Widgets/EditNotebookDialog.vala:71
 msgid "Remove notebook"
 msgstr ""
 
@@ -284,15 +293,31 @@ msgstr ""
 msgid "page1"
 msgstr ""
 
-#: data/ui/menu.ui:6
+#: data/ui/menu.ui:5
+msgid "Text Size"
+msgstr ""
+
+#: data/ui/menu.ui:9
+msgid "Small"
+msgstr ""
+
+#: data/ui/menu.ui:14
+msgid "Medium"
+msgstr ""
+
+#: data/ui/menu.ui:19
+msgid "Large"
+msgstr ""
+
+#: data/ui/menu.ui:25
 msgid "Dark Mode"
 msgstr ""
 
-#: data/ui/menu.ui:16
+#: data/ui/menu.ui:35
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: data/ui/menu.ui:20
+#: data/ui/menu.ui:39
 msgid "About Notejot"
 msgstr ""
 
@@ -302,6 +327,10 @@ msgstr ""
 
 #: data/ui/move_to_dialog.ui:25
 msgid "Move"
+msgstr ""
+
+#: data/ui/move_to_dialog.ui:81
+msgid "Clear Notebook"
 msgstr ""
 
 #: data/ui/note_menu.ui:22
@@ -359,10 +388,6 @@ msgctxt "shortcut window"
 msgid "Create New Note"
 msgstr ""
 
-#: data/ui/title_menu.ui:48
-msgid "Notebooks"
-msgstr ""
-
-#: data/ui/title_menu.ui:83
-msgid "Edit Notebooks…"
+#: data/ui/title_menu.ui:18
+msgid "Manage Notebooks…"
 msgstr ""
