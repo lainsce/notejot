@@ -96,15 +96,19 @@
   background: @theme_bg_color;
 }
 
-.notejot-flat-title {
-    background: none;
-    border: none;
-}
-
 .empty-state {
   background: shade(@theme_bg_color, 0.95);
 }
 
+.empty-state:backdrop {
+  background: shade(@theme_bg_color, 1);
+}
+
 .notejot-view {
   background: @theme_bg_color;
+}
+
+.notejot-searchbar {
+  background: shade(@theme_bg_color, 0.9);
+  border-bottom: 1px solid alpha(@theme_fg_color, 0.25);
 }

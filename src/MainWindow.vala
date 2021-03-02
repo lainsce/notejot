@@ -26,7 +26,11 @@ namespace Notejot {
         [GtkChild]
         public Gtk.Button back_button;
         [GtkChild]
+        public Gtk.ToggleButton search_button;
+        [GtkChild]
         public Gtk.MenuButton menu_button;
+        [GtkChild]
+        public Gtk.Revealer search_revealer;
         [GtkChild]
         public Gtk.SearchEntry note_search;
 
@@ -220,6 +224,14 @@ namespace Notejot {
             stitlebar.set_custom_title (sidebar_title_button);
 
             sgrid.show_all ();
+
+            search_button.toggled.connect (() => {
+                if (search_button.get_active ()) {
+                    search_revealer.set_reveal_child (true);
+                } else {
+                    search_revealer.set_reveal_child (false);
+                }
+            });
 
             note_search.notify["text"].connect (() => {
                listview.set_search_text (note_search.get_text ());
