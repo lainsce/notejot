@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-21 23:47+0100\n"
-"PO-Revision-Date: 2021-02-22 00:43+0100\n"
+"POT-Creation-Date: 2021-03-01 21:19+0100\n"
+"PO-Revision-Date: 2021-03-01 21:22+0100\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -21,6 +21,10 @@ msgstr "Notejot"
 #: src/MainWindow.vala:214 src/MainWindow.vala:377 data/ui/title_menu.ui:6
 msgid "All Notes"
 msgstr "Todas las notas"
+
+#: src/MainWindow.vala:327
+msgid "This is a text example."
+msgstr "Esto es un texto de ejemplo."
 
 #: src/MainWindow.vala:364
 msgid "Jot your ideas."
@@ -155,11 +159,11 @@ msgstr "Ayer"
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: src/Views/ListView.vala:23
+#: src/Views/ListView.vala:25
 msgid "No Notes"
 msgstr "Sin notas"
 
-#: src/Views/ListView.vala:24
+#: src/Views/ListView.vala:26
 msgid "Use the + button to add a note."
 msgstr "Use el botón + para añadir una nota."
 
@@ -174,6 +178,10 @@ msgstr "Aquí aparecen las notas eliminadas."
 #: src/Widgets/SettingMenu.vala:61
 msgid "Note Settings"
 msgstr "Ajustes de la nota"
+
+#: src/Widgets/Note.vala:46
+msgid "New Note "
+msgstr "Nota nueva "
 
 #: src/Widgets/Note.vala:138 src/Widgets/Note.vala:154
 #: src/Widgets/MoveToDialog.vala:43 src/Widgets/MoveToDialog.vala:44

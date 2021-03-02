@@ -43,7 +43,7 @@ namespace Notejot {
             this.uid = uid_counter++;
 
             if (log.title == "") {
-                set_title ("New Note " + (uid + 1).to_string());
+                set_title (_("New Note ") + (uid + 1).to_string());
             } else {
                 set_title (log.title);
             }
