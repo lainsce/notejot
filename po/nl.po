@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 22:07-0300\n"
-"PO-Revision-Date: 2021-02-18 13:50+0100\n"
+"POT-Creation-Date: 2021-03-01 21:19+0100\n"
+"PO-Revision-Date: 2021-03-04 13:48+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
 "Language: nl_NL\n"
@@ -13,41 +13,45 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/MainWindow.vala:101 src/MainWindow.vala:337
+#: src/MainWindow.vala:101 src/MainWindow.vala:359
 msgid "Notejot"
 msgstr "Notejot"
 
-#: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
+#: src/MainWindow.vala:214 src/MainWindow.vala:377 data/ui/title_menu.ui:6
 msgid "All Notes"
 msgstr "Alle notities"
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:327
+msgid "This is a text example."
+msgstr "Dit is een voorbeeldtekst."
+
+#: src/MainWindow.vala:364
 msgid "Jot your ideas."
 msgstr "Noteer je ideeën."
 
-#: src/MainWindow.vala:348
+#: src/MainWindow.vala:370
 msgid "translator-credits"
 msgstr "Heimen Stoffels"
 
-#: src/MainWindow.vala:367 data/ui/title_menu.ui:110
+#: src/MainWindow.vala:390 data/ui/title_menu.ui:10
 msgid "Trash"
 msgstr "Prullenbak"
 
-#: src/MainWindow.vala:378
+#: src/MainWindow.vala:402
 msgid "Empty the Trashed Notes?"
 msgstr "Weet je zeker dat je de prullenbak wilt legen?"
 
-#: src/MainWindow.vala:379
+#: src/MainWindow.vala:403
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr "Hierdoor worden alle notities permanent verwijderd."
 
-#: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
+#: src/MainWindow.vala:404 data/ui/move_to_dialog.ui:41
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/MainWindow.vala:381 data/ui/menu.ui:10
+#: src/MainWindow.vala:405 data/ui/menu.ui:29
 msgid "Empty Trash"
 msgstr "Prullenbak legen"
 
@@ -152,19 +156,19 @@ msgstr "Gisteren"
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#: src/Views/ListView.vala:22
+#: src/Views/ListView.vala:25
 msgid "No Notes"
 msgstr "Geen notities"
 
-#: src/Views/ListView.vala:23
+#: src/Views/ListView.vala:26
 msgid "Use the + button to add a note."
 msgstr "Klik op de '+'-knop om een notitie te maken."
 
-#: src/Views/TrashView.vala:16
+#: src/Views/TrashView.vala:17
 msgid "No Trash"
 msgstr "Geen prulllenbakitems"
 
-#: src/Views/TrashView.vala:17
+#: src/Views/TrashView.vala:18
 msgid "Trashed notes appear here."
 msgstr "Items in de prullenbak verschijnen hier."
 
@@ -172,11 +176,16 @@ msgstr "Items in de prullenbak verschijnen hier."
 msgid "Note Settings"
 msgstr "Notitie-instellingen"
 
-#: src/Widgets/Note.vala:87
+#: src/Widgets/Note.vala:46
+msgid "New Note "
+msgstr "Nieuwe notitie "
+
+#: src/Widgets/Note.vala:138 src/Widgets/Note.vala:154
+#: src/Widgets/MoveToDialog.vala:43 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
 msgstr "Geen notitieboek"
 
-#: src/Widgets/Note.vala:193
+#: src/Widgets/Note.vala:211
 #, c-format
 msgid ""
 "\n"
@@ -258,7 +267,7 @@ msgstr ""
 "            }\n"
 "            "
 
-#: src/Widgets/EditNotebookDialog.vala:69
+#: src/Widgets/EditNotebookDialog.vala:71
 msgid "Remove notebook"
 msgstr "Notitieboek verwijderen"
 
@@ -315,15 +324,31 @@ msgstr "pagina0"
 msgid "page1"
 msgstr "pagina1"
 
-#: data/ui/menu.ui:6
+#: data/ui/menu.ui:5
+msgid "Text Size"
+msgstr "Tekstgrootte"
+
+#: data/ui/menu.ui:9
+msgid "Small"
+msgstr "Klein"
+
+#: data/ui/menu.ui:14
+msgid "Medium"
+msgstr "Normaal"
+
+#: data/ui/menu.ui:19
+msgid "Large"
+msgstr "Groot"
+
+#: data/ui/menu.ui:25
 msgid "Dark Mode"
 msgstr "Donker thema"
 
-#: data/ui/menu.ui:16
+#: data/ui/menu.ui:35
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: data/ui/menu.ui:20
+#: data/ui/menu.ui:39
 msgid "About Notejot"
 msgstr "Over Notejot"
 
@@ -334,6 +359,10 @@ msgstr "Verplaatsen naar"
 #: data/ui/move_to_dialog.ui:25
 msgid "Move"
 msgstr "Verplaatsen"
+
+#: data/ui/move_to_dialog.ui:81
+msgid "Clear Notebook"
+msgstr "Notitieboek wissen"
 
 #: data/ui/note_menu.ui:22
 msgid "Move To…"
@@ -390,13 +419,15 @@ msgctxt "shortcut window"
 msgid "Create New Note"
 msgstr "Nieuwe notitie maken"
 
-#: data/ui/title_menu.ui:48
-msgid "Notebooks"
-msgstr "Notitieboeken"
+#: data/ui/title_menu.ui:18
+msgid "Manage Notebooks…"
+msgstr "Notitieboeken beheren…"
 
-#: data/ui/title_menu.ui:83
-msgid "Edit Notebooks…"
-msgstr "Notitieboeken bewerken…"
+#~ msgid "Notebooks"
+#~ msgstr "Notitieboeken"
+
+#~ msgid "Edit Notebooks…"
+#~ msgstr "Notitieboeken bewerken…"
 
 #~ msgid "Delete note"
 #~ msgstr "Notitie verwijderen"
