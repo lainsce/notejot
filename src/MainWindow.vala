@@ -22,41 +22,41 @@ namespace Notejot {
         delegate void HookFunc ();
 
         [GtkChild]
-        public Gtk.Button new_button;
+        public unowned Gtk.Button new_button;
         [GtkChild]
-        public Gtk.Button back_button;
+        public unowned Gtk.Button back_button;
         [GtkChild]
-        public Gtk.ToggleButton search_button;
+        public unowned Gtk.ToggleButton search_button;
         [GtkChild]
-        public Gtk.MenuButton menu_button;
+        public unowned Gtk.MenuButton menu_button;
         [GtkChild]
-        public Gtk.Revealer search_revealer;
+        public unowned Gtk.Revealer search_revealer;
         [GtkChild]
-        public Gtk.SearchEntry note_search;
+        public unowned Gtk.SearchEntry note_search;
 
         [GtkChild]
-        public Gtk.Box grid;
+        public unowned Gtk.Box grid;
         [GtkChild]
-        public Gtk.Box sgrid;
+        public unowned Gtk.Box sgrid;
         [GtkChild]
-        public Gtk.Box empty_state;
+        public unowned Gtk.Box empty_state;
         [GtkChild]
-        public Hdy.Leaflet leaflet;
+        public unowned Hdy.Leaflet leaflet;
         [GtkChild]
-        public Gtk.ScrolledWindow list_scroller;
+        public unowned Gtk.ScrolledWindow list_scroller;
         [GtkChild]
-        public Gtk.ScrolledWindow trash_scroller;
+        public unowned Gtk.ScrolledWindow trash_scroller;
 
         [GtkChild]
-        public Gtk.Stack main_stack;
+        public unowned Gtk.Stack main_stack;
         [GtkChild]
-        public Gtk.Stack sidebar_stack;
+        public unowned Gtk.Stack sidebar_stack;
         [GtkChild]
-        public Hdy.HeaderBar titlebar;
+        public unowned Hdy.HeaderBar titlebar;
         [GtkChild]
-        public Hdy.HeaderBar stitlebar;
+        public unowned Hdy.HeaderBar stitlebar;
         [GtkChild]
-        public Hdy.HeaderGroup titlegroup;
+        public unowned Hdy.HeaderGroup titlegroup;
 
         // Custom
         public Widgets.Dialog dialog = null;
@@ -131,10 +131,10 @@ namespace Notejot {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/io/github/lainsce/Notejot");
 
-            Gtk.StyleContext style = get_style_context ();
-            if (Config.PROFILE == "Devel") {
-                style.add_class ("devel");
-            }
+            // Gtk.StyleContext style = get_style_context ();
+            // if (Config.PROFILE == "Devel") {
+            //     style.add_class ("devel");
+            // }
 
             int w = Notejot.Application.gsettings.get_int("window-w");
             int h = Notejot.Application.gsettings.get_int("window-h");
@@ -336,7 +336,7 @@ namespace Notejot {
             var log = new Log ();
             log.title = "";
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = _("This is a text example.");
+            log.text = _("""New Note\nThis is a text example.""");
             log.color = "#fff";
             log.notebook = "";
             listview.is_modified = true;
@@ -446,3 +446,4 @@ namespace Notejot {
         }
     }
 }
+

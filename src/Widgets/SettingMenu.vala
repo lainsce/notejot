@@ -5,9 +5,9 @@ namespace Notejot {
 
         public SettingMenu (MainWindow win) {
             this.win = win;
-            var vpopover = new Widgets.NoteMenuPopover ();
+            var popover = new Widgets.NoteMenuPopover ();
 
-            vpopover.delete_note_button.clicked.connect (() => {
+            popover.delete_note_button.clicked.connect (() => {
                 var tlog = new Log ();
                 tlog.title = controller.log.title;
                 tlog.subtitle = controller.log.subtitle;
@@ -25,43 +25,44 @@ namespace Notejot {
                 win.settingmenu.visible = false;
             });
 
-            vpopover.color_button_red.clicked.connect (() => {
-                controller.update_theme("#f66151");
+            popover.color_button_red.clicked.connect (() => {
+                controller.update_theme("#c01c28");
             });
 
-            vpopover.color_button_orange.clicked.connect (() => {
-                controller.update_theme("#ffbe6f");
+            popover.color_button_orange.clicked.connect (() => {
+                controller.update_theme("#e66100");
             });
 
-            vpopover.color_button_yellow.clicked.connect (() => {
-                controller.update_theme("#f9f06b");
+            popover.color_button_yellow.clicked.connect (() => {
+                controller.update_theme("#f5c211");
             });
 
-            vpopover.color_button_green.clicked.connect (() => {
-                controller.update_theme("#8ff0a4");
+            popover.color_button_green.clicked.connect (() => {
+                controller.update_theme("#2ec27e");
             });
 
-            vpopover.color_button_blue.clicked.connect (() => {
-                controller.update_theme("#99c1f1");
+            popover.color_button_blue.clicked.connect (() => {
+                controller.update_theme("#1c71d8");
             });
 
-            vpopover.color_button_purple.clicked.connect (() => {
-                controller.update_theme("#dc8add");
+            popover.color_button_purple.clicked.connect (() => {
+                controller.update_theme("#813d9c");
             });
 
-            vpopover.color_button_brown.clicked.connect (() => {
-                controller.update_theme("#cdab8f");
+            popover.color_button_brown.clicked.connect (() => {
+                controller.update_theme("#865e3c");
             });
 
-            vpopover.color_button_reset.clicked.connect (() => {
+            popover.color_button_reset.clicked.connect (() => {
                 controller.update_theme("#ffffff");
             });
 
             this.has_tooltip = true;
             this.tooltip_text = (_("Note Settings"));
             this.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            this.popover = vpopover;
+            this.popover = popover;
             this.halign = Gtk.Align.END;
+            this.get_style_context ().add_class ("circular");
             this.show_all ();
         }
     }

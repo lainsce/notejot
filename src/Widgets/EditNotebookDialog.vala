@@ -29,11 +29,11 @@ namespace Notejot {
         public signal void clicked ();
 
         [GtkChild]
-        public Gtk.Entry notebook_name_entry;
+        public unowned Gtk.Entry notebook_name_entry;
         [GtkChild]
-        public Gtk.Button notebook_add_button;
+        public unowned Gtk.Button notebook_add_button;
         [GtkChild]
-        public Gtk.ListBox notebook_listbox;
+        public unowned Gtk.ListBox notebook_listbox;
 
         public EditNotebooksDialog (MainWindow win) {
             Object (win: win);

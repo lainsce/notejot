@@ -24,13 +24,13 @@ namespace Notejot {
         public signal void clicked ();
 
         [GtkChild]
-        public Gtk.ListBox notebook_listbox;
+        public unowned Gtk.ListBox notebook_listbox;
         [GtkChild]
-        public Gtk.Button cancel_button;
+        public unowned Gtk.Button cancel_button;
         [GtkChild]
-        public Gtk.Button remove_notebook_button;
+        public unowned Gtk.Button remove_notebook_button;
         [GtkChild]
-        public Gtk.Button move_button;
+        public unowned Gtk.Button move_button;
 
         public MoveToDialog (MainWindow win) {
             Object (win: win);
@@ -41,7 +41,6 @@ namespace Notejot {
 
             remove_notebook_button.clicked.connect (() => {
                 win.settingmenu.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
-                win.settingmenu.controller.notebooklabel.label = "<i>" + _("No Notebook") + "</i>";
                 win.tm.save_notes.begin (win.notestore);
 
                 this.close ();
@@ -66,7 +65,6 @@ namespace Notejot {
 
                         if (((Hdy.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
                             win.settingmenu.controller.log.notebook = ((Notebook)im).title;
-                            win.settingmenu.controller.notebooklabel.label = ((Notebook)im).title;
                             win.tm.save_notes.begin (win.notestore);
                         }
                     }

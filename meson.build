@@ -58,7 +58,6 @@ sources = files(
     'src/Views/ListView.vala',
     'src/Views/TrashView.vala',
     'src/Widgets/Dialog.vala',
-    'src/Widgets/EditableLabel.vala',
     'src/Widgets/FormatBar.vala',
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
@@ -66,7 +65,6 @@ sources = files(
     'src/Widgets/NoteMenuPopover.vala',
     'src/Widgets/TrashedItem.vala',
     'src/Widgets/TextField.vala',
-    'src/Widgets/TitleMenu.vala',
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
 )

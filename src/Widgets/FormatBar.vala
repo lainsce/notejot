@@ -5,21 +5,26 @@ namespace Notejot {
         public signal void clicked ();
 
         [GtkChild]
-        Gtk.Button normal_button;
+        unowned Gtk.Button normal_button;
 
         [GtkChild]
-        Gtk.Button bold_button;
+        unowned Gtk.Button bold_button;
         [GtkChild]
-        Gtk.Button italic_button;
+        unowned Gtk.Button italic_button;
         [GtkChild]
-        Gtk.Button ul_button;
+        unowned Gtk.Button ul_button;
         [GtkChild]
-        Gtk.Button s_button;
+        unowned Gtk.Button s_button;
 
         [GtkChild]
-        Gtk.Button u_button;
+        unowned Gtk.Button u_button;
         [GtkChild]
-        Gtk.Button o_button;
+        unowned Gtk.Button o_button;
+
+        [GtkChild]
+        public unowned Gtk.Label notebooklabel;
+        [GtkChild]
+        public unowned Gtk.Box nb_box;
 
         public FormatBar () {
             this.show_all ();

@@ -20,22 +20,22 @@ namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/note_menu.ui")]
     public class Widgets.NoteMenuPopover : Gtk.Popover {
         [GtkChild]
-        public Gtk.ModelButton delete_note_button;
+        public unowned Gtk.ModelButton delete_note_button;
         [GtkChild]
-        public Gtk.RadioButton color_button_red;
+        public unowned Gtk.RadioButton color_button_red;
         [GtkChild]
-        public Gtk.RadioButton color_button_orange;
+        public unowned Gtk.RadioButton color_button_orange;
         [GtkChild]
-        public Gtk.RadioButton color_button_yellow;
+        public unowned Gtk.RadioButton color_button_yellow;
         [GtkChild]
-        public Gtk.RadioButton color_button_green;
+        public unowned Gtk.RadioButton color_button_green;
         [GtkChild]
-        public Gtk.RadioButton color_button_blue;
+        public unowned Gtk.RadioButton color_button_blue;
         [GtkChild]
-        public Gtk.RadioButton color_button_purple;
+        public unowned Gtk.RadioButton color_button_purple;
         [GtkChild]
-        public Gtk.RadioButton color_button_brown;
+        public unowned Gtk.RadioButton color_button_brown;
         [GtkChild]
-        public Gtk.RadioButton color_button_reset;
+        public unowned Gtk.RadioButton color_button_reset;
     }
 }

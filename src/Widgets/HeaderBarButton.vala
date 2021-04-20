@@ -23,7 +23,7 @@ namespace Notejot.Widgets {
         public string? title { get; set; }
 
         [GtkChild]
-        public Gtk.MenuButton menu;
+        public unowned Gtk.MenuButton menu;
 
         construct {
             this.show_all ();

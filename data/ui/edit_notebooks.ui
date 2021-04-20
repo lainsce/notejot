@@ -18,6 +18,9 @@
             <property name="visible">True</property>
             <property name="title" translatable="yes">Edit Notebooks</property>
             <property name="show-close-button">True</property>
+            <style>
+              <class name="flat"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>

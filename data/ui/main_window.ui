@@ -22,19 +22,24 @@
                 <child>
                   <object class="HdyHeaderBar" id="stitlebar">
                     <property name="show-close-button">True</property>
+                    <style>
+                      <class name="flat"/>
+                    </style>
                     <child type="title">
                       <placeholder/>
                     </child>
                     <child>
                       <object class="GtkButton" id="new_button">
                         <property name="can-focus">True</property>
+                        <property name="tooltip-text" translatable="yes">Add Note</property>
                         <child>
                           <object class="GtkImage">
-                            <property name="icon-name">list-add-symbolic</property>
+                            <property name="icon-name">add-note-symbolic</property>
                           </object>
                         </child>
                         <style>
                           <class name="image-button"/>
+                          <class name="circular"/>
                         </style>
                       </object>
                     </child>
@@ -49,6 +54,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
+                          <class name="circular"/>
                         </style>
                       </object>
                       <packing>
@@ -67,6 +73,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
+                          <class name="circular"/>
                         </style>
                       </object>
                       <packing>
@@ -164,6 +171,9 @@
                 <child>
                   <object class="HdyHeaderBar" id="titlebar">
                     <property name="show-close-button">True</property>
+                    <style>
+                      <class name="flat"/>
+                    </style>
                     <child>
                       <object class="GtkButton" id="back_button">
                         <property name="can-focus">True</property>
@@ -175,6 +185,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
+                          <class name="circular"/>
                         </style>
                       </object>
                       <packing>

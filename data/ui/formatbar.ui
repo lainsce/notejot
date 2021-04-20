@@ -25,6 +25,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -59,6 +60,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -82,6 +84,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -105,6 +108,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -128,6 +132,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -162,6 +167,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -185,6 +191,7 @@
             </child>
             <style>
               <class name="image-button"/>
+              <class name="circular"/>
             </style>
           </object>
           <packing>
@@ -196,6 +203,35 @@
       </object>
       <packing>
         <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="nb_box">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">True</property>
+        <property name="spacing">6</property>
+        <property name="margin-end">8</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon-name">notebook-symbolic</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="notebooklabel">
+          <property name="use-markup">true</property>
+          <style>
+            <class name="dim-label"/>
+          </style>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="position">0</property>
+        <property name="pack-type">end</property>
       </packing>
     </child>
     <style>

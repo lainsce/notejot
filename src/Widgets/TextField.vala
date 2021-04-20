@@ -9,15 +9,14 @@ namespace Notejot {
             this.expand = true;
             this.editable = true;
             this.set_can_focus (true);
+            this.opacity = 0.66;
 
             var settings = new WebKit.Settings ();
-		    settings.set_enable_accelerated_2d_canvas(true);
 		    settings.set_enable_html5_database(false);
 		    settings.set_enable_html5_local_storage(false);
 		    settings.set_enable_java(false);
 		    settings.set_enable_media_stream(false);
 		    settings.set_enable_page_cache(false);
-		    settings.set_enable_plugins(false);
 		    settings.set_enable_smooth_scrolling(true);
 		    settings.set_javascript_can_access_clipboard(false);
 		    settings.set_javascript_can_open_windows_automatically(false);

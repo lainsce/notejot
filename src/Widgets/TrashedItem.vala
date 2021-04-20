@@ -19,7 +19,6 @@
 namespace Notejot {
     public class Widgets.TrashedItem : Hdy.ActionRow {
         public Widgets.TextField textfield;
-        public Widgets.EditableLabel editablelabel;
         private static int uid_counter;
         public int uid;
         private Gtk.CssProvider css_provider;
@@ -60,16 +59,10 @@ namespace Notejot {
             string style = null;
             style = (N_("""
             .notejot-sidebar-dbg-%d {
-                border: 1px solid alpha(black, 0.25);
                 background: %s;
-                border-radius: 50px;
+                border-radius: 9999px;
             }
-            .notejot-sidebar-dbg-dark-%d {
-                border: 1px solid alpha(black, 0.25);
-                background: shade(%s, 0.8);
-                border-radius: 50px;
-            }
-            """)).printf(uid, color, uid, color);
+            """)).printf(uid, color);
 
             try {
                 css_provider.load_from_data(style, -1);

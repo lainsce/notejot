@@ -7,6 +7,7 @@ namespace Notejot {
         public bool is_modified {get; set; default = false;}
 
         public string search_text = "";
+        private int last_uid;
 
         public ListView (MainWindow win) {
             this.win = win;
@@ -35,7 +36,11 @@ namespace Notejot {
                 if (((Widgets.Note)selected_row) != null) {
                     ((Widgets.Note)selected_row).textfield.grab_focus ();
                     ((Widgets.Note)selected_row).select_item ();
+                    win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
+
+                    last_uid = ((Widgets.Note)selected_row).uid;
                     win.settingmenu.controller = ((Widgets.Note)selected_row);
+                    win.titlebar.get_style_context ().add_class ("notejot-action-%d".printf(((Widgets.Note)selected_row).uid));
                 } else {
                     win.settingmenu.no_show_all = true;
                 }
