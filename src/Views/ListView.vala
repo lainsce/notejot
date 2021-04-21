@@ -40,9 +40,10 @@ namespace Notejot {
 
                     last_uid = ((Widgets.Note)selected_row).uid;
                     win.settingmenu.controller = ((Widgets.Note)selected_row);
-                    win.titlebar.get_style_context ().add_class ("notejot-action-%d".printf(((Widgets.Note)selected_row).uid));
+                    win.titlebar.get_style_context ().add_class (@"notejot-action-$last_uid");
                 } else {
                     win.settingmenu.no_show_all = true;
+                    win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
                 }
             });
 

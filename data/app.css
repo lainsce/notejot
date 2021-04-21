@@ -69,36 +69,36 @@
 }
 
 .color-red radio {
-    background: #f66151;
-    color: #f66151;
+    background: #db898e;
+    color: #db898e;
 }
 .color-orange radio {
-    background: #ffbe6f;
-    color: #ffbe6f;
+    background: #eeab7a;
+    color: #eeab7a;
 }
 .color-yellow radio {
-    background: #f9f06b;
-    color: #f9f06b;
+    background: #f6dc83;
+    color: #f6dc83;
 }
 .color-green radio {
-    background: #8ff0a4;
-    color: #8ff0a4;
+    background: #92dcb9;
+    color: #92dcb9;
 }
 .color-blue radio {
-    background: #99c1f1;
-    color: #99c1f1;
+    background: #89b3e6;
+    color: #89b3e6;
 }
 .color-purple radio {
-    background: #dc8add;
-    color: #dc8add;
+    background: #bc99c8;
+    color: #bc99c8;
 }
 .color-brown radio {
-    background: #cdab8f;
-    color: #cdab8f;
+    background: #beaa98;
+    color: #beaa98;
 }
 .color-reset radio {
-    background: #fff;
-    color: #fff;
+    background: #fbfafa;
+    color: #fbfafa;
 }
 
 .notejot-sidebar-box {

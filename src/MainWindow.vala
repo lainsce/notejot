@@ -73,6 +73,8 @@ namespace Notejot {
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
 
+        private int last_uid;
+
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";

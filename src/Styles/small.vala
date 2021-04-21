@@ -19,7 +19,7 @@
 public class Notejot.Styles.small {
   public const string css="""
     body {
-      font-size: 0.66rem;
+      font-size: 0.85rem;
     }
   """;
 }
