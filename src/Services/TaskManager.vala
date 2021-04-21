@@ -78,7 +78,7 @@ namespace Notejot {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
                     var parser = new Json.Parser();
-                    parser.load_from_data(line.replace ("\\/", "/").replace ("\\\"", "\""));
+                    parser.load_from_data(line);
                     var root = parser.get_root();
                     var array = root.get_array();
                     foreach (var tasks in array.get_elements()) {
@@ -144,7 +144,7 @@ namespace Notejot {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
                     var parser = new Json.Parser();
-                    parser.load_from_data(line.replace ("\\/", "/").replace ("\\\"", "\""));
+                    parser.load_from_data(line);
                     var root = parser.get_root();
                     var array = root.get_array();
                     foreach (var tasks in array.get_elements()) {

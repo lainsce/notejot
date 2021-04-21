@@ -338,7 +338,7 @@ namespace Notejot {
             var log = new Log ();
             log.title = "";
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = _("""New Note\nThis is a text example.""");
+            log.text = _("This is a text example.");
             log.color = "#fff";
             log.notebook = "";
             listview.is_modified = true;

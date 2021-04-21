@@ -1,7 +1,6 @@
 namespace Notejot {
-    public class Widgets.TextField : WebKit.WebView {
+    public class Widgets.TextField : Gtk.TextView {
         public MainWindow win;
-        public string text = "";
         public Widgets.Note controller;
 
         public TextField (MainWindow win) {
@@ -10,94 +9,42 @@ namespace Notejot {
             this.editable = true;
             this.set_can_focus (true);
             this.opacity = 0.66;
+            this.right_margin = this.bottom_margin = this.top_margin = this.left_margin = 20;
 
-            var settings = new WebKit.Settings ();
-		    settings.set_enable_html5_database(false);
-		    settings.set_enable_html5_local_storage(false);
-		    settings.set_enable_java(false);
-		    settings.set_enable_media_stream(false);
-		    settings.set_enable_page_cache(false);
-		    settings.set_enable_smooth_scrolling(true);
-		    settings.set_javascript_can_access_clipboard(false);
-		    settings.set_javascript_can_open_windows_automatically(false);
-		    settings.set_media_playback_requires_user_gesture(true);
-
-            update_html_view.begin ();
-            connect_signals.begin ();
-            send_text.begin ();
+            send_text ();
 
             Notejot.Application.gsettings.changed.connect (() => {
-                update_html_view.begin ();
                 win.tm.save_notes.begin (win.notestore);
             });
 
             Timeout.add_seconds (3, () => {
-                send_text.begin ();
+                send_text ();
                 return true;
             });
 
-            key_press_event.connect ((e) => {
-                uint keycode = e.hardware_keycode;
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.z, keycode)) {
-                        run_javascript.begin ("document.execCommand('undo', false, false);");
-                        send_text.begin ();
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if ((e.state & Gdk.ModifierType.SHIFT_MASK) != 0) {
-                        if (match_keycode (Gdk.Key.z, keycode)) {
-                            run_javascript.begin ("document.execCommand('redo', false, false);");
-                            send_text.begin ();
-                        }
-                    }
-                }
-                return false;
+            get_buffer ().changed.connect (() => {
+                send_text ();
             });
         }
 
-#if VALA_0_42
-        protected bool match_keycode (uint keyval, uint code) {
-#else
-        protected bool match_keycode (int keyval, uint code) {
-#endif
-            Gdk.KeymapKey [] keys;
-            Gdk.Keymap keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
-            if (keymap.get_entries_for_keyval (keyval, out keys)) {
-                foreach (var key in keys) {
-                    if (code == key.keycode)
-                        return true;
-                    }
-                }
-            return false;
+        public string get_selected_text () {
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            if (get_buffer ().get_selection_bounds (out A, out B)) {
+               return get_buffer ().get_text(A, B, true);
+            }
+
+            return "";
         }
 
-        public async void connect_signals () {
-            load_changed.connect ((event) => {
-                if (event == WebKit.LoadEvent.COMMITTED) {
-                    send_text.begin ();
-                }
-                if (event == WebKit.LoadEvent.FINISHED) {
-                    send_text.begin ();
-                }
-            });
-        }
+        public void send_text () {
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            get_buffer ().get_bounds (out A, out B);
+            var val = get_buffer ().get_text (A, B, true);
+            controller.log.text = val;
 
-        public async void send_text () {
-            run_javascript.begin("""document.body.innerHTML;""", null, (obj, res) => {
-                try {
-                    var data = run_javascript.end(res);
-                    if (data != null && win != null) {
-                        var val = data.get_js_value ().to_string ();
-                        this.text = val == "" ? " " : val;
-                        controller.log.text = val == "" ? " " : val;
-
-                        win.tm.save_notes.begin (win.notestore);
-                    }
-                } catch (Error e) {
-                    warning ("%s".printf(e.message));
-                }
-            });
+            win.tm.save_notes.begin (win.notestore);
         }
 
         private string set_stylesheet () {
@@ -118,13 +65,6 @@ namespace Notejot {
             } else {
                 return Styles.medium.css;
             }
-        }
-
-        public async void update_html_view () {
-            string style = set_stylesheet ();
-            string fstyle = set_font_stylesheet ();
-            var html = """<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"><style>%s %s</style></head><body>%s</body></html>""".printf(style, fstyle, text);
-            this.load_html (html, "file:///");
         }
     }
 }

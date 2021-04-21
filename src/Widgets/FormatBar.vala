@@ -17,11 +17,6 @@ namespace Notejot {
         unowned Gtk.Button s_button;
 
         [GtkChild]
-        unowned Gtk.Button u_button;
-        [GtkChild]
-        unowned Gtk.Button o_button;
-
-        [GtkChild]
         public unowned Gtk.Label notebooklabel;
         [GtkChild]
         public unowned Gtk.Box nb_box;
@@ -30,44 +25,57 @@ namespace Notejot {
             this.show_all ();
 
             normal_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');""");
-                controller.send_text.begin ();
+                var sel_text = controller.get_selected_text ();
+                Gtk.TextIter A;
+                Gtk.TextIter B;
+                controller.get_buffer ().get_selection_bounds (out A, out B);
+
+                controller.get_buffer ().insert_markup(ref A, @"$sel_text", -1);
+                controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
 
             bold_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('bold');""");
-                controller.send_text.begin ();
+                var sel_text = controller.get_selected_text ();
+                Gtk.TextIter A;
+                Gtk.TextIter B;
+                controller.get_buffer ().get_selection_bounds (out A, out B);
+
+                controller.get_buffer ().insert_markup(ref A, @"<b>$sel_text</b>", -1);
+                controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
 
             italic_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('italic');""");
-                controller.send_text.begin ();
+                var sel_text = controller.get_selected_text ();
+                Gtk.TextIter A;
+                Gtk.TextIter B;
+                controller.get_buffer ().get_selection_bounds (out A, out B);
+
+                controller.get_buffer ().insert_markup(ref A, @"<i>$sel_text</i>", -1);
+                controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
 
             ul_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('underline');""");
-                controller.send_text.begin ();
+                var sel_text = controller.get_selected_text ();
+                Gtk.TextIter A;
+                Gtk.TextIter B;
+                controller.get_buffer ().get_selection_bounds (out A, out B);
+
+                controller.get_buffer ().insert_markup(ref A, @"<u>$sel_text</u>", -1);
+                controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
 
             s_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('strikethrough');""");
-                controller.send_text.begin ();
-                controller.grab_focus ();
-            });
+                var sel_text = controller.get_selected_text ();
+                Gtk.TextIter A;
+                Gtk.TextIter B;
+                controller.get_buffer ().get_selection_bounds (out A, out B);
 
-            u_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertUnorderedList');""");
-                controller.send_text.begin ();
-                controller.grab_focus ();
-            });
-
-            o_button.clicked.connect (() => {
-                controller.run_javascript.begin("""document.execCommand('removeFormat');document.execCommand('insertOrderedList');""");
-                controller.send_text.begin ();
+                controller.get_buffer ().insert_markup(ref A, @"<s>$sel_text</s>", -1);
+                controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
         }

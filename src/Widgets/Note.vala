@@ -65,9 +65,8 @@ namespace Notejot {
             var text_scroller = new Gtk.ScrolledWindow (null, null);
             text_scroller.vexpand = true;
             text_scroller.add(textfield);
-            textfield.text = log.text;
+            textfield.get_buffer ().text = log.text;
             textfield.controller = this;
-            textfield.update_html_view.begin ();
 
             titlelabel = new Gtk.Label (log.title);
             subtitlelabel = new Gtk.Label (log.subtitle);
@@ -229,23 +228,11 @@ namespace Notejot {
             string first_line = "";
 
             try {
-                var reg = new Regex("""(?m)(?<first_line>^[^\.\!\?\n\r].+)<br>""");
-                var reg2 = new Regex("""(?m)(?<html><([^>]*)>)""");
-                var reg3 = new Regex("""(?m)(?<html2></([^>]*)>)""");
+                var reg = new Regex("""(?m)(?<first_line>.+)""");
                 GLib.MatchInfo match;
-                GLib.MatchInfo match2;
-                GLib.MatchInfo match3;
 
                 if (reg.match (text, 0, out match) && text != null) {
-                    if (reg2.match (text, 0, out match2)) {
-                        if (reg3.match (text, 0, out match3)) {
-                            first_line = match.fetch_named ("first_line")
-                                         .replace(match2.fetch_named ("html"),"")
-                                         .replace(match3.fetch_named ("html2"),"");
-                        }
-                    } else {
-                        first_line = match.fetch_named ("first_line");
-                    }
+                    first_line = match.fetch_named ("first_line");
                 } else {
                     first_line = "Empty note";
                 }
@@ -259,23 +246,11 @@ namespace Notejot {
             string second_line = "";
 
             try {
-                var reg = new Regex("""(?m)<br>(?<second_line>.+)$""");
-                var reg2 = new Regex("""(?m)(?<html><([A-Za-z][A-Za-z][A-Za-z]*)>)""");
-                var reg3 = new Regex("""(?m)(?<html2></([A-Za-z][A-Za-z][A-Za-z]*)>)""");
+                var reg = new Regex("""(?m)\n(?<second_line>.+)$""");
                 GLib.MatchInfo match;
-                GLib.MatchInfo match2;
-                GLib.MatchInfo match3;
 
                 if (reg.match (text, 0, out match) && text != null) {
-                    if (reg2.match (text, 0, out match2)) {
-                        if (reg3.match (text, 0, out match3)) {
-                            second_line = match.fetch_named ("second_line")
-                                         .replace(match2.fetch_named ("html"),"")
-                                         .replace(match3.fetch_named ("html2"),"");
-                        }
-                    } else {
-                        second_line = match.fetch_named ("second_line");
-                    }
+                    second_line = match.fetch_named ("second_line");
                 } else {
                     second_line = "Empty note";
                 }
