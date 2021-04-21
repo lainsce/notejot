@@ -1,182 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk+" version="3.24"/>
-  <template class="NotejotWidgetsFormatBar" parent="GtkActionBar">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="NotejotWidgetsFormatBar" parent="AdwBin">
     <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="spacing">6</property>
+      <object class="GtkActionBar">
+        <property name="can-focus">0</property>
         <child>
-          <object class="GtkButton" id="normal_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
+          <object class="GtkBox">
+            <property name="can-focus">0</property>
+            <property name="spacing">6</property>
             <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">font-x-generic-symbolic</property>
+              <object class="GtkButton" id="normal_button">
+                <property name="receives-default">1</property>
+                <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can-focus">0</property>
+                    <property name="icon-name">font-x-generic-symbolic</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                  <class name="header-button"/>
+                </style>
               </object>
             </child>
-            <style>
-              <class name="image-button"/>
-              <class name="header-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="bold_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
             <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">format-text-bold-symbolic</property>
+              <object class="GtkSeparator">
+                <property name="can-focus">0</property>
               </object>
             </child>
-            <style>
-              <class name="image-button"/>
-              <class name="header-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="italic_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
             <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">format-text-italic-symbolic</property>
+              <object class="GtkButton" id="bold_button">
+                <property name="receives-default">1</property>
+                <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can-focus">0</property>
+                    <property name="icon-name">format-text-bold-symbolic</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                  <class name="header-button"/>
+                </style>
               </object>
             </child>
-            <style>
-              <class name="image-button"/>
-              <class name="header-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="ul_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
             <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">format-text-underline-symbolic</property>
+              <object class="GtkButton" id="italic_button">
+                <property name="receives-default">1</property>
+                <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can-focus">0</property>
+                    <property name="icon-name">format-text-italic-symbolic</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                  <class name="header-button"/>
+                </style>
               </object>
             </child>
-            <style>
-              <class name="image-button"/>
-              <class name="header-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="s_button">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
             <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="icon-name">format-text-strikethrough-symbolic</property>
+              <object class="GtkButton" id="ul_button">
+                <property name="receives-default">1</property>
+                <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can-focus">0</property>
+                    <property name="icon-name">format-text-underline-symbolic</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                  <class name="header-button"/>
+                </style>
               </object>
             </child>
-            <style>
-              <class name="image-button"/>
-              <class name="header-button"/>
-            </style>
+            <child>
+              <object class="GtkButton" id="s_button">
+                <property name="receives-default">1</property>
+                <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can-focus">0</property>
+                    <property name="icon-name">format-text-strikethrough-symbolic</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                  <class name="header-button"/>
+                </style>
+              </object>
+            </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
         </child>
+        <child type="end">
+          <object class="GtkBox" id="nb_box">
+            <property name="receives-default">1</property>
+            <property name="spacing">6</property>
+            <property name="margin-end">8</property>
+            <child>
+              <object class="GtkImage">
+                <property name="icon-name">notebook-symbolic</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="notebooklabel">
+                <property name="use-markup">1</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <style>
+          <class name="notejot-bar"/>
+        </style>
       </object>
-      <packing>
-        <property name="position">0</property>
-      </packing>
     </child>
-    <child>
-      <object class="GtkBox" id="nb_box">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="receives-default">True</property>
-        <property name="spacing">6</property>
-        <property name="margin-end">8</property>
-        <child>
-          <object class="GtkImage">
-            <property name="icon-name">notebook-symbolic</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="notebooklabel">
-          <property name="use-markup">true</property>
-          <style>
-            <class name="dim-label"/>
-          </style>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="position">0</property>
-        <property name="pack-type">end</property>
-      </packing>
-    </child>
-    <style>
-      <class name="notejot-bar"/>
-    </style>
   </template>
 </interface>

@@ -50,14 +50,8 @@ sources = files(
     'src/MainWindow.vala',
     'src/Services/TaskManager.vala',
     'src/Services/Utils.vala',
-    'src/Styles/dark.vala',
-    'src/Styles/light.vala',
-    'src/Styles/small.vala',
-    'src/Styles/medium.vala',
-    'src/Styles/large.vala',
     'src/Views/ListView.vala',
     'src/Views/TrashView.vala',
-    'src/Widgets/Dialog.vala',
     'src/Widgets/FormatBar.vala',
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
@@ -71,14 +65,12 @@ sources = files(
 
 dependencies = [
     dependency('gio-2.0'),
-    dependency('gtk+-3.0'),
+    dependency('gtk4'),
     dependency('glib-2.0'),
     dependency('gobject-2.0'),
     dependency('gee-0.8'),
-    dependency('gtksourceview-4'),
-    dependency('libhandy-1'),
+    dependency('libadwaita-1'),
     dependency('gmodule-2.0'),
-    dependency('webkit2gtk-4.0'),
     dependency('json-glib-1.0'),
     meson.get_compiler('c').find_library('m', required: true)
 ]

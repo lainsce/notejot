@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.17 -->
+  <requires lib="gtk" version="4.0"/>
   <object class="GtkShortcutsWindow" id="shortcuts-notejot">
     <property name="modal">1</property>
-    <property name="visible">False</property>
     <child>
       <object class="GtkShortcutsSection" id="shortcuts">
-        <property name="visible">1</property>
         <property name="section-name">shortcuts</property>
         <property name="max-height">12</property>
         <child>
           <object class="GtkShortcutsGroup" id="general">
-            <property name="visible">1</property>
             <property name="title" translatable="yes" context="shortcut window">General</property>
             <child>
               <object class="GtkShortcutsShortcut" id="quit">
-                <property name="visible">1</property>
                 <property name="accelerator">&lt;ctrl&gt;q</property>
                 <property name="title" translatable="yes" context="shortcut window">Quit</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut" id="new">
-                <property name="visible">1</property>
                 <property name="accelerator">&lt;ctrl&gt;n</property>
                 <property name="title" translatable="yes" context="shortcut window">Create New Note</property>
               </object>

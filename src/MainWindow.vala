@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/main_window.ui")]
-    public class MainWindow : Hdy.ApplicationWindow {
+    public class MainWindow : Adw.ApplicationWindow {
         delegate void HookFunc ();
 
         [GtkChild]
@@ -29,6 +29,8 @@ namespace Notejot {
         public unowned Gtk.ToggleButton search_button;
         [GtkChild]
         public unowned Gtk.MenuButton menu_button;
+        [GtkChild]
+        public unowned Gtk.MenuButton settingmenu;
         [GtkChild]
         public unowned Gtk.Revealer search_revealer;
         [GtkChild]
@@ -41,39 +43,39 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Box empty_state;
         [GtkChild]
-        public unowned Hdy.Leaflet leaflet;
+        public unowned Adw.Leaflet leaflet;
         [GtkChild]
         public unowned Gtk.ScrolledWindow list_scroller;
         [GtkChild]
         public unowned Gtk.ScrolledWindow trash_scroller;
+        [GtkChild]
+        public unowned Gtk.ListBox listview;
+        [GtkChild]
+        public unowned Gtk.ListBox trashview;
 
         [GtkChild]
         public unowned Gtk.Stack main_stack;
         [GtkChild]
         public unowned Gtk.Stack sidebar_stack;
         [GtkChild]
-        public unowned Hdy.HeaderBar titlebar;
+        public unowned Adw.HeaderBar titlebar;
         [GtkChild]
-        public unowned Hdy.HeaderBar stitlebar;
-        [GtkChild]
-        public unowned Hdy.HeaderGroup titlegroup;
+        public unowned Adw.HeaderBar stitlebar;
 
         // Custom
-        public Widgets.Dialog dialog = null;
-        public Widgets.SettingMenu settingmenu;
-        public Widgets.HeaderBarButton sidebar_title_button;
-        public Views.ListView listview;
-        public Views.TrashView trashview;
+        public Widgets.SettingMenu sm;
+        public Widgets.HeaderBarButton hbb;
+        public Views.ListView lv;
+        public Views.TrashView tv;
         public TaskManager tm;
 
         // Etc
         public bool pinned = false;
+        int uid = 0;
 
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
-
-        private int last_uid;
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -83,6 +85,7 @@ namespace Notejot {
         public const string ACTION_KEYS = "action_keys";
         public const string ACTION_TRASH_NOTES = "action_trash_notes";
         public const string ACTION_MOVE_TO = "action_move_to";
+        public const string ACTION_DELETE_NOTE = "action_delete_note";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public const string ACTION_NOTEBOOK = "select_notebook";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -94,6 +97,7 @@ namespace Notejot {
               {ACTION_KEYS, action_keys},
               {ACTION_TRASH_NOTES, action_trash_notes},
               {ACTION_MOVE_TO, action_move_to},
+              {ACTION_DELETE_NOTE, action_delete_note},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
               {ACTION_NOTEBOOK, select_notebook, "s"},
         };
@@ -106,41 +110,22 @@ namespace Notejot {
                 icon_name: Config.APP_ID,
                 title: (_("Notejot"))
             );
-
-            key_press_event.connect ((e) => {
-                uint keycode = e.hardware_keycode;
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.q, keycode)) {
-                        this.destroy ();
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.n, keycode)) {
-                         on_create_new.begin ();
-                    }
-                }
-                return false;
-            });
         }
 
         construct {
             // Initial settings
-            Hdy.init ();
+            Adw.init ();
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Notejot/app.css");
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_display (Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
             default_theme.add_resource_path ("/io/github/lainsce/Notejot");
 
             // Gtk.StyleContext style = get_style_context ();
             // if (Config.PROFILE == "Devel") {
             //     style.add_class ("devel");
             // }
-
-            int w = Notejot.Application.gsettings.get_int("window-w");
-            int h = Notejot.Application.gsettings.get_int("window-h");
-            this.resize (w, h);
             //
 
             // Actions
@@ -165,17 +150,13 @@ namespace Notejot {
             // Main View
             tm = new TaskManager (this);
 
-            settingmenu = new Widgets.SettingMenu(this);
-            settingmenu.visible = false;
-            settingmenu.no_show_all = true;
+            sm = new Widgets.SettingMenu(this);
+            settingmenu.popover = sm.popover;
 
-            titlebar.pack_end (settingmenu);
-
-            back_button.show_all ();
+            back_button.visible = false;
             back_button.clicked.connect (() => {
                 leaflet.set_visible_child (sgrid);
             });
-            back_button.no_show_all = true;
 
             // Sidebar Titlebar
             new_button.clicked.connect (() => {
@@ -193,39 +174,32 @@ namespace Notejot {
             trashstore = new GLib.ListStore (typeof (Log));
 
             // List View
-            listview = new Views.ListView (this);
+            lv = new Views.ListView (this);
             listview.bind_model (notestore, item => make_item (this, item));
 
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
             });
 
-            list_scroller.add (listview);
-
             // Trash View
-            trashview = new Views.TrashView (this);
+            tv = new Views.TrashView (this);
             trashview.bind_model (trashstore, item => make_item (this, item));
 
             trashstore.items_changed.connect (() => {
                 tm.save_notes.begin (trashstore);
             });
 
-            trash_scroller.add (trashview);
-
             var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
             var tmenu = (Menu)tbuilder.get_object ("tmenu");
 
-            sidebar_title_button = new Widgets.HeaderBarButton ();
-            sidebar_title_button.has_tooltip = true;
-            sidebar_title_button.title = (_("All Notes"));
-            sidebar_title_button.menu.menu_model = tmenu;
-            sidebar_title_button.show_all ();
-            sidebar_title_button.get_style_context ().add_class ("rename-button");
-            sidebar_title_button.get_style_context ().add_class ("flat");
+            hbb = new Widgets.HeaderBarButton ();
+            hbb.has_tooltip = true;
+            hbb.title = (_("All Notes"));
+            hbb.menu.menu_model = tmenu;
+            hbb.get_style_context ().add_class ("rename-button");
+            hbb.get_style_context ().add_class ("flat");
 
-            stitlebar.set_custom_title (sidebar_title_button);
-
-            sgrid.show_all ();
+            stitlebar.set_title_widget (hbb);
 
             search_button.toggled.connect (() => {
                 if (search_button.get_active ()) {
@@ -236,12 +210,10 @@ namespace Notejot {
             });
 
             note_search.notify["text"].connect (() => {
-               listview.set_search_text (note_search.get_text ());
+               lv.set_search_text (note_search.get_text ());
             });
 
             // Main View
-            leaflet.show_all ();
-
             update ();
 
             leaflet.notify["folded"].connect (() => {
@@ -268,49 +240,36 @@ namespace Notejot {
             tm.load_from_file.begin ();
             tm.load_from_file_nb.begin ();
 
-            this.set_size_request (375, 280);
-            this.show_all ();
-        }
+            listen_to_changes ();
 
-#if VALA_0_42
-        protected bool match_keycode (uint keyval, uint code) {
-#else
-        protected bool match_keycode (int keyval, uint code) {
-#endif
-            Gdk.KeymapKey [] keys;
-            Gdk.Keymap keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
-            if (keymap.get_entries_for_keyval (keyval, out keys)) {
-                foreach (var key in keys) {
-                    if (code == key.keycode)
-                        return true;
-                    }
-                }
-            return false;
+            this.set_size_request (375, 280);
+            this.show ();
         }
 
         private void update () {
-            if (leaflet != null && titlegroup != null && leaflet.get_folded ()) {
+            if (leaflet != null && leaflet.get_folded ()) {
                 back_button.visible = true;
-                back_button.no_show_all = false;
-                titlegroup.set_decorate_all (true);
             } else {
                 back_button.visible = false;
-                back_button.no_show_all = true;
-                titlegroup.set_decorate_all (false);
             }
         }
 
-        public override bool delete_event (Gdk.EventAny event) {
-            int w, h;
-            get_size (out w, out h);
-            Notejot.Application.gsettings.set_int("window-w", w);
-            Notejot.Application.gsettings.set_int("window-h", h);
-            return false;
+        protected override bool close_request () {
+            debug ("Exiting window... Disposing of stuff...");
+            listview.bind_model (null, null);
+            trashview.bind_model (null, null);
+            this.dispose ();
+            return true;
+        }
+
+        public void listen_to_changes () {
+            Notejot.Application.gsettings.bind ("window-w", this, "default-width", GLib.SettingsBindFlags.DEFAULT);
+            Notejot.Application.gsettings.bind ("window-h", this, "default-height", GLib.SettingsBindFlags.DEFAULT);
         }
 
         // IO?
         public Widgets.Note make_item (MainWindow win, GLib.Object item) {
-            listview.is_modified = true;
+            lv.is_modified = true;
             return new Widgets.Note (this, (Log) item);
         }
 
@@ -321,7 +280,7 @@ namespace Notejot {
             log.text = text;
             log.color = color;
             log.notebook = notebook;
-            listview.is_modified = true;
+            lv.is_modified = true;
 
             notestore.append(log);
         }
@@ -336,12 +295,17 @@ namespace Notejot {
         public async void on_create_new () {
             var dt = new GLib.DateTime.now_local ();
             var log = new Log ();
+
+            uid++;
+
             log.title = "";
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = _("This is a text example.");
+            log.text = _("A Note ")+(@"$uid\n\n")+_("This is a text example.");
             log.color = "#fff";
             log.notebook = "";
-            listview.is_modified = true;
+
+            lv.is_modified = true;
+
             notestore.append (log);
 
             if (listview.get_selected_row () == null) {
@@ -351,15 +315,14 @@ namespace Notejot {
         }
 
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
-            sidebar_title_button.title = parameter.get_string ();
-            listview.set_search_text (parameter.get_string ());
+            hbb.title = parameter.get_string ();
+            lv.set_search_text (parameter.get_string ());
 
             main_stack.set_visible_child (empty_state);
             if (listview.get_selected_row () != null) {
                 listview.unselect_row(listview.get_selected_row ());
             }
             settingmenu.visible = false;
-            titlebar.title = "";
         }
 
         public void action_about () {
@@ -388,40 +351,60 @@ namespace Notejot {
         public void action_all_notes () {
             sidebar_stack.set_visible_child (list_scroller);
             Notejot.Application.gsettings.set_string("last-view", "list");
-            sidebar_title_button.title = (_("All Notes"));
+            hbb.title = (_("All Notes"));
             main_stack.set_visible_child (empty_state);
             if (listview.get_selected_row () != null) {
                 listview.unselect_row(listview.get_selected_row ());
             }
             settingmenu.visible = false;
-            titlebar.title = "";
-            listview.set_search_text ("");
+            lv.set_search_text ("");
         }
 
         public void action_trash () {
             sidebar_stack.set_visible_child (trash_scroller);
             Notejot.Application.gsettings.set_string("last-view", "trash");
-            sidebar_title_button.title = (_("Trash"));
+            hbb.title = (_("Trash"));
             main_stack.set_visible_child (empty_state);
             if (trashview.get_selected_row () != null) {
                 trashview.unselect_row(trashview.get_selected_row ());
             }
             settingmenu.visible = false;
-            titlebar.title = "";
-            listview.set_search_text ("");
         }
 
         public void action_trash_notes () {
-            dialog = new Widgets.Dialog (this,
-                                         _("Empty the Trashed Notes?"),
-                                         _("Emptying the trash means all the notes in it will be permanently lost with no recovery."),
-                                         _("Cancel"),
-                                         _("Empty Trash"));
+            var dialog = new Gtk.MessageDialog (this, 0, 0, 0, null);
+            dialog.modal = true;
+
+            dialog.set_title (_("Empty the Trashed Notes?"));
+            dialog.text = (_("Emptying the trash means all the notes in it will be permanently lost with no recovery."));
+
+            dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
+            dialog.add_button (_("Empty Trash"), Gtk.ResponseType.OK);
+
+            dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.OK:
+                        trashstore.remove_all ();
+                        dialog.close ();
+                        break;
+                    case Gtk.ResponseType.NO:
+                        dialog.close ();
+                        break;
+                    case Gtk.ResponseType.CANCEL:
+                    case Gtk.ResponseType.CLOSE:
+                    case Gtk.ResponseType.DELETE_EVENT:
+                        dialog.close ();
+                        return;
+                    default:
+                        assert_not_reached ();
+                }
+            });
+
             if (dialog != null) {
                 dialog.present ();
                 return;
             } else {
-                dialog.run ();
+                dialog.show ();
             }
         }
 
@@ -431,7 +414,6 @@ namespace Notejot {
                 build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
                 var window =  (Gtk.ShortcutsWindow) build.get_object ("shortcuts-notejot");
                 window.set_transient_for (this);
-                window.show_all ();
             } catch (Error e) {
                 warning ("Failed to open shortcuts window: %s\n", e.message);
             }
@@ -439,12 +421,36 @@ namespace Notejot {
 
         public void action_move_to () {
             var move_to_dialog = new Widgets.MoveToDialog (this);
-            move_to_dialog.show_all ();
+            move_to_dialog.show ();
+        }
+
+        public void action_delete_note () {
+            uint i, n = notestore.get_n_items ();
+            for (i = 0; i < n; i++) {
+                var item = notestore.get_item (i);
+
+                var tlog = new Log ();
+                tlog.title = ((Log)item).title;
+                tlog.subtitle = ((Log)item).subtitle;
+                tlog.text = ((Log)item).text;
+                tlog.color = ((Log)item).color;
+                tlog.notebook = ((Log)item).notebook;
+		        trashstore.append (tlog);
+
+                main_stack.set_visible_child (empty_state);
+                var row = main_stack.get_child_by_name ("textfield-%d".printf(uid));
+                main_stack.remove (row);
+
+                uint pos;
+                notestore.find (((Log)item), out pos);
+                notestore.remove (pos);
+                settingmenu.visible = false;
+            }
         }
 
         public void action_edit_notebooks () {
             var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
-            edit_nb_dialog.show_all ();
+            edit_nb_dialog.show ();
         }
     }
 }

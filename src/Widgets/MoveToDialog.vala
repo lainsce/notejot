@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
-    public class Widgets.MoveToDialog : Hdy.Window {
+    public class Widgets.MoveToDialog : Adw.Bin {
         public unowned MainWindow win { get; construct; }
 
         public signal void clicked ();
@@ -34,25 +34,24 @@ namespace Notejot {
 
         public MoveToDialog (MainWindow win) {
             Object (win: win);
-            set_transient_for (win);
 
             notebook_listbox.bind_model (win.notebookstore, item => make_item (win, item));
             notebook_listbox.set_selection_mode (Gtk.SelectionMode.SINGLE);
 
             remove_notebook_button.clicked.connect (() => {
-                win.settingmenu.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
+                win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
                 win.tm.save_notes.begin (win.notestore);
 
-                this.close ();
+                this.dispose ();
             });
 
             cancel_button.clicked.connect (() => {
-                this.close ();
+                this.dispose ();
             });
         }
 
-        public Hdy.ActionRow make_item (MainWindow win, GLib.Object item) {
-            var actionrow = new Hdy.ActionRow ();
+        public Adw.ActionRow make_item (MainWindow win, GLib.Object item) {
+            var actionrow = new Adw.ActionRow ();
             actionrow.set_title (((Notebook)item).title);
 
             notebook_listbox.row_selected.connect ((selected_row) => {
@@ -63,12 +62,12 @@ namespace Notejot {
                     for (i = 0; i < n; i++) {
                         var im = win.notebookstore.get_item (i);
 
-                        if (((Hdy.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
-                            win.settingmenu.controller.log.notebook = ((Notebook)im).title;
+                        if (((Adw.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
+                            win.sm.controller.log.notebook = ((Notebook)im).title;
                             win.tm.save_notes.begin (win.notestore);
                         }
                     }
-                    this.close ();
+                    this.dispose ();
                 });
             });
 

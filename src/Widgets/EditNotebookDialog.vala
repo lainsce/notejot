@@ -22,7 +22,7 @@ namespace Notejot {
     }
 
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/edit_notebooks.ui")]
-    public class Widgets.EditNotebooksDialog : Hdy.Window {
+    public class Widgets.EditNotebooksDialog : Adw.Window {
         public unowned MainWindow win { get; construct; }
         public unowned Notebook notebook { get; construct; }
 
@@ -37,7 +37,6 @@ namespace Notejot {
 
         public EditNotebooksDialog (MainWindow win) {
             Object (win: win);
-            set_transient_for (win);
 
             notebook_add_button.sensitive = false;
 
@@ -62,12 +61,12 @@ namespace Notejot {
             });
         }
 
-        public Hdy.ActionRow make_item (MainWindow win, GLib.Object item) {
-            var actionrow = new Hdy.ActionRow ();
+        public Adw.ActionRow make_item (MainWindow win, GLib.Object item) {
+            var actionrow = new Adw.ActionRow ();
             actionrow.set_title (((Notebook)item).title);
 
             var ar_delete_button = new Gtk.Button () {
-                image = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON),
+                icon_name = "window-close-symbolic",
                 tooltip_text = (_("Remove notebook")),
                 visible = true,
                 valign = Gtk.Align.CENTER
@@ -94,7 +93,7 @@ namespace Notejot {
                 }
             });
 
-            actionrow.add (ar_delete_button);
+            actionrow.add_suffix (ar_delete_button);
 
             return actionrow;
         }

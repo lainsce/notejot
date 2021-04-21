@@ -18,15 +18,11 @@
 */
 namespace Notejot.Widgets {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/header_button.ui")]
-    public class HeaderBarButton : Gtk.Bin {
+    public class HeaderBarButton : Adw.Bin {
         public signal void clicked ();
         public string? title { get; set; }
 
         [GtkChild]
         public unowned Gtk.MenuButton menu;
-
-        construct {
-            this.show_all ();
-        }
     }
 }

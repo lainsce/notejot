@@ -1,13 +1,23 @@
 .rename-button {
     margin-top: 0;
     margin-bottom: 0;
+}
+.rename-button button,
+.rename-button .toggle {
     border-radius: 0;
     border-top: none;
     border-bottom: none;
+    box-shadow: none;
     font-weight: 700;
+    background: none;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    transition: 100ms ease-in-out;
 }
-.rename-button:hover:not(:backdrop) {
-    background: shade(@theme_bg_color, 0.88);
+.rename-button .toggle:hover {
+    background: alpha(@theme_fg_color, 0.1);
+    border-right: 1px solid @borders;
+    border-left: 1px solid @borders;
     text-shadow: none;
 }
 
@@ -16,12 +26,19 @@
     min-width: 150px;
 }
 
-.flat {
+headerbar.flat {
   background-image: none;
   background-color: @theme_bg_color;
 }
 
-.header-button {
+headerbar.flat:backdrop {
+  background-image: none;
+  background-color: @theme_base_color;
+}
+
+.header-button,
+.header-button .toggle,
+.header-button .toggle:hover {
     border-radius: 9999px;
     min-width: 32px;
     min-height: 32px;
@@ -31,13 +48,13 @@
     border: none;
 }
 
-.header-button * {
+.header-button image {
   padding: 0;
   margin: 0;
 }
 
 .header-button:hover,
-.header-button:checked {
+.header-button .toggle:checked {
   background: alpha(@theme_fg_color, 0.1);
 }
 
@@ -62,41 +79,35 @@
   background: alpha(@theme_fg_color, 0.3);
 }
 
-.circular radio,
-.circular radio:checked {
-    border-radius: 9999px;
-    padding: 8px;
-}
-
-.color-red radio {
+.color-red {
     background: #db898e;
     color: #db898e;
 }
-.color-orange radio {
+.color-orange {
     background: #eeab7a;
     color: #eeab7a;
 }
-.color-yellow radio {
+.color-yellow {
     background: #f6dc83;
     color: #f6dc83;
 }
-.color-green radio {
+.color-green {
     background: #92dcb9;
     color: #92dcb9;
 }
-.color-blue radio {
+.color-blue {
     background: #89b3e6;
     color: #89b3e6;
 }
-.color-purple radio {
+.color-purple {
     background: #bc99c8;
     color: #bc99c8;
 }
-.color-brown radio {
+.color-brown {
     background: #beaa98;
     color: #beaa98;
 }
-.color-reset radio {
+.color-reset {
     background: #fbfafa;
     color: #fbfafa;
 }
@@ -148,4 +159,30 @@
 .notejot-searchbar {
   background: shade(@theme_base_color, 0.9);
   border-bottom: 1px solid alpha(@theme_fg_color, 0.25);
+}
+
+.dark {
+      color: #FFF;
+      background-color: #222;
+      font-family: "Cantarell", Arial, Helvetica, sans-serif;
+      font-weight: 400;
+}
+
+.light {
+      color: #222;
+      background-color: #FFF;
+      font-family: "Cantarell", Arial, Helvetica, sans-serif;
+      font-weight: 400;
+}
+
+.big-font {
+      font-size: 1.36rem;
+}
+
+.med-font {
+      font-size: 1rem;
+}
+
+.sml-font {
+      font-size: 0.86rem;
 }

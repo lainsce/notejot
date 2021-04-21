@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk+" version="3.24"/>
-  <requires lib="libhandy" version="1.0"/>
-  <template class="NotejotMainWindow" parent="HdyApplicationWindow">
-    <property name="window-position">center</property>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="NotejotMainWindow" parent="AdwApplicationWindow">
+    <property name="visible">1</property>
     <child>
       <object class="GtkBox" id="main_box">
         <property name="orientation">vertical</property>
-        <property name="homogeneous">True</property>
+        <property name="homogeneous">1</property>
         <child>
-          <object class="HdyLeaflet" id="leaflet">
+          <object class="AdwLeaflet" id="leaflet">
             <property name="interpolate-size">True</property>
             <property name="can-swipe-back">True</property>
             <property name="can-swipe-forward">True</property>
             <child>
               <object class="GtkBox" id="sgrid">
                 <property name="width-request">260</property>
-                <property name="hexpand">False</property>
+                <property name="hexpand">0</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="HdyHeaderBar" id="stitlebar">
-                    <property name="show-close-button">True</property>
+                  <object class="AdwHeaderBar" id="stitlebar">
+                    <property name="valign">center</property>
+                    <property name="show-start-title-buttons">0</property>
+                    <property name="show-end-title-buttons">0</property>
                     <style>
                       <class name="flat"/>
                     </style>
@@ -30,78 +31,48 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="new_button">
-                        <property name="can-focus">True</property>
                         <property name="tooltip-text" translatable="yes">Add Note</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="icon-name">add-note-symbolic</property>
-                          </object>
-                        </child>
+                        <property name="icon-name">add-note-symbolic</property>
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
                         </style>
                       </object>
                     </child>
-                    <child>
+                    <child type="end">
                       <object class="GtkMenuButton" id="menu_button">
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="icon-name">open-menu-symbolic</property>
-                          </object>
-                        </child>
+                        <property name="receives-default">1</property>
+                        <property name="icon-name">open-menu-symbolic</property>
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
                         </style>
                       </object>
-                      <packing>
-                        <property name="pack-type">end</property>
-                        <property name="position">1</property>
-                      </packing>
                     </child>
-                    <child>
+                    <child type="end">
                       <object class="GtkToggleButton" id="search_button">
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="icon-name">edit-find-symbolic</property>
-                          </object>
-                        </child>
+                        <property name="receives-default">1</property>
+                        <property name="icon-name">edit-find-symbolic</property>
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
                         </style>
                       </object>
-                      <packing>
-                        <property name="pack-type">end</property>
-                        <property name="position">2</property>
-                      </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkRevealer" id="search_revealer">
-                    <child>
+                    <property name="child">
                       <object class="GtkBox">
-                        <property name="hexpand">False</property>
+                        <property name="hexpand">0</property>
                         <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkSearchEntry" id="note_search">
-                            <property name="can-focus">True</property>
                             <property name="margin-start">12</property>
                             <property name="margin-end">12</property>
                             <property name="margin-top">6</property>
                             <property name="margin-bottom">6</property>
-                            <property name="primary-icon-name">edit-find-symbolic</property>
                             <property name="placeholder-text" translatable="yes">Search for notes</property>
                           </object>
                         </child>
@@ -109,47 +80,122 @@
                           <class name="notejot-searchbar"/>
                         </style>
                       </object>
-                    </child>
+                    </property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkStack" id="sidebar_stack">
+                    <property name="vexpand">1</property>
                     <property name="transition-type">crossfade</property>
                     <child>
-                      <object class="GtkScrolledWindow" id="list_scroller">
-                        <property name="width-request">250</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
+                      <object class="GtkStackPage">
                         <property name="name">page0</property>
                         <property name="title">page0</property>
-                      </packing>
+                        <property name="child">
+                          <object class="GtkScrolledWindow" id="list_scroller">
+                            <property name="width-request">250</property>
+                            <child>
+                              <object class="GtkListBox" id="listview">
+                                <property name="vexpand">1</property>
+                                <property name="selection_mode">single</property>
+                                <style>
+                                  <class name="notejot-view"/>
+                                </style>
+                                <child type="placeholder">
+                                  <object class="GtkBox" id="placeholder">
+                                    <property name="halign">center</property>
+                                    <property name="valign">center</property>
+                                    <property name="vexpand">1</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">12</property>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="icon-name">document-new-symbolic</property>
+                                        <property name="pixel-size">96</property>
+                                        <style>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">No Notes</property>
+                                        <style>
+                                          <class name="large-title"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">Use the Add Note button to add a note.</property>
+                                        <style>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
                     </child>
                     <child>
-                      <object class="GtkScrolledWindow" id="trash_scroller">
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
+                      <object class="GtkStackPage">
                         <property name="name">page1</property>
                         <property name="title">page1</property>
-                        <property name="position">1</property>
-                      </packing>
+                        <property name="child">
+                          <object class="GtkScrolledWindow" id="trash_scroller">
+                            <child>
+                              <object class="GtkListBox" id="trashview">
+                                <property name="vexpand">1</property>
+                                <property name="selection_mode">none</property>
+                                <property name="activate_on_single_click">1</property>
+                                <style>
+                                  <class name="notejot-view"/>
+                                </style>
+                                <child type="placeholder">
+                                  <object class="GtkBox" id="placeholder">
+                                    <property name="halign">center</property>
+                                    <property name="valign">center</property>
+                                    <property name="vexpand">1</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">12</property>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="icon-name">user-trash-symbolic</property>
+                                        <property name="pixel-size">96</property>
+                                        <style>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">No Trashed Notes</property>
+                                        <style>
+                                          <class name="large-title"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">Trashed notes appear here.</property>
+                                        <style>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
                 </child>
               </object>
             </child>
@@ -160,87 +206,72 @@
                   <class name="sidebar"/>
                 </style>
               </object>
-              <packing>
-                <property name="navigatable">False</property>
-              </packing>
             </child>
             <child>
               <object class="GtkBox" id="grid">
-                <property name="hexpand">True</property>
+                <property name="hexpand">1</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="HdyHeaderBar" id="titlebar">
-                    <property name="show-close-button">True</property>
+                  <object class="AdwHeaderBar" id="titlebar">
                     <style>
                       <class name="flat"/>
                     </style>
+                    <child type="title">
+                      <object class="GtkBox">
+                      </object>
+                    </child>
                     <child>
                       <object class="GtkButton" id="back_button">
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="icon-name">go-previous-symbolic</property>
-                          </object>
-                        </child>
+                        <property name="visible">1</property>
+                        <property name="receives-default">1</property>
+                        <property name="icon-name">go-previous-symbolic</property>
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
                         </style>
                       </object>
-                      <packing>
-                        <property name="position">1</property>
-                      </packing>
+                    </child>
+                    <child type="end">
+                      <object class="GtkMenuButton" id="settingmenu">
+                        <property name="visible">1</property>
+                        <property name="receives-default">1</property>
+                        <property name="icon-name">view-more-symbolic</property>
+                        <style>
+                          <class name="image-button"/>
+                          <class name="header-button"/>
+                        </style>
+                      </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkStack" id="main_stack">
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
+                    <property name="hexpand">1</property>
+                    <property name="vexpand">1</property>
                     <property name="transition-type">crossfade</property>
                     <child>
-                      <object class="GtkBox" id="empty_state">
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <style>
-                          <class name="empty-state"/>
-                        </style>
-                      </object>
-                      <packing>
+                      <object class="GtkStackPage">
                         <property name="name">page0</property>
                         <property name="title">page0</property>
-                      </packing>
+                        <property name="child">
+                          <object class="GtkBox" id="empty_state">
+                            <property name="hexpand">1</property>
+                            <property name="vexpand">1</property>
+                            <property name="visible">1</property>
+                            <style>
+                              <class name="empty-state"/>
+                            </style>
+                          </object>
+                        </property>
+                      </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
       </object>
     </child>
   </template>
-  <object class="HdyHeaderGroup" id="titlegroup">
-    <property name="decorate-all">True</property>
-    <headerbars>
-      <headerbar name="stitlebar"/>
-      <headerbar name="titlebar"/>
-    </headerbars>
-  </object>
 </interface>

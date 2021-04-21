@@ -5,15 +5,18 @@ namespace Notejot {
 
         public TextField (MainWindow win) {
             this.win = win;
-            this.expand = true;
             this.editable = true;
             this.set_can_focus (true);
-            this.opacity = 0.66;
+            this.opacity = 0.8;
             this.right_margin = this.bottom_margin = this.top_margin = this.left_margin = 20;
 
             send_text ();
+            set_stylesheet ();
+            set_font_stylesheet ();
 
             Notejot.Application.gsettings.changed.connect (() => {
+                set_stylesheet ();
+                set_font_stylesheet ();
                 win.tm.save_notes.begin (win.notestore);
             });
 
@@ -47,23 +50,33 @@ namespace Notejot {
             win.tm.save_notes.begin (win.notestore);
         }
 
-        private string set_stylesheet () {
+        private void set_stylesheet () {
             if (Notejot.Application.gsettings.get_boolean("dark-mode") == true) {
-                return Styles.dark.css;
+                this.get_style_context ().add_class ("dark");
+                this.get_style_context ().remove_class ("light");
             } else {
-                return Styles.light.css;
+                this.get_style_context ().add_class ("light");
+                this.get_style_context ().remove_class ("dark");
             }
         }
 
-        private string set_font_stylesheet () {
+        private void set_font_stylesheet () {
             if (Notejot.Application.gsettings.get_string("font-size") == "'small'") {
-                return Styles.small.css;
+                this.get_style_context ().add_class ("sml-font");
+                this.get_style_context ().remove_class ("med-font");
+                this.get_style_context ().remove_class ("big-font");
             } else if (Notejot.Application.gsettings.get_string("font-size") == "'medium'") {
-                return Styles.medium.css;
+                this.get_style_context ().remove_class ("sml-font");
+                this.get_style_context ().add_class ("med-font");
+                this.get_style_context ().remove_class ("big-font");
             } else if (Notejot.Application.gsettings.get_string("font-size") == "'large'") {
-                return Styles.large.css;
+                this.get_style_context ().remove_class ("sml-font");
+                this.get_style_context ().remove_class ("med-font");
+                this.get_style_context ().add_class ("big-font");
             } else {
-                return Styles.medium.css;
+                this.get_style_context ().remove_class ("sml-font");
+                this.get_style_context ().add_class ("med-font");
+                this.get_style_context ().remove_class ("big-font");
             }
         }
     }

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.24"/>
+  <requires lib="gtk" version="4.0"/>
   <menu id="tmenu">
     <section>
       <item>
@@ -11,8 +12,7 @@
         <attribute name="action">win.action_trash</attribute>
       </item>
     </section>
-    <section id="edit">
-    </section>
+    <section id="edit"/>
     <section>
       <item>
         <attribute name="label" translatable="yes">Manage Notebooks…</attribute>

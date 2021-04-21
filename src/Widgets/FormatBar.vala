@@ -1,6 +1,6 @@
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/formatbar.ui")]
-    public class Widgets.FormatBar : Gtk.ActionBar {
+    public class Widgets.FormatBar : Adw.Bin {
         public Widgets.TextField controller;
         public signal void clicked ();
 
@@ -22,8 +22,6 @@ namespace Notejot {
         public unowned Gtk.Box nb_box;
 
         public FormatBar () {
-            this.show_all ();
-
             normal_button.clicked.connect (() => {
                 var sel_text = controller.get_selected_text ();
                 Gtk.TextIter A;

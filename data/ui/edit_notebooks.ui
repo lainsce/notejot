@@ -1,117 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk+" version="3.24"/>
-  <requires lib="libhandy" version="0.0"/>
-  <template class="NotejotWidgetsEditNotebooksDialog" parent="HdyWindow">
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="NotejotWidgetsEditNotebooksDialog" parent="AdwWindow">
     <property name="title" translatable="yes">Edit Notebooks</property>
-    <property name="modal">True</property>
-    <property name="gravity">center</property>
+    <property name="modal">1</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
+    <property name="visible">1</property>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <property name="visible">True</property>
+        <property name="visible">1</property>
         <child>
-          <object class="HdyHeaderBar">
-            <property name="visible">True</property>
-            <property name="title" translatable="yes">Edit Notebooks</property>
-            <property name="show-close-button">True</property>
+          <object class="AdwHeaderBar">
+            <property name="visible">1</property>
             <style>
               <class name="flat"/>
             </style>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkBox">
-            <property name="visible">True</property>
             <property name="orientation">vertical</property>
+            <property name="visible">1</property>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="margin-start">9</property>
                 <property name="margin-end">9</property>
                 <property name="margin-top">9</property>
                 <property name="margin-bottom">6</property>
+                <property name="visible">1</property>
                 <child>
                   <object class="GtkEntry" id="notebook_name_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="hexpand">True</property>
+                    <property name="hexpand">1</property>
+                    <property name="visible">1</property>
                     <property name="placeholder-text" translatable="yes">New Notebook…</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="notebook_add_button">
-                    <property name="visible">True</property>
                     <property name="label" translatable="yes">Add</property>
+                    <property name="visible">1</property>
                     <style>
                       <class name="text-button"/>
                     </style>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
                 <style>
                   <class name="linked"/>
                 </style>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkSeparator">
-                <property name="visible">True</property>
                 <property name="margin-top">3</property>
                 <property name="margin-bottom">3</property>
+                <property name="visible">1</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
         <child>
           <object class="GtkListBox" id="notebook_listbox">
-            <property name="visible">True</property>
+            <property name="visible">1</property>
             <property name="margin-start">9</property>
             <property name="margin-end">9</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">9</property>
-            <property name="vexpand">True</property>
+            <property name="vexpand">1</property>
             <style>
               <class name="content"/>
             </style>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
         </child>
       </object>
     </child>
