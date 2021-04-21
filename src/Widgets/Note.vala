@@ -230,8 +230,8 @@ namespace Notejot {
 
             try {
                 var reg = new Regex("""(?m)(?<first_line>^[^\.\!\?\n\r].+)<br>""");
-                var reg2 = new Regex("""(?m)(?<html><([A-Za-z][A-Za-z][A-Za-z]*)>)""");
-                var reg3 = new Regex("""(?m)(?<html2></([A-Za-z][A-Za-z][A-Za-z]*)>)""");
+                var reg2 = new Regex("""(?m)(?<html><([^>]*)>)""");
+                var reg3 = new Regex("""(?m)(?<html2></([^>]*)>)""");
                 GLib.MatchInfo match;
                 GLib.MatchInfo match2;
                 GLib.MatchInfo match3;
