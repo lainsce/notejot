@@ -17,31 +17,31 @@
 }
 
 .flat {
-    background: none;
-    box-shadow: none;
-    -gtk-icon-shadow: 0px 0px;
+  background-image: none;
+  background-color: @theme_bg_color;
 }
 
-.circular {
+.header-button {
     border-radius: 9999px;
     min-width: 32px;
     min-height: 32px;
     padding: 0;
     background: none;
     box-shadow: none;
+    border: none;
 }
 
-.circular image {
+.header-button * {
   padding: 0;
   margin: 0;
 }
 
-.circular:hover,
-.circular:checked {
+.header-button:hover,
+.header-button:checked {
   background: alpha(@theme_fg_color, 0.1);
 }
 
-.circular:active {
+.header-button:active {
   background: alpha(@theme_fg_color, 0.2);
 }
 
@@ -64,8 +64,8 @@
 
 .circular radio,
 .circular radio:checked {
+    border-radius: 9999px;
     padding: 8px;
-    border: 1px solid alpha(black, 0.25);
 }
 
 .color-red radio {
@@ -146,6 +146,6 @@
 }
 
 .notejot-searchbar {
-  background: shade(@theme_bg_color, 0.9);
+  background: shade(@theme_base_color, 0.9);
   border-bottom: 1px solid alpha(@theme_fg_color, 0.25);
 }

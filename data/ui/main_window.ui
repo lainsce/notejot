@@ -39,7 +39,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
-                          <class name="circular"/>
+                          <class name="header-button"/>
                         </style>
                       </object>
                     </child>
@@ -54,7 +54,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
-                          <class name="circular"/>
+                          <class name="header-button"/>
                         </style>
                       </object>
                       <packing>
@@ -73,7 +73,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
-                          <class name="circular"/>
+                          <class name="header-button"/>
                         </style>
                       </object>
                       <packing>
@@ -185,7 +185,7 @@
                         </child>
                         <style>
                           <class name="image-button"/>
-                          <class name="circular"/>
+                          <class name="header-button"/>
                         </style>
                       </object>
                       <packing>

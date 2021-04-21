@@ -53,6 +53,17 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="3.0.0" date="2020-06-06">
+            <description>
+                <p>Release: GTK4 and Ready!</p>
+                <ul>
+                    <li>New UI</li>
+                    <li>Using another widget to display note contents</li>
+                    <li>Keyboard shortcuts for formatting</li>
+                </ul>
+                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
+            </description>
+        </release>
         <release version="2.7.0" date="2020-02-19">
             <description>
                 <p>Release: Notebooks Noted Up</p>

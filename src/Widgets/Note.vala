@@ -160,8 +160,9 @@ namespace Notejot {
             string style = null;
             style = (N_("""
             .notejot-sidebar-dbg-%d {
-                background: %s;
+                background: mix(%s, @theme_bg_color, 0.5);
                 border-radius: 9999px;
+                border: 1px solid alpha(@theme_fg_color, 0.25);
             }
             .notejot-action-%d {
                 background: mix(%s, @theme_bg_color, 0.9);

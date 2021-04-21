@@ -62,7 +62,7 @@ namespace Notejot {
             this.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             this.popover = popover;
             this.halign = Gtk.Align.END;
-            this.get_style_context ().add_class ("circular");
+            this.get_style_context ().add_class ("header-button");
             this.show_all ();
         }
     }

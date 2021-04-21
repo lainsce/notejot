@@ -32,7 +32,6 @@
                 <property name="receives-default">True</property>
                 <style>
                   <class name="text-button"/>
-                  <class name="pill"/>
                   <class name="suggested-action"/>
                 </style>
               </object>
@@ -48,7 +47,6 @@
                 <property name="receives-default">True</property>
                 <style>
                   <class name="text-button"/>
-                  <class name="pill"/>
                 </style>
               </object>
               <packing>
@@ -94,7 +92,6 @@
             <property name="margin-bottom">6</property>
             <style>
               <class name="destructive-action"/>
-              <class name="pill"/>
             </style>
           </object>
           <packing>
