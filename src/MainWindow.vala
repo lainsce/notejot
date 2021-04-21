@@ -414,6 +414,7 @@ namespace Notejot {
                 build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
                 var window =  (Gtk.ShortcutsWindow) build.get_object ("shortcuts-notejot");
                 window.set_transient_for (this);
+                window.show ();
             } catch (Error e) {
                 warning ("Failed to open shortcuts window: %s\n", e.message);
             }
