@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
-    public class Widgets.MoveToDialog : Adw.Bin {
+    public class Widgets.MoveToDialog : Adw.Window {
         public unowned MainWindow win { get; construct; }
 
         public signal void clicked ();

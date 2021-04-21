@@ -27,8 +27,8 @@
 }
 
 headerbar.flat {
+  background-color: shade(@theme_bg_color, 0.95);
   background-image: none;
-  background-color: @theme_bg_color;
 }
 
 headerbar.flat:backdrop {
@@ -119,11 +119,15 @@ headerbar.flat:backdrop {
     border-radius: 8px;
 }
 
+.notejot-sidebar-box:backdrop {
+    opacity: 0.66;
+}
+
 .notejot-sidebar-box:active,
 .notejot-sidebar-box:selected,
 .notejot-sidebar-box:focus,
 .notejot-sidebar-box:hover  {
-  background: shade(@theme_base_color, 0.9);
+  background: alpha(@theme_fg_color, 0.1);
   color: @theme_fg_color;
 }
 
@@ -131,8 +135,7 @@ headerbar.flat:backdrop {
 .notejot-sidebar-box:selected:backdrop,
 .notejot-sidebar-box:focus:backdrop,
 .notejot-sidebar-box:hover:backdrop  {
-  background: alpha(shade(@theme_base_color, 0.9), 0.5);
-  color: alpha(@theme_fg_color, 0.5);
+  opacity: 0.66;
 }
 
 .notejot-tview {
@@ -145,7 +148,7 @@ headerbar.flat:backdrop {
 }
 
 .empty-state {
-  background: @theme_bg_color;
+  background-color: shade(@theme_bg_color, 0.95);
 }
 
 .empty-state:backdrop {
@@ -157,8 +160,8 @@ headerbar.flat:backdrop {
 }
 
 .notejot-searchbar {
-  background: shade(@theme_base_color, 0.9);
-  border-bottom: 1px solid alpha(@theme_fg_color, 0.25);
+  background: alpha(@theme_fg_color, 0.1);
+  border-bottom: 1px solid @borders;
 }
 
 .dark {

@@ -157,14 +157,24 @@ namespace Notejot {
             .notejot-stack-%d {
                 background: mix(%s, @theme_bg_color, 0.9);
             }
+            .notejot-action-%d:backdrop {
+                background: mix(%s, @theme_base_color, 0.9);
+            }
+            .notejot-stack-%d:backdrop {
+                background: mix(%s, @theme_base_color, 0.9);
+            }
             .notejot-stack-%d .notejot-bar {
                 background: mix(%s, @theme_bg_color, 0.9);
+                border-top: 1px solid @borders;
+            }
+            .notejot-stack-%d:backdrop .notejot-bar {
+                background: mix(%s, @theme_base_color, 0.9);
                 border-top: 1px solid @borders;
             }
             .notejot-stack-%d box {
                 border: none;
             }
-            """)).printf(uid, color, uid, color, uid, color, uid, color, uid);
+            """)).printf(uid, color, uid, color, uid, color, uid, color, uid, color, uid, color, uid, color, uid);
 
             css_provider.load_from_data(style.data);
 

@@ -32,7 +32,7 @@
                     <child>
                       <object class="GtkButton" id="new_button">
                         <property name="tooltip-text" translatable="yes">Add Note</property>
-                        <property name="icon-name">add-note-symbolic</property>
+                        <property name="icon-name">list-add-symbolic</property>
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
@@ -127,7 +127,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Use the Add Note button to add a note.</property>
+                                        <property name="label" translatable="yes">Use the + button to add a note.</property>
                                         <style>
                                           <class name="dim-label"/>
                                         </style>
@@ -173,7 +173,7 @@
                                     </child>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="label" translatable="yes">No Trashed Notes</property>
+                                        <property name="label" translatable="yes">No Trash</property>
                                         <style>
                                           <class name="large-title"/>
                                         </style>

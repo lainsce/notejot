@@ -19,10 +19,12 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="visible">1</property>
+            <property name="show-start-title-buttons">0</property>
+            <property name="show-end-title-buttons">0</property>
             <style>
               <class name="flat"/>
             </style>
-            <child>
+            <child type="end">
               <object class="GtkButton" id="move_button">
                 <property name="label" translatable="yes">Move</property>
                 <property name="sensitive">0</property>
@@ -34,7 +36,7 @@
                 </style>
               </object>
             </child>
-            <child type="end">
+            <child>
               <object class="GtkButton" id="cancel_button">
                 <property name="label" translatable="yes">Cancel</property>
                 <property name="receives-default">1</property>

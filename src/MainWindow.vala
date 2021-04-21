@@ -425,27 +425,24 @@ namespace Notejot {
         }
 
         public void action_delete_note () {
-            uint i, n = notestore.get_n_items ();
-            for (i = 0; i < n; i++) {
-                var item = notestore.get_item (i);
+            var row = listview.get_selected_row ();
 
-                var tlog = new Log ();
-                tlog.title = ((Log)item).title;
-                tlog.subtitle = ((Log)item).subtitle;
-                tlog.text = ((Log)item).text;
-                tlog.color = ((Log)item).color;
-                tlog.notebook = ((Log)item).notebook;
-		        trashstore.append (tlog);
+            var tlog = new Log ();
+            tlog.title = ((Widgets.Note)row).log.title;
+            tlog.subtitle = ((Widgets.Note)row).log.subtitle;
+            tlog.text = ((Widgets.Note)row).log.text;
+            tlog.color = ((Widgets.Note)row).log.color;
+            tlog.notebook = ((Widgets.Note)row).log.notebook;
+	        trashstore.append (tlog);
 
-                main_stack.set_visible_child (empty_state);
-                var row = main_stack.get_child_by_name ("textfield-%d".printf(uid));
-                main_stack.remove (row);
+            main_stack.set_visible_child (empty_state);
+            var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
+            main_stack.remove (rowd);
 
-                uint pos;
-                notestore.find (((Log)item), out pos);
-                notestore.remove (pos);
-                settingmenu.visible = false;
-            }
+            uint pos;
+            notestore.find (((Widgets.Note)row), out pos);
+            notestore.remove (pos);
+            settingmenu.visible = false;
         }
 
         public void action_edit_notebooks () {
