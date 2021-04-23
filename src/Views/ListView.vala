@@ -49,13 +49,16 @@ namespace Notejot {
                 }
 
                 var popover = new Widgets.NoteMenuPopover ();
+                popover.set_parent (win);
                 ((Widgets.Note)row).popover_listener (popover);
 
                 Gtk.Allocation allocation;
                 row.get_allocation (out allocation);
 
                 popover.set_pointing_to (allocation);
+                popover.set_offset (0, 40); // Needed so that the popover doesn't show above the list widget
                 popover.popup ();
+                popover.set_autohide (true);
 
                 press.set_state (Gtk.EventSequenceState.CLAIMED);
             });

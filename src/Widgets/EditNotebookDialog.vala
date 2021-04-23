@@ -23,7 +23,7 @@ namespace Notejot {
 
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/edit_notebooks.ui")]
     public class Widgets.EditNotebooksDialog : Adw.Window {
-        public unowned MainWindow win { get; construct; }
+        public unowned MainWindow win = null;
         public unowned Notebook notebook { get; construct; }
 
         public signal void clicked ();
@@ -36,7 +36,9 @@ namespace Notejot {
         public unowned Gtk.ListBox notebook_listbox;
 
         public EditNotebooksDialog (MainWindow win) {
-            Object (win: win);
+            this.win = win;
+            this.set_modal (true);
+            this.set_transient_for (win);
 
             notebook_add_button.sensitive = false;
 

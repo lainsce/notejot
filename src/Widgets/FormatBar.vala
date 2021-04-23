@@ -28,7 +28,7 @@ namespace Notejot {
                 Gtk.TextIter B;
                 controller.get_buffer ().get_selection_bounds (out A, out B);
 
-                controller.get_buffer ().insert_markup(ref A, @"$sel_text", -1);
+                controller.get_buffer ().insert(ref A, @"$sel_text", -1);
                 controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
@@ -39,7 +39,7 @@ namespace Notejot {
                 Gtk.TextIter B;
                 controller.get_buffer ().get_selection_bounds (out A, out B);
 
-                controller.get_buffer ().insert_markup(ref A, @"<b>$sel_text</b>", -1);
+                controller.get_buffer ().insert(ref A, @"<b>$sel_text</b>", -1);
                 controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
@@ -50,7 +50,7 @@ namespace Notejot {
                 Gtk.TextIter B;
                 controller.get_buffer ().get_selection_bounds (out A, out B);
 
-                controller.get_buffer ().insert_markup(ref A, @"<i>$sel_text</i>", -1);
+                controller.get_buffer ().insert(ref A, @"<i>$sel_text</i>", -1);
                 controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
@@ -61,7 +61,7 @@ namespace Notejot {
                 Gtk.TextIter B;
                 controller.get_buffer ().get_selection_bounds (out A, out B);
 
-                controller.get_buffer ().insert_markup(ref A, @"<u>$sel_text</u>", -1);
+                controller.get_buffer ().insert(ref A, @"<u>$sel_text</u>", -1);
                 controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });
@@ -72,7 +72,7 @@ namespace Notejot {
                 Gtk.TextIter B;
                 controller.get_buffer ().get_selection_bounds (out A, out B);
 
-                controller.get_buffer ().insert_markup(ref A, @"<s>$sel_text</s>", -1);
+                controller.get_buffer ().insert(ref A, @"<s>$sel_text</s>", -1);
                 controller.get_buffer ().delete_selection (true, true);
                 controller.grab_focus ();
             });

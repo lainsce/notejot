@@ -19,7 +19,7 @@
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
     public class Widgets.MoveToDialog : Adw.Window {
-        public unowned MainWindow win { get; construct; }
+        public unowned MainWindow win = null;
 
         public signal void clicked ();
 
@@ -33,7 +33,9 @@ namespace Notejot {
         public unowned Gtk.Button move_button;
 
         public MoveToDialog (MainWindow win) {
-            Object (win: win);
+            this.win = win;
+            this.set_modal (true);
+            this.set_transient_for (win);
 
             notebook_listbox.bind_model (win.notebookstore, item => make_item (win, item));
             notebook_listbox.set_selection_mode (Gtk.SelectionMode.SINGLE);

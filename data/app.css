@@ -21,14 +21,10 @@
     text-shadow: none;
 }
 
-.popover-list .horizontal,
-.popover-list .text-button {
-    min-width: 150px;
-}
-
-.titlebar {
-  background-image: none;
-}
+/* .popover-list .horizontal, */
+/* .popover-list .text-button { */
+/*     min-width: 150px; */
+/* } */
 
 headerbar.flat {
   background-color: shade(@theme_bg_color, 0.95);
