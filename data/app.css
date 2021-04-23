@@ -27,8 +27,9 @@
 /* } */
 
 headerbar.flat {
-  background-color: shade(@theme_bg_color, 0.95);
+  background-color: mix(#fbfafa, @theme_bg_color, 0.9);
   background-image: none;
+  transition: 100ms ease-in-out;
 }
 
 headerbar.flat:backdrop {
@@ -37,15 +38,12 @@ headerbar.flat:backdrop {
 }
 
 .header-button,
-.header-button .toggle,
-.header-button .toggle:hover {
-    border-radius: 9999px;
-    min-width: 32px;
-    min-height: 32px;
-    padding: 0;
+.header-button .toggle {
+    border-radius: 8px;
     background: none;
-    box-shadow: none;
     border: none;
+    box-shadow: none;
+    transition: 100ms ease-in-out;
 }
 
 .header-button image {
@@ -69,6 +67,7 @@ headerbar.flat:backdrop {
   box-shadow: none;
   border: none;
   background: alpha(@theme_fg_color, 0.1);
+  transition: 100ms ease-in-out;
 }
 
 .close:backdrop {
@@ -121,6 +120,7 @@ headerbar.flat:backdrop {
     margin: 6px;
     margin-bottom: 0px;
     border-radius: 8px;
+    transition: 100ms ease-in-out;
 }
 
 .notejot-sidebar-box:backdrop {
@@ -149,6 +149,7 @@ headerbar.flat:backdrop {
 
 .notejot-bar {
   background: @theme_bg_color;
+  transition: 100ms ease-in-out;
 }
 
 .empty-state {
@@ -170,6 +171,7 @@ headerbar.flat:backdrop {
 .notejot-searchbar {
   background: alpha(@theme_fg_color, 0.1);
   border-bottom: 1px solid @borders;
+  transition: 100ms ease-in-out;
 }
 
 .dark {

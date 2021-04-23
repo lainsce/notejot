@@ -55,6 +55,7 @@
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
+                          <class name="search-button"/>
                         </style>
                       </object>
                     </child>
