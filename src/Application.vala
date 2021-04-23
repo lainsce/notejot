@@ -21,12 +21,16 @@ namespace Notejot {
     public class Application : Gtk.Application {
         public static MainWindow win = null;
         public static GLib.Settings gsettings;
+        private const GLib.ActionEntry app_entries[] = {
+            { "quit", on_quit },
+        };
 
         public Application () {
             Object (
                 flags: ApplicationFlags.FLAGS_NONE,
                 application_id: Config.APP_ID
             );
+            add_action_entries(app_entries, this);
         }
         static construct {
             gsettings = new GLib.Settings ("io.github.lainsce.Notejot");
@@ -37,7 +41,9 @@ namespace Notejot {
             Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.GNOMELOCALEDIR);
             Intl.textdomain (Config.GETTEXT_PACKAGE);
         }
-
+        private void on_quit() {
+            win.destroy();
+        }
         protected override void activate () {
             if (win != null) {
                 win.present ();

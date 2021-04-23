@@ -14,12 +14,8 @@
               <object class="GtkButton" id="normal_button">
                 <property name="receives-default">1</property>
                 <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="can-focus">0</property>
-                    <property name="icon-name">font-x-generic-symbolic</property>
-                  </object>
-                </child>
+                <property name="action-name">win.action_normal</property>
+                <property name="icon-name">font-x-generic-symbolic</property>
                 <style>
                   <class name="image-button"/>
                   <class name="header-button"/>
@@ -35,12 +31,8 @@
               <object class="GtkButton" id="bold_button">
                 <property name="receives-default">1</property>
                 <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="can-focus">0</property>
-                    <property name="icon-name">format-text-bold-symbolic</property>
-                  </object>
-                </child>
+                <property name="action-name">win.action_bold</property>
+                <property name="icon-name">format-text-bold-symbolic</property>
                 <style>
                   <class name="image-button"/>
                   <class name="header-button"/>
@@ -51,12 +43,8 @@
               <object class="GtkButton" id="italic_button">
                 <property name="receives-default">1</property>
                 <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="can-focus">0</property>
-                    <property name="icon-name">format-text-italic-symbolic</property>
-                  </object>
-                </child>
+                <property name="action-name">win.action_italic</property>
+                <property name="icon-name">format-text-italic-symbolic</property>
                 <style>
                   <class name="image-button"/>
                   <class name="header-button"/>
@@ -67,12 +55,8 @@
               <object class="GtkButton" id="ul_button">
                 <property name="receives-default">1</property>
                 <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="can-focus">0</property>
-                    <property name="icon-name">format-text-underline-symbolic</property>
-                  </object>
-                </child>
+                <property name="action-name">win.action_ul</property>
+                <property name="icon-name">format-text-underline-symbolic</property>
                 <style>
                   <class name="image-button"/>
                   <class name="header-button"/>
@@ -83,12 +67,8 @@
               <object class="GtkButton" id="s_button">
                 <property name="receives-default">1</property>
                 <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="can-focus">0</property>
-                    <property name="icon-name">format-text-strikethrough-symbolic</property>
-                  </object>
-                </child>
+                <property name="action-name">win.action_s</property>
+                <property name="icon-name">format-text-strikethrough-symbolic</property>
                 <style>
                   <class name="image-button"/>
                   <class name="header-button"/>

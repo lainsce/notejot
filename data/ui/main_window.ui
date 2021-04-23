@@ -32,6 +32,7 @@
                       <object class="GtkButton" id="new_button">
                         <property name="tooltip-text" translatable="yes">Add Note</property>
                         <property name="icon-name">add-note-symbolic</property>
+                        <property name="action-name">win.action_new_note</property>
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>

@@ -80,6 +80,7 @@ namespace Notejot {
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";
+        public const string ACTION_NEW_NOTE = "action_new_note";
         public const string ACTION_ALL_NOTES = "action_all_notes";
         public const string ACTION_TRASH = "action_trash";
         public const string ACTION_KEYS = "action_keys";
@@ -88,10 +89,17 @@ namespace Notejot {
         public const string ACTION_DELETE_NOTE = "action_delete_note";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public const string ACTION_NOTEBOOK = "select_notebook";
+
+        public const string ACTION_NORMAL = "action_normal";
+        public const string ACTION_BOLD = "action_bold";
+        public const string ACTION_ITALIC = "action_italic";
+        public const string ACTION_UL = "action_ul";
+        public const string ACTION_S = "action_s";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
               {ACTION_ABOUT, action_about },
+              {ACTION_NEW_NOTE, action_new_note },
               {ACTION_ALL_NOTES, action_all_notes},
               {ACTION_TRASH, action_trash},
               {ACTION_KEYS, action_keys},
@@ -100,6 +108,12 @@ namespace Notejot {
               {ACTION_DELETE_NOTE, action_delete_note},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
               {ACTION_NOTEBOOK, select_notebook, "s"},
+
+              {ACTION_NORMAL, action_normal },
+              {ACTION_BOLD, action_bold},
+              {ACTION_ITALIC, action_italic},
+              {ACTION_UL, action_ul},
+              {ACTION_S, action_s},
         };
 
         public Gtk.Application app { get; construct; }
@@ -139,6 +153,14 @@ namespace Notejot {
 
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
+            app.set_accels_for_action("app.quit", {"<Ctrl>q"});
+            app.set_accels_for_action ("win.action_new_note", {"<Ctrl>n"});
+
+            app.set_accels_for_action ("win.action_normal", {"<Ctrl>t"});
+            app.set_accels_for_action ("win.action_bold", {"<Ctrl>b"});
+            app.set_accels_for_action ("win.action_italic", {"<Ctrl>i"});
+            app.set_accels_for_action ("win.action_ul", {"<Ctrl>u"});
+            app.set_accels_for_action ("win.action_s", {"<Ctrl><Shift>s"});
 
             var action_darkmode = Notejot.Application.gsettings.create_action ("dark-mode");
             app.add_action(action_darkmode);
@@ -348,6 +370,10 @@ namespace Notejot {
                                    null);
         }
 
+        public void action_new_note () {
+            on_create_new.begin ();
+        }
+
         public void action_all_notes () {
             sidebar_stack.set_visible_child (list_scroller);
             Notejot.Application.gsettings.set_string("last-view", "list");
@@ -450,6 +476,70 @@ namespace Notejot {
             var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
             edit_nb_dialog.show ();
         }
+
+        public void action_normal () {
+            var row = listview.get_selected_row ();
+
+            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
+
+            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"$sel_text", -1);
+            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            ((Widgets.Note)row).textfield.grab_focus ();
+        }
+
+        public void action_bold () {
+            var row = listview.get_selected_row ();
+
+            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
+
+            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"<b>$sel_text</b>", -1);
+            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            ((Widgets.Note)row).textfield.grab_focus ();
+        }
+
+        public void action_italic () {
+            var row = listview.get_selected_row ();
+
+            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
+
+            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"<i>$sel_text</i>", -1);
+            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            ((Widgets.Note)row).textfield.grab_focus ();
+        }
+
+        public void action_ul () {
+            var row = listview.get_selected_row ();
+
+            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
+
+            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"<u>$sel_text</u>", -1);
+            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            ((Widgets.Note)row).textfield.grab_focus ();
+        }
+
+        public void action_s () {
+            var row = listview.get_selected_row ();
+
+            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
+            Gtk.TextIter A;
+            Gtk.TextIter B;
+            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
+
+            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"<s>$sel_text</s>", -1);
+            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            ((Widgets.Note)row).textfield.grab_focus ();
+        }
     }
 }
-

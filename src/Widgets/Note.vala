@@ -71,7 +71,7 @@ namespace Notejot {
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
 
-            formatbar = new Widgets.FormatBar ();
+            formatbar = new Widgets.FormatBar (win);
             formatbar.controller = textfield;
             formatbar.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
