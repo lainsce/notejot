@@ -44,6 +44,7 @@ namespace Notejot {
             send_text ();
             set_stylesheet ();
             set_font_stylesheet ();
+            fmt_syntax_start ();
 
             Notejot.Application.gsettings.changed.connect (() => {
                 set_stylesheet ();
