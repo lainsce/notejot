@@ -177,6 +177,13 @@ namespace Notejot {
 
             back_button.visible = false;
             back_button.clicked.connect (() => {
+                Notejot.Application.gsettings.set_string("last-view", "list");
+                main_stack.set_visible_child (empty_state);
+                if (listview.get_selected_row () != null) {
+                    listview.unselect_row(listview.get_selected_row ());
+                }
+                settingmenu.visible = false;
+                lv.set_search_text ("");
                 leaflet.set_visible_child (sgrid);
             });
 
@@ -318,7 +325,7 @@ namespace Notejot {
 
             log.title = "";
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = _("A Note ")+(@"$uid\n\n")+_("This is a text example.");
+            log.text = ("^") + _("New Note") + ("^ ") + (@"$uid\n\n") + _("This is a text example.");
             log.color = "#fff";
             log.notebook = "";
 

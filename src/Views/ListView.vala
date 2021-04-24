@@ -24,11 +24,29 @@ namespace Notejot {
                     ((Widgets.Note)selected_row).select_item ();
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
+                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
+                    } else {
+                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
+                    }
+
                     last_uid = ((Widgets.Note)selected_row).uid;
                     win.sm.controller = ((Widgets.Note)selected_row);
                     win.titlebar.get_style_context ().add_class (@"notejot-action-$last_uid");
+
+                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                        win.titlebar.get_style_context ().add_class (@"notejot-action-dark-$last_uid");
+                    } else {
+                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
+                    }
                 } else {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
+
+                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
+                    } else {
+                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
+                    }
                 }
             });
 

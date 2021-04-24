@@ -2,12 +2,8 @@ src/Application.vala
 src/MainWindow.vala
 src/Services/TaskManager.vala
 src/Services/Utils.vala
-src/Styles/dark.vala
-src/Styles/light.vala
 src/Views/ListView.vala
 src/Views/TrashView.vala
-src/Widgets/Dialog.vala
-src/Widgets/EditableLabel.vala
 src/Widgets/FormatBar.vala
 src/Widgets/HeaderBarButton.vala
 src/Widgets/SettingMenu.vala
@@ -15,10 +11,8 @@ src/Widgets/Note.vala
 src/Widgets/NoteMenuPopover.vala
 src/Widgets/TrashedItem.vala
 src/Widgets/TextField.vala
-src/Widgets/TitleMenu.vala
 src/Widgets/EditNotebookDialog.vala
 src/Widgets/MoveToDialog.vala
-data/ui/editable_label.ui
 data/ui/edit_notebooks.ui
 data/ui/formatbar.ui
 data/ui/header_button.ui

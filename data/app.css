@@ -24,7 +24,7 @@
 .text-button.suggested-action {
     background: mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.8);
     color: @theme_fg_color;
-    border: none;
+    border: 1px solid transparent;
     box-shadow: none;
 }
 
@@ -40,14 +40,14 @@
 
 .text-button.suggested-action:active,
 .text-button.suggested-action:active:checked {
-    background: mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.9);
+    background: mix(#1c71d8, alpha(@theme_bg_color, 0.05), 0.9);
     box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
 }
 
 .text-button.destructive-action {
     background: mix(#e01b24, alpha(@theme_bg_color, 0.2), 0.8);
     color: @theme_fg_color;
-    border: none;
+    border: 1px solid transparent;
 }
 
 .text-button.destructive-action:hover {
@@ -56,7 +56,7 @@
 
 .text-button.destructive-action:active,
 .text-button.destructive-action:active:checked {
-    background: mix(#e01b24, alpha(@theme_bg_color, 0.2), 0.9);
+    background: mix(#e01b24, alpha(@theme_bg_color, 0.05), 0.9);
     box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
 }
 
@@ -112,7 +112,7 @@ headerbar.flat:backdrop {
 .header-button:active,
 .text-button:active,
 .toggle:active {
-  background: none;
+  background: alpha(@theme_fg_color, 0.05);
   box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
 }
 
@@ -121,7 +121,7 @@ headerbar.flat:backdrop {
 }
 
 .header-toggle-button > button:active {
-  background: none;
+  background: alpha(@theme_fg_color, 0.05);
   box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
 }
 
@@ -169,7 +169,6 @@ headerbar.flat:backdrop {
 
 .notejot-sidebar-box:active,
 .notejot-sidebar-box:selected,
-.notejot-sidebar-box:focus,
 .notejot-sidebar-box:hover  {
   background: alpha(@theme_fg_color, 0.1);
   color: @theme_fg_color;
@@ -177,7 +176,6 @@ headerbar.flat:backdrop {
 
 .notejot-sidebar-box:active:backdrop,
 .notejot-sidebar-box:selected:backdrop,
-.notejot-sidebar-box:focus:backdrop,
 .notejot-sidebar-box:hover:backdrop  {
   opacity: 0.66;
 }

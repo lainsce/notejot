@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 22:07-0300\n"
+"POT-Creation-Date: 2021-04-24 16:18-0300\n"
 "PO-Revision-Date: 2021-02-20 11:35+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team:IT\n"
@@ -16,43 +16,52 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: src/MainWindow.vala:101 src/MainWindow.vala:337
+#: src/MainWindow.vala:125 src/MainWindow.vala:361
 msgid "Notejot"
 msgstr "Notejot"
 
-#: src/MainWindow.vala:212 src/MainWindow.vala:355 data/ui/title_menu.ui:23
+#: src/MainWindow.vala:222 src/MainWindow.vala:383 data/ui/title_menu.ui:7
 msgid "All Notes"
 msgstr "Tutte le note"
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:328
+#, fuzzy
+msgid "New Note"
+msgstr "Nessuna Nota"
+
+#: src/MainWindow.vala:328
+msgid "This is a text example."
+msgstr ""
+
+#: src/MainWindow.vala:366
 msgid "Jot your ideas."
 msgstr "Annota le tue idee."
 
-#: src/MainWindow.vala:348
+#: src/MainWindow.vala:372
 msgid "translator-credits"
 msgstr "Albano Battistella"
 
-#: src/MainWindow.vala:367 data/ui/title_menu.ui:110
+#: src/MainWindow.vala:395 data/ui/title_menu.ui:11
 msgid "Trash"
 msgstr "Cestino"
 
-#: src/MainWindow.vala:378
+#: src/MainWindow.vala:407
 msgid "Empty the Trashed Notes?"
 msgstr "Svuotare le note nel cestino?"
 
-#: src/MainWindow.vala:379
+#: src/MainWindow.vala:408
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr ""
-"Svuotare il cestino significa che tutte le note in esso verranno perse definitivamente con "
-"nessun recupero."
+"Svuotare il cestino significa che tutte le note in esso verranno perse "
+"definitivamente con nessun recupero."
 
-#: src/MainWindow.vala:380 data/ui/move_to_dialog.ui:41
+#: src/MainWindow.vala:410 data/ui/move_to_dialog.ui:40
 msgid "Cancel"
 msgstr "Cancella"
 
-#: src/MainWindow.vala:381 data/ui/menu.ui:10
+#: src/MainWindow.vala:411 data/ui/menu.ui:30
 msgid "Empty Trash"
 msgstr "Svuota Cestino"
 
@@ -157,215 +166,291 @@ msgstr "Ieri"
 msgid "Tomorrow"
 msgstr "Domani"
 
-#: src/Views/ListView.vala:22
-msgid "No Notes"
-msgstr "Nessuna Nota"
+#: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
+msgid "Loading…"
+msgstr ""
 
-#: src/Views/ListView.vala:23
-msgid "Use the + button to add a note."
-msgstr "Usa il pulsante + per aggiungere una nota."
-
-#: src/Views/TrashView.vala:16
-msgid "No Trash"
-msgstr "Niente nel Cestino"
-
-#: src/Views/TrashView.vala:17
-msgid "Trashed notes appear here."
-msgstr "Le note nel cestino vengono visualizzate qui."
-
-#: src/Widgets/SettingMenu.vala:61
-msgid "Note Settings"
-msgstr "Impostazioni Note"
-
-#: src/Widgets/Note.vala:87
+#: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
 msgstr "Nessun Quaderno"
 
-#: src/Widgets/Note.vala:193
+#: src/Widgets/Note.vala:148
 #, c-format
 msgid ""
 "\n"
 "            .notejot-sidebar-dbg-%d {\n"
-"                border: 1px solid alpha(black, 0.25);\n"
-"                background: %s;\n"
-"                border-radius: 50px;\n"
+"                background: mix(%s, @theme_base_color, 0.5);\n"
+"                border-radius: 9999px;\n"
+"                border: 1px solid @borders;\n"
 "            }\n"
-"            .notejot-sidebar-dbg-dark-%d {\n"
-"                border: 1px solid alpha(black, 0.25);\n"
-"                background: shade(%s, 0.8);\n"
-"                border-radius: 50px;\n"
-"            }\n"
-"            .notejot-label-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
-"            }\n"
-"            .notejot-label-dark-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            .notejot-action-%d {\n"
+"                background: mix(@theme_bg_color, %s, 0.1);\n"
 "            }\n"
 "            .notejot-stack-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"                background: mix(@theme_bg_color, %s, 0.1);\n"
+"            }\n"
+"            .notejot-stack-%d .notejot-bar {\n"
+"                background: mix(@theme_bg_color, %s, 0.1);\n"
+"                border-top: 1px solid @borders;\n"
+"            }\n"
+"            .notejot-action-dark-%d {\n"
+"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
 "            }\n"
 "            .notejot-stack-dark-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
+"            }\n"
+"            .notejot-stack-dark-%d .notejot-bar {\n"
+"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
+"                border-top: 1px solid @borders;\n"
+"            }\n"
+"            .notejot-action-%d:backdrop {\n"
+"                background: mix(%s, @theme_base_color, 0.9);\n"
+"            }\n"
+"            .notejot-stack-%d:backdrop {\n"
+"                background: mix(%s, @theme_base_color, 0.9);\n"
+"            }\n"
+"            .notejot-stack-%d:backdrop .notejot-bar {\n"
+"                background: mix(%s, @theme_base_color, 0.9);\n"
+"                border-top: 1px solid @borders;\n"
+"            }\n"
+"            .notejot-stack-%d box {\n"
+"                border: none;\n"
 "            }\n"
 "            "
 msgstr ""
 
-#: src/Widgets/TrashedItem.vala:61
+#: src/Widgets/Note.vala:279
+msgid "Empty note"
+msgstr ""
+
+#: src/Widgets/TrashedItem.vala:52
 #, c-format
 msgid ""
 "\n"
 "            .notejot-sidebar-dbg-%d {\n"
-"                border: 1px solid alpha(black, 0.25);\n"
 "                background: %s;\n"
-"                border-radius: 50px;\n"
-"            }\n"
-"            .notejot-sidebar-dbg-dark-%d {\n"
-"                border: 1px solid alpha(black, 0.25);\n"
-"                background: shade(%s, 0.8);\n"
-"                border-radius: 50px;\n"
+"                border-radius: 9999px;\n"
 "            }\n"
 "            "
 msgstr ""
 
-#: src/Widgets/EditNotebookDialog.vala:69
+#: src/Widgets/EditNotebookDialog.vala:72
 msgid "Remove notebook"
 msgstr "Rimuovi Quaderno"
 
-#: data/ui/edit_notebooks.ui:7 data/ui/edit_notebooks.ui:19
-#: data/ui/move_to_dialog.ui:8
+#: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
 msgstr "Modifica Quaderni"
 
-#: data/ui/edit_notebooks.ui:44
+#: data/ui/edit_notebooks.ui:38
 msgid "New Notebook…"
 msgstr "Nuovo Quaderno..."
 
-#: data/ui/edit_notebooks.ui:55
+#: data/ui/edit_notebooks.ui:43
 msgid "Add"
 msgstr "Aggiungi"
 
-#: data/ui/formatbar.ui:18
+#: data/ui/formatbar.ui:16
 msgid "Removes formatting from selected text"
 msgstr "Rimuove la formattazione dal testo selezionato"
 
-#: data/ui/formatbar.ui:52
+#: data/ui/formatbar.ui:33
 msgid "Makes selected text emboldened"
 msgstr "Rende il testo selezionato in grassetto"
 
-#: data/ui/formatbar.ui:75
+#: data/ui/formatbar.ui:45
 msgid "Makes selected text italicized"
 msgstr "Rende il testo selezionato in corsivo"
 
-#: data/ui/formatbar.ui:98
+#: data/ui/formatbar.ui:57
 msgid "Makes selected text underlined"
 msgstr "Rende il testo selezionato sottolineato"
 
-#: data/ui/formatbar.ui:121
+#: data/ui/formatbar.ui:69
 msgid "Makes selected text striked through"
 msgstr "Rende il testo selezionato barrato"
 
-#: data/ui/formatbar.ui:155
-msgid "Makes selected text an unordered list"
-msgstr "Rende il testo selezionato un elenco non ordinato"
-
-#: data/ui/formatbar.ui:178
-msgid "Makes selected text an ordered list"
-msgstr "Rende il testo selezionato un elenco ordinato"
+#: data/ui/main_window.ui:33
+#, fuzzy
+msgid "Add Note"
+msgstr "Tutte le note"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
 msgstr "Cerca note"
 
-#: data/ui/main_window.ui:96 data/ui/main_window.ui:176
-msgid "page0"
-msgstr "pagina0"
+#: data/ui/main_window.ui:124
+msgid "No Notes"
+msgstr "Nessuna Nota"
 
-#: data/ui/main_window.ui:107
-msgid "page1"
-msgstr "pagina1"
+#: data/ui/main_window.ui:132
+#, fuzzy
+msgid "Use the Add Note button to add a note."
+msgstr "Usa il pulsante + per aggiungere una nota."
+
+#: data/ui/main_window.ui:180
+msgid "No Trash"
+msgstr "Niente nel Cestino"
+
+#: data/ui/main_window.ui:188
+msgid "Trashed notes appear here."
+msgstr "Le note nel cestino vengono visualizzate qui."
 
 #: data/ui/menu.ui:6
+msgid "Text Size"
+msgstr ""
+
+#: data/ui/menu.ui:10
+msgid "Small"
+msgstr ""
+
+#: data/ui/menu.ui:15
+msgid "Medium"
+msgstr ""
+
+#: data/ui/menu.ui:20
+msgid "Large"
+msgstr ""
+
+#: data/ui/menu.ui:26
 msgid "Dark Mode"
 msgstr "Modalità Scura"
 
-#: data/ui/menu.ui:16
+#: data/ui/menu.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: data/ui/menu.ui:20
+#: data/ui/menu.ui:40
 msgid "About Notejot"
 msgstr "Informazioni su Notejot"
 
-#: data/ui/move_to_dialog.ui:22
+#: data/ui/move_to_dialog.ui:6
 msgid "Move To"
 msgstr "Sposta in"
 
-#: data/ui/move_to_dialog.ui:25
+#: data/ui/move_to_dialog.ui:28
 msgid "Move"
 msgstr "Sposta"
 
-#: data/ui/note_menu.ui:22
+#: data/ui/move_to_dialog.ui:66
+#, fuzzy
+msgid "Clear Notebook"
+msgstr "Nessun Quaderno"
+
+#: data/ui/note_menu.ui:18
 msgid "Move To…"
 msgstr "Sposta in..."
 
-#: data/ui/note_menu.ui:57
+#: data/ui/note_menu.ui:38
 msgid "Red"
 msgstr "Rosso"
 
-#: data/ui/note_menu.ui:78
+#: data/ui/note_menu.ui:54
 msgid "Orange"
 msgstr "Arancione"
 
-#: data/ui/note_menu.ui:100
+#: data/ui/note_menu.ui:70
 msgid "Yellow"
 msgstr "Giallo"
 
-#: data/ui/note_menu.ui:122
+#: data/ui/note_menu.ui:86
 msgid "Blue"
 msgstr "Blu"
 
-#: data/ui/note_menu.ui:144
+#: data/ui/note_menu.ui:102
 msgid "Purple"
 msgstr "Viola"
 
-#: data/ui/note_menu.ui:166
+#: data/ui/note_menu.ui:118
 msgid "Brown"
 msgstr "Marrone"
 
-#: data/ui/note_menu.ui:188
+#: data/ui/note_menu.ui:134
 msgid "Green"
 msgstr "Verde"
 
-#: data/ui/note_menu.ui:210
+#: data/ui/note_menu.ui:150
 msgid "No Color"
 msgstr "Nesun Colore"
 
-#: data/ui/note_menu.ui:265
+#: data/ui/note_menu.ui:191
 msgid "Move to Trash"
 msgstr "Sposta nel Cestino"
 
-#: data/ui/shortcuts.ui:15
+#: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Generale"
 
-#: data/ui/shortcuts.ui:20
+#: data/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Esci"
 
-#: data/ui/shortcuts.ui:27
+#: data/ui/shortcuts.ui:22
 msgctxt "shortcut window"
 msgid "Create New Note"
 msgstr "Crea Nuova nota"
 
-#: data/ui/title_menu.ui:48
-msgid "Notebooks"
-msgstr "Quaderni"
+#: data/ui/shortcuts.ui:29
+msgctxt "shortcut window"
+msgid "Formatting"
+msgstr ""
 
-#: data/ui/title_menu.ui:83
-msgid "Edit Notebooks…"
-msgstr "Modifica Quaderni..."
+#: data/ui/shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Remove Selected Text Formatting"
+msgstr ""
+
+#: data/ui/shortcuts.ui:39
+msgctxt "shortcut window"
+msgid "Bold Selected Text"
+msgstr ""
+
+#: data/ui/shortcuts.ui:45
+msgctxt "shortcut window"
+msgid "Italic Selected Text"
+msgstr ""
+
+#: data/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Underline Selected Text"
+msgstr ""
+
+#: data/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Strikethrough Selected Text"
+msgstr ""
+
+#: data/ui/title_menu.ui:18
+#, fuzzy
+msgid "Manage Notebooks…"
+msgstr "Nuovo Quaderno..."
+
+#, fuzzy
+#~ msgid "A Note"
+#~ msgstr "Tutte le note"
+
+#~ msgid "Note Settings"
+#~ msgstr "Impostazioni Note"
+
+#~ msgid "Makes selected text an unordered list"
+#~ msgstr "Rende il testo selezionato un elenco non ordinato"
+
+#~ msgid "Makes selected text an ordered list"
+#~ msgstr "Rende il testo selezionato un elenco ordinato"
+
+#~ msgid "page0"
+#~ msgstr "pagina0"
+
+#~ msgid "page1"
+#~ msgstr "pagina1"
+
+#~ msgid "Notebooks"
+#~ msgstr "Quaderni"
+
+#~ msgid "Edit Notebooks…"
+#~ msgstr "Modifica Quaderni..."
 
 #~ msgid "Delete note"
 #~ msgstr "Elimina nota"

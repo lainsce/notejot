@@ -57,9 +57,8 @@ namespace Notejot {
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
 
-            formatbar = new Widgets.FormatBar (win);
+            formatbar = new Widgets.FormatBar ();
             formatbar.controller = textfield;
-            formatbar.notebooklabel.set_label (log.notebook);
 
             var note_grid = new Gtk.Grid ();
             note_grid.attach (text_scroller, 0, 3);
@@ -92,28 +91,32 @@ namespace Notejot {
                 return true;
             });
 
+            if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
+            }
+
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
-                win.titlebar.get_style_context ().add_class ("notejot-action-dark-%d".printf(uid));
                 note_grid.get_style_context ().add_class ("notejot-stack-dark-%d".printf(uid));
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
-                win.titlebar.get_style_context ().remove_class ("notejot-action-dark-%d".printf(uid));
                 note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
+                if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
+                    win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
+                }
+
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
-                    win.titlebar.get_style_context ().add_class ("notejot-action-dark-%d".printf(uid));
                     note_grid.get_style_context ().add_class ("notejot-stack-dark-%d".printf(uid));
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
-                    win.titlebar.get_style_context ().remove_class ("notejot-action-dark-%d".printf(uid));
                     note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
                 }
             });
@@ -132,12 +135,10 @@ namespace Notejot {
         }
 
         public void set_notebook () {
-            if (log.notebook != "") {
+            if (log != null && log.notebook != "") {
                 formatbar.notebooklabel.set_label (log.notebook);
-                log.notebook = formatbar.notebooklabel.get_text();
             } else {
                 formatbar.notebooklabel.set_label (_("No Notebook"));
-                log.notebook = formatbar.notebooklabel.get_text();
             }
         }
 
@@ -223,7 +224,7 @@ namespace Notejot {
                 var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
                 GLib.MatchInfo match;
 
-                if (this != null) {
+                if (this != null && log != null && log.subtitle != "" && log.text != "") {
                     if (reg.match (log.subtitle, 0, out match)) {
                         var e = new GLib.DateTime.now_local ();
                         var d = new DateTime.local (e.get_year (),
@@ -275,7 +276,7 @@ namespace Notejot {
                 if (reg.match (text, 0, out match) && text != null) {
                     second_line = match.fetch_named ("second_line");
                 } else {
-                    second_line = "Empty note";
+                    second_line = _("Empty note");
                 }
             } catch (GLib.RegexError re) {
                 warning ("%s".printf(re.message));

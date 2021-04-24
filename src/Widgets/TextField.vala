@@ -41,7 +41,6 @@ namespace Notejot {
             ul_font = buffer.create_tag("underline", "underline", Pango.Underline.SINGLE);
             s_font = buffer.create_tag("strike", "strikethrough", true);
 
-            send_text ();
             set_stylesheet ();
             set_font_stylesheet ();
             fmt_syntax_start ();
