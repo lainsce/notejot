@@ -17,13 +17,15 @@
               <property name="action-name">win.action_move_to</property>
               <property name="label" translatable="yes">Move To…</property>
               <style>
-                <class name="flat"/>
+                <class name="flat-button"/>
               </style>
             </object>
           </child>
           <child>
             <object class="GtkSeparator">
               <property name="can-focus">0</property>
+              <property name="margin-top">3</property>
+              <property name="margin-bottom">3</property>
             </object>
           </child>
           <child>
@@ -176,6 +178,8 @@
           <child>
             <object class="GtkSeparator" id="sep">
               <property name="can-focus">0</property>
+              <property name="margin-top">3</property>
+              <property name="margin-bottom">3</property>
             </object>
           </child>
           <child>
@@ -186,7 +190,7 @@
               <property name="action-name">win.action_delete_note</property>
               <property name="label" translatable="yes">Move to Trash</property>
               <style>
-                <class name="flat"/>
+                <class name="flat-button"/>
               </style>
             </object>
           </child>

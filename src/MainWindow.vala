@@ -181,10 +181,6 @@ namespace Notejot {
             });
 
             // Sidebar Titlebar
-            new_button.clicked.connect (() => {
-                on_create_new.begin ();
-            });
-
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
@@ -452,7 +448,13 @@ namespace Notejot {
         }
 
         public void action_delete_note () {
-            var row = listview.get_selected_row ();
+            Gtk.ListBoxRow row;
+
+            if (lv.y != -1) {
+                row = listview.get_row_at_y (lv.y);
+            } else {
+                row = listview.get_selected_row ();
+            }
 
             var tlog = new Log ();
             tlog.title = ((Widgets.Note)row).log.title;
@@ -467,7 +469,7 @@ namespace Notejot {
             main_stack.remove (rowd);
 
             uint pos;
-            notestore.find (((Widgets.Note)row), out pos);
+            notestore.find (((Widgets.Note)row).log, out pos);
             notestore.remove (pos);
             settingmenu.visible = false;
         }

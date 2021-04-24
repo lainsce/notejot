@@ -7,6 +7,7 @@ namespace Notejot {
 
         public string search_text = "";
         private int last_uid;
+        public int y;
 
         public ListView (MainWindow win) {
             this.win = win;
@@ -59,6 +60,7 @@ namespace Notejot {
                 popover.set_offset (0, 40); // Needed so that the popover doesn't show above the list widget
                 popover.popup ();
                 popover.set_autohide (true);
+                this.y = (int)y;
 
                 press.set_state (Gtk.EventSequenceState.CLAIMED);
             });

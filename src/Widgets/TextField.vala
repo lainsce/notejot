@@ -7,7 +7,7 @@ namespace Notejot {
             this.win = win;
             this.editable = true;
             this.set_can_focus (true);
-            this.opacity = 0.8;
+            this.opacity = 0.7;
             this.right_margin = this.bottom_margin = this.top_margin = this.left_margin = 20;
 
             send_text ();

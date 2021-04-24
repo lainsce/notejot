@@ -45,7 +45,7 @@
                         <property name="icon-name">open-menu-symbolic</property>
                         <style>
                           <class name="image-button"/>
-                          <class name="header-button"/>
+                          <class name="header-toggle-button"/>
                         </style>
                       </object>
                     </child>
@@ -56,7 +56,6 @@
                         <style>
                           <class name="image-button"/>
                           <class name="header-button"/>
-                          <class name="search-button"/>
                         </style>
                       </object>
                     </child>
@@ -243,7 +242,7 @@
                         <property name="icon-name">view-more-symbolic</property>
                         <style>
                           <class name="image-button"/>
-                          <class name="header-button"/>
+                          <class name="header-toggle-button"/>
                         </style>
                       </object>
                     </child>

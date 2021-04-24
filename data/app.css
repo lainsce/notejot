@@ -21,13 +21,54 @@
     text-shadow: none;
 }
 
-/* .popover-list .horizontal, */
-/* .popover-list .text-button { */
-/*     min-width: 150px; */
-/* } */
+.text-button.suggested-action {
+    background: mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.8);
+    color: @theme_fg_color;
+    border: none;
+    box-shadow: none;
+}
 
+.text-button.suggested-action:disabled {
+    color: mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.5);
+    background: none;
+    border: 1px solid mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.5);
+}
+
+.text-button.suggested-action:hover {
+    background: mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.7);
+}
+
+.text-button.suggested-action:active,
+.text-button.suggested-action:active:checked {
+    background: mix(#1c71d8, alpha(@theme_bg_color, 0.2), 0.9);
+    box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
+}
+
+.text-button.destructive-action {
+    background: mix(#e01b24, alpha(@theme_bg_color, 0.2), 0.8);
+    color: @theme_fg_color;
+    border: none;
+}
+
+.text-button.destructive-action:hover {
+    background: mix(#e01b24, alpha(@theme_bg_color, 0.2), 0.7);
+}
+
+.text-button.destructive-action:active,
+.text-button.destructive-action:active:checked {
+    background: mix(#e01b24, alpha(@theme_bg_color, 0.2), 0.9);
+    box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
+}
+
+headerbar,
 headerbar.flat {
-  background-color: mix(#fbfafa, @theme_bg_color, 0.9);
+  background-color: @theme_bg_color;
+  background-image: none;
+  transition: 100ms ease-in-out;
+}
+
+button.flat-button {
+  background-color: @theme_base_color;
   background-image: none;
   transition: 100ms ease-in-out;
 }
@@ -38,9 +79,16 @@ headerbar.flat:backdrop {
 }
 
 .header-button,
-.header-button .toggle {
+.header-toggle-button > button {
     border-radius: 8px;
-    background: none;
+    background: alpha(@theme_fg_color, 0.1);
+    border: none;
+    box-shadow: none;
+    transition: 100ms ease-in-out;
+}
+
+.text-button {
+    background: alpha(@theme_fg_color, 0.1);
     border: none;
     box-shadow: none;
     transition: 100ms ease-in-out;
@@ -51,68 +99,60 @@ headerbar.flat:backdrop {
   margin: 0;
 }
 
+.header-toggle-button button {
+  margin: 0;
+}
+
 .header-button:hover,
-.header-button .toggle:checked {
-  background: alpha(@theme_fg_color, 0.1);
-}
-
-.header-button:active {
+.text-button:hover,
+.toggle:checked {
   background: alpha(@theme_fg_color, 0.2);
 }
 
-.close {
-  min-height: 24px;
-  min-width: 24px;
-  padding: 0;
-  box-shadow: none;
-  border: none;
-  background: alpha(@theme_fg_color, 0.1);
-  transition: 100ms ease-in-out;
-}
-
-.close:backdrop {
+.header-button:active,
+.text-button:active,
+.toggle:active {
   background: none;
+  box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
 }
 
-.close:hover {
+.header-toggle-button > button:hover {
   background: alpha(@theme_fg_color, 0.2);
 }
 
-.close:active {
-  background: alpha(@theme_fg_color, 0.3);
+.header-toggle-button > button:active {
+  background: none;
+  box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.5);
 }
 
+
+.circular:hover {
+  border: 1px solid @theme_selected_bg_color;
+  box-shadow: inset 0 0 2px 0 alpha(@theme_fg_color, 0.5);
+}
 .color-red {
     background: #db898e;
-    color: #db898e;
 }
 .color-orange {
     background: #eeab7a;
-    color: #eeab7a;
 }
 .color-yellow {
     background: #f6dc83;
-    color: #f6dc83;
 }
 .color-green {
     background: #92dcb9;
-    color: #92dcb9;
 }
 .color-blue {
     background: #89b3e6;
-    color: #89b3e6;
 }
 .color-purple {
     background: #bc99c8;
-    color: #bc99c8;
 }
 .color-brown {
     background: #beaa98;
-    color: #beaa98;
 }
 .color-reset {
-    background: #fbfafa;
-    color: #fbfafa;
+    background: #f6f5f4;
 }
 
 .notejot-sidebar-box {
@@ -142,18 +182,13 @@ headerbar.flat:backdrop {
   opacity: 0.66;
 }
 
-.notejot-tview {
-  font-family: "Cantarell", sans;
-  font-size: 1.2rem;
-}
-
 .notejot-bar {
   background: @theme_bg_color;
   transition: 100ms ease-in-out;
 }
 
 .empty-state {
-  background-color: shade(@theme_bg_color, 0.95);
+  background-color: @theme_bg_color;
 }
 
 .empty-state:backdrop {
@@ -176,14 +211,14 @@ headerbar.flat:backdrop {
 
 .dark {
       color: #FFF;
-      background-color: #222;
+      background-color: @theme_bg_color;
       font-family: "Cantarell", Arial, Helvetica, sans-serif;
       font-weight: 400;
 }
 
 .light {
-      color: #222;
-      background-color: #FFF;
+      color: #000;
+      background-color: @theme_bg_color;
       font-family: "Cantarell", Arial, Helvetica, sans-serif;
       font-weight: 400;
 }
