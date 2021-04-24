@@ -489,7 +489,7 @@ namespace Notejot {
             ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"$sel_text".replace("*", "")
                                                                                   .replace("_", "")
                                                                                   .replace("^", "")
-                                                                                  .replace("~", ""), -1);
+                                                                                  .replace("#", ""), -1);
             ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
             ((Widgets.Note)row).textfield.grab_focus ();
         }
@@ -504,7 +504,7 @@ namespace Notejot {
 
             ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"^$sel_text^".replace("*", "")
                                                                                     .replace("_", "")
-                                                                                    .replace("~", ""), -1);
+                                                                                    .replace("#", ""), -1);
             ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
             ((Widgets.Note)row).textfield.grab_focus ();
         }
@@ -519,7 +519,7 @@ namespace Notejot {
 
             ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"*$sel_text*".replace("_", "")
                                                                                     .replace("^", "")
-                                                                                    .replace("~", ""), -1);
+                                                                                    .replace("#", ""), -1);
             ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
             ((Widgets.Note)row).textfield.grab_focus ();
         }
@@ -534,7 +534,7 @@ namespace Notejot {
 
             ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, "_%s_".printf(sel_text).replace("*", "")
                                                                                              .replace("^", "")
-                                                                                             .replace("~", ""), -1);
+                                                                                             .replace("#", ""), -1);
             ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
             ((Widgets.Note)row).textfield.grab_focus ();
         }
@@ -547,7 +547,7 @@ namespace Notejot {
             Gtk.TextIter B;
             ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
 
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, "~%s~".printf(sel_text).replace("*", "")
+            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, "#%s#".printf(sel_text).replace("*", "")
                                                                                              .replace("_", "")
                                                                                              .replace("+", ""), -1);
             ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);

@@ -129,34 +129,50 @@ namespace Notejot {
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
 
-            string no_punct_buffer = buffer.get_text (start, end, false).strip();
+            string no_punct_buffer = buffer.get_text (start, end, true).strip();
             string[] words = no_punct_buffer.split(" ");
             int p = 0;
 
             foreach (string word in words) {
-                if (word.length == 0) {
-                    p += word.length + 1;
+                if (word.length <= 0) {
+                    p += word.length;
                     continue;
                 }
-                if (word.has_suffix ("^") && word.has_prefix ("^")) {
+                if (word.contains ("^")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(bold_font, match_start, match_end);
-                }
-                if (word.has_suffix ("*") && word.has_prefix ("*")) {
+                    buffer.remove_tag(italic_font, match_start, match_end);
+                    buffer.remove_tag(ul_font, match_start, match_end);
+                    buffer.remove_tag(s_font, match_start, match_end);
+                } else if (word.contains ("*")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(italic_font, match_start, match_end);
-                }
-                if (word.has_suffix ("_") && word.has_prefix ("_")) {
+                    buffer.remove_tag(bold_font, match_start, match_end);
+                    buffer.remove_tag(ul_font, match_start, match_end);
+                    buffer.remove_tag(s_font, match_start, match_end);
+                } else if (word.contains ("_")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(ul_font, match_start, match_end);
-                }
-                if (word.has_suffix ("~") && word.has_prefix ("~")) {
+                    buffer.remove_tag(bold_font, match_start, match_end);
+                    buffer.remove_tag(italic_font, match_start, match_end);
+                    buffer.remove_tag(s_font, match_start, match_end);
+                } else if (word.contains ("#")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(s_font, match_start, match_end);
+                    buffer.remove_tag(bold_font, match_start, match_end);
+                    buffer.remove_tag(italic_font, match_start, match_end);
+                    buffer.remove_tag(ul_font, match_start, match_end);
+                } else {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.remove_tag(s_font, match_start, match_end);
+                    buffer.remove_tag(bold_font, match_start, match_end);
+                    buffer.remove_tag(italic_font, match_start, match_end);
+                    buffer.remove_tag(ul_font, match_start, match_end);
                 }
 
                 p += word.length + 1;
