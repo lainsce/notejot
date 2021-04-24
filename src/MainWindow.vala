@@ -325,7 +325,7 @@ namespace Notejot {
 
             log.title = "";
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = ("^") + _("New Note") + ("^ ") + (@"$uid\n\n") + _("This is a text example.");
+            log.text = ("**") + _("New Note ") + (@"$uid") + ("**") + ("\n\n") + _("This is a text example.");
             log.color = "#fff";
             log.notebook = "";
 
@@ -503,62 +503,78 @@ namespace Notejot {
 
         public void action_bold () {
             var row = listview.get_selected_row ();
-
-            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
-            Gtk.TextIter A;
-            Gtk.TextIter B;
-            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
-
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"^$sel_text^".replace("*", "")
-                                                                                    .replace("_", "")
-                                                                                    .replace("#", ""), -1);
-            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            text_wrap(((Widgets.Note)row).textfield, "**", _("bold text"));
             ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_italic () {
             var row = listview.get_selected_row ();
-
-            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
-            Gtk.TextIter A;
-            Gtk.TextIter B;
-            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
-
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"*$sel_text*".replace("_", "")
-                                                                                    .replace("^", "")
-                                                                                    .replace("#", ""), -1);
-            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            text_wrap(((Widgets.Note)row).textfield, "_", _("italic text"));
             ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_ul () {
             var row = listview.get_selected_row ();
-
-            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
-            Gtk.TextIter A;
-            Gtk.TextIter B;
-            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
-
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, "_%s_".printf(sel_text).replace("*", "")
-                                                                                             .replace("^", "")
-                                                                                             .replace("#", ""), -1);
-            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            text_wrap(((Widgets.Note)row).textfield, "__", _("underline text"));
             ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_s () {
             var row = listview.get_selected_row ();
-
-            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
-            Gtk.TextIter A;
-            Gtk.TextIter B;
-            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
-
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, "#%s#".printf(sel_text).replace("*", "")
-                                                                                             .replace("_", "")
-                                                                                             .replace("+", ""), -1);
-            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            text_wrap(((Widgets.Note)row).textfield, "~~", _("strikethrough text"));
             ((Widgets.Note)row).textfield.grab_focus ();
+        }
+
+        public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
+            var text_buffer = text_view.get_buffer();
+            string text, new_text;
+            int move_back, text_length = 0;
+            Gtk.TextIter start, end;
+            text_buffer.get_selection_bounds(out start, out end);
+
+            if (text_buffer.get_has_selection()) {
+                // Find current highlighting
+                bool moved = false;
+                if (start.get_offset() >= wrap.length && end.get_offset() <= text_buffer.get_char_count() - wrap.length) {
+                    moved = true;
+                    start.backward_chars(wrap.length);
+                    end.forward_chars(wrap.length);
+                    text = text_buffer.get_text(start, end, true);
+                } else {
+                    text = text_buffer.get_text(start, end, true);
+                }
+
+                if (moved && text.has_prefix(wrap) && text.has_suffix(wrap)){
+                    text = text[wrap.length:-wrap.length];
+                    new_text = text;
+                    text_buffer.delete(ref start, ref end);
+                    move_back = 0;
+                } else {
+                    if (moved) {
+                        text = text[wrap.length:-wrap.length];
+                    }
+                    new_text = text.strip();
+                    text = text.replace(new_text, wrap + new_text + wrap);
+
+                    text_buffer.delete(ref start, ref end);
+                    move_back = wrap.length;
+
+                    text_buffer.insert(ref start, text, -1);
+                    text_length = new_text.length;
+                }
+            } else {
+                text_buffer.insert(ref start, wrap + helptext + wrap, -1);
+                text_length = helptext.length;
+                move_back = wrap.length;
+            }
+
+            var cursor_mark = text_buffer.get_insert();
+            Gtk.TextIter cursor_iter;
+            text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
+            cursor_iter.backward_chars(move_back);
+            text_buffer.move_mark_by_name("selection_bound", cursor_iter);
+            cursor_iter.backward_chars(text_length);
+            text_buffer.move_mark_by_name("insert", cursor_iter);
         }
     }
 }

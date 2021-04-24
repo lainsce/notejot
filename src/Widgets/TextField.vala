@@ -128,53 +128,63 @@ namespace Notejot {
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
 
-            string no_punct_buffer = buffer.get_text (start, end, true).strip();
-            string[] words = no_punct_buffer.split(" ");
-            int p = 0;
+            string buf = buffer.get_text (start, end, true);
 
-            foreach (string word in words) {
-                if (word.length <= 0) {
-                    p += word.length;
-                    continue;
-                }
-                if (word.contains ("^")) {
-                    buffer.get_iter_at_offset (out match_start, p);
-                    buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(bold_font, match_start, match_end);
-                    buffer.remove_tag(italic_font, match_start, match_end);
-                    buffer.remove_tag(ul_font, match_start, match_end);
-                    buffer.remove_tag(s_font, match_start, match_end);
-                } else if (word.contains ("*")) {
-                    buffer.get_iter_at_offset (out match_start, p);
-                    buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(italic_font, match_start, match_end);
-                    buffer.remove_tag(bold_font, match_start, match_end);
-                    buffer.remove_tag(ul_font, match_start, match_end);
-                    buffer.remove_tag(s_font, match_start, match_end);
-                } else if (word.contains ("_")) {
-                    buffer.get_iter_at_offset (out match_start, p);
-                    buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(ul_font, match_start, match_end);
-                    buffer.remove_tag(bold_font, match_start, match_end);
-                    buffer.remove_tag(italic_font, match_start, match_end);
-                    buffer.remove_tag(s_font, match_start, match_end);
-                } else if (word.contains ("#")) {
-                    buffer.get_iter_at_offset (out match_start, p);
-                    buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(s_font, match_start, match_end);
-                    buffer.remove_tag(bold_font, match_start, match_end);
-                    buffer.remove_tag(italic_font, match_start, match_end);
-                    buffer.remove_tag(ul_font, match_start, match_end);
-                } else {
-                    buffer.get_iter_at_offset (out match_start, p);
-                    buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.remove_tag(s_font, match_start, match_end);
-                    buffer.remove_tag(bold_font, match_start, match_end);
-                    buffer.remove_tag(italic_font, match_start, match_end);
-                    buffer.remove_tag(ul_font, match_start, match_end);
+            try {
+                var reg_bold = new Regex("""(?m)(?<bold>\*\*.*\*\*)""");
+                var reg_italic = new Regex("""(?m)(?<italic>\_.*\_)""");
+                var reg_ul = new Regex("""(?m)(?<ul>\_\_.*\_\_)""");
+                var reg_s = new Regex("""(?m)(?<strike>\~\~.*\~\~)""");
+                GLib.MatchInfo bmatch;
+                GLib.MatchInfo imatch;
+                GLib.MatchInfo ulmatch;
+                GLib.MatchInfo smatch;
+
+                if (reg_bold.match (buf, 0, out bmatch)) {
+                    do {
+                        if (start.forward_search (bmatch.fetch_named ("bold"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                            buffer.apply_tag(bold_font, match_start, match_end);
+                            buffer.remove_tag(italic_font, match_start, match_end);
+                            buffer.remove_tag(ul_font, match_start, match_end);
+                            buffer.remove_tag(s_font, match_start, match_end);
+                        }
+                    } while (bmatch.next ());
                 }
 
-                p += word.length + 1;
+                if (reg_italic.match (buf, 0, out imatch)) {
+                    do {
+                        if (start.forward_search (imatch.fetch_named ("italic"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                            buffer.apply_tag(italic_font, match_start, match_end);
+                            buffer.remove_tag(bold_font, match_start, match_end);
+                            buffer.remove_tag(ul_font, match_start, match_end);
+                            buffer.remove_tag(s_font, match_start, match_end);
+                        }
+                    } while (imatch.next ());
+                }
+
+                if (reg_ul.match (buf, 0, out ulmatch)) {
+                    do {
+                        if (start.forward_search (ulmatch.fetch_named ("ul"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                            buffer.apply_tag(ul_font, match_start, match_end);
+                            buffer.remove_tag(bold_font, match_start, match_end);
+                            buffer.remove_tag(italic_font, match_start, match_end);
+                            buffer.remove_tag(s_font, match_start, match_end);
+                        }
+                    } while (ulmatch.next ());
+                }
+
+                if (reg_s.match (buf, 0, out smatch)) {
+                    do {
+                        if (start.forward_search (smatch.fetch_named ("strike"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                            buffer.apply_tag(s_font, match_start, match_end);
+                            buffer.remove_tag(bold_font, match_start, match_end);
+                            buffer.remove_tag(italic_font, match_start, match_end);
+                            buffer.remove_tag(ul_font, match_start, match_end);
+                        }
+                    } while (smatch.next ());
+                }
+            } catch (GLib.RegexError re) {
+                warning ("%s".printf(re.message));
             }
 
             update_idle_source = 0;
