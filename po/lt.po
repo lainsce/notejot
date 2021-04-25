@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-24 16:18-0300\n"
+"POT-Creation-Date: 2021-04-25 00:45-0300\n"
 "PO-Revision-Date: 2019-02-18 15:09+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: \n"
@@ -14,51 +14,71 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:125 src/MainWindow.vala:361
+#: src/MainWindow.vala:127 src/MainWindow.vala:363
 msgid "Notejot"
 msgstr ""
 
-#: src/MainWindow.vala:222 src/MainWindow.vala:383 data/ui/title_menu.ui:7
+#: src/MainWindow.vala:224 src/MainWindow.vala:385 data/ui/title_menu.ui:7
 msgid "All Notes"
 msgstr ""
 
-#: src/MainWindow.vala:328
+#: src/MainWindow.vala:330
 #, fuzzy
-msgid "New Note"
+msgid "New Note "
 msgstr "Nauji užrašai"
 
-#: src/MainWindow.vala:328
+#: src/MainWindow.vala:330
 msgid "This is a text example."
 msgstr ""
 
-#: src/MainWindow.vala:366
+#: src/MainWindow.vala:368
 msgid "Jot your ideas."
 msgstr ""
 
-#: src/MainWindow.vala:372
+#: src/MainWindow.vala:374
 msgid "translator-credits"
 msgstr ""
 
-#: src/MainWindow.vala:395 data/ui/title_menu.ui:11
+#: src/MainWindow.vala:397 data/ui/title_menu.ui:11
 msgid "Trash"
 msgstr ""
 
-#: src/MainWindow.vala:407
+#: src/MainWindow.vala:409
 msgid "Empty the Trashed Notes?"
 msgstr ""
 
-#: src/MainWindow.vala:408
+#: src/MainWindow.vala:410
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr ""
 
-#: src/MainWindow.vala:410 data/ui/move_to_dialog.ui:40
+#: src/MainWindow.vala:412 data/ui/move_to_dialog.ui:40
 msgid "Cancel"
 msgstr ""
 
-#: src/MainWindow.vala:411 data/ui/menu.ui:30
+#: src/MainWindow.vala:413 data/ui/menu.ui:30
 msgid "Empty Trash"
+msgstr ""
+
+#: src/MainWindow.vala:508
+msgid "bold text"
+msgstr ""
+
+#: src/MainWindow.vala:514
+msgid "italic text"
+msgstr ""
+
+#: src/MainWindow.vala:520
+msgid "underline text"
+msgstr ""
+
+#: src/MainWindow.vala:526
+msgid "strikethrough text"
+msgstr ""
+
+#: src/MainWindow.vala:532 src/MainWindow.vala:600
+msgid "Item"
 msgstr ""
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
@@ -219,7 +239,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: src/Widgets/Note.vala:279
+#: src/Widgets/Note.vala:285
 msgid "Empty note"
 msgstr ""
 
@@ -269,6 +289,10 @@ msgstr ""
 
 #: data/ui/formatbar.ui:69
 msgid "Makes selected text striked through"
+msgstr ""
+
+#: data/ui/formatbar.ui:86
+msgid "Makes selected text into an unordered list"
 msgstr ""
 
 #: data/ui/main_window.ui:33

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.lainsce.Notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-24 16:18-0300\n"
+"POT-Creation-Date: 2021-04-25 00:45-0300\n"
 "PO-Revision-Date: 2021-02-20 20:13+0100\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: \n"
@@ -18,40 +18,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: src/MainWindow.vala:125 src/MainWindow.vala:361
+#: src/MainWindow.vala:127 src/MainWindow.vala:363
 msgid "Notejot"
 msgstr "Notejot"
 
-#: src/MainWindow.vala:222 src/MainWindow.vala:383 data/ui/title_menu.ui:7
+#: src/MainWindow.vala:224 src/MainWindow.vala:385 data/ui/title_menu.ui:7
 msgid "All Notes"
 msgstr "Alla anteckningar"
 
-#: src/MainWindow.vala:328
+#: src/MainWindow.vala:330
 #, fuzzy
-msgid "New Note"
+msgid "New Note "
 msgstr "Inga anteckningar"
 
-#: src/MainWindow.vala:328
+#: src/MainWindow.vala:330
 msgid "This is a text example."
 msgstr ""
 
-#: src/MainWindow.vala:366
+#: src/MainWindow.vala:368
 msgid "Jot your ideas."
 msgstr "Skriv ner dina idéer."
 
-#: src/MainWindow.vala:372
+#: src/MainWindow.vala:374
 msgid "translator-credits"
 msgstr "Åke Engelbrektson <eson@svenskasprakfiler.se>"
 
-#: src/MainWindow.vala:395 data/ui/title_menu.ui:11
+#: src/MainWindow.vala:397 data/ui/title_menu.ui:11
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: src/MainWindow.vala:407
+#: src/MainWindow.vala:409
 msgid "Empty the Trashed Notes?"
 msgstr "Vill du tömma papperskorgen?"
 
-#: src/MainWindow.vala:408
+#: src/MainWindow.vala:410
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
@@ -59,13 +59,33 @@ msgstr ""
 "Tömning av papperskorgen innebär att alla anteckningar i den kommer att gå "
 "permanent förlorade utan möjlighet till återställning."
 
-#: src/MainWindow.vala:410 data/ui/move_to_dialog.ui:40
+#: src/MainWindow.vala:412 data/ui/move_to_dialog.ui:40
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/MainWindow.vala:411 data/ui/menu.ui:30
+#: src/MainWindow.vala:413 data/ui/menu.ui:30
 msgid "Empty Trash"
 msgstr "Töm papperskorgen"
+
+#: src/MainWindow.vala:508
+msgid "bold text"
+msgstr ""
+
+#: src/MainWindow.vala:514
+msgid "italic text"
+msgstr ""
+
+#: src/MainWindow.vala:520
+msgid "underline text"
+msgstr ""
+
+#: src/MainWindow.vala:526
+msgid "strikethrough text"
+msgstr ""
+
+#: src/MainWindow.vala:532 src/MainWindow.vala:600
+msgid "Item"
+msgstr ""
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
@@ -245,7 +265,7 @@ msgstr ""
 "            }\n"
 "            "
 
-#: src/Widgets/Note.vala:279
+#: src/Widgets/Note.vala:285
 msgid "Empty note"
 msgstr ""
 
@@ -295,6 +315,11 @@ msgstr "Gör markerad text understruken"
 #: data/ui/formatbar.ui:69
 msgid "Makes selected text striked through"
 msgstr "Gör markerad text genomstruken"
+
+#: data/ui/formatbar.ui:86
+#, fuzzy
+msgid "Makes selected text into an unordered list"
+msgstr "Gör markerad text till oordnad lista"
 
 #: data/ui/main_window.ui:33
 #, fuzzy
@@ -487,9 +512,6 @@ msgstr "Ny anteckningsbok…"
 #~ "                kantradie: 50px;\n"
 #~ "            }\n"
 #~ "            "
-
-#~ msgid "Makes selected text an unordered list"
-#~ msgstr "Gör markerad text till oordnad lista"
 
 #~ msgid "Makes selected text an ordered list"
 #~ msgstr "Gör markerad text till ordnad lista"
