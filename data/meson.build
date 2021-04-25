@@ -15,12 +15,12 @@ install_data(
 
 install_data(
     join_paths('icons', 'scalable', 'add-note-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'status')
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'actions')
 )
 
 install_data(
     join_paths('icons', 'scalable', 'notebook-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'status')
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'actions')
 )
 
 install_data(

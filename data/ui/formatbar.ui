@@ -98,6 +98,7 @@
           <object class="GtkBox" id="nb_box">
             <property name="receives-default">1</property>
             <property name="spacing">6</property>
+            <property name="margin-end">6</property>
             <child>
               <object class="GtkImage">
                 <property name="icon-name">notebook-symbolic</property>
