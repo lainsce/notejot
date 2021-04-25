@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-17 21:29+0400\n"
-"PO-Revision-Date: 2021-02-22 00:11+0100\n"
+"POT-Creation-Date: 2021-04-25 14:47+0200\n"
+"PO-Revision-Date: 2021-04-25 14:56+0200\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -18,40 +18,131 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: data/com.github.lainsce.notejot.appdata.xml.in:6
-#: data/com.github.lainsce.notejot.desktop.in:2
+#: data/io.github.lainsce.Notejot.appdata.xml.in:6
+#: data/io.github.lainsce.Notejot.desktop.in:3
 msgid "Notejot"
 msgstr "Notejot"
 
-#: data/com.github.lainsce.notejot.appdata.xml.in:7
-#: data/com.github.lainsce.notejot.desktop.in:3
+#: data/io.github.lainsce.Notejot.appdata.xml.in:7
+#: data/io.github.lainsce.Notejot.desktop.in:4
 msgid "Jot your ideas"
 msgstr "Anote sus ideas"
 
-#: data/com.github.lainsce.notejot.appdata.xml.in:9
+#: data/io.github.lainsce.Notejot.appdata.xml.in:9
 msgid ""
-"A stupidly-simple sticky notes application for any type of short term notes "
-"or ideas."
+"A stupidly-simple notes application for any type of short term notes or "
+"ideas."
 msgstr ""
-"Una aplicación de notas adhesivas estúpidamente simple para cualquier tipo "
-"de notas o ideas a corto plazo."
+"Una aplicación de notas estúpidamente simple para cualquier tipo de notas "
+"o ideas a corto plazo."
 
-#: data/com.github.lainsce.notejot.appdata.xml.in:11
+#: data/io.github.lainsce.Notejot.appdata.xml.in:11
 msgid "Quit anytime with the shortcut Ctrl + Q"
 msgstr "Salir en cualquier momento con el atajo Ctrl + Q"
 
-#: data/com.github.lainsce.notejot.appdata.xml.in:17
+#: data/io.github.lainsce.Notejot.appdata.xml.in:17
 msgid "Lains"
 msgstr "Lains"
 
-#: data/com.github.lainsce.notejot.desktop.in:4
-msgid "com.github.lainsce.notejot"
-msgstr "com.github.lainsce.notejot"
+#: data/io.github.lainsce.Notejot.appdata.xml.in:58
+msgid "Release: GTK4 and Ready!"
+msgstr "Versión: ¡GTK4 y listo!"
 
-#: data/com.github.lainsce.notejot.desktop.in:6
-msgid "Text;Plain;Plaintext;Notepad;"
-msgstr "Text;Plain;Plaintext;Notepad;Texto;Bloc;Notas;"
+#: data/io.github.lainsce.Notejot.appdata.xml.in:60
+msgid "New UI"
+msgstr "Interfaz de usuario renovada"
 
-#: data/com.github.lainsce.notejot.desktop.in:15
-msgid "New note…"
-msgstr "Nota nueva…"
+#: data/io.github.lainsce.Notejot.appdata.xml.in:61
+msgid "Using another widget to display note contents"
+msgstr "Utilizado otro widget para mostrar el contenido de las notas"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:62
+msgid "Keyboard shortcuts for formatting"
+msgstr "Atajos de teclado para dar formato"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:64
+#: data/io.github.lainsce.Notejot.appdata.xml.in:76
+msgid ""
+"Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
+"lainsce.Notejot when using the Flatpak. Happy notetaking!"
+msgstr ""
+"Nota: Sus notas y cuadernos se guardan siempre en ~/.var/app/io.github."
+"lainsce.Notejot cuando utilice el Flatpak. ¡Feliz toma de notas!"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:69
+msgid "Release: Notebooks Noted Up"
+msgstr "Versión: Cuadernos Anotados"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:71
+msgid "New icon"
+msgstr "Icono nuevo"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:72
+msgid "Notes now can be put into Notebooks, for more categorization"
+msgstr ""
+"Las notas ahora se pueden poner en cuadernos, para una mayor categorización"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:73
+msgid "Text Size of the Notes can be adjusted in 3 sizes"
+msgstr "El tamaño del texto de las notas se puede ajustar en 3 tamaños"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:74
+msgid "Minor UI improvements all around"
+msgstr "Pequeñas mejoras en la interfaz de usuario"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:81
+msgid "Release: User Interface Improved"
+msgstr "Versión: Mejora de la interfaz de usuario"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:82
+msgid "In many places, the UI has improved to make the experience better:"
+msgstr ""
+"En muchos lugares, la interfaz de usuario ha mejorado para que la "
+"experiencia sea mejor:"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:84
+msgid "Note settings button hiding when necessary"
+msgstr "Ocultación del botón de configuración de notas cuando sea necesario"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:85
+msgid "\"No Open Notes\" showing only when it's supposed to"
+msgstr ""
+"\"No hay notas abiertas\" mostrando sólo cuando se supone que debe hacerlo"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:86
+msgid "Notes' hover being rounded"
+msgstr "Las notas son redondeadas"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:87
+msgid "Minor UI improvements"
+msgstr "Mejoras menores en la interfaz de usuario"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:93
+msgid "Release: Just A Little More"
+msgstr "Versión: Sólo un poco más"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:95
+msgid ""
+"Minor UI fixes, and the format buttons actually format only the selected "
+"text this time."
+msgstr ""
+"Correcciones menores de la interfaz de usuario, y los botones de formato "
+"realmente dan formato sólo el texto seleccionado esta vez."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:101
+msgid "Release: Hello, Flatpak!"
+msgstr "Versión: ¡Hola, Flatpak!"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:103
+msgid ""
+"Lots of fixes: New UI, formatting inside notes, dark mode, backend "
+"improvements…"
+msgstr ""
+"Muchas correcciones: Interfaz de usuario renovada, formato dentro de las "
+"notas, modo oscuro, mejoras en el backend…"
+
+#: data/io.github.lainsce.Notejot.desktop.in:7
+msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
+msgstr ""
+"text;plain;plaintext;notepad;notes;sticky;post-it;texto;plano;bloc;notas;"
+"adhesiva;"
