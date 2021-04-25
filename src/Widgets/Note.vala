@@ -235,8 +235,14 @@ namespace Notejot {
                                                     e.get_second ());
 
                         Timeout.add_seconds(1, () => {
-                            set_title("%s".printf(get_first_line (log.text)));
-                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_second_line (log.text)));
+                            set_title("%s".printf(get_first_line (log.text).replace("|", "")
+                                                                           .replace("_", "")
+                                                                           .replace("*", "")
+                                                                           .replace("~", "")));
+                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_second_line (log.text).replace("|", "")
+                                                                                                                            .replace("_", "")
+                                                                                                                            .replace("*", "")
+                                                                                                                            .replace("~", "")));
                             set_notebook ();
                             return true;
                         });
