@@ -95,6 +95,7 @@ namespace Notejot {
         public const string ACTION_ITALIC = "action_italic";
         public const string ACTION_UL = "action_ul";
         public const string ACTION_S = "action_s";
+        public const string ACTION_ITEM = "action_item";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
@@ -114,6 +115,7 @@ namespace Notejot {
               {ACTION_ITALIC, action_italic},
               {ACTION_UL, action_ul},
               {ACTION_S, action_s},
+              {ACTION_ITEM, action_item},
         };
 
         public Gtk.Application app { get; construct; }
@@ -525,6 +527,12 @@ namespace Notejot {
             ((Widgets.Note)row).textfield.grab_focus ();
         }
 
+        public void action_item () {
+            var row = listview.get_selected_row ();
+            insert_item(((Widgets.Note)row).textfield, _("Item"));
+            ((Widgets.Note)row).textfield.grab_focus ();
+        }
+
         public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
             var text_buffer = text_view.get_buffer();
             string text, new_text;
@@ -567,6 +575,76 @@ namespace Notejot {
             cursor_iter.backward_chars(move_back);
             text_buffer.move_mark_by_name("selection_bound", cursor_iter);
             cursor_iter.backward_chars(text_length);
+            text_buffer.move_mark_by_name("insert", cursor_iter);
+        }
+
+        public void insert_item (Gtk.TextView text_view, string helptext) {
+            var text_buffer = text_view.get_buffer();
+            string text;
+            int text_length = 0;
+            Gtk.TextIter start, end, cursor_iter;
+            text_buffer.get_selection_bounds(out start, out end);
+
+            if (text_buffer.get_has_selection()) {
+                if (start.starts_line()){
+                    text = text_buffer.get_text(start, end, false);
+                    if (text.has_prefix("- ")){
+                        var delete_end = start.copy();
+                        delete_end.forward_chars(2);
+                        text_buffer.delete(ref start, ref delete_end);
+                    } else {
+                        text_buffer.insert(ref start, "- ", -1);
+                    }
+                }
+            } else {
+                helptext = _("Item");
+                text_length = helptext.length;
+
+                var cursor_mark = text_buffer.get_insert();
+                text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
+
+                var start_ext = cursor_iter.copy();
+                start_ext.backward_lines(3);
+                text = text_buffer.get_text(cursor_iter, start_ext, false);
+                var lines = text.split("\n");
+
+                foreach (var line in lines) {
+                    if (line != null && line.has_prefix("- ")) {
+                        if (cursor_iter.starts_line()) {
+                            text_buffer.insert_at_cursor(line[:2] + helptext, -1);
+                        } else {
+                            text_buffer.insert_at_cursor("\n" + line[:2] + helptext, -1);
+                        }
+                        break;
+                    } else {
+                        if (lines[-1] != null && lines[-2] != null) {
+                            text_buffer.insert_at_cursor("- " + helptext, -1);
+                        } else if (lines[-1] != null) {
+                            if (cursor_iter.starts_line()){
+                                text_buffer.insert_at_cursor("- " + helptext, -1);
+                            } else {
+                                text_buffer.insert_at_cursor("\n- " + helptext, -1);
+                            }
+                        } else {
+                            text_buffer.insert_at_cursor("\n\n- " + helptext, -1);
+                        }
+                        break;
+                    }
+                }
+
+                select_text(text_view, 0, text_length);
+            }
+        }
+
+        public void select_text (Gtk.TextView text_view, int offset, int length) {
+            var text_buffer = text_view.get_buffer();
+            var cursor_mark = text_buffer.get_insert();
+            Gtk.TextIter cursor_iter;
+
+            text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
+            cursor_iter.backward_chars(offset);
+            text_buffer.move_mark_by_name("selection_bound", cursor_iter);
+            cursor_iter.backward_chars(length);
             text_buffer.move_mark_by_name("insert", cursor_iter);
         }
     }

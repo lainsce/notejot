@@ -75,13 +75,29 @@
                 </style>
               </object>
             </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="can-focus">0</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="ulist_button">
+                <property name="receives-default">1</property>
+                <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
+                <property name="action-name">win.action_item</property>
+                <property name="icon-name">view-list-bullet-symbolic</property>
+                <style>
+                  <class name="image-button"/>
+                  <class name="header-button"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
         <child type="end">
           <object class="GtkBox" id="nb_box">
             <property name="receives-default">1</property>
             <property name="spacing">6</property>
-            <property name="margin-end">8</property>
             <child>
               <object class="GtkImage">
                 <property name="icon-name">notebook-symbolic</property>

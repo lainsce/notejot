@@ -134,7 +134,7 @@ namespace Notejot {
                 var reg_bold = new Regex("""(?m)(?<bold>\|.*\|)""");
                 var reg_italic = new Regex("""(?m)(?<italic>\*.*\*)""");
                 var reg_ul = new Regex("""(?m)(?<ul>\_.*\_)""");
-                var reg_s = new Regex("""(?m)(?<strike>\~\~.*\~\~)""");
+                var reg_s = new Regex("""(?m)(?<strike>\~.*\~)""");
                 GLib.MatchInfo bmatch;
                 GLib.MatchInfo imatch;
                 GLib.MatchInfo ulmatch;
