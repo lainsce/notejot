@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-25 00:45-0300\n"
-"PO-Revision-Date: 2021-03-01 21:22+0100\n"
+"POT-Creation-Date: 2021-04-25 09:07+0200\n"
+"PO-Revision-Date: 2021-04-25 09:17+0200\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -23,7 +23,6 @@ msgid "All Notes"
 msgstr "Todas las notas"
 
 #: src/MainWindow.vala:330
-#, fuzzy
 msgid "New Note "
 msgstr "Nota nueva "
 
@@ -65,23 +64,23 @@ msgstr "Vaciar la papelera"
 
 #: src/MainWindow.vala:508
 msgid "bold text"
-msgstr ""
+msgstr "texto en negrita"
 
 #: src/MainWindow.vala:514
 msgid "italic text"
-msgstr ""
+msgstr "texto en cursiva"
 
 #: src/MainWindow.vala:520
 msgid "underline text"
-msgstr ""
+msgstr "texto subrayado"
 
 #: src/MainWindow.vala:526
 msgid "strikethrough text"
-msgstr ""
+msgstr "texto tachado"
 
 #: src/MainWindow.vala:532 src/MainWindow.vala:600
 msgid "Item"
-msgstr ""
+msgstr "Elemento"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
@@ -186,7 +185,7 @@ msgstr "Mañana"
 
 #: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
 msgid "Loading…"
-msgstr ""
+msgstr "Cargando…"
 
 #: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
@@ -239,7 +238,7 @@ msgstr ""
 
 #: src/Widgets/Note.vala:285
 msgid "Empty note"
-msgstr ""
+msgstr "Nota vacía"
 
 #: src/Widgets/TrashedItem.vala:52
 #, c-format
@@ -274,29 +273,27 @@ msgstr "Elimina el formato del texto seleccionado"
 
 #: data/ui/formatbar.ui:33
 msgid "Makes selected text emboldened"
-msgstr "Hace que el texto seleccionado esté en negrita"
+msgstr "Pone el texto seleccionado en negrita"
 
 #: data/ui/formatbar.ui:45
 msgid "Makes selected text italicized"
-msgstr "Hace que el texto seleccionado esté en cursiva"
+msgstr "Pone el texto seleccionado en cursiva"
 
 #: data/ui/formatbar.ui:57
 msgid "Makes selected text underlined"
-msgstr "Hace que el texto seleccionado esté subrayado"
+msgstr "Subraya el texto seleccionado"
 
 #: data/ui/formatbar.ui:69
 msgid "Makes selected text striked through"
-msgstr "Hace que el texto seleccionado esté tachado"
+msgstr "Tacha el texto seleccionado"
 
 #: data/ui/formatbar.ui:86
-#, fuzzy
 msgid "Makes selected text into an unordered list"
-msgstr "Hace que el texto seleccionado esté en una lista desordenada"
+msgstr "Convierte el texto seleccionado en una lista desordenada"
 
 #: data/ui/main_window.ui:33
-#, fuzzy
 msgid "Add Note"
-msgstr "Todas las notas"
+msgstr "Añadir nota"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
@@ -307,13 +304,12 @@ msgid "No Notes"
 msgstr "Sin notas"
 
 #: data/ui/main_window.ui:132
-#, fuzzy
 msgid "Use the Add Note button to add a note."
-msgstr "Use el botón + para añadir una nota."
+msgstr "Pulse el botón Añadir nota para añadir una."
 
 #: data/ui/main_window.ui:180
 msgid "No Trash"
-msgstr "Sin notas"
+msgstr "Vacía"
 
 #: data/ui/main_window.ui:188
 msgid "Trashed notes appear here."
@@ -417,49 +413,33 @@ msgstr "Crear nota nueva"
 #: data/ui/shortcuts.ui:29
 msgctxt "shortcut window"
 msgid "Formatting"
-msgstr ""
+msgstr "Formato"
 
 #: data/ui/shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Remove Selected Text Formatting"
-msgstr ""
+msgstr "Eliminar el formato del texto seleccionado"
 
 #: data/ui/shortcuts.ui:39
 msgctxt "shortcut window"
 msgid "Bold Selected Text"
-msgstr ""
+msgstr "Poner en negrita el texto seleccionado"
 
 #: data/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Italic Selected Text"
-msgstr ""
+msgstr "Poner en cursiva el texto seleccionado"
 
 #: data/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Underline Selected Text"
-msgstr ""
+msgstr "Subrayar el texto seleccionado"
 
 #: data/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
-msgstr ""
+msgstr "Tachar el texto seleccionado"
 
 #: data/ui/title_menu.ui:18
 msgid "Manage Notebooks…"
 msgstr "Gestionar cuadernos…"
-
-#, fuzzy
-#~ msgid "A Note"
-#~ msgstr "Todas las notas"
-
-#~ msgid "Note Settings"
-#~ msgstr "Ajustes de la nota"
-
-#~ msgid "Makes selected text an ordered list"
-#~ msgstr "Hace que el texto seleccionado esté en una lista ordenada"
-
-#~ msgid "page0"
-#~ msgstr "página0"
-
-#~ msgid "page1"
-#~ msgstr "página1"
