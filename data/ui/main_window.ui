@@ -14,12 +14,12 @@
             <property name="can-swipe-forward">True</property>
             <child>
               <object class="GtkBox" id="sgrid">
-                <property name="width-request">200</property>
                 <property name="hexpand">0</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar" id="stitlebar">
                     <property name="valign">center</property>
+                    <property name="hexpand">0</property>
                     <property name="show-start-title-buttons">0</property>
                     <property name="show-end-title-buttons">0</property>
                     <style>
@@ -63,6 +63,7 @@
                 </child>
                 <child>
                   <object class="GtkRevealer" id="search_revealer">
+                    <property name="hexpand">0</property>
                     <property name="child">
                       <object class="GtkBox">
                         <property name="hexpand">0</property>
@@ -86,6 +87,7 @@
                 <child>
                   <object class="GtkStack" id="sidebar_stack">
                     <property name="vexpand">1</property>
+                    <property name="hexpand">0</property>
                     <property name="transition-type">crossfade</property>
                     <child>
                       <object class="GtkStackPage">
@@ -93,48 +95,19 @@
                         <property name="title">page0</property>
                         <property name="child">
                           <object class="GtkScrolledWindow" id="list_scroller">
-                            <property name="width-request">200</property>
                             <child>
                               <object class="GtkListBox" id="listview">
                                 <property name="vexpand">1</property>
-                                <property name="hexpand">0</property>
                                 <property name="selection_mode">single</property>
                                 <style>
                                   <class name="notejot-view"/>
                                 </style>
                                 <child type="placeholder">
-                                  <object class="GtkBox" id="placeholder">
-                                    <property name="halign">center</property>
+                                  <object class="AdwStatusPage" id="placeholder">
                                     <property name="valign">center</property>
-                                    <property name="vexpand">1</property>
-                                    <property name="width-request">200</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">12</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="icon-name">document-new-symbolic</property>
-                                        <property name="pixel-size">96</property>
-                                        <style>
-                                          <class name="dim-label"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">No Notes</property>
-                                        <style>
-                                          <class name="large-title"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Use the Add Note button to add a note.</property>
-                                        <style>
-                                          <class name="dim-label"/>
-                                        </style>
-                                      </object>
-                                    </child>
+                                    <property name="icon-name">document-new-symbolic</property>
+                                    <property name="title" translatable="yes">No Notes</property>
+                                    <property name="description" translatable="yes">Notes appear here.</property>
                                   </object>
                                 </child>
                               </object>
@@ -153,44 +126,16 @@
                               <object class="GtkListBox" id="trashview">
                                 <property name="vexpand">1</property>
                                 <property name="selection_mode">none</property>
-                                <property name="width-request">200</property>
                                 <property name="activate_on_single_click">1</property>
                                 <style>
                                   <class name="notejot-view"/>
                                 </style>
                                 <child type="placeholder">
-                                  <object class="GtkBox" id="placeholder">
-                                    <property name="halign">center</property>
+                                  <object class="AdwStatusPage" id="placeholder">
                                     <property name="valign">center</property>
-                                    <property name="vexpand">1</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">12</property>
-                                    <property name="width-request">200</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="icon-name">user-trash-symbolic</property>
-                                        <property name="pixel-size">96</property>
-                                        <style>
-                                          <class name="dim-label"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">No Trash</property>
-                                        <style>
-                                          <class name="large-title"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Trashed notes appear here.</property>
-                                        <style>
-                                          <class name="dim-label"/>
-                                        </style>
-                                      </object>
-                                    </child>
+                                    <property name="icon-name">user-trash-symbolic</property>
+                                    <property name="title" translatable="yes">No Trash</property>
+                                    <property name="description" translatable="yes">Trashed notes appear here.</property>
                                   </object>
                                 </child>
                               </object>
@@ -217,6 +162,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar" id="titlebar">
+                    <property name="hexpand">1</property>
                     <style>
                       <class name="flat"/>
                     </style>

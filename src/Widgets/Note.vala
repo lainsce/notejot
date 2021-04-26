@@ -39,7 +39,7 @@ namespace Notejot {
             Object (log: log,
                     win: win);
             this.uid = uid_counter++;
-            this.set_size_request (170, -1);
+            this.hexpand = false;
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("");

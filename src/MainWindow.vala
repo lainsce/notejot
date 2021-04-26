@@ -72,6 +72,7 @@ namespace Notejot {
         // Etc
         public bool pinned = false;
         int uid = 0;
+        private uint update_idle_source = 0;
 
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
@@ -267,9 +268,9 @@ namespace Notejot {
             tm.load_from_file.begin ();
             tm.load_from_file_nb.begin ();
 
-            listen_to_changes ();
+            listen_start ();
 
-            this.set_size_request (375, 280);
+            this.set_size_request (360, 280);
             this.show ();
         }
 
@@ -289,9 +290,23 @@ namespace Notejot {
             return true;
         }
 
-        public void listen_to_changes () {
+        public async void listen_start () {
+            if (update_idle_source > 0) {
+                GLib.Source.remove (update_idle_source);
+            }
+
+            update_idle_source = GLib.Idle.add (() => {
+                listen_to_changes ();
+                return false;
+            });
+        }
+
+        public bool listen_to_changes () {
             Notejot.Application.gsettings.bind ("window-w", this, "default-width", GLib.SettingsBindFlags.DEFAULT);
             Notejot.Application.gsettings.bind ("window-h", this, "default-height", GLib.SettingsBindFlags.DEFAULT);
+
+            update_idle_source = 0;
+            return GLib.Source.REMOVE;
         }
 
         // IO?
