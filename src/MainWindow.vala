@@ -267,7 +267,7 @@ namespace Notejot {
             tm.load_from_file.begin ();
             tm.load_from_file_nb.begin ();
 
-            this.set_size_request (500, 500);
+            this.set_size_request (360, 500);
             this.show ();
         }
 
