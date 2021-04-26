@@ -1,15 +1,5 @@
 <schemalist>
 	<schema id="io.github.lainsce.Notejot" path="/io/github/lainsce/Notejot/">
-		<key name="window-w" type="i">
-			<default>800</default>
-			<summary>Window geometry</summary>
-			<description>The width of window</description>
-		</key>
-		<key name="window-h" type="i">
-			<default>600</default>
-			<summary>Window geometry</summary>
-			<description>The height of window</description>
-		</key>
 		<key type="b" name="dark-mode">
 			<default>false</default>
 			<summary>Dark Mode</summary>
