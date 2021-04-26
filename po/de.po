@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-25 00:45-0300\n"
-"PO-Revision-Date: 2021-03-05 08:40+0100\n"
+"PO-Revision-Date: 2021-04-26 09:12+0200\n"
 "Last-Translator: Onno Giesmann <nutzer3105@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -25,7 +25,6 @@ msgid "All Notes"
 msgstr "Alle Notizen"
 
 #: src/MainWindow.vala:330
-#, fuzzy
 msgid "New Note "
 msgstr "Neue Notiz "
 
@@ -67,23 +66,23 @@ msgstr "Papierkorb leeren"
 
 #: src/MainWindow.vala:508
 msgid "bold text"
-msgstr ""
+msgstr "Fetter Text"
 
 #: src/MainWindow.vala:514
 msgid "italic text"
-msgstr ""
+msgstr "Kursiver Text"
 
 #: src/MainWindow.vala:520
 msgid "underline text"
-msgstr ""
+msgstr "Unterstrichener Text"
 
 #: src/MainWindow.vala:526
 msgid "strikethrough text"
-msgstr ""
+msgstr "Durchgestrichener Text"
 
 #: src/MainWindow.vala:532 src/MainWindow.vala:600
 msgid "Item"
-msgstr ""
+msgstr "Eintrag"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
@@ -188,14 +187,14 @@ msgstr "Morgen"
 
 #: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
 msgid "Loading…"
-msgstr ""
+msgstr "Laden…"
 
 #: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
 msgstr "Kein Notizbuch"
 
 #: src/Widgets/Note.vala:148
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "            .notejot-sidebar-dbg-%d {\n"
@@ -240,32 +239,48 @@ msgid ""
 msgstr ""
 "\n"
 "            .notejot-sidebar-dbg-%d {\n"
-"                border: 1px solid alpha(black, 0.25);\n"
-"                background: %s;\n"
-"                border-radius: 50px;\n"
+"                background: mix(%s, @theme_base_color, 0.5);\n"
+"                border-radius: 9999px;\n"
+"                border: 1px solid @borders;\n"
 "            }\n"
-"            .notejot-sidebar-dbg-dark-%d {\n"
-"                border: 1px solid alpha(black, 0.25);\n"
-"                background: shade(%s, 0.8);\n"
-"                border-radius: 50px;\n"
-"            }\n"
-"            .notejot-label-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
-"            }\n"
-"            .notejot-label-dark-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"            .notejot-action-%d {\n"
+"                background: mix(@theme_bg_color, %s, 0.1);\n"
 "            }\n"
 "            .notejot-stack-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"                background: mix(@theme_bg_color, %s, 0.1);\n"
+"            }\n"
+"            .notejot-stack-%d .notejot-bar {\n"
+"                background: mix(@theme_bg_color, %s, 0.1);\n"
+"                border-top: 1px solid @borders;\n"
+"            }\n"
+"            .notejot-action-dark-%d {\n"
+"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
 "            }\n"
 "            .notejot-stack-dark-%d {\n"
-"                background: mix(%s, @theme_bg_color, 0.8);\n"
+"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
+"            }\n"
+"            .notejot-stack-dark-%d .notejot-bar {\n"
+"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
+"                border-top: 1px solid @borders;\n"
+"            }\n"
+"            .notejot-action-%d:backdrop {\n"
+"                background: mix(%s, @theme_base_color, 0.9);\n"
+"            }\n"
+"            .notejot-stack-%d:backdrop {\n"
+"                background: mix(%s, @theme_base_color, 0.9);\n"
+"            }\n"
+"            .notejot-stack-%d:backdrop .notejot-bar {\n"
+"                background: mix(%s, @theme_base_color, 0.9);\n"
+"                border-top: 1px solid @borders;\n"
+"            }\n"
+"            .notejot-stack-%d box {\n"
+"                border: none;\n"
 "            }\n"
 "            "
 
 #: src/Widgets/Note.vala:285
 msgid "Empty note"
-msgstr ""
+msgstr "Leere Notiz"
 
 #: src/Widgets/TrashedItem.vala:52
 #, c-format
@@ -277,6 +292,12 @@ msgid ""
 "            }\n"
 "            "
 msgstr ""
+"\n"
+"            .notejot-sidebar-dbg-%d {\n"
+"                background: %s;\n"
+"                border-radius: 9999px;\n"
+"            }\n"
+"            "
 
 #: src/Widgets/EditNotebookDialog.vala:72
 msgid "Remove notebook"
@@ -315,14 +336,12 @@ msgid "Makes selected text striked through"
 msgstr "Markierten Text durchstreichen"
 
 #: data/ui/formatbar.ui:86
-#, fuzzy
 msgid "Makes selected text into an unordered list"
-msgstr "Ungeordnete Liste aus markiertem Text erstellen"
+msgstr "Aus markiertem Text eine ungeordnete Liste erstellen"
 
 #: data/ui/main_window.ui:33
-#, fuzzy
 msgid "Add Note"
-msgstr "Alle Notizen"
+msgstr "Notiz hinzufügen"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
@@ -333,9 +352,10 @@ msgid "No Notes"
 msgstr "Keine Notizen"
 
 #: data/ui/main_window.ui:132
-#, fuzzy
 msgid "Use the Add Note button to add a note."
-msgstr "Verwenden Sie die Schaltfläche +, um eine Notiz zu erstellen."
+msgstr ""
+"Verwenden Sie die Schaltfläche \"Notiz hinzufügen\", um eine Notiz zu "
+"erstellen."
 
 #: data/ui/main_window.ui:180
 msgid "No Trash"
@@ -443,32 +463,32 @@ msgstr "Neue Notiz erstellen"
 #: data/ui/shortcuts.ui:29
 msgctxt "shortcut window"
 msgid "Formatting"
-msgstr ""
+msgstr "Formatierung"
 
 #: data/ui/shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Remove Selected Text Formatting"
-msgstr ""
+msgstr "Formatierung von ausgewähltem Text entfernen"
 
 #: data/ui/shortcuts.ui:39
 msgctxt "shortcut window"
 msgid "Bold Selected Text"
-msgstr ""
+msgstr "Markierten Text fett darstellen"
 
 #: data/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Italic Selected Text"
-msgstr ""
+msgstr "Markierten Text kursiv darstellen"
 
 #: data/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Underline Selected Text"
-msgstr ""
+msgstr "Markierten Text unterstreichen"
 
 #: data/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
-msgstr ""
+msgstr "Markierten Text durchstreichen"
 
 #: data/ui/title_menu.ui:18
 msgid "Manage Notebooks…"
