@@ -25,7 +25,7 @@ namespace Notejot {
             this.editable = true;
             this.set_can_focus (true);
             this.opacity = 0.7;
-            this.left_margin = this.top_margin = 20;
+            this.left_margin = this.right_margin = this.top_margin = 20;
             this.wrap_mode = Gtk.WrapMode.WORD_CHAR;
 
 
