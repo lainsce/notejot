@@ -36,16 +36,17 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="2560"
-     inkscape:window-height="1014"
+     inkscape:window-height="1011"
      id="namedview247"
      showgrid="false"
-     inkscape:zoom="6.203125"
+     inkscape:zoom="6.3555359"
      inkscape:cx="64"
      inkscape:cy="64"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg245" />
+     inkscape:current-layer="svg245"
+     inkscape:document-rotation="0" />
   <defs
      id="defs193">
     <linearGradient
@@ -593,17 +594,17 @@
      d="m 70.882812 80.699219 l -6.222656 -6.222657 l 42.398438 -42.402343 l 6.222656 6.222656 z m 0 0"
      fill="#3584e4"
      id="path229"
-     style="fill:#241f31" />
+     style="fill:#3d3846" />
   <path
      d="m 64.941406 74.757812 l -2.828125 -2.828124 l 42.425781 -42.425782 l 2.804688 2.851563 z m 0 0"
      fill="#62a0ea"
      id="path231"
-     style="fill:#3d3846" />
+     style="fill:#5e5c64" />
   <path
      d="m 69.183594 79 l 2.828125 2.828125 l 42.425781 -42.425781 l -2.851562 -2.804688 z m 0 0"
      fill="#1a5fb4"
      id="path233"
-     style="fill:#000000" />
+     style="fill:#241f31" />
   <path
      d="m 104.539062 29.503906 l 2.828126 -2.828125 l 9.898437 9.898438 l -2.828125 2.828125 z m 0 0"
      fill="url(#n)"

@@ -278,16 +278,16 @@
      borderopacity="0.25490196"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568544"
+     inkscape:zoom="5.7958435"
      inkscape:cx="110.63437"
      inkscape:cy="79.097471"
-     inkscape:current-layer="layer9"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:showpageshadow="false"
      inkscape:window-width="2560"
-     inkscape:window-height="1014"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      width="400px"
@@ -717,19 +717,19 @@
        inkscape:connector-curvature="0"
        id="path3244"
        d="m 70.880944,252.69734 -6.22254,-6.22254 42.401396,-42.40139 6.22254,6.22254 z"
-       style="display:inline;fill:#241f31;fill-opacity:1;stroke:none;stroke-width:0.506438px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;enable-background:new" />
+       style="display:inline;fill:#3d3846;fill-opacity:1;stroke:none;stroke-width:0.506438px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;enable-background:new" />
     <path
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"
        id="path3246"
        d="m 64.941247,246.75765 -2.828427,-2.82843 42.42641,-42.4264 2.80346,2.85338 z"
-       style="display:inline;fill:#3d3846;fill-opacity:1;stroke:none;stroke-width:0.358106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;enable-background:new" />
+       style="display:inline;fill:#5e5c64;fill-opacity:1;stroke:none;stroke-width:0.358106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;enable-background:new" />
     <path
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"
        id="path3248"
        d="m 69.183888,251.00029 2.828427,2.82842 42.426405,-42.4264 -2.85339,-2.80347 z"
-       style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.358106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;enable-background:new" />
+       style="display:inline;fill:#241f31;fill-opacity:1;stroke:none;stroke-width:0.358106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;enable-background:new" />
     <rect
        style="fill:url(#linearGradient3258);fill-opacity:1;stroke:none;stroke-width:7.55906;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4;stroke-opacity:1"
        id="rect3250"
