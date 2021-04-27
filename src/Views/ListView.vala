@@ -39,6 +39,7 @@ namespace Notejot {
                     } else {
                         win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
                     }
+                    win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
                 } else {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
@@ -47,6 +48,7 @@ namespace Notejot {
                     } else {
                         win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
                     }
+                    win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
             });
 
@@ -77,7 +79,6 @@ namespace Notejot {
                 popover.set_pointing_to (allocation);
                 popover.set_offset (0, 40); // Needed so that the popover doesn't show above the list widget
                 popover.popup ();
-                popover.set_autohide (true);
                 this.y = (int)y;
 
                 press.set_state (Gtk.EventSequenceState.CLAIMED);

@@ -67,6 +67,10 @@ headerbar.flat {
   transition: 100ms ease-in-out;
 }
 
+.notejot-empty-title {
+  border-bottom: 1px solid transparent;
+}
+
 button.flat-button {
   background-color: @theme_base_color;
   background-image: none;

@@ -175,7 +175,10 @@ namespace Notejot {
             tm = new TaskManager (this);
 
             sm = new Widgets.SettingMenu(this);
-            settingmenu.popover = sm.popover;
+            settingmenu.popover = sm.nmpopover;
+            settingmenu.visible = false;
+
+            titlebar.get_style_context ().add_class ("notejot-empty-title");
 
             back_button.visible = false;
             back_button.clicked.connect (() => {
@@ -447,6 +450,7 @@ namespace Notejot {
         public void action_move_to () {
             var move_to_dialog = new Widgets.MoveToDialog (this);
             move_to_dialog.show ();
+            sm.nmpopover.close ();
         }
 
         public void action_delete_note () {
@@ -467,13 +471,16 @@ namespace Notejot {
 	        trashstore.append (tlog);
 
             main_stack.set_visible_child (empty_state);
+            leaflet.set_visible_child (sgrid);
             var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
             main_stack.remove (rowd);
 
             uint pos;
             notestore.find (((Widgets.Note)row).log, out pos);
             notestore.remove (pos);
+            sm.nmpopover.close ();
             settingmenu.visible = false;
+            titlebar.get_style_context ().add_class ("notejot-empty-title");
         }
 
         public void action_edit_notebooks () {

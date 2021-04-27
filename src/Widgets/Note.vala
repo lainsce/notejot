@@ -40,6 +40,8 @@ namespace Notejot {
                     win: win);
             this.uid = uid_counter++;
             this.hexpand = false;
+            this.set_title_lines (1);
+            this.set_subtitle_lines (1);
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("");
@@ -65,6 +67,8 @@ namespace Notejot {
             note_grid.attach (formatbar, 0, 4);
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
+
+            win.listview.select_row (this);
 
             set_notebook ();
             sync_subtitles ();
@@ -293,34 +297,42 @@ namespace Notejot {
         public void popover_listener (Widgets.NoteMenuPopover? popover) {
             popover.color_button_red.clicked.connect (() => {
                 update_theme("#c01c28");
+                popover.close ();
             });
 
             popover.color_button_orange.clicked.connect (() => {
                 update_theme("#e66100");
+                popover.close ();
             });
 
             popover.color_button_yellow.clicked.connect (() => {
                 update_theme("#f5c211");
+                popover.close ();
             });
 
             popover.color_button_green.clicked.connect (() => {
                 update_theme("#2ec27e");
+                popover.close ();
             });
 
             popover.color_button_blue.clicked.connect (() => {
                 update_theme("#1c71d8");
+                popover.close ();
             });
 
             popover.color_button_purple.clicked.connect (() => {
                 update_theme("#813d9c");
+                popover.close ();
             });
 
             popover.color_button_brown.clicked.connect (() => {
                 update_theme("#865e3c");
+                popover.close ();
             });
 
             popover.color_button_reset.clicked.connect (() => {
-                update_theme("");
+                update_theme("#FFFFFF");
+                popover.close ();
             });
         }
     }

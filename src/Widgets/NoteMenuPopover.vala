@@ -37,5 +37,9 @@ namespace Notejot {
         public unowned Gtk.Button color_button_brown;
         [GtkChild]
         public unowned Gtk.Button color_button_reset;
+
+        public void close () {
+            this.hide();
+        }
     }
 }

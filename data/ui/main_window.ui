@@ -4,6 +4,8 @@
   <requires lib="libadwaita" version="1.0"/>
   <template class="NotejotMainWindow" parent="AdwApplicationWindow">
     <property name="visible">1</property>
+    <property name="default-width">830</property>
+    <property name="default-height">600</property>
     <child>
       <object class="GtkBox" id="main_box">
         <property name="orientation">vertical</property>
