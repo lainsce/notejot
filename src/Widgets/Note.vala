@@ -70,15 +70,9 @@ namespace Notejot {
 
             win.listview.select_row (this);
 
-            set_notebook ();
-            sync_subtitles ();
+            sync_subtitles.begin ();
             update_theme (log.color);
-            if (log.title == "") {
-                this.set_title (_("Loading…"));
-                this.set_subtitle (_("Loading…"));
-            } else {
-                this.set_title (log.title);
-            }
+            this.set_title (log.title);
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
 
@@ -88,11 +82,6 @@ namespace Notejot {
 
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
-            });
-
-            Timeout.add_seconds(1, () => {
-                sync_subtitles ();
-                return true;
             });
 
             if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
@@ -139,7 +128,7 @@ namespace Notejot {
         }
 
         public void set_notebook () {
-            if (log != null && log.notebook != "") {
+            if (log != null) {
                 formatbar.notebooklabel.set_label (log.notebook);
             } else {
                 formatbar.notebooklabel.set_label (_("No Notebook"));
@@ -149,14 +138,14 @@ namespace Notejot {
         public void update_theme(string? color) {
             css_provider = new Gtk.CssProvider();
             string style = null;
-            style = (N_("""
+            style = """
             .notejot-sidebar-dbg-%d {
                 background: mix(%s, @theme_base_color, 0.5);
                 border-radius: 9999px;
                 border: 1px solid @borders;
             }
             .notejot-action-%d {
-                background: mix(@theme_bg_color, %s, 0.1);
+                background-color: mix(@theme_bg_color, %s, 0.1);
             }
             .notejot-stack-%d {
                 background: mix(@theme_bg_color, %s, 0.1);
@@ -166,7 +155,7 @@ namespace Notejot {
                 border-top: 1px solid @borders;
             }
             .notejot-action-dark-%d {
-                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);
+                background-color: shade(mix(@theme_bg_color, %s, 0.1), 0.75);
             }
             .notejot-stack-dark-%d {
                 background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);
@@ -176,7 +165,7 @@ namespace Notejot {
                 border-top: 1px solid @borders;
             }
             .notejot-action-%d:backdrop {
-                background: mix(%s, @theme_base_color, 0.9);
+                background-color: mix(%s, @theme_base_color, 0.9);
             }
             .notejot-stack-%d:backdrop {
                 background: mix(%s, @theme_base_color, 0.9);
@@ -188,7 +177,7 @@ namespace Notejot {
             .notejot-stack-%d box {
                 border: none;
             }
-            """)).printf(uid,
+            """.printf( uid,
                          color,
                          uid,
                          color,
@@ -223,12 +212,12 @@ namespace Notejot {
             win.tm.save_notes.begin (win.notestore);
         }
 
-        public void sync_subtitles () {
+        public async void sync_subtitles () {
             try {
                 var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
                 GLib.MatchInfo match;
 
-                if (this != null && log != null && log.subtitle != "" && log.text != "") {
+                if (log != null) {
                     if (reg.match (log.subtitle, 0, out match)) {
                         var e = new GLib.DateTime.now_local ();
                         var d = new DateTime.local (e.get_year (),
@@ -238,7 +227,7 @@ namespace Notejot {
                                                     int.parse(match.fetch_named ("minute")),
                                                     e.get_second ());
 
-                        Timeout.add_seconds(1, () => {
+                        Timeout.add(50, () => {
                             set_title("%s".printf(get_first_line (log.text).replace("|", "")
                                                                            .replace("_", "")
                                                                            .replace("*", "")

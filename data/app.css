@@ -69,6 +69,7 @@ headerbar.flat {
 
 .notejot-empty-title {
   border-bottom: 1px solid transparent;
+  background: @theme_bg_color;
 }
 
 button.flat-button {

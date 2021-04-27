@@ -182,7 +182,6 @@ namespace Notejot {
 
             back_button.visible = false;
             back_button.clicked.connect (() => {
-                Notejot.Application.gsettings.set_string("last-view", "list");
                 main_stack.set_visible_child (empty_state);
                 if (listview.get_selected_row () != null) {
                     listview.unselect_row(listview.get_selected_row ());
@@ -323,7 +322,7 @@ namespace Notejot {
 
             uid++;
 
-            log.title = "";
+            log.title = _("New Note ") + (@"$uid");
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = ("|") + _("New Note ") + (@"$uid") + ("|") + ("\n\n") + _("This is a text example.");
             log.color = "#fff";
@@ -464,6 +463,9 @@ namespace Notejot {
                 row = listview.get_selected_row ();
             }
 
+            // Reset titlebar color
+            ((Widgets.Note)row).update_theme("#FFFFFF");
+
             var tlog = new Log ();
             tlog.title = ((Widgets.Note)row).log.title;
             tlog.subtitle = ((Widgets.Note)row).log.subtitle;
@@ -473,14 +475,17 @@ namespace Notejot {
 	        trashstore.append (tlog);
 
             main_stack.set_visible_child (empty_state);
-            leaflet.set_visible_child (sgrid);
+
+            if (leaflet.get_visible_child () != sgrid) {
+                leaflet.set_visible_child (sgrid);
+            }
             var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
             main_stack.remove (rowd);
 
             uint pos;
             notestore.find (((Widgets.Note)row).log, out pos);
             notestore.remove (pos);
-            sm.nmpopover.close ();
+            lv.popover.close ();
             settingmenu.visible = false;
             titlebar.get_style_context ().add_class ("notejot-empty-title");
         }

@@ -49,12 +49,12 @@ namespace Notejot {
         public void update_theme(string? color) {
             css_provider = new Gtk.CssProvider();
             string style = null;
-            style = (N_("""
+            style = """
             .notejot-sidebar-dbg-%d {
                 background: %s;
                 border-radius: 9999px;
             }
-            """)).printf(uid, color);
+            """.printf(uid, color);
             css_provider.load_from_data(style.data);
             Gtk.StyleContext.add_provider_for_display (
                 Gdk.Display.get_default (),

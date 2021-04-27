@@ -2,6 +2,7 @@ namespace Notejot {
     public class Views.ListView : Object {
         private MainWindow win;
         Gtk.GestureClick press;
+        public Widgets.NoteMenuPopover popover;
 
         public bool is_modified {get; set; default = false;}
 
@@ -69,7 +70,7 @@ namespace Notejot {
                     return;
                 }
 
-                var popover = new Widgets.NoteMenuPopover ();
+                popover = new Widgets.NoteMenuPopover ();
                 popover.set_parent (win);
                 ((Widgets.Note)row).popover_listener (popover);
 
