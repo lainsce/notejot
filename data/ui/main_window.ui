@@ -22,8 +22,6 @@
                   <object class="AdwHeaderBar" id="stitlebar">
                     <property name="valign">center</property>
                     <property name="hexpand">0</property>
-                    <property name="show-start-title-buttons">0</property>
-                    <property name="show-end-title-buttons">0</property>
                     <style>
                       <class name="flat"/>
                     </style>

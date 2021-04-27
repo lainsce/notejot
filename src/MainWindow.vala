@@ -277,8 +277,10 @@ namespace Notejot {
         private void update () {
             if (leaflet != null && leaflet.get_folded ()) {
                 back_button.visible = true;
+                stitlebar.set_show_end_title_buttons (true);
             } else {
                 back_button.visible = false;
+                stitlebar.set_show_end_title_buttons (false);
             }
         }
 
