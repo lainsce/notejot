@@ -62,7 +62,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Adw.HeaderBar stitlebar;
 
-
         // Custom
         public Widgets.SettingMenu sm;
         public Widgets.HeaderBarButton hbb;
