@@ -180,7 +180,6 @@ namespace Notejot {
 
             titlebar.get_style_context ().add_class ("notejot-empty-title");
 
-            back_button.visible = false;
             back_button.clicked.connect (() => {
                 main_stack.set_visible_child (empty_state);
                 if (listview.get_selected_row () != null) {
@@ -242,13 +241,6 @@ namespace Notejot {
                lv.set_search_text (note_search.get_text ());
             });
 
-            // Main View
-            update ();
-
-            leaflet.notify["folded"].connect (() => {
-                update ();
-            });
-
             notebookstore = new GLib.ListStore (typeof (Notebook));
             notebookstore.items_changed.connect (() => {
                 tm.save_notebooks.begin (notebookstore);
@@ -271,16 +263,6 @@ namespace Notejot {
 
             this.set_size_request (360, 500);
             this.show ();
-        }
-
-        private void update () {
-            if (leaflet != null && leaflet.get_folded ()) {
-                back_button.visible = true;
-                stitlebar.set_show_end_title_buttons (true);
-            } else {
-                back_button.visible = false;
-                stitlebar.set_show_end_title_buttons (false);
-            }
         }
 
         protected override bool close_request () {

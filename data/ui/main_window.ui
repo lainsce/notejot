@@ -20,6 +20,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar" id="stitlebar">
+                    <property name="show-end-title-buttons" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
                     <property name="valign">center</property>
                     <property name="hexpand">0</property>
                     <style>
@@ -162,6 +163,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar" id="titlebar">
+                    <property name="show-start-title-buttons" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
                     <property name="hexpand">1</property>
                     <style>
                       <class name="flat"/>
@@ -172,7 +174,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="back_button">
-                        <property name="visible">1</property>
+                        <property name="visible" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
                         <property name="receives-default">1</property>
                         <property name="icon-name">go-previous-symbolic</property>
                         <style>
