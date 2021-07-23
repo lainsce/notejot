@@ -105,4 +105,10 @@
             </description>
         </release>
     </releases>
+    <custom>
+        <value key="x-appcenter-color-primary">#FFE16B</value>
+        <value key="x-appcenter-color-primary-text">#000000</value>
+        <value key="x-appcenter-suggested-price">5</value>
+        <value key="x-appcenter-stripe">pk_live_X9sKGl7Y9uqVhqFSyoF36FK4</value>
+    </custom>
 </component>
