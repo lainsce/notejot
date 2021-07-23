@@ -76,8 +76,7 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
-                    "branch" : "main",
-                    "commit" : "9a52895fcd5a906791606400db1028fa0e527854"
+                    "branch" : "main"
                 }
             ]
         },
