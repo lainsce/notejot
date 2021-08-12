@@ -27,7 +27,7 @@ modules:
 - name: notejot
   buildsystem: meson
   sources:
-  - type: archive
-    url: https://github.com/lainsce/notejot/archive/1.5.8.tar.gz
-    sha256: 0cb7b4df24b75935fa91ddc5cc4e2073a2697c0ae70f34b2bdf62f2cf784a3d4
+  - type: git
+    path: .
+    tag: 1.6.3
 
