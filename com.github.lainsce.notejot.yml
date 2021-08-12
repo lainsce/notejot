@@ -1,0 +1,33 @@
+---
+app-id: com.github.lainsce.notejot
+runtime: io.elementary.Platform
+sdk: io.elementary.Sdk
+runtime-version: '6'
+command: com.github.lainsce.notejot
+finish-args:
+- "--share=ipc"
+- "--socket=x11"
+- "--socket=wayland"
+cleanup:
+- "/include"
+- "/lib/pkgconfig"
+- "/lib/*.la"
+- "/share/gir-1.0"
+- "/lib/girepository-1.0"
+- "/share/vala"
+- "/share/gtk-doc"
+modules:
+- name: gtksourceview
+  config-opts:
+  - "--disable-static"
+  sources:
+  - type: archive
+    url: https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.11.tar.xz
+    sha256: 691b074a37b2a307f7f48edc5b8c7afa7301709be56378ccf9cc9735909077fd
+- name: notejot
+  buildsystem: meson
+  sources:
+  - type: archive
+    url: https://github.com/lainsce/notejot/archive/1.5.8.tar.gz
+    sha256: 0cb7b4df24b75935fa91ddc5cc4e2073a2697c0ae70f34b2bdf62f2cf784a3d4
+
