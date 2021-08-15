@@ -5,6 +5,7 @@
 
       <file alias="add-note-symbolic.svg">icons/scalable/add-note-symbolic.svg</file>
       <file alias="notebook-symbolic.svg">icons/scalable/notebook-symbolic.svg</file>
+      <file alias="notebook-config-symbolic.svg">icons/scalable/notebook-config-symbolic.svg</file>
 
       <file alias="header_button.ui">ui/header_button.ui</file>
       <file alias="shortcuts.ui">ui/shortcuts.ui</file>

@@ -24,10 +24,11 @@
                     <property name="valign">center</property>
                     <property name="hexpand">0</property>
                     <style>
-                      <class name="flat"/>
+                      <class name="notejot-stitle"/>
                     </style>
                     <child type="title">
-                      <placeholder/>
+                      <object class="GtkBox">
+                      </object>
                     </child>
                     <child>
                       <object class="GtkButton" id="new_button">
@@ -99,6 +100,7 @@
                             <child>
                               <object class="GtkListBox" id="listview">
                                 <property name="vexpand">1</property>
+                                <property name="hexpand">0</property>
                                 <property name="selection_mode">single</property>
                                 <style>
                                   <class name="notejot-view"/>
@@ -106,6 +108,7 @@
                                 <child type="placeholder">
                                   <object class="AdwStatusPage" id="placeholder">
                                     <property name="valign">center</property>
+                                    <property name="hexpand">0</property>
                                     <property name="icon-name">document-new-symbolic</property>
                                     <property name="title" translatable="yes">No Notes</property>
                                     <property name="description" translatable="yes">Notes appear here.</property>
@@ -143,6 +146,22 @@
                             </child>
                           </object>
                         </property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkActionBar" id="hbb_actionbar">
+                    <property name="hexpand">0</property>
+                    <child  type="start">
+                      <object class="GtkButton" id="manage_notebooks">
+                        <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
+                        <property name="icon-name">notebook-config-symbolic</property>
+                        <property name="action-name">win.action_edit_notebooks</property>
+                        <style>
+                          <class name="image-button"/>
+                          <class name="header-button"/>
+                        </style>
                       </object>
                     </child>
                   </object>

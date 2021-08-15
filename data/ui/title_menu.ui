@@ -13,11 +13,5 @@
       </item>
     </section>
     <section id="edit"/>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Manage Notebooks…</attribute>
-        <attribute name="action">win.action_edit_notebooks</attribute>
-      </item>
-    </section>
   </menu>
 </interface>

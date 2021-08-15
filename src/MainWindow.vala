@@ -34,6 +34,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Revealer search_revealer;
         [GtkChild]
+        public unowned Gtk.ActionBar hbb_actionbar;
+        [GtkChild]
         public unowned Gtk.SearchEntry note_search;
 
         [GtkChild]
@@ -227,7 +229,9 @@ namespace Notejot {
             hbb.get_style_context ().add_class ("rename-button");
             hbb.get_style_context ().add_class ("flat");
 
-            stitlebar.set_title_widget (hbb);
+            hbb_actionbar.set_center_widget (hbb);
+
+            sgrid.append (hbb_actionbar);
 
             search_button.toggled.connect (() => {
                 if (search_button.get_active ()) {

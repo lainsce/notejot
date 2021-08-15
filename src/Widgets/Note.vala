@@ -58,6 +58,7 @@ namespace Notejot {
             textfield.get_buffer ().get_bounds (out A, out B);
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
+            textfield.get_style_context ().add_class ("notejot-tview-%d".printf(uid));
 
             formatbar = new Widgets.FormatBar ();
             formatbar.controller = textfield;
@@ -91,11 +92,9 @@ namespace Notejot {
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
-                note_grid.get_style_context ().add_class ("notejot-stack-dark-%d".printf(uid));
             } else {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
-                note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
             }
 
             Notejot.Application.gsettings.changed.connect (() => {
@@ -106,11 +105,9 @@ namespace Notejot {
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
-                    note_grid.get_style_context ().add_class ("notejot-stack-dark-%d".printf(uid));
                 } else {
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
-                    note_grid.get_style_context ().remove_class ("notejot-stack-dark-%d".printf(uid));
                 }
             });
         }
@@ -142,40 +139,37 @@ namespace Notejot {
             .notejot-sidebar-dbg-%d {
                 background: mix(%s, @theme_base_color, 0.5);
                 border-radius: 9999px;
-                border: 1px solid @borders;
             }
             .notejot-action-%d {
-                background-color: mix(@theme_bg_color, %s, 0.1);
+                background: mix(@theme_base_color, %s, 0.1);
+                border-bottom: 1px solid @borders;
             }
             .notejot-stack-%d {
-                background: mix(@theme_bg_color, %s, 0.1);
+                background: mix(@theme_base_color, %s, 0.1);
             }
             .notejot-stack-%d .notejot-bar {
-                background: mix(@theme_bg_color, %s, 0.1);
-                border-top: 1px solid @borders;
-            }
-            .notejot-action-dark-%d {
-                background-color: shade(mix(@theme_bg_color, %s, 0.1), 0.75);
-            }
-            .notejot-stack-dark-%d {
-                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);
-            }
-            .notejot-stack-dark-%d .notejot-bar {
-                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);
-                border-top: 1px solid @borders;
+                background: mix(@theme_base_color, %s, 0.1);
             }
             .notejot-action-%d:backdrop {
-                background-color: mix(%s, @theme_base_color, 0.9);
+                background: mix(%s, @theme_base_color, 0.9);
+                opacity: 0.66;
             }
             .notejot-stack-%d:backdrop {
                 background: mix(%s, @theme_base_color, 0.9);
+                opacity: 0.66;
             }
             .notejot-stack-%d:backdrop .notejot-bar {
                 background: mix(%s, @theme_base_color, 0.9);
-                border-top: 1px solid @borders;
+                opacity: 0.66;
             }
             .notejot-stack-%d box {
-                border: none;
+                border-image-width: 0;
+            }
+            .notejot-tview-%d text {
+                background: mix(@theme_base_color, %s, 0.1);
+            }
+            .notejot-tview-dark-%d text {
+                background: shade(mix(@theme_base_color, %s, 0.1), 0.75);
             }
             """.printf( uid,
                          color,
@@ -192,12 +186,10 @@ namespace Notejot {
                          uid,
                          color,
                          uid,
-                         color,
                          uid,
                          color,
                          uid,
-                         color,
-                         uid
+                         color
             );
 
             css_provider.load_from_data(style.data);
