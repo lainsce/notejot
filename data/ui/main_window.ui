@@ -164,6 +164,9 @@
                         </style>
                       </object>
                     </child>
+                    <style>
+                      <class name="notejot-sbar"/>
+                    </style>
                   </object>
                 </child>
               </object>

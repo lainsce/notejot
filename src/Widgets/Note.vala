@@ -89,21 +89,9 @@ namespace Notejot {
                 win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
             }
 
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
-            } else {
-                textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
-            }
-
             Notejot.Application.gsettings.changed.connect (() => {
                 if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
-                }
-
-                if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
-                } else {
-                    textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
                 }
             });
         }
@@ -147,15 +135,12 @@ namespace Notejot {
                 background: mix(@theme_base_color, %s, 0.1);
             }
             .notejot-action-%d:backdrop {
-                background: mix(%s, @theme_base_color, 0.9);
                 opacity: 0.66;
             }
             .notejot-stack-%d:backdrop {
-                background: mix(%s, @theme_base_color, 0.9);
                 opacity: 0.66;
             }
             .notejot-stack-%d:backdrop .notejot-bar {
-                background: mix(%s, @theme_base_color, 0.9);
                 opacity: 0.66;
             }
             .notejot-stack-%d box {
@@ -163,9 +148,6 @@ namespace Notejot {
             }
             .notejot-tview-%d text {
                 background: mix(@theme_base_color, %s, 0.1);
-            }
-            .notejot-tview-dark-%d text {
-                background: shade(mix(@theme_base_color, %s, 0.1), 0.75);
             }
             """.printf( uid,
                          color,
@@ -176,14 +158,9 @@ namespace Notejot {
                          uid,
                          color,
                          uid,
-                         color,
-                         uid,
-                         color,
-                         uid,
-                         color,
                          uid,
                          uid,
-                         color,
+                         uid,
                          uid,
                          color
             );
