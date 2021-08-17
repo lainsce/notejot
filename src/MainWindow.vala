@@ -74,6 +74,7 @@ namespace Notejot {
         // Etc
         public bool pinned = false;
         int uid = 0;
+        public Gtk.Settings gtk_settings;
 
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
@@ -171,7 +172,17 @@ namespace Notejot {
 
             var action_fontsize = Notejot.Application.gsettings.create_action ("font-size");
             app.add_action(action_fontsize);
-            //
+            
+            // GtkSettings and dark theme
+            gtk_settings = Gtk.Settings.get_default ();
+            Application.gsettings.bind_property (
+                "dark-mode",
+                gtk_settings,
+                "gtk-application-prefer-dark-theme",
+                GLib.BindingFlags.SYNC_CREATE
+                // This allows to sync gtk_application-dark-theme when Notejot.Settings.dark_mode is changed
+                // Notejot.Widgets.Note no longer manages dark theme
+            );
 
             // Main View
             tm = new TaskManager (this);

@@ -85,7 +85,7 @@ namespace Notejot {
         }
 
         private void set_stylesheet () {
-            if (Notejot.Application.gsettings.get_boolean("dark-mode") == true) {
+            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 this.get_style_context ().add_class ("dark");
                 this.get_style_context ().remove_class ("light");
             } else {

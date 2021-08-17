@@ -90,10 +90,8 @@ namespace Notejot {
             }
 
             if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
             } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
             }
 
@@ -103,10 +101,8 @@ namespace Notejot {
                 }
 
                 if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                     textfield.get_style_context ().add_class ("notejot-tview-dark-%d".printf(uid));
                 } else {
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                     textfield.get_style_context ().remove_class ("notejot-tview-dark-%d".printf(uid));
                 }
             });
