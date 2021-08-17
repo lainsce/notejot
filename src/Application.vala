@@ -20,7 +20,7 @@
 namespace Notejot {
     public class Application : Gtk.Application {
         public static MainWindow win = null;
-        public static GLib.Settings gsettings;
+        public static Settings gsettings;
         private const GLib.ActionEntry app_entries[] = {
             { "quit", on_quit },
         };
@@ -33,7 +33,7 @@ namespace Notejot {
             add_action_entries(app_entries, this);
         }
         static construct {
-            gsettings = new GLib.Settings ("io.github.lainsce.Notejot");
+            gsettings = new Settings ();
         }
 
         construct {
