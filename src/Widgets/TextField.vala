@@ -130,6 +130,7 @@ namespace Notejot {
             buffer.get_bounds (out start, out end);
 
             string buf = buffer.get_text (start, end, true);
+            buffer.remove_all_tags(start, end);
 
             try {
                 var reg_bold = new Regex("""(?m)(?<bold>\|.*\|)""");
