@@ -53,13 +53,11 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-        <release version="3.0.1" date="2020-08-13">
+        <release version="3.1.0" date="2020-08-13">
             <description>
                 <p>Release: Ready, Set, Go!</p>
                 <ul>
                     <li>Some UI design fixes, such as the notebook switcher being on the bottom instead of in the top.</li>
-                    <li></li>
-                    <li></li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
