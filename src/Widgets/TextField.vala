@@ -127,6 +127,7 @@ namespace Notejot {
 
         private bool fmt_syntax () {
             Gtk.TextIter start, end, match_start, match_end;
+            int match_start_offset, match_end_offset;
             buffer.get_bounds (out start, out end);
 
             string buf = buffer.get_text (start, end, true);
@@ -143,44 +144,44 @@ namespace Notejot {
 
                 if (reg_bold.match (buf, 0, out bmatch)) {
                     do {
-                        if (start.forward_search (bmatch.fetch_named ("bold"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                        if (bmatch.fetch_named_pos ("bold", out match_start_offset, out match_end_offset)) {
+                            buffer.get_iter_at_offset(out match_start, match_start_offset);
+                            buffer.get_iter_at_offset(out match_end, match_end_offset);
+                            buffer.remove_all_tags(match_start, match_end);
                             buffer.apply_tag(bold_font, match_start, match_end);
-                            buffer.remove_tag(italic_font, match_start, match_end);
-                            buffer.remove_tag(ul_font, match_start, match_end);
-                            buffer.remove_tag(s_font, match_start, match_end);
                         }
                     } while (bmatch.next ());
                 }
 
                 if (reg_italic.match (buf, 0, out imatch)) {
                     do {
-                        if (start.forward_search (imatch.fetch_named ("italic"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                        if (imatch.fetch_named_pos ("italic", out match_start_offset, out match_end_offset)) {
+                            buffer.get_iter_at_offset(out match_start, match_start_offset);
+                            buffer.get_iter_at_offset(out match_end, match_end_offset);
+                            buffer.remove_all_tags(match_start, match_end);
                             buffer.apply_tag(italic_font, match_start, match_end);
-                            buffer.remove_tag(bold_font, match_start, match_end);
-                            buffer.remove_tag(ul_font, match_start, match_end);
-                            buffer.remove_tag(s_font, match_start, match_end);
                         }
                     } while (imatch.next ());
                 }
 
                 if (reg_ul.match (buf, 0, out ulmatch)) {
                     do {
-                        if (start.forward_search (ulmatch.fetch_named ("ul"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                        if (ulmatch.fetch_named_pos ("ul", out match_start_offset, out match_end_offset)) {
+                            buffer.get_iter_at_offset(out match_start, match_start_offset);
+                            buffer.get_iter_at_offset(out match_end, match_end_offset);
+                            buffer.remove_all_tags(match_start, match_end);
                             buffer.apply_tag(ul_font, match_start, match_end);
-                            buffer.remove_tag(bold_font, match_start, match_end);
-                            buffer.remove_tag(italic_font, match_start, match_end);
-                            buffer.remove_tag(s_font, match_start, match_end);
                         }
                     } while (ulmatch.next ());
                 }
 
                 if (reg_s.match (buf, 0, out smatch)) {
                     do {
-                        if (start.forward_search (smatch.fetch_named ("strike"), Gtk.TextSearchFlags.CASE_INSENSITIVE, out match_start, out match_end, null)) {
+                        if (smatch.fetch_named_pos ("strike", out match_start_offset, out match_end_offset)) {
+                            buffer.get_iter_at_offset(out match_start, match_start_offset);
+                            buffer.get_iter_at_offset(out match_end, match_end_offset);
+                            buffer.remove_all_tags(match_start, match_end);
                             buffer.apply_tag(s_font, match_start, match_end);
-                            buffer.remove_tag(bold_font, match_start, match_end);
-                            buffer.remove_tag(italic_font, match_start, match_end);
-                            buffer.remove_tag(ul_font, match_start, match_end);
                         }
                     } while (smatch.next ());
                 }
