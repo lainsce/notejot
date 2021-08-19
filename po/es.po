@@ -2,51 +2,51 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-25 09:07+0200\n"
-"PO-Revision-Date: 2021-04-25 09:17+0200\n"
+"POT-Creation-Date: 2021-08-19 09:04+0200\n"
+"PO-Revision-Date: 2021-08-19 09:05+0200\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: src/MainWindow.vala:127 src/MainWindow.vala:363
+#: src/MainWindow.vala:130 src/MainWindow.vala:357
 msgid "Notejot"
 msgstr "Notejot"
 
-#: src/MainWindow.vala:224 src/MainWindow.vala:385 data/ui/title_menu.ui:7
+#: src/MainWindow.vala:238 src/MainWindow.vala:379 data/ui/title_menu.ui:7
 msgid "All Notes"
 msgstr "Todas las notas"
 
-#: src/MainWindow.vala:330
+#: src/MainWindow.vala:322 src/MainWindow.vala:324
 msgid "New Note "
 msgstr "Nota nueva "
 
-#: src/MainWindow.vala:330
+#: src/MainWindow.vala:324
 msgid "This is a text example."
 msgstr "Esto es un texto de ejemplo."
 
-#: src/MainWindow.vala:368
+#: src/MainWindow.vala:362
 msgid "Jot your ideas."
 msgstr "Anote sus ideas."
 
-#: src/MainWindow.vala:374
+#: src/MainWindow.vala:368
 msgid "translator-credits"
 msgstr "Óscar Fernández Díaz"
 
-#: src/MainWindow.vala:397 data/ui/title_menu.ui:11
+#: src/MainWindow.vala:391 data/ui/title_menu.ui:11
 msgid "Trash"
 msgstr "Papelera"
 
-#: src/MainWindow.vala:409
+#: src/MainWindow.vala:403
 msgid "Empty the Trashed Notes?"
 msgstr "¿Vaciar la papelera?"
 
-#: src/MainWindow.vala:410
+#: src/MainWindow.vala:404
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
@@ -54,91 +54,79 @@ msgstr ""
 "Vaciar la papelera significa que todas las notas en ella se perderán "
 "permanentemente sin poder recuperarse."
 
-#: src/MainWindow.vala:412 data/ui/move_to_dialog.ui:40
+#: src/MainWindow.vala:406 data/ui/move_to_dialog.ui:39
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/MainWindow.vala:413 data/ui/menu.ui:30
+#: src/MainWindow.vala:407 data/ui/menu.ui:30
 msgid "Empty Trash"
 msgstr "Vaciar la papelera"
 
-#: src/MainWindow.vala:508
+#: src/MainWindow.vala:512
 msgid "bold text"
 msgstr "texto en negrita"
 
-#: src/MainWindow.vala:514
+#: src/MainWindow.vala:518
 msgid "italic text"
 msgstr "texto en cursiva"
 
-#: src/MainWindow.vala:520
+#: src/MainWindow.vala:524
 msgid "underline text"
 msgstr "texto subrayado"
 
-#: src/MainWindow.vala:526
+#: src/MainWindow.vala:530
 msgid "strikethrough text"
 msgstr "texto tachado"
 
-#: src/MainWindow.vala:532 src/MainWindow.vala:600
+#: src/MainWindow.vala:536 src/MainWindow.vala:604
 msgid "Item"
 msgstr "Elemento"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
 msgid "%a, %b %e, %Y"
 msgstr "%a, %e %b, %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Services/Utils.vala:19
 msgid "%b %e %Y"
 msgstr "%e %b %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Services/Utils.vala:22
 msgid "%Y"
 msgstr "%Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Services/Utils.vala:25
 msgid "%b %e"
 msgstr "%e %b"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Services/Utils.vala:28
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: src/Services/Utils.vala:31
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Services/Utils.vala:34
 msgid "%a, %b %e"
 msgstr "%a, %e %b"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Services/Utils.vala:37
 msgid "%b"
 msgstr "%b"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: src/Services/Utils.vala:47
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: src/Services/Utils.vala:50
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: src/Services/Utils.vala:55
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: src/Services/Utils.vala:58
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -183,73 +171,13 @@ msgstr "Ayer"
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
-msgid "Loading…"
-msgstr "Cargando…"
-
-#: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
+#: src/Widgets/Note.vala:115 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
 msgstr "Sin cuaderno"
 
-#: src/Widgets/Note.vala:148
-#, c-format
-msgid ""
-"\n"
-"            .notejot-sidebar-dbg-%d {\n"
-"                background: mix(%s, @theme_base_color, 0.5);\n"
-"                border-radius: 9999px;\n"
-"                border: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-action-%d {\n"
-"                background: mix(@theme_bg_color, %s, 0.1);\n"
-"            }\n"
-"            .notejot-stack-%d {\n"
-"                background: mix(@theme_bg_color, %s, 0.1);\n"
-"            }\n"
-"            .notejot-stack-%d .notejot-bar {\n"
-"                background: mix(@theme_bg_color, %s, 0.1);\n"
-"                border-top: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-action-dark-%d {\n"
-"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
-"            }\n"
-"            .notejot-stack-dark-%d {\n"
-"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
-"            }\n"
-"            .notejot-stack-dark-%d .notejot-bar {\n"
-"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
-"                border-top: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-action-%d:backdrop {\n"
-"                background: mix(%s, @theme_base_color, 0.9);\n"
-"            }\n"
-"            .notejot-stack-%d:backdrop {\n"
-"                background: mix(%s, @theme_base_color, 0.9);\n"
-"            }\n"
-"            .notejot-stack-%d:backdrop .notejot-bar {\n"
-"                background: mix(%s, @theme_base_color, 0.9);\n"
-"                border-top: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-stack-%d box {\n"
-"                border: none;\n"
-"            }\n"
-"            "
-msgstr ""
-
-#: src/Widgets/Note.vala:285
+#: src/Widgets/Note.vala:243
 msgid "Empty note"
 msgstr "Nota vacía"
-
-#: src/Widgets/TrashedItem.vala:52
-#, c-format
-msgid ""
-"\n"
-"            .notejot-sidebar-dbg-%d {\n"
-"                background: %s;\n"
-"                border-radius: 9999px;\n"
-"            }\n"
-"            "
-msgstr ""
 
 #: src/Widgets/EditNotebookDialog.vala:72
 msgid "Remove notebook"
@@ -291,29 +219,33 @@ msgstr "Tacha el texto seleccionado"
 msgid "Makes selected text into an unordered list"
 msgstr "Convierte el texto seleccionado en una lista desordenada"
 
-#: data/ui/main_window.ui:33
+#: data/ui/main_window.ui:35
 msgid "Add Note"
 msgstr "Añadir nota"
 
-#: data/ui/main_window.ui:76
+#: data/ui/main_window.ui:79
 msgid "Search for notes"
 msgstr "Buscar notas"
 
-#: data/ui/main_window.ui:124
+#: data/ui/main_window.ui:113
 msgid "No Notes"
 msgstr "Sin notas"
 
-#: data/ui/main_window.ui:132
-msgid "Use the Add Note button to add a note."
-msgstr "Pulse el botón Añadir nota para añadir una."
+#: data/ui/main_window.ui:114
+msgid "Notes appear here."
+msgstr "Aquí aparecen las notas."
 
-#: data/ui/main_window.ui:180
+#: data/ui/main_window.ui:141
 msgid "No Trash"
 msgstr "Vacía"
 
-#: data/ui/main_window.ui:188
+#: data/ui/main_window.ui:142
 msgid "Trashed notes appear here."
 msgstr "Aquí aparecen las notas eliminadas."
+
+#: data/ui/main_window.ui:158
+msgid "Manage Notebooks…"
+msgstr "Gestionar cuadernos…"
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
@@ -347,51 +279,51 @@ msgstr "Acerca de Notejot"
 msgid "Move To"
 msgstr "Mover a"
 
-#: data/ui/move_to_dialog.ui:28
+#: data/ui/move_to_dialog.ui:27
 msgid "Move"
 msgstr "Mover"
 
-#: data/ui/move_to_dialog.ui:66
+#: data/ui/move_to_dialog.ui:65
 msgid "Clear Notebook"
 msgstr "Limpiar cuaderno"
 
-#: data/ui/note_menu.ui:18
+#: data/ui/note_menu.ui:19
 msgid "Move To…"
 msgstr "Mover a…"
 
-#: data/ui/note_menu.ui:38
+#: data/ui/note_menu.ui:39
 msgid "Red"
 msgstr "Rojo"
 
-#: data/ui/note_menu.ui:54
+#: data/ui/note_menu.ui:55
 msgid "Orange"
 msgstr "Naranja"
 
-#: data/ui/note_menu.ui:70
+#: data/ui/note_menu.ui:71
 msgid "Yellow"
 msgstr "Amarillo"
 
-#: data/ui/note_menu.ui:86
+#: data/ui/note_menu.ui:87
 msgid "Blue"
 msgstr "Azul"
 
-#: data/ui/note_menu.ui:102
+#: data/ui/note_menu.ui:103
 msgid "Purple"
 msgstr "Morado"
 
-#: data/ui/note_menu.ui:118
+#: data/ui/note_menu.ui:119
 msgid "Brown"
 msgstr "Marrón"
 
-#: data/ui/note_menu.ui:134
+#: data/ui/note_menu.ui:135
 msgid "Green"
 msgstr "Verde"
 
-#: data/ui/note_menu.ui:150
+#: data/ui/note_menu.ui:151
 msgid "No Color"
 msgstr "Sin color"
 
-#: data/ui/note_menu.ui:191
+#: data/ui/note_menu.ui:192
 msgid "Move to Trash"
 msgstr "Mover a la papelera"
 
@@ -439,7 +371,3 @@ msgstr "Subrayar el texto seleccionado"
 msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
 msgstr "Tachar el texto seleccionado"
-
-#: data/ui/title_menu.ui:18
-msgid "Manage Notebooks…"
-msgstr "Gestionar cuadernos…"
