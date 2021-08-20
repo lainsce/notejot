@@ -141,12 +141,6 @@ namespace Notejot {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
             default_theme.add_resource_path ("/io/github/lainsce/Notejot");
 
-            // Gtk.StyleContext style = get_style_context ();
-            // if (Config.PROFILE == "Devel") {
-            //     style.add_class ("devel");
-            // }
-            //
-
             // Actions
             actions = new SimpleActionGroup ();
             actions.add_action_entries (ACTION_ENTRIES, this);
@@ -180,8 +174,6 @@ namespace Notejot {
                 gtk_settings,
                 "gtk-application-prefer-dark-theme",
                 GLib.BindingFlags.SYNC_CREATE
-                // This allows to sync gtk_application-dark-theme when Notejot.Settings.dark_mode is changed
-                // Notejot.Widgets.Note no longer manages dark theme
             );
 
             // Main View
@@ -290,14 +282,10 @@ namespace Notejot {
 
         protected override bool close_request () {
             debug ("Exiting window... Disposing of stuff...");
-            listview.bind_model (null, null);
-            trashview.bind_model (null, null);
             
             if (is_maximized())
                 Application.gsettings.set_boolean("is-maximized", is_maximized ());
             else {
-                // This will prevent windows from being opened maximized
-                // And when minimizing it will just set the exact same values
                 Application.gsettings.set_int("window-w", get_width ());
                 Application.gsettings.set_int("window-h", get_height ());
             }
@@ -342,8 +330,8 @@ namespace Notejot {
             log.text = ("|") + _("New Note ") + (@"$uid") + ("|") + ("\n\n") + _("This is a text example.");
             log.color = "#fff";
 
-            if (lv.get_search_text () != "") {
-                log.notebook = lv.get_search_text ();
+            if (lv.get_selected_notebook () != "") {
+                log.notebook = lv.get_selected_notebook ();
             } else {
                 log.notebook = "";
             }
@@ -360,7 +348,7 @@ namespace Notejot {
 
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
             hbb.title = parameter.get_string ();
-            lv.set_search_text (parameter.get_string ());
+            lv.set_selected_notebook (parameter.get_string ());
 
             main_stack.set_visible_child (empty_state);
             if (listview.get_selected_row () != null) {
@@ -405,7 +393,7 @@ namespace Notejot {
                 listview.unselect_row(listview.get_selected_row ());
             }
             settingmenu.visible = false;
-            lv.set_search_text ("");
+            lv.set_selected_notebook ("");
         }
 
         public void action_trash () {
