@@ -7,7 +7,7 @@ namespace Notejot {
         public bool is_modified {get; set; default = false;}
 
         public string search_text = "";
-        private int last_uid;
+        public int last_uid;
         public int y;
 
         public ListView (MainWindow win) {
@@ -86,13 +86,19 @@ namespace Notejot {
             });
         }
 
-        public void set_search_text (string search_text) {
-            this.search_text = search_text;
+        public void set_search_text (string st) {
+            this.search_text = st;
             win.listview.invalidate_filter ();
         }
 
+        public string get_search_text () {
+            return this.search_text;
+        }
+
         protected bool do_filter_list (Gtk.ListBoxRow row) {
-            if (search_text.length > 0) {
+            if (((Widgets.Note)row).log.notebook.contains (search_text)) {
+                return ((Widgets.Note)row).log.notebook.down ().contains (search_text.down ());
+            } else if (search_text.down () != "") {
                 return ((Widgets.Note)row).get_title ().down ().contains (search_text.down ());
             }
 

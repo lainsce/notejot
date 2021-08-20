@@ -341,7 +341,12 @@ namespace Notejot {
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = ("|") + _("New Note ") + (@"$uid") + ("|") + ("\n\n") + _("This is a text example.");
             log.color = "#fff";
-            log.notebook = "";
+
+            if (lv.get_search_text () != "") {
+                log.notebook = lv.get_search_text ();
+            } else {
+                log.notebook = "";
+            }
 
             lv.is_modified = true;
 
@@ -479,7 +484,7 @@ namespace Notejot {
             }
 
             // Reset titlebar color
-            ((Widgets.Note)row).update_theme("#FFFFFF");
+            ((Widgets.Note)row).update_theme("#FFF");
 
             var tlog = new Log ();
             tlog.title = ((Widgets.Note)row).log.title;
@@ -501,8 +506,10 @@ namespace Notejot {
             notestore.find (((Widgets.Note)row).log, out pos);
             notestore.remove (pos);
             lv.popover.close ();
+            uint lvu = lv.last_uid;
             settingmenu.visible = false;
             titlebar.get_style_context ().add_class ("notejot-empty-title");
+            titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
         }
 
         public void action_edit_notebooks () {
