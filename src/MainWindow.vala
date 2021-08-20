@@ -276,7 +276,15 @@ namespace Notejot {
             tm.load_from_file.begin ();
             tm.load_from_file_nb.begin ();
 
-            this.set_size_request (360, 500);
+            // Preparing window to be shown
+            set_default_size(
+                Application.gsettings.get_int ("window-w"),
+                Application.gsettings.get_int ("window-h")
+            );
+
+            if (Application.gsettings.get_boolean("is-maximized"))
+                maximize ();
+
             this.show ();
         }
 
@@ -284,6 +292,16 @@ namespace Notejot {
             debug ("Exiting window... Disposing of stuff...");
             listview.bind_model (null, null);
             trashview.bind_model (null, null);
+            
+            if (is_maximized())
+                Application.gsettings.set_boolean("is-maximized", is_maximized ());
+            else {
+                // This will prevent windows from being opened maximized
+                // And when minimizing it will just set the exact same values
+                Application.gsettings.set_int("window-w", get_width ());
+                Application.gsettings.set_int("window-h", get_height ());
+            }
+
             this.dispose ();
             return true;
         }
