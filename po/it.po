@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-25 00:45-0300\n"
-"PO-Revision-Date: 2021-02-20 11:35+0100\n"
+"PO-Revision-Date: 2021-08-20 14:35+0200\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team:IT\n"
 "Language: it\n"
@@ -27,11 +27,11 @@ msgstr "Tutte le note"
 #: src/MainWindow.vala:330
 #, fuzzy
 msgid "New Note "
-msgstr "Nessuna Nota"
+msgstr "Nuova Nota"
 
 #: src/MainWindow.vala:330
 msgid "This is a text example."
-msgstr ""
+msgstr "Questo è un esempio di testo."
 
 #: src/MainWindow.vala:368
 msgid "Jot your ideas."
@@ -67,23 +67,23 @@ msgstr "Svuota Cestino"
 
 #: src/MainWindow.vala:508
 msgid "bold text"
-msgstr ""
+msgstr "testo in grassetto"
 
 #: src/MainWindow.vala:514
 msgid "italic text"
-msgstr ""
+msgstr "testo in corsivo"
 
 #: src/MainWindow.vala:520
 msgid "underline text"
-msgstr ""
+msgstr "testo sottolineato"
 
 #: src/MainWindow.vala:526
 msgid "strikethrough text"
-msgstr ""
+msgstr "testo barrato"
 
 #: src/MainWindow.vala:532 src/MainWindow.vala:600
 msgid "Item"
-msgstr ""
+msgstr "Elemento"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
@@ -188,7 +188,7 @@ msgstr "Domani"
 
 #: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
 msgid "Loading…"
-msgstr ""
+msgstr "Caricamento in corso…"
 
 #: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
@@ -241,7 +241,7 @@ msgstr ""
 
 #: src/Widgets/Note.vala:285
 msgid "Empty note"
-msgstr ""
+msgstr "Nota vuota"
 
 #: src/Widgets/TrashedItem.vala:52
 #, c-format
@@ -264,7 +264,7 @@ msgstr "Modifica Quaderni"
 
 #: data/ui/edit_notebooks.ui:38
 msgid "New Notebook…"
-msgstr "Nuovo Quaderno..."
+msgstr "Nuovo Quaderno…"
 
 #: data/ui/edit_notebooks.ui:43
 msgid "Add"
@@ -291,14 +291,12 @@ msgid "Makes selected text striked through"
 msgstr "Rende il testo selezionato barrato"
 
 #: data/ui/formatbar.ui:86
-#, fuzzy
 msgid "Makes selected text into an unordered list"
-msgstr "Rende il testo selezionato un elenco non ordinato"
+msgstr "Rende il testo selezionato in una lista non ordinata"
 
 #: data/ui/main_window.ui:33
-#, fuzzy
 msgid "Add Note"
-msgstr "Tutte le note"
+msgstr "Aggiungi nota"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
@@ -309,9 +307,8 @@ msgid "No Notes"
 msgstr "Nessuna Nota"
 
 #: data/ui/main_window.ui:132
-#, fuzzy
 msgid "Use the Add Note button to add a note."
-msgstr "Usa il pulsante + per aggiungere una nota."
+msgstr "Utilizzare il pulsante Aggiungi Nota per aggiungere una nota."
 
 #: data/ui/main_window.ui:180
 msgid "No Trash"
@@ -323,19 +320,19 @@ msgstr "Le note nel cestino vengono visualizzate qui."
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
-msgstr ""
+msgstr "Dimensione del testo"
 
 #: data/ui/menu.ui:10
 msgid "Small"
-msgstr ""
+msgstr "Piccolo"
 
 #: data/ui/menu.ui:15
 msgid "Medium"
-msgstr ""
+msgstr "Medio"
 
 #: data/ui/menu.ui:20
 msgid "Large"
-msgstr ""
+msgstr "Grande"
 
 #: data/ui/menu.ui:26
 msgid "Dark Mode"
@@ -358,13 +355,12 @@ msgid "Move"
 msgstr "Sposta"
 
 #: data/ui/move_to_dialog.ui:66
-#, fuzzy
 msgid "Clear Notebook"
-msgstr "Nessun Quaderno"
+msgstr "Pulisci Quaderno"
 
 #: data/ui/note_menu.ui:18
 msgid "Move To…"
-msgstr "Sposta in..."
+msgstr "Sposta in…"
 
 #: data/ui/note_menu.ui:38
 msgid "Red"
@@ -420,44 +416,42 @@ msgstr "Crea Nuova nota"
 #: data/ui/shortcuts.ui:29
 msgctxt "shortcut window"
 msgid "Formatting"
-msgstr ""
+msgstr "Formattazione"
 
 #: data/ui/shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Remove Selected Text Formatting"
-msgstr ""
+msgstr "Rimuovi la formattazione del testo selezionato"
 
 #: data/ui/shortcuts.ui:39
 msgctxt "shortcut window"
 msgid "Bold Selected Text"
-msgstr ""
+msgstr "Testo selezionato in grassetto"
 
 #: data/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Italic Selected Text"
-msgstr ""
+msgstr "Testo selezionato in corsivo"
 
 #: data/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Underline Selected Text"
-msgstr ""
+msgstr "Testo sottolineato selezionato"
 
 #: data/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
-msgstr ""
+msgstr "Testo barrato selezionato"
 
 #: data/ui/title_menu.ui:18
-#, fuzzy
 msgid "Manage Notebooks…"
-msgstr "Nuovo Quaderno..."
+msgstr "Gestisci Quaderno…"
 
-#, fuzzy
 #~ msgid "A Note"
-#~ msgstr "Tutte le note"
+#~ msgstr "Una nota"
 
 #~ msgid "Note Settings"
-#~ msgstr "Impostazioni Note"
+#~ msgstr "Impostazioni Nota"
 
 #~ msgid "Makes selected text an ordered list"
 #~ msgstr "Rende il testo selezionato un elenco ordinato"
@@ -472,7 +466,7 @@ msgstr "Nuovo Quaderno..."
 #~ msgstr "Quaderni"
 
 #~ msgid "Edit Notebooks…"
-#~ msgstr "Modifica Quaderni..."
+#~ msgstr "Modifica Quaderni…"
 
 #~ msgid "Delete note"
 #~ msgstr "Elimina nota"
