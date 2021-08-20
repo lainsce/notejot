@@ -131,12 +131,13 @@ namespace Notejot {
             buffer.get_bounds (out start, out end);
 
             string buf = buffer.get_text (start, end, true);
+            buffer.remove_all_tags(start, end);
 
             try {
-                var reg_bold = new Regex("""(?m)(?<bold>\|.*\|)""");
-                var reg_italic = new Regex("""(?m)(?<italic>\*.*\*)""");
-                var reg_ul = new Regex("""(?m)(?<ul>\_.*\_)""");
-                var reg_s = new Regex("""(?m)(?<strike>\~.*\~)""");
+                var reg_bold = new Regex("""(?s)(?<bold>\|[^|]*\|)""");
+                var reg_italic = new Regex("""(?s)(?<italic>\*[^*]*\*)""");
+                var reg_ul = new Regex("""(?s)(?<ul>\_[^_]*\_)""");
+                var reg_s = new Regex("""(?s)(?<strike>\~[^~]*\~)""");
                 GLib.MatchInfo bmatch;
                 GLib.MatchInfo imatch;
                 GLib.MatchInfo ulmatch;
