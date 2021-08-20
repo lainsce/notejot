@@ -130,7 +130,7 @@ namespace Notejot {
             int match_start_offset, match_end_offset;
             buffer.get_bounds (out start, out end);
 
-            string buf = buffer.get_text (start, end, true);
+            string measure_text, buf = buffer.get_text (start, end, true);
             buffer.remove_all_tags(start, end);
 
             try {
@@ -146,6 +146,13 @@ namespace Notejot {
                 if (reg_bold.match (buf, 0, out bmatch)) {
                     do {
                         if (bmatch.fetch_named_pos ("bold", out match_start_offset, out match_end_offset)) {
+                            // measure the offset of the actual unicode glyphs,
+                            // not the byte offset
+                            measure_text = buf[0:match_start_offset];
+                            match_start_offset = measure_text.char_count();
+                            measure_text = buf[0:match_end_offset];
+                            match_end_offset = measure_text.char_count();
+
                             buffer.get_iter_at_offset(out match_start, match_start_offset);
                             buffer.get_iter_at_offset(out match_end, match_end_offset);
                             buffer.remove_all_tags(match_start, match_end);
@@ -157,6 +164,11 @@ namespace Notejot {
                 if (reg_italic.match (buf, 0, out imatch)) {
                     do {
                         if (imatch.fetch_named_pos ("italic", out match_start_offset, out match_end_offset)) {
+                            measure_text = buf[0:match_start_offset];
+                            match_start_offset = measure_text.char_count();
+                            measure_text = buf[0:match_end_offset];
+                            match_end_offset = measure_text.char_count();
+
                             buffer.get_iter_at_offset(out match_start, match_start_offset);
                             buffer.get_iter_at_offset(out match_end, match_end_offset);
                             buffer.remove_all_tags(match_start, match_end);
@@ -168,6 +180,11 @@ namespace Notejot {
                 if (reg_ul.match (buf, 0, out ulmatch)) {
                     do {
                         if (ulmatch.fetch_named_pos ("ul", out match_start_offset, out match_end_offset)) {
+                            measure_text = buf[0:match_start_offset];
+                            match_start_offset = measure_text.char_count();
+                            measure_text = buf[0:match_end_offset];
+                            match_end_offset = measure_text.char_count();
+
                             buffer.get_iter_at_offset(out match_start, match_start_offset);
                             buffer.get_iter_at_offset(out match_end, match_end_offset);
                             buffer.remove_all_tags(match_start, match_end);
@@ -179,6 +196,11 @@ namespace Notejot {
                 if (reg_s.match (buf, 0, out smatch)) {
                     do {
                         if (smatch.fetch_named_pos ("strike", out match_start_offset, out match_end_offset)) {
+                            measure_text = buf[0:match_start_offset];
+                            match_start_offset = measure_text.char_count();
+                            measure_text = buf[0:match_end_offset];
+                            match_end_offset = measure_text.char_count();
+
                             buffer.get_iter_at_offset(out match_start, match_start_offset);
                             buffer.get_iter_at_offset(out match_end, match_end_offset);
                             buffer.remove_all_tags(match_start, match_end);
