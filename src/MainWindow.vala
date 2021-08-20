@@ -523,12 +523,19 @@ namespace Notejot {
             var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
             Gtk.TextIter A;
             Gtk.TextIter B;
-            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"$sel_text".replace("*", "")
-                                                                                  .replace("_", "")
-                                                                                  .replace("|", "")
-                                                                                  .replace("~", ""), -1);
-            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
+            var text_buffer = ((Widgets.Note)row).textfield.get_buffer ();
+
+            text_buffer.get_selection_bounds (out A, out B);
+
+            // only record a single action instead of two
+            text_buffer.begin_user_action ();
+            text_buffer.insert(ref A, @"$sel_text".replace("*", "")
+                                                  .replace("_", "")
+                                                  .replace("|", "")
+                                                  .replace("~", ""), -1);
+            text_buffer.delete_selection (true, true);
+            text_buffer.end_user_action ();
+
             ((Widgets.Note)row).textfield.grab_focus ();
         }
 
@@ -564,47 +571,50 @@ namespace Notejot {
 
         public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
             var text_buffer = text_view.get_buffer();
-            string text, new_text;
-            int move_back, text_length = 0;
+            string text;
+            int move_back = 0, text_length = 0;
             Gtk.TextIter start, end;
             text_buffer.get_selection_bounds(out start, out end);
 
             if (text_buffer.get_has_selection()) {
                 // Find current highlighting
-                bool moved = false;
                 text = text_buffer.get_text(start, end, true);
 
-                if (moved && text.has_prefix(wrap) && text.has_suffix(wrap)){
-                    text = text[wrap.length:wrap.length];
-                    new_text = text;
-                    text_buffer.delete(ref start, ref end);
-                    move_back = 0;
+                text_length = text.length;
+                text = text.chug();
+                // move to stripped start
+                start.forward_chars(text_length - text.length);
+
+                text_length = text.length;
+                text = text.chomp();
+                // move to stripped end
+                end.backward_chars(text_length - text.length);
+
+                // adjust selection to stripped text
+                text_buffer.select_range(start, end);
+
+                if (text.has_prefix(wrap) && text.has_suffix(wrap)){
+                    // formatting is already in place
+                    text = text[wrap.length:-wrap.length];
+                    text_length = text.length;
                 } else {
-                    if (moved) {
-                        text = text[wrap.length:-wrap.length];
-                    }
-                    new_text = text.strip();
-                    text = text.replace(new_text, wrap + new_text + wrap);
-
-                    text_buffer.delete(ref start, ref end);
+                    // store the text length of the original string
+                    text_length = text.length;
+                    text = wrap + text + wrap;
                     move_back = wrap.length;
-
-                    text_buffer.insert(ref start, text, -1);
-                    text_length = new_text.length;
                 }
+                // only record a single action instead of two
+                text_buffer.begin_user_action();
+                text_buffer.delete(ref start, ref end);
+                text_buffer.insert(ref start, text, -1);
+                text_buffer.end_user_action();
             } else {
                 text_buffer.insert(ref start, wrap + helptext + wrap, -1);
                 text_length = helptext.length;
                 move_back = wrap.length;
             }
 
-            var cursor_mark = text_buffer.get_insert();
-            Gtk.TextIter cursor_iter;
-            text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
-            cursor_iter.backward_chars(move_back);
-            text_buffer.move_mark_by_name("selection_bound", cursor_iter);
-            cursor_iter.backward_chars(text_length);
-            text_buffer.move_mark_by_name("insert", cursor_iter);
+            select_text(text_view, move_back, text_length);
         }
 
         public void insert_item (Gtk.TextView text_view, string helptext) {
