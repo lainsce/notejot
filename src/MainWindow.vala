@@ -517,26 +517,114 @@ namespace Notejot {
             edit_nb_dialog.show ();
         }
 
+        private void erase_utf8 (StringBuilder builder, ssize_t start, ssize_t len) {
+            // erase a range in a string with respect to special offsets
+            // because of utf8
+            int real_start = builder.str.index_of_nth_char(start);
+            builder.erase(real_start, len);
+        }
+
         public void action_normal () {
-            var row = listview.get_selected_row ();
+            var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
 
-            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
-            Gtk.TextIter A;
-            Gtk.TextIter B;
-            var text_buffer = ((Widgets.Note)row).textfield.get_buffer ();
+            Gtk.TextIter sel_start, sel_end;
+            int offset = 0, fmt_start, fmt_end;
+            int move_forward = 0, move_backward = 0;
+            string wrap = "";
 
-            text_buffer.get_selection_bounds (out A, out B);
+            var text_buffer = textfield.get_buffer ();
+            text_buffer.get_selection_bounds (out sel_start, out sel_end);
 
-            // only record a single action instead of two
+            var text = textfield.get_selected_text ();
+
+            var text_builder = new StringBuilder(text);
+
+            // only record a single action instead of many
+            foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
+                // after selection, nothing relevant anymore
+                if (fmt.start > sel_end.get_offset())
+                    break;
+
+                // before selection, not relevant
+                if (fmt.end < sel_start.get_offset())
+                    continue;
+
+                // relative to selected text
+                fmt_start = fmt.start - sel_start.get_offset();
+                fmt_end = fmt.end - sel_start.get_offset();
+
+                switch (fmt.format) {
+                    case Format.BOLD:
+                        wrap = "|";
+                        break;
+                    case Format.ITALIC:
+                        wrap = "*";
+                        break;
+                    case Format.STRIKETHROUGH:
+                        wrap = "~";
+                        break;
+                    case Format.UNDERLINE:
+                        wrap = "_";
+                        break;
+                }
+
+                if (fmt_start <= 0 && fmt_end >= text.char_count()) {
+                    // selection is entirely within format block
+                    if (fmt_start == 0) {
+                        erase_utf8 (text_builder, 0, wrap.length);
+                    } else {
+                        text_builder.prepend (wrap);
+                        move_forward = wrap.length;
+                    }
+
+                    if (fmt_end == text.char_count()) {
+                        erase_utf8(text_builder, text_builder.len - wrap.length, wrap.length);
+                    } else {
+                        text_builder.append (wrap);
+                        move_backward = wrap.length;
+                    }
+                } else if (fmt_start <= 0) {
+                    // selection starts within format block, ends somewhere else
+                    if (fmt_start == 0) {
+                        erase_utf8 (text_builder, 0, wrap.length);
+                        offset -= wrap.length;
+                    } else {
+                        text_builder.prepend (wrap);
+                        offset += wrap.length;
+                        move_forward = wrap.length;
+                    }
+                    erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
+                    offset -= wrap.length;
+                } else if (fmt_end >= text.char_count()) {
+                    // selection ends within format block, starts somewhere else
+                    erase_utf8 (text_builder, fmt_start + offset, wrap.length);
+                    offset -= wrap.length;
+                    if (fmt_end == text.char_count()) {
+                        erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
+                        offset -= wrap.length;
+                    } else {
+                        text_builder.append(wrap);
+                        offset += wrap.length;
+                        move_backward = wrap.length;
+                    }
+                } else {
+                    // format block is entirely within the selection
+                    erase_utf8 (text_builder, fmt_start + offset, wrap.length);
+                    offset -= wrap.length;
+                    erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
+                    offset -= wrap.length;
+                }
+            }
+
+            text = text_builder.str;
             text_buffer.begin_user_action ();
-            text_buffer.insert(ref A, @"$sel_text".replace("*", "")
-                                                  .replace("_", "")
-                                                  .replace("|", "")
-                                                  .replace("~", ""), -1);
-            text_buffer.delete_selection (true, true);
+            text_buffer.delete (ref sel_start, ref sel_end);
+            text_buffer.insert (ref sel_start, text, -1);
+            select_text(textfield, move_backward, text.char_count() - move_backward - move_forward);
             text_buffer.end_user_action ();
 
-            ((Widgets.Note)row).textfield.grab_focus ();
+
+            textfield.grab_focus ();
         }
 
         public void action_bold () {
