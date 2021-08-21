@@ -6,11 +6,8 @@
     "command" : "io.github.lainsce.Notejot",
     "rename-icon" : "io.github.lainsce.NotejotDevel",
     "finish-args" : [
-        "--filesystem=xdg-documents",
-        "--filesystem=xdg-download",
         "--socket=wayland",
         "--socket=fallback-x11",
-        "--share=network",
         "--share=ipc",
         "--device=dri"
     ],
