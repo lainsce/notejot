@@ -1,8 +1,15 @@
 namespace Notejot {
+    public enum Format {
+        BOLD,
+        ITALIC,
+        STRIKETHROUGH,
+        UNDERLINE
+    }
+
     public struct FormatBlock {
         public int start;
         public int end;
-        public Gtk.TextTag format;
+        public Format format;
     }
 
     public class Widgets.TextField : Gtk.TextView {
@@ -154,26 +161,26 @@ namespace Notejot {
                             measure_text = buf[0:match_end_offset];
                             match_end_offset = measure_text.char_count();
 
-                            Gtk.TextTag tag = bold_font;
+                            Format format = Format.BOLD;
                             switch (match.fetch_named("wrap")) {
                                 case "|":
-                                    tag = bold_font;
+                                    format = Format.BOLD;
                                     break;
                                 case "*":
-                                    tag = italic_font;
+                                    format = Format.ITALIC;
                                     break;
                                 case "_":
-                                    tag = ul_font;
+                                    format = Format.UNDERLINE;
                                     break;
                                 case "~":
-                                    tag = s_font;
+                                    format = Format.STRIKETHROUGH;
                                     break;
                             }
 
                             format_blocks += FormatBlock() {
                                 start = match_start_offset,
                                 end = match_end_offset,
-                                format = tag
+                                format = format
                             };
                         }
                     } while (match.next());
@@ -195,7 +202,23 @@ namespace Notejot {
                 buffer.get_iter_at_offset (out fmt_start, fmt.start);
                 buffer.get_iter_at_offset (out fmt_end, fmt.end);
 
-                buffer.apply_tag (fmt.format, fmt_start, fmt_end);
+                Gtk.TextTag tag = bold_font;
+                switch (fmt.format) {
+                    case Format.BOLD:
+                        tag = bold_font;
+                        break;
+                    case Format.ITALIC:
+                        tag = italic_font;
+                        break;
+                    case Format.STRIKETHROUGH:
+                        tag = s_font;
+                        break;
+                    case Format.UNDERLINE:
+                        tag = ul_font;
+                        break;
+                }
+
+                buffer.apply_tag (tag, fmt_start, fmt_end);
             }
 
             update_idle_source = 0;
