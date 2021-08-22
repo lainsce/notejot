@@ -524,7 +524,7 @@ namespace Notejot {
             builder.erase(real_start, len);
         }
 
-        private void extend_selection_to_format_block() {
+        private void extend_selection_to_format_block(Format? format = null) {
             var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
 
             Gtk.TextIter sel_start, sel_end;
@@ -534,6 +534,9 @@ namespace Notejot {
             string wrap;
 
             foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
+                if (format != null && fmt.format != format)
+                    continue;
+
                 // after selection, nothing relevant anymore
                 if (fmt.start > sel_end.get_offset())
                     break;
@@ -550,14 +553,12 @@ namespace Notejot {
                 if (start_rel > 0 && start_rel <= wrap.length) {
                     // selection start does not (entirely) cover the formatters
                     // only touches them -> extend selection
-                    stdout.printf("moving selection start, diff %d\n", sel_start.get_offset() - fmt.start);
                     sel_start.set_offset(fmt.start);
                 }
 
                 if (end_rel > 0 && end_rel <= wrap.length) {
                     // selection end does not (entirely) cover the formatters
                     // only touches them -> extend selection
-                    stdout.printf("moving selection end, diff %d\n", fmt.end - sel_end.get_offset());
                     sel_end.set_offset(fmt.end);
                 }
             }
@@ -666,6 +667,8 @@ namespace Notejot {
         }
 
         public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
+            extend_selection_to_format_block(string_to_format(wrap));
+
             var text_buffer = text_view.get_buffer();
             string text;
             int move_back = 0, text_length = 0;

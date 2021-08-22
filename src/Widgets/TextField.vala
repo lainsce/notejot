@@ -27,6 +27,21 @@ namespace Notejot {
         }
     }
 
+    public Format string_to_format(string wrap) {
+        switch (wrap) {
+            case "|":
+                return Format.BOLD;
+            case "*":
+                return Format.ITALIC;
+            case "_":
+                return Format.UNDERLINE;
+            case "~":
+                return Format.STRIKETHROUGH;
+            default:
+                assert_not_reached();
+        }
+    }
+
     public class Widgets.TextField : Gtk.TextView {
         public MainWindow win;
         public new unowned Gtk.TextBuffer buffer;
@@ -176,21 +191,7 @@ namespace Notejot {
                             measure_text = buf[0:match_end_offset];
                             match_end_offset = measure_text.char_count();
 
-                            Format format = Format.BOLD;
-                            switch (match.fetch_named("wrap")) {
-                                case "|":
-                                    format = Format.BOLD;
-                                    break;
-                                case "*":
-                                    format = Format.ITALIC;
-                                    break;
-                                case "_":
-                                    format = Format.UNDERLINE;
-                                    break;
-                                case "~":
-                                    format = Format.STRIKETHROUGH;
-                                    break;
-                            }
+                            Format format = string_to_format(match.fetch_named("wrap"));
 
                             format_blocks += FormatBlock() {
                                 start = match_start_offset,
