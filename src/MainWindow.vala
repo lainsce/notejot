@@ -524,6 +524,47 @@ namespace Notejot {
             builder.erase(real_start, len);
         }
 
+        private void extend_selection_to_format_block() {
+            var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
+
+            Gtk.TextIter sel_start, sel_end;
+            var text_buffer = textfield.get_buffer();
+            text_buffer.get_selection_bounds (out sel_start, out sel_end);
+            int start_rel, end_rel;
+            string wrap;
+
+            foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
+                // after selection, nothing relevant anymore
+                if (fmt.start > sel_end.get_offset())
+                    break;
+
+                // before selection, not relevant
+                if (fmt.end < sel_start.get_offset())
+                    continue;
+
+                start_rel = sel_start.get_offset() - fmt.start;
+                end_rel = fmt.end - sel_end.get_offset();
+
+                wrap = format_to_string(fmt.format);
+
+                if (start_rel > 0 && start_rel <= wrap.length) {
+                    // selection start does not (entirely) cover the formatters
+                    // only touches them -> extend selection
+                    stdout.printf("moving selection start, diff %d\n", sel_start.get_offset() - fmt.start);
+                    sel_start.set_offset(fmt.start);
+                }
+
+                if (end_rel > 0 && end_rel <= wrap.length) {
+                    // selection end does not (entirely) cover the formatters
+                    // only touches them -> extend selection
+                    stdout.printf("moving selection end, diff %d\n", fmt.end - sel_end.get_offset());
+                    sel_end.set_offset(fmt.end);
+                }
+            }
+
+            text_buffer.select_range(sel_start, sel_end);
+        }
+
         public void action_normal () {
             var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
 
@@ -533,13 +574,18 @@ namespace Notejot {
             string wrap = "";
 
             var text_buffer = textfield.get_buffer ();
+
+            // only record a single user action for the entire function
+            text_buffer.begin_user_action();
+            // ensure the selection is correctly extended
+            extend_selection_to_format_block ();
+
             text_buffer.get_selection_bounds (out sel_start, out sel_end);
 
             var text = textfield.get_selected_text ();
 
             var text_builder = new StringBuilder(text);
 
-            // only record a single action instead of many
             foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
                 // after selection, nothing relevant anymore
                 if (fmt.start > sel_end.get_offset())
@@ -617,12 +663,13 @@ namespace Notejot {
             }
 
             text = text_builder.str;
-            text_buffer.begin_user_action ();
+
             text_buffer.delete (ref sel_start, ref sel_end);
             text_buffer.insert (ref sel_start, text, -1);
-            select_text(textfield, move_backward, text.char_count() - move_backward - move_forward);
+            // text length without potential wrap characters at the beginning or the end
+            int select_text_length = text.char_count() - (move_backward + move_forward);
+            select_text(textfield, move_backward, select_text_length);
             text_buffer.end_user_action ();
-
 
             textfield.grab_focus ();
         }

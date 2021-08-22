@@ -12,6 +12,21 @@ namespace Notejot {
         public Format format;
     }
 
+    public string format_to_string(Format fmt) {
+        switch (fmt) {
+            case Format.BOLD:
+                return "|";
+            case Format.ITALIC:
+                return "*";
+            case Format.STRIKETHROUGH:
+                return "~";
+            case Format.UNDERLINE:
+                return "_";
+            default:
+                assert_not_reached();
+        }
+    }
+
     public class Widgets.TextField : Gtk.TextView {
         public MainWindow win;
         public new unowned Gtk.TextBuffer buffer;
