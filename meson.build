@@ -49,6 +49,7 @@ sources = files(
    'src/Application.vala',
     'src/MainWindow.vala',
     'src/Settings.vala',
+    'src/Format.vala',
     'src/Services/TaskManager.vala',
     'src/Services/Utils.vala',
     'src/Views/ListView.vala',

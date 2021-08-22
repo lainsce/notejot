@@ -589,11 +589,11 @@ namespace Notejot {
 
             foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
                 // after selection, nothing relevant anymore
-                if (fmt.start > sel_end.get_offset())
+                if (fmt.start > sel_end.get_offset() - 1)
                     break;
 
                 // before selection, not relevant
-                if (fmt.end < sel_start.get_offset())
+                if (fmt.end - 1 < sel_start.get_offset())
                     continue;
 
                 // relative to selected text
