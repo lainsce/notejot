@@ -599,66 +599,32 @@ namespace Notejot {
                 fmt_start = fmt.start - sel_start.get_offset();
                 fmt_end = fmt.end - sel_start.get_offset();
 
-                switch (fmt.format) {
-                    case Format.BOLD:
-                        wrap = "|";
-                        break;
-                    case Format.ITALIC:
-                        wrap = "*";
-                        break;
-                    case Format.STRIKETHROUGH:
-                        wrap = "~";
-                        break;
-                    case Format.UNDERLINE:
-                        wrap = "_";
-                        break;
+                wrap = format_to_string(fmt.format);
+
+                if (fmt_start >= 0) {
+                    // format block starts within selection -> remove starting wrap
+                    erase_utf8 (text_builder, fmt_start + offset, wrap.length);
+                    offset -= wrap.length;
+                } else {
+                    // selection starts within format block -> add ending wrap
+                    text_builder.prepend (wrap);
+                    offset += wrap.length;
+                    // added wrap character before selection,
+                    // should be ignored for new selection
+                    move_forward = wrap.length;
                 }
 
-                if (fmt_start <= 0 && fmt_end >= text.char_count()) {
-                    // selection is entirely within format block
-                    if (fmt_start == 0) {
-                        erase_utf8 (text_builder, 0, wrap.length);
-                    } else {
-                        text_builder.prepend (wrap);
-                        move_forward = wrap.length;
-                    }
-
-                    if (fmt_end == text.char_count()) {
-                        erase_utf8(text_builder, text_builder.len - wrap.length, wrap.length);
-                    } else {
-                        text_builder.append (wrap);
-                        move_backward = wrap.length;
-                    }
-                } else if (fmt_start <= 0) {
-                    // selection starts within format block, ends somewhere else
-                    if (fmt_start == 0) {
-                        erase_utf8 (text_builder, 0, wrap.length);
-                        offset -= wrap.length;
-                    } else {
-                        text_builder.prepend (wrap);
-                        offset += wrap.length;
-                        move_forward = wrap.length;
-                    }
+                if (fmt_end <= text.char_count()) {
+                    // format block ends within selection
                     erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
                     offset -= wrap.length;
-                } else if (fmt_end >= text.char_count()) {
-                    // selection ends within format block, starts somewhere else
-                    erase_utf8 (text_builder, fmt_start + offset, wrap.length);
-                    offset -= wrap.length;
-                    if (fmt_end == text.char_count()) {
-                        erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
-                        offset -= wrap.length;
-                    } else {
-                        text_builder.append(wrap);
-                        offset += wrap.length;
-                        move_backward = wrap.length;
-                    }
                 } else {
-                    // format block is entirely within the selection
-                    erase_utf8 (text_builder, fmt_start + offset, wrap.length);
-                    offset -= wrap.length;
-                    erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
-                    offset -= wrap.length;
+                    // selection ends within format block -> add starting wrap
+                    text_builder.append(wrap);
+                    offset += wrap.length;
+                    // added wrap character after selection,
+                    // should be ignored for new selection
+                    move_backward = wrap.length;
                 }
             }
 
@@ -677,31 +643,26 @@ namespace Notejot {
         public void action_bold () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "|", _("bold text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_italic () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "*", _("italic text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_ul () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "_", _("underline text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_s () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "~", _("strikethrough text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_item () {
             var row = listview.get_selected_row ();
             insert_item(((Widgets.Note)row).textfield, _("Item"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
@@ -750,6 +711,7 @@ namespace Notejot {
             }
 
             select_text(text_view, move_back, text_length);
+            text_view.grab_focus();
         }
 
         public void insert_item (Gtk.TextView text_view, string helptext) {
@@ -808,6 +770,7 @@ namespace Notejot {
 
                 select_text(text_view, 0, text_length);
             }
+            text_view.grab_focus();
         }
 
         public void select_text (Gtk.TextView text_view, int offset, int length) {
