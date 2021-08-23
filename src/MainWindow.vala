@@ -282,10 +282,10 @@ namespace Notejot {
 
         protected override bool close_request () {
             debug ("Exiting window... Disposing of stuff...");
-            
-            if (is_maximized())
-                Application.gsettings.set_boolean("is-maximized", is_maximized ());
-            else {
+
+            Application.gsettings.set_boolean("is-maximized", is_maximized ());
+
+            if (!is_maximized()) {
                 Application.gsettings.set_int("window-w", get_width ());
                 Application.gsettings.set_int("window-h", get_height ());
             }
