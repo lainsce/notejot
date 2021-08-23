@@ -35,6 +35,15 @@
     </requires>
     <translation type="gettext">io.github.lainsce.Notejot</translation>
     <releases>
+        <release version="3.1.2" date="2020-08-22">
+            <description>
+                <p>Release: Format But Don't Fail</p>
+                <ul>
+                    <li>Fixed: formatting functions are the best they can be, plus minor fixes all around.</li>
+                </ul>
+                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
+            </description>
+        </release>
         <release version="3.1.0" date="2020-08-13">
             <description>
                 <p>Release: Ready, Set, Go!</p>
