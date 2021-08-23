@@ -35,7 +35,7 @@
     </requires>
     <translation type="gettext">io.github.lainsce.Notejot</translation>
     <releases>
-        <release version="3.1.2" date="2020-08-22">
+        <release version="3.1.2" date="2021-08-22">
             <description>
                 <p>Release: Format But Don't Fail</p>
                 <ul>
@@ -44,7 +44,7 @@
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
         </release>
-        <release version="3.1.0" date="2020-08-13">
+        <release version="3.1.0" date="2021-08-13">
             <description>
                 <p>Release: Ready, Set, Go!</p>
                 <ul>
@@ -53,7 +53,7 @@
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
         </release>
-        <release version="3.0.0" date="2020-04-25">
+        <release version="3.0.0" date="2021-04-25">
             <description>
                 <p>Release: GTK4 and Ready!</p>
                 <ul>
