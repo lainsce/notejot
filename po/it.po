@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-25 00:45-0300\n"
-"PO-Revision-Date: 2021-08-20 14:35+0200\n"
+"PO-Revision-Date: 2021-08-23 17:35+0200\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team:IT\n"
 "Language: it\n"
@@ -25,7 +25,6 @@ msgid "All Notes"
 msgstr "Tutte le note"
 
 #: src/MainWindow.vala:330
-#, fuzzy
 msgid "New Note "
 msgstr "Nuova Nota"
 
