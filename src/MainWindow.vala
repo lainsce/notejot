@@ -505,94 +505,204 @@ namespace Notejot {
             edit_nb_dialog.show ();
         }
 
-        public void action_normal () {
-            var row = listview.get_selected_row ();
+        private void erase_utf8 (StringBuilder builder, ssize_t start, ssize_t len) {
+            // erase a range in a string with respect to special offsets
+            // because of utf8
+            int real_start = builder.str.index_of_nth_char(start);
+            builder.erase(real_start, len);
+        }
 
-            var sel_text = ((Widgets.Note)row).textfield.get_selected_text ();
-            Gtk.TextIter A;
-            Gtk.TextIter B;
-            ((Widgets.Note)row).textfield.get_buffer ().get_selection_bounds (out A, out B);
-            ((Widgets.Note)row).textfield.get_buffer ().insert(ref A, @"$sel_text".replace("*", "")
-                                                                                  .replace("_", "")
-                                                                                  .replace("|", "")
-                                                                                  .replace("~", ""), -1);
-            ((Widgets.Note)row).textfield.get_buffer ().delete_selection (true, true);
-            ((Widgets.Note)row).textfield.grab_focus ();
+        private void extend_selection_to_format_block(Format? format = null) {
+            var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
+
+            Gtk.TextIter sel_start, sel_end;
+            var text_buffer = textfield.get_buffer();
+            text_buffer.get_selection_bounds (out sel_start, out sel_end);
+            int start_rel, end_rel;
+            string wrap;
+
+            foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
+                if (format != null && fmt.format != format)
+                    continue;
+
+                // after selection, nothing relevant anymore
+                if (fmt.start > sel_end.get_offset())
+                    break;
+
+                // before selection, not relevant
+                if (fmt.end < sel_start.get_offset())
+                    continue;
+
+                start_rel = sel_start.get_offset() - fmt.start;
+                end_rel = fmt.end - sel_end.get_offset();
+
+                wrap = format_to_string(fmt.format);
+
+                if (start_rel > 0 && start_rel <= wrap.length) {
+                    // selection start does not (entirely) cover the formatters
+                    // only touches them -> extend selection
+                    sel_start.set_offset(fmt.start);
+                }
+
+                if (end_rel > 0 && end_rel <= wrap.length) {
+                    // selection end does not (entirely) cover the formatters
+                    // only touches them -> extend selection
+                    sel_end.set_offset(fmt.end);
+                }
+            }
+
+            text_buffer.select_range(sel_start, sel_end);
+        }
+
+        public void action_normal () {
+            var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
+
+            Gtk.TextIter sel_start, sel_end;
+            int offset = 0, fmt_start, fmt_end;
+            int move_forward = 0, move_backward = 0;
+            string wrap = "";
+
+            var text_buffer = textfield.get_buffer ();
+
+            // only record a single user action for the entire function
+            text_buffer.begin_user_action();
+            // ensure the selection is correctly extended
+            extend_selection_to_format_block ();
+
+            text_buffer.get_selection_bounds (out sel_start, out sel_end);
+
+            var text = textfield.get_selected_text ();
+
+            var text_builder = new StringBuilder(text);
+
+            foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
+                // after selection, nothing relevant anymore
+                if (fmt.start > sel_end.get_offset() - 1)
+                    break;
+
+                // before selection, not relevant
+                if (fmt.end - 1 < sel_start.get_offset())
+                    continue;
+
+                // relative to selected text
+                fmt_start = fmt.start - sel_start.get_offset();
+                fmt_end = fmt.end - sel_start.get_offset();
+
+                wrap = format_to_string(fmt.format);
+
+                if (fmt_start >= 0) {
+                    // format block starts within selection -> remove starting wrap
+                    erase_utf8 (text_builder, fmt_start + offset, wrap.length);
+                    offset -= wrap.length;
+                } else {
+                    // selection starts within format block -> add ending wrap
+                    text_builder.prepend (wrap);
+                    offset += wrap.length;
+                    // added wrap character before selection,
+                    // should be ignored for new selection
+                    move_forward = wrap.length;
+                }
+
+                if (fmt_end <= text.char_count()) {
+                    // format block ends within selection
+                    erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
+                    offset -= wrap.length;
+                } else {
+                    // selection ends within format block -> add starting wrap
+                    text_builder.append(wrap);
+                    offset += wrap.length;
+                    // added wrap character after selection,
+                    // should be ignored for new selection
+                    move_backward = wrap.length;
+                }
+            }
+
+            text = text_builder.str;
+
+            text_buffer.delete (ref sel_start, ref sel_end);
+            text_buffer.insert (ref sel_start, text, -1);
+            // text length without potential wrap characters at the beginning or the end
+            int select_text_length = text.char_count() - (move_backward + move_forward);
+            select_text(textfield, move_backward, select_text_length);
+            text_buffer.end_user_action ();
+
+            textfield.grab_focus ();
         }
 
         public void action_bold () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "|", _("bold text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_italic () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "*", _("italic text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_ul () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "_", _("underline text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_s () {
             var row = listview.get_selected_row ();
             text_wrap(((Widgets.Note)row).textfield, "~", _("strikethrough text"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void action_item () {
             var row = listview.get_selected_row ();
             insert_item(((Widgets.Note)row).textfield, _("Item"));
-            ((Widgets.Note)row).textfield.grab_focus ();
         }
 
         public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
+            extend_selection_to_format_block(string_to_format(wrap));
+
             var text_buffer = text_view.get_buffer();
-            string text, new_text;
-            int move_back, text_length = 0;
+            string text;
+            int move_back = 0, text_length = 0;
             Gtk.TextIter start, end;
             text_buffer.get_selection_bounds(out start, out end);
 
             if (text_buffer.get_has_selection()) {
                 // Find current highlighting
-                bool moved = false;
                 text = text_buffer.get_text(start, end, true);
 
-                if (moved && text.has_prefix(wrap) && text.has_suffix(wrap)){
-                    text = text[wrap.length:wrap.length];
-                    new_text = text;
-                    text_buffer.delete(ref start, ref end);
-                    move_back = 0;
+                text_length = text.length;
+                text = text.chug();
+                // move to stripped start
+                start.forward_chars(text_length - text.length);
+
+                text_length = text.length;
+                text = text.chomp();
+                // move to stripped end
+                end.backward_chars(text_length - text.length);
+
+                // adjust selection to stripped text
+                text_buffer.select_range(start, end);
+
+                if (text.has_prefix(wrap) && text.has_suffix(wrap)){
+                    // formatting is already in place
+                    text = text[wrap.length:-wrap.length];
+                    text_length = text.length;
                 } else {
-                    if (moved) {
-                        text = text[wrap.length:-wrap.length];
-                    }
-                    new_text = text.strip();
-                    text = text.replace(new_text, wrap + new_text + wrap);
-
-                    text_buffer.delete(ref start, ref end);
+                    // store the text length of the original string
+                    text_length = text.length;
+                    text = wrap + text + wrap;
                     move_back = wrap.length;
-
-                    text_buffer.insert(ref start, text, -1);
-                    text_length = new_text.length;
                 }
+                // only record a single action instead of two
+                text_buffer.begin_user_action();
+                text_buffer.delete(ref start, ref end);
+                text_buffer.insert(ref start, text, -1);
+                text_buffer.end_user_action();
             } else {
                 text_buffer.insert(ref start, wrap + helptext + wrap, -1);
                 text_length = helptext.length;
                 move_back = wrap.length;
             }
 
-            var cursor_mark = text_buffer.get_insert();
-            Gtk.TextIter cursor_iter;
-            text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
-            cursor_iter.backward_chars(move_back);
-            text_buffer.move_mark_by_name("selection_bound", cursor_iter);
-            cursor_iter.backward_chars(text_length);
-            text_buffer.move_mark_by_name("insert", cursor_iter);
+            select_text(text_view, move_back, text_length);
+            text_view.grab_focus();
         }
 
         public void insert_item (Gtk.TextView text_view, string helptext) {
@@ -651,6 +761,7 @@ namespace Notejot {
 
                 select_text(text_view, 0, text_length);
             }
+            text_view.grab_focus();
         }
 
         public void select_text (Gtk.TextView text_view, int offset, int length) {

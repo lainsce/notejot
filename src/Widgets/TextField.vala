@@ -125,69 +125,73 @@ namespace Notejot {
             });
         }
 
-        private bool fmt_syntax () {
-            Gtk.TextIter start, end, match_start, match_end;
+        public FormatBlock[] fmt_syntax_blocks() {
+            Gtk.TextIter start, end;
             int match_start_offset, match_end_offset;
-            buffer.get_bounds (out start, out end);
+            FormatBlock[] format_blocks = {};
 
-            string buf = buffer.get_text (start, end, true);
-            buffer.remove_all_tags(start, end);
+            GLib.MatchInfo match;
+
+            buffer.get_bounds(out start, out end);
+            string measure_text, buf = buffer.get_text (start, end, true);
 
             try {
-                var reg_bold = new Regex("""(?s)(?<bold>\|[^|]*\|)""");
-                var reg_italic = new Regex("""(?s)(?<italic>\*[^*]*\*)""");
-                var reg_ul = new Regex("""(?s)(?<ul>\_[^_]*\_)""");
-                var reg_s = new Regex("""(?s)(?<strike>\~[^~]*\~)""");
-                GLib.MatchInfo bmatch;
-                GLib.MatchInfo imatch;
-                GLib.MatchInfo ulmatch;
-                GLib.MatchInfo smatch;
+                var regex = new Regex("""(?s)(?<wrap>[*_|~]).*?\g{wrap}""");
 
-                if (reg_bold.match (buf, 0, out bmatch)) {
+                if (regex.match (buf, 0, out match)) {
                     do {
-                        if (bmatch.fetch_named_pos ("bold", out match_start_offset, out match_end_offset)) {
-                            buffer.get_iter_at_offset(out match_start, match_start_offset);
-                            buffer.get_iter_at_offset(out match_end, match_end_offset);
-                            buffer.remove_all_tags(match_start, match_end);
-                            buffer.apply_tag(bold_font, match_start, match_end);
-                        }
-                    } while (bmatch.next ());
-                }
+                        if (match.fetch_pos (0, out match_start_offset, out match_end_offset)) {
+                            // measure the offset of the actual unicode glyphs,
+                            // not the byte offset
+                            measure_text = buf[0:match_start_offset];
+                            match_start_offset = measure_text.char_count();
+                            measure_text = buf[0:match_end_offset];
+                            match_end_offset = measure_text.char_count();
 
-                if (reg_italic.match (buf, 0, out imatch)) {
-                    do {
-                        if (imatch.fetch_named_pos ("italic", out match_start_offset, out match_end_offset)) {
-                            buffer.get_iter_at_offset(out match_start, match_start_offset);
-                            buffer.get_iter_at_offset(out match_end, match_end_offset);
-                            buffer.remove_all_tags(match_start, match_end);
-                            buffer.apply_tag(italic_font, match_start, match_end);
-                        }
-                    } while (imatch.next ());
-                }
+                            Format format = string_to_format(match.fetch_named("wrap"));
 
-                if (reg_ul.match (buf, 0, out ulmatch)) {
-                    do {
-                        if (ulmatch.fetch_named_pos ("ul", out match_start_offset, out match_end_offset)) {
-                            buffer.get_iter_at_offset(out match_start, match_start_offset);
-                            buffer.get_iter_at_offset(out match_end, match_end_offset);
-                            buffer.remove_all_tags(match_start, match_end);
-                            buffer.apply_tag(ul_font, match_start, match_end);
+                            format_blocks += FormatBlock() {
+                                start = match_start_offset,
+                                end = match_end_offset,
+                                format = format
+                            };
                         }
-                    } while (ulmatch.next ());
-                }
-
-                if (reg_s.match (buf, 0, out smatch)) {
-                    do {
-                        if (smatch.fetch_named_pos ("strike", out match_start_offset, out match_end_offset)) {
-                            buffer.get_iter_at_offset(out match_start, match_start_offset);
-                            buffer.get_iter_at_offset(out match_end, match_end_offset);
-                            buffer.remove_all_tags(match_start, match_end);
-                            buffer.apply_tag(s_font, match_start, match_end);
-                        }
-                    } while (smatch.next ());
+                    } while (match.next());
                 }
             } catch (GLib.RegexError re) {
                 warning ("%s".printf(re.message));
+            }
+
+            return format_blocks;
+        }
+
+        private bool fmt_syntax () {
+            Gtk.TextIter start, end, fmt_start, fmt_end;
+
+            buffer.get_bounds (out start, out end);
+            buffer.remove_all_tags (start, end);
+
+            foreach (FormatBlock fmt in fmt_syntax_blocks ()) {
+                buffer.get_iter_at_offset (out fmt_start, fmt.start);
+                buffer.get_iter_at_offset (out fmt_end, fmt.end);
+
+                Gtk.TextTag tag = bold_font;
+                switch (fmt.format) {
+                    case Format.BOLD:
+                        tag = bold_font;
+                        break;
+                    case Format.ITALIC:
+                        tag = italic_font;
+                        break;
+                    case Format.STRIKETHROUGH:
+                        tag = s_font;
+                        break;
+                    case Format.UNDERLINE:
+                        tag = ul_font;
+                        break;
+                }
+
+                buffer.apply_tag (tag, fmt_start, fmt_end);
             }
 
             update_idle_source = 0;
