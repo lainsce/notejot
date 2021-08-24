@@ -20,11 +20,10 @@ Would you like to support the development of this app to new heights? Then:
 Please make sure you have these dependencies first before building.
 
 ```bash
-gtk+-3.0
-gtksourceview-3.0
+gtk4
 libjson-glib
 libgee-0.8
-libhandy-1
+libadwaita-1
 meson
 vala
 ```
@@ -39,4 +38,4 @@ sudo ninja install
 ```
 
 ## Notes Storage
-Notes are stored in `~/.local/share/io.github.lainsce.Notejot/`
+Notes are stored in `~/.var/app/io.github.lainsce.Notejot/`
