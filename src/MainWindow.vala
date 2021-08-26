@@ -389,6 +389,10 @@ namespace Notejot {
             Notejot.Application.gsettings.set_string("last-view", "list");
             hbb.title = (_("All Notes"));
             main_stack.set_visible_child (empty_state);
+
+            uint lvu = lv.last_uid;
+            titlebar.get_style_context ().add_class ("notejot-empty-title");
+            titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
             if (listview.get_selected_row () != null) {
                 listview.unselect_row(listview.get_selected_row ());
             }
@@ -401,6 +405,10 @@ namespace Notejot {
             Notejot.Application.gsettings.set_string("last-view", "trash");
             hbb.title = (_("Trash"));
             main_stack.set_visible_child (empty_state);
+
+            uint lvu = lv.last_uid;
+            titlebar.get_style_context ().add_class ("notejot-empty-title");
+            titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
             if (trashview.get_selected_row () != null) {
                 trashview.unselect_row(trashview.get_selected_row ());
             }
