@@ -1,17 +1,18 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-25 00:45-0300\n"
-"PO-Revision-Date: 2018-03-17 16:48-0600\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2021-09-01 14:03+0200\n"
+"Last-Translator: Ícar N. S. <icar.nin@protonmail.com>\n"
 "Language-Team: \n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
 
 #: src/MainWindow.vala:127 src/MainWindow.vala:363
 msgid "Notejot"
@@ -19,175 +20,178 @@ msgstr ""
 
 #: src/MainWindow.vala:224 src/MainWindow.vala:385 data/ui/title_menu.ui:7
 msgid "All Notes"
-msgstr ""
+msgstr "Totes les notes"
 
 #: src/MainWindow.vala:330
-#, fuzzy
 msgid "New Note "
-msgstr "Nota nova"
+msgstr "Nota nova "
 
 #: src/MainWindow.vala:330
 msgid "This is a text example."
-msgstr ""
+msgstr "Aquest és un exemple de text."
 
 #: src/MainWindow.vala:368
 msgid "Jot your ideas."
-msgstr ""
+msgstr "Apunta les teves idees."
 
 #: src/MainWindow.vala:374
 msgid "translator-credits"
-msgstr ""
+msgstr "Ícar N. S. <icar.nin@protonmail.com>"
 
 #: src/MainWindow.vala:397 data/ui/title_menu.ui:11
 msgid "Trash"
-msgstr ""
+msgstr "Paperera"
 
 #: src/MainWindow.vala:409
 msgid "Empty the Trashed Notes?"
-msgstr ""
+msgstr "Voleu buidar les notes de la paperera?"
 
 #: src/MainWindow.vala:410
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr ""
+"Buidar la paperera significa que totes les notes que conté es perdran "
+"permanentment sense poder recuperar-les."
 
 #: src/MainWindow.vala:412 data/ui/move_to_dialog.ui:40
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·la"
 
 #: src/MainWindow.vala:413 data/ui/menu.ui:30
 msgid "Empty Trash"
-msgstr ""
+msgstr "Buida la paperera"
 
 #: src/MainWindow.vala:508
 msgid "bold text"
-msgstr ""
+msgstr "text en negreta"
 
 #: src/MainWindow.vala:514
 msgid "italic text"
-msgstr ""
+msgstr "text en cursiva"
 
 #: src/MainWindow.vala:520
 msgid "underline text"
-msgstr ""
+msgstr "subratlla el text"
 
 #: src/MainWindow.vala:526
 msgid "strikethrough text"
-msgstr ""
+msgstr "text ratllat"
 
 #: src/MainWindow.vala:532 src/MainWindow.vala:600
 msgid "Item"
-msgstr ""
+msgstr "Element"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
 msgid "%a, %b %e, %Y"
-msgstr ""
+msgstr "%a, %e %b, %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Services/Utils.vala:19
 msgid "%b %e %Y"
-msgstr ""
+msgstr "%e %b de %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Services/Utils.vala:22
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Services/Utils.vala:25
 msgid "%b %e"
-msgstr ""
+msgstr "%e %b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Services/Utils.vala:28
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: src/Services/Utils.vala:31
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Services/Utils.vala:34
 msgid "%a, %b %e"
-msgstr ""
+msgstr "%a, %e %b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Services/Utils.vala:37
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with
+#. seconds
 #: src/Services/Utils.vala:47
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: src/Services/Utils.vala:50
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
-#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with
+#. seconds
 #: src/Services/Utils.vala:55
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: src/Services/Utils.vala:58
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: src/Services/Utils.vala:80
 msgid "Now"
-msgstr ""
+msgstr "Ara"
 
 #: src/Services/Utils.vala:83
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "fa %d minut"
+msgstr[1] "fa %d minuts"
 
 #: src/Services/Utils.vala:86
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "fa %d hora"
+msgstr[1] "fa %d hores"
 
 #: src/Services/Utils.vala:92
 #, c-format
 msgid "in %d minute"
 msgid_plural "in %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "en %d minut"
+msgstr[1] "en %d minuts"
 
 #: src/Services/Utils.vala:95
 #, c-format
 msgid "in %d hour"
 msgid_plural "in %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "d'aquí a %d hora"
+msgstr[1] "d'aquí a %d hores"
 
 #: src/Services/Utils.vala:101
 msgid "Yesterday"
-msgstr ""
+msgstr "Ahir"
 
 #: src/Services/Utils.vala:103
 msgid "Tomorrow"
-msgstr ""
+msgstr "Demà"
 
 #: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
 msgid "Loading…"
-msgstr ""
+msgstr "S'està carregant…"
 
 #: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
 msgid "No Notebook"
-msgstr ""
+msgstr "Sense quadern"
 
 #: src/Widgets/Note.vala:148
 #, c-format
@@ -236,7 +240,7 @@ msgstr ""
 
 #: src/Widgets/Note.vala:285
 msgid "Empty note"
-msgstr ""
+msgstr "Nota buida"
 
 #: src/Widgets/TrashedItem.vala:52
 #, c-format
@@ -251,113 +255,112 @@ msgstr ""
 
 #: src/Widgets/EditNotebookDialog.vala:72
 msgid "Remove notebook"
-msgstr ""
+msgstr "Suprimeix el quadern de notes"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
-msgstr ""
+msgstr "Edita els quaderns de notes"
 
 #: data/ui/edit_notebooks.ui:38
-#, fuzzy
 msgid "New Notebook…"
-msgstr "Nota nova"
+msgstr "Nota nova…"
 
 #: data/ui/edit_notebooks.ui:43
 msgid "Add"
-msgstr ""
+msgstr "Afegeix"
 
 #: data/ui/formatbar.ui:16
 msgid "Removes formatting from selected text"
-msgstr ""
+msgstr "Suprimeix el format del text seleccionat"
 
 #: data/ui/formatbar.ui:33
 msgid "Makes selected text emboldened"
-msgstr ""
+msgstr "Fa el text seleccionat estigui en negreta"
 
 #: data/ui/formatbar.ui:45
 msgid "Makes selected text italicized"
-msgstr ""
+msgstr "Fa que el text seleccionat estigui en cursiva"
 
 #: data/ui/formatbar.ui:57
 msgid "Makes selected text underlined"
-msgstr ""
+msgstr "Fa que el text seleccionat estigui subratllat"
 
 #: data/ui/formatbar.ui:69
 msgid "Makes selected text striked through"
-msgstr ""
+msgstr "Fa que el text seleccionat estigui ratllat"
 
 #: data/ui/formatbar.ui:86
 msgid "Makes selected text into an unordered list"
-msgstr ""
+msgstr "Converteix el text seleccionat en una llista no ordenada"
 
 #: data/ui/main_window.ui:33
 msgid "Add Note"
-msgstr ""
+msgstr "Afegeix una nota"
 
 #: data/ui/main_window.ui:76
 msgid "Search for notes"
-msgstr ""
+msgstr "Cerca notes"
 
 #: data/ui/main_window.ui:124
 msgid "No Notes"
-msgstr ""
+msgstr "Sense notes"
 
 #: data/ui/main_window.ui:132
 msgid "Use the Add Note button to add a note."
-msgstr ""
+msgstr "Utilitzeu el botó Afegeix una nota per afegir una nota."
 
+# This shows on empty trash (a bit misleading)
 #: data/ui/main_window.ui:180
 msgid "No Trash"
-msgstr ""
+msgstr "Cap nota a la paperera"
 
 #: data/ui/main_window.ui:188
 msgid "Trashed notes appear here."
-msgstr ""
+msgstr "Les notes a la paperera apareixen aquí."
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
-msgstr ""
+msgstr "Mida del text"
 
 #: data/ui/menu.ui:10
 msgid "Small"
-msgstr ""
+msgstr "Petit"
 
 #: data/ui/menu.ui:15
 msgid "Medium"
-msgstr ""
+msgstr "Mitjà"
 
 #: data/ui/menu.ui:20
 msgid "Large"
-msgstr ""
+msgstr "Gran"
 
 #: data/ui/menu.ui:26
 msgid "Dark Mode"
-msgstr ""
+msgstr "Mode fosc"
 
 #: data/ui/menu.ui:36
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Dreceres de teclat"
 
 #: data/ui/menu.ui:40
 msgid "About Notejot"
-msgstr ""
+msgstr "Quant al Notejot"
 
 #: data/ui/move_to_dialog.ui:6
 msgid "Move To"
-msgstr ""
+msgstr "Mou a"
 
 #: data/ui/move_to_dialog.ui:28
 msgid "Move"
-msgstr ""
+msgstr "Mou"
 
 #: data/ui/move_to_dialog.ui:66
-#, fuzzy
 msgid "Clear Notebook"
-msgstr "Nota nova"
+msgstr "Buida el quadern de notes"
 
 #: data/ui/note_menu.ui:18
 msgid "Move To…"
-msgstr ""
+msgstr "Mou a…"
 
 #: data/ui/note_menu.ui:38
 msgid "Red"
@@ -377,11 +380,11 @@ msgstr "Blau"
 
 #: data/ui/note_menu.ui:102
 msgid "Purple"
-msgstr ""
+msgstr "Lila"
 
 #: data/ui/note_menu.ui:118
 msgid "Brown"
-msgstr ""
+msgstr "Marró"
 
 #: data/ui/note_menu.ui:134
 msgid "Green"
@@ -389,24 +392,23 @@ msgstr "Verd"
 
 #: data/ui/note_menu.ui:150
 msgid "No Color"
-msgstr ""
+msgstr "Sense color"
 
 #: data/ui/note_menu.ui:191
 msgid "Move to Trash"
-msgstr ""
+msgstr "Mou a la paperera"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: data/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Surt"
 
 #: data/ui/shortcuts.ui:22
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Create New Note"
 msgstr "Nota nova"
@@ -414,37 +416,36 @@ msgstr "Nota nova"
 #: data/ui/shortcuts.ui:29
 msgctxt "shortcut window"
 msgid "Formatting"
-msgstr ""
+msgstr "Formatació"
 
 #: data/ui/shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Remove Selected Text Formatting"
-msgstr ""
+msgstr "Suprimeix el format de text seleccionat"
 
 #: data/ui/shortcuts.ui:39
 msgctxt "shortcut window"
 msgid "Bold Selected Text"
-msgstr ""
+msgstr "En negreta el text seleccionat"
 
 #: data/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Italic Selected Text"
-msgstr ""
+msgstr "En cursiva el text seleccionat"
 
 #: data/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Underline Selected Text"
-msgstr ""
+msgstr "Subratlla el text seleccionat"
 
 #: data/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
-msgstr ""
+msgstr "Ratlla el text seleccionat"
 
 #: data/ui/title_menu.ui:18
-#, fuzzy
 msgid "Manage Notebooks…"
-msgstr "Nota nova"
+msgstr "Gestiona els quaderns de notes…"
 
 #, fuzzy
 #~ msgid "Note Settings"
