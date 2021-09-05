@@ -349,6 +349,7 @@ namespace Notejot {
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
             hbb.title = parameter.get_string ();
             lv.set_selected_notebook (parameter.get_string ());
+            sidebar_stack.set_visible_child (list_scroller);
 
             main_stack.set_visible_child (empty_state);
             if (listview.get_selected_row () != null) {
