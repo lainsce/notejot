@@ -14,6 +14,10 @@
     <provides>
         <binary>io.github.lainsce.Notejot</binary>
     </provides>
+    <kudos>
+      <kudo>ModernToolkit</kudo>
+      <kudo>HiDpiIcon</kudo>
+    </kudos>
     <developer_name>Lains</developer_name>
     <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
@@ -31,8 +35,11 @@
       <control>touch</control>
     </recommends>
     <requires>
-      <display_length compare="ge">medium</display_length>
+      <display_length compare="ge">360</display_length>
     </requires>
+    <custom>
+      <value key="GnomeSoftware::key-colors">[(246, 211, 45)]</value>
+    </custom>
     <translation type="gettext">io.github.lainsce.Notejot</translation>
     <releases>
         <release version="3.1.2" date="2021-08-22">
@@ -62,46 +69,6 @@
                     <li>Keyboard shortcuts for formatting</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
-            </description>
-        </release>
-        <release version="2.7.0" date="2020-02-19">
-            <description>
-                <p>Release: Notebooks Noted Up</p>
-                <ul>
-                    <li>New icon</li>
-                    <li>Notes now can be put into Notebooks, for more categorization</li>
-                    <li>Text Size of the Notes can be adjusted in 3 sizes</li>
-                    <li>Minor UI improvements all around</li>
-                </ul>
-                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
-            </description>
-        </release>
-        <release version="2.6.0" date="2020-02-01">
-            <description>
-                <p>Release: User Interface Improved</p>
-                <p>In many places, the UI has improved to make the experience better:</p>
-                <ul>
-                    <li>Note settings button hiding when necessary</li>
-                    <li>"No Open Notes" showing only when it's supposed to</li>
-                    <li>Notes' hover being rounded</li>
-                    <li>Minor UI improvements</li>
-                </ul>
-            </description>
-        </release>
-        <release version="2.5.2" date="2020-01-26">
-            <description>
-                <p>Release: Just A Little More</p>
-                <ul>
-                    <li>Minor UI fixes, and the format buttons actually format only the selected text this time.</li>
-                </ul>
-            </description>
-        </release>
-        <release version="2.5.0" date="2020-01-25">
-            <description>
-                <p>Release: Hello, Flatpak!</p>
-                <ul>
-                    <li>Lots of fixes: New UI, formatting inside notes, dark mode, backend improvements…</li>
-                </ul>
             </description>
         </release>
     </releases>
