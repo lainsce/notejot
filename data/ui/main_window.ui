@@ -106,7 +106,7 @@
                                   <class name="notejot-view"/>
                                 </style>
                                 <child type="placeholder">
-                                  <object class="AdwStatusPage" id="placeholder">
+                                  <object class="AdwStatusPage">
                                     <property name="valign">center</property>
                                     <property name="hexpand">0</property>
                                     <property name="vexpand">1</property>
@@ -136,7 +136,7 @@
                                   <class name="notejot-view"/>
                                 </style>
                                 <child type="placeholder">
-                                  <object class="AdwStatusPage" id="placeholder">
+                                  <object class="AdwStatusPage">
                                     <property name="valign">center</property>
                                     <property name="vexpand">1</property>
                                     <property name="icon-name">user-trash-symbolic</property>
