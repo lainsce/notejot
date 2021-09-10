@@ -121,33 +121,19 @@ namespace Notejot {
             string style = null;
             style = """
             .notejot-sidebar-dbg-%d {
-                background: mix(%s, @theme_base_color, 0.5);
+                background: mix(%s, @theme_bg_color, 0.5);
+                border: 1px solid @borders;
                 border-radius: 9999px;
             }
             .notejot-action-%d {
-                background: mix(@theme_base_color, %s, 0.1);
+                background: mix(@theme_bg_color, %s, 0.06);
                 border-bottom: 1px solid @borders;
             }
-            .notejot-stack-%d {
-                background: mix(@theme_base_color, %s, 0.1);
-            }
             .notejot-stack-%d .notejot-bar {
-                background: mix(@theme_base_color, %s, 0.1);
-            }
-            .notejot-action-%d:backdrop {
-                opacity: 0.66;
-            }
-            .notejot-stack-%d:backdrop {
-                opacity: 0.66;
-            }
-            .notejot-stack-%d:backdrop .notejot-bar {
-                opacity: 0.66;
-            }
-            .notejot-stack-%d box {
-                border-image-width: 0;
+                background: mix(@theme_bg_color, %s, 0.06);
             }
             .notejot-tview-%d text {
-                background: mix(@theme_base_color, %s, 0.1);
+                background: mix(@theme_base_color, %s, 0.06);
             }
             """.printf( uid,
                          color,
@@ -155,12 +141,6 @@ namespace Notejot {
                          color,
                          uid,
                          color,
-                         uid,
-                         color,
-                         uid,
-                         uid,
-                         uid,
-                         uid,
                          uid,
                          color
             );

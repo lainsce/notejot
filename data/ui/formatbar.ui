@@ -24,7 +24,9 @@
             </child>
             <child>
               <object class="GtkSeparator">
-                <property name="can-focus">0</property>
+                <style>
+                  <class name="spacer"/>
+                </style>
               </object>
             </child>
             <child>
@@ -77,7 +79,9 @@
             </child>
             <child>
               <object class="GtkSeparator">
-                <property name="can-focus">0</property>
+                <style>
+                  <class name="spacer"/>
+                </style>
               </object>
             </child>
             <child>

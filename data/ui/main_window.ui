@@ -37,7 +37,6 @@
                         <property name="action-name">win.action_new_note</property>
                         <style>
                           <class name="image-button"/>
-                          <class name="header-button"/>
                         </style>
                       </object>
                     </child>
@@ -47,7 +46,6 @@
                         <property name="icon-name">open-menu-symbolic</property>
                         <style>
                           <class name="image-button"/>
-                          <class name="header-toggle-button"/>
                         </style>
                       </object>
                     </child>
@@ -57,7 +55,6 @@
                         <property name="icon-name">edit-find-symbolic</property>
                         <style>
                           <class name="image-button"/>
-                          <class name="header-button"/>
                         </style>
                       </object>
                     </child>
@@ -174,11 +171,15 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator" id="sep">
-                <property name="orientation">vertical</property>
-                <style>
-                  <class name="sidebar"/>
-                </style>
+              <object class="AdwLeafletPage">
+                <property name="navigatable">False</property>
+                <property name="child">
+                  <object class="GtkSeparator">
+                    <style>
+                      <class name="sidebar"/>
+                    </style>
+                  </object>
+                </property>
               </object>
             </child>
             <child>
