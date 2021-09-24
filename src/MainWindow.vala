@@ -167,18 +167,25 @@ namespace Notejot {
             var action_fontsize = Notejot.Application.gsettings.create_action ("font-size");
             app.add_action(action_fontsize);
             
-            // GtkSettings and dark theme
-            gtk_settings = Gtk.Settings.get_default ();
-            Application.gsettings.bind_property (
-                "dark-mode",
-                gtk_settings,
-                "gtk-application-prefer-dark-theme",
-                GLib.BindingFlags.SYNC_CREATE
-            );
+            // Dark theme
+            var adwsm = Adw.StyleManager.get_default ();
+
+            if (Application.gsettings.get_boolean("dark-mode")) {
+                adwsm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+            } else {
+                adwsm.set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+            }
+
+            Application.gsettings.changed.connect (() => {
+                if (Application.gsettings.get_boolean("dark-mode")) {
+                    adwsm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                } else {
+                    adwsm.set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+                }
+            });
 
             // Main View
             tm = new TaskManager (this);
-
             sm = new Widgets.SettingMenu(this);
             settingmenu.popover = sm.nmpopover;
             settingmenu.visible = false;
