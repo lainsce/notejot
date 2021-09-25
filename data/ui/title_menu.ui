@@ -12,6 +12,6 @@
         <attribute name="action">win.action_trash</attribute>
       </item>
     </section>
-    <section id="edit"/>
+    <section id="edit" />
   </menu>
 </interface>

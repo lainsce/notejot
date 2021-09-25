@@ -92,6 +92,8 @@ namespace Notejot {
                         actionentry.activate.connect (() => {
                             ((Notebook)im).title = actionentry.get_text ();
                             ((Log)item2).notebook = actionentry.get_text ();
+                            win.tm.save_notebooks.begin (win.notebookstore);
+                            win.tm.save_notes.begin (win.notestore);
                         });
                     }
                 }

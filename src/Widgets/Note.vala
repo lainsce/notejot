@@ -66,12 +66,15 @@ namespace Notejot {
 
             titleentry.activate.connect (() => {
                 log.title = titleentry.get_text ();
+                win.tm.save_notes.begin (win.notestore);
             });
             titleentry.icon_press.connect (() => {
                 log.title = titleentry.get_text ();
+                win.tm.save_notes.begin (win.notestore);
             });
             Timeout.add(50, () => {
                 set_title (titleentry.get_text ());
+                win.tm.save_notes.begin (win.notestore);
                 return true;
             });
 
