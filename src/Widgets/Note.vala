@@ -49,6 +49,36 @@ namespace Notejot {
             icon.valign = Gtk.Align.CENTER;
             icon.get_style_context ().add_class ("notejot-sidebar-dbg-%d".printf(uid));
 
+            var titlebox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            titlebox.set_homogeneous (true);
+
+            var titleentry = new Gtk.Entry ();
+            titleentry.set_valign (Gtk.Align.CENTER);
+            titleentry.set_margin_top (30);
+            titleentry.set_margin_bottom (6);
+            titleentry.set_margin_start (18);
+            titleentry.set_margin_end (18);
+            titleentry.set_text (log.title);
+            titleentry.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
+            titleentry.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
+            titleentry.set_icon_tooltip_text (Gtk.EntryIconPosition.SECONDARY, _("Set Note Title"));
+            titleentry.get_style_context ().add_class ("title-1");
+
+            titleentry.activate.connect (() => {
+                log.title = titleentry.get_text ();
+            });
+            titleentry.icon_press.connect (() => {
+                log.title = titleentry.get_text ();
+            });
+            Timeout.add(50, () => {
+                set_title (titleentry.get_text ());
+                return true;
+            });
+
+            titlebox.prepend (titleentry);
+            titlebox.get_style_context ().add_class ("nw-titlebox");
+            titlebox.get_style_context ().add_class ("nw-titlebox-%d".printf(uid));
+
             textfield = new Widgets.TextField (win);
             var text_scroller = new Gtk.ScrolledWindow ();
             text_scroller.vexpand = true;
@@ -64,6 +94,7 @@ namespace Notejot {
             formatbar.controller = textfield;
 
             var note_grid = new Gtk.Grid ();
+            note_grid.attach (titlebox, 0, 2);
             note_grid.attach (text_scroller, 0, 3);
             note_grid.attach (formatbar, 0, 4);
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
@@ -112,7 +143,7 @@ namespace Notejot {
             if (log != null) {
                 formatbar.notebooklabel.set_label (log.notebook);
             } else {
-                formatbar.notebooklabel.set_label (_("No Notebook"));
+                formatbar.notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
             }
         }
 
@@ -129,6 +160,9 @@ namespace Notejot {
                 background: mix(@theme_bg_color, %s, 0.06);
                 border-bottom: 1px solid @borders;
             }
+            .nw-titlebox-%d {
+                background: mix(@theme_base_color, %s, 0.06);
+            }
             .notejot-stack-%d .notejot-bar {
                 background: mix(@theme_bg_color, %s, 0.06);
             }
@@ -136,6 +170,8 @@ namespace Notejot {
                 background: mix(@theme_base_color, %s, 0.06);
             }
             """.printf( uid,
+                         color,
+                         uid,
                          color,
                          uid,
                          color,
@@ -173,11 +209,7 @@ namespace Notejot {
                                                     e.get_second ());
 
                         Timeout.add(50, () => {
-                            set_title("%s".printf(get_first_line (log.text).replace("|", "")
-                                                                           .replace("_", "")
-                                                                           .replace("*", "")
-                                                                           .replace("~", "")));
-                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_second_line (log.text).replace("|", "")
+                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_first_line (log.text).replace("|", "")
                                                                                                                             .replace("_", "")
                                                                                                                             .replace("*", "")
                                                                                                                             .replace("~", "")));
@@ -208,24 +240,6 @@ namespace Notejot {
                 warning ("%s".printf(re.message));
             }
             return first_line;
-        }
-
-        public string get_second_line (string text) {
-            string second_line = "";
-
-            try {
-                var reg = new Regex("""(?m)\n(?<second_line>.+)$""");
-                GLib.MatchInfo match;
-
-                if (reg.match (text, 0, out match) && text != null) {
-                    second_line = match.fetch_named ("second_line");
-                } else {
-                    second_line = _("Empty note");
-                }
-            } catch (GLib.RegexError re) {
-                warning ("%s".printf(re.message));
-            }
-            return second_line;
         }
 
         public void popover_listener (Widgets.NoteMenuPopover? popover) {

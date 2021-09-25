@@ -41,6 +41,18 @@
   background: shade(@theme_bg_color, 1);
 }
 
+.nw-titlebox {
+  background-color: @theme_bg_color;
+}
+.nw-titlebox entry {
+  background: none;
+  box-shadow: none;
+  border-radius: 0px;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid @borders;
+}
+
 .color-red {
   background: #db898e;
 }

@@ -340,7 +340,7 @@ namespace Notejot {
             if (lv.get_selected_notebook () != "") {
                 log.notebook = lv.get_selected_notebook ();
             } else {
-                log.notebook = "";
+                log.notebook = "<i>" + _("No Notebook") + "</i>";
             }
 
             lv.is_modified = true;
