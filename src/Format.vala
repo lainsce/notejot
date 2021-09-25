@@ -2,8 +2,8 @@ namespace Notejot {
     public enum Format {
         BOLD,
         ITALIC,
-        STRIKETHROUGH,
-        UNDERLINE
+        UNDERLINE,
+        STRIKETHROUGH
     }
 
     public struct FormatBlock {
@@ -18,10 +18,10 @@ namespace Notejot {
                 return "|";
             case Format.ITALIC:
                 return "*";
-            case Format.STRIKETHROUGH:
-                return "~";
             case Format.UNDERLINE:
                 return "_";
+            case Format.STRIKETHROUGH:
+                return "~";
             default:
                 assert_not_reached();
         }

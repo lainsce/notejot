@@ -117,6 +117,7 @@ namespace Notejot {
 
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
+                win.tm.save_notebooks.begin (win.notebookstore);
             });
 
             if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
@@ -212,10 +213,11 @@ namespace Notejot {
                                                     e.get_second ());
 
                         Timeout.add(50, () => {
-                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d), get_first_line (log.text).replace("|", "")
-                                                                                                                            .replace("_", "")
-                                                                                                                            .replace("*", "")
-                                                                                                                            .replace("~", "")));
+                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
+                                                          get_first_line (log.text).replace("|", "")
+                                                                                   .replace("_", "")
+                                                                                   .replace("*", "")
+                                                                                   .replace("~", "")));
                             set_notebook ();
                             return true;
                         });

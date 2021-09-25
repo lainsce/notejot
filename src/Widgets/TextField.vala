@@ -25,7 +25,7 @@ namespace Notejot {
             this.editable = true;
             this.set_can_focus (true);
             this.left_margin = this.right_margin = this.top_margin = this.bottom_margin = 20;
-            this.wrap_mode = Gtk.WrapMode.WORD_CHAR;
+            this.wrap_mode = Gtk.WrapMode.WORD;
 
 
             var buffer = new Gtk.TextBuffer (null);
@@ -136,7 +136,7 @@ namespace Notejot {
             string measure_text, buf = buffer.get_text (start, end, true);
 
             try {
-                var regex = new Regex("""(?s)(?<wrap>[*_|~]).*?\g{wrap}""");
+                var regex = new Regex("""(?s)(?<wrap>[|*_~]).*\g{wrap}""");
 
                 if (regex.match (buf, 0, out match)) {
                     do {

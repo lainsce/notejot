@@ -59,7 +59,7 @@ namespace Notejot {
 
                 win.notebookstore.append (nb);
                 win.tm.save_notebooks.begin (win.notebookstore);
-                notebook_name_entry.set_text ("");
+                notebook_name_entry.set_text ("<i>" + (_("No Notebook")) + "</i>");
             });
         }
 
@@ -81,20 +81,22 @@ namespace Notejot {
             ar_delete_button.get_style_context ().add_class ("flat");
             ar_delete_button.get_style_context ().add_class ("circular");
 
-
             uint j, m = win.notebookstore.get_n_items ();
             for (j = 0; j < m; j++) {
                 var im = win.notebookstore.get_item (j);
-                uint i2, n2 = win.notestore.get_n_items ();
-                for (i2 = 0; i2 < n2; i2++) {
-                    var item2 = win.notestore.get_item (i2);
-                    if (actionentry.get_text () == ((Notebook)im).title && actionentry.get_text () == ((Log)item2).notebook) {
-                        actionentry.activate.connect (() => {
-                            ((Notebook)im).title = actionentry.get_text ();
-                            ((Log)item2).notebook = actionentry.get_text ();
-                            win.tm.save_notebooks.begin (win.notebookstore);
-                            win.tm.save_notes.begin (win.notestore);
-                        });
+                if (actionentry.get_text () == ((Notebook)im).title) {
+                    uint i2, n2 = win.notestore.get_n_items ();
+                    for (i2 = 0; i2 < n2; i2++) {
+                        var item2 = win.notestore.get_item (i2);
+                        if (actionentry.get_text () == ((Log)item2).notebook) {
+                            actionentry.activate.connect (() => {
+                                win.notebookstore.remove (j);
+                                ((Log)item2).notebook = actionentry.get_text ();
+                                win.tm.save_notes.begin (win.notestore);
+                                ((Notebook)im).title == actionentry.get_text ();
+                                win.tm.save_notebooks.begin (win.notebookstore);
+                            });
+                        }
                     }
                 }
             }
