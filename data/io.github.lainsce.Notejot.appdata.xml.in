@@ -42,11 +42,12 @@
     </custom>
     <translation type="gettext">io.github.lainsce.Notejot</translation>
     <releases>
-        <release version="3.1.3" date="2021-09-24">
+        <release version="3.1.6" date="2021-09-24">
             <description>
                 <p>Release: Editable Notebooks</p>
                 <ul>
                     <li>Added: Notebook names can now be edited after being added, and this will reflect on the notes.</li>
+                    <li>Added: Note title styling from older versions is back.</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
