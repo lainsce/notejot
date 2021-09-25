@@ -60,7 +60,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Stack sidebar_stack;
         [GtkChild]
-        public unowned Adw.HeaderBar titlebar;
+        public new unowned Adw.HeaderBar titlebar;
         [GtkChild]
         public unowned Adw.HeaderBar stitlebar;
 
