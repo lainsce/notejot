@@ -59,7 +59,7 @@ namespace Notejot {
 
                 win.notebookstore.append (nb);
                 win.tm.save_notebooks.begin (win.notebookstore);
-                notebook_name_entry.set_text ("<i>" + (_("No Notebook")) + "</i>");
+                notebook_name_entry.set_text ("");
             });
         }
 

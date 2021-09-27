@@ -31,6 +31,7 @@ namespace Notejot {
         private static int uid_counter;
         public int uid;
         private Gtk.CssProvider css_provider;
+        private Gtk.Label notebooklabel;
 
         public unowned Log log { get; construct; }
         public unowned MainWindow win { get; construct; }
@@ -49,8 +50,7 @@ namespace Notejot {
             icon.valign = Gtk.Align.CENTER;
             icon.get_style_context ().add_class ("notejot-sidebar-dbg-%d".printf(uid));
 
-            var titlebox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            titlebox.set_homogeneous (true);
+            var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 
             var titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);
@@ -78,7 +78,34 @@ namespace Notejot {
                 return true;
             });
 
+            var notebookbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            notebookbox.set_margin_bottom (6);
+            notebookbox.set_margin_start (24);
+            notebookbox.set_margin_end (18);
+
+            var subtitlelabel = new Gtk.Label (log.subtitle);
+            subtitlelabel.set_margin_end (12);
+            subtitlelabel.get_style_context ().add_class ("dim-label");
+
+            notebooklabel = new Gtk.Label ("");
+            notebooklabel.set_use_markup (true);
+            notebooklabel.get_style_context ().add_class ("dim-label");
+            notebooklabel.notify["get-text"].connect (() => {
+                log.notebook = notebooklabel.get_text();
+            });
+
+            var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
+            notebookicon.halign = Gtk.Align.START;
+            notebookicon.valign = Gtk.Align.CENTER;
+            notebookicon.get_style_context ().add_class ("dim-label");
+
+            notebookbox.prepend (notebooklabel);
+            notebookbox.prepend (notebookicon);
+            notebookbox.prepend (subtitlelabel);
+
+            titlebox.prepend (notebookbox);
             titlebox.prepend (titleentry);
+
             titlebox.get_style_context ().add_class ("nw-titlebox");
             titlebox.get_style_context ().add_class ("nw-titlebox-%d".printf(uid));
 
@@ -111,10 +138,6 @@ namespace Notejot {
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
 
-            formatbar.notebooklabel.notify["get-text"].connect (() => {
-                log.notebook = formatbar.notebooklabel.get_text();
-            });
-
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
                 win.tm.save_notebooks.begin (win.notebookstore);
@@ -145,9 +168,9 @@ namespace Notejot {
 
         public void set_notebook () {
             if (log != null) {
-                formatbar.notebooklabel.set_label (log.notebook);
+                notebooklabel.set_label (log.notebook);
             } else {
-                formatbar.notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
+                notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
             }
         }
 

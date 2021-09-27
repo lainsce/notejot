@@ -172,14 +172,14 @@ namespace Notejot {
             if (Application.gsettings.get_boolean("dark-mode")) {
                 adwsm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
             } else {
-                adwsm.set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+                adwsm.set_color_scheme (Adw.ColorScheme.PREFER_LIGHT);
             }
 
             Application.gsettings.changed.connect (() => {
                 if (Application.gsettings.get_boolean("dark-mode")) {
                     adwsm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
                 } else {
-                    adwsm.set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+                    adwsm.set_color_scheme (Adw.ColorScheme.PREFER_LIGHT);
                 }
             });
 
@@ -227,9 +227,6 @@ namespace Notejot {
             trashstore.items_changed.connect (() => {
                 tm.save_notes.begin (trashstore);
             });
-
-            var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
-            var tmenu = (Menu)tbuilder.get_object ("tmenu");
 
             note_search.notify["text"].connect (() => {
                lv.set_search_text (note_search.get_text ());
@@ -333,7 +330,7 @@ namespace Notejot {
 
             log.title = _("New Note ") + (@"$uid");
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = ("|") + _("New Note ") + (@"$uid") + ("|") + ("\n\n") + _("This is a text example.");
+            log.text = _("This is a text example.");
             log.color = "#fff";
 
             if (lv.get_selected_notebook () != "") {
@@ -477,11 +474,7 @@ namespace Notejot {
         public void action_delete_note () {
             Gtk.ListBoxRow row;
 
-            if (lv.y != -1) {
-                row = listview.get_row_at_y (lv.y);
-            } else {
-                row = listview.get_selected_row ();
-            }
+            row = listview.get_selected_row ();
 
             // Reset titlebar color
             ((Widgets.Note)row).update_theme("#FFF");
@@ -505,7 +498,6 @@ namespace Notejot {
             uint pos;
             notestore.find (((Widgets.Note)row).log, out pos);
             notestore.remove (pos);
-            lv.popover.close ();
             uint lvu = lv.last_uid;
             settingmenu.visible = false;
             titlebar.get_style_context ().add_class ("notejot-empty-title");

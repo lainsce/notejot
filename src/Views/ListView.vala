@@ -1,15 +1,10 @@
 namespace Notejot {
     public class Views.ListView : Object {
         private MainWindow win;
-        Gtk.GestureClick press;
-        public Widgets.NoteMenuPopover popover;
-
         public bool is_modified {get; set; default = false;}
-
         public string search_text = "";
         public string selected_notebook = "";
         public int last_uid;
-        public int y;
 
         public ListView (MainWindow win) {
             this.win = win;
@@ -53,38 +48,6 @@ namespace Notejot {
                     }
                     win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
-            });
-
-            press = new Gtk.GestureClick ();
-            win.listview.add_controller (press);
-            press.button = Gdk.BUTTON_SECONDARY;
-
-            press.pressed.connect ((gesture, n_press, x, y) => {
-                if (n_press > 1) {
-                    press.set_state (Gtk.EventSequenceState.DENIED);
-                    return;
-                }
-
-                var row = win.listview.get_row_at_y ((int)y);
-
-                if (row == null) {
-                    press.set_state (Gtk.EventSequenceState.DENIED);
-                    return;
-                }
-
-                popover = new Widgets.NoteMenuPopover ();
-                popover.set_parent (win);
-                ((Widgets.Note)row).popover_listener (popover);
-
-                Gtk.Allocation allocation;
-                row.get_allocation (out allocation);
-
-                popover.set_pointing_to (allocation);
-                popover.set_offset (0, 40); // Needed so that the popover doesn't show above the list widget
-                popover.popup ();
-                this.y = (int)y;
-
-                press.set_state (Gtk.EventSequenceState.CLAIMED);
             });
         }
 

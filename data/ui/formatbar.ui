@@ -6,7 +6,7 @@
     <child>
       <object class="GtkActionBar">
         <property name="can-focus">0</property>
-        <child>
+        <child type="center">
           <object class="GtkBox">
             <property name="can-focus">0</property>
             <property name="spacing">6</property>
@@ -93,29 +93,6 @@
                 <style>
                   <class name="image-button"/>
                   <class name="header-button"/>
-                </style>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child type="end">
-          <object class="GtkBox" id="nb_box">
-            <property name="receives-default">1</property>
-            <property name="spacing">6</property>
-            <property name="margin-end">6</property>
-            <child>
-              <object class="GtkImage">
-                <property name="icon-name">notebook-symbolic</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="notebooklabel">
-                <property name="use-markup">1</property>
-                <style>
-                  <class name="dim-label"/>
                 </style>
               </object>
             </child>
