@@ -92,6 +92,7 @@ namespace Notejot {
             notebooklabel.get_style_context ().add_class ("dim-label");
             notebooklabel.notify["get-text"].connect (() => {
                 log.notebook = notebooklabel.get_text();
+                win.tm.save_notebooks.begin (win.notebookstore);
             });
 
             var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
@@ -137,11 +138,6 @@ namespace Notejot {
             this.set_title (log.title);
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
-
-            win.notebookstore.items_changed.connect (() => {
-                win.tm.save_notes.begin (win.notestore);
-                win.tm.save_notebooks.begin (win.notebookstore);
-            });
 
             if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
                 win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");

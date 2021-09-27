@@ -72,6 +72,25 @@ namespace Notejot {
 
             actionrow.add_prefix (actionentry);
 
+            actionentry.activate.connect (() => {
+                uint j, m = win.notebookstore.get_n_items ();
+                for (j = 0; j < m; j++) {
+                    var im = win.notebookstore.get_item (j);
+                    if (actionentry.get_text () == ((Notebook)im).title) {
+                        ((Notebook)im).title = actionentry.get_text ();
+                        win.tm.save_notebooks.begin (win.notebookstore);
+                    }
+                }
+                uint i, n = win.notestore.get_n_items ();
+                for (i = 0; i < n; i++) {
+                    var it = win.notestore.get_item (i);
+                    if (actionentry.get_text () == ((Log)it).notebook) {
+                        ((Log)it).notebook = actionentry.get_text ();
+                        win.tm.save_notes.begin (win.notestore);
+                    }
+                }
+            });
+
             var ar_delete_button = new Gtk.Button () {
                 icon_name = "window-close-symbolic",
                 tooltip_text = (_("Remove notebook")),
@@ -79,34 +98,13 @@ namespace Notejot {
                 valign = Gtk.Align.CENTER
             };
             ar_delete_button.get_style_context ().add_class ("flat");
-            ar_delete_button.get_style_context ().add_class ("circular");
-
-            uint j, m = win.notebookstore.get_n_items ();
-            for (j = 0; j < m; j++) {
-                var im = win.notebookstore.get_item (j);
-                if (actionentry.get_text () == ((Notebook)im).title) {
-                    uint i2, n2 = win.notestore.get_n_items ();
-                    for (i2 = 0; i2 < n2; i2++) {
-                        var item2 = win.notestore.get_item (i2);
-                        if (actionentry.get_text () == ((Log)item2).notebook) {
-                            actionentry.activate.connect (() => {
-                                win.notebookstore.remove (j);
-                                ((Log)item2).notebook = actionentry.get_text ();
-                                win.tm.save_notes.begin (win.notestore);
-                                ((Notebook)im).title == actionentry.get_text ();
-                                win.tm.save_notebooks.begin (win.notebookstore);
-                            });
-                        }
-                    }
-                }
-            }
 
             ar_delete_button.clicked.connect (() => {
-                uint i, n = win.notebookstore.get_n_items ();
-                for (i = 0; i < n; i++) {
-                    var im = win.notebookstore.get_item (i);
+                uint j, m = win.notebookstore.get_n_items ();
+                for (j = 0; j < m; j++) {
+                    var im = win.notebookstore.get_item (j);
                     if (actionentry.get_text () == ((Notebook)im).title) {
-                        win.notebookstore.remove (i);
+                        win.notebookstore.remove (j);
                         ((Notebook)im).title == "";
                         win.tm.save_notebooks.begin (win.notebookstore);
 

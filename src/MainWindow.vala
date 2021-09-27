@@ -236,8 +236,6 @@ namespace Notejot {
             nbview.bind_model (notebookstore, item => make_item_notebook (this, item));
 
             notebookstore.items_changed.connect (() => {
-                tm.save_notebooks.begin (notebookstore);
-
                 uint i, n = notebookstore.get_n_items ();
                 for (i = 0; i < n; i++) {
                     var row = nbview.get_row_at_index (((int)i));
@@ -246,6 +244,7 @@ namespace Notejot {
 
                     var menulabel = ((Gtk.Label)button.get_child ());
                     menulabel.set_xalign (0);
+                    tm.save_notebooks.begin (notebookstore);
                 }
             });
 
@@ -285,14 +284,13 @@ namespace Notejot {
         }
 
         public Gtk.ListBoxRow make_item_notebook (MainWindow win, GLib.Object item) {
-            string notebook_name = (((Notebook)item).title);
             var menuitem = new Gtk.ListBoxRow ();
             var menubox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
             var menubutton = new Gtk.Button ();
-            menubutton.set_label (notebook_name);
+            menubutton.set_label ((((Notebook)item).title));
             menubutton.set_action_name ("win.select_notebook");
-            menubutton.set_action_target ("s", notebook_name);
+            menubutton.set_action_target ("s", (((Notebook)item).title));
             menubutton.set_hexpand (true);
             menubutton.get_style_context ().add_class ("nb-flat-button");
 

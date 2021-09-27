@@ -34,10 +34,12 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="notebook_add_button">
-                    <property name="label" translatable="yes">Add</property>
-                    <style>
-                      <class name="text-button"/>
-                    </style>
+                    <property name="child">
+                      <object class="AdwButtonContent">
+                        <property name="icon-name">list-add-symbolic</property>
+                        <property name="label" translatable="yes">Add</property>
+                      </object>
+                    </property>
                   </object>
                 </child>
                 <style>
