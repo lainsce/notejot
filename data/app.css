@@ -15,6 +15,40 @@
   background: alpha(@theme_fg_color, 0.2);
 }
 
+.nb-flat-button {
+  background: none;
+  font-weight: 400;
+  margin: 0;
+  border-radius: 0;
+  padding: 12px;
+}
+
+.nb-flat-button:hover {
+  background: alpha(@theme_fg_color, 0.1);
+}
+
+.nb-flat-button:active {
+  background: alpha(@theme_fg_color, 0.2);
+}
+
+.nb-flat {
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nb-flat:hover {
+  background: none;
+}
+
+.nb-flat:active {
+  background: none;
+}
+
+.nb-flat:selected {
+  background: alpha(@theme_fg_color, 0.1);
+}
+
 .rename-button .toggle {
   background: none;
   font-weight: 400;
@@ -121,13 +155,7 @@
 }
 
 .notejot-searchbar {
-  background: alpha(@theme_fg_color, 0.05);
   border-bottom: 1px solid @borders;
-}
-
-.notejot-searchbar entry {
-  border: 1px solid @borders;
-  border-radius: 9999px;
 }
 
 .dark {

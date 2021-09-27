@@ -47,7 +47,9 @@
                 <p>Release: Editable Notebooks</p>
                 <ul>
                     <li>Added: Notebook names can now be edited after being added, and this will reflect on the notes.</li>
+                    <li>Added: Notebook selection is now on a sidebar with the All Notes &amp; Trash Items on top.</li>
                     <li>Added: Note title styling from older versions is back.</li>
+                    <li>Added: Note searchbar is now always visible.</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>

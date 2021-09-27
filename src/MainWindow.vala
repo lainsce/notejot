@@ -26,15 +26,9 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button back_button;
         [GtkChild]
-        public unowned Gtk.ToggleButton search_button;
-        [GtkChild]
         public unowned Gtk.MenuButton menu_button;
         [GtkChild]
         public unowned Gtk.MenuButton settingmenu;
-        [GtkChild]
-        public unowned Gtk.Revealer search_revealer;
-        [GtkChild]
-        public unowned Gtk.ActionBar hbb_actionbar;
         [GtkChild]
         public unowned Gtk.SearchEntry note_search;
 
@@ -51,6 +45,10 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.ScrolledWindow trash_scroller;
         [GtkChild]
+        public unowned Gtk.ListBox notebookview;
+        [GtkChild]
+        public unowned Gtk.ListBox nbview;
+        [GtkChild]
         public unowned Gtk.ListBox listview;
         [GtkChild]
         public unowned Gtk.ListBox trashview;
@@ -63,10 +61,11 @@ namespace Notejot {
         public new unowned Adw.HeaderBar titlebar;
         [GtkChild]
         public unowned Adw.HeaderBar stitlebar;
+        [GtkChild]
+        public unowned Adw.HeaderBar ntitlebar;
 
         // Custom
         public Widgets.SettingMenu sm;
-        public Widgets.HeaderBarButton hbb;
         public Views.ListView lv;
         public Views.TrashView tv;
         public TaskManager tm;
@@ -232,43 +231,24 @@ namespace Notejot {
             var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
             var tmenu = (Menu)tbuilder.get_object ("tmenu");
 
-            hbb = new Widgets.HeaderBarButton ();
-            hbb.has_tooltip = true;
-            hbb.title = (_("All Notes"));
-            hbb.menu.menu_model = tmenu;
-            hbb.get_style_context ().add_class ("rename-button");
-            hbb.get_style_context ().add_class ("flat");
-
-            hbb_actionbar.set_center_widget (hbb);
-
-            sgrid.append (hbb_actionbar);
-
-            search_button.toggled.connect (() => {
-                if (search_button.get_active ()) {
-                    search_revealer.set_reveal_child (true);
-                } else {
-                    search_revealer.set_reveal_child (false);
-                }
-            });
-
             note_search.notify["text"].connect (() => {
                lv.set_search_text (note_search.get_text ());
             });
 
             notebookstore = new GLib.ListStore (typeof (Notebook));
+            nbview.bind_model (notebookstore, item => make_item_notebook (this, item));
+
             notebookstore.items_changed.connect (() => {
                 tm.save_notebooks.begin (notebookstore);
-                ((Menu)tbuilder.get_object ("edit")).remove_all ();
 
                 uint i, n = notebookstore.get_n_items ();
                 for (i = 0; i < n; i++) {
-                    var item = notebookstore.get_item (i);
-                    string notebook_name = (((Notebook)item).title);
+                    var row = nbview.get_row_at_index (((int)i));
+                    var box = ((Gtk.Box)row.get_child ());
+                    var button = ((Gtk.Button)box.get_first_child ());
 
-                    var menuitem = new GLib.MenuItem (notebook_name, null);
-                    menuitem.set_action_and_target_value ("win.select_notebook", notebook_name);
-
-                    ((Menu)tbuilder.get_object ("edit")).insert_item (-1, menuitem);
+                    var menulabel = ((Gtk.Label)button.get_child ());
+                    menulabel.set_xalign (0);
                 }
             });
 
@@ -305,6 +285,25 @@ namespace Notejot {
         public Widgets.Note make_item (MainWindow win, GLib.Object item) {
             lv.is_modified = true;
             return new Widgets.Note (this, (Log) item);
+        }
+
+        public Gtk.ListBoxRow make_item_notebook (MainWindow win, GLib.Object item) {
+            string notebook_name = (((Notebook)item).title);
+            var menuitem = new Gtk.ListBoxRow ();
+            var menubox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+
+            var menubutton = new Gtk.Button ();
+            menubutton.set_label (notebook_name);
+            menubutton.set_action_name ("win.select_notebook");
+            menubutton.set_action_target ("s", notebook_name);
+            menubutton.set_hexpand (true);
+            menubutton.get_style_context ().add_class ("nb-flat-button");
+
+            menubox.append (menubutton);
+            menuitem.set_child (menubox);
+            menuitem.get_style_context ().add_class ("nb-flat");
+
+            return menuitem;
         }
 
         public void make_note (string title, string subtitle, string text, string color, string notebook) {
@@ -354,7 +353,6 @@ namespace Notejot {
         }
 
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
-            hbb.title = parameter.get_string ();
             lv.set_selected_notebook (parameter.get_string ());
             sidebar_stack.set_visible_child (list_scroller);
 
@@ -395,7 +393,6 @@ namespace Notejot {
         public void action_all_notes () {
             sidebar_stack.set_visible_child (list_scroller);
             Notejot.Application.gsettings.set_string("last-view", "list");
-            hbb.title = (_("All Notes"));
             main_stack.set_visible_child (empty_state);
 
             uint lvu = lv.last_uid;
@@ -411,7 +408,6 @@ namespace Notejot {
         public void action_trash () {
             sidebar_stack.set_visible_child (trash_scroller);
             Notejot.Application.gsettings.set_string("last-view", "trash");
-            hbb.title = (_("Trash"));
             main_stack.set_visible_child (empty_state);
 
             uint lvu = lv.last_uid;
