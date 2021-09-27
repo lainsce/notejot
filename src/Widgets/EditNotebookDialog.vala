@@ -65,31 +65,7 @@ namespace Notejot {
 
         public Adw.ActionRow make_item (MainWindow win, GLib.Object item) {
             var actionrow = new Adw.ActionRow ();
-            var actionentry = new Gtk.Entry ();
-            actionentry.set_valign (Gtk.Align.CENTER);
-            actionentry.set_hexpand (true);
-            actionentry.set_text (((Notebook)item).title);
-
-            actionrow.add_prefix (actionentry);
-
-            actionentry.activate.connect (() => {
-                uint j, m = win.notebookstore.get_n_items ();
-                for (j = 0; j < m; j++) {
-                    var im = win.notebookstore.get_item (j);
-                    if (actionentry.get_text () == ((Notebook)im).title) {
-                        ((Notebook)im).title = actionentry.get_text ();
-                        win.tm.save_notebooks.begin (win.notebookstore);
-                    }
-                }
-                uint i, n = win.notestore.get_n_items ();
-                for (i = 0; i < n; i++) {
-                    var it = win.notestore.get_item (i);
-                    if (actionentry.get_text () == ((Log)it).notebook) {
-                        ((Log)it).notebook = actionentry.get_text ();
-                        win.tm.save_notes.begin (win.notestore);
-                    }
-                }
-            });
+            actionrow.set_title (((Notebook)item).title);
 
             var ar_delete_button = new Gtk.Button () {
                 icon_name = "window-close-symbolic",
@@ -103,17 +79,17 @@ namespace Notejot {
                 uint j, m = win.notebookstore.get_n_items ();
                 for (j = 0; j < m; j++) {
                     var im = win.notebookstore.get_item (j);
-                    if (actionentry.get_text () == ((Notebook)im).title) {
+                    if (actionrow.get_title () == ((Notebook)im).title) {
                         win.notebookstore.remove (j);
-                        ((Notebook)im).title == "";
+                        ((Notebook)im).title == "<i>" + _("No Notebook") + "</i>";
                         win.tm.save_notebooks.begin (win.notebookstore);
 
                         uint i2, n2 = win.notestore.get_n_items ();
                         for (i2 = 0; i2 < n2; i2++) {
                             var item2 = win.notestore.get_item (i2);
 
-                            if (actionentry.get_text () == ((Log)item2).notebook) {
-                                ((Log)item2).notebook = "";
+                            if (actionrow.get_title () == ((Log)item2).notebook) {
+                                ((Log)item2).notebook = "<i>" + _("No Notebook") + "</i>";
                                 win.tm.save_notes.begin (win.notestore);
                             }
                         }

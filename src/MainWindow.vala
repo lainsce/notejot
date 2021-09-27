@@ -238,12 +238,13 @@ namespace Notejot {
             notebookstore.items_changed.connect (() => {
                 uint i, n = notebookstore.get_n_items ();
                 for (i = 0; i < n; i++) {
+                    var it = notebookstore.get_item (i);
                     var row = nbview.get_row_at_index (((int)i));
                     var box = ((Gtk.Box)row.get_child ());
                     var button = ((Gtk.Button)box.get_first_child ());
-
                     var menulabel = ((Gtk.Label)button.get_child ());
                     menulabel.set_xalign (0);
+
                     tm.save_notebooks.begin (notebookstore);
                 }
             });
