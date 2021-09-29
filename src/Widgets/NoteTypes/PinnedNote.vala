@@ -45,6 +45,8 @@ namespace Notejot {
             this.set_title_lines (1);
             this.set_subtitle_lines (1);
 
+            win.settingmenu.popover = win.sm.nmpopover;
+
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("");
             icon.halign = Gtk.Align.START;

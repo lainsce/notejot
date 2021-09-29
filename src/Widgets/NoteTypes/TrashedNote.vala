@@ -34,16 +34,18 @@ namespace Notejot {
         private Gtk.CssProvider css_provider;
         private Gtk.Label notebooklabel;
 
-        public unowned TrashLog log { get; construct; }
+        public unowned TrashLog tlog { get; construct; }
         public unowned MainWindow win { get; construct; }
 
-        public TrashedNote (MainWindow win, TrashLog? log) {
-            Object (log: log,
+        public TrashedNote (MainWindow win, TrashLog? tlog) {
+            Object (tlog: tlog,
                     win: win);
             this.tuid = tuid_counter++;
             this.hexpand = false;
             this.set_title_lines (1);
             this.set_subtitle_lines (1);
+
+            win.settingmenu.popover = win.sm.tnmpopover;
 
             // Icon intentionally null so it becomes a badge instead.
             var icon = new Gtk.Image.from_icon_name ("");
@@ -59,18 +61,18 @@ namespace Notejot {
             titleentry.set_margin_bottom (6);
             titleentry.set_margin_start (30);
             titleentry.set_margin_end (30);
-            titleentry.set_text (log.title);
+            titleentry.set_text (tlog.title);
             titleentry.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             titleentry.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
             titleentry.set_icon_tooltip_text (Gtk.EntryIconPosition.SECONDARY, _("Set Note Title"));
             titleentry.get_style_context ().add_class ("title-1");
 
             titleentry.activate.connect (() => {
-                log.title = titleentry.get_text ();
+                tlog.title = titleentry.get_text ();
                 win.tm.save_trash_notes.begin (win.trashstore);
             });
             titleentry.icon_press.connect (() => {
-                log.title = titleentry.get_text ();
+                tlog.title = titleentry.get_text ();
                 win.tm.save_trash_notes.begin (win.trashstore);
             });
             Timeout.add(50, () => {
@@ -84,7 +86,7 @@ namespace Notejot {
             notebookbox.set_margin_start (30);
             notebookbox.set_margin_end (30);
 
-            var subtitlelabel = new Gtk.Label (log.subtitle);
+            var subtitlelabel = new Gtk.Label (tlog.subtitle);
             subtitlelabel.set_margin_end (12);
             subtitlelabel.get_style_context ().add_class ("dim-label");
 
@@ -92,7 +94,7 @@ namespace Notejot {
             notebooklabel.set_use_markup (true);
             notebooklabel.get_style_context ().add_class ("dim-label");
             notebooklabel.notify["get-text"].connect (() => {
-                log.notebook = notebooklabel.get_text();
+                tlog.notebook = notebooklabel.get_text();
                 win.tm.save_notebooks.begin (win.notebookstore);
             });
 
@@ -118,25 +120,27 @@ namespace Notejot {
             text_scroller.set_child (textfield);
             Gtk.TextIter A, B;
             textfield.get_buffer ().get_bounds (out A, out B);
-            textfield.get_buffer ().insert_markup(ref A, log.text, -1);
+            textfield.get_buffer ().insert_markup(ref A, tlog.text, -1);
             textfield.controller = ((Widgets.Note)this);
             textfield.get_style_context ().add_class ("notejot-tview-trash-%d".printf(tuid));
 
             formatbar = new Widgets.FormatBar ();
             formatbar.controller = textfield;
+            formatbar.set_sensitive (false);
 
             var note_grid = new Gtk.Grid ();
             note_grid.attach (titlebox, 0, 2);
             note_grid.attach (text_scroller, 0, 3);
             note_grid.attach (formatbar, 0, 4);
+            note_grid.set_sensitive (false);
             win.main_stack.add_named (note_grid, "textfield-trash-%d".printf(tuid));
             note_grid.get_style_context ().add_class ("notejot-stack-trash-%d".printf(tuid));
 
             win.listview.select_row (this);
 
             sync_subtitles.begin ();
-            update_theme (log.color);
-            this.set_title (log.title);
+            update_theme (tlog.color);
+            this.set_title (tlog.title);
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
 
@@ -159,7 +163,7 @@ namespace Notejot {
 
         public void set_notebook () {
             if (log != null) {
-                notebooklabel.set_label (log.notebook);
+                notebooklabel.set_label (tlog.notebook);
             } else {
                 notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
             }
@@ -207,7 +211,7 @@ namespace Notejot {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
 
-            log.color = color;
+            tlog.color = color;
             win.tm.save_trash_notes.begin (win.trashstore);
         }
 
@@ -216,8 +220,8 @@ namespace Notejot {
                 var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
                 GLib.MatchInfo match;
 
-                if (log != null) {
-                    if (reg.match (log.subtitle, 0, out match)) {
+                if (tlog != null) {
+                    if (reg.match (tlog.subtitle, 0, out match)) {
                         var e = new GLib.DateTime.now_local ();
                         var d = new DateTime.local (e.get_year (),
                                                     int.parse(match.fetch_named ("month")),
@@ -228,7 +232,7 @@ namespace Notejot {
 
                         Timeout.add(50, () => {
                             set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
-                                                          get_first_line (log.text).replace("|", "")
+                                                          get_first_line (tlog.text).replace("|", "")
                                                                                    .replace("_", "")
                                                                                    .replace("*", "")
                                                                                    .replace("~", "")));

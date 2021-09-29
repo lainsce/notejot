@@ -3,10 +3,13 @@ namespace Notejot {
         private MainWindow win;
         public Widgets.Note controller;
         public Widgets.NoteMenuPopover nmpopover;
+        public Widgets.TrashNoteMenuPopover tnmpopover;
 
         public SettingMenu (MainWindow win) {
             this.win = win;
             nmpopover = new Widgets.NoteMenuPopover ();
+
+            tnmpopover = new Widgets.TrashNoteMenuPopover ();
 
             nmpopover.color_button_red.clicked.connect (() => {
                 controller.update_theme("#c01c28");

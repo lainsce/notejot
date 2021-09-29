@@ -204,8 +204,7 @@
                                 <child>
                                   <object class="GtkListBox" id="trashview">
                                     <property name="vexpand">1</property>
-                                    <property name="selection_mode">none</property>
-                                    <property name="activate_on_single_click">1</property>
+                                    <property name="selection_mode">single</property>
                                     <style>
                                       <class name="notejot-view"/>
                                     </style>

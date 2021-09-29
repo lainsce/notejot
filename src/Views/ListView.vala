@@ -100,9 +100,5 @@ namespace Notejot {
 
             return true;
         }
-
-        public GLib.List<unowned Widgets.Note> get_rows () {
-            return (GLib.List<unowned Widgets.Note>) win.notestore.get_n_items ();
-        }
     }
 }

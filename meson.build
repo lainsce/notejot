@@ -59,6 +59,7 @@ sources = files(
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/NoteMenuPopover.vala',
     'src/Widgets/TextField.vala',
+    'src/Widgets/TrashNoteMenuPopover.vala',
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
     'src/Widgets/NoteTypes/Note.vala',

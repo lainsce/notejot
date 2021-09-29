@@ -86,6 +86,7 @@ namespace Notejot {
         public const string ACTION_TRASH_NOTES = "action_trash_notes";
         public const string ACTION_MOVE_TO = "action_move_to";
         public const string ACTION_DELETE_NOTE = "action_delete_note";
+        public const string ACTION_RESTORE_NOTE = "action_restore_note";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public const string ACTION_NOTEBOOK = "select_notebook";
         public const string ACTION_PIN_NOTE = "action_pin_note";
@@ -107,6 +108,7 @@ namespace Notejot {
               {ACTION_TRASH_NOTES, action_trash_notes},
               {ACTION_MOVE_TO, action_move_to},
               {ACTION_DELETE_NOTE, action_delete_note},
+              {ACTION_RESTORE_NOTE, action_restore_note},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
               {ACTION_NOTEBOOK, select_notebook, "s"},
               {ACTION_PIN_NOTE, action_pin_note},
@@ -170,7 +172,6 @@ namespace Notejot {
             // Main View
             tm = new TaskManager (this);
             sm = new Widgets.SettingMenu(this);
-            settingmenu.popover = sm.nmpopover;
             settingmenu.visible = false;
 
             titlebar.get_style_context ().add_class ("notejot-empty-title");
@@ -320,7 +321,7 @@ namespace Notejot {
         }
 
         public Widgets.TrashedNote make_trash_item (MainWindow win, GLib.Object titem) {
-            lv.is_modified = true;
+            tv.is_modified = true;
             return new Widgets.TrashedNote (this, (TrashLog) titem);
         }
 
@@ -332,7 +333,7 @@ namespace Notejot {
             tlog.color = color;
             tlog.pinned = pinned;
             tlog.notebook = notebook;
-            lv.is_modified = true;
+            tv.is_modified = true;
 
             trashstore.append(tlog);
         }
@@ -604,6 +605,36 @@ namespace Notejot {
             settingmenu.visible = false;
             titlebar.get_style_context ().add_class ("notejot-empty-title");
             titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
+        }
+
+        public void action_restore_note () {
+            Gtk.ListBoxRow row;
+
+            row = trashview.get_selected_row ();
+
+            if (row != null) {
+                var log = new Log ();
+                log.title = ((Widgets.TrashedNote)row).tlog.title;
+                log.subtitle = ((Widgets.TrashedNote)row).tlog.subtitle;
+                log.text = ((Widgets.TrashedNote)row).tlog.text;
+                log.color = ((Widgets.TrashedNote)row).tlog.color;
+                log.notebook = ((Widgets.TrashedNote)row).tlog.notebook;
+                log.pinned = ((Widgets.TrashedNote)row).tlog.pinned;
+	            notestore.append (log);
+
+	            var rowd = main_stack.get_child_by_name ("textfield-trash-%d".printf(((Widgets.TrashedNote)row).tuid));
+                main_stack.remove (rowd);
+
+                uint pos;
+                trashstore.find (((Widgets.TrashedNote)row).tlog, out pos);
+                trashstore.remove (pos);
+            }
+
+            main_stack.set_visible_child (empty_state);
+
+            if (leaflet.get_visible_child () != sgrid) {
+                leaflet.set_visible_child (sgrid);
+            }
         }
 
         public void action_edit_notebooks () {
