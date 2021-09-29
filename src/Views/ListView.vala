@@ -14,6 +14,7 @@ namespace Notejot {
 
             win.listview.set_filter_func (do_filter_list);
             win.listview.set_filter_func (do_filter_list_notebook);
+            win.listview.set_filter_func (do_filter_list_pin);
 
             win.listview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
@@ -55,6 +56,8 @@ namespace Notejot {
                     win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
             });
+
+            win.pinlistview.set_filter_func (do_filter_list_pin);
 
             win.pinlistview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
