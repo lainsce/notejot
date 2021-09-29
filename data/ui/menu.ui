@@ -23,10 +23,6 @@
     </item>
     <section>
       <item>
-        <attribute name="label" translatable="yes">Dark Mode</attribute>
-        <attribute name="action">app.dark-mode</attribute>
-      </item>
-      <item>
         <attribute name="label" translatable="yes">Empty Trash</attribute>
         <attribute name="action">win.action_trash_notes</attribute>
       </item>

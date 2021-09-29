@@ -138,16 +138,6 @@ namespace Notejot {
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
 
-            if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
-            }
-
-            Notejot.Application.gsettings.changed.connect (() => {
-                if (!Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
-                }
-            });
-
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
             });

@@ -158,28 +158,13 @@ namespace Notejot {
             app.set_accels_for_action ("win.action_ul", {"<Ctrl>u"});
             app.set_accels_for_action ("win.action_s", {"<Ctrl><Shift>s"});
 
-            var action_darkmode = Notejot.Application.gsettings.create_action ("dark-mode");
-            app.add_action(action_darkmode);
-
             var action_fontsize = Notejot.Application.gsettings.create_action ("font-size");
             app.add_action(action_fontsize);
             
             // Dark theme
             var adwsm = Adw.StyleManager.get_default ();
 
-            if (Application.gsettings.get_boolean("dark-mode")) {
-                adwsm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
-            } else {
-                adwsm.set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
-            }
-
-            Application.gsettings.changed.connect (() => {
-                if (Application.gsettings.get_boolean("dark-mode")) {
-                    adwsm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
-                } else {
-                    adwsm.set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
-                }
-            });
+            adwsm.set_color_scheme (Adw.ColorScheme.PREFER_LIGHT);
 
             // Main View
             tm = new TaskManager (this);

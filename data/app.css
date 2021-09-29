@@ -163,18 +163,6 @@
   border-bottom: 1px solid @borders;
 }
 
-.dark {
-  color: #FFF;
-  font-family: "Cantarell", Arial, Helvetica, sans-serif;
-  font-weight: 400;
-}
-
-.light {
-  color: #000;
-  font-family: "Cantarell", Arial, Helvetica, sans-serif;
-  font-weight: 400;
-}
-
 .big-font {
   font-size: 1.4rem;
 }

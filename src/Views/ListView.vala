@@ -14,7 +14,6 @@ namespace Notejot {
 
             win.listview.set_filter_func (do_filter_list);
             win.listview.set_filter_func (do_filter_list_notebook);
-            win.listview.set_filter_func (do_filter_list_pin);
 
             win.listview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
@@ -29,30 +28,14 @@ namespace Notejot {
                         win.pinlistview.unselect_row (row);
                     }
 
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    } else {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    }
-
                     last_uid = ((Widgets.Note)selected_row).uid;
                     win.sm.controller = ((Widgets.Note)selected_row);
                     win.titlebar.get_style_context ().add_class (@"notejot-action-$last_uid");
 
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        win.titlebar.get_style_context ().add_class (@"notejot-action-dark-$last_uid");
-                    } else {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    }
                     win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
                 } else {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    } else {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    }
                     win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
             });
@@ -73,30 +56,14 @@ namespace Notejot {
 
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    } else {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    }
-
                     last_uid = ((Widgets.Note)selected_row).uid;
                     win.sm.controller = ((Widgets.Note)selected_row);
                     win.titlebar.get_style_context ().add_class (@"notejot-action-$last_uid");
 
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        win.titlebar.get_style_context ().add_class (@"notejot-action-dark-$last_uid");
-                    } else {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    }
                     win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
                 } else {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
-                    if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    } else {
-                        win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$last_uid");
-                    }
                     win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
             });

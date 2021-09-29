@@ -42,12 +42,10 @@ namespace Notejot {
             ul_font = buffer.create_tag("underline", "underline", Pango.Underline.SINGLE);
             s_font = buffer.create_tag("strike", "strikethrough", true);
 
-            set_stylesheet ();
             set_font_stylesheet ();
             fmt_syntax_start ();
 
             Notejot.Application.gsettings.changed.connect (() => {
-                set_stylesheet ();
                 set_font_stylesheet ();
                 win.tm.save_notes.begin (win.notestore);
             });
@@ -82,16 +80,6 @@ namespace Notejot {
             controller.log.text = val;
 
             win.tm.save_notes.begin (win.notestore);
-        }
-
-        private void set_stylesheet () {
-            if (Notejot.Application.gsettings.get_boolean("dark-mode")) {
-                this.get_style_context ().add_class ("dark");
-                this.get_style_context ().remove_class ("light");
-            } else {
-                this.get_style_context ().add_class ("light");
-                this.get_style_context ().remove_class ("dark");
-            }
         }
 
         private void set_font_stylesheet () {
