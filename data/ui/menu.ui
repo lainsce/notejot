@@ -23,12 +23,6 @@
     </item>
     <section>
       <item>
-        <attribute name="label" translatable="yes">Empty Trash</attribute>
-        <attribute name="action">win.action_trash_notes</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
         <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
         <attribute name="action">win.action_keys</attribute>
       </item>

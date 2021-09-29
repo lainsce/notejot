@@ -192,22 +192,49 @@
                         <property name="child">
                           <object class="GtkScrolledWindow" id="trash_scroller">
                             <child>
-                              <object class="GtkListBox" id="trashview">
+                              <object class="GtkBox">
                                 <property name="vexpand">1</property>
-                                <property name="selection_mode">none</property>
-                                <property name="activate_on_single_click">1</property>
-                                <style>
-                                  <class name="notejot-view"/>
-                                </style>
-                                <child type="placeholder">
-                                  <object class="AdwStatusPage">
-                                    <property name="valign">center</property>
+                                <property name="hexpand">0</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkListBox" id="trashview">
                                     <property name="vexpand">1</property>
-                                    <property name="icon-name">user-trash-symbolic</property>
-                                    <property name="title" translatable="yes">No Trash</property>
-                                    <property name="description" translatable="yes">Trashed notes appear here.</property>
+                                    <property name="selection_mode">none</property>
+                                    <property name="activate_on_single_click">1</property>
                                     <style>
-                                      <class name="compact"/>
+                                      <class name="notejot-view"/>
+                                    </style>
+                                    <child type="placeholder">
+                                      <object class="AdwStatusPage">
+                                        <property name="valign">center</property>
+                                        <property name="vexpand">1</property>
+                                        <property name="icon-name">user-trash-symbolic</property>
+                                        <property name="title" translatable="yes">No Trash</property>
+                                        <property name="description" translatable="yes">Trashed notes appear here.</property>
+                                        <style>
+                                          <class name="compact"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <style>
+                                      <class name="sidebar"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="trash_button">
+                                    <property name="label" translatable="yes">Trash All Notes</property>
+                                    <property name="action-name">win.action_trash_notes</property>
+                                    <property name="margin-start">6</property>
+                                    <property name="margin-end">6</property>
+                                    <property name="margin-top">6</property>
+                                    <property name="margin-bottom">6</property>
+                                    <style>
+                                      <class name="destructive-action"/>
                                     </style>
                                   </object>
                                 </child>
