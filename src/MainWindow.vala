@@ -484,6 +484,9 @@ namespace Notejot {
                     pinlistview.append (row);
 
                     main_stack.set_visible_child (empty_state);
+                    settingmenu.visible = false;
+                    lv.set_search_text ("");
+                    leaflet.set_visible_child (sgrid);
 
                     lv.is_modified = true;
                     tm.save_notes.begin (notestore);
@@ -496,6 +499,9 @@ namespace Notejot {
                     listview.append (row2);
 
                     main_stack.set_visible_child (empty_state);
+                    settingmenu.visible = false;
+                    lv.set_search_text ("");
+                    leaflet.set_visible_child (sgrid);
 
                     lv.is_modified = true;
                     tm.save_notes.begin (notestore);
