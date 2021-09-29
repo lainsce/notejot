@@ -147,6 +147,10 @@ namespace Notejot {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-dark-$uid");
                 }
             });
+
+            win.notebookstore.items_changed.connect (() => {
+                win.tm.save_notes.begin (win.notestore);
+            });
         }
 
         public void destroy_item () {

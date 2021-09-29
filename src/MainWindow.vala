@@ -217,24 +217,21 @@ namespace Notejot {
 
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
-            });
 
-            uint j, m = notestore.get_n_items ();
-            for (j = 0; j < m; j++) {
-                var item = notestore.get_item (j);
+                foreach (var row in listview.get_selected_rows ()) {
+                    if (((Widgets.Note)row).log.pinned == true) {
+                        listview.remove (row);
+                        pinlistview.append (row);
 
-                var row = listview.get_row_at_index ((int)j);
+                        pinlistview.select_row (row);
+                    } else {
+                        pinlistview.remove (row);
+                        listview.append (row);
 
-                if (((Log)item).pinned == false) {
-                    listview.remove (row);
-                    pinlistview.append (row);
-                    tm.save_notes.begin (notestore);
-                } else {
-                    pinlistview.remove (row);
-                    listview.append (row);
-                    tm.save_notes.begin (notestore);
+                        listview.select_row (row);
+                    }
                 }
-            }
+            });
 
             // Trash View
             tv = new Views.TrashView (this);
@@ -488,28 +485,21 @@ namespace Notejot {
         public void action_pin_note () {
             Gtk.ListBoxRow row;
 
-            if (lv.y != -1) {
-                row = listview.get_row_at_y (lv.y);
-            } else {
-                row = listview.get_selected_row ();
-            }
+            row = listview.get_selected_row ();
 
             Gtk.ListBoxRow row2;
 
-            if (lv.y != -1) {
-                row2 = pinlistview.get_row_at_y (lv.y);
-            } else {
-                row2 = pinlistview.get_selected_row ();
-            }
+            row2 = pinlistview.get_selected_row ();
 
             if (row != null && ((Widgets.Note)row).log != null) {
                 if (((Widgets.Note)row).log.pinned == false) {
                     ((Widgets.Note)row).log.pinned = true;
 
                     listview.remove (row);
-                    pinlistview.append(row);
+                    pinlistview.append (row);
 
                     main_stack.set_visible_child (empty_state);
+
                     lv.is_modified = true;
                     tm.save_notes.begin (notestore);
                 }
@@ -518,9 +508,10 @@ namespace Notejot {
                     ((Widgets.Note)row2).log.pinned = false;
 
                     pinlistview.remove (row2);
-                    listview.append(row2);
+                    listview.append (row2);
 
                     main_stack.set_visible_child (empty_state);
+
                     lv.is_modified = true;
                     tm.save_notes.begin (notestore);
                 }
@@ -530,19 +521,11 @@ namespace Notejot {
         public void action_delete_note () {
             Gtk.ListBoxRow row;
 
-            if (lv.y != -1) {
-                row = listview.get_row_at_y (lv.y);
-            } else {
-                row = listview.get_selected_row ();
-            }
+            row = listview.get_selected_row ();
 
             Gtk.ListBoxRow row2;
 
-            if (lv.y != -1) {
-                row2 = pinlistview.get_row_at_y (lv.y);
-            } else {
-                row2 = pinlistview.get_selected_row ();
-            }
+            row2 = pinlistview.get_selected_row ();
 
             // Reset titlebar color
             ((Widgets.Note)row).update_theme("#FFF");
@@ -587,7 +570,6 @@ namespace Notejot {
                 leaflet.set_visible_child (sgrid);
             }
 
-            lv.popover.close ();
             uint lvu = lv.last_uid;
             settingmenu.visible = false;
             titlebar.get_style_context ().add_class ("notejot-empty-title");
