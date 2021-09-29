@@ -4,8 +4,8 @@
   <template class="NotejotWidgetsHeaderBarButton" parent="AdwBin">
     <child>
       <object class="GtkMenuButton" id="menu">
+        <property name="hexpand">1</property>
         <property name="label" bind-source="NotejotWidgetsHeaderBarButton" bind-property="title" bind-flags="sync-create"/>
-        <property name="direction">down</property>
         <style>
           <class name="rename-button"/>
         </style>

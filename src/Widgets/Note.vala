@@ -23,6 +23,7 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
+        public bool pinned { get; set; }
     }
 
     public class Widgets.Note : Adw.ActionRow {
@@ -54,10 +55,10 @@ namespace Notejot {
 
             var titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);
-            titleentry.set_margin_top (30);
+            titleentry.set_margin_top (12);
             titleentry.set_margin_bottom (6);
-            titleentry.set_margin_start (18);
-            titleentry.set_margin_end (18);
+            titleentry.set_margin_start (30);
+            titleentry.set_margin_end (30);
             titleentry.set_text (log.title);
             titleentry.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             titleentry.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
@@ -80,8 +81,8 @@ namespace Notejot {
 
             var notebookbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             notebookbox.set_margin_bottom (6);
-            notebookbox.set_margin_start (24);
-            notebookbox.set_margin_end (18);
+            notebookbox.set_margin_start (30);
+            notebookbox.set_margin_end (30);
 
             var subtitlelabel = new Gtk.Label (log.subtitle);
             subtitlelabel.set_margin_end (12);
@@ -130,8 +131,6 @@ namespace Notejot {
             note_grid.attach (formatbar, 0, 4);
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
-
-            win.listview.select_row (this);
 
             sync_subtitles.begin ();
             update_theme (log.color);

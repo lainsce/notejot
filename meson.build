@@ -55,6 +55,7 @@ sources = files(
     'src/Views/ListView.vala',
     'src/Views/TrashView.vala',
     'src/Widgets/FormatBar.vala',
+    'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/Note.vala',
     'src/Widgets/NoteMenuPopover.vala',

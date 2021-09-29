@@ -21,12 +21,12 @@
 	    <description>Whether the window is maximized. Used to open window with user's preferred settings</description>
 	  </key>
 	  <key type="i" name="window-w">
-	    <default>360</default>
+	    <default>720</default>
 	    <summary>Saves window last-used width</summary>
 	    <description>The user's last used window width before closing the app</description>
 	  </key>
 	  <key type="i" name="window-h">
-	    <default>500</default>
+	    <default>360</default>
 	    <summary>Saves window last-used height</summary>
 	    <description>The user's last used window height before closing the app</description>
 	  </key>

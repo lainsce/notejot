@@ -15,162 +15,15 @@
             <property name="can-swipe-back">True</property>
             <property name="can-swipe-forward">True</property>
             <child>
-              <object class="AdwLeafletPage">
-                <property name="child">
-                  <object class="GtkBox">
-                    <property name="hexpand">0</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="AdwHeaderBar" id="ntitlebar">
-                        <property name="show-end-title-buttons" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
-                        <property name="valign">center</property>
-                        <property name="hexpand">0</property>
-                        <property name="width-request">200</property>
-                        <style>
-                          <class name="notejot-stitle"/>
-                        </style>
-                        <child type="title">
-                          <object class="GtkBox">
-                          </object>
-                        </child>
-                        <child  type="start">
-                          <object class="GtkButton" id="manage_notebooks">
-                            <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
-                            <property name="icon-name">notebook-config-symbolic</property>
-                            <property name="action-name">win.action_edit_notebooks</property>
-                            <style>
-                              <class name="image-button"/>
-                              <class name="header-button"/>
-                            </style>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="hexpand">0</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkScrolledWindow" id="notebook_scroller">
-                            <property name="height-request">96</property>
-                            <child>
-                              <object class="GtkListBox" id="notebookview">
-                                <property name="selection_mode">single</property>
-                                <property name="activate_on_single_click">1</property>
-                                <child>
-                                  <object class="GtkListBoxRow" id="all_notes">
-                                    <child>
-                                      <object class="GtkBox">
-                                        <child>
-                                          <object class="GtkButton">
-                                            <property name="action-name">win.action_all_notes</property>
-                                            <property name="hexpand">1</property>
-                                            <property name="child">
-                                              <object class="GtkLabel">
-                                                <property name="label" translatable="yes">All Notes</property>
-                                                <property name="xalign">0</property>
-                                              </object>
-                                            </property>
-                                            <style>
-                                              <class name="nb-flat-button"/>
-                                            </style>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <style>
-                                      <class name="nb-flat"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkListBoxRow" id="trash_notes">
-                                    <child>
-                                      <object class="GtkBox">
-                                        <child>
-                                          <object class="GtkButton">
-                                            <property name="action-name">win.action_trash</property>
-                                            <property name="hexpand">1</property>
-                                            <property name="child">
-                                              <object class="GtkLabel">
-                                                <property name="label" translatable="yes">Trash</property>
-                                                <property name="xalign">0</property>
-                                              </object>
-                                            </property>
-                                            <style>
-                                              <class name="nb-flat-button"/>
-                                            </style>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <style>
-                                      <class name="nb-flat"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="notejot-view"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="hexpand">0</property>
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkSeparator">
-                                <style>
-                                  <class name="sidebar"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkScrolledWindow" id="nb_scroller">
-                            <property name="vexpand">1</property>
-                            <child>
-                              <object class="GtkListBox" id="nbview">
-                                <property name="vexpand">1</property>
-                                <property name="selection_mode">single</property>
-                                <property name="activate_on_single_click">1</property>
-                                <style>
-                                  <class name="notejot-view"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="AdwLeafletPage">
-                <property name="navigatable">False</property>
-                <property name="child">
-                  <object class="GtkSeparator">
-                    <style>
-                      <class name="sidebar"/>
-                    </style>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
               <object class="GtkBox" id="sgrid">
                 <property name="hexpand">0</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar" id="stitlebar">
-                    <property name="show-end-title-buttons">0</property>
+                    <property name="show-end-title-buttons" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
                     <property name="valign">center</property>
                     <property name="hexpand">0</property>
+                    <property name="width-request">200</property>
                     <style>
                       <class name="notejot-stitle"/>
                     </style>
@@ -228,22 +81,102 @@
                         <property name="title">page0</property>
                         <property name="child">
                           <object class="GtkScrolledWindow" id="list_scroller">
+                            <property name="vexpand">1</property>
                             <child>
-                              <object class="GtkListBox" id="listview">
+                              <object class="GtkBox">
                                 <property name="vexpand">1</property>
                                 <property name="hexpand">0</property>
-                                <property name="selection_mode">single</property>
-                                <style>
-                                  <class name="notejot-view"/>
-                                </style>
-                                <child type="placeholder">
-                                  <object class="AdwStatusPage">
-                                    <property name="valign">center</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="halign">start</property>
+                                    <property name="margin-top">6</property>
+                                    <property name="margin-bottom">6</property>
+                                    <property name="margin-start">12</property>
+                                    <property name="label" translatable="yes">Pinned Notes</property>
+                                    <style>
+                                      <class name="caption-heading"/>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <style>
+                                      <class name="sidebar"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkListBox" id="pinlistview">
+                                    <property name="margin-bottom">6</property>
                                     <property name="hexpand">0</property>
                                     <property name="vexpand">1</property>
-                                    <property name="icon-name">document-new-symbolic</property>
-                                    <property name="title" translatable="yes">No Notes</property>
-                                    <property name="description" translatable="yes">Notes appear here.</property>
+                                    <property name="selection_mode">single</property>
+                                    <style>
+                                      <class name="notejot-view"/>
+                                    </style>
+                                    <child type="placeholder">
+                                      <object class="GtkLabel">
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">0</property>
+                                        <property name="vexpand">1</property>
+                                        <property name="label" translatable="yes">No Pinned Notes</property>
+                                        <style>
+                                          <class name="heading"/>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <style>
+                                      <class name="sidebar"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="halign">start</property>
+                                    <property name="margin-top">6</property>
+                                    <property name="margin-bottom">6</property>
+                                    <property name="margin-start">12</property>
+                                    <property name="label" translatable="yes">Other Notes</property>
+                                    <style>
+                                      <class name="caption-heading"/>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <style>
+                                      <class name="sidebar"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkListBox" id="listview">
+                                    <property name="vexpand">1</property>
+                                    <property name="hexpand">0</property>
+                                    <property name="selection_mode">single</property>
+                                    <style>
+                                      <class name="notejot-view"/>
+                                    </style>
+                                    <child type="placeholder">
+                                      <object class="GtkLabel">
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">0</property>
+                                        <property name="vexpand">1</property>
+                                        <property name="label" translatable="yes">No Notes</property>
+                                        <style>
+                                          <class name="heading"/>
+                                          <class name="dim-label"/>
+                                        </style>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -273,6 +206,9 @@
                                     <property name="icon-name">user-trash-symbolic</property>
                                     <property name="title" translatable="yes">No Trash</property>
                                     <property name="description" translatable="yes">Trashed notes appear here.</property>
+                                    <style>
+                                      <class name="compact"/>
+                                    </style>
                                   </object>
                                 </child>
                               </object>
@@ -307,6 +243,7 @@
                     <property name="hexpand">1</property>
                     <style>
                       <class name="flat"/>
+                      <class name="notejot-titlebar"/>
                     </style>
                     <child type="title">
                       <object class="GtkBox">

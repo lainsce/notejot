@@ -75,6 +75,11 @@
   background: shade(@theme_bg_color, 1);
 }
 
+.notejot-titlebar,
+.notejot-empty-title {
+  border-bottom: 1px solid @borders;
+}
+
 .nw-titlebox {
   background-color: @theme_bg_color;
 }
