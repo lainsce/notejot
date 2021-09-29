@@ -57,12 +57,13 @@ sources = files(
     'src/Widgets/FormatBar.vala',
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
-    'src/Widgets/Note.vala',
     'src/Widgets/NoteMenuPopover.vala',
-    'src/Widgets/TrashedItem.vala',
     'src/Widgets/TextField.vala',
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
+    'src/Widgets/NoteTypes/Note.vala',
+    'src/Widgets/NoteTypes/PinnedNote.vala',
+    'src/Widgets/NoteTypes/TrashedNote.vala',
 )
 
 dependencies = [

@@ -80,33 +80,33 @@
                         <property name="name">page0</property>
                         <property name="title">page0</property>
                         <property name="child">
-                          <object class="GtkScrolledWindow" id="list_scroller">
+                          <object class="GtkBox" id="list_scroller">
                             <property name="vexpand">1</property>
+                            <property name="hexpand">0</property>
+                            <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkBox">
+                              <object class="GtkLabel">
+                                <property name="halign">start</property>
+                                <property name="margin-top">6</property>
+                                <property name="margin-bottom">6</property>
+                                <property name="margin-start">12</property>
+                                <property name="label" translatable="yes">Pinned Notes</property>
+                                <style>
+                                  <class name="caption-heading"/>
+                                  <class name="dim-label"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="sidebar"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkScrolledWindow" id="ascroller">
                                 <property name="vexpand">1</property>
-                                <property name="hexpand">0</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="halign">start</property>
-                                    <property name="margin-top">6</property>
-                                    <property name="margin-bottom">6</property>
-                                    <property name="margin-start">12</property>
-                                    <property name="label" translatable="yes">Pinned Notes</property>
-                                    <style>
-                                      <class name="caption-heading"/>
-                                      <class name="dim-label"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkSeparator">
-                                    <style>
-                                      <class name="sidebar"/>
-                                    </style>
-                                  </object>
-                                </child>
                                 <child>
                                   <object class="GtkListBox" id="pinlistview">
                                     <property name="margin-bottom">6</property>
@@ -130,33 +130,38 @@
                                     </child>
                                   </object>
                                 </child>
-                                <child>
-                                  <object class="GtkSeparator">
-                                    <style>
-                                      <class name="sidebar"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="halign">start</property>
-                                    <property name="margin-top">6</property>
-                                    <property name="margin-bottom">6</property>
-                                    <property name="margin-start">12</property>
-                                    <property name="label" translatable="yes">Other Notes</property>
-                                    <style>
-                                      <class name="caption-heading"/>
-                                      <class name="dim-label"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkSeparator">
-                                    <style>
-                                      <class name="sidebar"/>
-                                    </style>
-                                  </object>
-                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="sidebar"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="halign">start</property>
+                                <property name="margin-top">6</property>
+                                <property name="margin-bottom">6</property>
+                                <property name="margin-start">12</property>
+                                <property name="label" translatable="yes">Other Notes</property>
+                                <style>
+                                  <class name="caption-heading"/>
+                                  <class name="dim-label"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="sidebar"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkScrolledWindow" id="bscroller">
+                                <property name="vexpand">1</property>
                                 <child>
                                   <object class="GtkListBox" id="listview">
                                     <property name="vexpand">1</property>
@@ -190,12 +195,12 @@
                         <property name="name">page1</property>
                         <property name="title">page1</property>
                         <property name="child">
-                          <object class="GtkScrolledWindow" id="trash_scroller">
+                          <object class="GtkBox" id="trash_scroller">
+                            <property name="vexpand">1</property>
+                            <property name="hexpand">0</property>
+                            <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkBox">
-                                <property name="vexpand">1</property>
-                                <property name="hexpand">0</property>
-                                <property name="orientation">vertical</property>
+                              <object class="GtkScrolledWindow" id="tscroller">
                                 <child>
                                   <object class="GtkListBox" id="trashview">
                                     <property name="vexpand">1</property>
@@ -218,26 +223,26 @@
                                     </child>
                                   </object>
                                 </child>
-                                <child>
-                                  <object class="GtkSeparator">
-                                    <style>
-                                      <class name="sidebar"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton" id="trash_button">
-                                    <property name="label" translatable="yes">Trash All Notes</property>
-                                    <property name="action-name">win.action_trash_notes</property>
-                                    <property name="margin-start">6</property>
-                                    <property name="margin-end">6</property>
-                                    <property name="margin-top">6</property>
-                                    <property name="margin-bottom">6</property>
-                                    <style>
-                                      <class name="destructive-action"/>
-                                    </style>
-                                  </object>
-                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="sidebar"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="trash_button">
+                                <property name="label" translatable="yes">Trash All Notes</property>
+                                <property name="action-name">win.action_trash_notes</property>
+                                <property name="margin-start">6</property>
+                                <property name="margin-end">6</property>
+                                <property name="margin-top">6</property>
+                                <property name="margin-bottom">6</property>
+                                <style>
+                                  <class name="destructive-action"/>
+                                </style>
                               </object>
                             </child>
                           </object>

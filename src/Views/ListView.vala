@@ -40,29 +40,27 @@ namespace Notejot {
                 }
             });
 
-            win.pinlistview.set_filter_func (do_filter_list_pin);
-
             win.pinlistview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
                 win.settingmenu.visible = true;
 
-                if (((Widgets.Note)selected_row) != null) {
-                    ((Widgets.Note)selected_row).textfield.grab_focus ();
-                    ((Widgets.Note)selected_row).select_item ();
+                if (((Widgets.PinnedNote)selected_row) != null) {
+                    ((Widgets.PinnedNote)selected_row).textfield.grab_focus ();
+                    ((Widgets.PinnedNote)selected_row).select_item ();
 
                     foreach (var row in win.listview.get_selected_rows ()) {
                         win.listview.unselect_row (row);
                     }
 
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
+                    win.titlebar.get_style_context ().remove_class (@"notejot-action-pin-$last_uid");
 
-                    last_uid = ((Widgets.Note)selected_row).uid;
+                    last_uid = ((Widgets.PinnedNote)selected_row).puid;
                     win.sm.controller = ((Widgets.Note)selected_row);
-                    win.titlebar.get_style_context ().add_class (@"notejot-action-$last_uid");
+                    win.titlebar.get_style_context ().add_class (@"notejot-action-pin-$last_uid");
 
                     win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
                 } else {
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
+                    win.titlebar.get_style_context ().remove_class (@"notejot-action-pin-$last_uid");
 
                     win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
@@ -101,14 +99,6 @@ namespace Notejot {
             }
 
             return true;
-        }
-
-        protected bool do_filter_list_pin (Gtk.ListBoxRow row) {
-            if (((Widgets.Note)row).log.pinned == true) {
-                return ((Widgets.Note)row).log.pinned = true;
-            } else {
-                return ((Widgets.Note)row).log.pinned = false;
-            }
         }
 
         public GLib.List<unowned Widgets.Note> get_rows () {

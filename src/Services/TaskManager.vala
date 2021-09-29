@@ -24,11 +24,43 @@ namespace Notejot {
                                  "/io.github.lainsce.Notejot";
         private string file_name;
         private string file_name_nb;
+        private string file_name_p;
+        private string file_name_t;
 
         public TaskManager (MainWindow win) {
             this.win = win;
             file_name = this.app_dir + "/saved_notes.json";
+            file_name_p = this.app_dir + "/saved_pinned_notes.json";
+            file_name_t = this.app_dir + "/saved_trash.json";
             file_name_nb = this.app_dir + "/saved_notebooks.json";
+        }
+
+        public async void load_from_file () {
+            try {
+                var file = File.new_for_path(file_name);
+
+                if (file.query_exists()) {
+                    string line;
+                    GLib.FileUtils.get_contents (file.get_path (), out line);
+                    var parser = new Json.Parser();
+                    parser.load_from_data(line);
+                    var root = parser.get_root();
+                    var array = root.get_array();
+                    foreach (var tasks in array.get_elements()) {
+                        var task = tasks.get_array ();
+                        var title = task.get_string_element(0);
+                        var subtitle = task.get_string_element(1);
+                        var text = task.get_string_element(2);
+                        var color = task.get_string_element(3);
+                        var pinned = task.get_boolean_element(0);
+                        var notebook = task.get_string_element(4);
+
+                        win.make_note (title, subtitle, text, color, notebook, pinned);
+                    }
+                }
+            } catch (Error e) {
+                warning ("Failed to load file: %s\n", e.message);
+            }
         }
 
         public async void save_notes (ListStore liststore) {
@@ -71,9 +103,9 @@ namespace Notejot {
             }
         }
 
-        public async void load_from_file () {
+        public async void load_from_file_pinned () {
             try {
-                var file = File.new_for_path(file_name);
+                var file = File.new_for_path(file_name_p);
 
                 if (file.query_exists()) {
                     string line;
@@ -91,11 +123,119 @@ namespace Notejot {
                         var pinned = task.get_boolean_element(0);
                         var notebook = task.get_string_element(4);
 
-                        win.make_note (title, subtitle, text, color, notebook, pinned);
+                        win.make_pinned_note (title, subtitle, text, color, notebook, pinned);
                     }
                 }
             } catch (Error e) {
                 warning ("Failed to load file: %s\n", e.message);
+            }
+        }
+
+        public async void save_pinned_notes (ListStore liststore) {
+            string json_string = "";
+            var b = new Json.Builder ();
+            builder = b;
+
+            builder.begin_array ();
+	        uint i, n = liststore.get_n_items ();
+            for (i = 0; i < n; i++) {
+                builder.begin_array ();
+                var item = liststore.get_item (i);
+                builder.add_string_value (((PinnedLog)item).title);
+                builder.add_string_value (((PinnedLog)item).subtitle);
+                builder.add_string_value (((PinnedLog)item).text);
+                builder.add_string_value (((PinnedLog)item).color);
+                builder.add_string_value (((PinnedLog)item).notebook);
+                builder.add_boolean_value (((PinnedLog)item).pinned);
+                builder.end_array ();
+            }
+            builder.end_array ();
+
+            Json.Generator generator = new Json.Generator ();
+            Json.Node root = builder.get_root ();
+            generator.set_root (root);
+            json_string = generator.to_data (null);
+
+            var dir = File.new_for_path(app_dir);
+            var file = File.new_for_path (file_name_p);
+            try {
+                if (!dir.query_exists()) {
+                    dir.make_directory();
+                }
+                if (file.query_exists ()) {
+                    file.delete ();
+                }
+                GLib.FileUtils.set_contents (file.get_path (), json_string);
+            } catch (Error e) {
+                warning ("Failed to save file: %s\n", e.message);
+            }
+        }
+
+        public async void load_from_file_trash () {
+            try {
+                var file = File.new_for_path(file_name_t);
+
+                if (file.query_exists()) {
+                    string line;
+                    GLib.FileUtils.get_contents (file.get_path (), out line);
+                    var parser = new Json.Parser();
+                    parser.load_from_data(line);
+                    var root = parser.get_root();
+                    var array = root.get_array();
+                    foreach (var tasks in array.get_elements()) {
+                        var task = tasks.get_array ();
+                        var title = task.get_string_element(0);
+                        var subtitle = task.get_string_element(1);
+                        var text = task.get_string_element(2);
+                        var color = task.get_string_element(3);
+                        var pinned = task.get_boolean_element(0);
+                        var notebook = task.get_string_element(4);
+
+                        win.make_trash_note (title, subtitle, text, color, notebook, pinned);
+                    }
+                }
+            } catch (Error e) {
+                warning ("Failed to load file: %s\n", e.message);
+            }
+        }
+
+        public async void save_trash_notes (ListStore liststore) {
+            string json_string = "";
+            var b = new Json.Builder ();
+            builder = b;
+
+            builder.begin_array ();
+	        uint i, n = liststore.get_n_items ();
+            for (i = 0; i < n; i++) {
+                builder.begin_array ();
+                var item = liststore.get_item (i);
+                builder.add_string_value (((TrashLog)item).title);
+                builder.add_string_value (((TrashLog)item).subtitle);
+                builder.add_string_value (((TrashLog)item).text);
+                builder.add_string_value (((TrashLog)item).color);
+                builder.add_string_value (((TrashLog)item).notebook);
+                builder.add_boolean_value (((TrashLog)item).pinned);
+                builder.end_array ();
+            }
+            builder.end_array ();
+
+            Json.Generator generator = new Json.Generator ();
+            Json.Node root = builder.get_root ();
+            generator.set_root (root);
+            json_string = generator.to_data (null);
+
+            var dir = File.new_for_path(app_dir);
+            var file = File.new_for_path (file_name_t);
+            try {
+                if (!dir.query_exists()) {
+                    dir.make_directory();
+                }
+                if (file.query_exists ()) {
+                    file.delete ();
+                }
+                GLib.FileUtils.set_contents (file.get_path (), json_string);
+            } catch (Error e) {
+                warning ("Failed to save file: %s\n", e.message);
             }
         }
 

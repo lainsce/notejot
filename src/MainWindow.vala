@@ -41,9 +41,9 @@ namespace Notejot {
         [GtkChild]
         public unowned Adw.Leaflet leaflet;
         [GtkChild]
-        public unowned Gtk.ScrolledWindow list_scroller;
+        public unowned Gtk.Box list_scroller;
         [GtkChild]
-        public unowned Gtk.ScrolledWindow trash_scroller;
+        public unowned Gtk.Box trash_scroller;
         [GtkChild]
         public unowned Gtk.ListBox pinlistview;
         [GtkChild]
@@ -71,6 +71,7 @@ namespace Notejot {
         int uid = 0;
         public Gtk.Settings gtk_settings;
 
+        public GLib.ListStore pinotestore;
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
@@ -189,27 +190,32 @@ namespace Notejot {
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
             notestore = new GLib.ListStore (typeof (Log));
-            notestore.sort ((a, b) => {
-                return ((Log) a).subtitle.collate (((Log) b).subtitle);
-            });
-
-            trashstore = new GLib.ListStore (typeof (Log));
+            pinotestore = new GLib.ListStore (typeof (PinnedLog));
+            trashstore = new GLib.ListStore (typeof (TrashLog));
 
             // List View
             lv = new Views.ListView (this);
             listview.bind_model (notestore, item => make_item (this, item));
-            pinlistview.bind_model (notestore, item => make_item (this, item));
+            pinlistview.bind_model (pinotestore, pitem => make_pinned_item (this, pitem));
 
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
             });
 
+            notestore.sort ((a, b) => {
+                return ((Log) a).subtitle.collate (((Log) b).subtitle);
+            });
+
+            pinotestore.items_changed.connect (() => {
+                tm.save_pinned_notes.begin (pinotestore);
+            });
+
             // Trash View
             tv = new Views.TrashView (this);
-            trashview.bind_model (trashstore, item => make_item (this, item));
+            trashview.bind_model (trashstore, titem => make_trash_item (this, titem));
 
             trashstore.items_changed.connect (() => {
-                tm.save_notes.begin (trashstore);
+                tm.save_trash_notes.begin (trashstore);
             });
 
             var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
@@ -245,17 +251,10 @@ namespace Notejot {
                 }
             });
 
+            tm.load_from_file_pinned.begin ();
+            tm.load_from_file_trash.begin ();
             tm.load_from_file.begin ();
             tm.load_from_file_nb.begin ();
-
-            foreach (var row in listview.get_selected_rows ()) {
-                if (((Widgets.Note)row).log.pinned == true) {
-                    listview.remove (row);
-                    pinlistview.append (row);
-
-                    pinlistview.select_row (row);
-                }
-            }
 
             // Preparing window to be shown
             set_default_size(
@@ -302,6 +301,42 @@ namespace Notejot {
             notestore.append(log);
         }
 
+        public Widgets.PinnedNote make_pinned_item (MainWindow win, GLib.Object pitem) {
+            lv.is_modified = true;
+            return new Widgets.PinnedNote (this, (PinnedLog) pitem);
+        }
+
+        public void make_pinned_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
+            var plog = new PinnedLog ();
+            plog.title = title;
+            plog.subtitle = subtitle;
+            plog.text = text;
+            plog.color = color;
+            plog.pinned = pinned;
+            plog.notebook = notebook;
+            lv.is_modified = true;
+
+            pinotestore.append(plog);
+        }
+
+        public Widgets.TrashedNote make_trash_item (MainWindow win, GLib.Object titem) {
+            lv.is_modified = true;
+            return new Widgets.TrashedNote (this, (TrashLog) titem);
+        }
+
+        public void make_trash_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
+            var tlog = new TrashLog ();
+            tlog.title = title;
+            tlog.subtitle = subtitle;
+            tlog.text = text;
+            tlog.color = color;
+            tlog.pinned = pinned;
+            tlog.notebook = notebook;
+            lv.is_modified = true;
+
+            trashstore.append(tlog);
+        }
+
         public void make_notebook (string title) {
             var nb = new Notebook ();
             nb.title = title;
@@ -335,6 +370,8 @@ namespace Notejot {
                 main_stack.set_visible_child (empty_state);
             }
             settingmenu.visible = true;
+
+            tm.save_notes.begin (notestore);
         }
 
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
@@ -471,36 +508,40 @@ namespace Notejot {
 
             row2 = pinlistview.get_selected_row ();
 
-            if (row != null && ((Widgets.Note)row).log != null) {
-                if (((Widgets.Note)row).log.pinned == false) {
-                    ((Widgets.Note)row).log.pinned = true;
+            if (row != null) {
+                var tlog = new PinnedLog ();
+                tlog.title = ((Widgets.Note)row).log.title;
+                tlog.subtitle = ((Widgets.Note)row).log.subtitle;
+                tlog.text = ((Widgets.Note)row).log.text;
+                tlog.color = ((Widgets.Note)row).log.color;
+                tlog.notebook = ((Widgets.Note)row).log.notebook;
+                tlog.pinned = true;
+	            pinotestore.append (tlog);
 
-                    listview.remove (row);
-                    pinlistview.append (row);
+	            var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
+                main_stack.remove (rowd);
 
-                    main_stack.set_visible_child (empty_state);
-                    settingmenu.visible = false;
-                    lv.set_search_text ("");
-                    leaflet.set_visible_child (sgrid);
+                uint pos;
+                notestore.find (((Widgets.Note)row).log, out pos);
+                notestore.remove (pos);
+            }
 
-                    lv.is_modified = true;
-                    tm.save_notes.begin (notestore);
-                }
-            } else if (row2 != null && ((Widgets.Note)row2).log != null) {
-                if (((Widgets.Note)row2).log.pinned == true) {
-                    ((Widgets.Note)row2).log.pinned = false;
+            if (row2 != null) {
+                var log = new Log ();
+                log.title = ((Widgets.PinnedNote)row2).plog.title;
+                log.subtitle = ((Widgets.PinnedNote)row2).plog.subtitle;
+                log.text = ((Widgets.PinnedNote)row2).plog.text;
+                log.color = ((Widgets.PinnedNote)row2).plog.color;
+                log.notebook = ((Widgets.PinnedNote)row2).plog.notebook;
+                log.pinned = false;
+	            notestore.append (log);
 
-                    pinlistview.remove (row2);
-                    listview.append (row2);
+	            var rowd2 = main_stack.get_child_by_name ("textfield-pinned-%d".printf(((Widgets.PinnedNote)row2).puid));
+                main_stack.remove (rowd2);
 
-                    main_stack.set_visible_child (empty_state);
-                    settingmenu.visible = false;
-                    lv.set_search_text ("");
-                    leaflet.set_visible_child (sgrid);
-
-                    lv.is_modified = true;
-                    tm.save_notes.begin (notestore);
-                }
+                uint pos;
+                pinotestore.find (((Widgets.PinnedNote)row2).plog, out pos);
+                pinotestore.remove (pos);
             }
         }
 
@@ -515,9 +556,10 @@ namespace Notejot {
 
             // Reset titlebar color
             ((Widgets.Note)row).update_theme("#FFF");
+            ((Widgets.PinnedNote)row2).update_theme("#FFF");
 
             if (row != null) {
-                var tlog = new Log ();
+                var tlog = new TrashLog ();
                 tlog.title = ((Widgets.Note)row).log.title;
                 tlog.subtitle = ((Widgets.Note)row).log.subtitle;
                 tlog.text = ((Widgets.Note)row).log.text;
@@ -532,22 +574,24 @@ namespace Notejot {
                 uint pos;
                 notestore.find (((Widgets.Note)row).log, out pos);
                 notestore.remove (pos);
-            } else if (row2 != null) {
-                var tlog = new Log ();
-                tlog.title = ((Widgets.Note)row2).log.title;
-                tlog.subtitle = ((Widgets.Note)row2).log.subtitle;
-                tlog.text = ((Widgets.Note)row2).log.text;
-                tlog.color = ((Widgets.Note)row2).log.color;
-                tlog.notebook = ((Widgets.Note)row2).log.notebook;
-                tlog.pinned = ((Widgets.Note)row2).log.pinned;
+            }
+
+            if (row2 != null) {
+                var tlog = new TrashLog ();
+                tlog.title = ((Widgets.PinnedNote)row2).plog.title;
+                tlog.subtitle = ((Widgets.PinnedNote)row2).plog.subtitle;
+                tlog.text = ((Widgets.PinnedNote)row2).plog.text;
+                tlog.color = ((Widgets.PinnedNote)row2).plog.color;
+                tlog.notebook = ((Widgets.PinnedNote)row2).plog.notebook;
+                tlog.pinned = ((Widgets.PinnedNote)row2).plog.pinned;
 	            trashstore.append (tlog);
 
-	            var rowd2 = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row2).uid));
+	            var rowd2 = main_stack.get_child_by_name ("textfield-pinned-%d".printf(((Widgets.PinnedNote)row2).puid));
                 main_stack.remove (rowd2);
 
                 uint pos;
-                notestore.find (((Widgets.Note)row2).log, out pos);
-                notestore.remove (pos);
+                pinotestore.find (((Widgets.PinnedNote)row2).plog, out pos);
+                pinotestore.remove (pos);
             }
 
             main_stack.set_visible_child (empty_state);
