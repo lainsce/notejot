@@ -202,20 +202,6 @@ namespace Notejot {
 
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
-
-                foreach (var row in listview.get_selected_rows ()) {
-                    if (((Widgets.Note)row).log.pinned == true) {
-                        listview.remove (row);
-                        pinlistview.append (row);
-
-                        pinlistview.select_row (row);
-                    } else {
-                        pinlistview.remove (row);
-                        listview.append (row);
-
-                        listview.select_row (row);
-                    }
-                }
             });
 
             // Trash View
@@ -261,6 +247,15 @@ namespace Notejot {
 
             tm.load_from_file.begin ();
             tm.load_from_file_nb.begin ();
+
+            foreach (var row in listview.get_selected_rows ()) {
+                if (((Widgets.Note)row).log.pinned == true) {
+                    listview.remove (row);
+                    pinlistview.append (row);
+
+                    pinlistview.select_row (row);
+                }
+            }
 
             // Preparing window to be shown
             set_default_size(

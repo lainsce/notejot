@@ -132,6 +132,8 @@ namespace Notejot {
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
+            win.listview.select_row (this);
+
             sync_subtitles.begin ();
             update_theme (log.color);
             this.set_title (log.title);
