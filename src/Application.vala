@@ -18,7 +18,7 @@
 *
 */
 namespace Notejot {
-    public class Application : Gtk.Application {
+    public class Application : Adw.Application {
         public static MainWindow win = null;
         public static Settings gsettings;
         private const GLib.ActionEntry app_entries[] = {

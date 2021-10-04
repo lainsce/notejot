@@ -121,8 +121,8 @@ namespace Notejot {
               {ACTION_ITEM, action_item},
         };
 
-        public Gtk.Application app { get; construct; }
-        public MainWindow (Gtk.Application application) {
+        public Adw.Application app { get; construct; }
+        public MainWindow (Adw.Application application) {
             GLib.Object (
                 application: application,
                 app: application,
@@ -133,7 +133,6 @@ namespace Notejot {
 
         construct {
             // Initial settings
-            Adw.init ();
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Notejot/app.css");
             Gtk.StyleContext.add_provider_for_display (Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
