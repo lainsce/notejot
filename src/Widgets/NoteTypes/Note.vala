@@ -262,47 +262,5 @@ namespace Notejot {
             }
             return first_line;
         }
-
-        public void popover_listener (Widgets.NoteMenuPopover? popover) {
-            popover.color_button_red.clicked.connect (() => {
-                update_theme("#c01c28");
-                popover.close ();
-            });
-
-            popover.color_button_orange.clicked.connect (() => {
-                update_theme("#e66100");
-                popover.close ();
-            });
-
-            popover.color_button_yellow.clicked.connect (() => {
-                update_theme("#f5c211");
-                popover.close ();
-            });
-
-            popover.color_button_green.clicked.connect (() => {
-                update_theme("#2ec27e");
-                popover.close ();
-            });
-
-            popover.color_button_blue.clicked.connect (() => {
-                update_theme("#1c71d8");
-                popover.close ();
-            });
-
-            popover.color_button_purple.clicked.connect (() => {
-                update_theme("#813d9c");
-                popover.close ();
-            });
-
-            popover.color_button_brown.clicked.connect (() => {
-                update_theme("#865e3c");
-                popover.close ();
-            });
-
-            popover.color_button_reset.clicked.connect (() => {
-                update_theme("#FFFFFF");
-                popover.close ();
-            });
-        }
     }
 }

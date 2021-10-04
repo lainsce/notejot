@@ -58,6 +58,7 @@ sources = files(
     'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/NoteMenuPopover.vala',
+    'src/Widgets/PinnedNoteMenuPopover.vala',
     'src/Widgets/TextField.vala',
     'src/Widgets/TrashNoteMenuPopover.vala',
     'src/Widgets/EditNotebookDialog.vala',
