@@ -11,6 +11,8 @@ namespace Notejot {
             win.trashview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
                 win.settingmenu.visible = true;
+                win.settingmenu.popover = null;
+                win.settingmenu.popover = win.sm.tnmpopover;
 
                 if (((Widgets.TrashedNote)selected_row) != null) {
                     ((Widgets.TrashedNote)selected_row).textfield.grab_focus ();
@@ -19,7 +21,7 @@ namespace Notejot {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-trash-$last_uid");
 
                     last_uid = ((Widgets.TrashedNote)selected_row).tuid;
-                    win.sm.controller = ((Widgets.Note)selected_row);
+                    win.sm.tcontroller = ((Widgets.TrashedNote)selected_row);
                     win.titlebar.get_style_context ().add_class (@"notejot-action-trash-$last_uid");
 
                     win.titlebar.get_style_context ().remove_class ("notejot-empty-title");

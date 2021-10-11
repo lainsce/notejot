@@ -41,7 +41,15 @@ namespace Notejot {
             notebook_listbox.set_selection_mode (Gtk.SelectionMode.SINGLE);
 
             remove_notebook_button.clicked.connect (() => {
-                win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
+                if (win.sm.controller.log != null) {
+                    win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
+                }
+                if (win.sm.pcontroller.plog != null) {
+                    win.sm.pcontroller.plog.notebook = "<i>" + _("No Notebook") + "</i>";
+                }
+                if (win.sm.tcontroller.tlog != null) {
+                    win.sm.tcontroller.tlog.notebook = "<i>" + _("No Notebook") + "</i>";
+                }
 
                 this.dispose ();
             });
@@ -64,7 +72,15 @@ namespace Notejot {
                         var im = win.notebookstore.get_item (i);
 
                         if (((Adw.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
-                            win.sm.controller.log.notebook = ((Notebook)im).title;
+                            if (win.sm.controller.log != null) {
+                                win.sm.controller.log.notebook = ((Notebook)im).title;
+                            }
+                            if (win.sm.pcontroller.plog != null) {
+                                win.sm.pcontroller.plog.notebook = ((Notebook)im).title;
+                            }
+                            if (win.sm.tcontroller.tlog != null) {
+                                win.sm.tcontroller.tlog.notebook = ((Notebook)im).title;
+                            }
                         }
                     }
                     this.dispose ();

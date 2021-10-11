@@ -45,6 +45,7 @@ namespace Notejot {
             this.set_title_lines (1);
             this.set_subtitle_lines (1);
 
+            win.settingmenu.popover = null;
             win.settingmenu.popover = win.sm.tnmpopover;
 
             // Icon intentionally null so it becomes a badge instead.
@@ -77,7 +78,6 @@ namespace Notejot {
             });
             Timeout.add(50, () => {
                 set_title (titleentry.get_text ());
-                win.tm.save_trash_notes.begin (win.trashstore);
                 return true;
             });
 
@@ -136,7 +136,7 @@ namespace Notejot {
             win.main_stack.add_named (note_grid, "textfield-trash-%d".printf(tuid));
             note_grid.get_style_context ().add_class ("notejot-stack-trash-%d".printf(tuid));
 
-            win.listview.select_row (this);
+            win.trashview.select_row (this);
 
             sync_subtitles.begin ();
             update_theme (tlog.color);
@@ -162,7 +162,7 @@ namespace Notejot {
         }
 
         public void set_notebook () {
-            if (log != null) {
+            if (tlog != null) {
                 notebooklabel.set_label (tlog.notebook);
             } else {
                 notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");

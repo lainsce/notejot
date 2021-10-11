@@ -3,6 +3,7 @@ namespace Notejot {
         public MainWindow win;
         public new unowned Gtk.TextBuffer buffer;
         public Widgets.Note controller;
+        public Widgets.PinnedNote pcontroller;
         private uint update_idle_source = 0;
 
         private Gtk.TextTag bold_font;
@@ -77,9 +78,12 @@ namespace Notejot {
             Gtk.TextIter B;
             buffer.get_bounds (out A, out B);
             var val = buffer.get_text (A, B, true);
-            controller.log.text = val;
-
-            win.tm.save_notes.begin (win.notestore);
+            if (controller != null)
+                controller.log.text = val;
+                win.tm.save_notes.begin (win.notestore);
+            if (pcontroller != null)
+                pcontroller.plog.text = val;
+                win.tm.save_pinned_notes.begin (win.pinotestore);
         }
 
         private void set_font_stylesheet () {

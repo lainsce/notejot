@@ -45,6 +45,7 @@ namespace Notejot {
             this.set_title_lines (1);
             this.set_subtitle_lines (1);
 
+            win.settingmenu.popover = null;
             win.settingmenu.popover = win.sm.pnmpopover;
 
             // Icon intentionally null so it becomes a badge instead.
@@ -77,7 +78,6 @@ namespace Notejot {
             });
             Timeout.add(50, () => {
                 set_title (titleentry.get_text ());
-                win.tm.save_pinned_notes.begin (win.pinotestore);
                 return true;
             });
 
@@ -121,7 +121,7 @@ namespace Notejot {
             Gtk.TextIter A, B;
             textfield.get_buffer ().get_bounds (out A, out B);
             textfield.get_buffer ().insert_markup(ref A, plog.text, -1);
-            textfield.controller = ((Widgets.Note)this);
+            textfield.pcontroller = this;
             textfield.get_style_context ().add_class ("notejot-tview-pin-%d".printf(puid));
 
             formatbar = new Widgets.FormatBar ();
@@ -134,7 +134,7 @@ namespace Notejot {
             win.main_stack.add_named (note_grid, "textfield-pin-%d".printf(puid));
             note_grid.get_style_context ().add_class ("notejot-stack-pin-%d".printf(puid));
 
-            win.listview.select_row (this);
+            win.pinlistview.select_row (this);
 
             sync_subtitles.begin ();
             update_theme (plog.color);
@@ -160,7 +160,7 @@ namespace Notejot {
         }
 
         public void set_notebook () {
-            if (log != null) {
+            if (plog != null) {
                 notebooklabel.set_label (plog.notebook);
             } else {
                 notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
@@ -210,7 +210,7 @@ namespace Notejot {
             );
 
             plog.color = color;
-            win.tm.save_notes.begin (win.notestore);
+            win.tm.save_pinned_notes.begin (win.pinotestore);
         }
 
         public async void sync_subtitles () {

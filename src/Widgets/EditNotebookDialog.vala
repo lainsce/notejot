@@ -93,6 +93,26 @@ namespace Notejot {
                                 win.tm.save_notes.begin (win.notestore);
                             }
                         }
+
+                        uint i3, n3 = win.pinotestore.get_n_items ();
+                        for (i3 = 0; i3 < n3; i3++) {
+                            var item3 = win.pinotestore.get_item (i3);
+
+                            if (actionrow.get_title () == ((PinnedLog)item3).notebook) {
+                                ((PinnedLog)item3).notebook = "<i>" + _("No Notebook") + "</i>";
+                                win.tm.save_pinned_notes.begin (win.pinotestore);
+                            }
+                        }
+
+                        uint i4, n4 = win.trashstore.get_n_items ();
+                        for (i4 = 0; i4 < n4; i4++) {
+                            var item4 = win.trashstore.get_item (i4);
+
+                            if (actionrow.get_title () == ((TrashLog)item4).notebook) {
+                                ((TrashLog)item4).notebook = "<i>" + _("No Notebook") + "</i>";
+                                win.tm.save_pinned_notes.begin (win.trashstore);
+                            }
+                        }
                     }
                 }
             });

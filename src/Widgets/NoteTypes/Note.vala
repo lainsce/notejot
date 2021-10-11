@@ -45,6 +45,7 @@ namespace Notejot {
             this.set_title_lines (1);
             this.set_subtitle_lines (1);
 
+            win.settingmenu.popover = null;
             win.settingmenu.popover = win.sm.nmpopover;
 
             // Icon intentionally null so it becomes a badge instead.
@@ -77,7 +78,6 @@ namespace Notejot {
             });
             Timeout.add(50, () => {
                 set_title (titleentry.get_text ());
-                win.tm.save_notes.begin (win.notestore);
                 return true;
             });
 

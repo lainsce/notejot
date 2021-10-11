@@ -2,6 +2,8 @@ namespace Notejot {
     public class Widgets.SettingMenu : Object {
         private MainWindow win;
         public Widgets.Note controller;
+        public Widgets.PinnedNote pcontroller;
+        public Widgets.TrashedNote tcontroller;
         public Widgets.NoteMenuPopover nmpopover;
         public Widgets.PinnedNoteMenuPopover pnmpopover;
         public Widgets.TrashNoteMenuPopover tnmpopover;
@@ -52,42 +54,42 @@ namespace Notejot {
 
             pnmpopover = new Widgets.PinnedNoteMenuPopover ();
             pnmpopover.color_button_red.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#c01c28");
+                pcontroller.update_theme("#c01c28");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_orange.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#e66100");
+                pcontroller.update_theme("#e66100");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_yellow.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#f5c211");
+                pcontroller.update_theme("#f5c211");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_green.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#2ec27e");
+                pcontroller.update_theme("#2ec27e");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_blue.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#1c71d8");
+                pcontroller.update_theme("#1c71d8");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_purple.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#813d9c");
+                pcontroller.update_theme("#813d9c");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_brown.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#865e3c");
+                pcontroller.update_theme("#865e3c");
                 pnmpopover.close ();
             });
 
             pnmpopover.color_button_reset.clicked.connect (() => {
-                ((Widgets.PinnedNote)controller).update_theme("#ffffff");
+                pcontroller.update_theme("#ffffff");
                 pnmpopover.close ();
             });
 
