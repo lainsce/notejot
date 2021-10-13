@@ -23,7 +23,6 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
-        public bool pinned { get; set; }
     }
 
     public class Widgets.TrashedNote : Adw.ActionRow {
@@ -136,8 +135,6 @@ namespace Notejot {
             win.main_stack.add_named (note_grid, "textfield-trash-%d".printf(tuid));
             note_grid.get_style_context ().add_class ("notejot-stack-trash-%d".printf(tuid));
 
-            win.trashview.select_row (this);
-
             sync_subtitles.begin ();
             update_theme (tlog.color);
             this.set_title (tlog.title);
@@ -180,7 +177,6 @@ namespace Notejot {
             }
             .notejot-action-trash-%d {
                 background: mix(@theme_bg_color, %s, 0.06);
-                border-bottom: 1px solid @borders;
             }
             .nw-titlebox-trash-%d {
                 background: mix(@theme_base_color, %s, 0.06);

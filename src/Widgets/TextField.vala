@@ -48,7 +48,10 @@ namespace Notejot {
 
             Notejot.Application.gsettings.changed.connect (() => {
                 set_font_stylesheet ();
-                win.tm.save_notes.begin (win.notestore);
+                if (controller != null)
+                    win.tm.save_notes.begin (win.notestore);
+                if (pcontroller != null)
+                    win.tm.save_pinned_notes.begin (win.pinotestore);
             });
 
             Timeout.add_seconds (3, () => {

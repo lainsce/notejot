@@ -196,16 +196,11 @@ namespace Notejot {
             // List View
             lv = new Views.ListView (this);
             listview.bind_model (notestore, item => make_item (this, item));
-            pinlistview.bind_model (pinotestore, pitem => make_pinned_item (this, pitem));
-
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
             });
 
-            notestore.sort ((a, b) => {
-                return ((Log) a).subtitle.collate (((Log) b).subtitle);
-            });
-
+            pinlistview.bind_model (pinotestore, pitem => make_pinned_item (this, pitem));
             pinotestore.items_changed.connect (() => {
                 tm.save_pinned_notes.begin (pinotestore);
             });
@@ -251,11 +246,6 @@ namespace Notejot {
                 }
             });
 
-            tm.load_from_file.begin ();
-            tm.load_from_file_pinned.begin ();
-            tm.load_from_file_trash.begin ();
-            tm.load_from_file_nb.begin ();
-
             // Preparing window to be shown
             set_default_size(
                 Application.gsettings.get_int ("window-w"),
@@ -266,6 +256,8 @@ namespace Notejot {
                 maximize ();
 
             this.show ();
+
+            load_all_notes ();
         }
 
         protected override bool close_request () {
@@ -283,18 +275,24 @@ namespace Notejot {
         }
 
         // IO?
+        public void load_all_notes () {
+            tm.load_from_file_pinned.begin ();
+            tm.load_from_file_trash.begin ();
+            tm.load_from_file_notes.begin ();
+            tm.load_from_file_nb.begin ();
+        }
+
         public Widgets.Note make_item (MainWindow win, GLib.Object item) {
             lv.is_modified = true;
             return new Widgets.Note (this, (Log) item);
         }
 
-        public void make_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
+        public void make_note (string title, string subtitle, string text, string color, string notebook) {
             var log = new Log ();
             log.title = title;
             log.subtitle = subtitle;
             log.text = text;
             log.color = color;
-            log.pinned = pinned;
             log.notebook = notebook;
             lv.is_modified = true;
 
@@ -306,13 +304,12 @@ namespace Notejot {
             return new Widgets.PinnedNote (this, (PinnedLog) pitem);
         }
 
-        public void make_pinned_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
+        public void make_pinned_note (string title, string subtitle, string text, string color, string notebook) {
             var plog = new PinnedLog ();
             plog.title = title;
             plog.subtitle = subtitle;
             plog.text = text;
             plog.color = color;
-            plog.pinned = pinned;
             plog.notebook = notebook;
             lv.is_modified = true;
 
@@ -324,13 +321,12 @@ namespace Notejot {
             return new Widgets.TrashedNote (this, (TrashLog) titem);
         }
 
-        public void make_trash_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
+        public void make_trash_note (string title, string subtitle, string text, string color, string notebook) {
             var tlog = new TrashLog ();
             tlog.title = title;
             tlog.subtitle = subtitle;
             tlog.text = text;
             tlog.color = color;
-            tlog.pinned = pinned;
             tlog.notebook = notebook;
             tv.is_modified = true;
 
@@ -354,7 +350,6 @@ namespace Notejot {
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = _("This is a text example.");
             log.color = "#fff";
-            log.pinned = false;
             log.notebook = "<i>" + _("No Notebook") + "</i>";
 
             lv.is_modified = true;
@@ -510,7 +505,6 @@ namespace Notejot {
                 tlog.text = ((Widgets.Note)row).log.text;
                 tlog.color = ((Widgets.Note)row).log.color;
                 tlog.notebook = ((Widgets.Note)row).log.notebook;
-                tlog.pinned = true;
 	            pinotestore.append (tlog);
 
 	            var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
@@ -528,7 +522,6 @@ namespace Notejot {
                 log.text = ((Widgets.PinnedNote)row2).plog.text;
                 log.color = ((Widgets.PinnedNote)row2).plog.color;
                 log.notebook = ((Widgets.PinnedNote)row2).plog.notebook;
-                log.pinned = false;
 	            notestore.append (log);
 
 	            var rowd2 = main_stack.get_child_by_name ("textfield-pinned-%d".printf(((Widgets.PinnedNote)row2).puid));
@@ -560,7 +553,6 @@ namespace Notejot {
                 tlog.text = ((Widgets.Note)row).log.text;
                 tlog.color = ((Widgets.Note)row).log.color;
                 tlog.notebook = ((Widgets.Note)row).log.notebook;
-                tlog.pinned = ((Widgets.Note)row).log.pinned;
 	            trashstore.append (tlog);
 
 	            var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
@@ -578,7 +570,6 @@ namespace Notejot {
                 tlog.text = ((Widgets.PinnedNote)row2).plog.text;
                 tlog.color = ((Widgets.PinnedNote)row2).plog.color;
                 tlog.notebook = ((Widgets.PinnedNote)row2).plog.notebook;
-                tlog.pinned = ((Widgets.PinnedNote)row2).plog.pinned;
 	            trashstore.append (tlog);
 
 	            var rowd2 = main_stack.get_child_by_name ("textfield-pinned-%d".printf(((Widgets.PinnedNote)row2).puid));
@@ -613,7 +604,6 @@ namespace Notejot {
                 log.text = ((Widgets.TrashedNote)row).tlog.text;
                 log.color = ((Widgets.TrashedNote)row).tlog.color;
                 log.notebook = ((Widgets.TrashedNote)row).tlog.notebook;
-                log.pinned = ((Widgets.TrashedNote)row).tlog.pinned;
 	            notestore.append (log);
 
 	            var rowd = main_stack.get_child_by_name ("textfield-trash-%d".printf(((Widgets.TrashedNote)row).tuid));

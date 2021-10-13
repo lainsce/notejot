@@ -42,6 +42,9 @@ namespace Notejot {
                 }
             });
 
+            win.pinlistview.set_filter_func (do_filter_list);
+            win.pinlistview.set_filter_func (do_filter_list_notebook);
+
             win.pinlistview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
                 win.settingmenu.visible = true;

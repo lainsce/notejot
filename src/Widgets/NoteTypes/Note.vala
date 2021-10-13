@@ -23,7 +23,6 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
-        public bool pinned { get; set; }
     }
 
     public class Widgets.Note : Adw.ActionRow {
@@ -134,8 +133,6 @@ namespace Notejot {
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
-            win.listview.select_row (this);
-
             sync_subtitles.begin ();
             update_theme (log.color);
             this.set_title (log.title);
@@ -178,7 +175,6 @@ namespace Notejot {
             }
             .notejot-action-%d {
                 background: mix(@theme_bg_color, %s, 0.06);
-                border-bottom: 1px solid @borders;
             }
             .nw-titlebox-%d {
                 background: mix(@theme_base_color, %s, 0.06);

@@ -23,7 +23,6 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
-        public bool pinned { get; set; }
     }
 
     public class Widgets.PinnedNote : Adw.ActionRow {
@@ -134,8 +133,6 @@ namespace Notejot {
             win.main_stack.add_named (note_grid, "textfield-pin-%d".printf(puid));
             note_grid.get_style_context ().add_class ("notejot-stack-pin-%d".printf(puid));
 
-            win.pinlistview.select_row (this);
-
             sync_subtitles.begin ();
             update_theme (plog.color);
             this.set_title (plog.title);
@@ -178,7 +175,6 @@ namespace Notejot {
             }
             .notejot-action-pin-%d {
                 background: mix(@theme_bg_color, %s, 0.06);
-                border-bottom: 1px solid @borders;
             }
             .nw-titlebox-pin-%d {
                 background: mix(@theme_base_color, %s, 0.06);
