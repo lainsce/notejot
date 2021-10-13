@@ -24,7 +24,7 @@
             <object class="GtkButton" id="pin_button">
               <property name="hexpand">1</property>
               <property name="action-name">win.action_pin_note</property>
-              <property name="label">Unpin Note</property>
+              <property name="label" translatable="yes">Unpin Note</property>
               <style>
                 <class name="flat-button"/>
               </style>
