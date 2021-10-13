@@ -199,6 +199,9 @@ namespace Notejot {
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
             });
+            notestore.sort ((a, b) => {
+                return ((Log) a).subtitle.collate (((Log) b).subtitle);
+            });
 
             pinlistview.bind_model (pinotestore, pitem => make_pinned_item (this, pitem));
             pinotestore.items_changed.connect (() => {

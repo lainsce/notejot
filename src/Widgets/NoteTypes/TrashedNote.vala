@@ -32,6 +32,7 @@ namespace Notejot {
         public int tuid;
         private Gtk.CssProvider css_provider;
         private Gtk.Label notebooklabel;
+        private Gtk.Label subtitlelabel;
 
         public unowned TrashLog tlog { get; construct; }
         public unowned MainWindow win { get; construct; }
@@ -85,7 +86,7 @@ namespace Notejot {
             notebookbox.set_margin_start (30);
             notebookbox.set_margin_end (30);
 
-            var subtitlelabel = new Gtk.Label (tlog.subtitle);
+            subtitlelabel = new Gtk.Label ("");
             subtitlelabel.set_margin_end (12);
             subtitlelabel.get_style_context ().add_class ("dim-label");
 
@@ -166,6 +167,15 @@ namespace Notejot {
             }
         }
 
+        public void set_subtitle_label () {
+            var dt = new GLib.DateTime.now_local ();
+            if (tlog != null) {
+                subtitlelabel.set_label (tlog.subtitle);
+            } else {
+                subtitlelabel.set_label ("%s".printf (dt.format ("%A, %d/%m %H∶%M")));
+            }
+        }
+
         public void update_theme(string? color) {
             css_provider = new Gtk.CssProvider();
             string style = null;
@@ -233,7 +243,8 @@ namespace Notejot {
                                                                                    .replace("*", "")
                                                                                    .replace("~", "")));
                             set_notebook ();
-                            return true;
+                            set_subtitle_label ();
+                            return false;
                         });
                     }
                 }

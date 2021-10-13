@@ -81,11 +81,20 @@ namespace Notejot {
             Gtk.TextIter B;
             buffer.get_bounds (out A, out B);
             var val = buffer.get_text (A, B, true);
+            var dt = new GLib.DateTime.now_local ();
             if (controller != null)
                 controller.log.text = val;
+                if (controller.log == ((Widgets.Note)win.listview.get_selected_row()).log) {
+                    controller.log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
+                    controller.sync_subtitles.begin ();
+                }
                 win.tm.save_notes.begin (win.notestore);
             if (pcontroller != null)
                 pcontroller.plog.text = val;
+                if (pcontroller.plog == ((Widgets.PinnedNote)win.pinlistview.get_selected_row()).plog) {
+                    pcontroller.plog.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
+                    pcontroller.sync_subtitles.begin ();
+                }
                 win.tm.save_pinned_notes.begin (win.pinotestore);
         }
 
