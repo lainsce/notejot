@@ -44,8 +44,9 @@
     <releases>
         <release version="3.2.0" date="2021-10-13">
             <description>
-                <p>Release: Editable Notebooks</p>
+                <p>Release: Pinned Notes</p>
                 <ul>
+                    <li>Added: Notes can now be pinned and are shown separately from others.</li>
                     <li>Added: Note title styling from older versions is back.</li>
                     <li>Added: Note searchbar is now always visible.</li>
                 </ul>
