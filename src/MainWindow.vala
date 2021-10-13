@@ -513,6 +513,7 @@ namespace Notejot {
                 uint pos;
                 notestore.find (((Widgets.Note)row).log, out pos);
                 notestore.remove (pos);
+                main_stack.set_visible_child (empty_state);
             }
 
             if (row2 != null) {
@@ -530,6 +531,7 @@ namespace Notejot {
                 uint pos;
                 pinotestore.find (((Widgets.PinnedNote)row2).plog, out pos);
                 pinotestore.remove (pos);
+                main_stack.set_visible_child (empty_state);
             }
         }
 
