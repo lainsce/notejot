@@ -39,7 +39,6 @@ namespace Notejot {
             debug ("Load Normal Notes...");
             try {
                 var file = File.new_for_path(file_name_n);
-
                 if (file.query_exists()) {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
@@ -70,6 +69,10 @@ namespace Notejot {
 
             builder.begin_array ();
 	        uint i, n = liststore.get_n_items ();
+
+	        if (n == 0)
+	            return;
+
             for (i = 0; i < n; i++) {
                 builder.begin_array ();
                 var item = liststore.get_item (i);
@@ -107,7 +110,6 @@ namespace Notejot {
             debug ("Load Pinned Notes...");
             try {
                 var file = File.new_for_path(file_name_p);
-
                 if (file.query_exists()) {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
@@ -137,6 +139,10 @@ namespace Notejot {
 
             builder.begin_array ();
 	        uint i, n = liststore.get_n_items ();
+
+	        if (n == 0)
+	            return;
+
             for (i = 0; i < n; i++) {
                 builder.begin_array ();
                 var item = liststore.get_item (i);
@@ -203,6 +209,10 @@ namespace Notejot {
 
             builder.begin_array ();
 	        uint i, n = liststore.get_n_items ();
+
+	        if (n == 0)
+	            return;
+
             for (i = 0; i < n; i++) {
                 builder.begin_array ();
                 var item = liststore.get_item (i);
