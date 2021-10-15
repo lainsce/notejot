@@ -63,10 +63,17 @@
 }
 
 .circular {
-  box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.4);
+  margin: 0px;
+  padding: 0px;
 }
 
-.circular:hover {
+.circular radio {
+  box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.4);
+  padding: 16px;
+  margin: 0px;
+}
+
+.circular radio:hover {
   box-shadow: inset 0 0 3px 0 alpha(@theme_fg_color, 0.8);
 }
 
@@ -92,29 +99,37 @@
   border-bottom: 1px solid @borders;
 }
 
-.color-red {
+.color-red radio {
   background: #db898e;
+  color: #db898e;
 }
-.color-orange {
+.color-orange radio {
   background: #eeab7a;
+  color: #eeab7a;
 }
-.color-yellow {
+.color-yellow radio {
   background: #f6dc83;
+  color: #f6dc83;
 }
-.color-green {
+.color-green radio {
   background: #92dcb9;
+  color: #92dcb9;
 }
-.color-blue {
+.color-blue radio {
   background: #89b3e6;
+  color: #89b3e6;
 }
-.color-purple {
+.color-purple radio {
   background: #bc99c8;
+  color: #bc99c8;
 }
-.color-brown {
+.color-brown radio {
   background: #beaa98;
+  color: #beaa98;
 }
-.color-reset {
-  background: #f6f5f4;
+.color-reset radio {
+  background: #fafafa;
+  color: #fafafa;
 }
 
 .notejot-sidebar-box {
@@ -125,21 +140,11 @@
   transition: 100ms ease-in-out;
 }
 
-.notejot-sidebar-box:backdrop {
-  opacity: 0.66;
-}
-
 .notejot-sidebar-box:active,
 .notejot-sidebar-box:selected,
 .notejot-sidebar-box:hover  {
   background: alpha(@theme_fg_color, 0.1);
   color: @theme_fg_color;
-}
-
-.notejot-sidebar-box:active:backdrop,
-.notejot-sidebar-box:selected:backdrop,
-.notejot-sidebar-box:hover:backdrop  {
-  opacity: 0.66;
 }
 
 .notejot-bar {
@@ -149,6 +154,10 @@
 
 .notejot-sbar {
   background: @theme_bg_color;
+}
+
+.notejot-theme-grid {
+  margin: 6px;
 }
 
 .empty-state {

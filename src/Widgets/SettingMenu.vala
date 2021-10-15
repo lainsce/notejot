@@ -4,93 +4,68 @@ namespace Notejot {
         public Widgets.Note controller;
         public Widgets.PinnedNote pcontroller;
         public Widgets.TrashedNote tcontroller;
-        public Widgets.NoteMenuPopover nmpopover;
-        public Widgets.PinnedNoteMenuPopover pnmpopover;
         public Widgets.TrashNoteMenuPopover tnmpopover;
+        public Widgets.NoteTheme nmp;
 
         public SettingMenu (MainWindow win) {
             this.win = win;
-            nmpopover = new Widgets.NoteMenuPopover ();
 
-            nmpopover.color_button_red.clicked.connect (() => {
-                controller.update_theme("#c01c28");
-                nmpopover.close ();
+            nmp = new Widgets.NoteTheme ();
+
+            nmp.color_button_red.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#c01c28");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#c01c28");
             });
 
-            nmpopover.color_button_orange.clicked.connect (() => {
-                controller.update_theme("#e66100");
-                nmpopover.close ();
+            nmp.color_button_orange.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#e66100");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#e66100");
             });
 
-            nmpopover.color_button_yellow.clicked.connect (() => {
-                controller.update_theme("#f5c211");
-                nmpopover.close ();
+            nmp.color_button_yellow.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#f5c211");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#f5c211");
             });
 
-            nmpopover.color_button_green.clicked.connect (() => {
-                controller.update_theme("#2ec27e");
-                nmpopover.close ();
+            nmp.color_button_green.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#2ec27e");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#2ec27e");
             });
 
-            nmpopover.color_button_blue.clicked.connect (() => {
-                controller.update_theme("#1c71d8");
-                nmpopover.close ();
+            nmp.color_button_blue.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#1c71d8");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#1c71d8");
             });
 
-            nmpopover.color_button_purple.clicked.connect (() => {
-                controller.update_theme("#813d9c");
-                nmpopover.close ();
+            nmp.color_button_purple.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#813d9c");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#813d9c");
             });
 
-            nmpopover.color_button_brown.clicked.connect (() => {
-                controller.update_theme("#865e3c");
-                nmpopover.close ();
+            nmp.color_button_brown.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#865e3c");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#865e3c");
             });
 
-            nmpopover.color_button_reset.clicked.connect (() => {
-                controller.update_theme("#ffffff");
-                nmpopover.close ();
-            });
-
-            pnmpopover = new Widgets.PinnedNoteMenuPopover ();
-            pnmpopover.color_button_red.clicked.connect (() => {
-                pcontroller.update_theme("#c01c28");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_orange.clicked.connect (() => {
-                pcontroller.update_theme("#e66100");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_yellow.clicked.connect (() => {
-                pcontroller.update_theme("#f5c211");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_green.clicked.connect (() => {
-                pcontroller.update_theme("#2ec27e");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_blue.clicked.connect (() => {
-                pcontroller.update_theme("#1c71d8");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_purple.clicked.connect (() => {
-                pcontroller.update_theme("#813d9c");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_brown.clicked.connect (() => {
-                pcontroller.update_theme("#865e3c");
-                pnmpopover.close ();
-            });
-
-            pnmpopover.color_button_reset.clicked.connect (() => {
-                pcontroller.update_theme("#ffffff");
-                pnmpopover.close ();
+            nmp.color_button_reset.toggled.connect (() => {
+                if (controller != null)
+                    controller.update_theme("#ffffff");
+                if (pcontroller != null)
+                    pcontroller.update_theme("#ffffff");
             });
 
             tnmpopover = new Widgets.TrashNoteMenuPopover ();

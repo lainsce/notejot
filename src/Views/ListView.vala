@@ -22,8 +22,7 @@ namespace Notejot {
                 if (((Widgets.Note)selected_row) != null) {
                     ((Widgets.Note)selected_row).textfield.grab_focus ();
                     ((Widgets.Note)selected_row).select_item ();
-                    win.settingmenu.popover = null;
-                    win.settingmenu.popover = win.sm.nmpopover;
+
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
                     foreach (var row in win.pinlistview.get_selected_rows ()) {
@@ -52,8 +51,6 @@ namespace Notejot {
                 if (((Widgets.PinnedNote)selected_row) != null) {
                     ((Widgets.PinnedNote)selected_row).textfield.grab_focus ();
                     ((Widgets.PinnedNote)selected_row).select_item ();
-                    win.settingmenu.popover = null;
-                    win.settingmenu.popover = win.sm.pnmpopover;
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-pin-$last_uid");
 
                     foreach (var row in win.listview.get_selected_rows ()) {

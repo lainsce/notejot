@@ -17,29 +17,23 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Notejot {
-    [GtkTemplate (ui = "/io/github/lainsce/Notejot/pinned_note_menu.ui")]
-    public class Widgets.PinnedNoteMenuPopover : Gtk.Popover {
+    [GtkTemplate (ui = "/io/github/lainsce/Notejot/note_theme.ui")]
+    public class Widgets.NoteTheme : Gtk.Grid {
         [GtkChild]
-        public unowned Gtk.Button delete_note_button;
+        public unowned Gtk.CheckButton color_button_red;
         [GtkChild]
-        public unowned Gtk.Button color_button_red;
+        public unowned Gtk.CheckButton color_button_orange;
         [GtkChild]
-        public unowned Gtk.Button color_button_orange;
+        public unowned Gtk.CheckButton color_button_yellow;
         [GtkChild]
-        public unowned Gtk.Button color_button_yellow;
+        public unowned Gtk.CheckButton color_button_green;
         [GtkChild]
-        public unowned Gtk.Button color_button_green;
+        public unowned Gtk.CheckButton color_button_blue;
         [GtkChild]
-        public unowned Gtk.Button color_button_blue;
+        public unowned Gtk.CheckButton color_button_purple;
         [GtkChild]
-        public unowned Gtk.Button color_button_purple;
+        public unowned Gtk.CheckButton color_button_brown;
         [GtkChild]
-        public unowned Gtk.Button color_button_brown;
-        [GtkChild]
-        public unowned Gtk.Button color_button_reset;
-
-        public void close () {
-            this.hide();
-        }
+        public unowned Gtk.CheckButton color_button_reset;
     }
 }

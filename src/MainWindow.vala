@@ -228,6 +228,14 @@ namespace Notejot {
 
             stitlebar.set_title_widget (hbb);
 
+            var sbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/note_menu.ui");
+            var smenu = (Menu)sbuilder.get_object ("smenu");
+
+            settingmenu.menu_model = smenu;
+
+            var popover = settingmenu.get_popover ();
+            popover.add_child (sbuilder, sm.nmp, "theme");
+
             note_search.notify["text"].connect (() => {
                lv.set_search_text (note_search.get_text ());
             });
@@ -419,6 +427,14 @@ namespace Notejot {
                 listview.unselect_row(listview.get_selected_row ());
             }
             settingmenu.visible = false;
+
+            var sbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/note_menu.ui");
+            var smenu = (Menu)sbuilder.get_object ("smenu");
+
+            settingmenu.menu_model = smenu;
+
+            var popover = settingmenu.get_popover ();
+            popover.add_child (sbuilder, sm.nmp, "theme");
             lv.set_selected_notebook ("");
         }
 
@@ -489,7 +505,6 @@ namespace Notejot {
         public void action_move_to () {
             var move_to_dialog = new Widgets.MoveToDialog (this);
             move_to_dialog.show ();
-            sm.nmpopover.close ();
         }
 
         public void action_pin_note () {
