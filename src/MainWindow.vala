@@ -332,7 +332,7 @@ namespace Notejot {
             log.title = _("New Note ") + (@"$uid");
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = _("This is a text example.");
-            log.color = "#fff";
+            log.color = "#ebebeb";
             log.notebook = "<i>" + _("No Notebook") + "</i>";
             log.pinned = false;
 
@@ -510,7 +510,7 @@ namespace Notejot {
             row = listview.get_selected_row ();
 
             // Reset titlebar color
-            ((Widgets.Note)row).update_theme("#FFF");
+            ((Widgets.Note)row).update_theme("#ebebeb");
 
             if (row != null) {
                 var tlog = new TrashLog ();

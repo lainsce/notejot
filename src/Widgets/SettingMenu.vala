@@ -48,7 +48,7 @@ namespace Notejot {
 
             nmp.color_button_reset.toggled.connect (() => {
                 if (controller != null)
-                    controller.update_theme("#fafafa");
+                    controller.update_theme("#ebebeb");
             });
 
             tnmpopover = new Widgets.TrashNoteMenuPopover ();
