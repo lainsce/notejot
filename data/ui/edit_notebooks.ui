@@ -12,9 +12,6 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar">
-            <style>
-              <class name="flat"/>
-            </style>
           </object>
         </child>
         <child>

@@ -6,9 +6,6 @@
       <object class="GtkMenuButton" id="menu">
         <property name="hexpand">1</property>
         <property name="label" bind-source="NotejotWidgetsHeaderBarButton" bind-property="title" bind-flags="sync-create"/>
-        <style>
-          <class name="rename-button"/>
-        </style>
       </object>
     </child>
   </template>

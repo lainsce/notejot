@@ -45,8 +45,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Box trash_scroller;
         [GtkChild]
-        public unowned Gtk.ListBox pinlistview;
-        [GtkChild]
         public unowned Gtk.ListBox listview;
         [GtkChild]
         public unowned Gtk.ListBox trashview;
@@ -71,7 +69,6 @@ namespace Notejot {
         int uid = 0;
         public Gtk.Settings gtk_settings;
 
-        public GLib.ListStore pinotestore;
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
@@ -190,7 +187,6 @@ namespace Notejot {
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
             notestore = new GLib.ListStore (typeof (Log));
-            pinotestore = new GLib.ListStore (typeof (PinnedLog));
             trashstore = new GLib.ListStore (typeof (TrashLog));
 
             // List View
@@ -198,14 +194,6 @@ namespace Notejot {
             listview.bind_model (notestore, item => make_item (this, item));
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
-            });
-            notestore.sort ((a, b) => {
-                return ((Log) a).subtitle.collate (((Log) b).subtitle);
-            });
-
-            pinlistview.bind_model (pinotestore, pitem => make_pinned_item (this, pitem));
-            pinotestore.items_changed.connect (() => {
-                tm.save_pinned_notes.begin (pinotestore);
             });
 
             // Trash View
@@ -287,7 +275,6 @@ namespace Notejot {
 
         // IO?
         public void load_all_notes () {
-            tm.load_from_file_pinned.begin ();
             tm.load_from_file_trash.begin ();
             tm.load_from_file_notes.begin ();
             tm.load_from_file_nb.begin ();
@@ -298,33 +285,18 @@ namespace Notejot {
             return new Widgets.Note (this, (Log) item);
         }
 
-        public void make_note (string title, string subtitle, string text, string color, string notebook) {
+        public void make_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
             var log = new Log ();
             log.title = title;
             log.subtitle = subtitle;
             log.text = text;
             log.color = color;
             log.notebook = notebook;
+            log.pinned = pinned;
+
             lv.is_modified = true;
 
             notestore.append(log);
-        }
-
-        public Widgets.PinnedNote make_pinned_item (MainWindow win, GLib.Object pitem) {
-            lv.is_modified = true;
-            return new Widgets.PinnedNote (this, (PinnedLog) pitem);
-        }
-
-        public void make_pinned_note (string title, string subtitle, string text, string color, string notebook) {
-            var plog = new PinnedLog ();
-            plog.title = title;
-            plog.subtitle = subtitle;
-            plog.text = text;
-            plog.color = color;
-            plog.notebook = notebook;
-            lv.is_modified = true;
-
-            pinotestore.append(plog);
         }
 
         public Widgets.TrashedNote make_trash_item (MainWindow win, GLib.Object titem) {
@@ -362,6 +334,7 @@ namespace Notejot {
             log.text = _("This is a text example.");
             log.color = "#fff";
             log.notebook = "<i>" + _("No Notebook") + "</i>";
+            log.pinned = false;
 
             lv.is_modified = true;
 
@@ -508,48 +481,26 @@ namespace Notejot {
         }
 
         public void action_pin_note () {
-            Gtk.ListBoxRow row;
-
-            row = listview.get_selected_row ();
-
-            Gtk.ListBoxRow row2;
-
-            row2 = pinlistview.get_selected_row ();
+            Gtk.ListBoxRow row = listview.get_selected_row ();
 
             if (row != null) {
-                var tlog = new PinnedLog ();
-                tlog.title = ((Widgets.Note)row).log.title;
-                tlog.subtitle = ((Widgets.Note)row).log.subtitle;
-                tlog.text = ((Widgets.Note)row).log.text;
-                tlog.color = ((Widgets.Note)row).log.color;
-                tlog.notebook = ((Widgets.Note)row).log.notebook;
-	            pinotestore.append (tlog);
+                if (!((Widgets.Note)row).log.pinned) {
+                    ((Widgets.Note)row).log.pinned = true;
+	                ((Widgets.Note)row).add_suffix (((Widgets.Note)row).picon);
 
-	            var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
-                main_stack.remove (rowd);
+                    main_stack.set_visible_child (empty_state);
+                    uint lvu = lv.last_uid;
+                    titlebar.get_style_context ().add_class ("notejot-empty-title");
+                    titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
+                } else {
+                    ((Widgets.Note)row).log.pinned = false;
+	                ((Widgets.Note)row).remove (((Widgets.Note)row).picon);
 
-                uint pos;
-                notestore.find (((Widgets.Note)row).log, out pos);
-                notestore.remove (pos);
-                main_stack.set_visible_child (empty_state);
-            }
-
-            if (row2 != null) {
-                var log = new Log ();
-                log.title = ((Widgets.PinnedNote)row2).plog.title;
-                log.subtitle = ((Widgets.PinnedNote)row2).plog.subtitle;
-                log.text = ((Widgets.PinnedNote)row2).plog.text;
-                log.color = ((Widgets.PinnedNote)row2).plog.color;
-                log.notebook = ((Widgets.PinnedNote)row2).plog.notebook;
-	            notestore.append (log);
-
-	            var rowd2 = main_stack.get_child_by_name ("textfield-pinned-%d".printf(((Widgets.PinnedNote)row2).puid));
-                main_stack.remove (rowd2);
-
-                uint pos;
-                pinotestore.find (((Widgets.PinnedNote)row2).plog, out pos);
-                pinotestore.remove (pos);
-                main_stack.set_visible_child (empty_state);
+                    main_stack.set_visible_child (empty_state);
+                    uint lvu = lv.last_uid;
+                    titlebar.get_style_context ().add_class ("notejot-empty-title");
+                    titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
+                }
             }
         }
 
@@ -558,13 +509,8 @@ namespace Notejot {
 
             row = listview.get_selected_row ();
 
-            Gtk.ListBoxRow row2;
-
-            row2 = pinlistview.get_selected_row ();
-
             // Reset titlebar color
             ((Widgets.Note)row).update_theme("#FFF");
-            ((Widgets.PinnedNote)row2).update_theme("#FFF");
 
             if (row != null) {
                 var tlog = new TrashLog ();
@@ -581,23 +527,6 @@ namespace Notejot {
                 uint pos;
                 notestore.find (((Widgets.Note)row).log, out pos);
                 notestore.remove (pos);
-            }
-
-            if (row2 != null) {
-                var tlog = new TrashLog ();
-                tlog.title = ((Widgets.PinnedNote)row2).plog.title;
-                tlog.subtitle = ((Widgets.PinnedNote)row2).plog.subtitle;
-                tlog.text = ((Widgets.PinnedNote)row2).plog.text;
-                tlog.color = ((Widgets.PinnedNote)row2).plog.color;
-                tlog.notebook = ((Widgets.PinnedNote)row2).plog.notebook;
-	            trashstore.append (tlog);
-
-	            var rowd2 = main_stack.get_child_by_name ("textfield-pinned-%d".printf(((Widgets.PinnedNote)row2).puid));
-                main_stack.remove (rowd2);
-
-                uint pos;
-                pinotestore.find (((Widgets.PinnedNote)row2).plog, out pos);
-                pinotestore.remove (pos);
             }
 
             main_stack.set_visible_child (empty_state);
@@ -657,46 +586,6 @@ namespace Notejot {
             if (((Widgets.Note) listview.get_selected_row ()) != null) {
                 var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
 
-                Gtk.TextIter sel_start, sel_end;
-                var text_buffer = textfield.get_buffer();
-                text_buffer.get_selection_bounds (out sel_start, out sel_end);
-                int start_rel, end_rel;
-                string wrap;
-
-                foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
-                    if (format != null && fmt.format != format)
-                        continue;
-
-                    // after selection, nothing relevant anymore
-                    if (fmt.start > sel_end.get_offset())
-                        break;
-
-                    // before selection, not relevant
-                    if (fmt.end < sel_start.get_offset())
-                        continue;
-
-                    start_rel = sel_start.get_offset() - fmt.start;
-                    end_rel = fmt.end - sel_end.get_offset();
-
-                    wrap = format_to_string(fmt.format);
-
-                    if (start_rel > 0 && start_rel <= wrap.length) {
-                        // selection start does not (entirely) cover the formatters
-                        // only touches them -> extend selection
-                        sel_start.set_offset(fmt.start);
-                    }
-
-                    if (end_rel > 0 && end_rel <= wrap.length) {
-                        // selection end does not (entirely) cover the formatters
-                        // only touches them -> extend selection
-                        sel_end.set_offset(fmt.end);
-                    }
-                }
-
-                text_buffer.select_range(sel_start, sel_end);
-            }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
                 Gtk.TextIter sel_start, sel_end;
                 var text_buffer = textfield.get_buffer();
                 text_buffer.get_selection_bounds (out sel_start, out sel_end);
@@ -812,89 +701,11 @@ namespace Notejot {
 
                 textfield.grab_focus ();
             }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
-
-                Gtk.TextIter sel_start, sel_end;
-                int offset = 0, fmt_start, fmt_end;
-                int move_forward = 0, move_backward = 0;
-                string wrap = "";
-
-                var text_buffer = textfield.get_buffer ();
-
-                // only record a single user action for the entire function
-                text_buffer.begin_user_action();
-                // ensure the selection is correctly extended
-                extend_selection_to_format_block ();
-
-                text_buffer.get_selection_bounds (out sel_start, out sel_end);
-
-                var text = textfield.get_selected_text ();
-
-                var text_builder = new StringBuilder(text);
-
-                foreach (FormatBlock fmt in textfield.fmt_syntax_blocks()) {
-                    // after selection, nothing relevant anymore
-                    if (fmt.start > sel_end.get_offset() - 1)
-                        break;
-
-                    // before selection, not relevant
-                    if (fmt.end - 1 < sel_start.get_offset())
-                        continue;
-
-                    // relative to selected text
-                    fmt_start = fmt.start - sel_start.get_offset();
-                    fmt_end = fmt.end - sel_start.get_offset();
-
-                    wrap = format_to_string(fmt.format);
-
-                    if (fmt_start >= 0) {
-                        // format block starts within selection -> remove starting wrap
-                        erase_utf8 (text_builder, fmt_start + offset, wrap.length);
-                        offset -= wrap.length;
-                    } else {
-                        // selection starts within format block -> add ending wrap
-                        text_builder.prepend (wrap);
-                        offset += wrap.length;
-                        // added wrap character before selection,
-                        // should be ignored for new selection
-                        move_forward = wrap.length;
-                    }
-
-                    if (fmt_end <= text.char_count()) {
-                        // format block ends within selection
-                        erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
-                        offset -= wrap.length;
-                    } else {
-                        // selection ends within format block -> add starting wrap
-                        text_builder.append(wrap);
-                        offset += wrap.length;
-                        // added wrap character after selection,
-                        // should be ignored for new selection
-                        move_backward = wrap.length;
-                    }
-                }
-
-                text = text_builder.str;
-
-                text_buffer.delete (ref sel_start, ref sel_end);
-                text_buffer.insert (ref sel_start, text, -1);
-                // text length without potential wrap characters at the beginning or the end
-                int select_text_length = text.char_count() - (move_backward + move_forward);
-                select_text(textfield, move_backward, select_text_length);
-                text_buffer.end_user_action ();
-
-                textfield.grab_focus ();
-            }
         }
 
         public void action_bold () {
             if (((Widgets.Note) listview.get_selected_row ()) != null) {
                 var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
-                text_wrap(textfield, "|", _("bold text"));
-            }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
                 text_wrap(textfield, "|", _("bold text"));
             }
         }
@@ -904,19 +715,11 @@ namespace Notejot {
                 var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
                 text_wrap(textfield, "*", _("italic text"));
             }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
-                text_wrap(textfield, "*", _("italic text"));
-            }
         }
 
         public void action_ul () {
             if (((Widgets.Note) listview.get_selected_row ()) != null) {
                 var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
-                text_wrap(textfield, "_", _("underline text"));
-            }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
                 text_wrap(textfield, "_", _("underline text"));
             }
         }
@@ -926,19 +729,11 @@ namespace Notejot {
                 var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
                 text_wrap(textfield, "~", _("strikethrough text"));
             }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
-                text_wrap(textfield, "~", _("strikethrough text"));
-            }
         }
 
         public void action_item () {
             if (((Widgets.Note) listview.get_selected_row ()) != null) {
                 var textfield = ((Widgets.Note) listview.get_selected_row ()).textfield;
-                insert_item(textfield, _("Item"));
-            }
-            if (((Widgets.PinnedNote) pinlistview.get_selected_row ()) != null) {
-                var textfield = ((Widgets.PinnedNote) pinlistview.get_selected_row ()).textfield;
                 insert_item(textfield, _("Item"));
             }
         }

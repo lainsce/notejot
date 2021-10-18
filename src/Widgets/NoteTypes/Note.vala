@@ -23,6 +23,7 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
+        public bool pinned { get; set; }
     }
 
     public class Widgets.Note : Adw.ActionRow {
@@ -33,6 +34,7 @@ namespace Notejot {
         private Gtk.CssProvider css_provider;
         private Gtk.Label notebooklabel;
         private Gtk.Label subtitlelabel;
+        public Gtk.Image picon;
 
         public unowned Log log { get; construct; }
         public unowned MainWindow win { get; construct; }
@@ -50,6 +52,11 @@ namespace Notejot {
             icon.halign = Gtk.Align.START;
             icon.valign = Gtk.Align.CENTER;
             icon.get_style_context ().add_class ("notejot-sidebar-dbg-%d".printf(uid));
+
+            // Pinned marker
+            picon = new Gtk.Image.from_icon_name ("view-pin-symbolic");
+            picon.halign = Gtk.Align.START;
+            picon.valign = Gtk.Align.CENTER;
 
             var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 
@@ -133,6 +140,7 @@ namespace Notejot {
 
             sync_subtitles.begin ();
             update_theme (log.color);
+            set_pinned (log.pinned);
             this.set_title (log.title);
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
@@ -162,6 +170,14 @@ namespace Notejot {
             }
         }
 
+        public void set_pinned (bool? pinned) {
+            if (log != null && picon != null) {
+                if (pinned) {
+                    this.add_suffix (picon);
+                }
+            }
+        }
+
         public void set_subtitle_label () {
             var dt = new GLib.DateTime.now_local ();
             if (log != null) {
@@ -181,13 +197,13 @@ namespace Notejot {
                 border-radius: 9999px;
             }
             .notejot-action-%d {
-                background: mix(@theme_bg_color, %s, 0.06);
+                background: mix(@theme_bg_color, %s, 0.1);
             }
             .nw-titlebox-%d {
                 background: mix(@theme_base_color, %s, 0.06);
             }
             .notejot-stack-%d .notejot-bar {
-                background: mix(@theme_bg_color, %s, 0.06);
+                background: mix(@theme_bg_color, %s, 0.1);
             }
             .notejot-tview-%d text {
                 background: mix(@theme_base_color, %s, 0.06);

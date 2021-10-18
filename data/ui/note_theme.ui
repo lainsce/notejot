@@ -3,14 +3,11 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libhandy" version="1.0"/>
   <template class="NotejotWidgetsNoteTheme" parent="GtkGrid">
-    <property name="column_spacing">3</property>
-    <property name="row_spacing">3</property>
+    <property name="column_spacing">6</property>
+    <property name="row_spacing">6</property>
     <child>
       <object class="GtkCheckButton" id="color_button_red">
         <property name="tooltip-text" translatable="yes">Red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-red"/>
@@ -25,9 +22,6 @@
       <object class="GtkCheckButton" id="color_button_orange">
         <property name="tooltip-text" translatable="yes">Orange</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-orange"/>
@@ -42,9 +36,6 @@
       <object class="GtkCheckButton" id="color_button_yellow">
         <property name="tooltip-text" translatable="yes">Yellow</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-yellow"/>
@@ -59,9 +50,6 @@
       <object class="GtkCheckButton" id="color_button_blue">
         <property name="tooltip-text" translatable="yes">Blue</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-blue"/>
@@ -76,9 +64,6 @@
       <object class="GtkCheckButton" id="color_button_purple">
         <property name="tooltip-text" translatable="yes">Purple</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-purple"/>
@@ -93,9 +78,6 @@
       <object class="GtkCheckButton" id="color_button_brown">
         <property name="tooltip-text" translatable="yes">Brown</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-brown"/>
@@ -110,9 +92,6 @@
       <object class="GtkCheckButton" id="color_button_green">
         <property name="tooltip-text" translatable="yes">Green</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-green"/>
@@ -127,9 +106,6 @@
       <object class="GtkCheckButton" id="color_button_reset">
         <property name="tooltip-text" translatable="yes">No Color</property>
         <property name="group">color_button_red</property>
-        <child>
-          <placeholder/>
-        </child>
         <style>
           <class name="circular"/>
           <class name="color-reset"/>

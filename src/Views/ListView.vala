@@ -14,6 +14,7 @@ namespace Notejot {
 
             win.listview.set_filter_func (do_filter_list);
             win.listview.set_filter_func (do_filter_list_notebook);
+            win.listview.set_sort_func (do_sort_list_pinned);
 
             win.listview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
@@ -25,10 +26,6 @@ namespace Notejot {
 
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
 
-                    foreach (var row in win.pinlistview.get_selected_rows ()) {
-                        win.pinlistview.unselect_row (row);
-                    }
-
                     last_uid = ((Widgets.Note)selected_row).uid;
                     win.sm.controller = ((Widgets.Note)selected_row);
                     win.titlebar.get_style_context ().add_class (@"notejot-action-$last_uid");
@@ -36,34 +33,6 @@ namespace Notejot {
                     win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
                 } else {
                     win.titlebar.get_style_context ().remove_class (@"notejot-action-$last_uid");
-
-                    win.titlebar.get_style_context ().add_class ("notejot-empty-title");
-                }
-            });
-
-            win.pinlistview.set_filter_func (do_filter_list);
-            win.pinlistview.set_filter_func (do_filter_list_notebook);
-
-            win.pinlistview.row_selected.connect ((selected_row) => {
-                win.leaflet.set_visible_child (win.grid);
-                win.settingmenu.visible = true;
-
-                if (((Widgets.PinnedNote)selected_row) != null) {
-                    ((Widgets.PinnedNote)selected_row).textfield.grab_focus ();
-                    ((Widgets.PinnedNote)selected_row).select_item ();
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-pin-$last_uid");
-
-                    foreach (var row in win.listview.get_selected_rows ()) {
-                        win.listview.unselect_row (row);
-                    }
-
-                    last_uid = ((Widgets.PinnedNote)selected_row).puid;
-                    win.sm.pcontroller = ((Widgets.PinnedNote)selected_row);
-                    win.titlebar.get_style_context ().add_class (@"notejot-action-pin-$last_uid");
-
-                    win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
-                } else {
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-pin-$last_uid");
 
                     win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
@@ -102,6 +71,14 @@ namespace Notejot {
             }
 
             return true;
+        }
+
+        protected int do_sort_list_pinned (Gtk.ListBoxRow row) {
+            if (((Widgets.Note)row).log.pinned) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
     }
 }

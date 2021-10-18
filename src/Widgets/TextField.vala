@@ -3,7 +3,6 @@ namespace Notejot {
         public MainWindow win;
         public new unowned Gtk.TextBuffer buffer;
         public Widgets.Note controller;
-        public Widgets.PinnedNote pcontroller;
         private uint update_idle_source = 0;
 
         private Gtk.TextTag bold_font;
@@ -50,8 +49,6 @@ namespace Notejot {
                 set_font_stylesheet ();
                 if (controller != null)
                     win.tm.save_notes.begin (win.notestore);
-                if (pcontroller != null)
-                    win.tm.save_pinned_notes.begin (win.pinotestore);
             });
 
             Timeout.add_seconds (3, () => {
@@ -82,20 +79,14 @@ namespace Notejot {
             buffer.get_bounds (out A, out B);
             var val = buffer.get_text (A, B, true);
             var dt = new GLib.DateTime.now_local ();
-            if (controller != null)
+            if (controller != null) {
                 controller.log.text = val;
                 if (controller.log == ((Widgets.Note)win.listview.get_selected_row()).log) {
                     controller.log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
                     controller.sync_subtitles.begin ();
                 }
                 win.tm.save_notes.begin (win.notestore);
-            if (pcontroller != null)
-                pcontroller.plog.text = val;
-                if (pcontroller.plog == ((Widgets.PinnedNote)win.pinlistview.get_selected_row()).plog) {
-                    pcontroller.plog.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-                    pcontroller.sync_subtitles.begin ();
-                }
-                win.tm.save_pinned_notes.begin (win.pinotestore);
+            }
         }
 
         private void set_font_stylesheet () {

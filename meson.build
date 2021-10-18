@@ -63,7 +63,6 @@ sources = files(
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
     'src/Widgets/NoteTypes/Note.vala',
-    'src/Widgets/NoteTypes/PinnedNote.vala',
     'src/Widgets/NoteTypes/TrashedNote.vala',
 )
 

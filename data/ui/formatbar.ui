@@ -16,10 +16,6 @@
                 <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
                 <property name="action-name">win.action_normal</property>
                 <property name="icon-name">font-x-generic-symbolic</property>
-                <style>
-                  <class name="image-button"/>
-                  <class name="header-button"/>
-                </style>
               </object>
             </child>
             <child>
@@ -35,10 +31,6 @@
                 <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
                 <property name="action-name">win.action_bold</property>
                 <property name="icon-name">format-text-bold-symbolic</property>
-                <style>
-                  <class name="image-button"/>
-                  <class name="header-button"/>
-                </style>
               </object>
             </child>
             <child>
@@ -47,10 +39,6 @@
                 <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
                 <property name="action-name">win.action_italic</property>
                 <property name="icon-name">format-text-italic-symbolic</property>
-                <style>
-                  <class name="image-button"/>
-                  <class name="header-button"/>
-                </style>
               </object>
             </child>
             <child>
@@ -59,10 +47,6 @@
                 <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
                 <property name="action-name">win.action_ul</property>
                 <property name="icon-name">format-text-underline-symbolic</property>
-                <style>
-                  <class name="image-button"/>
-                  <class name="header-button"/>
-                </style>
               </object>
             </child>
             <child>
@@ -71,10 +55,6 @@
                 <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
                 <property name="action-name">win.action_s</property>
                 <property name="icon-name">format-text-strikethrough-symbolic</property>
-                <style>
-                  <class name="image-button"/>
-                  <class name="header-button"/>
-                </style>
               </object>
             </child>
             <child>
@@ -90,10 +70,6 @@
                 <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
                 <property name="action-name">win.action_item</property>
                 <property name="icon-name">view-list-bullet-symbolic</property>
-                <style>
-                  <class name="image-button"/>
-                  <class name="header-button"/>
-                </style>
               </object>
             </child>
           </object>

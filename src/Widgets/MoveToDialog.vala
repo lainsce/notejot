@@ -44,9 +44,6 @@ namespace Notejot {
                 if (win.sm.controller.log != null) {
                     win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
                 }
-                if (win.sm.pcontroller.plog != null) {
-                    win.sm.pcontroller.plog.notebook = "<i>" + _("No Notebook") + "</i>";
-                }
                 if (win.sm.tcontroller.tlog != null) {
                     win.sm.tcontroller.tlog.notebook = "<i>" + _("No Notebook") + "</i>";
                 }
@@ -74,9 +71,6 @@ namespace Notejot {
                         if (((Adw.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
                             if (win.sm.controller.log != null) {
                                 win.sm.controller.log.notebook = ((Notebook)im).title;
-                            }
-                            if (win.sm.pcontroller.plog != null) {
-                                win.sm.pcontroller.plog.notebook = ((Notebook)im).title;
                             }
                             if (win.sm.tcontroller.tlog != null) {
                                 win.sm.tcontroller.tlog.notebook = ((Notebook)im).title;
