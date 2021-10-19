@@ -51,12 +51,6 @@ namespace Notejot {
                     win.tm.save_notes.begin (win.notestore);
             });
 
-            Timeout.add_seconds (3, () => {
-                send_text ();
-                fmt_syntax_start ();
-                return true;
-            });
-
             buffer.changed.connect (() => {
                 send_text ();
                 fmt_syntax_start ();
