@@ -190,6 +190,9 @@
                       <object class="GtkBox">
                       </object>
                     </child>
+                    <style>
+                      <class name="nw-action"/>
+                    </style>
                     <child>
                       <object class="GtkButton" id="back_button">
                         <property name="visible" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>

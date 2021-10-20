@@ -7,24 +7,17 @@
     <property name="modal">1</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
-    <property name="visible">1</property>
     <child>
       <object class="GtkBox">
-        <property name="can-focus">0</property>
         <property name="orientation">vertical</property>
-        <property name="visible">1</property>
         <child>
           <object class="AdwHeaderBar">
-            <property name="visible">1</property>
-            <property name="can-focus">False</property>
             <property name="show-start-title-buttons">0</property>
             <property name="show-end-title-buttons">0</property>
             <child type="end">
               <object class="GtkButton" id="move_button">
                 <property name="label" translatable="yes">Move</property>
                 <property name="sensitive">0</property>
-                <property name="receives-default">1</property>
-                <property name="visible">1</property>
                 <style>
                   <class name="suggested-action"/>
                 </style>
@@ -33,8 +26,6 @@
             <child>
               <object class="GtkButton" id="cancel_button">
                 <property name="label" translatable="yes">Cancel</property>
-                <property name="receives-default">1</property>
-                <property name="visible">1</property>
               </object>
             </child>
           </object>
@@ -47,22 +38,31 @@
             <property name="margin-top">6</property>
             <property name="margin-bottom">9</property>
             <property name="vexpand">1</property>
-            <property name="visible">1</property>
             <style>
               <class name="content"/>
             </style>
+            <child type="placeholder">
+              <object class="AdwStatusPage">
+                <property name="valign">center</property>
+                <property name="vexpand">1</property>
+                <property name="icon-name">notebook-symbolic</property>
+                <property name="title" translatable="yes">No Notebooks</property>
+                <property name="description" translatable="yes">There are no notebooks.</property>
+                <style>
+                  <class name="compact"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
         <child>
           <object class="GtkButton" id="remove_notebook_button">
             <property name="label" translatable="yes">Clear Notebook</property>
-            <property name="receives-default">1</property>
-            <property name="halign">end</property>
+            <property name="halign">center</property>
             <property name="margin-start">6</property>
             <property name="margin-end">6</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">6</property>
-            <property name="visible">1</property>
             <style>
               <class name="destructive-action"/>
             </style>

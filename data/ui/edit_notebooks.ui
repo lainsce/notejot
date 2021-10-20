@@ -62,6 +62,18 @@
             <style>
               <class name="content"/>
             </style>
+            <child type="placeholder">
+              <object class="AdwStatusPage">
+                <property name="valign">center</property>
+                <property name="vexpand">1</property>
+                <property name="icon-name">notebook-symbolic</property>
+                <property name="title" translatable="yes">No Notebooks</property>
+                <property name="description" translatable="yes">Create a notebook with + Add button.</property>
+                <style>
+                  <class name="compact"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
       </object>
