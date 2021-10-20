@@ -14,7 +14,6 @@ namespace Notejot {
 
             win.listview.set_filter_func (do_filter_list);
             win.listview.set_filter_func (do_filter_list_notebook);
-            win.listview.set_sort_func (do_sort_list_pinned);
 
             win.listview.row_selected.connect ((selected_row) => {
                 win.leaflet.set_visible_child (win.grid);
@@ -71,14 +70,6 @@ namespace Notejot {
             }
 
             return true;
-        }
-
-        protected int do_sort_list_pinned (Gtk.ListBoxRow row) {
-            if (((Widgets.Note)row).log.pinned) {
-                return 1;
-            } else {
-                return -1;
-            }
         }
     }
 }

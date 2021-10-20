@@ -23,19 +23,20 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
+        public bool pinned { get; set; }
     }
 
-    public class Widgets.TrashedNote : Adw.ActionRow {
-        public Widgets.TextField textfield;
-        public Widgets.FormatBar formatbar;
+    public class Widgets.TrashedNote : Widgets.Note {
+        public new Widgets.TextField textfield;
+        public new Widgets.FormatBar formatbar;
         private static int tuid_counter;
         public int tuid;
-        private Gtk.CssProvider css_provider;
-        private Gtk.Label notebooklabel;
-        private Gtk.Label subtitlelabel;
+        private new Gtk.CssProvider css_provider;
+        private new Gtk.Label notebooklabel;
+        private new Gtk.Label subtitlelabel;
 
-        public unowned TrashLog tlog { get; construct; }
-        public unowned MainWindow win { get; construct; }
+        public new unowned TrashLog tlog { get; construct; }
+        public new unowned MainWindow win { get; construct; }
 
         public TrashedNote (MainWindow win, TrashLog? tlog) {
             Object (tlog: tlog,
@@ -144,19 +145,19 @@ namespace Notejot {
             });
         }
 
-        public void destroy_item () {
+        public new void destroy_item () {
             this.dispose ();
             css_provider.dispose ();
             win.tm.save_trash_notes.begin (win.trashstore);
         }
 
-        public void select_item () {
+        public new void select_item () {
             if (win.main_stack != null) {
                 win.main_stack.set_visible_child_name ("textfield-trash-%d".printf(tuid));
             }
         }
 
-        public void set_notebook () {
+        public new void set_notebook () {
             if (tlog != null) {
                 notebooklabel.set_label (tlog.notebook);
             } else {
@@ -164,7 +165,7 @@ namespace Notejot {
             }
         }
 
-        public void set_subtitle_label () {
+        public new void set_subtitle_label () {
             var dt = new GLib.DateTime.now_local ();
             if (tlog != null) {
                 subtitlelabel.set_label (tlog.subtitle);
@@ -173,7 +174,7 @@ namespace Notejot {
             }
         }
 
-        public void update_theme(string? color) {
+        public new void update_theme(string? color) {
             css_provider = new Gtk.CssProvider();
             string style = null;
             style = """
@@ -218,7 +219,7 @@ namespace Notejot {
             win.tm.save_trash_notes.begin (win.trashstore);
         }
 
-        public async void sync_subtitles () {
+        public new async void sync_subtitles () {
             try {
                 var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
                 GLib.MatchInfo match;
@@ -251,7 +252,7 @@ namespace Notejot {
             }
         }
 
-        public string get_first_line (string text) {
+        public new string get_first_line (string text) {
             string first_line = "";
 
             try {

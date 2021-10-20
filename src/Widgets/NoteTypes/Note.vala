@@ -29,11 +29,11 @@ namespace Notejot {
     public class Widgets.Note : Adw.ActionRow {
         public Widgets.TextField textfield;
         public Widgets.FormatBar formatbar;
-        private static int uid_counter;
+        public static int uid_counter;
         public int uid;
-        private Gtk.CssProvider css_provider;
-        private Gtk.Label notebooklabel;
-        private Gtk.Label subtitlelabel;
+        public Gtk.CssProvider css_provider;
+        public Gtk.Label notebooklabel;
+        public Gtk.Label subtitlelabel;
         public Gtk.Image picon;
 
         public unowned Log log { get; construct; }
@@ -140,10 +140,11 @@ namespace Notejot {
 
             sync_subtitles.begin ();
             update_theme (log.color);
-            set_pinned (log.pinned);
             this.set_title (log.title);
             this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
+            this.add_suffix (picon);
+            set_pinned (log.pinned);
 
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
@@ -171,9 +172,11 @@ namespace Notejot {
         }
 
         public void set_pinned (bool? pinned) {
-            if (log != null && picon != null) {
+            if (log != null) {
                 if (pinned) {
-                    this.add_suffix (picon);
+                    picon.set_visible (true);
+                } else {
+                    picon.set_visible (false);
                 }
             }
         }

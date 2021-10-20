@@ -195,6 +195,13 @@ namespace Notejot {
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
             });
+            notestore.sort ((a, b) => {
+                if (((Log)a).pinned) {
+                    return -1;
+                }
+
+                return 0;
+            });
 
             // Trash View
             tv = new Views.TrashView (this);
@@ -296,7 +303,13 @@ namespace Notejot {
 
             lv.is_modified = true;
 
-            notestore.append(log);
+            notestore.insert_sorted(log, (a, b) => {
+                if (((Log)a).pinned) {
+                    return -1;
+                }
+
+                return 0;
+            });
         }
 
         public Widgets.TrashedNote make_trash_item (MainWindow win, GLib.Object titem) {
@@ -336,9 +349,15 @@ namespace Notejot {
             log.notebook = "<i>" + _("No Notebook") + "</i>";
             log.pinned = false;
 
-            lv.is_modified = true;
+            notestore.insert_sorted(log, (a, b) => {
+                if (((Log)a).pinned) {
+                    return -1;
+                }
 
-            notestore.append (log);
+                return 0;
+            });
+
+            lv.is_modified = true;
 
             if (listview.get_selected_row () == null) {
                 main_stack.set_visible_child (empty_state);
@@ -485,21 +504,40 @@ namespace Notejot {
 
             if (row != null) {
                 if (!((Widgets.Note)row).log.pinned) {
-                    ((Widgets.Note)row).log.pinned = true;
-	                ((Widgets.Note)row).add_suffix (((Widgets.Note)row).picon);
+                    var tlog = new Log ();
+                    tlog.title = ((Widgets.Note)row).log.title;
+                    tlog.subtitle = ((Widgets.Note)row).log.subtitle;
+                    tlog.text = ((Widgets.Note)row).log.text;
+                    tlog.color = ((Widgets.Note)row).log.color;
+                    tlog.notebook = ((Widgets.Note)row).log.notebook;
+                    tlog.pinned = true;
+	                notestore.insert_sorted(tlog, (a, b) => {
+                        ((Widgets.Note)row).picon.set_visible (true);
+                        return -1;
+                    });
 
-                    main_stack.set_visible_child (empty_state);
-                    uint lvu = lv.last_uid;
-                    titlebar.get_style_context ().add_class ("notejot-empty-title");
-                    titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
+                    uint pos;
+                    notestore.find (((Widgets.Note)row).log, out pos);
+                    notestore.remove (pos);
+	                ((Widgets.Note)row).picon.set_visible (true);
+	                tm.save_notes.begin (notestore);
                 } else {
-                    ((Widgets.Note)row).log.pinned = false;
-	                ((Widgets.Note)row).remove (((Widgets.Note)row).picon);
+                    var tlog = new Log ();
+                    tlog.title = ((Widgets.Note)row).log.title;
+                    tlog.subtitle = ((Widgets.Note)row).log.subtitle;
+                    tlog.text = ((Widgets.Note)row).log.text;
+                    tlog.color = ((Widgets.Note)row).log.color;
+                    tlog.notebook = ((Widgets.Note)row).log.notebook;
+                    tlog.pinned = false;
+	                notestore.insert_sorted(tlog, (a, b) => {
+                        ((Widgets.Note)row).picon.set_visible (false);
+                        return -1;
+                    });
 
-                    main_stack.set_visible_child (empty_state);
-                    uint lvu = lv.last_uid;
-                    titlebar.get_style_context ().add_class ("notejot-empty-title");
-                    titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
+                    uint pos;
+                    notestore.find (((Widgets.Note)row).log, out pos);
+                    notestore.remove (pos);
+	                tm.save_notes.begin (notestore);
                 }
             }
         }
@@ -519,6 +557,7 @@ namespace Notejot {
                 tlog.text = ((Widgets.Note)row).log.text;
                 tlog.color = ((Widgets.Note)row).log.color;
                 tlog.notebook = ((Widgets.Note)row).log.notebook;
+                tlog.pinned = ((Widgets.Note)row).log.pinned;
 	            trashstore.append (tlog);
 
 	            var rowd = main_stack.get_child_by_name ("textfield-%d".printf(((Widgets.Note)row).uid));
