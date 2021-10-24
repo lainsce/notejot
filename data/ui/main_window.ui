@@ -140,9 +140,6 @@
                             </child>
                             <child>
                               <object class="GtkSeparator">
-                                <style>
-                                  <class name="sidebar"/>
-                                </style>
                               </object>
                             </child>
                             <child>

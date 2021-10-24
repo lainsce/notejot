@@ -195,21 +195,21 @@ namespace Notejot {
             string style = null;
             style = """
             .notejot-sidebar-dbg-%d {
-                background: mix(%s, @theme_bg_color, 0.5);
+                background: mix(%s, @view_bg_color, 0.5);
                 border: 1px solid @borders;
                 border-radius: 9999px;
             }
             .notejot-action-%d {
-                background: mix(@theme_bg_color, %s, 0.1);
+                background: mix(@view_bg_color, %s, 0.1);
             }
             .nw-titlebox-%d {
-                background: mix(@theme_base_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.06);
             }
             .notejot-stack-%d .notejot-bar {
-                background: mix(@theme_bg_color, %s, 0.1);
+                background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-tview-%d text {
-                background: mix(@theme_base_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.06);
             }
             """.printf( uid,
                          color,

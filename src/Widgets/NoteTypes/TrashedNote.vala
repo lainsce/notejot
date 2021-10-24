@@ -179,21 +179,21 @@ namespace Notejot {
             string style = null;
             style = """
             .notejot-sidebar-dbg-trash-%d {
-                background: mix(%s, @theme_bg_color, 0.5);
+                background: mix(%s, @view_bg_color, 0.5);
                 border: 1px solid @borders;
                 border-radius: 9999px;
             }
             .notejot-action-trash-%d {
-                background: mix(@theme_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.06);
             }
             .nw-titlebox-trash-%d {
-                background: mix(@theme_base_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.06);
             }
             .notejot-stack-trash-%d .notejot-bar {
-                background: mix(@theme_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.06);
             }
             .notejot-tview-trash-%d text {
-                background: mix(@theme_base_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.06);
             }
             """.printf(  tuid,
                          color,
