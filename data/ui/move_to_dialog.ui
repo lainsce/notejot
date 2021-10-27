@@ -3,7 +3,7 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libhandy" version="0.0"/>
   <template class="NotejotWidgetsMoveToDialog" parent="AdwWindow">
-    <property name="title" translatable="yes">Move To</property>
+    <property name="title" translatable="yes">Move to a Notebook</property>
     <property name="modal">1</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
@@ -33,10 +33,10 @@
         <child>
           <object class="GtkListBox" id="notebook_listbox">
             <property name="can-focus">0</property>
-            <property name="margin-start">9</property>
-            <property name="margin-end">9</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">9</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="margin-top">12</property>
+            <property name="margin-bottom">12</property>
             <property name="vexpand">1</property>
             <style>
               <class name="content"/>
@@ -57,15 +57,11 @@
         </child>
         <child>
           <object class="GtkButton" id="remove_notebook_button">
-            <property name="label" translatable="yes">Clear Notebook</property>
-            <property name="halign">center</property>
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
-            <style>
-              <class name="destructive-action"/>
-            </style>
+            <property name="label" translatable="yes">Detach Note From Any Notebook</property>
+            <property name="sensitive">0</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="margin-bottom">12</property>
           </object>
         </child>
       </object>

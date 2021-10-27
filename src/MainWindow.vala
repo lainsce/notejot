@@ -73,6 +73,8 @@ namespace Notejot {
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
 
+        public Gtk.Builder tbuilder;
+
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";
@@ -130,8 +132,10 @@ namespace Notejot {
 
         construct {
             // Initial settings
+
+            // This css provider still needed due to custom css in-app
             var provider = new Gtk.CssProvider ();
-            provider.load_from_resource ("/io/github/lainsce/Notejot/app.css");
+            provider.load_from_resource ("/io/github/lainsce/Notejot/style.css");
             Gtk.StyleContext.add_provider_for_display (Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
@@ -162,7 +166,6 @@ namespace Notejot {
             
             // Dark theme
             var adwsm = Adw.StyleManager.get_default ();
-
             adwsm.set_color_scheme (Adw.ColorScheme.PREFER_LIGHT);
 
             // Main View
@@ -211,7 +214,7 @@ namespace Notejot {
                 tm.save_trash_notes.begin (trashstore);
             });
 
-            var tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
+            tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
             var tmenu = (Menu)tbuilder.get_object ("tmenu");
 
             hbb = new Widgets.HeaderBarButton ();
@@ -344,7 +347,7 @@ namespace Notejot {
 
             log.title = _("New Note ") + (@"$uid");
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-            log.text = _("This is a text example.");
+            log.text = "";
             log.color = "#ebebeb";
             log.notebook = "<i>" + _("No Notebook") + "</i>";
             log.pinned = false;

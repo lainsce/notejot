@@ -178,33 +178,33 @@ namespace Notejot {
             css_provider = new Gtk.CssProvider();
             string style = null;
             style = """
-            .notejot-sidebar-dbg-trash-%d {
+            .notejot-sidebar-dbg-%d {
                 background: mix(%s, @view_bg_color, 0.5);
                 border: 1px solid @borders;
                 border-radius: 9999px;
             }
             .notejot-action-trash-%d {
-                background: mix(@view_bg_color, %s, 0.06);
+                background: mix(@headerbar_bg_color, %s, 0.1);
             }
             .nw-titlebox-trash-%d {
-                background: mix(@view_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-stack-trash-%d .notejot-bar {
-                background: mix(@view_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-tview-trash-%d text {
-                background: mix(@view_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.1);
             }
-            """.printf(  tuid,
-                         color,
-                         tuid,
-                         color,
-                         tuid,
-                         color,
-                         tuid,
-                         color,
-                         tuid,
-                         color
+            """.printf( tuid,
+                        color,
+                        tuid,
+                        color,
+                        tuid,
+                        color,
+                        tuid,
+                        color,
+                        tuid,
+                        color
             );
 
             css_provider.load_from_data(style.data);

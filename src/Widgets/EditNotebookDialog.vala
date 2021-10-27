@@ -65,12 +65,37 @@ namespace Notejot {
 
         public Adw.ActionRow make_item (MainWindow win, GLib.Object item) {
             var actionrow = new Adw.ActionRow ();
-            actionrow.set_title (((Notebook)item).title);
+
+            var notebook_entry = new Gtk.Entry ();
+            notebook_entry.valign = Gtk.Align.CENTER;
+            notebook_entry.set_text (((Notebook)item).title);
+            actionrow.add_prefix (notebook_entry);
+
+            uint x, y = win.notebookstore.get_n_items ();
+            for (x = 0; x < y; x++) {
+                var im = win.notebookstore.get_item (x);
+                if (notebook_entry.get_text () == ((Notebook)im).title) {
+                    notebook_entry.activate.connect (() => {
+                        print("Changed Notebook name!\n");
+                        string notebook_name = notebook_entry.get_text ();
+                        ((Notebook)im).title == notebook_name;
+                        win.tm.save_notebooks.begin (win.notebookstore);
+                        uint i2, n2 = win.notestore.get_n_items ();
+                        for (i2 = 0; i2 < n2; i2++) {
+                            var item2 = win.notestore.get_item (i2);
+                            if (notebook_entry.get_text () == ((Log)item2).notebook) {
+                                ((Log)item2).notebook = notebook_name;
+                                win.tm.save_notes.begin (win.notestore);
+                            }
+                        }
+                    });
+                }
+            }
+
 
             var ar_delete_button = new Gtk.Button () {
                 icon_name = "window-close-symbolic",
                 tooltip_text = (_("Remove notebook")),
-                visible = true,
                 valign = Gtk.Align.CENTER
             };
             ar_delete_button.get_style_context ().add_class ("flat");
@@ -79,7 +104,7 @@ namespace Notejot {
                 uint j, m = win.notebookstore.get_n_items ();
                 for (j = 0; j < m; j++) {
                     var im = win.notebookstore.get_item (j);
-                    if (actionrow.get_title () == ((Notebook)im).title) {
+                    if (notebook_entry.get_text () == ((Notebook)im).title) {
                         win.notebookstore.remove (j);
                         ((Notebook)im).title == "<i>" + _("No Notebook") + "</i>";
                         win.tm.save_notebooks.begin (win.notebookstore);
@@ -88,7 +113,7 @@ namespace Notejot {
                         for (i2 = 0; i2 < n2; i2++) {
                             var item2 = win.notestore.get_item (i2);
 
-                            if (actionrow.get_title () == ((Log)item2).notebook) {
+                            if (notebook_entry.get_text () == ((Log)item2).notebook) {
                                 ((Log)item2).notebook = "<i>" + _("No Notebook") + "</i>";
                                 win.tm.save_notes.begin (win.notestore);
                             }
@@ -98,7 +123,7 @@ namespace Notejot {
                         for (i4 = 0; i4 < n4; i4++) {
                             var item4 = win.trashstore.get_item (i4);
 
-                            if (actionrow.get_title () == ((TrashLog)item4).notebook) {
+                            if (notebook_entry.get_text () == ((TrashLog)item4).notebook) {
                                 ((TrashLog)item4).notebook = "<i>" + _("No Notebook") + "</i>";
                                 win.tm.save_trash_notes.begin (win.trashstore);
                             }

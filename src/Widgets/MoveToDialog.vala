@@ -40,6 +40,12 @@ namespace Notejot {
             notebook_listbox.bind_model (win.notebookstore, item => make_item (win, item));
             notebook_listbox.set_selection_mode (Gtk.SelectionMode.SINGLE);
 
+            if (win.sm.controller.log.notebook == "<i>" + _("No Notebook") + "</i>") {
+                remove_notebook_button.sensitive = false;
+            } else {
+                remove_notebook_button.sensitive = true;
+            }
+
             remove_notebook_button.clicked.connect (() => {
                 if (win.sm.controller.log != null) {
                     win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";

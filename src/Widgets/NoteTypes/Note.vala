@@ -82,6 +82,7 @@ namespace Notejot {
             });
             Timeout.add(50, () => {
                 set_title (titleentry.get_text ());
+                sync_subtitles.begin ();
                 return true;
             });
 
@@ -126,6 +127,7 @@ namespace Notejot {
             textfield.get_buffer ().get_bounds (out A, out B);
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
+            textfield.set_can_focus(true);
             textfield.get_style_context ().add_class ("notejot-tview-%d".printf(uid));
 
             formatbar = new Widgets.FormatBar ();
@@ -149,6 +151,8 @@ namespace Notejot {
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
             });
+
+            win.listview.select_row(this);
         }
 
         public void destroy_item () {
@@ -196,31 +200,31 @@ namespace Notejot {
             style = """
             .notejot-sidebar-dbg-%d {
                 background: mix(%s, @view_bg_color, 0.5);
-                border: 1px solid @borders;
+                padding: 3px;
                 border-radius: 9999px;
             }
             .notejot-action-%d {
-                background: mix(@view_bg_color, %s, 0.1);
+                background: mix(@headerbar_bg_color, %s, 0.1);
             }
             .nw-titlebox-%d {
-                background: mix(@view_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-stack-%d .notejot-bar {
                 background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-tview-%d text {
-                background: mix(@view_bg_color, %s, 0.06);
+                background: mix(@view_bg_color, %s, 0.1);
             }
             """.printf( uid,
-                         color,
-                         uid,
-                         color,
-                         uid,
-                         color,
-                         uid,
-                         color,
-                         uid,
-                         color
+                        color,
+                        uid,
+                        color,
+                        uid,
+                        color,
+                        uid,
+                        color,
+                        uid,
+                        color
             );
 
             css_provider.load_from_data(style.data);

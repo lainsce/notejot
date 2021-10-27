@@ -40,13 +40,13 @@ add_project_arguments(
 )
 
 asresources = gnome.compile_resources(
-    'as-resources', 'data/app.gresource.xml',
+    'as-resources', 'data/io.github.lainsce.Notejot.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )
 
 sources = files(
-   'src/Application.vala',
+    'src/Application.vala',
     'src/MainWindow.vala',
     'src/Settings.vala',
     'src/Format.vala',

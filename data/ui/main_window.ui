@@ -5,7 +5,7 @@
   <template class="NotejotMainWindow" parent="AdwApplicationWindow">
     <property name="visible">1</property>
     <property name="default-width">830</property>
-    <property name="default-height">600</property>
+    <property name="default-height">700</property>
     <child>
       <object class="GtkBox" id="main_box">
         <property name="orientation">vertical</property>
@@ -84,7 +84,7 @@
                                     <property name="hexpand">0</property>
                                     <property name="selection_mode">single</property>
                                     <style>
-                                      <class name="notejot-view"/>
+                                      <class name="navigation-sidebar"/>
                                     </style>
                                     <child type="placeholder">
                                       <object class="AdwStatusPage">
@@ -120,7 +120,7 @@
                                     <property name="vexpand">1</property>
                                     <property name="selection_mode">single</property>
                                     <style>
-                                      <class name="notejot-view"/>
+                                      <class name="navigation-sidebar"/>
                                     </style>
                                     <child type="placeholder">
                                       <object class="AdwStatusPage">
@@ -144,7 +144,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="trash_button">
-                                <property name="label" translatable="yes">Trash All Notes</property>
+                                <property name="label" translatable="yes">Empty Trash</property>
                                 <property name="action-name">win.action_trash_notes</property>
                                 <property name="margin-start">6</property>
                                 <property name="margin-end">6</property>
