@@ -53,6 +53,15 @@ namespace Notejot {
                 }
             });
 
+            notebook_name_entry.activate.connect (() => {
+                var nb = new Notebook ();
+                nb.title = notebook_name_entry.text;
+
+                win.notebookstore.append (nb);
+                win.tm.save_notebooks.begin (win.notebookstore);
+                notebook_name_entry.set_text ("");
+            });
+
             notebook_add_button.clicked.connect (() => {
                 var nb = new Notebook ();
                 nb.title = notebook_name_entry.text;

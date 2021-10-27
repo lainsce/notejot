@@ -49,8 +49,8 @@
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkSearchEntry" id="note_search">
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">6</property>
                         <property name="margin-top">6</property>
                         <property name="margin-bottom">6</property>
                         <property name="placeholder-text" translatable="yes">Search for notes</property>
