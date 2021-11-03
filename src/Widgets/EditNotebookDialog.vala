@@ -77,6 +77,7 @@ namespace Notejot {
 
             var notebook_entry = new Gtk.Entry ();
             notebook_entry.valign = Gtk.Align.CENTER;
+            notebook_entry.hexpand = true;
             notebook_entry.set_text (((Notebook)item).title);
             actionrow.add_prefix (notebook_entry);
 

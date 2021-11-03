@@ -28,6 +28,9 @@
                 <property name="label" translatable="yes">Cancel</property>
               </object>
             </child>
+            <style>
+              <class name="flat"/>
+            </style>
           </object>
         </child>
         <child>

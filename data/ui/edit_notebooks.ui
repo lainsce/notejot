@@ -12,6 +12,9 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar">
+            <style>
+              <class name="flat"/>
+            </style>
           </object>
         </child>
         <child>
@@ -19,11 +22,9 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkBox">
+                <property name="spacing">6</property>
                 <property name="margin-start">6</property>
                 <property name="margin-end">6</property>
-                <property name="margin-top">6</property>
-                <property name="margin-bottom">6</property>
-                <property name="spacing">6</property>
                 <child>
                   <object class="GtkEntry" id="notebook_name_entry">
                     <property name="hexpand">1</property>
