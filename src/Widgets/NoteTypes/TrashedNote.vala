@@ -172,7 +172,6 @@ namespace Notejot {
             .notejot-sidebar-dbg-%d {
                 background: linear-gradient(mix(%s, @view_bg_color, 0.5),shade(mix(%s, @view_bg_color, 0.4), 0.9));
                 border-radius: 9999px;
-                box-shadow: inset 0 0 2px 0 alpha(@view_fg_color, 0.8);
             }
             .nw-titlebox-trash-%d {
                 background: mix(@view_bg_color, %s, 0.1);
