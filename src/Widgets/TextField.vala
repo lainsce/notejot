@@ -47,8 +47,6 @@ namespace Notejot {
 
             Notejot.Application.gsettings.changed.connect (() => {
                 set_font_stylesheet ();
-                if (controller != null)
-                    win.tm.save_notes.begin (win.notestore);
             });
 
             buffer.changed.connect (() => {

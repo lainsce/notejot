@@ -17,18 +17,7 @@ namespace Notejot {
                 if (((Widgets.TrashedNote)selected_row) != null) {
                     ((Widgets.TrashedNote)selected_row).textfield.grab_focus ();
                     ((Widgets.TrashedNote)selected_row).select_item ();
-
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-trash-$last_uid");
-
-                    last_uid = ((Widgets.TrashedNote)selected_row).tuid;
                     win.sm.tcontroller = ((Widgets.TrashedNote)selected_row);
-                    win.titlebar.get_style_context ().add_class (@"notejot-action-trash-$last_uid");
-
-                    win.titlebar.get_style_context ().remove_class ("notejot-empty-title");
-                } else {
-                    win.titlebar.get_style_context ().remove_class (@"notejot-action-trash-$last_uid");
-
-                    win.titlebar.get_style_context ().add_class ("notejot-empty-title");
                 }
             });
         }

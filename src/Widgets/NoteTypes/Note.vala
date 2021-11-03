@@ -28,7 +28,6 @@ namespace Notejot {
 
     public class Widgets.Note : Adw.ActionRow {
         public Widgets.TextField textfield;
-        public Widgets.FormatBar formatbar;
         public static int uid_counter;
         public int uid;
         public Gtk.CssProvider css_provider;
@@ -63,9 +62,8 @@ namespace Notejot {
             var titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);
             titleentry.set_margin_top (12);
-            titleentry.set_margin_bottom (6);
-            titleentry.set_margin_start (30);
-            titleentry.set_margin_end (30);
+            titleentry.set_margin_start (12);
+            titleentry.set_margin_end (12);
             titleentry.set_text (log.title);
             titleentry.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             titleentry.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
@@ -80,24 +78,17 @@ namespace Notejot {
                 log.title = titleentry.get_text ();
                 win.tm.save_notes.begin (win.notestore);
             });
-            Timeout.add(50, () => {
-                set_title (titleentry.get_text ());
-                sync_subtitles.begin ();
-                return true;
-            });
 
             var notebookbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            notebookbox.set_margin_bottom (6);
-            notebookbox.set_margin_start (30);
-            notebookbox.set_margin_end (30);
+            notebookbox.set_margin_bottom (12);
+            notebookbox.set_margin_start (21);
+            notebookbox.set_margin_end (21);
 
             subtitlelabel = new Gtk.Label ("");
             subtitlelabel.set_margin_end (12);
-            subtitlelabel.get_style_context ().add_class ("dim-label");
 
             notebooklabel = new Gtk.Label ("");
             notebooklabel.set_use_markup (true);
-            notebooklabel.get_style_context ().add_class ("dim-label");
             notebooklabel.notify["get-text"].connect (() => {
                 log.notebook = notebooklabel.get_text();
                 win.tm.save_notebooks.begin (win.notebookstore);
@@ -106,7 +97,6 @@ namespace Notejot {
             var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
             notebookicon.halign = Gtk.Align.START;
             notebookicon.valign = Gtk.Align.CENTER;
-            notebookicon.get_style_context ().add_class ("dim-label");
 
             notebookbox.prepend (notebooklabel);
             notebookbox.prepend (notebookicon);
@@ -116,6 +106,7 @@ namespace Notejot {
             titlebox.prepend (titleentry);
 
             titlebox.get_style_context ().add_class ("nw-titlebox");
+            titlebox.get_style_context ().add_class ("content-header");
             titlebox.get_style_context ().add_class ("nw-titlebox-%d".printf(uid));
 
             textfield = new Widgets.TextField (win);
@@ -128,42 +119,38 @@ namespace Notejot {
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
             textfield.set_can_focus(true);
+            textfield.get_style_context ().add_class ("content-footer");
             textfield.get_style_context ().add_class ("notejot-tview-%d".printf(uid));
-
-            formatbar = new Widgets.FormatBar ();
-            formatbar.controller = textfield;
 
             var note_grid = new Gtk.Grid ();
             note_grid.attach (titlebox, 0, 2);
             note_grid.attach (text_scroller, 0, 3);
-            note_grid.attach (formatbar, 0, 4);
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
+            note_grid.get_style_context ().add_class ("content-view");
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
             sync_subtitles.begin ();
             update_theme (log.color);
             this.set_title (log.title);
-            this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
             this.add_suffix (picon);
             set_pinned (log.pinned);
 
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
+                win.tm.save_notebooks.begin (win.notebookstore);
             });
-
-            win.listview.select_row(this);
         }
 
         public void destroy_item () {
             this.dispose ();
             css_provider.dispose ();
-            win.tm.save_notes.begin (win.notestore);
         }
 
         public void select_item () {
             if (win.main_stack != null) {
                 win.main_stack.set_visible_child_name ("textfield-%d".printf(uid));
+                win.format_revealer.set_reveal_child (true);
             }
         }
 
@@ -199,27 +186,18 @@ namespace Notejot {
             string style = null;
             style = """
             .notejot-sidebar-dbg-%d {
-                background: mix(%s, @view_bg_color, 0.5);
-                padding: 3px;
+                background: linear-gradient(mix(%s, @view_bg_color, 0.5),shade(mix(%s, @view_bg_color, 0.4), 0.9));
                 border-radius: 9999px;
-            }
-            .notejot-action-%d {
-                background: mix(@headerbar_bg_color, %s, 0.1);
+                box-shadow: inset 0 0 2px 0 alpha(@view_fg_color, 0.8);
             }
             .nw-titlebox-%d {
                 background: mix(@view_bg_color, %s, 0.1);
             }
-            .notejot-stack-%d .notejot-bar {
-                background: mix(@view_bg_color, %s, 0.1);
-            }
             .notejot-tview-%d text {
-                background: mix(@view_bg_color, %s, 0.1);
+                background: mix(@view_bg_color, %s, 0.05);
             }
             """.printf( uid,
                         color,
-                        uid,
-                        color,
-                        uid,
                         color,
                         uid,
                         color,
@@ -236,7 +214,6 @@ namespace Notejot {
             );
 
             log.color = color;
-            win.tm.save_notes.begin (win.notestore);
         }
 
         public async void sync_subtitles () {
@@ -254,19 +231,16 @@ namespace Notejot {
                                                     int.parse(match.fetch_named ("minute")),
                                                     e.get_second ());
 
-                        Timeout.add(50, () => {
-                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
+                        set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
                                                           get_first_line (log.text).replace("|", "")
                                                                                    .replace("_", "")
                                                                                    .replace("*", "")
                                                                                    .replace("~", "")));
-                            set_notebook ();
-                            set_subtitle_label ();
-                            return false;
-                        });
+                        set_notebook ();
+                        set_subtitle_label ();
+                        win.tm.save_notes.begin (win.notestore);
                     }
                 }
-                win.tm.save_notes.begin (win.notestore);
             } catch (GLib.RegexError re) {
                 warning ("%s".printf(re.message));
             }

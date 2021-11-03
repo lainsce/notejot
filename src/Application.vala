@@ -31,6 +31,7 @@ namespace Notejot {
                 application_id: Config.APP_ID
             );
             add_action_entries(app_entries, this);
+            set_resource_base_path ("/io/github/lainsce/Notejot/");
         }
         static construct {
             gsettings = new Settings ();

@@ -42,6 +42,16 @@
     </custom>
     <translation type="gettext">io.github.lainsce.Notejot</translation>
     <releases>
+        <release version="3.3.3" date="2021-12-24">
+            <description>
+                <p>Release: Overhaul User Interface</p>
+                <ul>
+                    <li>Changed: UI now looks better layoutted, is an experiment.</li>
+                    <li>Changed: Backend was changed to be more stable than the old one.</li>
+                </ul>
+                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
+            </description>
+        </release>
         <release version="3.2.0" date="2021-10-13">
             <description>
                 <p>Release: Pinned Notes</p>

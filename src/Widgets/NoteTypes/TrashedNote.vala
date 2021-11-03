@@ -28,7 +28,6 @@ namespace Notejot {
 
     public class Widgets.TrashedNote : Widgets.Note {
         public new Widgets.TextField textfield;
-        public new Widgets.FormatBar formatbar;
         private static int tuid_counter;
         public int tuid;
         private new Gtk.CssProvider css_provider;
@@ -74,10 +73,6 @@ namespace Notejot {
                 tlog.title = titleentry.get_text ();
                 win.tm.save_trash_notes.begin (win.trashstore);
             });
-            Timeout.add(50, () => {
-                set_title (titleentry.get_text ());
-                return true;
-            });
 
             var notebookbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             notebookbox.set_margin_bottom (6);
@@ -122,14 +117,9 @@ namespace Notejot {
             textfield.controller = ((Widgets.Note)this);
             textfield.get_style_context ().add_class ("notejot-tview-trash-%d".printf(tuid));
 
-            formatbar = new Widgets.FormatBar ();
-            formatbar.controller = textfield;
-            formatbar.set_sensitive (false);
-
             var note_grid = new Gtk.Grid ();
             note_grid.attach (titlebox, 0, 2);
             note_grid.attach (text_scroller, 0, 3);
-            note_grid.attach (formatbar, 0, 4);
             note_grid.set_sensitive (false);
             win.main_stack.add_named (note_grid, "textfield-trash-%d".printf(tuid));
             note_grid.get_style_context ().add_class ("notejot-stack-trash-%d".printf(tuid));
@@ -154,6 +144,7 @@ namespace Notejot {
         public new void select_item () {
             if (win.main_stack != null) {
                 win.main_stack.set_visible_child_name ("textfield-trash-%d".printf(tuid));
+                win.format_revealer.set_reveal_child (true);
             }
         }
 
@@ -179,25 +170,21 @@ namespace Notejot {
             string style = null;
             style = """
             .notejot-sidebar-dbg-%d {
-                background: mix(%s, @view_bg_color, 0.5);
-                border: 1px solid @borders;
+                background: linear-gradient(mix(%s, @view_bg_color, 0.5),shade(mix(%s, @view_bg_color, 0.4), 0.9));
                 border-radius: 9999px;
-            }
-            .notejot-action-trash-%d {
-                background: mix(@headerbar_bg_color, %s, 0.1);
+                box-shadow: inset 0 0 2px 0 alpha(@view_fg_color, 0.8);
             }
             .nw-titlebox-trash-%d {
                 background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-stack-trash-%d .notejot-bar {
-                background: mix(@view_bg_color, %s, 0.1);
+                background: mix(@view_bg_color, %s, 0.05);
             }
             .notejot-tview-trash-%d text {
-                background: mix(@view_bg_color, %s, 0.1);
+                background: mix(@view_bg_color, %s, 0.05);
             }
             """.printf( tuid,
                         color,
-                        tuid,
                         color,
                         tuid,
                         color,
@@ -234,16 +221,13 @@ namespace Notejot {
                                                     int.parse(match.fetch_named ("minute")),
                                                     e.get_second ());
 
-                        Timeout.add(50, () => {
-                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
-                                                          get_first_line (tlog.text).replace("|", "")
-                                                                                   .replace("_", "")
-                                                                                   .replace("*", "")
-                                                                                   .replace("~", "")));
-                            set_notebook ();
-                            set_subtitle_label ();
-                            return false;
-                        });
+                        set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
+                                                      get_first_line (tlog.text).replace("|", "")
+                                                                               .replace("_", "")
+                                                                               .replace("*", "")
+                                                                               .replace("~", "")));
+                        set_notebook ();
+                        set_subtitle_label ();
                     }
                 }
                 win.tm.save_trash_notes.begin (win.trashstore);

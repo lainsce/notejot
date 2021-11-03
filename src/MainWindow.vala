@@ -41,14 +41,18 @@ namespace Notejot {
         [GtkChild]
         public unowned Adw.Leaflet leaflet;
         [GtkChild]
-        public unowned Gtk.Box list_scroller;
+        public unowned Gtk.Overlay list_scroller;
         [GtkChild]
-        public unowned Gtk.Box trash_scroller;
+        public unowned Gtk.Overlay trash_scroller;
         [GtkChild]
         public unowned Gtk.ListBox listview;
         [GtkChild]
         public unowned Gtk.ListBox trashview;
+        [GtkChild]
+        public unowned Gtk.Revealer format_revealer;
 
+        [GtkChild]
+        public unowned Gtk.Box main_box;
         [GtkChild]
         public unowned Gtk.Stack main_stack;
         [GtkChild]
@@ -68,11 +72,9 @@ namespace Notejot {
         // Etc
         int uid = 0;
         public Gtk.Settings gtk_settings;
-
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
-
         public Gtk.Builder tbuilder;
 
         public SimpleActionGroup actions { get; construct; }
@@ -131,15 +133,9 @@ namespace Notejot {
         }
 
         construct {
-            // Initial settings
-
-            // This css provider still needed due to custom css in-app
-            var provider = new Gtk.CssProvider ();
-            provider.load_from_resource ("/io/github/lainsce/Notejot/style.css");
-            Gtk.StyleContext.add_provider_for_display (Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-            default_theme.add_resource_path ("/io/github/lainsce/Notejot");
+            // Dark theme
+            var adwsm = Adw.StyleManager.get_default ();
+            adwsm.set_color_scheme(Adw.ColorScheme.PREFER_LIGHT);
 
             // Actions
             actions = new SimpleActionGroup ();
@@ -163,17 +159,11 @@ namespace Notejot {
 
             var action_fontsize = Notejot.Application.gsettings.create_action ("font-size");
             app.add_action(action_fontsize);
-            
-            // Dark theme
-            var adwsm = Adw.StyleManager.get_default ();
-            adwsm.set_color_scheme (Adw.ColorScheme.PREFER_LIGHT);
 
             // Main View
             tm = new TaskManager (this);
             sm = new Widgets.SettingMenu(this);
             settingmenu.visible = false;
-
-            titlebar.get_style_context ().add_class ("notejot-empty-title");
 
             back_button.clicked.connect (() => {
                 main_stack.set_visible_child (empty_state);
@@ -181,6 +171,7 @@ namespace Notejot {
                     listview.unselect_row(listview.get_selected_row ());
                 }
                 settingmenu.visible = false;
+                format_revealer.set_reveal_child (false);
                 lv.set_search_text ("");
                 leaflet.set_visible_child (sgrid);
             });
@@ -253,6 +244,12 @@ namespace Notejot {
 
                     ((Menu)tbuilder.get_object ("edit")).insert_item (-1, menuitem);
                 }
+            });
+
+            Timeout.add_seconds(1, () => {
+                tm.save_notes.begin (notestore);
+                tm.save_trash_notes.begin (trashstore);
+                tm.save_notebooks.begin (notebookstore);
             });
 
             // Preparing window to be shown
@@ -348,7 +345,7 @@ namespace Notejot {
             log.title = _("New Note ") + (@"$uid");
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = "";
-            log.color = "#ebebeb";
+            log.color = "#fafafa";
             log.notebook = "<i>" + _("No Notebook") + "</i>";
             log.pinned = false;
 
@@ -366,8 +363,6 @@ namespace Notejot {
                 main_stack.set_visible_child (empty_state);
             }
             settingmenu.visible = true;
-
-            tm.save_notes.begin (notestore);
         }
 
         public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
@@ -414,10 +409,9 @@ namespace Notejot {
             Notejot.Application.gsettings.set_string("last-view", "list");
             hbb.title = (_("All Notes"));
             main_stack.set_visible_child (empty_state);
+            format_revealer.set_reveal_child (false);
+            leaflet.set_visible_child (sgrid);
 
-            uint lvu = lv.last_uid;
-            titlebar.get_style_context ().add_class ("notejot-empty-title");
-            titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
             if (listview.get_selected_row () != null) {
                 listview.unselect_row(listview.get_selected_row ());
             }
@@ -438,10 +432,9 @@ namespace Notejot {
             Notejot.Application.gsettings.set_string("last-view", "trash");
             hbb.title = (_("Trash"));
             main_stack.set_visible_child (empty_state);
+            format_revealer.set_reveal_child (false);
+            leaflet.set_visible_child (sgrid);
 
-            uint lvu = lv.last_uid;
-            titlebar.get_style_context ().add_class ("notejot-empty-title");
-            titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
             if (trashview.get_selected_row () != null) {
                 trashview.unselect_row(trashview.get_selected_row ());
             }
@@ -523,7 +516,6 @@ namespace Notejot {
                     notestore.find (((Widgets.Note)row).log, out pos);
                     notestore.remove (pos);
 	                ((Widgets.Note)row).picon.set_visible (true);
-	                tm.save_notes.begin (notestore);
                 } else {
                     var tlog = new Log ();
                     tlog.title = ((Widgets.Note)row).log.title;
@@ -540,7 +532,6 @@ namespace Notejot {
                     uint pos;
                     notestore.find (((Widgets.Note)row).log, out pos);
                     notestore.remove (pos);
-	                tm.save_notes.begin (notestore);
                 }
             }
         }
@@ -577,10 +568,8 @@ namespace Notejot {
                 leaflet.set_visible_child (sgrid);
             }
 
-            uint lvu = lv.last_uid;
             settingmenu.visible = false;
             titlebar.get_style_context ().add_class ("notejot-empty-title");
-            titlebar.get_style_context ().remove_class (@"notejot-action-$lvu");
         }
 
         public void action_restore_note () {

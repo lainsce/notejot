@@ -94,7 +94,6 @@ namespace Notejot {
                             var item2 = win.notestore.get_item (i2);
                             if (notebook_entry.get_text () == ((Log)item2).notebook) {
                                 ((Log)item2).notebook = notebook_name;
-                                win.tm.save_notes.begin (win.notestore);
                             }
                         }
                     });
@@ -124,7 +123,6 @@ namespace Notejot {
 
                             if (notebook_entry.get_text () == ((Log)item2).notebook) {
                                 ((Log)item2).notebook = "<i>" + _("No Notebook") + "</i>";
-                                win.tm.save_notes.begin (win.notestore);
                             }
                         }
 
