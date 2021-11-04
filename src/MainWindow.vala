@@ -507,10 +507,10 @@ namespace Notejot {
                     tlog.text = ((Widgets.Note)row).log.text;
                     tlog.color = ((Widgets.Note)row).log.color;
                     tlog.notebook = ((Widgets.Note)row).log.notebook;
-                    tlog.pinned = ((Widgets.Note)row).log.pinned;
+                    tlog.pinned = "1";
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (true);
-                        return -1;
+                        return 1;
                     });
 
                     uint pos;
@@ -524,10 +524,10 @@ namespace Notejot {
                     tlog.text = ((Widgets.Note)row).log.text;
                     tlog.color = ((Widgets.Note)row).log.color;
                     tlog.notebook = ((Widgets.Note)row).log.notebook;
-                    tlog.pinned = ((Widgets.Note)row).log.pinned;
+                    tlog.pinned = "0";
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (false);
-                        return -1;
+                        return 1;
                     });
 
                     uint pos;
