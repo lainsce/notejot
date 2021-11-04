@@ -60,6 +60,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Box main_box;
         [GtkChild]
+        public unowned Gtk.ActionBar formatbar;
+        [GtkChild]
         public unowned Gtk.Stack main_stack;
         [GtkChild]
         public unowned Gtk.Stack sidebar_stack;

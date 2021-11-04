@@ -120,7 +120,6 @@ namespace Notejot {
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
             textfield.set_can_focus(true);
-            textfield.get_style_context ().add_class ("content-footer");
             textfield.get_style_context ().add_class ("notejot-tview-%d".printf(uid));
 
             var note_grid = new Gtk.Grid ();
@@ -193,11 +192,16 @@ namespace Notejot {
             .nw-titlebox-%d {
                 background: mix(@view_bg_color, %s, 0.1);
             }
+            .nw-formatbar-%d {
+                background: mix(@view_bg_color, %s, 0.1);
+            }
             .notejot-tview-%d text {
                 background: mix(@view_bg_color, %s, 0.03);
             }
             """.printf( uid,
                         color,
+                        color,
+                        uid,
                         color,
                         uid,
                         color,

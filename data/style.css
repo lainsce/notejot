@@ -15,6 +15,7 @@
   padding: 12px;
   border-width: 1px;
   border-style: solid;
+  border-radius: 8px;
   border-color: alpha(@window_fg_color, 0.3);
 }
 
@@ -57,6 +58,7 @@
 .content-view {
 	border-radius: 12px;
 	margin: 6px;
+	margin-bottom: 0px;
 	margin-top: 0px;
 }
 
@@ -115,11 +117,20 @@
 	padding: 10px 12px;
 	border-radius: 6px;
 	border: none;
-	box-shadow: 0 1px 1px 0 @borders;
 }
 
 .content-footer {
 	border-radius: 0 0 6px 6px;
+}
+
+.content-footer button {
+  background: none;
+}
+.content-footer button:hover {
+  background: alpha(@view_fg_color, 0.122);
+}
+.content-footer button:active {
+  background: alpha(@view_fg_color, 0.188);
 }
 
 .no-sep {

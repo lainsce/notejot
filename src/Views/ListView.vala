@@ -6,6 +6,7 @@ namespace Notejot {
 
         public string search_text = "";
         public string selected_notebook = "";
+        public int last_uid;
 
         public ListView (MainWindow win) {
             this.win = win;
@@ -22,6 +23,15 @@ namespace Notejot {
                     ((Widgets.Note)selected_row).textfield.grab_focus ();
                     ((Widgets.Note)selected_row).select_item ();
                     win.sm.controller = ((Widgets.Note)selected_row);
+
+                    win.formatbar.get_style_context ().remove_class (@"nw-formatbar-$last_uid");
+
+                    last_uid = ((Widgets.Note)selected_row).uid;
+                    win.sm.controller = ((Widgets.Note)selected_row);
+
+                    win.formatbar.get_style_context ().add_class (@"nw-formatbar-$last_uid");
+                } else {
+                    win.formatbar.get_style_context ().remove_class (@"nw-formatbar-$last_uid");
                 }
             });
         }
