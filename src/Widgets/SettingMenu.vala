@@ -46,10 +46,18 @@ namespace Notejot {
                     controller.update_theme("#63452c");
             });
 
-            nmp.color_button_reset.toggled.connect (() => {
-                if (controller != null)
-                    controller.update_theme("#fafafa");
-            });
+            var adwsm = Adw.StyleManager.get_default ();
+            if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
+                nmp.color_button_reset.toggled.connect (() => {
+                    if (controller != null)
+                        controller.update_theme("#000");
+                });
+            } else {
+                nmp.color_button_reset.toggled.connect (() => {
+                    if (controller != null)
+                        controller.update_theme("#fff");
+                });
+            }
 
             tnmpopover = new Widgets.TrashNoteMenuPopover ();
         }

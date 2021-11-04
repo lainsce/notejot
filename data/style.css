@@ -1,13 +1,14 @@
-@define-color accent_color @yellow_5;
-@define-color accent_bg_color @yellow_5;
-@define-color accent_fg_color shade(@yellow_1, 1.2);
-@define-color window_bg_color mix(@yellow_5, @view_bg_color, 0.82);
-@define-color headerbar_bg_color mix(@yellow_5, @view_bg_color, 0.82);
-@define-color popover_bg_color mix(@yellow_5, @view_bg_color, 0.92);
-@define-color popover_fg_color mix(@yellow_5, #222, 0.82);
-@define-color window_fg_color mix(@yellow_5, #222, 0.82);
-@define-color view_fg_color mix(@yellow_5, #222, 0.82);
-@define-color headerbar_fg_color mix(@yellow_5, #222, 0.82);
+@define-color accent_color #705d00;
+@define-color accent_bg_color #705d00;
+@define-color accent_fg_color #1d1b16;
+@define-color window_bg_color #e3dfdb;
+@define-color view_bg_color #fff;
+@define-color headerbar_bg_color #e3dfdb;
+@define-color popover_bg_color #fffbf7;
+@define-color popover_fg_color #1d1b16;
+@define-color window_fg_color #1d1b16;
+@define-color view_fg_color #1d1b16;
+@define-color headerbar_fg_color #1d1b16;
 
 .circular radio {
   background: none;
@@ -32,7 +33,7 @@
 }
 .accent-button {
   background: @accent_color;
-  color: @accent_fg_color;
+  color: white;
 }
 
 .content-view {
@@ -45,7 +46,7 @@
 	margin-bottom: 0px;
 	border-radius: 6px;
 	border: none;
-	background: mix(@yellow_5, @view_bg_color, 0.944);
+	background: @popover_bg_color;
 }
 
 .content-header {
@@ -54,10 +55,11 @@
 }
 
 .content-header entry {
-	background: alpha(@view_fg_color, 0.08);
-	padding: 5px 8px;
+	background: alpha(@view_fg_color, 0.066);
+	padding: 10px 12px;
 	border-radius: 6px;
 	border: none;
+	box-shadow: 0 1px 1px 0 @borders;
 }
 
 .content-footer {
@@ -125,7 +127,7 @@
 .notejot-searchbar entry {
   border-radius: 6px;
   border: none;
-  background: mix(@yellow_5, @view_bg_color, 0.944);
+  background: @popover_bg_color;
 }
 
 .big-font {

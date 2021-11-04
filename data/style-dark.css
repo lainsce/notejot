@@ -1,18 +1,15 @@
-@define-color accent_color @yellow_1;
-@define-color accent_bg_color @yellow_1;
-@define-color accent_fg_color shade(@yellow_5, 0.88);
-@define-color window_bg_color mix(@view_bg_color, @yellow_1, 0.02);
-@define-color headerbar_bg_color mix(@view_bg_color, @yellow_1, 0.02);
-@define-color popover_bg_color mix(@view_bg_color, @yellow_1, 0.01);
-@define-color popover_fg_color mix(@yellow_1, #ccc, 0.82);
-@define-color window_fg_color mix(@yellow_1, #ccc, 0.82);
-@define-color view_fg_color mix(@yellow_1, #ccc, 0.82);
-@define-color headerbar_fg_color mix(@yellow_1, #ccc, 0.82);
+@define-color accent_color #e6c419;
+@define-color accent_bg_color #e6c419;
+@define-color accent_fg_color #e8e2d9;
+@define-color window_bg_color #383630;
+@define-color view_bg_color #121212;
+@define-color headerbar_bg_color #383630;
+@define-color popover_bg_color #1d1b16;
+@define-color popover_fg_color #e8e2d9;
+@define-color window_fg_color #e8e2d9;
+@define-color view_fg_color #e8e2d9;
+@define-color headerbar_fg_color #e8e2d9;
 
-.content-sidebar {
-	background: mix(@view_bg_color, @yellow_2, 0.06);
-}
-
-.notejot-searchbar entry {
-  background: mix(@view_bg_color, @yellow_2, 0.06);
+.accent-button {
+  color: black;
 }
