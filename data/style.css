@@ -186,7 +186,7 @@
   border: none;
   margin: 0 6px;
   margin-bottom: 6px;
-  padding: 3px 8px;
+  padding: 5px 12px;
   background: @popover_bg_color;
 }
 

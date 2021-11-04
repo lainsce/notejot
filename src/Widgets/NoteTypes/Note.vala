@@ -194,7 +194,7 @@ namespace Notejot {
                 background: mix(@view_bg_color, %s, 0.1);
             }
             .notejot-tview-%d text {
-                background: mix(@view_bg_color, %s, 0.05);
+                background: mix(@view_bg_color, %s, 0.03);
             }
             """.printf( uid,
                         color,
