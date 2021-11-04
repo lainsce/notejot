@@ -26,6 +26,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button back_button;
         [GtkChild]
+        public unowned Gtk.Button back_button2;
+        [GtkChild]
         public unowned Gtk.MenuButton menu_button;
         [GtkChild]
         public unowned Gtk.MenuButton settingmenu;
@@ -36,6 +38,8 @@ namespace Notejot {
         public unowned Gtk.Box grid;
         [GtkChild]
         public unowned Gtk.Box sgrid;
+        [GtkChild]
+        public unowned Gtk.WindowHandle nbgrid;
         [GtkChild]
         public unowned Gtk.Box empty_state;
         [GtkChild]
@@ -48,6 +52,8 @@ namespace Notejot {
         public unowned Gtk.ListBox listview;
         [GtkChild]
         public unowned Gtk.ListBox trashview;
+        [GtkChild]
+        public unowned Gtk.ListBox nbview;
         [GtkChild]
         public unowned Gtk.Revealer format_revealer;
 
@@ -64,7 +70,6 @@ namespace Notejot {
 
         // Custom
         public Widgets.SettingMenu sm;
-        public Widgets.HeaderBarButton hbb;
         public Views.ListView lv;
         public Views.TrashView tv;
         public TaskManager tm;
@@ -75,7 +80,6 @@ namespace Notejot {
         public GLib.ListStore notestore;
         public GLib.ListStore trashstore;
         public GLib.ListStore notebookstore;
-        public Gtk.Builder tbuilder;
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -89,7 +93,6 @@ namespace Notejot {
         public const string ACTION_DELETE_NOTE = "action_delete_note";
         public const string ACTION_RESTORE_NOTE = "action_restore_note";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
-        public const string ACTION_NOTEBOOK = "select_notebook";
         public const string ACTION_PIN_NOTE = "action_pin_note";
 
         public const string ACTION_NORMAL = "action_normal";
@@ -111,7 +114,6 @@ namespace Notejot {
               {ACTION_DELETE_NOTE, action_delete_note},
               {ACTION_RESTORE_NOTE, action_restore_note},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
-              {ACTION_NOTEBOOK, select_notebook, "s"},
               {ACTION_PIN_NOTE, action_pin_note},
 
               {ACTION_NORMAL, action_normal },
@@ -176,6 +178,17 @@ namespace Notejot {
                 leaflet.set_visible_child (sgrid);
             });
 
+            back_button2.clicked.connect (() => {
+                main_stack.set_visible_child (empty_state);
+                if (listview.get_selected_row () != null) {
+                    listview.unselect_row(listview.get_selected_row ());
+                }
+                settingmenu.visible = false;
+                format_revealer.set_reveal_child (false);
+                lv.set_search_text ("");
+                leaflet.set_visible_child (nbgrid);
+            });
+
             // Sidebar Titlebar
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
@@ -205,18 +218,6 @@ namespace Notejot {
                 tm.save_trash_notes.begin (trashstore);
             });
 
-            tbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/title_menu.ui");
-            var tmenu = (Menu)tbuilder.get_object ("tmenu");
-
-            hbb = new Widgets.HeaderBarButton ();
-            hbb.has_tooltip = true;
-            hbb.title = (_("All Notes"));
-            hbb.menu.menu_model = tmenu;
-            hbb.get_style_context ().add_class ("rename-button");
-            hbb.get_style_context ().add_class ("flat");
-
-            stitlebar.set_title_widget (hbb);
-
             var sbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/note_menu.ui");
             var smenu = (Menu)sbuilder.get_object ("smenu");
 
@@ -230,20 +231,21 @@ namespace Notejot {
             });
 
             notebookstore = new GLib.ListStore (typeof (Notebook));
-            notebookstore.items_changed.connect (() => {
+            nbview.bind_model (notebookstore, item => make_nb_item (this, item));
+            notebookstore.items_changed.connect ((pos, add, rm) => {
                 tm.save_notebooks.begin (notebookstore);
-                ((Menu)tbuilder.get_object ("edit")).remove_all ();
+            });
 
-                uint i, n = notebookstore.get_n_items ();
-                for (i = 0; i < n; i++) {
-                    var item = notebookstore.get_item (i);
-                    string notebook_name = (((Notebook)item).title);
+            nbview.row_selected.connect ((selected_row) => {
+                leaflet.set_visible_child (sgrid);
+                lv.set_selected_notebook (((Adw.ActionRow)selected_row).title);
+                sidebar_stack.set_visible_child (list_scroller);
+                main_stack.set_visible_child (empty_state);
 
-                    var menuitem = new GLib.MenuItem (notebook_name, null);
-                    menuitem.set_action_and_target_value ("win.select_notebook", notebook_name);
-
-                    ((Menu)tbuilder.get_object ("edit")).insert_item (-1, menuitem);
+                if (listview.get_selected_row () != null) {
+                    listview.unselect_row(listview.get_selected_row ());
                 }
+                settingmenu.visible = false;
             });
 
             Timeout.add_seconds(1, () => {
@@ -329,6 +331,13 @@ namespace Notejot {
             trashstore.append(tlog);
         }
 
+        public Adw.ActionRow make_nb_item (MainWindow win, GLib.Object item) {
+            var actionrow = new Adw.ActionRow ();
+            actionrow.get_style_context ().add_class ("content-sidebar-notebooks-item");
+            actionrow.set_title ((((Notebook)item).title));
+            return actionrow;
+        }
+
         public void make_notebook (string title) {
             var nb = new Notebook ();
             nb.title = title;
@@ -365,18 +374,6 @@ namespace Notejot {
             settingmenu.visible = true;
         }
 
-        public void select_notebook (GLib.SimpleAction action, GLib.Variant? parameter) {
-            hbb.title = parameter.get_string ();
-            lv.set_selected_notebook (parameter.get_string ());
-            sidebar_stack.set_visible_child (list_scroller);
-
-            main_stack.set_visible_child (empty_state);
-            if (listview.get_selected_row () != null) {
-                listview.unselect_row(listview.get_selected_row ());
-            }
-            settingmenu.visible = false;
-        }
-
         public void action_about () {
             const string COPYRIGHT = "Copyright \xc2\xa9 2017-2021 Paulo \"Lains\" Galardi\n";
 
@@ -407,7 +404,6 @@ namespace Notejot {
         public void action_all_notes () {
             sidebar_stack.set_visible_child (list_scroller);
             Notejot.Application.gsettings.set_string("last-view", "list");
-            hbb.title = (_("All Notes"));
             main_stack.set_visible_child (empty_state);
             format_revealer.set_reveal_child (false);
             leaflet.set_visible_child (sgrid);
@@ -425,12 +421,14 @@ namespace Notejot {
             var popover = settingmenu.get_popover ();
             popover.add_child (sbuilder, sm.nmp, "theme");
             lv.set_selected_notebook ("");
+            if (nbview.get_selected_row () != null) {
+                nbview.unselect_row(nbview.get_selected_row ());
+            }
         }
 
         public void action_trash () {
             sidebar_stack.set_visible_child (trash_scroller);
             Notejot.Application.gsettings.set_string("last-view", "trash");
-            hbb.title = (_("Trash"));
             main_stack.set_visible_child (empty_state);
             format_revealer.set_reveal_child (false);
             leaflet.set_visible_child (sgrid);
@@ -439,6 +437,9 @@ namespace Notejot {
                 trashview.unselect_row(trashview.get_selected_row ());
             }
             settingmenu.visible = false;
+            if (nbview.get_selected_row () != null) {
+                nbview.unselect_row(nbview.get_selected_row ());
+            }
         }
 
         public void action_trash_notes () {

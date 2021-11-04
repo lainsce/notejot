@@ -217,30 +217,41 @@ namespace Notejot {
 
         public async void sync_subtitles () {
             try {
-                var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
-                GLib.MatchInfo match;
+                new Thread<void>.try ("", () => {
+                    try {
+                        var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+                        GLib.MatchInfo match;
 
-                if (log != null) {
-                    if (reg.match (log.subtitle, 0, out match)) {
-                        var e = new GLib.DateTime.now_local ();
-                        var d = new DateTime.local (e.get_year (),
-                                                    int.parse(match.fetch_named ("month")),
-                                                    int.parse(match.fetch_named ("day")),
-                                                    int.parse(match.fetch_named ("hour")),
-                                                    int.parse(match.fetch_named ("minute")),
-                                                    e.get_second ());
+                        if (log != null) {
+                            if (reg.match (log.subtitle, 0, out match)) {
+                                var e = new GLib.DateTime.now_local ();
+                                var d = new DateTime.local (e.get_year (),
+                                                            int.parse(match.fetch_named ("month")),
+                                                            int.parse(match.fetch_named ("day")),
+                                                            int.parse(match.fetch_named ("hour")),
+                                                            int.parse(match.fetch_named ("minute")),
+                                                            e.get_second ());
 
-                        set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
-                                                          get_first_line (log.text).replace("|", "")
-                                                                                   .replace("_", "")
-                                                                                   .replace("*", "")
-                                                                                   .replace("~", "")));
-                        set_notebook ();
-                        set_subtitle_label ();
-                        win.tm.save_notes.begin (win.notestore);
+                                set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
+                                                                  get_first_line (log.text).replace("|", "")
+                                                                                           .replace("_", "")
+                                                                                           .replace("*", "")
+                                                                                           .replace("~", "")));
+                                set_notebook ();
+                                set_subtitle_label ();
+                                this.set_title (log.title);
+                                win.tm.save_notes.begin (win.notestore);
+                            }
+                        }
+
+                        sync_subtitles.callback();
+
+                    } catch (GLib.RegexError re) {
+                        warning ("%s".printf(re.message));
                     }
-                }
-            } catch (GLib.RegexError re) {
+                });
+                yield;
+            } catch (Error re) {
                 warning ("%s".printf(re.message));
             }
         }

@@ -2,7 +2,7 @@
 @define-color accent_bg_color #e6c419;
 @define-color accent_fg_color #e8e2d9;
 @define-color window_bg_color #383630;
-@define-color view_bg_color #121212;
+@define-color view_bg_color #1d1b16;
 @define-color headerbar_bg_color #383630;
 @define-color popover_bg_color #1d1b16;
 @define-color popover_fg_color #e8e2d9;
@@ -12,4 +12,8 @@
 
 .accent-button {
   color: black;
+}
+.list-action-button.destructive-action {
+  background: #ffb4a9;
+  color: #680003;
 }

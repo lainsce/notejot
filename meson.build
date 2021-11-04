@@ -54,7 +54,6 @@ sources = files(
     'src/Services/Utils.vala',
     'src/Views/ListView.vala',
     'src/Views/TrashView.vala',
-    'src/Widgets/HeaderBarButton.vala',
     'src/Widgets/SettingMenu.vala',
     'src/Widgets/NoteTheme.vala',
     'src/Widgets/TextField.vala',

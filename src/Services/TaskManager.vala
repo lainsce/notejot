@@ -89,6 +89,7 @@ namespace Notejot {
             Json.Node root = builder.get_root ();
             generator.set_root (root);
             json_string = generator.to_data (null);
+            FileError error = null;
 
             var dir = File.new_for_path(app_dir);
             var file = File.new_for_path (file_name_n);
@@ -96,10 +97,21 @@ namespace Notejot {
                 if (!dir.query_exists()) {
                     dir.make_directory();
                 }
-                if (file.query_exists ()) {
-                    file.delete ();
-                }
-                GLib.FileUtils.set_contents (file.get_path (), json_string);
+
+                new Thread<void>.try ("", () => {
+                    try {
+                        GLib.FileUtils.set_contents (file.get_path (), json_string);
+                    } catch (GLib.FileError e) {
+                        warning ("Failed to save file: %s\n", e.message);
+                    }
+                    save_notes.callback ();
+                });
+
+                yield;
+
+                if (error != null)
+		            throw error;
+
                 debug ("Save Normal Notes...");
             } catch (Error e) {
                 warning ("Failed to save file: %s\n", e.message);
@@ -164,17 +176,24 @@ namespace Notejot {
                 if (!dir.query_exists()) {
                     dir.make_directory();
                 }
-                if (file.query_exists ()) {
-                    file.delete ();
-                }
-                GLib.FileUtils.set_contents (file.get_path (), json_string_t);
+
+                new Thread<void>.try ("", () => {
+                    try {
+                        GLib.FileUtils.set_contents (file.get_path (), json_string_t);
+                    } catch (GLib.FileError e) {
+                        warning ("Failed to save file: %s\n", e.message);
+                    }
+                    save_trash_notes.callback ();
+                });
+
+                yield;
             } catch (Error e) {
                 warning ("Failed to save file: %s\n", e.message);
             }
         }
 
         public async void save_notebooks (ListStore liststore) {
-            string json_string = "";
+            string json_string_n = "";
             var builder = new Json.Builder ();
 
             builder.begin_array ();
@@ -190,7 +209,7 @@ namespace Notejot {
             Json.Generator generator = new Json.Generator ();
             Json.Node root = builder.get_root ();
             generator.set_root (root);
-            json_string = generator.to_data (null);
+            json_string_n = generator.to_data (null);
 
             var dir = File.new_for_path(app_dir);
             var file = File.new_for_path (file_name_nb);
@@ -198,10 +217,17 @@ namespace Notejot {
                 if (!dir.query_exists()) {
                     dir.make_directory();
                 }
-                if (file.query_exists ()) {
-                    file.delete ();
-                }
-                GLib.FileUtils.set_contents (file.get_path (), json_string);
+
+                new Thread<void>.try ("", () => {
+                    try {
+                        GLib.FileUtils.set_contents (file.get_path (), json_string_n);
+                    } catch (GLib.FileError e) {
+                        warning ("Failed to save file: %s\n", e.message);
+                    }
+                    save_notebooks.callback ();
+                });
+
+                yield;
             } catch (Error e) {
                 warning ("Failed to save file: %s\n", e.message);
             }

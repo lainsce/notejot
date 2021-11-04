@@ -7,6 +7,7 @@
     <property name="modal">1</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
+    <property name="default-widget">notebook_add_button</property>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
@@ -28,6 +29,7 @@
                 <child>
                   <object class="GtkEntry" id="notebook_name_entry">
                     <property name="hexpand">1</property>
+                    <property name="activates-default">1</property>
                     <property name="placeholder-text" translatable="yes">New Notebook…</property>
                   </object>
                 </child>

@@ -1,8 +1,8 @@
 @define-color accent_color #705d00;
 @define-color accent_bg_color #705d00;
-@define-color accent_fg_color #1d1b16;
+@define-color accent_fg_color #fffbf7;
 @define-color window_bg_color #e3dfdb;
-@define-color view_bg_color #fff;
+@define-color view_bg_color #fffbf7;
 @define-color headerbar_bg_color #e3dfdb;
 @define-color popover_bg_color #fffbf7;
 @define-color popover_fg_color #1d1b16;
@@ -27,18 +27,74 @@
 }
 
 .list-action-button {
-  padding: 6px;
-  border-radius: 9999px;
-  box-shadow: 0 2px 4px 0 @borders;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+              0 4px 8px 3px alpha(black, 0.15);
+}
+.list-action-button:hover {
+  box-shadow: 0 2px 3px 0 alpha(black, 0.3),
+              0 6px 10px 4px alpha(black, 0.15);
 }
 .accent-button {
   background: @accent_color;
   color: white;
 }
+.accent-button:active {
+  background: shade(@accent_color, 1.1);
+  box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+              0 4px 8px 3px alpha(black, 0.15);
+}
+.list-action-button.destructive-action {
+  background: #ba1b1b;
+}
+.list-action-button.destructive-action:active {
+  background: shade(#ba1b1b, 1.1);
+  box-shadow: 0 1px 3px 0 alpha(black, 0.3),
+              0 4px 8px 3px alpha(black, 0.15);
+}
 
 .content-view {
 	border-radius: 12px;
 	margin: 6px;
+	margin-top: 0px;
+}
+
+.content-sidebar-notebooks {
+	margin: 6px;
+	margin-bottom: 0px;
+	border-radius: 6px;
+	border: none;
+	box-shadow: none;
+	background: @window_bg_color;
+}
+
+.content-sidebar-notebooks-item {
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 6px;
+  border: none;
+  box-shadow: none;
+  border-radius: 6px;
+}
+.content-sidebar-contents-item .header {
+  padding: 0;
+  margin: 0;
+}
+
+.content-sidebar-notebooks-button {
+  border: none;
+  margin: 0 6px;
+  box-shadow: none;
+  border-radius: 8px;
+  background: alpha(@view_fg_color, 0.05);
+  font-weight: 500;
+}
+.content-sidebar-notebooks-button:hover {
+  background: alpha(@view_fg_color, 0.1);
+}
+.content-sidebar-notebooks-button:active {
+  background: alpha(@view_fg_color, 0.15);
 }
 
 .content-sidebar {
@@ -70,6 +126,7 @@
   background: none;
   box-shadow: none;
   border: none;
+  margin: 0px;
 }
 
 .notejot-titlebar,
@@ -124,9 +181,12 @@
   margin: 6px;
 }
 
-.notejot-searchbar entry {
+.notejot-searchbar {
   border-radius: 6px;
   border: none;
+  margin: 0 6px;
+  margin-bottom: 6px;
+  padding: 3px 8px;
   background: @popover_bg_color;
 }
 
