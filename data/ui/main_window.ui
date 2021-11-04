@@ -31,7 +31,7 @@
                       <object class="GtkBox">
                       </object>
                     </child>
-                    <child>
+                    <child type="end">
                       <object class="GtkMenuButton" id="menu_button">
                         <property name="receives-default">1</property>
                         <property name="icon-name">open-menu-symbolic</property>
@@ -110,7 +110,7 @@
                                 <property name="valign">end</property>
                                 <property name="halign">end</property>
                                 <property name="margin-end">12</property>
-                                <property name="margin-bottom">12</property>
+                                <property name="margin-bottom">6</property>
                                 <style>
                                   <class name="list-action-button"/>
                                   <class name="accent-button"/>
