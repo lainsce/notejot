@@ -23,9 +23,10 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkBox">
-                <property name="spacing">6</property>
-                <property name="margin-start">6</property>
-                <property name="margin-end">6</property>
+                <property name="spacing">12</property>
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <property name="margin-bottom">6</property>
                 <child>
                   <object class="GtkEntry" id="notebook_name_entry">
                     <property name="hexpand">1</property>
@@ -48,22 +49,28 @@
           </object>
         </child>
         <child>
-          <object class="GtkListBox" id="notebook_listbox">
-            <property name="vexpand">1</property>
-            <style>
-              <class name="content"/>
-              <class name="content-sidebar"/>
-            </style>
-            <child type="placeholder">
-              <object class="AdwStatusPage">
-                <property name="valign">center</property>
+          <object class="GtkScrolledWindow">
+            <property name="height-request">360</property>
+            <property name="margin-bottom">12</property>
+            <child>
+              <object class="GtkListBox" id="notebook_listbox">
                 <property name="vexpand">1</property>
-                <property name="icon-name">notebook-symbolic</property>
-                <property name="title" translatable="yes">No Notebooks</property>
-                <property name="description" translatable="yes">Create a notebook with + Add button.</property>
                 <style>
-                  <class name="compact"/>
+                  <class name="content"/>
+                  <class name="content-sidebar-dialog"/>
                 </style>
+                <child type="placeholder">
+                  <object class="AdwStatusPage">
+                    <property name="valign">center</property>
+                    <property name="vexpand">1</property>
+                    <property name="icon-name">notebook-symbolic</property>
+                    <property name="title" translatable="yes">No Notebooks</property>
+                    <property name="description" translatable="yes">Create a notebook with + Add button.</property>
+                    <style>
+                      <class name="compact"/>
+                    </style>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
