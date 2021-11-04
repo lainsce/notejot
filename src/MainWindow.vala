@@ -527,7 +527,7 @@ namespace Notejot {
                     tlog.pinned = "0";
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (false);
-                        return 1;
+                        return -1;
                     });
 
                     uint pos;
