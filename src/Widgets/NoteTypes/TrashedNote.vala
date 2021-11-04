@@ -23,7 +23,7 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
-        public bool pinned { get; set; }
+        public string pinned { get; set; }
     }
 
     public class Widgets.TrashedNote : Widgets.Note {

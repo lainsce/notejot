@@ -203,7 +203,7 @@ namespace Notejot {
                 tm.save_notes.begin (notestore);
             });
             notestore.sort ((a, b) => {
-                if (((Log)a).pinned) {
+                if (((Log)a).pinned == "1") {
                     return -1;
                 }
 
@@ -294,7 +294,7 @@ namespace Notejot {
             return new Widgets.Note (this, (Log) item);
         }
 
-        public void make_note (string title, string subtitle, string text, string color, string notebook, bool pinned) {
+        public void make_note (string title, string subtitle, string text, string color, string notebook, string pinned) {
             var log = new Log ();
             log.title = title;
             log.subtitle = subtitle;
@@ -306,7 +306,7 @@ namespace Notejot {
             lv.is_modified = true;
 
             notestore.insert_sorted(log, (a, b) => {
-                if (((Log)a).pinned) {
+                if (((Log)a).pinned == "1") {
                     return -1;
                 }
 
@@ -356,10 +356,10 @@ namespace Notejot {
             log.text = "";
             log.color = "#fafafa";
             log.notebook = "<i>" + _("No Notebook") + "</i>";
-            log.pinned = false;
+            log.pinned = "0";
 
             notestore.insert_sorted(log, (a, b) => {
-                if (((Log)a).pinned) {
+                if (((Log)a).pinned == "1") {
                     return -1;
                 }
 
@@ -500,14 +500,14 @@ namespace Notejot {
             Gtk.ListBoxRow row = listview.get_selected_row ();
 
             if (row != null) {
-                if (!((Widgets.Note)row).log.pinned) {
+                if (((Widgets.Note)row).log.pinned != "1") {
                     var tlog = new Log ();
                     tlog.title = ((Widgets.Note)row).log.title;
                     tlog.subtitle = ((Widgets.Note)row).log.subtitle;
                     tlog.text = ((Widgets.Note)row).log.text;
                     tlog.color = ((Widgets.Note)row).log.color;
                     tlog.notebook = ((Widgets.Note)row).log.notebook;
-                    tlog.pinned = true;
+                    tlog.pinned = ((Widgets.Note)row).log.pinned;
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (true);
                         return -1;
@@ -524,7 +524,7 @@ namespace Notejot {
                     tlog.text = ((Widgets.Note)row).log.text;
                     tlog.color = ((Widgets.Note)row).log.color;
                     tlog.notebook = ((Widgets.Note)row).log.notebook;
-                    tlog.pinned = false;
+                    tlog.pinned = ((Widgets.Note)row).log.pinned;
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (false);
                         return -1;

@@ -51,7 +51,7 @@ namespace Notejot {
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
                         var notebook = task.get_string_element(4);
-                        var pinned = task.get_boolean_element(0);
+                        var pinned = task.get_string_element(5);
 
                         win.make_note (title, subtitle, text, color, notebook, pinned);
                     }
@@ -80,7 +80,7 @@ namespace Notejot {
                 builder.add_string_value (((Log)item).text);
                 builder.add_string_value (((Log)item).color);
                 builder.add_string_value (((Log)item).notebook);
-                builder.add_boolean_value (((Log)item).pinned);
+                builder.add_string_value (((Log)item).pinned);
                 builder.end_array ();
             }
             builder.end_array ();

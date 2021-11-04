@@ -23,7 +23,7 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
-        public bool pinned { get; set; }
+        public string pinned { get; set; }
     }
 
     public class Widgets.Note : Adw.ActionRow {
@@ -33,6 +33,7 @@ namespace Notejot {
         public Gtk.CssProvider css_provider;
         public Gtk.Label notebooklabel;
         public Gtk.Label subtitlelabel;
+        public Gtk.Entry titleentry;
         public Gtk.Image picon;
 
         public unowned Log log { get; construct; }
@@ -59,7 +60,7 @@ namespace Notejot {
 
             var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 
-            var titleentry = new Gtk.Entry ();
+            titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);
             titleentry.set_margin_top (12);
             titleentry.set_margin_start (12);
@@ -71,11 +72,11 @@ namespace Notejot {
             titleentry.get_style_context ().add_class ("title-1");
 
             titleentry.activate.connect (() => {
-                log.title = titleentry.get_text ();
+                sync_log.begin ();
                 win.tm.save_notes.begin (win.notestore);
             });
             titleentry.icon_press.connect (() => {
-                log.title = titleentry.get_text ();
+                sync_log.begin ();
                 win.tm.save_notes.begin (win.notestore);
             });
 
@@ -129,7 +130,7 @@ namespace Notejot {
             note_grid.get_style_context ().add_class ("content-view");
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
-            sync_subtitles.begin ();
+            sync_log.begin ();
             update_theme (log.color);
             this.set_title (log.title);
             this.add_prefix (icon);
@@ -162,9 +163,9 @@ namespace Notejot {
             }
         }
 
-        public void set_pinned (bool? pinned) {
+        public void set_pinned (string? pinned) {
             if (log != null) {
-                if (pinned) {
+                if (pinned == "1") {
                     picon.set_visible (true);
                 } else {
                     picon.set_visible (false);
@@ -215,7 +216,7 @@ namespace Notejot {
             log.color = color;
         }
 
-        public async void sync_subtitles () {
+        public async void sync_log () {
             try {
                 new Thread<void>.try ("", () => {
                     try {
@@ -239,12 +240,13 @@ namespace Notejot {
                                                                                            .replace("~", "")));
                                 set_notebook ();
                                 set_subtitle_label ();
-                                this.set_title (log.title);
+                                set_title (titleentry.get_text());
+                                set_pinned (log.pinned);
                                 win.tm.save_notes.begin (win.notestore);
                             }
                         }
 
-                        sync_subtitles.callback();
+                        sync_log.callback();
 
                     } catch (GLib.RegexError re) {
                         warning ("%s".printf(re.message));
