@@ -87,15 +87,9 @@ namespace Notejot {
                         win.notebookstore.insert (pos, nb);
                         win.tm.save_notebooks.begin (win.notebookstore);
 
-                        uint i2, n2 = win.notestore.get_n_items ();
-                        for (i2 = 0; i2 < n2; i2++) {
-                            var item2 = win.notestore.get_item (i2);
-
-                            if (notebook_entry.get_text () == ((Log)item2).notebook) {
-                                win.sm.controller.log.notebook = notebook_entry.get_text ();
-                                win.tm.save_notes.begin (win.notestore);
-                            }
-                        }
+                        win.sm.controller.log.notebook = notebook_entry.get_text ();
+                        win.sm.controller.set_notebook ();
+                        win.tm.save_notes.begin (win.notestore);
                     });
                 }
             }
