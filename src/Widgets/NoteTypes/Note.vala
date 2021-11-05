@@ -56,6 +56,7 @@ namespace Notejot {
             picon = new Gtk.Image.from_icon_name ("view-pin-symbolic");
             picon.halign = Gtk.Align.START;
             picon.valign = Gtk.Align.CENTER;
+            picon.visible = false;
 
             var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 
