@@ -130,11 +130,8 @@ namespace Notejot {
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
             sync_log.begin ();
-            update_theme (log.color);
-            this.set_title (log.title);
             this.add_prefix (icon);
             this.add_suffix (picon);
-            set_pinned (log.pinned);
 
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
@@ -156,9 +153,11 @@ namespace Notejot {
 
         public void set_notebook () {
             if (log != null) {
-                notebooklabel.set_label (log.notebook);
-            } else {
-                notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
+                if (log.notebook == null) {
+                    notebooklabel.set_label (log.notebook);
+                } else {
+                    notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
+                }
             }
         }
 
@@ -221,13 +220,13 @@ namespace Notejot {
         }
 
         public async void sync_log () {
-            try {
-                new Thread<void>.try ("", () => {
-                    try {
-                        var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
-                        GLib.MatchInfo match;
+            if (log != null) {
+                try {
+                    new Thread<void>.try ("", () => {
+                        try {
+                            var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+                            GLib.MatchInfo match;
 
-                        if (log != null) {
                             if (reg.match (log.subtitle, 0, out match)) {
                                 var e = new GLib.DateTime.now_local ();
                                 var d = new DateTime.local (e.get_year (),
@@ -243,21 +242,24 @@ namespace Notejot {
                                                                                            .replace("*", "")
                                                                                            .replace("~", "")));
                                 set_notebook ();
+                                log.notebook = notebooklabel.get_text();
                                 set_subtitle_label ();
                                 set_title (titleentry.get_text());
                                 set_pinned (log.pinned);
+                                update_theme (log.color);
                                 win.tm.save_notes.begin (win.notestore);
                             }
 
                             sync_log.callback();
+                        } catch (GLib.RegexError re) {
+                            warning ("%s".printf(re.message));
                         }
-                    } catch (GLib.RegexError re) {
-                        warning ("%s".printf(re.message));
-                    }
-                });
-                yield;
-            } catch (Error e) {
-                warning ("%s".printf(e.message));
+                    });
+
+                    yield;
+                } catch (Error e) {
+                    warning ("%s".printf(e.message));
+                }
             }
         }
 
