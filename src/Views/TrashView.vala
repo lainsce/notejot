@@ -18,6 +18,16 @@ namespace Notejot {
                     ((Widgets.TrashedNote)selected_row).textfield.grab_focus ();
                     ((Widgets.TrashedNote)selected_row).select_item ();
                     win.sm.tcontroller = ((Widgets.TrashedNote)selected_row);
+
+                    win.formatbar.get_style_context ().remove_class (@"nw-formatbar-trash-$last_uid");
+                    win.formatbar.set_sensitive (false);
+
+                    last_uid = ((Widgets.Note)selected_row).uid;
+
+                    win.formatbar.get_style_context ().add_class (@"nw-formatbar-trash-$last_uid");
+                } else {
+                    win.formatbar.get_style_context ().remove_class (@"nw-formatbar-trash-$last_uid");
+                    win.formatbar.set_sensitive (true);
                 }
             });
         }

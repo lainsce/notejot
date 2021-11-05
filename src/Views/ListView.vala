@@ -28,6 +28,7 @@ namespace Notejot {
 
                     last_uid = ((Widgets.Note)selected_row).uid;
                     win.sm.controller = ((Widgets.Note)selected_row);
+                    win.formatbar.set_sensitive (true);
 
                     win.formatbar.get_style_context ().add_class (@"nw-formatbar-$last_uid");
                 } else {

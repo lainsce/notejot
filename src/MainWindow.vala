@@ -206,7 +206,27 @@ namespace Notejot {
             });
             notestore.sort ((a, b) => {
                 if (((Log)a).pinned == "1") {
-                    return -1;
+                    return 1;
+                }
+                try {
+                    var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+                    GLib.MatchInfo match;
+                    GLib.MatchInfo match2;
+
+                    if (reg.match (((Log)a).subtitle, 0, out match)) {
+                        if (reg.match (((Log)b).subtitle, 0, out match2)) {
+                            var mh = match.fetch_named ("minute");
+                            var mh2 = match2.fetch_named ("minute");
+
+                            if (mh > mh2) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
+                        }
+                    }
+                } catch (GLib.RegexError re) {
+                    warning ("%s".printf(re.message));
                 }
 
                 return 0;

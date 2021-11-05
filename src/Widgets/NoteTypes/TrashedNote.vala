@@ -49,7 +49,7 @@ namespace Notejot {
             var icon = new Gtk.Image.from_icon_name ("");
             icon.halign = Gtk.Align.START;
             icon.valign = Gtk.Align.CENTER;
-            icon.get_style_context ().add_class ("notejot-sidebar-dbg-trash-%d".printf(tuid));
+            icon.get_style_context ().add_class ("notejot-sidebar-trash-dbg-%d".printf(tuid));
 
             var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 
@@ -104,6 +104,7 @@ namespace Notejot {
             titlebox.prepend (titleentry);
 
             titlebox.get_style_context ().add_class ("nw-titlebox");
+            titlebox.get_style_context ().add_class ("content-header");
             titlebox.get_style_context ().add_class ("nw-titlebox-trash-%d".printf(tuid));
 
             textfield = new Widgets.TextField (win);
@@ -122,6 +123,7 @@ namespace Notejot {
             note_grid.attach (text_scroller, 0, 3);
             note_grid.set_sensitive (false);
             win.main_stack.add_named (note_grid, "textfield-trash-%d".printf(tuid));
+            note_grid.get_style_context ().add_class ("content-view");
             note_grid.get_style_context ().add_class ("notejot-stack-trash-%d".printf(tuid));
 
             sync_subtitles.begin ();
@@ -169,7 +171,7 @@ namespace Notejot {
             css_provider = new Gtk.CssProvider();
             string style = null;
             style = """
-            .notejot-sidebar-dbg-%d {
+            .notejot-sidebar-trash-dbg-%d {
                 background: linear-gradient(mix(%s, @view_bg_color, 0.5),shade(mix(%s, @view_bg_color, 0.4), 0.9));
                 border-radius: 9999px;
             }
@@ -179,11 +181,16 @@ namespace Notejot {
             .notejot-stack-trash-%d .notejot-bar {
                 background: mix(@view_bg_color, %s, 0.05);
             }
+            .nw-formatbar-trash-%d {
+                background: mix(@view_bg_color, %s, 0.1);
+            }
             .notejot-tview-trash-%d text {
                 background: mix(@view_bg_color, %s, 0.05);
             }
             """.printf( tuid,
                         color,
+                        color,
+                        tuid,
                         color,
                         tuid,
                         color,
