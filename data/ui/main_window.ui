@@ -34,19 +34,15 @@
                         <child type="title">
                           <object class="GtkBox">
                             <child>
-                              <object class="GtkLabel">
-                                <property name="label">Notejot</property>
-                                <style>
-                                  <class name="title"/>
-                                </style>
-                              </object>
+                            <placeholder />
                             </child>
                           </object>
                         </child>
-                        <child type="end">
-                          <object class="GtkMenuButton" id="menu_button">
-                            <property name="receives-default">1</property>
-                            <property name="icon-name">open-menu-symbolic</property>
+                        <child>
+                          <object class="GtkButton" id="en_button">
+                            <property name="action-name">win.action_edit_notebooks</property>
+                            <property name="icon-name">notebook-config-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
                           </object>
                         </child>
                       </object>
@@ -122,22 +118,6 @@
                         </child>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkButton" id="en_button">
-                        <property name="action-name">win.action_edit_notebooks</property>
-                        <property name="margin-bottom">6</property>
-                        <property name="margin-start">6</property>
-                        <property name="child">
-                          <object class="GtkLabel">
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Manage Notebooks…</property>
-                          </object>
-                        </property>
-                        <style>
-                          <class name="content-sidebar-notebooks-button"/>
-                        </style>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -164,6 +144,23 @@
                         <property name="visible" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
                         <property name="receives-default">1</property>
                         <property name="icon-name">go-previous-symbolic</property>
+                      </object>
+                    </child>
+                    <child type="title">
+                      <object class="GtkBox">
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label">Notejot</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkMenuButton" id="menu_button">
+                        <property name="icon-name">open-menu-symbolic</property>
                       </object>
                     </child>
                   </object>

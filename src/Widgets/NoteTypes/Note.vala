@@ -248,17 +248,16 @@ namespace Notejot {
                                 set_pinned (log.pinned);
                                 win.tm.save_notes.begin (win.notestore);
                             }
+
+                            sync_log.callback();
                         }
-
-                        sync_log.callback();
-
                     } catch (GLib.RegexError re) {
                         warning ("%s".printf(re.message));
                     }
                 });
                 yield;
-            } catch (Error re) {
-                warning ("%s".printf(re.message));
+            } catch (Error e) {
+                warning ("%s".printf(e.message));
             }
         }
 
