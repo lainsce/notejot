@@ -65,6 +65,7 @@ namespace Notejot {
 
         public Adw.ActionRow make_item (MainWindow win, GLib.Object item) {
             var actionrow = new Adw.ActionRow ();
+            actionrow.set_activatable (false);
 
             var notebook_entry = new Gtk.Entry ();
             notebook_entry.valign = Gtk.Align.CENTER;
@@ -72,26 +73,32 @@ namespace Notejot {
             notebook_entry.set_text (((Notebook)item).title);
             actionrow.add_prefix (notebook_entry);
 
-            uint x, y = win.notebookstore.get_n_items ();
-            for (x = 0; x < y; x++) {
-                var im = win.notebookstore.get_item (x);
+            uint i, n = win.notebookstore.get_n_items ();
+            for (i = 0; i < n; i++) {
+                var im = win.notebookstore.get_item (i);
                 if (notebook_entry.get_text () == ((Notebook)im).title) {
                     notebook_entry.activate.connect (() => {
-                        print("Changed Notebook name!\n");
-                        string notebook_name = notebook_entry.get_text ();
-                        ((Notebook)im).title == notebook_name;
+                        var nb = new Notebook ();
+                        nb.title = notebook_entry.get_text ();
+                        uint pos;
+                        win.notebookstore.find (((Notebook)im), out pos);
+
+                        win.notebookstore.remove (pos);
+                        win.notebookstore.insert (pos, nb);
                         win.tm.save_notebooks.begin (win.notebookstore);
+
                         uint i2, n2 = win.notestore.get_n_items ();
                         for (i2 = 0; i2 < n2; i2++) {
                             var item2 = win.notestore.get_item (i2);
+
                             if (notebook_entry.get_text () == ((Log)item2).notebook) {
-                                ((Log)item2).notebook = notebook_name;
+                                win.sm.controller.log.notebook = notebook_entry.get_text ();
+                                win.tm.save_notes.begin (win.notestore);
                             }
                         }
                     });
                 }
             }
-
 
             var ar_delete_button = new Gtk.Button () {
                 icon_name = "window-close-symbolic",
@@ -115,6 +122,7 @@ namespace Notejot {
 
                             if (notebook_entry.get_text () == ((Log)item2).notebook) {
                                 ((Log)item2).notebook = "<i>" + _("No Notebook") + "</i>";
+                                win.tm.save_notes.begin (win.notestore);
                             }
                         }
 
