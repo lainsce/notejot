@@ -229,8 +229,8 @@
                                 <property name="action-name">win.action_new_note</property>
                                 <property name="valign">end</property>
                                 <property name="halign">end</property>
-                                <property name="margin-end">12</property>
-                                <property name="margin-bottom">6</property>
+                                <property name="margin-end">18</property>
+                                <property name="margin-bottom">12</property>
                                 <style>
                                   <class name="list-action-button"/>
                                   <class name="accent-button"/>

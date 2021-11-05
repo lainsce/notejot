@@ -41,8 +41,11 @@
   background: @accent_bg_color;
   color: @accent_fg_color;
 }
+.accent-button:hover {
+  background: shade(@accent_bg_color, 1.05);
+}
 .accent-button:active {
-  background: shade(@accent_color, 1.1);
+  background: shade(@accent_bg_color, 0.95);
   box-shadow: 0 1px 3px 0 alpha(black, 0.3),
               0 4px 8px 3px alpha(black, 0.15);
 }
