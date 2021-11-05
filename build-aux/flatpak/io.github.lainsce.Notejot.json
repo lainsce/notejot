@@ -1,6 +1,6 @@
 {
     "app-id" : "io.github.lainsce.NotejotDevel",
-    "runtime" : "org.gnome.Platform",
+    "runtime" : "org.gnome.Sdk",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Notejot",
