@@ -204,8 +204,8 @@ namespace Notejot {
             notestore.items_changed.connect (() => {
                 tm.save_notes.begin (notestore);
             });
-            notestore.sort ((a, b) => {
-                if (((Log)a).pinned == "1") {
+            listview.set_sort_func ((a, b) => {
+                if (((Widgets.Note)a).log.pinned == "1") {
                     return 1;
                 }
                 try {
@@ -213,15 +213,13 @@ namespace Notejot {
                     GLib.MatchInfo match;
                     GLib.MatchInfo match2;
 
-                    if (reg.match (((Log)a).subtitle, 0, out match)) {
-                        if (reg.match (((Log)b).subtitle, 0, out match2)) {
+                    if (reg.match (((Widgets.Note)a).log.subtitle, 0, out match)) {
+                        if (reg.match (((Widgets.Note)b).log.subtitle, 0, out match2)) {
                             var mh = match.fetch_named ("minute");
                             var mh2 = match2.fetch_named ("minute");
 
                             if (mh > mh2) {
                                 return 1;
-                            } else {
-                                return -1;
                             }
                         }
                     }

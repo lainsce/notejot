@@ -12,7 +12,6 @@ namespace Notejot {
             this.win = win;
             is_modified = false;
 
-            win.listview.set_filter_func (do_filter_list);
             win.listview.set_filter_func (do_filter_list_notebook);
 
             win.listview.row_selected.connect ((selected_row) => {
@@ -55,15 +54,11 @@ namespace Notejot {
             return this.selected_notebook;
         }
 
-        protected bool do_filter_list (Gtk.ListBoxRow row) {
+        protected bool do_filter_list_notebook (Gtk.ListBoxRow row) {
             if (search_text != "") {
                 return ((Widgets.Note)row).get_title ().down ().contains (search_text.down ());
             }
 
-            return true;
-        }
-
-        protected bool do_filter_list_notebook (Gtk.ListBoxRow row) {
             if (selected_notebook != "") {
                 return ((Widgets.Note)row).log.notebook.down ().contains (selected_notebook.down ());
             }
