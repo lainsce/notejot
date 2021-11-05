@@ -75,7 +75,7 @@ namespace Notejot {
                 controller.log.text = val;
                 if (controller.log == ((Widgets.Note)win.listview.get_selected_row()).log) {
                     controller.log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
-                    controller.sync_log.begin ();
+                    controller.sync_subtitles.begin ();
                 }
                 win.tm.save_notes.begin (win.notestore);
             }

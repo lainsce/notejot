@@ -28,12 +28,11 @@ namespace Notejot {
 
     public class Widgets.Note : Adw.ActionRow {
         public Widgets.TextField textfield;
-        public static int uid_counter;
+        private static int uid_counter;
         public int uid;
-        public Gtk.CssProvider css_provider;
-        public Gtk.Label notebooklabel;
-        public Gtk.Label subtitlelabel;
-        public Gtk.Entry titleentry;
+        private Gtk.CssProvider css_provider;
+        private Gtk.Label notebooklabel;
+        private Gtk.Label subtitlelabel;
         public Gtk.Image picon;
 
         public unowned Log log { get; construct; }
@@ -60,7 +59,7 @@ namespace Notejot {
 
             var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 
-            titleentry = new Gtk.Entry ();
+            var titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);
             titleentry.set_margin_top (12);
             titleentry.set_margin_start (12);
@@ -72,12 +71,16 @@ namespace Notejot {
             titleentry.get_style_context ().add_class ("title-1");
 
             titleentry.activate.connect (() => {
-                sync_log.begin ();
+                log.title = titleentry.get_text ();
                 win.tm.save_notes.begin (win.notestore);
             });
             titleentry.icon_press.connect (() => {
-                sync_log.begin ();
+                log.title = titleentry.get_text ();
                 win.tm.save_notes.begin (win.notestore);
+            });
+            Timeout.add(50, () => {
+                set_title (titleentry.get_text ());
+                return true;
             });
 
             var notebookbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -87,9 +90,11 @@ namespace Notejot {
 
             subtitlelabel = new Gtk.Label ("");
             subtitlelabel.set_margin_end (12);
+            subtitlelabel.get_style_context ().add_class ("dim-label");
 
             notebooklabel = new Gtk.Label ("");
             notebooklabel.set_use_markup (true);
+            notebooklabel.get_style_context ().add_class ("dim-label");
             notebooklabel.notify["get-text"].connect (() => {
                 log.notebook = notebooklabel.get_text();
                 win.tm.save_notebooks.begin (win.notebookstore);
@@ -98,6 +103,7 @@ namespace Notejot {
             var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
             notebookicon.halign = Gtk.Align.START;
             notebookicon.valign = Gtk.Align.CENTER;
+            notebookicon.get_style_context ().add_class ("dim-label");
 
             notebookbox.prepend (notebooklabel);
             notebookbox.prepend (notebookicon);
@@ -119,7 +125,6 @@ namespace Notejot {
             textfield.get_buffer ().get_bounds (out A, out B);
             textfield.get_buffer ().insert_markup(ref A, log.text, -1);
             textfield.controller = this;
-            textfield.set_can_focus(true);
             textfield.get_style_context ().add_class ("notejot-tview-%d".printf(uid));
 
             var note_grid = new Gtk.Grid ();
@@ -129,19 +134,24 @@ namespace Notejot {
             note_grid.get_style_context ().add_class ("content-view");
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
-            sync_log.begin ();
+            update_theme (log.color);
+            this.set_title (log.title);
+            this.get_style_context ().add_class ("notejot-sidebar-box");
             this.add_prefix (icon);
             this.add_suffix (picon);
 
             win.notebookstore.items_changed.connect (() => {
                 win.tm.save_notes.begin (win.notestore);
-                win.tm.save_notebooks.begin (win.notebookstore);
             });
+
+            sync_subtitles.begin ();
+            set_notebook ();
         }
 
         public void destroy_item () {
             this.dispose ();
             css_provider.dispose ();
+            win.tm.save_notes.begin (win.notestore);
         }
 
         public void select_item () {
@@ -153,11 +163,9 @@ namespace Notejot {
 
         public void set_notebook () {
             if (log != null) {
-                if (log.notebook == null) {
-                    notebooklabel.set_label (log.notebook);
-                } else {
-                    notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
-                }
+                notebooklabel.set_label (log.notebook);
+            } else {
+                notebooklabel.set_label ("<i>" + _("No Notebook") + "</i>");
             }
         }
 
@@ -217,49 +225,40 @@ namespace Notejot {
             );
 
             log.color = color;
+            win.tm.save_notes.begin (win.notestore);
         }
 
-        public async void sync_log () {
-            if (log != null) {
-                try {
-                    new Thread<void>.try ("", () => {
-                        try {
-                            var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
-                            GLib.MatchInfo match;
+        public async void sync_subtitles () {
+            try {
+                var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+                GLib.MatchInfo match;
 
-                            if (reg.match (log.subtitle, 0, out match)) {
-                                var e = new GLib.DateTime.now_local ();
-                                var d = new DateTime.local (e.get_year (),
-                                                            int.parse(match.fetch_named ("month")),
-                                                            int.parse(match.fetch_named ("day")),
-                                                            int.parse(match.fetch_named ("hour")),
-                                                            int.parse(match.fetch_named ("minute")),
-                                                            e.get_second ());
+                if (log != null) {
+                    if (reg.match (log.subtitle, 0, out match)) {
+                        var e = new GLib.DateTime.now_local ();
+                        var d = new DateTime.local (e.get_year (),
+                                                    int.parse(match.fetch_named ("month")),
+                                                    int.parse(match.fetch_named ("day")),
+                                                    int.parse(match.fetch_named ("hour")),
+                                                    int.parse(match.fetch_named ("minute")),
+                                                    e.get_second ());
 
-                                set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
-                                                                  get_first_line (log.text).replace("|", "")
-                                                                                           .replace("_", "")
-                                                                                           .replace("*", "")
-                                                                                           .replace("~", "")));
-                                set_notebook ();
-                                log.notebook = notebooklabel.get_text();
-                                set_subtitle_label ();
-                                set_title (titleentry.get_text());
-                                set_pinned (log.pinned);
-                                update_theme (log.color);
-                                win.tm.save_notes.begin (win.notestore);
-                            }
-
-                            sync_log.callback();
-                        } catch (GLib.RegexError re) {
-                            warning ("%s".printf(re.message));
-                        }
-                    });
-
-                    yield;
-                } catch (Error e) {
-                    warning ("%s".printf(e.message));
+                        Timeout.add(50, () => {
+                            set_subtitle("%s · %s".printf(Utils.get_relative_datetime_compact(d),
+                                                          get_first_line (log.text).replace("|", "")
+                                                                                   .replace("_", "")
+                                                                                   .replace("*", "")
+                                                                                   .replace("~", "")));
+                            set_notebook ();
+                            set_pinned (log.pinned);
+                            set_subtitle_label ();
+                            return false;
+                        });
+                    }
                 }
+                win.tm.save_notes.begin (win.notestore);
+            } catch (GLib.RegexError re) {
+                warning ("%s".printf(re.message));
             }
         }
 

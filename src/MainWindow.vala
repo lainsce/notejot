@@ -566,6 +566,7 @@ namespace Notejot {
             }
 
             main_stack.set_visible_child (empty_state);
+            format_revealer.set_reveal_child (false);
 
             if (leaflet.get_visible_child () != sgrid) {
                 leaflet.set_visible_child (sgrid);

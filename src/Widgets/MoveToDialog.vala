@@ -47,9 +47,9 @@ namespace Notejot {
             }
 
             remove_notebook_button.clicked.connect (() => {
-                if (win.sm.controller.log != null) {
-                    win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
-                }
+                win.sm.controller.log.notebook = "<i>" + _("No Notebook") + "</i>";
+                win.sm.controller.set_notebook ();
+                win.tm.save_notes.begin (win.notestore);
 
                 this.dispose ();
             });
@@ -72,11 +72,9 @@ namespace Notejot {
                         var im = win.notebookstore.get_item (i);
 
                         if (((Adw.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
-                            if (win.sm.controller != null) {
-                                if (win.sm.controller.log != null) {
-                                    win.sm.controller.log.notebook = ((Notebook)im).title;
-                                }
-                            }
+                            win.sm.controller.log.notebook = ((Notebook)im).title;
+                            win.sm.controller.set_notebook ();
+                            win.tm.save_notes.begin (win.notestore);
                         }
                     }
                     this.dispose ();
