@@ -106,8 +106,7 @@
 }
 
 .content-sidebar {
-	margin: 6px;
-	margin-bottom: 0px;
+	margin: 0 6px;
 	border-radius: 6px;
 	border: none;
 	background: @popover_bg_color;
@@ -160,8 +159,16 @@
 	background: none;
 }
 
-.pan-down {
-	transform: scale(0.67);
+.notejot-theme-grid {
+  margin: 6px;
+}
+
+.notejot-searchbar {
+  border-radius: 999px;
+  padding: 0 18px;
+  margin: 6px 0;
+  border: none;
+  background: @popover_bg_color;
 }
 
 .nw-action {
@@ -201,27 +208,12 @@
   color: @view_bg_color;
 }
 
-.notejot-theme-grid {
-  margin: 6px;
-}
-
-.notejot-searchbar {
-  border-radius: 6px;
-  border: none;
-  margin: 0 6px;
-  margin-bottom: 6px;
-  padding: 4px 12px;
-  background: @popover_bg_color;
-}
-
 .big-font {
   font-size: 1.4rem;
 }
-
 .med-font {
   font-size: 1.1rem;
 }
-
 .sml-font {
   font-size: 0.9rem;
 }

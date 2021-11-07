@@ -137,10 +137,6 @@ namespace Notejot {
         }
 
         construct {
-            // Dark theme
-            var adwsm = Adw.StyleManager.get_default ();
-            adwsm.set_color_scheme(Adw.ColorScheme.PREFER_LIGHT);
-
             // Actions
             actions = new SimpleActionGroup ();
             actions.add_action_entries (ACTION_ENTRIES, this);
@@ -160,9 +156,6 @@ namespace Notejot {
             app.set_accels_for_action ("win.action_italic", {"<Ctrl>i"});
             app.set_accels_for_action ("win.action_ul", {"<Ctrl>u"});
             app.set_accels_for_action ("win.action_s", {"<Ctrl><Shift>s"});
-
-            var action_fontsize = Notejot.Application.gsettings.create_action ("font-size");
-            app.add_action(action_fontsize);
 
             // Main View
             tm = new TaskManager (this);
@@ -250,13 +243,16 @@ namespace Notejot {
             });
 
             // Preparing window to be shown
+            var settings = new Settings ();
             set_default_size(
-                Application.gsettings.get_int ("window-w"),
-                Application.gsettings.get_int ("window-h")
+                settings.window_w,
+                settings.window_h
             );
-
-            if (Application.gsettings.get_boolean("is-maximized"))
+            if (settings.is_maximized)
                 maximize ();
+
+            var action_fontsize = settings.create_action ("font-size");
+            app.add_action(action_fontsize);
 
             this.show ();
 
@@ -265,12 +261,12 @@ namespace Notejot {
 
         protected override bool close_request () {
             debug ("Exiting window... Disposing of stuff...");
-
-            Application.gsettings.set_boolean("is-maximized", is_maximized ());
+            var settings = new Settings ();
+            settings.is_maximized = is_maximized ();
 
             if (!is_maximized()) {
-                Application.gsettings.set_int("window-w", get_width ());
-                Application.gsettings.set_int("window-h", get_height ());
+                settings.window_w = get_width ();
+                settings.window_h = get_height ();
             }
 
             this.dispose ();
@@ -428,7 +424,8 @@ namespace Notejot {
 
         public void action_all_notes () {
             sidebar_stack.set_visible_child (list_scroller);
-            Notejot.Application.gsettings.set_string("last-view", "list");
+            var settings = new Settings ();
+            settings.last_view = "list";
             main_stack.set_visible_child (empty_state);
             format_revealer.set_reveal_child (false);
             leaflet.set_visible_child (sgrid);
@@ -453,7 +450,8 @@ namespace Notejot {
 
         public void action_trash () {
             sidebar_stack.set_visible_child (trash_scroller);
-            Notejot.Application.gsettings.set_string("last-view", "trash");
+            var settings = new Settings ();
+            settings.last_view = "trash";
             main_stack.set_visible_child (empty_state);
             format_revealer.set_reveal_child (false);
             leaflet.set_visible_child (sgrid);

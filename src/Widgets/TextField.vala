@@ -27,7 +27,6 @@ namespace Notejot {
             this.left_margin = this.right_margin = this.top_margin = this.bottom_margin = 30;
             this.wrap_mode = Gtk.WrapMode.WORD;
 
-
             var buffer = new Gtk.TextBuffer (null);
             this.buffer = buffer;
             set_buffer (buffer);
@@ -42,12 +41,10 @@ namespace Notejot {
             ul_font = buffer.create_tag("underline", "underline", Pango.Underline.SINGLE);
             s_font = buffer.create_tag("strike", "strikethrough", true);
 
+            var settings = new Settings ();
             set_font_stylesheet ();
+            settings.notify["font-size"].connect (set_font_stylesheet);
             fmt_syntax_start ();
-
-            Notejot.Application.gsettings.changed.connect (() => {
-                set_font_stylesheet ();
-            });
 
             buffer.changed.connect (() => {
                 send_text ();
@@ -83,22 +80,25 @@ namespace Notejot {
         }
 
         private void set_font_stylesheet () {
-            if (Notejot.Application.gsettings.get_string("font-size") == "'small'") {
-                this.get_style_context ().add_class ("sml-font");
-                this.get_style_context ().remove_class ("med-font");
-                this.get_style_context ().remove_class ("big-font");
-            } else if (Notejot.Application.gsettings.get_string("font-size") == "'medium'") {
-                this.get_style_context ().remove_class ("sml-font");
-                this.get_style_context ().add_class ("med-font");
-                this.get_style_context ().remove_class ("big-font");
-            } else if (Notejot.Application.gsettings.get_string("font-size") == "'large'") {
-                this.get_style_context ().remove_class ("sml-font");
-                this.get_style_context ().remove_class ("med-font");
-                this.get_style_context ().add_class ("big-font");
-            } else {
-                this.get_style_context ().remove_class ("sml-font");
-                this.get_style_context ().add_class ("med-font");
-                this.get_style_context ().remove_class ("big-font");
+            var settings = new Settings ();
+
+            switch (settings.font_size) {
+                case "'small'":
+                    add_css_class ("sml-font");
+                    remove_css_class ("med-font");
+                    remove_css_class ("big-font");
+                    break;
+                default:
+                case "'medium'":
+                    remove_css_class ("sml-font");
+                    add_css_class ("med-font");
+                    remove_css_class ("big-font");
+                    break;
+                case "'large'":
+                    remove_css_class ("sml-font");
+                    remove_css_class ("med-font");
+                    add_css_class ("big-font");
+                    break;
             }
         }
 

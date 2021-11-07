@@ -34,8 +34,18 @@
                         <child type="title">
                           <object class="GtkBox">
                             <child>
-                            <placeholder />
+                              <object class="GtkLabel">
+                                <property name="label">Notejot</property>
+                                <style>
+                                  <class name="title"/>
+                                </style>
+                              </object>
                             </child>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkMenuButton" id="menu_button">
+                            <property name="icon-name">open-menu-symbolic</property>
                           </object>
                         </child>
                         <child>
@@ -135,10 +145,6 @@
                     <style>
                       <class name="notejot-stitle"/>
                     </style>
-                    <child type="title">
-                      <object class="GtkBox">
-                      </object>
-                    </child>
                     <child>
                       <object class="GtkButton" id="back_button2">
                         <property name="visible" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
@@ -149,29 +155,16 @@
                     <child type="title">
                       <object class="GtkBox">
                         <child>
-                          <object class="GtkLabel">
-                            <property name="label">Notejot</property>
+                          <object class="GtkSearchEntry" id="note_search">
+                            <property name="hexpand">1</property>
+                            <property name="placeholder-text" translatable="yes">Search for notes</property>
                             <style>
-                              <class name="title"/>
+                              <class name="notejot-searchbar"/>
                             </style>
                           </object>
                         </child>
                       </object>
                     </child>
-                    <child type="end">
-                      <object class="GtkMenuButton" id="menu_button">
-                        <property name="icon-name">open-menu-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSearchEntry" id="note_search">
-                    <property name="hexpand">1</property>
-                    <property name="placeholder-text" translatable="yes">Search for notes</property>
-                    <style>
-                      <class name="notejot-searchbar"/>
-                    </style>
                   </object>
                 </child>
                 <child>
@@ -288,8 +281,8 @@
                                 <property name="action-name">win.action_trash_notes</property>
                                 <property name="valign">end</property>
                                 <property name="halign">end</property>
-                                <property name="margin-end">12</property>
-                                <property name="margin-bottom">6</property>
+                                <property name="margin-end">18</property>
+                                <property name="margin-bottom">12</property>
                                 <style>
                                   <class name="list-action-button"/>
                                   <class name="destructive-action"/>

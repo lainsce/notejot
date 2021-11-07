@@ -17,44 +17,28 @@
 * Boston, MA 02110-1301 USA
 *
 */
-namespace Notejot {
-    public class Application : Adw.Application {
-        public static MainWindow win = null;
-        public static Settings gsettings;
-        private const GLib.ActionEntry app_entries[] = {
-            { "quit", on_quit },
-        };
+public class Notejot.Application : Adw.Application {
+    private const GLib.ActionEntry app_entries[] = {
+        { "quit", quit },
+    };
 
-        public Application () {
-            Object (
-                flags: ApplicationFlags.FLAGS_NONE,
-                application_id: Config.APP_ID
-            );
-            add_action_entries(app_entries, this);
-            set_resource_base_path ("/io/github/lainsce/Notejot/");
-        }
-        static construct {
-            gsettings = new Settings ();
-        }
+    public Application () {
+        Object (application_id: Config.APP_ID);
+    }
+    public static int main (string[] args) {
+        var app = new Notejot.Application ();
+        return app.run (args);
+    }
+    protected override void startup () {
+        resource_base_path = "/io/github/lainsce/Notejot";
 
-        construct {
-            Intl.setlocale (LocaleCategory.ALL, "");
-            Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.GNOMELOCALEDIR);
-            Intl.textdomain (Config.GETTEXT_PACKAGE);
-        }
-        private void on_quit() {
-            win.destroy();
-        }
-        protected override void activate () {
-            if (win != null) {
-                win.present ();
-                return;
-            }
-            win = new MainWindow (this);
-        }
-        public static int main (string[] args) {
-            var app = new Notejot.Application ();
-            return app.run (args);
-        }
+        base.startup ();
+
+        add_action_entries (app_entries, this);
+
+        new MainWindow (this);
+    }
+    protected override void activate () {
+        active_window?.present ();
     }
 }
