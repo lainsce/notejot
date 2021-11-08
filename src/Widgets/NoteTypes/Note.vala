@@ -273,7 +273,7 @@ namespace Notejot {
                 if (reg.match (text, 0, out match) && text != null) {
                     first_line = match.fetch_named ("first_line");
                 } else {
-                    first_line = "Empty note";
+                    first_line = _("Empty note");
                 }
             } catch (GLib.RegexError re) {
                 warning ("%s".printf(re.message));
