@@ -23,7 +23,7 @@ And that's it! You've successfully translated Notejot for your language!
 
 ## 🔁 Regenerate translations files
 * Initialize the project build by typing `meson _build` (make sure you have [dependencies](https://github.com/lainsce/notejot#dependencies) installed!).
-* Compile .pot files, type `meson compile -C _build io.github.lainsce.Notejot-pot` and `meson compile -C _build extra-pot`
-* (Optional) Compile .po files instead replacing `-pot` with `-update-po` in the previous commands.
+* Compile .pot files, type `meson compile -C _build io.github.lainsce.Notejot-pot`.
+* (Optional) Compile .po files instead replacing `-pot` with `-update-po` in the previous command.
 
-Note: install `appstream` package in order to generate release strings in `extra.pot`
+Note: install `appstream` package in order to generate release strings.
