@@ -2,53 +2,206 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-25 00:45-0300\n"
-"PO-Revision-Date: 2021-08-23 17:35+0200\n"
+"POT-Creation-Date: 2021-11-08 16:14+0100\n"
+"PO-Revision-Date: 2021-11-08 16:16+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
-"Language-Team:IT\n"
+"Language-Team: IT\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../src\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: src/MainWindow.vala:127 src/MainWindow.vala:363
+#: data/io.github.lainsce.Notejot.appdata.xml.in:6
+#: data/io.github.lainsce.Notejot.desktop.in:3 src/MainWindow.vala:135
+#: src/MainWindow.vala:406
 msgid "Notejot"
 msgstr "Notejot"
 
-#: src/MainWindow.vala:224 src/MainWindow.vala:385 data/ui/title_menu.ui:7
-msgid "All Notes"
-msgstr "Tutte le note"
+#: data/io.github.lainsce.Notejot.appdata.xml.in:7
+#: data/io.github.lainsce.Notejot.desktop.in:4
+msgid "Jot your ideas"
+msgstr "Annota le tue idee"
 
-#: src/MainWindow.vala:330
+#: data/io.github.lainsce.Notejot.appdata.xml.in:9
+#, fuzzy
+msgid ""
+"A stupidly-simple notes application for any type of short term notes or "
+"ideas."
+msgstr ""
+"Un'applicazione di note adesive stupidamente semplice per qualsiasi tipo di "
+"note a breve termine o idee."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:11
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Esci in qualsiasi momento con la scorciatoia Ctrl + Q"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:21
+msgid "Lains"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:47
+msgid "Release: Overhaul User Interface"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:49
+msgid "Changed: UI now looks better layoutted, is an experiment."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:50
+msgid "Changed: Backend was changed to be more stable than the old one."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:52
+#: data/io.github.lainsce.Notejot.appdata.xml.in:63
+#: data/io.github.lainsce.Notejot.appdata.xml.in:72
+#: data/io.github.lainsce.Notejot.appdata.xml.in:81
+#: data/io.github.lainsce.Notejot.appdata.xml.in:90
+#: data/io.github.lainsce.Notejot.appdata.xml.in:101
+msgid ""
+"Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
+"lainsce.Notejot when using the Flatpak. Happy notetaking!"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:57
+msgid "Release: Pinned Notes"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:59
+msgid "Added: Notes can now be pinned and are shown separately from others."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:60
+msgid "Added: Note title styling from older versions is back."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:61
+msgid "Added: Note searchbar is now always visible."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:68
+msgid "Release: Usability Independence"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:70
+msgid ""
+"Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
+"trash and also removing singluar notes from a notebook."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:77
+msgid "Release: Format But Don't Fail"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:79
+msgid ""
+"Fixed: formatting functions are the best they can be, plus minor fixes all "
+"around."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:86
+msgid "Release: Ready, Set, Go!"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:88
+msgid ""
+"Some UI design fixes, such as the notebook switcher being on the bottom "
+"instead of in the top."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:95
+msgid "Release: GTK4 and Ready!"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:97
+msgid "New UI"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:98
+msgid "Using another widget to display note contents"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:99
+#, fuzzy
+msgid "Keyboard shortcuts for formatting"
+msgstr "Scorciatoie da tastiera"
+
+#: data/io.github.lainsce.Notejot.desktop.in:7
+#, fuzzy
+msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
+msgstr "Testo;Normale;Testo normale;Blocco note;"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:5
+msgid "Last View Used"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:6
+msgid "The last view used in the UI"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:10
+msgid "Notes Font Size"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:11
+msgid "The size of the font used in notes. (Small, Medium, Large)"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:15
+msgid "Saves whether the window is maximized or not"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:16
+msgid ""
+"Whether the window is maximized. Used to open window with user's preferred "
+"settings"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:20
+msgid "Saves window last-used width"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:21
+msgid "The user's last used window width before closing the app"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:25
+msgid "Saves window last-used height"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:26
+msgid "The user's last used window height before closing the app"
+msgstr ""
+
+#: src/MainWindow.vala:375
 msgid "New Note "
 msgstr "Nuova Nota"
 
-#: src/MainWindow.vala:330
-msgid "This is a text example."
-msgstr "Questo è un esempio di testo."
+#: src/MainWindow.vala:379 src/Widgets/EditNotebookDialog.vala:110
+#: src/Widgets/EditNotebookDialog.vala:118
+#: src/Widgets/EditNotebookDialog.vala:128 src/Widgets/MoveToDialog.vala:43
+#: src/Widgets/MoveToDialog.vala:50 src/Widgets/NoteTypes/Note.vala:169
+#: src/Widgets/NoteTypes/TrashedNote.vala:157
+msgid "No Notebook"
+msgstr "Nessun Quaderno"
 
-#: src/MainWindow.vala:368
+#: src/MainWindow.vala:411
 msgid "Jot your ideas."
 msgstr "Annota le tue idee."
 
-#: src/MainWindow.vala:374
+#: src/MainWindow.vala:417
 msgid "translator-credits"
 msgstr "Albano Battistella"
 
-#: src/MainWindow.vala:397 data/ui/title_menu.ui:11
-msgid "Trash"
-msgstr "Cestino"
-
-#: src/MainWindow.vala:409
+#: src/MainWindow.vala:472
 msgid "Empty the Trashed Notes?"
 msgstr "Svuotare le note nel cestino?"
 
-#: src/MainWindow.vala:410
+#: src/MainWindow.vala:473
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
@@ -56,31 +209,31 @@ msgstr ""
 "Svuotare il cestino significa che tutte le note in esso verranno perse "
 "definitivamente con nessun recupero."
 
-#: src/MainWindow.vala:412 data/ui/move_to_dialog.ui:40
+#: src/MainWindow.vala:475 data/ui/move_to_dialog.ui:39
 msgid "Cancel"
 msgstr "Cancella"
 
-#: src/MainWindow.vala:413 data/ui/menu.ui:30
+#: src/MainWindow.vala:476 data/ui/main_window.ui:279
 msgid "Empty Trash"
 msgstr "Svuota Cestino"
 
-#: src/MainWindow.vala:508
+#: src/MainWindow.vala:765
 msgid "bold text"
 msgstr "testo in grassetto"
 
-#: src/MainWindow.vala:514
+#: src/MainWindow.vala:772
 msgid "italic text"
 msgstr "testo in corsivo"
 
-#: src/MainWindow.vala:520
+#: src/MainWindow.vala:779
 msgid "underline text"
 msgstr "testo sottolineato"
 
-#: src/MainWindow.vala:526
+#: src/MainWindow.vala:786
 msgid "strikethrough text"
 msgstr "testo barrato"
 
-#: src/MainWindow.vala:532 src/MainWindow.vala:600
+#: src/MainWindow.vala:793 src/MainWindow.vala:867
 msgid "Item"
 msgstr "Elemento"
 
@@ -185,137 +338,116 @@ msgstr "Ieri"
 msgid "Tomorrow"
 msgstr "Domani"
 
-#: src/Widgets/Note.vala:73 src/Widgets/Note.vala:74
-msgid "Loading…"
-msgstr "Caricamento in corso…"
-
-#: src/Widgets/Note.vala:141 src/Widgets/MoveToDialog.vala:44
-msgid "No Notebook"
-msgstr "Nessun Quaderno"
-
-#: src/Widgets/Note.vala:148
-#, c-format
-msgid ""
-"\n"
-"            .notejot-sidebar-dbg-%d {\n"
-"                background: mix(%s, @theme_base_color, 0.5);\n"
-"                border-radius: 9999px;\n"
-"                border: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-action-%d {\n"
-"                background: mix(@theme_bg_color, %s, 0.1);\n"
-"            }\n"
-"            .notejot-stack-%d {\n"
-"                background: mix(@theme_bg_color, %s, 0.1);\n"
-"            }\n"
-"            .notejot-stack-%d .notejot-bar {\n"
-"                background: mix(@theme_bg_color, %s, 0.1);\n"
-"                border-top: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-action-dark-%d {\n"
-"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
-"            }\n"
-"            .notejot-stack-dark-%d {\n"
-"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
-"            }\n"
-"            .notejot-stack-dark-%d .notejot-bar {\n"
-"                background: shade(mix(@theme_bg_color, %s, 0.1), 0.75);\n"
-"                border-top: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-action-%d:backdrop {\n"
-"                background: mix(%s, @theme_base_color, 0.9);\n"
-"            }\n"
-"            .notejot-stack-%d:backdrop {\n"
-"                background: mix(%s, @theme_base_color, 0.9);\n"
-"            }\n"
-"            .notejot-stack-%d:backdrop .notejot-bar {\n"
-"                background: mix(%s, @theme_base_color, 0.9);\n"
-"                border-top: 1px solid @borders;\n"
-"            }\n"
-"            .notejot-stack-%d box {\n"
-"                border: none;\n"
-"            }\n"
-"            "
-msgstr ""
-
-#: src/Widgets/Note.vala:285
-msgid "Empty note"
-msgstr "Nota vuota"
-
-#: src/Widgets/TrashedItem.vala:52
-#, c-format
-msgid ""
-"\n"
-"            .notejot-sidebar-dbg-%d {\n"
-"                background: %s;\n"
-"                border-radius: 9999px;\n"
-"            }\n"
-"            "
-msgstr ""
-
-#: src/Widgets/EditNotebookDialog.vala:72
+#: src/Widgets/EditNotebookDialog.vala:99
 msgid "Remove notebook"
 msgstr "Rimuovi Quaderno"
+
+#: src/Widgets/NoteTypes/Note.vala:71 src/Widgets/NoteTypes/TrashedNote.vala:65
+#, fuzzy
+msgid "Set Note Title"
+msgstr "Nuova Nota"
+
+#: src/Widgets/NoteTypes/Note.vala:276
+#: src/Widgets/NoteTypes/TrashedNote.vala:255
+msgid "Empty note"
+msgstr "Nota vuota"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
 msgstr "Modifica Quaderni"
 
-#: data/ui/edit_notebooks.ui:38
+#: data/ui/edit_notebooks.ui:34
 msgid "New Notebook…"
 msgstr "Nuovo Quaderno…"
 
-#: data/ui/edit_notebooks.ui:43
+#: data/ui/edit_notebooks.ui:42
 msgid "Add"
 msgstr "Aggiungi"
 
-#: data/ui/formatbar.ui:16
-msgid "Removes formatting from selected text"
-msgstr "Rimuove la formattazione dal testo selezionato"
+#: data/ui/edit_notebooks.ui:67 data/ui/main_window.ui:121
+#: data/ui/move_to_dialog.ui:61
+#, fuzzy
+msgid "No Notebooks"
+msgstr "Nessun Quaderno"
 
-#: data/ui/formatbar.ui:33
-msgid "Makes selected text emboldened"
-msgstr "Rende il testo selezionato in grassetto"
+#: data/ui/edit_notebooks.ui:68
+msgid "Create a notebook with + Add button."
+msgstr ""
 
-#: data/ui/formatbar.ui:45
-msgid "Makes selected text italicized"
-msgstr "Rende il testo selezionato in corsivo"
+#: data/ui/main_window.ui:55 data/ui/title_menu.ui:18
+msgid "Manage Notebooks…"
+msgstr "Gestisci Quaderno…"
 
-#: data/ui/formatbar.ui:57
-msgid "Makes selected text underlined"
-msgstr "Rende il testo selezionato sottolineato"
+#: data/ui/main_window.ui:68 data/ui/title_menu.ui:7
+msgid "All Notes"
+msgstr "Tutte le note"
 
-#: data/ui/formatbar.ui:69
-msgid "Makes selected text striked through"
-msgstr "Rende il testo selezionato barrato"
+#: data/ui/main_window.ui:84 data/ui/title_menu.ui:11
+msgid "Trash"
+msgstr "Cestino"
 
-#: data/ui/formatbar.ui:86
-msgid "Makes selected text into an unordered list"
-msgstr "Rende il testo selezionato in una lista non ordinata"
+#: data/ui/main_window.ui:94
+msgid "Notebooks"
+msgstr "Quaderni"
 
-#: data/ui/main_window.ui:33
-msgid "Add Note"
-msgstr "Aggiungi nota"
-
-#: data/ui/main_window.ui:76
+#: data/ui/main_window.ui:160
 msgid "Search for notes"
 msgstr "Cerca note"
 
-#: data/ui/main_window.ui:124
+#: data/ui/main_window.ui:205
 msgid "No Notes"
 msgstr "Nessuna Nota"
 
-#: data/ui/main_window.ui:132
-msgid "Use the Add Note button to add a note."
-msgstr "Utilizzare il pulsante Aggiungi Nota per aggiungere una nota."
+#: data/ui/main_window.ui:206
+#, fuzzy
+msgid "Notes appear here."
+msgstr "Le note nel cestino vengono visualizzate qui."
 
-#: data/ui/main_window.ui:180
+#: data/ui/main_window.ui:220
+msgid "Add Note"
+msgstr "Aggiungi nota"
+
+#: data/ui/main_window.ui:264
 msgid "No Trash"
 msgstr "Niente nel Cestino"
 
-#: data/ui/main_window.ui:188
+#: data/ui/main_window.ui:265
 msgid "Trashed notes appear here."
 msgstr "Le note nel cestino vengono visualizzate qui."
+
+#: data/ui/main_window.ui:367
+#, fuzzy
+msgid "No Selected Notes"
+msgstr "Testo selezionato in grassetto"
+
+#: data/ui/main_window.ui:368
+#, fuzzy
+msgid "Selected Notes appear here."
+msgstr "Le note nel cestino vengono visualizzate qui."
+
+#: data/ui/main_window.ui:403
+msgid "Removes formatting from selected text"
+msgstr "Rimuove la formattazione dal testo selezionato"
+
+#: data/ui/main_window.ui:418
+msgid "Makes selected text emboldened"
+msgstr "Rende il testo selezionato in grassetto"
+
+#: data/ui/main_window.ui:426
+msgid "Makes selected text italicized"
+msgstr "Rende il testo selezionato in corsivo"
+
+#: data/ui/main_window.ui:434
+msgid "Makes selected text underlined"
+msgstr "Rende il testo selezionato sottolineato"
+
+#: data/ui/main_window.ui:442
+msgid "Makes selected text striked through"
+msgstr "Rende il testo selezionato barrato"
+
+#: data/ui/main_window.ui:457
+msgid "Makes selected text into an unordered list"
+msgstr "Rende il testo selezionato in una lista non ordinata"
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
@@ -334,68 +466,77 @@ msgid "Large"
 msgstr "Grande"
 
 #: data/ui/menu.ui:26
-msgid "Dark Mode"
-msgstr "Modalità Scura"
-
-#: data/ui/menu.ui:36
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: data/ui/menu.ui:40
+#: data/ui/menu.ui:30
 msgid "About Notejot"
 msgstr "Informazioni su Notejot"
 
-#: data/ui/move_to_dialog.ui:6
-msgid "Move To"
-msgstr "Sposta in"
-
-#: data/ui/move_to_dialog.ui:28
+#: data/ui/move_to_dialog.ui:18
 msgid "Move"
 msgstr "Sposta"
 
-#: data/ui/move_to_dialog.ui:66
-msgid "Clear Notebook"
-msgstr "Pulisci Quaderno"
+#: data/ui/move_to_dialog.ui:29
+#, fuzzy
+msgid "Move to a Notebook"
+msgstr "Nessun Quaderno"
 
-#: data/ui/note_menu.ui:18
+#: data/ui/move_to_dialog.ui:62
+msgid "There are no notebooks."
+msgstr ""
+
+#: data/ui/move_to_dialog.ui:72
+msgid "Detach Note From Any Notebook"
+msgstr ""
+
+#: data/ui/move_to_dialog.ui:73
+msgid "Removes this Note from any known Notebook."
+msgstr ""
+
+#: data/ui/note_menu.ui:7
 msgid "Move To…"
 msgstr "Sposta in…"
 
-#: data/ui/note_menu.ui:38
+#: data/ui/note_menu.ui:11
+msgid "Pin/Unpin Note"
+msgstr ""
+
+#: data/ui/note_menu.ui:22
+msgid "Move to Trash"
+msgstr "Sposta nel Cestino"
+
+#: data/ui/note_theme.ui:10
 msgid "Red"
 msgstr "Rosso"
 
-#: data/ui/note_menu.ui:54
+#: data/ui/note_theme.ui:23
 msgid "Orange"
 msgstr "Arancione"
 
-#: data/ui/note_menu.ui:70
+#: data/ui/note_theme.ui:37
 msgid "Yellow"
 msgstr "Giallo"
 
-#: data/ui/note_menu.ui:86
+#: data/ui/note_theme.ui:51
 msgid "Blue"
 msgstr "Blu"
 
-#: data/ui/note_menu.ui:102
+#: data/ui/note_theme.ui:65
 msgid "Purple"
 msgstr "Viola"
 
-#: data/ui/note_menu.ui:118
+#: data/ui/note_theme.ui:79
 msgid "Brown"
 msgstr "Marrone"
 
-#: data/ui/note_menu.ui:134
+#: data/ui/note_theme.ui:93
 msgid "Green"
 msgstr "Verde"
 
-#: data/ui/note_menu.ui:150
+#: data/ui/note_theme.ui:107
 msgid "No Color"
 msgstr "Nesun Colore"
-
-#: data/ui/note_menu.ui:191
-msgid "Move to Trash"
-msgstr "Sposta nel Cestino"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
@@ -442,42 +583,7 @@ msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
 msgstr "Testo barrato selezionato"
 
-#: data/ui/title_menu.ui:18
-msgid "Manage Notebooks…"
-msgstr "Gestisci Quaderno…"
-
-#~ msgid "A Note"
-#~ msgstr "Una nota"
-
-#~ msgid "Note Settings"
-#~ msgstr "Impostazioni Nota"
-
-#~ msgid "Makes selected text an ordered list"
-#~ msgstr "Rende il testo selezionato un elenco ordinato"
-
-#~ msgid "page0"
-#~ msgstr "pagina0"
-
-#~ msgid "page1"
-#~ msgstr "pagina1"
-
-#~ msgid "Notebooks"
-#~ msgstr "Quaderni"
-
-#~ msgid "Edit Notebooks…"
-#~ msgstr "Modifica Quaderni…"
-
-#~ msgid "Delete note"
-#~ msgstr "Elimina nota"
-
-#~ msgid "White"
-#~ msgstr "Bianco"
-
-#~ msgid "Indigo"
-#~ msgstr "Indaco"
-
-#~ msgid "Cocoa"
-#~ msgstr "Cacao"
-
-#~ msgid "Slate"
-#~ msgstr "Ardesia"
+#: data/ui/trash_note_menu.ui:17
+#, fuzzy
+msgid "Restore Note"
+msgstr "Nessuna Nota"

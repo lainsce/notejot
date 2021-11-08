@@ -1,3 +1,7 @@
+data/io.github.lainsce.Notejot.appdata.xml.in
+data/io.github.lainsce.Notejot.desktop.in
+data/io.github.lainsce.Notejot.gschema.xml
+
 src/Application.vala
 src/Format.vala
 src/MainWindow.vala
