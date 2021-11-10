@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-08 16:14+0100\n"
-"PO-Revision-Date: 2021-11-08 16:16+0100\n"
+"PO-Revision-Date: 2021-11-08 21:24+0100\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -43,15 +43,18 @@ msgstr "Lains"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:47
 msgid "Release: Overhaul User Interface"
-msgstr ""
+msgstr "Versión: Renovación de la interfaz de usuario"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:49
 msgid "Changed: UI now looks better layoutted, is an experiment."
 msgstr ""
+"Cambiado: La interfaz de usuario ahora tiene un mejor diseño, es un "
+"experimento."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:50
 msgid "Changed: Backend was changed to be more stable than the old one."
 msgstr ""
+"Cambiado: Se ha cambiado el código para que sea más estable que el antiguo."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:52
 #: data/io.github.lainsce.Notejot.appdata.xml.in:63
@@ -148,45 +151,50 @@ msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:5
 msgid "Last View Used"
-msgstr ""
+msgstr "Última vista usada"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:6
 msgid "The last view used in the UI"
-msgstr ""
+msgstr "La última vista usada en la interfaz de usuario"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:10
 msgid "Notes Font Size"
-msgstr ""
+msgstr "Tamaño de la fuente de las notass"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:11
 msgid "The size of the font used in notes. (Small, Medium, Large)"
-msgstr ""
+msgstr "El tamaño de la fuente usada en las notas. (pequeña, mediana, grande)"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:15
 msgid "Saves whether the window is maximized or not"
-msgstr ""
+msgstr "Guarda si la ventana está maximizada o no"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:16
 msgid ""
 "Whether the window is maximized. Used to open window with user's preferred "
 "settings"
 msgstr ""
+"Si la ventana está maximizada. Se usa para abrir la ventana con la "
+"configuración preferida por el usuario"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:20
 msgid "Saves window last-used width"
-msgstr ""
+msgstr "Guarda la anchura de la ventana usada por última vez"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:21
 msgid "The user's last used window width before closing the app"
 msgstr ""
+"El último ancho de ventana usado por el usuario antes de cerrar la aplicación"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:25
 msgid "Saves window last-used height"
-msgstr ""
+msgstr "Guarda la altura de la ventana usada por última vez"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:26
 msgid "The user's last used window height before closing the app"
 msgstr ""
+"La última altura de ventana usada por el usuario antes de cerrar la "
+"aplicación"
 
 #: src/MainWindow.vala:375
 msgid "New Note "
@@ -360,7 +368,7 @@ msgstr "Establecer título de nota"
 #: src/Widgets/NoteTypes/Note.vala:276
 #: src/Widgets/NoteTypes/TrashedNote.vala:255
 msgid "Empty note"
-msgstr ""
+msgstr "Nota vacía"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
@@ -376,13 +384,12 @@ msgstr "Añadir"
 
 #: data/ui/edit_notebooks.ui:67 data/ui/main_window.ui:121
 #: data/ui/move_to_dialog.ui:61
-#, fuzzy
 msgid "No Notebooks"
-msgstr "Sin cuaderno"
+msgstr "Sin cuadernos"
 
 #: data/ui/edit_notebooks.ui:68
 msgid "Create a notebook with + Add button."
-msgstr ""
+msgstr "Crear una libreta con el botón + Añadir."
 
 #: data/ui/main_window.ui:55 data/ui/title_menu.ui:18
 msgid "Manage Notebooks…"
@@ -397,9 +404,8 @@ msgid "Trash"
 msgstr "Papelera"
 
 #: data/ui/main_window.ui:94
-#, fuzzy
 msgid "Notebooks"
-msgstr "Sin cuaderno"
+msgstr "Cuadernos"
 
 #: data/ui/main_window.ui:160
 msgid "Search for notes"
@@ -410,9 +416,8 @@ msgid "No Notes"
 msgstr "Sin notas"
 
 #: data/ui/main_window.ui:206
-#, fuzzy
 msgid "Notes appear here."
-msgstr "Aquí aparecen las notas eliminadas."
+msgstr "Aquí aparecen las notas."
 
 #: data/ui/main_window.ui:220
 msgid "Add Note"
@@ -427,14 +432,12 @@ msgid "Trashed notes appear here."
 msgstr "Aquí aparecen las notas eliminadas."
 
 #: data/ui/main_window.ui:367
-#, fuzzy
 msgid "No Selected Notes"
-msgstr "Sin notas fijadas"
+msgstr "Sin notas seleccionadas"
 
 #: data/ui/main_window.ui:368
-#, fuzzy
 msgid "Selected Notes appear here."
-msgstr "Aquí aparecen las notas eliminadas."
+msgstr "Aquí aparecen las notas seleccionadas."
 
 #: data/ui/main_window.ui:403
 msgid "Removes formatting from selected text"
@@ -489,30 +492,28 @@ msgid "Move"
 msgstr "Mover"
 
 #: data/ui/move_to_dialog.ui:29
-#, fuzzy
 msgid "Move to a Notebook"
-msgstr "Sin cuaderno"
+msgstr "Mover a un cuaderno"
 
 #: data/ui/move_to_dialog.ui:62
 msgid "There are no notebooks."
-msgstr ""
+msgstr "No hay cuadernos."
 
 #: data/ui/move_to_dialog.ui:72
 msgid "Detach Note From Any Notebook"
-msgstr ""
+msgstr "Retirar nota de cualquier cuaderno"
 
 #: data/ui/move_to_dialog.ui:73
 msgid "Removes this Note from any known Notebook."
-msgstr ""
+msgstr "Borra esta nota de cualquier cuaderno conocido."
 
 #: data/ui/note_menu.ui:7
 msgid "Move To…"
 msgstr "Mover a…"
 
 #: data/ui/note_menu.ui:11
-#, fuzzy
 msgid "Pin/Unpin Note"
-msgstr "Soltar nota"
+msgstr "Fijar/Desfijar nota"
 
 #: data/ui/note_menu.ui:22
 msgid "Move to Trash"
