@@ -237,7 +237,7 @@
                             <child type="overlay">
                               <object class="GtkButton" id="new_button">
                                 <property name="tooltip-text" translatable="yes">Add Note</property>
-                                <property name="icon-name">add-note-symbolic</property>
+                                <property name="icon-name">list-add-symbolic</property>
                                 <property name="action-name">win.action_new_note</property>
                                 <property name="valign">end</property>
                                 <property name="halign">end</property>
