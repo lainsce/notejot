@@ -1,24 +1,27 @@
+#
+# Rafał Baran <>, 2021.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-08 16:14+0100\n"
-"PO-Revision-Date: 2021-11-08 16:17+0100\n"
-"Last-Translator: Dany Gee <goferto@gmail.com>\n"
+"PO-Revision-Date: 2021-11-12 15:03+0100\n"
+"Last-Translator: Rafał Baran <>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"Language-Team: \n"
+"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2)\n"
+"Language-Team: Polish <>\n"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:6
 #: data/io.github.lainsce.Notejot.desktop.in:3 src/MainWindow.vala:135
 #: src/MainWindow.vala:406
 msgid "Notejot"
-msgstr ""
+msgstr "Notejot"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:7
 #: data/io.github.lainsce.Notejot.desktop.in:4
@@ -30,26 +33,28 @@ msgid ""
 "A stupidly-simple notes application for any type of short term notes or "
 "ideas."
 msgstr ""
+"Głupio prosta aplikacja do notowania różnych krótkoterminowych notatek lub "
+"pomysłów."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:11
 msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr ""
+msgstr "Wyjdź w każdym momencie używając skrótu Ctrl + Q"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:21
 msgid "Lains"
-msgstr ""
+msgstr "Lains"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:47
 msgid "Release: Overhaul User Interface"
-msgstr ""
+msgstr "Wydanie: Przeprojektowano Interfejs Użytkownika"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:49
 msgid "Changed: UI now looks better layoutted, is an experiment."
-msgstr ""
+msgstr "Zmiany: Interfejs teraz jest lepiej ułożony, jest eksperymentalny."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:50
 msgid "Changed: Backend was changed to be more stable than the old one."
-msgstr ""
+msgstr "Zmiany: Backend został zmieniony żeby był stabilniejszy niż wcześniej."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:52
 #: data/io.github.lainsce.Notejot.appdata.xml.in:63
@@ -61,119 +66,130 @@ msgid ""
 "Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
 "lainsce.Notejot when using the Flatpak. Happy notetaking!"
 msgstr ""
+"Informacja: Twoje notatki i notatniki zawsze są zapisywane w ~/.var/app/io."
+"github.lainsce.Notejot jeśli jest używany Flatpak. Miłego notowania!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:57
 msgid "Release: Pinned Notes"
-msgstr ""
+msgstr "Wydanie: Przypięte Notatki"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:59
 msgid "Added: Notes can now be pinned and are shown separately from others."
 msgstr ""
+"Dodano: Notatki teraz mogą być przypięte i wyświetlane osobno od innych."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:60
 msgid "Added: Note title styling from older versions is back."
-msgstr ""
+msgstr "Dodano: Style tytułu notatek z wcześniejszych wersji jest z powrotem."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:61
 msgid "Added: Note searchbar is now always visible."
-msgstr ""
+msgstr "Dodano: Pasek wyszukiwania notatek teraz jest zawsze widoczny."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:68
 msgid "Release: Usability Independence"
-msgstr ""
+msgstr "Wydanie: Niezależność Użyteczności"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:70
 msgid ""
 "Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
 "trash and also removing singluar notes from a notebook."
 msgstr ""
+"Naprawiono: wiele problemów z interfejsem zostało naprawionych, nie mniej "
+"ważny przełącznik notatników i kosz, i również usuwanie pojedynczych notatek "
+"z notatnika."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:77
 msgid "Release: Format But Don't Fail"
-msgstr ""
+msgstr "Wydanie: Formatuj, Ale Nie Ponieś Porażki"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:79
 msgid ""
 "Fixed: formatting functions are the best they can be, plus minor fixes all "
 "around."
 msgstr ""
+"Naprawiono: funkcje formatowania są najlepsze jakie mogą być, plus małe "
+"poprawki błędów."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:86
 msgid "Release: Ready, Set, Go!"
-msgstr ""
+msgstr "Wydanie: Gotowi, Do startu, Start!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:88
 msgid ""
 "Some UI design fixes, such as the notebook switcher being on the bottom "
 "instead of in the top."
 msgstr ""
+"Małe poprawki w designie interfejsu, takie jak przełącznik notatników będący "
+"na dole zamiast na górze.f"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:95
 msgid "Release: GTK4 and Ready!"
-msgstr ""
+msgstr "Wydanie: GTK4 i Gotowe!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:97
 msgid "New UI"
-msgstr ""
+msgstr "Nowy interfejs"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:98
 msgid "Using another widget to display note contents"
-msgstr ""
+msgstr "Używanie innego widżetu do wyświetlania zawartości notatki"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:99
 msgid "Keyboard shortcuts for formatting"
-msgstr ""
+msgstr "Skróty klawiszowe do formatowania"
 
 #: data/io.github.lainsce.Notejot.desktop.in:7
 msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
-msgstr ""
+msgstr "tekst;zwykły;zwykły-tekst;notatnik;notatki;samoprzylepne;opublikuj-to;"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:5
 msgid "Last View Used"
-msgstr ""
+msgstr "Ostatnio Używany Widok"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:6
 msgid "The last view used in the UI"
-msgstr ""
+msgstr "Ostatnio używany widok interfejsu"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:10
 msgid "Notes Font Size"
-msgstr ""
+msgstr "Rozmiar Czcionki Notatek"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:11
 msgid "The size of the font used in notes. (Small, Medium, Large)"
-msgstr ""
+msgstr "Rozmiar czcionki używanej w notatkach. (Mały, Średni, Duży)"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:15
 msgid "Saves whether the window is maximized or not"
-msgstr ""
+msgstr "Zachowuje to czy okno jest zmaksymalizowane czy nie"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:16
 msgid ""
 "Whether the window is maximized. Used to open window with user's preferred "
 "settings"
 msgstr ""
+"Czy okno jest zmaksymalizowane. Używane do otwierania okna z ustawieniami "
+"preferowanymi przez użytkownika"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:20
 msgid "Saves window last-used width"
-msgstr ""
+msgstr "Zachowuje ostatnią szerokość okna"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:21
 msgid "The user's last used window width before closing the app"
-msgstr ""
+msgstr "Ostatnio używana szerokość okna przed zamknięciem aplikacji"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:25
 msgid "Saves window last-used height"
-msgstr ""
+msgstr "Zachowuje ostatnio używaną wysokość okna"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:26
 msgid "The user's last used window height before closing the app"
-msgstr ""
+msgstr "Ostatnio używana wysokość okna przed zamknięciem aplikacji"
 
 #: src/MainWindow.vala:375
-#, fuzzy
 msgid "New Note "
-msgstr "Nowa notatka"
+msgstr "Nowa Notatka"
 
 #: src/MainWindow.vala:379 src/Widgets/EditNotebookDialog.vala:110
 #: src/Widgets/EditNotebookDialog.vala:118
@@ -181,326 +197,322 @@ msgstr "Nowa notatka"
 #: src/Widgets/MoveToDialog.vala:50 src/Widgets/NoteTypes/Note.vala:169
 #: src/Widgets/NoteTypes/TrashedNote.vala:157
 msgid "No Notebook"
-msgstr ""
+msgstr "Brak Notatnika"
 
 #: src/MainWindow.vala:411
 msgid "Jot your ideas."
-msgstr ""
+msgstr "Notuj swoje pomysły"
 
 #: src/MainWindow.vala:417
 msgid "translator-credits"
-msgstr ""
+msgstr "autorzy-tłumaczeń"
 
 #: src/MainWindow.vala:472
 msgid "Empty the Trashed Notes?"
-msgstr ""
+msgstr "Usunąć Notatki z Kosza?"
 
 #: src/MainWindow.vala:473
 msgid ""
 "Emptying the trash means all the notes in it will be permanently lost with "
 "no recovery."
 msgstr ""
+"Opróżnienie kosza oznacza nieodwracalne usunięcie z niego wszystkich notatek "
+"bez możliwości odzyskania ich."
 
 #: src/MainWindow.vala:475 data/ui/move_to_dialog.ui:39
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: src/MainWindow.vala:476 data/ui/main_window.ui:279
 msgid "Empty Trash"
-msgstr ""
+msgstr "Opróżnij Kosz"
 
 #: src/MainWindow.vala:765
 msgid "bold text"
-msgstr ""
+msgstr "pogrubiony tekst"
 
 #: src/MainWindow.vala:772
 msgid "italic text"
-msgstr ""
+msgstr "kursywa"
 
 #: src/MainWindow.vala:779
 msgid "underline text"
-msgstr ""
+msgstr "podkreślony tekst"
 
 #: src/MainWindow.vala:786
 msgid "strikethrough text"
-msgstr ""
+msgstr "przekreślony tekst"
 
 #: src/MainWindow.vala:793 src/MainWindow.vala:867
 msgid "Item"
-msgstr ""
+msgstr "Przedmiot"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Services/Utils.vala:16
 msgid "%a, %b %e, %Y"
-msgstr ""
+msgstr "%a, %b %e, %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Services/Utils.vala:19
 msgid "%b %e %Y"
-msgstr ""
+msgstr "%b %e %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Services/Utils.vala:22
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Services/Utils.vala:25
 msgid "%b %e"
-msgstr ""
+msgstr "%b %e"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Services/Utils.vala:28
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: src/Services/Utils.vala:31
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Services/Utils.vala:34
 msgid "%a, %b %e"
-msgstr ""
+msgstr "%a, %b %e"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Services/Utils.vala:37
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: src/Services/Utils.vala:47
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: src/Services/Utils.vala:50
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: src/Services/Utils.vala:55
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: src/Services/Utils.vala:58
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: src/Services/Utils.vala:80
 msgid "Now"
-msgstr ""
+msgstr "Teraz"
 
 #: src/Services/Utils.vala:83
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d minutę temu"
+msgstr[1] "%d minuty temu"
+msgstr[2] "%d minut temu"
 
 #: src/Services/Utils.vala:86
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d godzinę temu"
+msgstr[1] "%d godziny temu"
+msgstr[2] "%d godzin temu"
 
 #: src/Services/Utils.vala:92
 #, c-format
 msgid "in %d minute"
 msgid_plural "in %d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "w %d minutę"
+msgstr[1] "w %d minuty"
+msgstr[2] "w %d minut"
 
 #: src/Services/Utils.vala:95
 #, c-format
 msgid "in %d hour"
 msgid_plural "in %d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "w %d minutę"
+msgstr[1] "w %d minuty"
+msgstr[2] "w %d minut"
 
 #: src/Services/Utils.vala:101
 msgid "Yesterday"
-msgstr ""
+msgstr "Wczoraj"
 
 #: src/Services/Utils.vala:103
 msgid "Tomorrow"
-msgstr ""
+msgstr "Jutro"
 
 #: src/Widgets/EditNotebookDialog.vala:99
 msgid "Remove notebook"
-msgstr ""
+msgstr "Usuń notatnik"
 
 #: src/Widgets/NoteTypes/Note.vala:71 src/Widgets/NoteTypes/TrashedNote.vala:65
-#, fuzzy
 msgid "Set Note Title"
-msgstr "Nowa notatka"
+msgstr "Ustaw Tytuł Notatki"
 
 #: src/Widgets/NoteTypes/Note.vala:276
 #: src/Widgets/NoteTypes/TrashedNote.vala:255
 msgid "Empty note"
-msgstr ""
+msgstr "Pusta notatka"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
-msgstr ""
+msgstr "Edytuj Notatniki"
 
 #: data/ui/edit_notebooks.ui:34
-#, fuzzy
 msgid "New Notebook…"
-msgstr "Nowa notatka"
+msgstr "Nowy Notatnik…"
 
 #: data/ui/edit_notebooks.ui:42
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: data/ui/edit_notebooks.ui:67 data/ui/main_window.ui:121
 #: data/ui/move_to_dialog.ui:61
-#, fuzzy
 msgid "No Notebooks"
-msgstr "Nowa notatka"
+msgstr "Brak Notatników"
 
 #: data/ui/edit_notebooks.ui:68
 msgid "Create a notebook with + Add button."
-msgstr ""
+msgstr "Utwórz notatnik używając przycisku + Dodaj."
 
 #: data/ui/main_window.ui:55 data/ui/title_menu.ui:18
-#, fuzzy
 msgid "Manage Notebooks…"
-msgstr "Nowa notatka"
+msgstr "Zarządzaj Notatnikami…"
 
 #: data/ui/main_window.ui:68 data/ui/title_menu.ui:7
 msgid "All Notes"
-msgstr ""
+msgstr "Wszystkie Notatki"
 
 #: data/ui/main_window.ui:84 data/ui/title_menu.ui:11
 msgid "Trash"
-msgstr ""
+msgstr "Kosz"
 
 #: data/ui/main_window.ui:94
-#, fuzzy
 msgid "Notebooks"
-msgstr "Nowa notatka"
+msgstr "Notatniki"
 
 #: data/ui/main_window.ui:160
 msgid "Search for notes"
-msgstr ""
+msgstr "Szukaj notatek"
 
 #: data/ui/main_window.ui:205
 msgid "No Notes"
-msgstr ""
+msgstr "Brak Notatek"
 
 #: data/ui/main_window.ui:206
 msgid "Notes appear here."
-msgstr ""
+msgstr "Tutaj się pojawiają notatki."
 
 #: data/ui/main_window.ui:220
 msgid "Add Note"
-msgstr ""
+msgstr "Dodaj Notatkę"
 
 #: data/ui/main_window.ui:264
 msgid "No Trash"
-msgstr ""
+msgstr "Pusty Kosz"
 
 #: data/ui/main_window.ui:265
 msgid "Trashed notes appear here."
-msgstr ""
+msgstr "Tutaj pojawiają się usunięte notatki."
 
 #: data/ui/main_window.ui:367
 msgid "No Selected Notes"
-msgstr ""
+msgstr "Brak Zaznaczonych Notatek"
 
 #: data/ui/main_window.ui:368
 msgid "Selected Notes appear here."
-msgstr ""
+msgstr "Tutaj pojawiają się zaznaczone notatki."
 
 #: data/ui/main_window.ui:403
 msgid "Removes formatting from selected text"
-msgstr ""
+msgstr "Usuwa formatowanie z zaznaczonego tekstu"
 
 #: data/ui/main_window.ui:418
 msgid "Makes selected text emboldened"
-msgstr ""
+msgstr "Pogrubia zaznaczony tekst"
 
 #: data/ui/main_window.ui:426
 msgid "Makes selected text italicized"
-msgstr ""
+msgstr "Pochyla zaznaczony tekst"
 
 #: data/ui/main_window.ui:434
 msgid "Makes selected text underlined"
-msgstr ""
+msgstr "Podkreśla zaznaczony tekst"
 
 #: data/ui/main_window.ui:442
 msgid "Makes selected text striked through"
-msgstr ""
+msgstr "Przekreśla zaznaczony tekst"
 
 #: data/ui/main_window.ui:457
 msgid "Makes selected text into an unordered list"
-msgstr ""
+msgstr "Tworzy nieponumerowaną listę z zaznaczonego tekstu"
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
-msgstr ""
+msgstr "Rozmiar Tekstu"
 
 #: data/ui/menu.ui:10
 msgid "Small"
-msgstr ""
+msgstr "Mały"
 
 #: data/ui/menu.ui:15
 msgid "Medium"
-msgstr ""
+msgstr "Średni"
 
 #: data/ui/menu.ui:20
 msgid "Large"
-msgstr ""
+msgstr "Duży"
 
 #: data/ui/menu.ui:26
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Skróty Klawiszowe"
 
 #: data/ui/menu.ui:30
 msgid "About Notejot"
-msgstr ""
+msgstr "O Notejot"
 
 #: data/ui/move_to_dialog.ui:18
 msgid "Move"
-msgstr ""
+msgstr "Przenieś"
 
 #: data/ui/move_to_dialog.ui:29
-#, fuzzy
 msgid "Move to a Notebook"
-msgstr "Nowa notatka"
+msgstr "Przenieś Notatnik"
 
 #: data/ui/move_to_dialog.ui:62
 msgid "There are no notebooks."
-msgstr ""
+msgstr "Nie ma żadnych notatników"
 
 #: data/ui/move_to_dialog.ui:72
 msgid "Detach Note From Any Notebook"
-msgstr ""
+msgstr "Odepnij Notatkę Z Każdego Notatnika"
 
 #: data/ui/move_to_dialog.ui:73
 msgid "Removes this Note from any known Notebook."
-msgstr ""
+msgstr "Usuwa tą notatkę z każdego Notatnika"
 
 #: data/ui/note_menu.ui:7
 msgid "Move To…"
-msgstr ""
+msgstr "Przenieś Do…"
 
 #: data/ui/note_menu.ui:11
 msgid "Pin/Unpin Note"
-msgstr ""
+msgstr "Przypnij/Odepnij Notatkę"
 
 #: data/ui/note_menu.ui:22
 msgid "Move to Trash"
-msgstr ""
+msgstr "Przenieś do Kosza"
 
 #: data/ui/note_theme.ui:10
 msgid "Red"
@@ -520,11 +532,11 @@ msgstr "Niebieska"
 
 #: data/ui/note_theme.ui:65
 msgid "Purple"
-msgstr ""
+msgstr "Pomarańczowa"
 
 #: data/ui/note_theme.ui:79
 msgid "Brown"
-msgstr ""
+msgstr "Brązowa"
 
 #: data/ui/note_theme.ui:93
 msgid "Green"
@@ -532,54 +544,53 @@ msgstr "Zielona"
 
 #: data/ui/note_theme.ui:107
 msgid "No Color"
-msgstr ""
+msgstr "Brak Koloru"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "Ogólne"
 
 #: data/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Wyjdź"
 
 #: data/ui/shortcuts.ui:22
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Create New Note"
-msgstr "Nowa notatka"
+msgstr "Utwórz Nową Notatkę"
 
 #: data/ui/shortcuts.ui:29
 msgctxt "shortcut window"
 msgid "Formatting"
-msgstr ""
+msgstr "Formatowanie"
 
 #: data/ui/shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Remove Selected Text Formatting"
-msgstr ""
+msgstr "Usuń Zaznaczone Formatowanie Tekstu"
 
 #: data/ui/shortcuts.ui:39
 msgctxt "shortcut window"
 msgid "Bold Selected Text"
-msgstr ""
+msgstr "Pogrub Zaznaczony Tekst"
 
 #: data/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Italic Selected Text"
-msgstr ""
+msgstr "Pochyl Zaznaczony Tekst"
 
 #: data/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Underline Selected Text"
-msgstr ""
+msgstr "Podkreśl Zaznaczony Tekst"
 
 #: data/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Strikethrough Selected Text"
-msgstr ""
+msgstr "Przekreśl Zaznaczony Tekst"
 
 #: data/ui/trash_note_menu.ui:17
 msgid "Restore Note"
-msgstr ""
+msgstr "Przywróć Notatkę"
