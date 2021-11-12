@@ -161,6 +161,7 @@
                     <property name="width-request">200</property>
                     <style>
                       <class name="notejot-stitle"/>
+                      <class name="notejot-sbtitle"/>
                     </style>
                     <child>
                       <object class="GtkButton" id="back_button2">
@@ -174,8 +175,7 @@
                         <child>
                           <object class="GtkSearchEntry" id="note_search">
                             <property name="hexpand">1</property>
-                            <property name="margin-start">6</property>
-                            <property name="placeholder-text" translatable="yes">Search for notes</property>
+                            <property name="placeholder-text" translatable="yes">Search notes</property>
                             <style>
                               <class name="notejot-searchbar"/>
                             </style>
@@ -189,7 +189,6 @@
                   <object class="GtkStack" id="sidebar_stack">
                     <property name="vexpand">1</property>
                     <property name="hexpand">0</property>
-                    <property name="margin-start">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="transition-type">crossfade</property>
                     <child>
