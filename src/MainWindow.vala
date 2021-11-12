@@ -150,6 +150,7 @@ namespace Notejot {
             }
             app.set_accels_for_action("app.quit", {"<Ctrl>q"});
             app.set_accels_for_action ("win.action_new_note", {"<Ctrl>n"});
+            app.set_accels_for_action ("win.action_keys", {"<Ctrl>question"});
 
             app.set_accels_for_action ("win.action_normal", {"<Ctrl>t"});
             app.set_accels_for_action ("win.action_bold", {"<Ctrl>b"});
