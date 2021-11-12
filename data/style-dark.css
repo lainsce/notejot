@@ -14,3 +14,11 @@
   background: #ffb4a9;
   color: #680003;
 }
+
+.content-sidebar-notebooks {
+	background: mix(@view_bg_color, white, 0.12);
+}
+
+.notejot-sidebar {
+	background: mix(@view_bg_color, white, 0.12);
+}
