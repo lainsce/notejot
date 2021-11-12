@@ -356,6 +356,12 @@ namespace Notejot {
             var actionrow = new Adw.ActionRow ();
             actionrow.get_style_context ().add_class ("content-sidebar-notebooks-item");
             actionrow.set_title ((((Notebook)item).title));
+
+            var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
+            notebookicon.halign = Gtk.Align.START;
+            notebookicon.valign = Gtk.Align.CENTER;
+
+            actionrow.add_prefix (notebookicon);
             return actionrow;
         }
 

@@ -18,6 +18,9 @@
               <object class="GtkWindowHandle" id="nbgrid">
                 <property name="hexpand">0</property>
                 <property name="vexpand">1</property>
+                <style>
+                  <class name="notejot-sidebar"/>
+                </style>
                 <child>
                   <object class="GtkBox">
                     <property name="hexpand">0</property>
@@ -58,14 +61,27 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="an_button">
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Views</property>
+                        <property name="halign">start</property>
+                        <property name="margin-start">12</property>
+                        <property name="margin-bottom">6</property>
+                        <style>
+                          <class name="heading"/>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="an_button">
                         <property name="action-name">win.action_all_notes</property>
-                        <property name="margin-bottom">12</property>
+                        <property name="margin-bottom">6</property>
                         <property name="margin-start">6</property>
                         <property name="child">
-                          <object class="GtkLabel">
+                          <object class="AdwButtonContent">
                             <property name="halign">start</property>
                             <property name="label" translatable="yes">All Notes</property>
+                            <property name="icon-name">view-list-symbolic</property>
                           </object>
                         </property>
                         <style>
@@ -74,14 +90,15 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="t_button">
+                      <object class="GtkToggleButton" id="t_button">
                         <property name="action-name">win.action_trash</property>
-                        <property name="margin-bottom">12</property>
+                        <property name="margin-bottom">6</property>
                         <property name="margin-start">6</property>
                         <property name="child">
-                          <object class="GtkLabel">
+                          <object class="AdwButtonContent">
                             <property name="halign">start</property>
                             <property name="label" translatable="yes">Trash</property>
+                            <property name="icon-name">user-trash-symbolic</property>
                           </object>
                         </property>
                         <style>
@@ -157,6 +174,7 @@
                         <child>
                           <object class="GtkSearchEntry" id="note_search">
                             <property name="hexpand">1</property>
+                            <property name="margin-start">6</property>
                             <property name="placeholder-text" translatable="yes">Search for notes</property>
                             <style>
                               <class name="notejot-searchbar"/>
@@ -171,6 +189,7 @@
                   <object class="GtkStack" id="sidebar_stack">
                     <property name="vexpand">1</property>
                     <property name="hexpand">0</property>
+                    <property name="margin-start">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="transition-type">crossfade</property>
                     <child>
