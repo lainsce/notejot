@@ -18,9 +18,6 @@
               <object class="GtkWindowHandle" id="nbgrid">
                 <property name="hexpand">0</property>
                 <property name="vexpand">1</property>
-                <style>
-                  <class name="notejot-sidebar"/>
-                </style>
                 <child>
                   <object class="GtkBox">
                     <property name="hexpand">0</property>
