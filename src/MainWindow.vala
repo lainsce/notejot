@@ -381,7 +381,12 @@ namespace Notejot {
             log.title = _("New Note ") + (@"$uid");
             log.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
             log.text = "";
-            log.color = "#fafafa";
+            var adwsm = Adw.StyleManager.get_default ();
+            if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
+                log.color = "#151515";
+            } else {
+                log.color = "#ffffff";
+            }
             log.notebook = "<i>" + _("No Notebook") + "</i>";
             log.pinned = "0";
 

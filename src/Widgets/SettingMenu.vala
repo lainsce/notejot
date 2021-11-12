@@ -50,7 +50,7 @@ namespace Notejot {
             if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
                 nmp.color_button_reset.toggled.connect (() => {
                     if (controller != null)
-                        controller.update_theme("#000");
+                        controller.update_theme("#151515");
                 });
             } else {
                 nmp.color_button_reset.toggled.connect (() => {
