@@ -132,7 +132,6 @@ namespace Notejot {
             note_grid.attach (titlebox, 0, 2);
             note_grid.attach (text_scroller, 0, 3);
             win.main_stack.add_named (note_grid, "textfield-%d".printf(uid));
-            note_grid.get_style_context ().add_class ("content-view");
             note_grid.get_style_context ().add_class ("notejot-stack-%d".printf(uid));
 
             update_theme (log.color);

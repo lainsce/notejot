@@ -175,6 +175,7 @@
                             <property name="placeholder-text" translatable="yes">Search notes</property>
                             <style>
                               <class name="notejot-searchbar"/>
+                              <class name="card"/>
                             </style>
                           </object>
                         </child>
@@ -186,7 +187,6 @@
                   <object class="GtkStack" id="sidebar_stack">
                     <property name="vexpand">1</property>
                     <property name="hexpand">0</property>
-                    <property name="margin-bottom">6</property>
                     <property name="transition-type">crossfade</property>
                     <child>
                       <object class="GtkStackPage">
@@ -238,7 +238,7 @@
                                 <property name="valign">end</property>
                                 <property name="halign">end</property>
                                 <property name="margin-end">18</property>
-                                <property name="margin-bottom">12</property>
+                                <property name="margin-bottom">18</property>
                                 <style>
                                   <class name="list-action-button"/>
                                   <class name="accent-button"/>
@@ -356,122 +356,129 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkStack" id="main_stack">
-                    <property name="hexpand">1</property>
-                    <property name="vexpand">1</property>
-                    <property name="transition-type">crossfade</property>
+                <object class="GtkBox">
+                  <property name="visible">1</property>
+                  <property name="orientation">vertical</property>
+                  <style>
+                    <class name="card"/>
+                    <class name="content-view"/>
+                  </style>
                     <child>
-                      <object class="GtkStackPage">
-                        <property name="name">page0</property>
-                        <property name="title">page0</property>
-                        <property name="child">
-                          <object class="GtkBox" id="empty_state">
-                            <property name="hexpand">1</property>
-                            <property name="vexpand">1</property>
-                            <property name="visible">1</property>
-                            <child>
-                              <object class="GtkWindowHandle">
+                      <object class="GtkStack" id="main_stack">
+                        <property name="hexpand">1</property>
+                        <property name="vexpand">1</property>
+                        <property name="transition-type">crossfade</property>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">page0</property>
+                            <property name="title">page0</property>
+                            <property name="child">
+                              <object class="GtkBox" id="empty_state">
                                 <property name="hexpand">1</property>
                                 <property name="vexpand">1</property>
+                                <property name="visible">1</property>
                                 <child>
-                                  <object class="AdwStatusPage">
-                                    <property name="valign">center</property>
+                                  <object class="GtkWindowHandle">
                                     <property name="hexpand">1</property>
                                     <property name="vexpand">1</property>
-                                    <property name="icon-name">text-editor-symbolic</property>
-                                    <property name="title" translatable="yes">No Selected Notes</property>
-                                    <property name="description" translatable="yes">Selected Notes appear here.</property>
+                                    <child>
+                                      <object class="AdwStatusPage">
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">1</property>
+                                        <property name="vexpand">1</property>
+                                        <property name="icon-name">text-editor-symbolic</property>
+                                        <property name="title" translatable="yes">No Selected Notes</property>
+                                        <property name="description" translatable="yes">Selected Notes appear here.</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
+                                <style>
+                                  <class name="empty-state"/>
+                                </style>
                               </object>
-                            </child>
-                            <style>
-                              <class name="empty-state"/>
-                            </style>
+                            </property>
                           </object>
-                        </property>
+                        </child>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkRevealer" id="format_revealer">
-                    <property name="can-focus">0</property>
-                    <property name="visible">1</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="margin-start">6</property>
-                    <property name="margin-end">6</property>
-                    <property name="transition-type">crossfade</property>
                     <child>
-                      <object class="GtkActionBar" id="formatbar">
+                      <object class="GtkRevealer" id="format_revealer">
                         <property name="can-focus">0</property>
-                        <style>
-                          <class name="content-footer"/>
-                        </style>
-                        <child type="center">
-                          <object class="GtkBox">
-                            <property name="visible">1</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkButton" id="normal_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
-                                <property name="action-name">win.action_normal</property>
-                                <property name="icon-name">font-x-generic-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSeparator">
-                                <style>
-                                  <class name="spacer"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="bold_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
-                                <property name="action-name">win.action_bold</property>
-                                <property name="icon-name">format-text-bold-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="italic_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
-                                <property name="action-name">win.action_italic</property>
-                                <property name="icon-name">format-text-italic-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="ul_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
-                                <property name="action-name">win.action_ul</property>
-                                <property name="icon-name">format-text-underline-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="s_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
-                                <property name="action-name">win.action_s</property>
-                                <property name="icon-name">format-text-strikethrough-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSeparator">
-                                <style>
-                                  <class name="spacer"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="ulist_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
-                                <property name="action-name">win.action_item</property>
-                                <property name="icon-name">view-list-bullet-symbolic</property>
+                        <property name="visible">1</property>
+                        <property name="transition-type">crossfade</property>
+                        <child>
+                          <object class="GtkActionBar" id="formatbar">
+                            <property name="can-focus">0</property>
+                            <style>
+                              <class name="content-footer"/>
+                            </style>
+                            <child type="center">
+                              <object class="GtkBox">
+                                <property name="visible">1</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkButton" id="normal_button">
+                                    <property name="receives-default">1</property>
+                                    <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
+                                    <property name="action-name">win.action_normal</property>
+                                    <property name="icon-name">font-x-generic-symbolic</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <style>
+                                      <class name="spacer"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="bold_button">
+                                    <property name="receives-default">1</property>
+                                    <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
+                                    <property name="action-name">win.action_bold</property>
+                                    <property name="icon-name">format-text-bold-symbolic</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="italic_button">
+                                    <property name="receives-default">1</property>
+                                    <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
+                                    <property name="action-name">win.action_italic</property>
+                                    <property name="icon-name">format-text-italic-symbolic</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="ul_button">
+                                    <property name="receives-default">1</property>
+                                    <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
+                                    <property name="action-name">win.action_ul</property>
+                                    <property name="icon-name">format-text-underline-symbolic</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="s_button">
+                                    <property name="receives-default">1</property>
+                                    <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
+                                    <property name="action-name">win.action_s</property>
+                                    <property name="icon-name">format-text-strikethrough-symbolic</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSeparator">
+                                    <style>
+                                      <class name="spacer"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="ulist_button">
+                                    <property name="receives-default">1</property>
+                                    <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
+                                    <property name="action-name">win.action_item</property>
+                                    <property name="icon-name">view-list-bullet-symbolic</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
