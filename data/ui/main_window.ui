@@ -378,7 +378,7 @@
                                     <property name="valign">center</property>
                                     <property name="hexpand">1</property>
                                     <property name="vexpand">1</property>
-                                    <property name="icon-name">add-note-symbolic</property>
+                                    <property name="icon-name">text-editor-symbolic</property>
                                     <property name="title" translatable="yes">No Selected Notes</property>
                                     <property name="description" translatable="yes">Selected Notes appear here.</property>
                                   </object>
