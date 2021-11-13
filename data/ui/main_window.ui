@@ -12,8 +12,8 @@
         <property name="homogeneous">1</property>
         <child>
           <object class="AdwLeaflet" id="leaflet">
-            <property name="can-swipe-back">True</property>
-            <property name="can-swipe-forward">True</property>
+            <property name="can-navigate-back">1</property>
+            <property name="can-navigate-forward">1</property>
             <child>
               <object class="GtkWindowHandle" id="nbgrid">
                 <property name="hexpand">0</property>
@@ -314,7 +314,7 @@
             </child>
             <child>
               <object class="AdwLeafletPage">
-                <property name="navigatable">False</property>
+                <property name="navigatable">0</property>
                 <property name="child">
                   <object class="GtkSeparator">
                     <style>
