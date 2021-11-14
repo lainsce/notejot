@@ -51,14 +51,13 @@ namespace Notejot {
             icon.valign = Gtk.Align.CENTER;
             icon.get_style_context ().add_class ("notejot-sidebar-trash-dbg-%d".printf(tuid));
 
-            var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+            var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 
             var titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);
             titleentry.set_margin_top (12);
-            titleentry.set_margin_bottom (6);
-            titleentry.set_margin_start (30);
-            titleentry.set_margin_end (30);
+            titleentry.set_margin_start (12);
+            titleentry.set_margin_end (12);
             titleentry.set_text (tlog.title);
             titleentry.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             titleentry.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
@@ -75,9 +74,9 @@ namespace Notejot {
             });
 
             var notebookbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            notebookbox.set_margin_bottom (6);
-            notebookbox.set_margin_start (30);
-            notebookbox.set_margin_end (30);
+            notebookbox.set_margin_bottom (12);
+            notebookbox.set_margin_start (21);
+            notebookbox.set_margin_end (21);
 
             subtitlelabel = new Gtk.Label ("");
             subtitlelabel.set_margin_end (12);
@@ -123,7 +122,6 @@ namespace Notejot {
             note_grid.attach (text_scroller, 0, 3);
             note_grid.set_sensitive (false);
             win.main_stack.add_named (note_grid, "textfield-trash-%d".printf(tuid));
-            note_grid.get_style_context ().add_class ("content-view");
             note_grid.get_style_context ().add_class ("notejot-stack-trash-%d".printf(tuid));
 
             sync_subtitles.begin ();

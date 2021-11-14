@@ -58,7 +58,7 @@ namespace Notejot {
             picon.valign = Gtk.Align.CENTER;
             picon.visible = false;
 
-            var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+            var titlebox = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 
             var titleentry = new Gtk.Entry ();
             titleentry.set_valign (Gtk.Align.CENTER);

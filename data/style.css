@@ -59,8 +59,15 @@
 }
 
 .content-view {
-	border-radius: 12px;
+	border-radius: 8px;
 	margin: 6px;
+}
+
+.card,
+.content {
+  background: @view_bg_color;
+  box-shadow: 0 0 1px 0 rgba(0,0,0,0.3),
+              0 0 4px 1px rgba(0,0,0,0.15);
 }
 
 .content-sidebar-notebooks {
