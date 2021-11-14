@@ -62,7 +62,7 @@ endif
 i18n.merge_file(
     input: meson.project_name() + '.appdata.xml.in',
     output: meson.project_name() + '.appdata.xml',
-    po_dir: 'po',
+    po_dir: podir,
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )

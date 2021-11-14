@@ -132,7 +132,7 @@ namespace Notejot {
                 application: application,
                 app: application,
                 icon_name: Config.APP_ID,
-                title: (_("Notejot"))
+                title: "Notejot"
             );
         }
 
@@ -415,7 +415,7 @@ namespace Notejot {
                 null
             };
 
-            var program_name = Config.NAME_PREFIX + _("Notejot");
+            var program_name = Config.NAME_PREFIX + "Notejot";
             Gtk.show_about_dialog (this,
                                    "program-name", program_name,
                                    "logo-icon-name", Config.APP_ID,
@@ -535,13 +535,14 @@ namespace Notejot {
             Gtk.ListBoxRow row = listview.get_selected_row ();
 
             if (row != null) {
+                var tlog = new Log ();
+                tlog.title = ((Widgets.Note)row).log.title;
+                tlog.subtitle = ((Widgets.Note)row).log.subtitle;
+                tlog.text = ((Widgets.Note)row).log.text;
+                tlog.color = ((Widgets.Note)row).log.color;
+                tlog.notebook = ((Widgets.Note)row).log.notebook;
+
                 if (((Widgets.Note)row).log.pinned != "1") {
-                    var tlog = new Log ();
-                    tlog.title = ((Widgets.Note)row).log.title;
-                    tlog.subtitle = ((Widgets.Note)row).log.subtitle;
-                    tlog.text = ((Widgets.Note)row).log.text;
-                    tlog.color = ((Widgets.Note)row).log.color;
-                    tlog.notebook = ((Widgets.Note)row).log.notebook;
                     tlog.pinned = "1";
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (true);
@@ -553,12 +554,6 @@ namespace Notejot {
                     notestore.remove (pos);
 	                ((Widgets.Note)row).picon.set_visible (true);
                 } else {
-                    var tlog = new Log ();
-                    tlog.title = ((Widgets.Note)row).log.title;
-                    tlog.subtitle = ((Widgets.Note)row).log.subtitle;
-                    tlog.text = ((Widgets.Note)row).log.text;
-                    tlog.color = ((Widgets.Note)row).log.color;
-                    tlog.notebook = ((Widgets.Note)row).log.notebook;
                     tlog.pinned = "0";
 	                notestore.insert_sorted(tlog, (a, b) => {
                         ((Widgets.Note)row).picon.set_visible (false);
