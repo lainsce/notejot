@@ -175,7 +175,6 @@
                             <property name="placeholder-text" translatable="yes">Search notes</property>
                             <style>
                               <class name="notejot-searchbar"/>
-                              <class name="card"/>
                             </style>
                           </object>
                         </child>
@@ -360,7 +359,6 @@
                   <property name="visible">1</property>
                   <property name="orientation">vertical</property>
                   <style>
-                    <class name="card"/>
                     <class name="content-view"/>
                   </style>
                     <child>
