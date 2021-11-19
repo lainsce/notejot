@@ -296,7 +296,7 @@
                                 <property name="valign">end</property>
                                 <property name="halign">end</property>
                                 <property name="margin-end">18</property>
-                                <property name="margin-bottom">12</property>
+                                <property name="margin-bottom">18</property>
                                 <style>
                                   <class name="list-action-button"/>
                                   <class name="destructive-action"/>
