@@ -102,8 +102,9 @@ namespace Notejot {
             });
 
             var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
-            notebookicon.halign = Gtk.Align.START;
+            notebookicon.halign = Gtk.Align.END;
             notebookicon.valign = Gtk.Align.CENTER;
+            notebookicon.set_hexpand (true);
             notebookicon.get_style_context ().add_class ("dim-label");
 
             notebookbox.prepend (notebooklabel);
