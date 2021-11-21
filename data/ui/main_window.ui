@@ -212,7 +212,6 @@
                                         </style>
                                         <child type="placeholder">
                                           <object class="AdwStatusPage">
-                                            <property name="valign">center</property>
                                             <property name="hexpand">0</property>
                                             <property name="vexpand">1</property>
                                             <property name="icon-name">document-new-symbolic</property>
@@ -272,7 +271,6 @@
                                         </style>
                                         <child type="placeholder">
                                           <object class="AdwStatusPage">
-                                            <property name="valign">center</property>
                                             <property name="vexpand">1</property>
                                             <property name="icon-name">user-trash-symbolic</property>
                                             <property name="title" translatable="yes">No Trash</property>
@@ -347,7 +345,6 @@
                     </child>
                     <child type="end">
                       <object class="GtkMenuButton" id="settingmenu">
-                        <property name="visible">1</property>
                         <property name="receives-default">1</property>
                         <property name="icon-name">view-more-symbolic</property>
                       </object>
@@ -356,7 +353,6 @@
                 </child>
                 <child>
                 <object class="GtkBox">
-                  <property name="visible">1</property>
                   <property name="orientation">vertical</property>
                   <style>
                     <class name="content-view"/>
@@ -374,14 +370,12 @@
                               <object class="GtkBox" id="empty_state">
                                 <property name="hexpand">1</property>
                                 <property name="vexpand">1</property>
-                                <property name="visible">1</property>
                                 <child>
                                   <object class="GtkWindowHandle">
                                     <property name="hexpand">1</property>
                                     <property name="vexpand">1</property>
                                     <child>
                                       <object class="AdwStatusPage">
-                                        <property name="valign">center</property>
                                         <property name="hexpand">1</property>
                                         <property name="vexpand">1</property>
                                         <property name="icon-name">text-editor-symbolic</property>
@@ -403,17 +397,14 @@
                     <child>
                       <object class="GtkRevealer" id="format_revealer">
                         <property name="can-focus">0</property>
-                        <property name="visible">1</property>
                         <property name="transition-type">crossfade</property>
                         <child>
                           <object class="GtkActionBar" id="formatbar">
-                            <property name="can-focus">0</property>
                             <style>
                               <class name="content-footer"/>
                             </style>
                             <child type="center">
                               <object class="GtkBox">
-                                <property name="visible">1</property>
                                 <property name="spacing">6</property>
                                 <child>
                                   <object class="GtkButton" id="normal_button">
