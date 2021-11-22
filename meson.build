@@ -1,4 +1,8 @@
-project('io.github.lainsce.Notejot', ['vala', 'c'], version: '3.3.3')
+project('io.github.lainsce.Notejot', 'vala',
+        version: '3.3.3',
+  meson_version: '>= 0.59.2'
+)
+
 gnome = import('gnome')
 i18n = import('i18n')
 
@@ -87,11 +91,15 @@ executable(
     sources,
     asresources,
     dependencies: dependencies,
-    vala_args: [meson.source_root() + '/src/Config.vapi'],
+    vala_args: [meson.project_source_root() + '/src/Config.vapi'],
     install : true
 )
 
 subdir('data')
 subdir('po')
 
-meson.add_install_script('build-aux/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
+  update_desktop_database: true
+)
