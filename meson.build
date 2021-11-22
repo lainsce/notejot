@@ -1,4 +1,4 @@
-project('io.github.lainsce.Notejot', ['vala', 'c'],
+project('io.github.lainsce.Notejot', 'vala',
         version: '3.3.3',
   meson_version: '>= 0.59.2'
 )
