@@ -34,7 +34,6 @@ public class Notejot.LogViewModel : Object {
         }
 
         notes.add (note);
-        new Widgets.Note (win, note);
 
         repository.insert_note (note);
         save_notes ();

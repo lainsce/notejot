@@ -35,7 +35,6 @@ public class Notejot.LogRepository : Object {
     public async void update_note_color (Log? note, string color) {
         var notes = yield get_notes ();
         var current_note = search_note_by_id (notes, note.id);
-        current_note.color = color;
 
         var css_provider = new Gtk.CssProvider();
         string style = """
@@ -66,7 +65,11 @@ public class Notejot.LogRepository : Object {
             css_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
+
+        current_note.color = color;
+
         update_queue.push_tail (note);
+        save ();
     }
 
     public async void update_notebook (Log? note, string nb) {

@@ -33,7 +33,7 @@
      inkscape:snap-midpoints="true"
      inkscape:zoom="57.635581"
      inkscape:cx="5.4566987"
-     inkscape:cy="9.6641691"
+     inkscape:cy="8.2761376"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -69,41 +69,59 @@
      id="rect930"
      width="8"
      height="1"
-     x="4"
+     x="5"
      y="7" />
   <rect
      style="fill:#241f31;fill-opacity:1;stop-color:#000000"
      id="rect932"
      width="5"
      height="1"
-     x="4"
+     x="5"
      y="8" />
   <rect
-     style="fill:#241f31;fill-opacity:0.55000001;stop-color:#000000"
+     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
      id="rect932-3"
      width="5"
      height="1"
-     x="4"
+     x="5"
      y="13" />
   <rect
      style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
      id="rect934"
      width="8"
      height="1"
-     x="4"
+     x="5"
      y="2" />
   <rect
-     style="fill:#241f31;fill-opacity:0.55000001;stop-color:#000000"
+     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
      id="rect936"
      width="8"
      height="1"
-     x="4"
+     x="5"
      y="12" />
   <rect
-     style="fill:#241f31;fill-opacity:0.55000001;stop-color:#000000"
+     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
      id="rect932-6"
      width="5"
      height="1"
-     x="4"
+     x="5"
      y="3" />
+  <circle
+     style="fill:#241f31;stop-color:#000000"
+     id="path851"
+     cx="3.5"
+     cy="7.5"
+     r="0.5" />
+  <circle
+     style="fill:#241f31;stop-color:#000000;fill-opacity:0.55000001"
+     id="path853"
+     cx="3.5"
+     cy="2.5"
+     r="0.5" />
+  <circle
+     style="fill:#241f31;stop-color:#000000;fill-opacity:0.55000001"
+     id="path855"
+     cx="3.5"
+     cy="12.5"
+     r="0.5" />
 </svg>

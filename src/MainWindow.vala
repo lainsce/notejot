@@ -206,6 +206,11 @@ namespace Notejot {
             view_model.update_note (note);
         }
 
+        [GtkCallback]
+        public void on_note_removal_requested (Log note) {
+            view_model.delete_note (note, this);
+        }
+
         public MainWindow get_instance () {
             return this;
         }

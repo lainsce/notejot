@@ -23,9 +23,14 @@ public class Notejot.LogContentView : View {
 
             lc = new LogContent (vm);
             lc.note = _note;
-            note_stack.add_named (lc, "content-%s".printf(_note.id));
 
             stack.visible_child = _note != null ? (Gtk.Widget) note_stack : empty_view;
+
+            if (note_stack.get_pages ().select_all () == false) {
+                note_stack.add_named (lc, "content-%s".printf(note.id));
+            }
+            note_stack.set_visible_child_name ("content-%s".printf(_note.id));
+
         }
     }
 
@@ -34,6 +39,7 @@ public class Notejot.LogContentView : View {
     }
 
     public signal void note_update_requested (Log note);
+    public signal void note_removal_requested (Log note);
 
     void on_text_updated () {
         note_update_requested (note);

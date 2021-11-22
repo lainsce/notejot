@@ -124,6 +124,8 @@ public class Notejot.LogContent : Adw.Bin {
             note_header.add_css_class ("notejot-header-%s".printf(_note.id));
             note_textbox.add_css_class ("notejot-view-%s".printf(_note.id));
             note_footer.add_css_class ("notejot-footer-%s".printf(_note.id));
+
+            vm.update_note_color (_note, _note.color);
         }
     }
 

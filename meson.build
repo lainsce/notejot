@@ -68,7 +68,6 @@ sources = files(
     'src/Widgets/NoteTheme.vala',
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
-    'src/Widgets/NoteTypes/Note.vala',
 )
 
 dependencies = [
