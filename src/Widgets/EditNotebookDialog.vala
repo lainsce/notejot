@@ -86,10 +86,6 @@ namespace Notejot {
                         win.notebookstore.remove (pos);
                         win.notebookstore.insert (pos, nb);
                         win.tm.save_notebooks.begin (win.notebookstore);
-
-                        win.sm.controller.log.notebook = notebook_entry.get_text ();
-                        win.sm.controller.set_notebook ();
-                        win.tm.save_notes.begin (win.notestore);
                     });
                 }
             }
@@ -109,26 +105,6 @@ namespace Notejot {
                         win.notebookstore.remove (j);
                         ((Notebook)im).title == "<i>" + _("No Notebook") + "</i>";
                         win.tm.save_notebooks.begin (win.notebookstore);
-
-                        uint i2, n2 = win.notestore.get_n_items ();
-                        for (i2 = 0; i2 < n2; i2++) {
-                            var item2 = win.notestore.get_item (i2);
-
-                            if (notebook_entry.get_text () == ((Log)item2).notebook) {
-                                ((Log)item2).notebook = "<i>" + _("No Notebook") + "</i>";
-                                win.tm.save_notes.begin (win.notestore);
-                            }
-                        }
-
-                        uint i4, n4 = win.trashstore.get_n_items ();
-                        for (i4 = 0; i4 < n4; i4++) {
-                            var item4 = win.trashstore.get_item (i4);
-
-                            if (notebook_entry.get_text () == ((TrashLog)item4).notebook) {
-                                ((TrashLog)item4).notebook = "<i>" + _("No Notebook") + "</i>";
-                                win.tm.save_trash_notes.begin (win.trashstore);
-                            }
-                        }
                     }
                 }
             });

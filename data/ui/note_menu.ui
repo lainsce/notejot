@@ -4,23 +4,7 @@
   <menu id="smenu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">Move To…</attribute>
-        <attribute name="action">win.action_move_to</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Pin/Unpin Note</attribute>
-        <attribute name="action">win.action_pin_note</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
         <attribute name="custom">theme</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Move to Trash</attribute>
-        <attribute name="action">win.action_delete_note</attribute>
       </item>
     </section>
   </menu>

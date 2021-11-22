@@ -1,5 +1,5 @@
 namespace Notejot {
-    public class Utils {
+    public class TimeUtils {
         public static bool is_same_day (GLib.DateTime day1, GLib.DateTime day2) {
             return day1.get_day_of_year () == day2.get_day_of_year () && day1.get_year () == day2.get_year ();
         }

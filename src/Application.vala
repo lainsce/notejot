@@ -39,7 +39,13 @@ public class Notejot.Application : Adw.Application {
 
         add_action_entries (app_entries, this);
 
-        new MainWindow (this);
+        typeof (LogListView).ensure ();
+        typeof (LogContentView).ensure ();
+
+        var repo = new LogRepository ();
+        var view_model = new LogViewModel (repo);
+
+        new MainWindow (this, view_model);
     }
     protected override void activate () {
         active_window?.present ();

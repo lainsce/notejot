@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="NotejotLogContentView" parent="NotejotView">
+    <property name="vexpand">1</property>
+    <child>
+      <object class="GtkStack" id="stack">
+        <child>
+          <object class="AdwStatusPage" id="empty_view">
+            <property name="icon-name">list-select-symbolic</property>
+            <property name="title">Select a note</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStack" id="note_stack">
+            <child>
+              <placeholder />
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
