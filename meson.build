@@ -91,7 +91,7 @@ executable(
     sources,
     asresources,
     dependencies: dependencies,
-    vala_args: [meson.source_root() + '/src/Config.vapi'],
+    vala_args: [meson.project_source_root() + '/src/Config.vapi'],
     install : true
 )
 
