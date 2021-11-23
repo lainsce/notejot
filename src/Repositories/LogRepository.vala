@@ -72,9 +72,11 @@ public class Notejot.LogRepository : Object {
     }
 
     public async void update_notebook (Log? note, string nb) {
-        note.notebook = nb;
-        update_queue.push_tail (note);
-        save.begin ();
+        if (note != null) {
+            note.notebook = nb;
+            update_queue.push_tail (note);
+            save.begin ();
+        }
     }
 
     public void delete_note (string id) {
