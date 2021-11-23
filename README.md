@@ -2,7 +2,7 @@
 
 # Notejot
 
-Stupidly simple notes app
+Stupidly simple notes app.
 
 ###
 
