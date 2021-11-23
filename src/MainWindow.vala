@@ -62,7 +62,6 @@ namespace Notejot {
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";
-        public const string ACTION_NEW_NOTE = "action_new_note";
         public const string ACTION_KEYS = "action_keys";
         public const string ACTION_MOVE_TO = "action_move_to";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
@@ -70,7 +69,6 @@ namespace Notejot {
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
               {ACTION_ABOUT, action_about },
-              {ACTION_NEW_NOTE, action_new_note },
               {ACTION_KEYS, action_keys},
               {ACTION_MOVE_TO, action_move_to},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
@@ -100,14 +98,7 @@ namespace Notejot {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
             app.set_accels_for_action("app.quit", {"<Ctrl>q"});
-            app.set_accels_for_action ("win.action_new_note", {"<Ctrl>n"});
             app.set_accels_for_action ("win.action_keys", {"<Ctrl>question"});
-
-            app.set_accels_for_action ("win.action_normal", {"<Ctrl>t"});
-            app.set_accels_for_action ("win.action_bold", {"<Ctrl>b"});
-            app.set_accels_for_action ("win.action_italic", {"<Ctrl>i"});
-            app.set_accels_for_action ("win.action_ul", {"<Ctrl>u"});
-            app.set_accels_for_action ("win.action_s", {"<Ctrl><Shift>s"});
 
             // Main View
             tm = new TaskManager (this);
@@ -223,10 +214,6 @@ namespace Notejot {
             } catch (Error e) {
                 warning ("Failed to open shortcuts window: %s\n", e.message);
             }
-        }
-
-        public void action_new_note () {
-            view_model.create_new_note (this);
         }
 
         public void action_move_to () {
