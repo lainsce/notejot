@@ -83,8 +83,8 @@
             ],
             "sources" : [
                 {
-                    "type" : "dir",
-                    "path" : "../../"
+                    "type" : "git",
+                    "url" : "https://github.com/lainsce/notejot.git"
                 }
             ]
         }
