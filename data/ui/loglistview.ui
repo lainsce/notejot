@@ -22,7 +22,7 @@
             <child>
               <object class="GtkListView" id="lv">
                 <style>
-                  <class name="content" />
+                  <class name="boxed-list" />
                   <class name="content-sidebar" />
                 </style>
                 <property name="factory">

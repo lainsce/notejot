@@ -63,6 +63,24 @@
                           </object>
                         </child>
                         <child type="end">
+                          <object class="GtkToggleButton" id="note_pin_button">
+                            <property name="valign">center</property>
+                            <property name="margin-end">6</property>
+                            <property name="tooltip-text" translatable="yes">Pin/Unpin the Note</property>
+                            <property name="icon-name">view-pin-symbolic</property>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkSeparator">
+                            <style>
+                              <class name="spacer"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child type="end">
                           <object class="GtkButton" id="delete_button">
                             <property name="valign">center</property>
                             <property name="margin-end">6</property>

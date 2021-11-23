@@ -4,7 +4,7 @@ public class Notejot.LogListView : View {
     unowned Gtk.SingleSelection selection_model;
 
     public ObservableList<Log>? notes { get; set; }
-    public Log? selected_note { get; set; }
+    public Log? selected_note { get; set;}
     public LogViewModel? view_model { get; set; }
 
     construct {

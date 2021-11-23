@@ -21,6 +21,7 @@
       <file alias="logcontentview.ui">ui/logcontentview.ui</file>
       <file alias="loglistview.ui">ui/loglistview.ui</file>
       <file alias="logrow.ui">ui/logrow.ui</file>
+      <file alias="logrowpin.ui">ui/logrowpin.ui</file>
     </gresource>
 </gresources>
 

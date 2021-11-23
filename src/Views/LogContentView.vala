@@ -30,10 +30,13 @@ public class Notejot.LogContentView : View {
     unowned Gtk.TextBuffer note_text;
     [GtkChild]
     unowned Gtk.Revealer format_revealer;
+    [GtkChild]
+    unowned Gtk.ToggleButton note_pin_button;
 
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
+    Binding? pinned_binding;
     Binding? text_binding;
 
     public Log? note {
@@ -45,6 +48,7 @@ public class Notejot.LogContentView : View {
             title_binding?.unbind ();
             subtitle_binding?.unbind ();
             notebook_binding?.unbind ();
+            pinned_binding?.unbind ();
             text_binding?.unbind ();
 
             if (_note != null)
@@ -119,13 +123,15 @@ public class Notejot.LogContentView : View {
             note_title.set_icon_tooltip_text (Gtk.EntryIconPosition.SECONDARY, _("Set Note Title"));
 
             title_binding = _note?.bind_property (
-              "title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
+                "title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
             subtitle_binding = _note?.bind_property (
-              "subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
+                "subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             notebook_binding = _note?.bind_property (
-              "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
+                "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
+            pinned_binding = _note?.bind_property (
+                "pinned", note_pin_button, "active", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property (
-              "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
+                "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
 
             if (_note != null)
                 _note.notify.connect (on_text_updated);

@@ -23,7 +23,7 @@ public class Notejot.LogViewModel : Object {
             subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
             text = "Type text here…",
             notebook = "<i>" + _("No Notebook") + "</i>",
-            pinned = "0"
+            pinned = false
         };
 
         var adwsm = Adw.StyleManager.get_default ();

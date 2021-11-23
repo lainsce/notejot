@@ -6,7 +6,7 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
-        public string pinned { get; set; }
+        public bool pinned { get; set; }
 
         public static Log from_json (Json.Node node) requires (node.get_node_type () == OBJECT) {
             return (Log) Json.gobject_deserialize (typeof (Log), node);

@@ -135,14 +135,6 @@
 
 .notejot-sidebar-box {
   margin: 8px;
-  border-bottom: 1px solid alpha(@view_fg_color, 0.1);
-}
-.notejot-sidebar-box:first-child {
-  border-radius: 8px 8px 0 0;
-}
-.notejot-sidebar-box:last-child {
-  border-radius: 0 0 8px 8px;
-  border-bottom: none;
 }
 
 .content-header {
@@ -153,7 +145,7 @@
 .content-header entry {
 	background: none;
 	border: 2px solid alpha(@view_fg_color, 0.122);
-	padding: 8px 10px;
+	padding: 6px 12px;
 	border-radius: 8px;
 }
 
