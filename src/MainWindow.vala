@@ -161,6 +161,9 @@ namespace Notejot {
             var action_fontsize = settings.create_action ("font-size");
             app.add_action(action_fontsize);
 
+            if (Config.PROFILE == "Devel")
+			    add_css_class ("devel");
+
             this.show ();
 
             load_all_notes ();
