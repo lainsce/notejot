@@ -40,11 +40,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Overlay list_scroller;
         [GtkChild]
-        public unowned Gtk.Overlay trash_scroller;
-        [GtkChild]
         public unowned Notejot.LogListView listview;
-        [GtkChild]
-        public unowned Gtk.ListBox trashview;
 
         [GtkChild]
         public unowned Gtk.Box main_box;
@@ -197,35 +193,14 @@ namespace Notejot {
         }
 
         [GtkCallback]
-        void on_display_note_requested () {
-            leaflet.set_visible_child (grid);
-        }
-
-        [GtkCallback]
         public void on_note_update_requested (Log note) {
             view_model.update_note (note);
+            leaflet.set_visible_child (grid);
         }
 
         [GtkCallback]
         public void on_note_removal_requested (Log note) {
             view_model.delete_note (note, this);
-        }
-
-        public MainWindow get_instance () {
-            return this;
-        }
-
-        public Adw.ActionRow make_nb_item (MainWindow win, GLib.Object item) {
-            var actionrow = new Adw.ActionRow ();
-            actionrow.get_style_context ().add_class ("content-sidebar-notebooks-item");
-            actionrow.set_title ((((Notebook)item).title));
-
-            var notebookicon = new Gtk.Image.from_icon_name ("notebook-symbolic");
-            notebookicon.halign = Gtk.Align.START;
-            notebookicon.valign = Gtk.Align.CENTER;
-
-            actionrow.add_prefix (notebookicon);
-            return actionrow;
         }
 
         public void make_notebook (string title) {
@@ -294,7 +269,7 @@ namespace Notejot {
         private void extend_selection_to_format_block(Format? format = null) {
             var selected_row = view_list.selected_note;
             if (selected_row != null) {
-                var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+                var textfield = ((Gtk.TextView)view_content.note_textbox);
 
                 Gtk.TextIter sel_start, sel_end;
                 var text_buffer = textfield.get_buffer();
@@ -337,7 +312,7 @@ namespace Notejot {
         }
 
         public void action_normal () {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             if (textfield != null) {
                 Gtk.TextIter sel_start, sel_end;
                 int offset = 0, fmt_start, fmt_end;
@@ -413,35 +388,35 @@ namespace Notejot {
         }
 
         public void action_bold () {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             if (textfield != null) {
                 text_wrap(textfield, "|", _("bold text"));
             }
         }
 
         public void action_italic () {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             if (textfield != null) {
                 text_wrap(textfield, "*", _("italic text"));
             }
         }
 
         public void action_ul () {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             if (textfield != null) {
                 text_wrap(textfield, "_", _("underline text"));
             }
         }
 
         public void action_s () {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             if (textfield != null) {
                 text_wrap(textfield, "~", _("strikethrough text"));
             }
         }
 
         public void action_item () {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             if (textfield != null) {
                 insert_item(textfield, _("Item"));
             }
@@ -558,7 +533,7 @@ namespace Notejot {
         }
 
         public void select_text (Gtk.TextView text_view, int offset, int length) {
-            var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+            var textfield = ((Gtk.TextView)view_content.note_textbox);
             var text_buffer = textfield.get_buffer();
             var cursor_mark = text_buffer.get_insert();
             Gtk.TextIter cursor_iter;
@@ -576,7 +551,7 @@ namespace Notejot {
             }
 
             update_idle_source = GLib.Idle.add (() => {
-                var textfield = ((Gtk.TextView)view_content.lc.note_textbox);
+                var textfield = ((Gtk.TextView)view_content.note_textbox);
                 var text_buffer = textfield.get_buffer();
                 bold_font = text_buffer.create_tag("bold", "weight", Pango.Weight.BOLD);
                 italic_font = text_buffer.create_tag("italic", "style", Pango.Style.ITALIC);

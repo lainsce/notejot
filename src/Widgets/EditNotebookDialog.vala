@@ -86,6 +86,8 @@ namespace Notejot {
                         win.notebookstore.remove (pos);
                         win.notebookstore.insert (pos, nb);
                         win.tm.save_notebooks.begin (win.notebookstore);
+
+                        win.view_model.update_notebook (win.view_list.selected_note, ((Notebook)im).title);
                     });
                 }
             }
@@ -105,6 +107,7 @@ namespace Notejot {
                         win.notebookstore.remove (j);
                         ((Notebook)im).title == "<i>" + _("No Notebook") + "</i>";
                         win.tm.save_notebooks.begin (win.notebookstore);
+                        win.view_model.update_notebook (win.view_list.selected_note, ((Notebook)im).title);
                     }
                 }
             });

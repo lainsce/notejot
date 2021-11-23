@@ -57,7 +57,7 @@ public class Notejot.LogViewModel : Object {
         save_notes ();
     }
 
-    public void delete_note (Log note, MainWindow win) {
+    public void delete_note (Log? note, MainWindow win) {
         var dialog = new Gtk.MessageDialog (win, 0, 0, 0, null);
         dialog.modal = true;
 

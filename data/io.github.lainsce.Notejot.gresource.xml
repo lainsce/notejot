@@ -18,11 +18,9 @@
       <file alias="trash_note_menu.ui">ui/trash_note_menu.ui</file>
       <file alias="edit_notebooks.ui">ui/edit_notebooks.ui</file>
       <file alias="move_to_dialog.ui">ui/move_to_dialog.ui</file>
-      <file alias="logcontent.ui">ui/logcontent.ui</file>
       <file alias="logcontentview.ui">ui/logcontentview.ui</file>
       <file alias="loglistview.ui">ui/loglistview.ui</file>
       <file alias="logrow.ui">ui/logrow.ui</file>
-      <file alias="logrowcontent.ui">ui/logrowcontent.ui</file>
     </gresource>
 </gresources>
 

@@ -10,13 +10,6 @@
         <class name="notejot-sidebar-box" />
       </style>
       <child>
-        <object class="NotejotLogRowContent">
-          <binding name="note">
-            <lookup name="item">GtkListItem</lookup>
-          </binding>
-        </object>
-      </child>
-      <child>
         <object class="GtkBox">
           <property name="orientation">vertical</property>
           <property name="valign">center</property>

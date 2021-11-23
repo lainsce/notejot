@@ -3,8 +3,11 @@ namespace Notejot {
         public Log? controller;
         public LogViewModel? vm;
         public Widgets.NoteTheme nmp;
+        public string color {get; set;}
 
-        public SettingMenu (LogViewModel? vm) {
+        public SettingMenu (LogViewModel? vm, string color) {
+            Object (color: color);
+
             this.vm = vm;
 
             nmp = new Widgets.NoteTheme ();
