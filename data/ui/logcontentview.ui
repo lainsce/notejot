@@ -51,24 +51,24 @@
                           </object>
                         </child>
                         <child type="end">
-                          <object class="GtkButton" id="delete_button">
-                            <property name="valign">center</property>
-                            <property name="margin-end">6</property>
-                            <property name="tooltip-text" translatable="yes">Delete the Note</property>
-                            <signal name="clicked" handler="on_delete_button_clicked" />
-                            <property name="icon-name">user-trash-symbolic</property>
-                            <style>
-                              <class name="flat" />
-                            </style>
-                          </object>
-                        </child>
-                        <child type="end">
                           <object class="GtkButton" id="move_to_button">
                             <property name="valign">center</property>
                             <property name="margin-end">6</property>
                             <property name="tooltip-text" translatable="yes">Move Note to a Notebook</property>
                             <property name="action-name">win.action_move_to</property>
                             <property name="icon-name">notebook-add-symbolic</property>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkButton" id="delete_button">
+                            <property name="valign">center</property>
+                            <property name="margin-end">6</property>
+                            <property name="tooltip-text" translatable="yes">Delete the Note</property>
+                            <signal name="clicked" handler="on_delete_button_clicked" />
+                            <property name="icon-name">user-trash-symbolic</property>
                             <style>
                               <class name="flat" />
                             </style>

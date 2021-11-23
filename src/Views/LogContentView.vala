@@ -2,46 +2,39 @@
 public class Notejot.LogContentView : View {
     Log? _note;
     public LogViewModel? vm {get; set;}
+    Widgets.NoteTheme nmp;
     delegate void HookFunc ();
     public signal void clicked ();
 
     [GtkChild]
     public unowned Gtk.Stack stack;
-
     [GtkChild]
     public unowned Gtk.Box note_view;
     [GtkChild]
     public unowned Adw.StatusPage empty_view;
     [GtkChild]
     public unowned Gtk.MenuButton settingmenu;
-
     [GtkChild]
     unowned Gtk.Box note_header;
     [GtkChild]
     unowned Gtk.ActionBar note_footer;
-
     [GtkChild]
     unowned Gtk.Entry note_title;
     [GtkChild]
     unowned Gtk.Label note_subtitle;
     [GtkChild]
     unowned Gtk.Label notebook_subtitle;
-
     [GtkChild]
     public unowned Gtk.TextView note_textbox;
     [GtkChild]
     unowned Gtk.TextBuffer note_text;
-
     [GtkChild]
     unowned Gtk.Revealer format_revealer;
-
-    public Widgets.SettingMenu sm;
 
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
     Binding? text_binding;
-    Binding? color_binding;
 
     public Log? note {
         get { return _note; }
@@ -53,7 +46,6 @@ public class Notejot.LogContentView : View {
             subtitle_binding?.unbind ();
             notebook_binding?.unbind ();
             text_binding?.unbind ();
-            color_binding?.unbind ();
 
             if (_note != null)
                 _note.notify.disconnect (on_text_updated);
@@ -64,8 +56,55 @@ public class Notejot.LogContentView : View {
             settingmenu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            sm = new Widgets.SettingMenu(vm, _note.color);
-            sm.controller = _note;
+            nmp = new Widgets.NoteTheme ();
+
+            nmp.color_button_red.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#a51d2d");
+            });
+
+            nmp.color_button_orange.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#c64600");
+            });
+
+            nmp.color_button_yellow.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#e5a50a");
+            });
+
+            nmp.color_button_green.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#26a269");
+            });
+
+            nmp.color_button_blue.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#1a5fb4");
+            });
+
+            nmp.color_button_purple.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#613583");
+            });
+
+            nmp.color_button_brown.toggled.connect (() => {
+                if (_note != null)
+                    vm.update_note_color (_note, "#63452c");
+            });
+
+            var adwsm = Adw.StyleManager.get_default ();
+            if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
+                nmp.color_button_reset.toggled.connect (() => {
+                    if (_note != null)
+                        vm.update_note_color (_note, "#151515");
+                });
+            } else {
+                nmp.color_button_reset.toggled.connect (() => {
+                    if (_note != null)
+                        vm.update_note_color (_note, "#fff");
+                });
+            }
 
             var sbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/note_menu.ui");
             var smenu = (Menu)sbuilder.get_object ("smenu");
@@ -73,7 +112,7 @@ public class Notejot.LogContentView : View {
             settingmenu.menu_model = smenu;
 
             var popover = settingmenu.get_popover ();
-            popover.add_child (sbuilder, sm.nmp, "theme");
+            popover.add_child (sbuilder, nmp, "theme");
 
             note_title.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             note_title.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
@@ -87,8 +126,6 @@ public class Notejot.LogContentView : View {
               "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property (
               "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
-            color_binding = _note?.bind_property (
-              "color", sm, "color", SYNC_CREATE|BIDIRECTIONAL);
 
             if (_note != null)
                 _note.notify.connect (on_text_updated);

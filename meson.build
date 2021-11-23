@@ -66,7 +66,6 @@ sources = files(
     'src/Views/LogContentView.vala',
     'src/Views/View.vala',
     'src/ViewModels/LogViewModel.vala',
-    'src/Widgets/SettingMenu.vala',
     'src/Widgets/NoteTheme.vala',
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
