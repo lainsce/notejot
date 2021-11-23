@@ -14,7 +14,7 @@ add_project_arguments([
 
 if get_option('profile') == 'development'
   name_prefix = '(Development) '
-  profile = 'Devel'
+  profile = '.Devel'
 else
   name_prefix = ''
   profile = ''
