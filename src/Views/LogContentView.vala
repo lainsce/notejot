@@ -2,6 +2,8 @@
 public class Notejot.LogContentView : View {
     Log? _note;
     public LogViewModel? vm {get; set;}
+    delegate void HookFunc ();
+    public signal void clicked ();
 
     [GtkChild]
     public unowned Gtk.Stack stack;
@@ -47,13 +49,14 @@ public class Notejot.LogContentView : View {
             if (value == _note)
                 return;
 
-            _note = value;
-
             title_binding?.unbind ();
             subtitle_binding?.unbind ();
             notebook_binding?.unbind ();
             text_binding?.unbind ();
             color_binding?.unbind ();
+
+            if (_note != null)
+                _note.notify.disconnect (on_text_updated);
 
             _note = value;
 
@@ -87,12 +90,8 @@ public class Notejot.LogContentView : View {
             color_binding = _note?.bind_property (
               "color", sm, "color", SYNC_CREATE|BIDIRECTIONAL);
 
-            note_title.activate.connect (() => {
-                _note.title = note_title.get_text ();
-            });
-            note_title.icon_press.connect (() => {
-                _note.title = note_title.get_text ();
-            });
+            if (_note != null)
+                _note.notify.connect (on_text_updated);
 
             var settings = new Settings ();
             switch (settings.font_size) {
@@ -150,7 +149,6 @@ public class Notejot.LogContentView : View {
     public signal void note_update_requested (Log note);
     public signal void note_removal_requested (Log note);
 
-    [GtkCallback]
     void on_text_updated () {
         note_update_requested (note);
     }

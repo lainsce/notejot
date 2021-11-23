@@ -30,10 +30,9 @@
                           <object class="GtkEntry" id="note_title">
                             <property name="margin-bottom">12</property>
                             <property name="margin-start">12</property>
-                            <property name="margin-end">6</property>
+                            <property name="margin-end">12</property>
                             <property name="margin-top">12</property>
                             <property name="hexpand">1</property>
-                            <signal name="notify::text" handler="on_text_updated" />
                             <style>
                               <class name="title-1" />
                             </style>
@@ -51,6 +50,30 @@
                             </style>
                           </object>
                         </child>
+                        <child type="end">
+                          <object class="GtkButton" id="delete_button">
+                            <property name="valign">center</property>
+                            <property name="margin-end">6</property>
+                            <property name="tooltip-text" translatable="yes">Delete the Note</property>
+                            <signal name="clicked" handler="on_delete_button_clicked" />
+                            <property name="icon-name">user-trash-symbolic</property>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkButton" id="move_to_button">
+                            <property name="valign">center</property>
+                            <property name="margin-end">6</property>
+                            <property name="tooltip-text" translatable="yes">Move Note to a Notebook</property>
+                            <property name="action-name">win.action_move_to</property>
+                            <property name="icon-name">notebook-add-symbolic</property>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
@@ -61,9 +84,7 @@
                         <property name="margin-start">21</property>
                         <property name="margin-end">21</property>
                         <child>
-                          <object class="GtkLabel" id="note_subtitle">
-                            <signal name="notify::text" handler="on_text_updated" />
-                          </object>
+                          <object class="GtkLabel" id="note_subtitle" />
                         </child>
                         <child>
                           <object class="GtkImage" id="notebook_icon">
@@ -75,7 +96,6 @@
                         <child>
                           <object class="GtkLabel" id="notebook_subtitle">
                             <property name="use-markup">1</property>
-                            <signal name="notify::text" handler="on_text_updated" />
                           </object>
                         </child>
                         <style>
@@ -107,9 +127,7 @@
                         <property name="top-margin">21</property>
                         <property name="vexpand">1</property>
                         <property name="buffer">
-                          <object class="GtkTextBuffer" id="note_text">
-                            <signal name="notify::text" handler="on_text_updated" />
-                          </object>
+                          <object class="GtkTextBuffer" id="note_text" />
                         </property>
                         <style>
                           <class name="notejot-view"/>
@@ -195,22 +213,6 @@
                             <property name="icon-name">view-list-bullet-symbolic</property>
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkButton" id="delete_button">
-                        <property name="receives-default">1</property>
-                        <property name="tooltip-text" translatable="yes">Delete the Note</property>
-                        <signal name="clicked" handler="on_delete_button_clicked" />
-                        <property name="icon-name">user-trash-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="start">
-                      <object class="GtkButton" id="move_to_button">
-                        <property name="receives-default">1</property>
-                        <property name="tooltip-text" translatable="yes">Move Note to a Notebook</property>
-                        <property name="action-name">win.action_move_to</property>
-                        <property name="icon-name">notebook-add-symbolic</property>
                       </object>
                     </child>
                   </object>
