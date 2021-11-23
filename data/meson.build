@@ -4,7 +4,7 @@ install_data(
 )
 
 install_data(
-    join_paths('icons', '128', meson.project_name() + 'Devel.svg'),
+    join_paths('icons', '128', meson.project_name() + '.Devel.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
 )
 

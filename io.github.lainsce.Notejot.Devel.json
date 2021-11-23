@@ -1,10 +1,10 @@
 {
-    "app-id" : "io.github.lainsce.NotejotDevel",
+    "app-id" : "io.github.lainsce.Notejot.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Notejot",
-    "rename-icon" : "io.github.lainsce.NotejotDevel",
+    "rename-icon" : "io.github.lainsce.Notejot.Devel",
     "finish-args" : [
     	"--filesystem=xdg-run/gvfsd",
         "--socket=wayland",
