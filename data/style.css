@@ -197,7 +197,7 @@
 .notejot-searchbar {
   border-radius: 9rem;
   padding: 0 10px;
-  margin: 6px 0 6px;
+  margin: 0 6px;
   border: none;
   background: @popover_bg_color;
 }

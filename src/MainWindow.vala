@@ -28,8 +28,6 @@ namespace Notejot {
         public unowned Gtk.Button back_button;
         [GtkChild]
         public unowned Gtk.MenuButton menu_button;
-        [GtkChild]
-        public unowned Gtk.SearchEntry note_search;
 
         [GtkChild]
         public unowned Gtk.Box grid;

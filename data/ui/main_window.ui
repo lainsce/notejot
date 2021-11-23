@@ -40,20 +40,6 @@
                         <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
                       </object>
                     </child>
-                    <child type="title">
-                      <object class="GtkBox">
-                        <child>
-                          <object class="GtkSearchEntry" id="note_search">
-                            <property name="hexpand">1</property>
-                            <property name="max-width-chars">10</property>
-                            <property name="placeholder-text" translatable="yes">Search notes</property>
-                            <style>
-                              <class name="notejot-searchbar"/>
-                            </style>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
                   </object>
                 </child>
                 <child>
