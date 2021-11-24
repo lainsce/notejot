@@ -125,6 +125,14 @@
 	border: none;
 	background: @popover_bg_color;
 }
+.content-sidebar row {
+  margin: 0px;
+  padding: 0px;
+}
+.content-sidebar row:last-child box {
+  border: none;
+}
+
 .content-sidebar-dialog {
 	margin: 6px 12px;
 	margin-bottom: 0px;
@@ -134,7 +142,9 @@
 }
 
 .notejot-sidebar-box {
-  margin: 8px;
+  padding: 10px;
+  margin: 0px;
+  border-bottom: 1px solid @borders;
 }
 
 .content-header {

@@ -6,7 +6,7 @@ class Notejot.NoteSorter : Gtk.Sorter {
     if (note1 == null || note2 == null)
       return EQUAL;
 
-    if (note1.pinned && !note2.pinned) {
+    if (note2.pinned) {
         return SMALLER;
     } else {
         return Gtk.Ordering.from_cmpfunc (note2.subtitle.collate (note1.subtitle));
