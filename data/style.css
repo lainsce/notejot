@@ -140,9 +140,22 @@
 	border: none;
 	background: @popover_bg_color;
 }
+.content-sidebar-dialog row {
+  margin: 0px;
+  padding: 0px;
+}
+.content-sidebar-dialog row:last-child box {
+  border: none;
+}
 
 .notejot-sidebar-box {
   padding: 10px;
+  margin: 0px;
+  border-bottom: 1px solid @borders;
+}
+
+.notejot-sidebar-box-row {
+  padding: 20px;
   margin: 0px;
   border-bottom: 1px solid @borders;
 }

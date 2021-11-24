@@ -2,6 +2,8 @@
 public class Notejot.NotebookRowDelete : Adw.Bin {
     public signal void clicked ();
 
+    public NotebookViewModel? nvm {get; set;}
+
     Notebook? _notebook;
     public Notebook? notebook {
         get { return _notebook; }
