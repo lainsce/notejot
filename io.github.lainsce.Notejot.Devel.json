@@ -84,7 +84,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://github.com/lainsce/notejot.git"
+                    "url" : "https://github.com/lainsce/notejot.git",
+                    "branch" : "main"
                 }
             ]
         }
