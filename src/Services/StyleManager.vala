@@ -1,5 +1,5 @@
 public class Notejot.StyleManager {
-    public void set_css (string id, string color) {
+    public void set_css (string color) {
         var css_provider = new Gtk.CssProvider();
         string style = @"
             .notejot-badge {
