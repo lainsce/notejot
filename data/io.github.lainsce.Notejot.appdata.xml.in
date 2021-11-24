@@ -22,10 +22,10 @@
     <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
     <url type="donation">https://www.ko-fi.com/lainsce/</url>
-    <url type="translate">https://github.com/lainsce/notejot/blob/master/po/README.md</url>
+    <url type="translate">https://github.com/lainsce/notejot/blob/main/po/README.md</url>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/lainsce/notejot/master/data/shot.png</image>
+            <image>https://raw.githubusercontent.com/lainsce/notejot/main/data/shot.png</image>
         </screenshot>
     </screenshots>
     <content_rating type="oars-1.1" />
