@@ -119,10 +119,10 @@ namespace Notejot {
             app.add_action(action_fontsize);
 
             if (Config.PROFILE == ".Devel")
-			    add_css_class ("devel");
+                add_css_class ("devel");
 
             // Needed to ensure colors in places
-			var style_manager = new StyleManager ();
+            var style_manager = new StyleManager ();
             style_manager.set_css ("");
             //
 
