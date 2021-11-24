@@ -45,6 +45,9 @@ public class Notejot.Application : Adw.Application {
         var repo = new LogRepository ();
         var view_model = new LogViewModel (repo);
 
+        typeof (NotebookListView).ensure ();
+        typeof (NotebookMoveListView).ensure ();
+
         var nbrepo = new NotebookRepository ();
         var nbview_model = new NotebookViewModel (nbrepo);
 
