@@ -32,45 +32,6 @@ public class Notejot.LogRepository : Object {
         update_queue.push_tail (note);
     }
 
-    public async void update_note_color (Log note, string color) {
-        if (note != null) {
-            var css_provider = new Gtk.CssProvider();
-            string style = """
-                .notejot-badge-%s {
-                    background: mix(@view_bg_color, %s, 0.55);
-                    border-radius: 999px;
-                }
-                .notejot-header-%s {
-                    background: mix(@view_bg_color, %s, 0.1);
-                }
-                .notejot-footer-%s {
-                    background: mix(@view_bg_color, %s, 0.1);
-                }
-                .notejot-view-%s text {
-                    background: mix(@popover_bg_color, %s, 0.02);
-                }
-            """.printf( note.id,
-                        color,
-                        note.id,
-                        color,
-                        note.id,
-                        color,
-                        note.id,
-                        color);
-            css_provider.load_from_data(style.data);
-            Gtk.StyleContext.add_provider_for_display (
-                Gdk.Display.get_default (),
-                css_provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-
-            note.color = color;
-
-            update_queue.push_tail (note);
-            save.begin ();
-        }
-    }
-
     public async void update_notebook (Log? note, string nb) {
         if (note != null) {
             note.notebook = nb;

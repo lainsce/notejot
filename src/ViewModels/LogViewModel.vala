@@ -46,7 +46,11 @@ public class Notejot.LogViewModel : Object {
     }
 
     public void update_note_color (Log note, string color) {
-        repository.update_note_color.begin (note, color);
+        note.color = color;
+
+        var style_manager = new StyleManager ();
+        style_manager.set_css (note.id, color);
+        repository.update_note (note);
 
         save_notes ();
     }

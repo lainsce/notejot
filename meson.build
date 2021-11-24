@@ -57,6 +57,7 @@ sources = files(
     'src/Models/Log.vala',
     'src/Repositories/LogRepository.vala',
     'src/Services/TaskManager.vala',
+    'src/Services/StyleManager.vala',
     'src/Utils/TimeUtils.vala',
     'src/Utils/FileUtils.vala',
     'src/Utils/NoteSorter.vala',
