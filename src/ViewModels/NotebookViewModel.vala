@@ -19,8 +19,8 @@ public class Notejot.NotebookViewModel : Object {
         save_notebooks ();
     }
 
-    public void update_notebook (Notebook notebook) {
-        repository.update_notebook (notebook);
+    public void update_notebook (Notebook notebook, string nb) {
+        repository.update_notebook.begin (notebook, nb);
 
         save_notebooks ();
     }

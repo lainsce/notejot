@@ -28,8 +28,12 @@ public class Notejot.NotebookRepository : Object {
         insert_queue.push_tail (notebook);
     }
 
-    public void update_notebook (Notebook notebook) {
-        update_queue.push_tail (notebook);
+    public async void update_notebook (Notebook? notebook, string nb) {
+        if (notebook != null) {
+            notebook.title = nb;
+            update_queue.push_tail (notebook);
+            save.begin ();
+        }
     }
 
     public void delete_notebook (string id) {

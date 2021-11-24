@@ -21,7 +21,6 @@ namespace Notejot {
     public class Widgets.EditNotebooksDialog : Adw.Window {
         public unowned MainWindow win = null;
         public NotebookViewModel nbview_model {get; set;}
-        public signal void clicked ();
 
         [GtkChild]
         public unowned Gtk.Entry notebook_name_entry;
@@ -49,9 +48,7 @@ namespace Notejot {
         void on_new_notebook_requested () {
             var notebook = new Notebook ();
             notebook.title = notebook_name_entry.text;
-
             nbview_model.create_new_notebook (notebook);
-
             notebook_name_entry.text = "";
         }
     }

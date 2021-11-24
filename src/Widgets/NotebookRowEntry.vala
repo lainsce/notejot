@@ -24,6 +24,6 @@ public class Notejot.NotebookRowEntry : Adw.Bin {
 
     [GtkCallback]
     void on_edit_notebook_requested () {
-
+        notebooks.update_notebook (notebook, notebook_entry.get_text());
     }
 }
