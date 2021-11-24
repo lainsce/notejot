@@ -2,8 +2,6 @@
 public class Notejot.NotebookRowDelete : Adw.Bin {
     public signal void clicked ();
 
-    public NotebookViewModel? notebooks {get; set;}
-
     Notebook? _notebook;
     public Notebook? notebook {
         get { return _notebook; }
@@ -20,6 +18,6 @@ public class Notejot.NotebookRowDelete : Adw.Bin {
 
     [GtkCallback]
     void on_delete_button_clicked () {
-        notebooks.delete_notebook (notebook);
+        notebook.dispose ();
     }
 }

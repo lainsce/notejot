@@ -39,11 +39,11 @@ public class Notejot.Application : Adw.Application {
 
         add_action_entries (app_entries, this);
 
-        typeof (LogListView).ensure ();
-        typeof (LogContentView).ensure ();
+        typeof (NoteListView).ensure ();
+        typeof (NoteContentView).ensure ();
 
-        var repo = new LogRepository ();
-        var view_model = new LogViewModel (repo);
+        var repo = new NoteRepository ();
+        var view_model = new NoteViewModel (repo);
 
         typeof (NotebookListView).ensure ();
         typeof (NotebookMoveListView).ensure ();

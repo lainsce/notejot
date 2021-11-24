@@ -19,9 +19,9 @@
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
     public class Widgets.MoveToDialog : Adw.Window {
-        public unowned LogContentView lcv = null;
+        public unowned NoteContentView lcv = null;
         public NotebookViewModel nbview_model {get; set;}
-        public LogViewModel view_model {get; set;}
+        public NoteViewModel view_model {get; set;}
 
         public signal void clicked ();
 
@@ -45,7 +45,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button move_button;
 
-        public MoveToDialog (LogContentView lcv, NotebookViewModel nbview_model, LogViewModel view_model, Log? note) {
+        public MoveToDialog (NoteContentView lcv, NotebookViewModel nbview_model, NoteViewModel view_model, Note? note) {
             Object (
                 nbview_model: nbview_model,
                 view_model: view_model

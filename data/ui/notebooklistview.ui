@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="NotejotNotebookListView" parent="NotejotView">
+    <signal name="notebook_removal_requested" handler="on_notebook_removal_requested" />
     <child>
       <object class="GtkScrolledWindow">
         <property name="hscrollbar-policy">never</property>
@@ -19,13 +20,9 @@
             </property>
             <property name="model">
               <object class="GtkNoSelection" id="selection_model">
-                <property name="model">
-                  <object class="GtkSortListModel">
-                    <binding name="model">
-                      <lookup name="notebooks">NotejotNotebookListView</lookup>
-                    </binding>
-                  </object>
-                </property>
+                <binding name="model">
+                  <lookup name="notebooks">NotejotNotebookListView</lookup>
+                </binding>
               </object>
             </property>
           </object>

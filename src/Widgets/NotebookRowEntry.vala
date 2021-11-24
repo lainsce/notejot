@@ -6,6 +6,8 @@ public class Notejot.NotebookRowEntry : Adw.Bin {
     [GtkChild]
     public unowned Gtk.Entry notebook_entry;
 
+    Binding? text_binding;
+
     Notebook? _notebook;
     public Notebook? notebook {
         get { return _notebook; }
@@ -13,9 +15,12 @@ public class Notejot.NotebookRowEntry : Adw.Bin {
             if (value == _notebook)
                 return;
 
+            text_binding?.unbind ();
+
             _notebook = value;
 
-            notebook_entry.text = _notebook.title;
+            text_binding = _notebook?.bind_property (
+                "title", notebook_entry, "text", SYNC_CREATE|BIDIRECTIONAL);
         }
     }
 

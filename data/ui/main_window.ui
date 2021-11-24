@@ -63,10 +63,10 @@
                                     <property name="hscrollbar-policy">never</property>
                                     <property name="vexpand">1</property>
                                     <child>
-                                      <object class="NotejotLogListView" id="listview">
+                                      <object class="NotejotNoteListView" id="listview">
                                         <signal name="new_note_requested" handler="on_new_note_requested" />
                                         <binding name="notes">
-                                          <lookup name="notes" type="NotejotLogViewModel">
+                                          <lookup name="notes" type="NotejotNoteViewModel">
                                             <lookup name="view-model">NotejotMainWindow</lookup>
                                           </lookup>
                                         </binding>
@@ -140,7 +140,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="NotejotLogContentView">
+                  <object class="NotejotNoteContentView">
                     <property name="hexpand">yes</property>
                     <signal name="note_update_requested" handler="on_note_update_requested" />
                     <signal name="note_removal_requested" handler="on_note_removal_requested" />

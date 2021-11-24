@@ -38,7 +38,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Overlay list_scroller;
         [GtkChild]
-        public unowned Notejot.LogListView listview;
+        public unowned Notejot.NoteListView listview;
 
         [GtkChild]
         public unowned Gtk.Box main_box;
@@ -50,12 +50,12 @@ namespace Notejot {
         public unowned Adw.HeaderBar stitlebar;
 
         // Custom
-        public LogListView view_list;
+        public NoteListView view_list;
         public MainWindow? mw {get; set;}
 
         // Etc
         public Gtk.Settings gtk_settings;
-        public LogViewModel view_model { get; construct; }
+        public NoteViewModel view_model { get; construct; }
         public NotebookViewModel nbview_model { get; construct; }
 
         public SimpleActionGroup actions { get; construct; }
@@ -72,7 +72,7 @@ namespace Notejot {
         };
 
         public Adw.Application app { get; construct; }
-        public MainWindow (Adw.Application application, LogViewModel view_model, NotebookViewModel nbview_model) {
+        public MainWindow (Adw.Application application, NoteViewModel view_model, NotebookViewModel nbview_model) {
             GLib.Object (
                 application: application,
                 app: application,
@@ -151,13 +151,13 @@ namespace Notejot {
         }
 
         [GtkCallback]
-        public void on_note_update_requested (Log note) {
+        public void on_note_update_requested (Note note) {
             view_model.update_note (note);
             leaflet.set_visible_child (grid);
         }
 
         [GtkCallback]
-        public void on_note_removal_requested (Log note) {
+        public void on_note_removal_requested (Note note) {
             view_model.delete_note (note, this);
         }
 
