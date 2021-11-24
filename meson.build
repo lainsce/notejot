@@ -69,6 +69,7 @@ sources = files(
     'src/ViewModels/LogViewModel.vala',
     'src/Widgets/NoteTheme.vala',
     'src/Widgets/LogRowPin.vala',
+    'src/Widgets/LogRowBadge.vala',
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/MoveToDialog.vala',
 )

@@ -9,10 +9,10 @@ public class Notejot.LogListView : View {
 
     construct {
         selection_model.bind_property ("selected", this, "selected-note", DEFAULT, (_, from, ref to) => {
-            var position = (uint) from;
+            var pos = (uint) from;
 
-            if (position != Gtk.INVALID_LIST_POSITION)
-                to.set_object (selection_model.model.get_item (position));
+            if (pos != Gtk.INVALID_LIST_POSITION)
+                to.set_object (selection_model.model.get_item (pos));
 
             return true;
         });

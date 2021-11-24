@@ -9,6 +9,13 @@
       <style>
         <class name="notejot-sidebar-box"/>
       </style>
+      <child type="prefix">
+        <object class="NotejotLogRowBadge">
+          <binding name="note">
+            <lookup name="item">GtkListItem</lookup>
+          </binding>
+        </object>
+      </child>
       <child>
         <object class="GtkBox">
           <property name="orientation">vertical</property>
