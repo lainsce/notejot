@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="GtkListItem">
+  <property name="child">
+    <object class="GtkBox">
+      <property name="orientation">horizontal</property>
+      <property name="valign">center</property>
+      <property name="spacing">6</property>
+      <style>
+        <class name="notejot-sidebar-box"/>
+      </style>
+      <child type="prefix">
+        <object class="NotejotNoteRowBadge">
+          <binding name="note">
+            <lookup name="item">GtkListItem</lookup>
+          </binding>
+        </object>
+      </child>
+      <child>
+        <object class="GtkBox">
+          <property name="orientation">vertical</property>
+          <property name="valign">center</property>
+          <property name="spacing">6</property>
+          <property name="margin-start">6</property>
+          <child>
+            <object class="GtkLabel">
+              <property name="halign">start</property>
+              <property name="ellipsize">end</property>
+              <property name="single-line-mode">yes</property>
+              <binding name="label">
+                <lookup name="title" type="NotejotNote">
+                  <lookup name="item">GtkListItem</lookup>
+                </lookup>
+              </binding>
+              <style>
+                <class name="heading"/>
+              </style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkLabel">
+              <property name="halign">start</property>
+              <property name="ellipsize">end</property>
+              <property name="single-line-mode">yes</property>
+              <property name="use-markup">1</property>
+              <binding name="label">
+                <lookup name="notebook" type="NotejotNote">
+                  <lookup name="item">GtkListItem</lookup>
+                </lookup>
+              </binding>
+              <style>
+                <class name="caption"/>
+              </style>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child type="suffix">
+        <object class="NotejotNoteRowPin">
+          <binding name="note">
+            <lookup name="item">GtkListItem</lookup>
+          </binding>
+          <binding name="visible">
+            <lookup name="pinned" type="NotejotNote">
+              <lookup name="item">GtkListItem</lookup>
+            </lookup>
+          </binding>
+        </object>
+      </child>
+    </object>
+  </property>
+</template>
+</interface>
