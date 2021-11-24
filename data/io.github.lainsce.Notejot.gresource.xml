@@ -23,6 +23,11 @@
       <file alias="logrow.ui">ui/logrow.ui</file>
       <file alias="logrowpin.ui">ui/logrowpin.ui</file>
       <file alias="logrowbadge.ui">ui/logrowbadge.ui</file>
+      <file alias="notebooklistview.ui">ui/notebooklistview.ui</file>
+      <file alias="notebookrow.ui">ui/notebookrow.ui</file>
+      <file alias="notebookrowdelete.ui">ui/notebookrowdelete.ui</file>
+      <file alias="notebookmovelistview.ui">ui/notebookmovelistview.ui</file>
+      <file alias="notebookmoverow.ui">ui/notebookmoverow.ui</file>
     </gresource>
 </gresources>
 

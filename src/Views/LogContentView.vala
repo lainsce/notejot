@@ -45,12 +45,11 @@ public class Notejot.LogContentView : View {
     Binding? text_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
-
-    Log? _note;
     public LogViewModel? vm {get; set;}
     Widgets.NoteTheme nmp;
     uint update_idle_source = 0;
 
+    Log? _note;
     public Log? note {
         get { return _note; }
         set {

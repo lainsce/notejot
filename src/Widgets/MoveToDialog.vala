@@ -20,11 +20,33 @@ namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
     public class Widgets.MoveToDialog : Adw.Window {
         public unowned MainWindow win = null;
+        public NotebookViewModel nbview_model {get; set;}
+        public LogViewModel view_model {get; set;}
 
         public signal void clicked ();
 
-        [GtkChild]
-        public unowned Gtk.ListBox notebook_listbox;
+        Notebook? _notebook;
+        public Notebook? notebook {
+            get { return _notebook; }
+            set {
+                if (value == _notebook)
+                    return;
+
+                _notebook = value;
+            }
+        }
+
+        Log? _note;
+        public Log? note {
+            get { return _note; }
+            set {
+                if (value == _note)
+                    return;
+
+                _note = value;
+            }
+        }
+
         [GtkChild]
         public unowned Gtk.Button cancel_button;
         [GtkChild]
@@ -32,17 +54,16 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button move_button;
 
-        public MoveToDialog (MainWindow win) {
+        public MoveToDialog (MainWindow win, NotebookViewModel nbview_model, LogViewModel view_model) {
+            Object (
+                nbview_model: nbview_model,
+                view_model: view_model
+            );
             this.win = win;
             this.set_modal (true);
             this.set_transient_for (win);
 
-            notebook_listbox.bind_model (win.notebookstore, item => make_item (win, item));
-            notebook_listbox.set_selection_mode (Gtk.SelectionMode.SINGLE);
-
             remove_notebook_button.clicked.connect (() => {
-                win.view_model.update_notebook (win.view_list.selected_note, "<i>" + _("No Notebook") + "</i>");
-
                 this.dispose ();
             });
 
@@ -51,27 +72,12 @@ namespace Notejot {
             });
         }
 
-        public Adw.ActionRow make_item (MainWindow win, GLib.Object item) {
-            var actionrow = new Adw.ActionRow ();
-            actionrow.set_title (((Notebook)item).title);
-
-            notebook_listbox.row_selected.connect ((selected_row) => {
+        [GtkCallback]
+        void on_move_notebook_requested () {
+            if (notebook != null)
                 move_button.sensitive = true;
-
-                move_button.clicked.connect (() => {
-                    uint i, n = win.notebookstore.get_n_items ();
-                    for (i = 0; i < n; i++) {
-                        var im = win.notebookstore.get_item (i);
-
-                        if (((Adw.ActionRow)selected_row).get_title () == ((Notebook)im).title) {
-                            win.view_model.update_notebook (win.view_list.selected_note, ((Notebook)im).title);
-                        }
-                    }
-                    this.dispose ();
-                });
-            });
-
-            return actionrow;
+                string nb = notebook.title;
+                view_model.update_notebook (note, nb);
         }
     }
 }

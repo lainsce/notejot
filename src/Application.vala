@@ -45,7 +45,10 @@ public class Notejot.Application : Adw.Application {
         var repo = new LogRepository ();
         var view_model = new LogViewModel (repo);
 
-        new MainWindow (this, view_model);
+        var nbrepo = new NotebookRepository ();
+        var nbview_model = new NotebookViewModel (nbrepo);
+
+        new MainWindow (this, view_model, nbview_model);
     }
     protected override void activate () {
         active_window?.present ();

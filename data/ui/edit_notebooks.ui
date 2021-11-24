@@ -36,6 +36,8 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="notebook_add_button">
+                    <property name="sensitive">0</property>
+                    <signal name="clicked" handler="on_new_notebook_requested" />
                     <property name="child">
                       <object class="AdwButtonContent">
                         <property name="icon-name">list-add-symbolic</property>
@@ -50,27 +52,15 @@
         </child>
         <child>
           <object class="GtkScrolledWindow">
-            <property name="height-request">360</property>
             <property name="margin-bottom">12</property>
+            <property name="vexpand">1</property>
             <child>
-              <object class="GtkListBox" id="notebook_listbox">
-                <property name="vexpand">1</property>
-                <style>
-                  <class name="content"/>
-                  <class name="content-sidebar-dialog"/>
-                </style>
-                <child type="placeholder">
-                  <object class="AdwStatusPage">
-                    <property name="valign">center</property>
-                    <property name="vexpand">1</property>
-                    <property name="icon-name">notebook-symbolic</property>
-                    <property name="title" translatable="yes">No Notebooks</property>
-                    <property name="description" translatable="yes">Create a notebook with + Add button.</property>
-                    <style>
-                      <class name="compact"/>
-                    </style>
-                  </object>
-                </child>
+              <object class="NotejotNotebookListView" id="listview">
+                <binding name="notebooks">
+                  <lookup name="notebooks" type="NotejotNotebookViewModel">
+                    <lookup name="nbview-model">NotejotWidgetsEditNotebooksDialog</lookup>
+                  </lookup>
+                </binding>
               </object>
             </child>
           </object>

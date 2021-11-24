@@ -50,14 +50,12 @@ namespace Notejot {
         public unowned Adw.HeaderBar stitlebar;
 
         // Custom
-        public TaskManager tm;
         public LogListView view_list;
-        public LogContentView view_content;
 
         // Etc
         public Gtk.Settings gtk_settings;
         public LogViewModel view_model { get; construct; }
-        public GLib.ListStore notebookstore;
+        public NotebookViewModel nbview_model { get; construct; }
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -75,11 +73,12 @@ namespace Notejot {
         };
 
         public Adw.Application app { get; construct; }
-        public MainWindow (Adw.Application application, LogViewModel view_model) {
+        public MainWindow (Adw.Application application, LogViewModel view_model, NotebookViewModel nbview_model) {
             GLib.Object (
                 application: application,
                 app: application,
                 view_model: view_model,
+                nbview_model: nbview_model,
                 icon_name: Config.APP_ID,
                 title: "Notejot"
             );
@@ -101,23 +100,12 @@ namespace Notejot {
             app.set_accels_for_action ("win.action_keys", {"<Ctrl>question"});
 
             // Main View
-            tm = new TaskManager (this);
-
             back_button.clicked.connect (() => {
                 leaflet.set_visible_child (sgrid);
             });
 
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
-
-            notebookstore = new GLib.ListStore (typeof (Notebook));
-            notebookstore.items_changed.connect ((pos, add, rm) => {
-                tm.save_notebooks.begin (notebookstore);
-            });
-
-            Timeout.add_seconds(1, () => {
-                tm.save_notebooks.begin (notebookstore);
-            });
 
             // Preparing window to be shown
             var settings = new Settings ();
@@ -135,8 +123,6 @@ namespace Notejot {
 			    add_css_class ("devel");
 
             this.show ();
-
-            load_all_notes ();
         }
 
         protected override bool close_request () {
@@ -154,10 +140,6 @@ namespace Notejot {
         }
 
         // IO?
-        public void load_all_notes () {
-            tm.load_from_file_nb.begin ();
-        }
-
         [GtkCallback]
         void on_new_note_requested () {
             view_model.create_new_note (this);
@@ -172,13 +154,6 @@ namespace Notejot {
         [GtkCallback]
         public void on_note_removal_requested (Log note) {
             view_model.delete_note (note, this);
-        }
-
-        public void make_notebook (string title) {
-            var nb = new Notebook ();
-            nb.title = title;
-
-            notebookstore.append(nb);
         }
 
         public void action_about () {
@@ -217,12 +192,12 @@ namespace Notejot {
         }
 
         public void action_move_to () {
-            var move_to_dialog = new Widgets.MoveToDialog (this);
+            var move_to_dialog = new Widgets.MoveToDialog (this, nbview_model, view_model);
             move_to_dialog.show ();
         }
 
         public void action_edit_notebooks () {
-            var edit_nb_dialog = new Widgets.EditNotebooksDialog (this);
+            var edit_nb_dialog = new Widgets.EditNotebooksDialog (this, nbview_model);
             edit_nb_dialog.show ();
         }
     }

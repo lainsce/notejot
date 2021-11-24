@@ -6,6 +6,10 @@
     <property name="modal">1</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
+    <property name="default-widget">move_button</property>
+    <binding name="notebook">
+      <lookup name="selected-notebook">listview</lookup>
+    </binding>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
@@ -19,6 +23,7 @@
                 <property name="sensitive">0</property>
                 <property name="margin-end">6</property>
                 <property name="margin-top">6</property>
+                <signal name="clicked" handler="on_move_notebook_requested" />
                 <style>
                   <class name="suggested-action"/>
                 </style>
@@ -47,22 +52,15 @@
           </object>
         </child>
         <child>
-          <object class="GtkListBox" id="notebook_listbox">
+          <object class="GtkScrolledWindow">
             <property name="vexpand">1</property>
-            <style>
-              <class name="content"/>
-              <class name="content-sidebar-dialog"/>
-            </style>
-            <child type="placeholder">
-              <object class="AdwStatusPage">
-                <property name="valign">center</property>
-                <property name="vexpand">1</property>
-                <property name="icon-name">notebook-symbolic</property>
-                <property name="title" translatable="yes">No Notebooks</property>
-                <property name="description" translatable="yes">There are no notebooks.</property>
-                <style>
-                  <class name="compact"/>
-                </style>
+            <child>
+              <object class="NotejotNotebookMoveListView" id="listview">
+                <binding name="notebooks">
+                  <lookup name="notebooks" type="NotejotNotebookViewModel">
+                    <lookup name="nbview-model">NotejotWidgetsMoveToDialog</lookup>
+                  </lookup>
+                </binding>
               </object>
             </child>
           </object>
