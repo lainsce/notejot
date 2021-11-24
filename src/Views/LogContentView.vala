@@ -29,6 +29,14 @@ public class Notejot.LogContentView : View {
     unowned Gtk.Revealer format_revealer;
     [GtkChild]
     unowned Gtk.ToggleButton note_pin_button;
+    [GtkChild]
+    unowned Gtk.TextTag bold_font;
+    [GtkChild]
+    unowned Gtk.TextTag italic_font;
+    [GtkChild]
+    unowned Gtk.TextTag ul_font;
+    [GtkChild]
+    unowned Gtk.TextTag s_font;
 
     Binding? title_binding;
     Binding? subtitle_binding;
@@ -39,12 +47,7 @@ public class Notejot.LogContentView : View {
     Log? _note;
     public LogViewModel? vm {get; set;}
     Widgets.NoteTheme nmp;
-
     uint update_idle_source = 0;
-    Gtk.TextTag bold_font;
-    Gtk.TextTag italic_font;
-    Gtk.TextTag ul_font;
-    Gtk.TextTag s_font;
 
     public Log? note {
         get { return _note; }
@@ -197,10 +200,7 @@ public class Notejot.LogContentView : View {
     }
 
     construct {
-        bold_font = note_text.create_tag("bold", "weight", Pango.Weight.BOLD);
-        italic_font = note_text.create_tag("italic", "style", Pango.Style.ITALIC);
-        ul_font = note_text.create_tag("underline", "underline", Pango.Underline.SINGLE);
-        s_font = note_text.create_tag("strike", "strikethrough", true);
+        fmt_syntax_start ();
     }
 
     public void fmt_syntax_start () {
@@ -253,6 +253,7 @@ public class Notejot.LogContentView : View {
 
     void on_text_updated () {
         note_update_requested (note);
+        fmt_syntax_start ();
     }
 
     [GtkCallback]

@@ -145,7 +145,32 @@
                         <property name="top-margin">21</property>
                         <property name="vexpand">1</property>
                         <property name="buffer">
-                          <object class="GtkTextBuffer" id="note_text" />
+                          <object class="GtkTextBuffer" id="note_text">
+                            <property name="tag_table">
+                              <object class="GtkTextTagTable">
+                                <child type="tag">
+                                  <object class="GtkTextTag" id="bold_font">
+                                    <property name="weight">700</property>
+                                  </object>
+                                </child>
+                                <child type="tag">
+                                 <object class="GtkTextTag" id="italic_font">
+                                    <property name="style">italic</property>
+                                 </object>
+                                </child>
+                                <child type="tag">
+                                  <object class="GtkTextTag" id="ul_font">
+                                    <property name="underline">single</property>
+                                  </object>
+                                </child>
+                                <child type="tag">
+                                  <object class="GtkTextTag" id="s_font">
+                                    <property name="strikethrough">1</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </property>
+                          </object>
                         </property>
                         <style>
                           <class name="notejot-view"/>
