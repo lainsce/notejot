@@ -19,6 +19,6 @@ public class Notejot.LogRowBadge : Adw.Bin {
     }
 
     construct {
-        badge.get_style_context().add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+        badge.get_style_context().add_provider(provider, 999);
     }
 }

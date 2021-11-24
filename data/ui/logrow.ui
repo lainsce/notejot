@@ -42,8 +42,9 @@
               <property name="halign">start</property>
               <property name="ellipsize">end</property>
               <property name="single-line-mode">yes</property>
+              <property name="use-markup">1</property>
               <binding name="label">
-                <lookup name="subtitle" type="NotejotLog">
+                <lookup name="notebook" type="NotejotLog">
                   <lookup name="item">GtkListItem</lookup>
                 </lookup>
               </binding>
