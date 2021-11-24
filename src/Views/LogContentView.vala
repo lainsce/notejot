@@ -46,6 +46,8 @@ public class Notejot.LogContentView : View {
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
     public LogViewModel? vm {get; set;}
+    public NotebookViewModel? nvm {get; set;}
+    public MainWindow? win {get; set;}
     Widgets.NoteTheme nmp;
     uint update_idle_source = 0;
 
@@ -195,7 +197,9 @@ public class Notejot.LogContentView : View {
     }
 
     public LogContentView (LogViewModel? vm) {
-        Object (vm: vm);
+        Object (
+            vm: vm
+        );
     }
 
     construct {
@@ -261,6 +265,12 @@ public class Notejot.LogContentView : View {
     [GtkCallback]
     void on_delete_button_clicked () {
         note_removal_requested (note);
+    }
+
+    [GtkCallback]
+    public void action_move_to () {
+        var move_to_dialog = new Widgets.MoveToDialog (this, nvm, vm, note);
+        move_to_dialog.show ();
     }
 
     private void erase_utf8 (StringBuilder builder, ssize_t start, ssize_t len) {

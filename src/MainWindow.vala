@@ -51,6 +51,7 @@ namespace Notejot {
 
         // Custom
         public LogListView view_list;
+        public MainWindow? mw {get; set;}
 
         // Etc
         public Gtk.Settings gtk_settings;
@@ -61,14 +62,12 @@ namespace Notejot {
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";
         public const string ACTION_KEYS = "action_keys";
-        public const string ACTION_MOVE_TO = "action_move_to";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
               {ACTION_ABOUT, action_about },
               {ACTION_KEYS, action_keys},
-              {ACTION_MOVE_TO, action_move_to},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
         };
 
@@ -123,6 +122,7 @@ namespace Notejot {
 			    add_css_class ("devel");
 
             this.show ();
+            this.mw = (MainWindow) app.get_active_window ();
         }
 
         protected override bool close_request () {
@@ -189,11 +189,6 @@ namespace Notejot {
             } catch (Error e) {
                 warning ("Failed to open shortcuts window: %s\n", e.message);
             }
-        }
-
-        public void action_move_to () {
-            var move_to_dialog = new Widgets.MoveToDialog (this, nbview_model, view_model);
-            move_to_dialog.show ();
         }
 
         public void action_edit_notebooks () {

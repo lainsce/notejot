@@ -19,7 +19,7 @@
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
     public class Widgets.MoveToDialog : Adw.Window {
-        public unowned MainWindow win = null;
+        public unowned LogContentView lcv = null;
         public NotebookViewModel nbview_model {get; set;}
         public LogViewModel view_model {get; set;}
 
@@ -33,17 +33,8 @@ namespace Notejot {
                     return;
 
                 _notebook = value;
-            }
-        }
 
-        Log? _note;
-        public Log? note {
-            get { return _note; }
-            set {
-                if (value == _note)
-                    return;
-
-                _note = value;
+                move_button.sensitive = true;
             }
         }
 
@@ -54,14 +45,17 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button move_button;
 
-        public MoveToDialog (MainWindow win, NotebookViewModel nbview_model, LogViewModel view_model) {
+        public MoveToDialog (LogContentView lcv, NotebookViewModel nbview_model, LogViewModel view_model, Log? note) {
             Object (
                 nbview_model: nbview_model,
                 view_model: view_model
             );
-            this.win = win;
+            this.lcv = lcv;
             this.set_modal (true);
-            this.set_transient_for (win);
+
+            // I know this looks weird but it's just traversing until it finds the GTK Window,
+            // won't break because the order is final.
+            this.set_transient_for (((Gtk.Window)lcv.get_parent ().get_parent ().get_parent ().get_parent ().get_parent ()));
 
             remove_notebook_button.clicked.connect (() => {
                 this.dispose ();
@@ -74,10 +68,20 @@ namespace Notejot {
 
         [GtkCallback]
         void on_move_notebook_requested () {
-            if (notebook != null)
-                move_button.sensitive = true;
+            if (notebook != null) {
                 string nb = notebook.title;
-                view_model.update_notebook (note, nb);
+                view_model.update_notebook (lcv.note, nb);
+                this.dispose ();
+            }
+        }
+
+        [GtkCallback]
+        void on_remove_notebook_requested () {
+            if (notebook != null) {
+                string nb = "<i>" + "No Notebook" + "</i>";
+                view_model.update_notebook (lcv.note, nb);
+                this.dispose ();
+            }
         }
     }
 }

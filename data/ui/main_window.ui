@@ -150,6 +150,12 @@
                     <binding name="vm">
                       <lookup name="view-model">NotejotMainWindow</lookup>
                     </binding>
+                    <binding name="nvm">
+                      <lookup name="nbview-model">NotejotMainWindow</lookup>
+                    </binding>
+                    <binding name="win">
+                      <lookup name="mw">NotejotMainWindow</lookup>
+                    </binding>
                   </object>
                 </child>
               </object>
