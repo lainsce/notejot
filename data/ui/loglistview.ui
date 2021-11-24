@@ -7,7 +7,6 @@
         <property name="spacing">6</property>
         <child>
           <object class="GtkSearchEntry" id="note_search">
-            <property name="max-width-chars">10</property>
             <property name="placeholder-text" translatable="yes">Search notes</property>
             <style>
               <class name="notejot-searchbar"/>
