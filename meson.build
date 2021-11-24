@@ -51,15 +51,15 @@ asresources = gnome.compile_resources(
 
 sources = files(
     'src/Application.vala',
-    'src/Format.vala',
     'src/MainWindow.vala',
-    'src/Settings.vala',
     'src/Models/Log.vala',
     'src/Models/Notebook.vala',
     'src/Repositories/LogRepository.vala',
     'src/Repositories/NotebookRepository.vala',
+    'src/Services/SettingsManager.vala',
     'src/Services/StyleManager.vala',
     'src/Utils/FileUtils.vala',
+    'src/Utils/FormatUtils.vala',
     'src/Utils/NoteSorter.vala',
     'src/Utils/ObservableList.vala',
     'src/Utils/ThreadUtils.vala',
