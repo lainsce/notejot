@@ -4,6 +4,9 @@
   <property name="child">
     <object class="GtkImage" id="badge">
       <property name="valign">center</property>
+      <style>
+        <class name="notejot-badge"/>
+      </style>
     </object>
   </property>
 </template>

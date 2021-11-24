@@ -44,6 +44,8 @@ public class Notejot.LogContentView : View {
     Binding? pinned_binding;
     Binding? text_binding;
 
+    private Gtk.CssProvider provider = new Gtk.CssProvider();
+
     Log? _note;
     public LogViewModel? vm {get; set;}
     Widgets.NoteTheme nmp;
@@ -186,9 +188,7 @@ public class Notejot.LogContentView : View {
                 }
             });
 
-            note_header.add_css_class ("notejot-header-%s".printf(_note.id));
-            note_textbox.add_css_class ("notejot-view-%s".printf(_note.id));
-            note_footer.add_css_class ("notejot-footer-%s".printf(_note.id));
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
 
             vm.update_note_color (_note, _note.color);
 
@@ -201,6 +201,9 @@ public class Notejot.LogContentView : View {
 
     construct {
         fmt_syntax_start ();
+        note_header.get_style_context().add_provider(provider, 999);
+        note_textbox.get_style_context().add_provider(provider, 999);
+        note_footer.get_style_context().add_provider(provider, 999);
     }
 
     public void fmt_syntax_start () {
