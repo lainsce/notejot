@@ -1,39 +1,4 @@
 install_data(
-    join_paths('icons', '128', meson.project_name() + '.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
-)
-
-install_data(
-    join_paths('icons', '128', meson.project_name() + '.Devel.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
-)
-
-install_data(
-    join_paths('icons', '16', meson.project_name() + '-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
-)
-
-install_data(
-    join_paths('icons', 'scalable', 'notebook-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'actions')
-)
-
-install_data(
-    join_paths('icons', 'scalable', 'notebook-add-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'actions')
-)
-
-install_data(
-    join_paths('icons', 'scalable', 'notebook-config-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'actions')
-)
-
-install_data(
-    join_paths('icons', 'scalable', 'list-select-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'actions')
-)
-
-install_data(
     meson.project_name() + '.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
@@ -76,3 +41,5 @@ i18n.merge_file(
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
+
+subdir('icons')

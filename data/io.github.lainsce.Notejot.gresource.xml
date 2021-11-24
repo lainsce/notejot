@@ -4,11 +4,6 @@
       <file alias="style.css">style.css</file>
       <file alias="style-dark.css">style-dark.css</file>
 
-      <file alias="notebook-symbolic.svg">icons/scalable/notebook-symbolic.svg</file>
-      <file alias="notebook-add-symbolic.svg">icons/scalable/notebook-add-symbolic.svg</file>
-      <file alias="notebook-config-symbolic.svg">icons/scalable/notebook-config-symbolic.svg</file>
-      <file alias="list-select-symbolic.svg">icons/scalable/list-select-symbolic.svg</file>
-
       <file alias="title_menu.ui">ui/title_menu.ui</file>
       <file alias="shortcuts.ui">ui/shortcuts.ui</file>
       <file alias="main_window.ui">ui/main_window.ui</file>
