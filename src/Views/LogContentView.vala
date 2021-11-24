@@ -77,36 +77,43 @@ public class Notejot.LogContentView : View {
 
             nmp.color_button_red.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #a51d2d;");
                     vm.update_note_color (_note, "#a51d2d");
             });
 
             nmp.color_button_orange.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #c64600;");
                     vm.update_note_color (_note, "#c64600");
             });
 
             nmp.color_button_yellow.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #e5a50a;");
                     vm.update_note_color (_note, "#e5a50a");
             });
 
             nmp.color_button_green.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #26a269;");
                     vm.update_note_color (_note, "#26a269");
             });
 
             nmp.color_button_blue.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #1a5fb4;");
                     vm.update_note_color (_note, "#1a5fb4");
             });
 
             nmp.color_button_purple.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #613583;");
                     vm.update_note_color (_note, "#613583");
             });
 
             nmp.color_button_brown.toggled.connect (() => {
                 if (_note != null)
+                    provider.load_from_data ((uint8[]) "@define-color note_color #63452c;");
                     vm.update_note_color (_note, "#63452c");
             });
 
@@ -114,11 +121,13 @@ public class Notejot.LogContentView : View {
             if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
                 nmp.color_button_reset.toggled.connect (() => {
                     if (_note != null)
+                        provider.load_from_data ((uint8[]) "@define-color note_color #151515;");
                         vm.update_note_color (_note, "#151515");
                 });
             } else {
                 nmp.color_button_reset.toggled.connect (() => {
                     if (_note != null)
+                        provider.load_from_data ((uint8[]) "@define-color note_color #fff;");
                         vm.update_note_color (_note, "#fff");
                 });
             }
@@ -204,9 +213,9 @@ public class Notejot.LogContentView : View {
 
     construct {
         fmt_syntax_start ();
-        note_header.get_style_context().add_provider(provider, 999);
-        note_textbox.get_style_context().add_provider(provider, 999);
-        note_footer.get_style_context().add_provider(provider, 999);
+        note_header.get_style_context().add_provider(provider, 1);
+        note_textbox.get_style_context().add_provider(provider, 1);
+        note_footer.get_style_context().add_provider(provider, 1);
     }
 
     public void fmt_syntax_start () {

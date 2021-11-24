@@ -14,11 +14,11 @@ public class Notejot.LogRowBadge : Adw.Bin {
 
             _note = value;
 
-            provider.load_from_data ((uint8[]) "@define-color badge_color %s;".printf(_note.color));
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
         }
     }
 
     construct {
-        badge.get_style_context().add_provider(provider, 999);
+        badge.get_style_context().add_provider(provider, 1);
     }
 }

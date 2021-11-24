@@ -3,7 +3,7 @@ public class Notejot.StyleManager {
         var css_provider = new Gtk.CssProvider();
         string style = @"
             .notejot-badge {
-                background: mix(@view_bg_color, @badge_color, 0.55);
+                background: mix(@view_bg_color, @note_color, 0.55);
                 border-radius: 9999px;
             }
             .notejot-header {
