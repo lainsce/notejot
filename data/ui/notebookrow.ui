@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="GtkListItem">
+  <property name="child">
+    <object class="GtkBox">
+      <property name="spacing">12</property>
+      <property name="margin_top">12</property>
+      <property name="margin_bottom">12</property>
+      <property name="margin_start">12</property>
+      <property name="margin_end">12</property>
+      <child type="prefix">
+        <object class="GtkEntry" id="notebook_entry">
+          <property name="valign">center</property>
+          <property name="hexpand">1</property>
+          <binding name="text">
+            <lookup name="title" type="NotejotNotebook">
+              <lookup name="item">GtkListItem</lookup>
+            </lookup>
+          </binding>
+        </object>
+      </child>
+      <child type="suffix">
+        <object class="NotejotNotebookRowDelete">
+          <binding name="notebook">
+            <lookup name="item">GtkListItem</lookup>
+          </binding>
+        </object>
+      </child>
+    </object>
+  </property>
+</template>
+</interface>

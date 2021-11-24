@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="NotejotNotebookMoveListView" parent="NotejotView">
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="hscrollbar-policy">never</property>
+        <property name="width-request">250</property>
+        <property name="vexpand">1</property>
+        <child>
+          <object class="GtkListView" id="lv">
+            <style>
+              <class name="boxed-list" />
+              <class name="content-sidebar-dialog" />
+            </style>
+            <property name="factory">
+              <object class="GtkBuilderListItemFactory">
+                <property name="resource">/io/github/lainsce/Notejot/notebookmoverow.ui</property>
+              </object>
+            </property>
+            <property name="model">
+              <object class="GtkSingleSelection" id="selection_model">
+                <property name="model">
+                  <object class="GtkSortListModel">
+                    <binding name="model">
+                      <lookup name="notebooks">NotejotNotebookMoveListView</lookup>
+                    </binding>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
