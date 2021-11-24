@@ -62,7 +62,7 @@
                   </lookup>
                 </binding>
                 <binding name="nbview-model">
-                  <lookup name="notebooks">NotejotNotebookViewModel</lookup>
+                  <lookup name="nbview-model">NotejotWidgetsEditNotebooksDialog</lookup>
                 </binding>
               </object>
             </child>
