@@ -2,25 +2,10 @@
 <interface>
 <template class="GtkListItem">
   <property name="child">
-    <object class="GtkBox">
-      <property name="spacing">12</property>
-      <style>
-        <class name="notejot-sidebar-box-row"/>
-      </style>
-      <child type="prefix">
-        <object class="NotejotNotebookRowEntry">
-          <binding name="notebook">
-            <lookup name="item">GtkListItem</lookup>
-          </binding>
-        </object>
-      </child>
-      <child type="suffix">
-        <object class="NotejotNotebookRowDelete">
-          <binding name="notebook">
-            <lookup name="item">GtkListItem</lookup>
-          </binding>
-        </object>
-      </child>
+    <object class="NotejotNotebookRowContent">
+      <binding name="notebook">
+        <lookup name="item">GtkListItem</lookup>
+      </binding>
     </object>
   </property>
 </template>

@@ -18,8 +18,7 @@
       <file alias="noterowcontent.ui">ui/noterowcontent.ui</file>
       <file alias="notebooklistview.ui">ui/notebooklistview.ui</file>
       <file alias="notebookrow.ui">ui/notebookrow.ui</file>
-      <file alias="notebookrowentry.ui">ui/notebookrowentry.ui</file>
-      <file alias="notebookrowdelete.ui">ui/notebookrowdelete.ui</file>
+      <file alias="notebookrowcontent.ui">ui/notebookrowcontent.ui</file>
       <file alias="notebookmovelistview.ui">ui/notebookmovelistview.ui</file>
       <file alias="notebookmoverow.ui">ui/notebookmoverow.ui</file>
     </gresource>

@@ -1,5 +1,5 @@
-[GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookrowentry.ui")]
-public class Notejot.NotebookRowEntry : Adw.Bin {
+[GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookrowcontent.ui")]
+public class Notejot.NotebookRowContent : Adw.Bin {
     public signal void clicked ();
     public NotebookViewModel? notebooks {get; set;}
 
@@ -29,6 +29,11 @@ public class Notejot.NotebookRowEntry : Adw.Bin {
 
     [GtkCallback]
     void on_edit_notebook_requested () {
-        notebooks.update_notebook (notebook, notebook_entry.get_text());
+        ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).nbview_model.update_notebook (notebook, notebook_entry.get_text());
+    }
+
+    [GtkCallback]
+    void on_delete_button_clicked () {
+        ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).notebook_removal_requested (notebook);
     }
 }

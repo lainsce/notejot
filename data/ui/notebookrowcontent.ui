@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="NotejotNotebookRowContent" parent="AdwBin">
+  <property name="child">
+    <object class="GtkBox">
+      <property name="orientation">horizontal</property>
+      <property name="valign">center</property>
+      <property name="spacing">12</property>
+      <style>
+        <class name="notejot-sidebar-box-row"/>
+      </style>
+      <child type="prefix">
+        <object class="GtkEntry" id="notebook_entry">
+          <property name="valign">center</property>
+          <property name="hexpand">1</property>
+          <style>
+            <class name="outline" />
+          </style>
+          <signal name="activate" handler="on_edit_notebook_requested" />
+        </object>
+      </child>
+      <child type="suffix">
+        <object class="GtkButton" id="delete_button">
+          <property name="icon-name">window-close-symbolic</property>
+          <property name="valign">center</property>
+          <signal name="clicked" handler="on_delete_button_clicked" />
+          <style>
+            <class name="flat" />
+            <class name="circular" />
+          </style>
+        </object>
+      </child>
+    </object>
+  </property>
+</template>
+</interface>

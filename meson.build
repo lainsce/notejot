@@ -75,8 +75,7 @@ sources = files(
     'src/Widgets/EditNotebookDialog.vala',
     'src/Widgets/NoteRowContent.vala',
     'src/Widgets/MoveToDialog.vala',
-    'src/Widgets/NotebookRowDelete.vala',
-    'src/Widgets/NotebookRowEntry.vala',
+    'src/Widgets/NotebookRowContent.vala',
     'src/Widgets/NoteTheme.vala',
 )
 
