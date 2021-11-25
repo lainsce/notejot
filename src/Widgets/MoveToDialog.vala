@@ -57,13 +57,15 @@ namespace Notejot {
             // won't break because the order is final.
             this.set_transient_for (((Gtk.Window)lcv.get_parent ().get_parent ().get_parent ().get_parent ()));
 
-            remove_notebook_button.clicked.connect (() => {
-                this.dispose ();
-            });
-
             cancel_button.clicked.connect (() => {
                 this.dispose ();
             });
+
+            if (lcv.note.notebook == "<i>" + _("No Notebook") + "</i>") {
+                remove_notebook_button.sensitive = false;
+            } else {
+                remove_notebook_button.sensitive = true;
+            }
         }
 
         [GtkCallback]
@@ -80,6 +82,7 @@ namespace Notejot {
             if (notebook != null) {
                 string nb = "<i>" + "No Notebook" + "</i>";
                 view_model.update_notebook (lcv.note, nb);
+                remove_notebook_button.set_sensitive (false);
                 this.dispose ();
             }
         }
