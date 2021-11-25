@@ -1,263 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <menu id="smenu">
+    <section>
+      <item>
+        <attribute name="custom">theme</attribute>
+      </item>
+    </section>
+  </menu>
   <template class="NotejotNoteContentView" parent="NotejotView">
     <property name="vexpand">1</property>
     <child>
-      <object class="GtkStack" id="stack">
-        <property name="transition_type">crossfade</property>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkWindowHandle">
+          <object class="AdwHeaderBar" id="titlebar">
+            <property name="hexpand">1</property>
+            <child type="title">
+              <object class="GtkBox">
+              </object>
+            </child>
+            <style>
+              <class name="notejot-titlebar"/>
+            </style>
             <child>
-              <object class="AdwStatusPage" id="empty_view">
-                <property name="icon-name">list-select-symbolic</property>
-                <property name="title">Select a note</property>
+              <object class="GtkButton" id="back_button">
+                <property name="visible">0</property>
+                <property name="icon-name">go-previous-symbolic</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkMenuButton" id="s_menu">
+                <property name="visible">0</property>
+                <property name="menu-model">smenu</property>
+                <property name="icon-name">view-more-symbolic</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="note_view">
-            <property name="orientation">vertical</property>
-            <style>
-              <class name="content-view" />
-            </style>
+          <object class="GtkStack" id="stack">
+            <property name="transition_type">crossfade</property>
             <child>
-              <object class="GtkBox" id="note_header">
-                <property name="orientation">vertical</property>
+              <object class="GtkWindowHandle">
                 <child>
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="orientation">horizontal</property>
-                        <child>
-                          <object class="GtkEntry" id="note_title">
-                            <property name="margin-bottom">12</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin-top">12</property>
-                            <property name="hexpand">1</property>
-                            <style>
-                              <class name="title-1" />
-                            </style>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkMenuButton" id="settingmenu">
-                            <property name="receives-default">1</property>
-                            <property name="valign">center</property>
-                            <property name="margin-end">6</property>
-                            <property name="icon-name">preferences-color-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Choose Note color</property>
-                            <style>
-                              <class name="flat" />
-                            </style>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkButton" id="move_to_button">
-                            <property name="valign">center</property>
-                            <property name="margin-end">6</property>
-                            <property name="tooltip-text" translatable="yes">Move Note to a Notebook</property>
-                            <signal name="clicked" handler="action_move_to" />
-                            <property name="icon-name">notebook-add-symbolic</property>
-                            <style>
-                              <class name="flat" />
-                            </style>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkToggleButton" id="note_pin_button">
-                            <property name="valign">center</property>
-                            <property name="margin-end">6</property>
-                            <property name="tooltip-text" translatable="yes">Pin/Unpin the Note</property>
-                            <property name="icon-name">view-pin-symbolic</property>
-                            <style>
-                              <class name="flat" />
-                            </style>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkSeparator">
-                            <style>
-                              <class name="spacer"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkButton" id="delete_button">
-                            <property name="valign">center</property>
-                            <property name="margin-end">6</property>
-                            <property name="tooltip-text" translatable="yes">Delete the Note</property>
-                            <signal name="clicked" handler="on_delete_button_clicked" />
-                            <property name="icon-name">user-trash-symbolic</property>
-                            <style>
-                              <class name="flat" />
-                            </style>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="orientation">horizontal</property>
-                        <property name="spacing">6</property>
-                        <property name="margin-bottom">12</property>
-                        <property name="margin-start">21</property>
-                        <property name="margin-end">21</property>
-                        <child>
-                          <object class="GtkLabel" id="note_subtitle" />
-                        </child>
-                        <child>
-                          <object class="GtkImage" id="notebook_icon">
-                            <property name="halign">end</property>
-                            <property name="hexpand">1</property>
-                            <property name="icon-name">notebook-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="notebook_subtitle">
-                            <property name="use-markup">1</property>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                    </child>
+                  <object class="AdwStatusPage" id="empty_view">
+                    <property name="icon-name">list-select-symbolic</property>
+                    <property name="title">Select a note</property>
                   </object>
                 </child>
-                <style>
-                  <class name="content-header" />
-                  <class name="notejot-header"/>
-                </style>
               </object>
             </child>
             <child>
-              <object class="GtkScrolledWindow">
-                <property name="hscrollbar_policy">never</property>
-                <property name="vexpand">1</property>
+              <object class="GtkBox" id="note_view">
+                <property name="orientation">vertical</property>
+                <style>
+                  <class name="content-view" />
+                </style>
                 <child>
-                  <object class="GtkBox">
+                  <object class="GtkBox" id="note_header">
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkTextView" id="note_textbox">
-                        <property name="wrap-mode">word-char</property>
-                        <property name="bottom-margin">21</property>
-                        <property name="left-margin">21</property>
-                        <property name="right-margin">21</property>
-                        <property name="top-margin">21</property>
-                        <property name="vexpand">1</property>
-                        <property name="buffer">
-                          <object class="GtkTextBuffer" id="note_text">
-                            <property name="tag_table">
-                              <object class="GtkTextTagTable">
-                                <child type="tag">
-                                  <object class="GtkTextTag" id="bold_font">
-                                    <property name="weight">700</property>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="orientation">horizontal</property>
+                            <child>
+                              <object class="GtkEntry" id="note_title">
+                                <property name="margin-bottom">12</property>
+                                <property name="margin-start">12</property>
+                                <property name="margin-end">12</property>
+                                <property name="margin-top">12</property>
+                                <property name="hexpand">1</property>
+                                <style>
+                                  <class name="title-1" />
+                                </style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="orientation">horizontal</property>
+                            <property name="spacing">6</property>
+                            <property name="margin-bottom">12</property>
+                            <property name="margin-start">21</property>
+                            <property name="margin-end">21</property>
+                            <child>
+                              <object class="GtkLabel" id="note_subtitle" />
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="notebook_icon">
+                                <property name="halign">end</property>
+                                <property name="hexpand">1</property>
+                                <property name="icon-name">notebook-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="notebook_subtitle">
+                                <property name="use-markup">1</property>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="content-header" />
+                      <class name="notejot-header"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="vexpand">1</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkTextView" id="note_textbox">
+                            <property name="wrap-mode">word-char</property>
+                            <property name="bottom-margin">21</property>
+                            <property name="left-margin">21</property>
+                            <property name="right-margin">21</property>
+                            <property name="top-margin">21</property>
+                            <property name="vexpand">1</property>
+                            <property name="buffer">
+                              <object class="GtkTextBuffer" id="note_text">
+                                <property name="tag_table">
+                                  <object class="GtkTextTagTable">
+                                    <child type="tag">
+                                      <object class="GtkTextTag" id="bold_font">
+                                        <property name="weight">700</property>
+                                      </object>
+                                    </child>
+                                    <child type="tag">
+                                     <object class="GtkTextTag" id="italic_font">
+                                        <property name="style">italic</property>
+                                     </object>
+                                    </child>
+                                    <child type="tag">
+                                      <object class="GtkTextTag" id="ul_font">
+                                        <property name="underline">single</property>
+                                      </object>
+                                    </child>
+                                    <child type="tag">
+                                      <object class="GtkTextTag" id="s_font">
+                                        <property name="strikethrough">1</property>
+                                      </object>
+                                    </child>
                                   </object>
-                                </child>
-                                <child type="tag">
-                                 <object class="GtkTextTag" id="italic_font">
-                                    <property name="style">italic</property>
-                                 </object>
-                                </child>
-                                <child type="tag">
-                                  <object class="GtkTextTag" id="ul_font">
-                                    <property name="underline">single</property>
-                                  </object>
-                                </child>
-                                <child type="tag">
-                                  <object class="GtkTextTag" id="s_font">
-                                    <property name="strikethrough">1</property>
-                                  </object>
-                                </child>
+                                </property>
                               </object>
                             </property>
+                            <style>
+                              <class name="notejot-view"/>
+                            </style>
                           </object>
-                        </property>
-                        <style>
-                          <class name="notejot-view"/>
-                        </style>
+                        </child>
                       </object>
                     </child>
                   </object>
                 </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRevealer" id="format_revealer">
-                <property name="can-focus">0</property>
-                <property name="transition-type">crossfade</property>
                 <child>
-                  <object class="GtkActionBar" id="note_footer">
-                    <style>
-                      <class name="content-footer"/>
-                      <class name="notejot-footer"/>
-                    </style>
-                    <child type="center">
-                      <object class="GtkBox">
-                        <property name="spacing">6</property>
-                        <child>
-                          <object class="GtkButton" id="normal_button">
-                            <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
-                            <signal name="clicked" handler="action_normal" />
-                            <property name="icon-name">font-x-generic-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <style>
-                              <class name="spacer"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="bold_button">
-                            <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
-                            <signal name="clicked" handler="action_bold" />
-                            <property name="icon-name">format-text-bold-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="italic_button">
-                            <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
-                            <signal name="clicked" handler="action_italic" />
-                            <property name="icon-name">format-text-italic-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="ul_button">
-                            <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
-                            <signal name="clicked" handler="action_ul" />
-                            <property name="icon-name">format-text-underline-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="s_button">
-                            <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
-                            <signal name="clicked" handler="action_s" />
-                            <property name="icon-name">format-text-strikethrough-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <style>
-                              <class name="spacer"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="ulist_button">
-                            <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
-                            <signal name="clicked" handler="action_item" />
-                            <property name="icon-name">view-list-bullet-symbolic</property>
+                  <object class="GtkRevealer" id="format_revealer">
+                    <property name="can-focus">0</property>
+                    <property name="transition-type">crossfade</property>
+                    <child>
+                      <object class="GtkActionBar" id="note_footer">
+                        <style>
+                          <class name="content-footer"/>
+                          <class name="notejot-footer"/>
+                        </style>
+                        <child type="center">
+                          <object class="GtkBox">
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkButton" id="normal_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
+                                <signal name="clicked" handler="action_normal" />
+                                <property name="icon-name">font-x-generic-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="spacer"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="bold_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
+                                <signal name="clicked" handler="action_bold" />
+                                <property name="icon-name">format-text-bold-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="italic_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
+                                <signal name="clicked" handler="action_italic" />
+                                <property name="icon-name">format-text-italic-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="ul_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
+                                <signal name="clicked" handler="action_ul" />
+                                <property name="icon-name">format-text-underline-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="s_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
+                                <signal name="clicked" handler="action_s" />
+                                <property name="icon-name">format-text-strikethrough-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="spacer"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="ulist_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
+                                <signal name="clicked" handler="action_item" />
+                                <property name="icon-name">view-list-bullet-symbolic</property>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>

@@ -10,7 +10,7 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     public unowned Adw.StatusPage empty_view;
     [GtkChild]
-    public unowned Gtk.MenuButton settingmenu;
+    public unowned Gtk.MenuButton s_menu;
     [GtkChild]
     unowned Gtk.Box note_header;
     [GtkChild]
@@ -28,8 +28,6 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     unowned Gtk.Revealer format_revealer;
     [GtkChild]
-    unowned Gtk.ToggleButton note_pin_button;
-    [GtkChild]
     unowned Gtk.TextTag bold_font;
     [GtkChild]
     unowned Gtk.TextTag italic_font;
@@ -37,18 +35,25 @@ public class Notejot.NoteContentView : View {
     unowned Gtk.TextTag ul_font;
     [GtkChild]
     unowned Gtk.TextTag s_font;
+    [GtkChild]
+    public unowned Gtk.Button back_button;
+    [GtkChild]
+    public new unowned Adw.HeaderBar titlebar;
 
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
     Binding? pinned_binding;
     Binding? text_binding;
+    Binding? bb_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
     public NoteViewModel? vm {get; set;}
     public NotebookViewModel? nvm {get; set;}
     public MainWindow? win {get; set;}
-    Widgets.NoteTheme nmp;
+    public Adw.Leaflet? leaflet {get; set;}
+    public Widgets.NoteTheme nmp;
+    public Gtk.Popover? pop;
     uint update_idle_source = 0;
 
     Note? _note;
@@ -70,10 +75,10 @@ public class Notejot.NoteContentView : View {
             _note = value;
 
             format_revealer.reveal_child = _note != null ? true : false;
-            settingmenu.visible = _note != null ? true : false;
+            s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            nmp = new Widgets.NoteTheme ();
+            nmp = new Widgets.NoteTheme (this, vm, nvm, _note);
 
             nmp.color_button_red.toggled.connect (() => {
                 if (_note != null)
@@ -132,13 +137,8 @@ public class Notejot.NoteContentView : View {
                 });
             }
 
-            var sbuilder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/note_menu.ui");
-            var smenu = (Menu)sbuilder.get_object ("smenu");
-
-            settingmenu.menu_model = smenu;
-
-            var popover = settingmenu.get_popover ();
-            popover.add_child (sbuilder, nmp, "theme");
+            pop = s_menu.get_popover ();
+            pop.add_child (null, nmp, "theme");
 
             note_title.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             note_title.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
@@ -151,7 +151,7 @@ public class Notejot.NoteContentView : View {
             notebook_binding = _note?.bind_property (
                 "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             pinned_binding = _note?.bind_property (
-                "pinned", note_pin_button, "active", SYNC_CREATE|BIDIRECTIONAL);
+                "pinned", nmp.note_pin_button, "active", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property (
                 "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
 
@@ -202,6 +202,7 @@ public class Notejot.NoteContentView : View {
 
             vm.update_note_color (_note, _note.color);
 
+            bb_binding = leaflet?.bind_property ("folded", back_button, "visible", DEFAULT);
         }
     }
 
@@ -216,6 +217,12 @@ public class Notejot.NoteContentView : View {
         note_header.get_style_context().add_provider(provider, 1);
         note_textbox.get_style_context().add_provider(provider, 1);
         note_footer.get_style_context().add_provider(provider, 1);
+
+        leaflet?.set_visible_child (win.grid);
+
+        back_button.clicked.connect (() => {
+            win.leaf.set_visible_child (win.sgrid);
+        });
     }
 
     public void fmt_syntax_start () {
@@ -269,17 +276,6 @@ public class Notejot.NoteContentView : View {
     void on_text_updated () {
         note_update_requested (note);
         fmt_syntax_start ();
-    }
-
-    [GtkCallback]
-    void on_delete_button_clicked () {
-        note_removal_requested (note);
-    }
-
-    [GtkCallback]
-    public void action_move_to () {
-        var move_to_dialog = new Widgets.MoveToDialog (this, nvm, vm, note);
-        move_to_dialog.show ();
     }
 
     private void erase_utf8 (StringBuilder builder, ssize_t start, ssize_t len) {

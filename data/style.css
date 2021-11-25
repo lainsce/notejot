@@ -198,6 +198,15 @@
   margin: 0px;
 }
 
+.notejot-theme {
+  margin: 0;
+  padding: 0;
+}
+
+.notejot-theme button {
+  font-weight: 500;
+}
+
 .notejot-titlebar,
 .notejot-stitle {
 	border-bottom: none;

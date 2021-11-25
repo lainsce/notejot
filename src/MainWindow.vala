@@ -25,33 +25,30 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button new_button;
         [GtkChild]
-        public unowned Gtk.Button back_button;
-        [GtkChild]
         public unowned Gtk.MenuButton menu_button;
 
         [GtkChild]
-        public unowned Gtk.Box grid;
-        [GtkChild]
         public unowned Gtk.Box sgrid;
         [GtkChild]
-        public unowned Adw.Leaflet leaflet;
+        public unowned Adw.Leaflet leaf;
         [GtkChild]
         public unowned Gtk.Overlay list_scroller;
         [GtkChild]
         public unowned Notejot.NoteListView listview;
+        [GtkChild]
+        public unowned Notejot.NoteContentView grid;
 
         [GtkChild]
         public unowned Gtk.Box main_box;
         [GtkChild]
         public unowned Gtk.Stack sidebar_stack;
         [GtkChild]
-        public new unowned Adw.HeaderBar titlebar;
-        [GtkChild]
         public unowned Adw.HeaderBar stitlebar;
 
         // Custom
         public NoteListView view_list;
         public MainWindow? mw {get; set;}
+        public Adw.Leaflet? leaflet {get; set;}
 
         // Etc
         public Gtk.Settings gtk_settings;
@@ -99,10 +96,6 @@ namespace Notejot {
             app.set_accels_for_action ("win.action_keys", {"<Ctrl>question"});
 
             // Main View
-            back_button.clicked.connect (() => {
-                leaflet.set_visible_child (sgrid);
-            });
-
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
@@ -128,6 +121,7 @@ namespace Notejot {
 
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
+            this.leaflet = leaf;
         }
 
         protected override bool close_request () {

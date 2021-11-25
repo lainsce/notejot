@@ -11,7 +11,7 @@
         <property name="orientation">vertical</property>
         <property name="homogeneous">1</property>
         <child>
-          <object class="AdwLeaflet" id="leaflet">
+          <object class="AdwLeaflet" id="leaf">
             <property name="can-navigate-back">1</property>
             <property name="can-navigate-forward">1</property>
             <child>
@@ -20,7 +20,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar" id="stitlebar">
-                    <property name="show-end-title-buttons" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
+                    <property name="show-end-title-buttons" bind-source="leaf" bind-property="folded" bind-flags="sync-create"/>
                     <property name="valign">center</property>
                     <property name="hexpand">0</property>
                     <property name="width-request">200</property>
@@ -116,48 +116,25 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="grid">
-                <property name="hexpand">1</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="AdwHeaderBar" id="titlebar">
-                    <property name="show-start-title-buttons" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
-                    <property name="hexpand">1</property>
-                    <child type="title">
-                      <object class="GtkBox">
-                      </object>
-                    </child>
-                    <style>
-                      <class name="notejot-titlebar"/>
-                    </style>
-                    <child>
-                      <object class="GtkButton" id="back_button">
-                        <property name="visible" bind-source="leaflet" bind-property="folded" bind-flags="sync-create"/>
-                        <property name="receives-default">1</property>
-                        <property name="icon-name">go-previous-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="NotejotNoteContentView">
-                    <property name="hexpand">yes</property>
-                    <signal name="note_update_requested" handler="on_note_update_requested" />
-                    <signal name="note_removal_requested" handler="on_note_removal_requested" />
-                    <binding name="note">
-                      <lookup name="selected-note">listview</lookup>
-                    </binding>
-                    <binding name="vm">
-                      <lookup name="view-model">NotejotMainWindow</lookup>
-                    </binding>
-                    <binding name="nvm">
-                      <lookup name="nbview-model">NotejotMainWindow</lookup>
-                    </binding>
-                    <binding name="win">
-                      <lookup name="mw">NotejotMainWindow</lookup>
-                    </binding>
-                  </object>
-                </child>
+              <object class="NotejotNoteContentView" id="grid">
+                <property name="hexpand">yes</property>
+                <signal name="note_update_requested" handler="on_note_update_requested" />
+                <signal name="note_removal_requested" handler="on_note_removal_requested" />
+                <binding name="note">
+                  <lookup name="selected-note">listview</lookup>
+                </binding>
+                <binding name="vm">
+                  <lookup name="view-model">NotejotMainWindow</lookup>
+                </binding>
+                <binding name="nvm">
+                  <lookup name="nbview-model">NotejotMainWindow</lookup>
+                </binding>
+                <binding name="win">
+                  <lookup name="mw">NotejotMainWindow</lookup>
+                </binding>
+                <binding name="leaflet">
+                  <lookup name="leaflet">NotejotMainWindow</lookup>
+                </binding>
               </object>
             </child>
           </object>
