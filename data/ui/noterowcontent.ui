@@ -47,9 +47,7 @@
               <property name="use-markup">1</property>
               <binding name="label">
                 <closure type="gchararray" function="get_subtitle_line">
-                  <lookup name="text" type="NotejotNote">
-                    <lookup name="note">NotejotNoteRowContent</lookup>
-                  </lookup>
+                  <lookup name="note">NotejotNoteRowContent</lookup>
                 </closure>
               </binding>
               <style>

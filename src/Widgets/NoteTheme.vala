@@ -43,9 +43,8 @@ namespace Notejot {
         public NoteViewModel? vm {get; set;}
         public NotebookViewModel? nvm {get; set;}
         public NoteContentView? ncv {get; set;}
-        public Note note;
 
-        public NoteTheme (NoteContentView? ncv, NoteViewModel? vm, NotebookViewModel? nvm, Note? note) {
+        public NoteTheme (NoteContentView? ncv, NoteViewModel? vm, NotebookViewModel? nvm) {
             Object (
                 vm: vm,
                 nvm: nvm,
@@ -55,7 +54,7 @@ namespace Notejot {
 
         [GtkCallback]
         public void action_move_to () {
-            var move_to_dialog = new Widgets.MoveToDialog (ncv, nvm, vm, note);
+            var move_to_dialog = new Widgets.MoveToDialog (ncv, nvm, vm);
             move_to_dialog.show ();
             ncv.pop.closed();
         }

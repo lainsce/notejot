@@ -24,8 +24,6 @@ public class Notejot.NoteRowContent : Adw.Bin {
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
 
             provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
-            var style_manager = new StyleManager ();
-            style_manager.set_css (_note.color);
         }
     }
 

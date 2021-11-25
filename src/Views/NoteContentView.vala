@@ -75,7 +75,7 @@ public class Notejot.NoteContentView : View {
             s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            var nmp = new Widgets.NoteTheme (this, vm, nvm, _note);
+            var nmp = new Widgets.NoteTheme (this, vm, nvm);
 
             nmp.note_pin_button.clicked.connect (() => {
                 if (_note != null)
@@ -229,6 +229,14 @@ public class Notejot.NoteContentView : View {
         note_footer.get_style_context().add_provider(provider, 1);
     }
 
+    public signal void note_update_requested (Note note);
+    public signal void note_removal_requested (Note note);
+
+    void on_text_updated () {
+        note_update_requested (note);
+        fmt_syntax_start ();
+    }
+
     public void fmt_syntax_start () {
         if (update_idle_source > 0) {
             GLib.Source.remove (update_idle_source);
@@ -272,14 +280,6 @@ public class Notejot.NoteContentView : View {
 
         update_idle_source = 0;
         return GLib.Source.REMOVE;
-    }
-
-    public signal void note_update_requested (Note note);
-    public signal void note_removal_requested (Note note);
-
-    void on_text_updated () {
-        note_update_requested (note);
-        fmt_syntax_start ();
     }
 
     private void erase_utf8 (StringBuilder builder, ssize_t start, ssize_t len) {

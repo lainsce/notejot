@@ -19,7 +19,7 @@
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
     public class Widgets.MoveToDialog : Adw.Window {
-        public unowned NoteContentView lcv = null;
+        public unowned NoteContentView ncv = null;
         public NotebookViewModel nbview_model {get; set;}
         public NoteViewModel view_model {get; set;}
 
@@ -45,20 +45,20 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button move_button;
 
-        public MoveToDialog (NoteContentView lcv, NotebookViewModel nbview_model, NoteViewModel view_model, Note? note) {
+        public MoveToDialog (NoteContentView ncv, NotebookViewModel nbview_model, NoteViewModel view_model) {
             Object (
                 nbview_model: nbview_model,
                 view_model: view_model
             );
-            this.lcv = lcv;
+            this.ncv = ncv;
             this.set_modal (true);
-            this.set_transient_for (MiscUtils.find_ancestor_of_type<MainWindow>(lcv));
+            this.set_transient_for (MiscUtils.find_ancestor_of_type<MainWindow>(ncv));
 
             cancel_button.clicked.connect (() => {
                 this.dispose ();
             });
 
-            if (lcv.note.notebook == "<i>" + _("No Notebook") + "</i>") {
+            if (ncv.note.notebook == "<i>" + _("No Notebook") + "</i>") {
                 remove_notebook_button.sensitive = false;
             } else {
                 remove_notebook_button.sensitive = true;
@@ -69,7 +69,7 @@ namespace Notejot {
         void on_move_notebook_requested () {
             if (notebook != null) {
                 string nb = notebook.title;
-                view_model.update_notebook (lcv.note, nb);
+                view_model.update_notebook (ncv.note, nb);
                 this.dispose ();
             }
         }
@@ -78,7 +78,7 @@ namespace Notejot {
         void on_remove_notebook_requested () {
             if (notebook != null) {
                 string nb = "<i>" + "No Notebook" + "</i>";
-                view_model.update_notebook (lcv.note, nb);
+                view_model.update_notebook (ncv.note, nb);
                 remove_notebook_button.set_sensitive (false);
                 this.dispose ();
             }
