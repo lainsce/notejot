@@ -20,7 +20,7 @@ public class Notejot.NotebookRowDelete : Adw.Bin {
     void on_delete_button_clicked () {
         // Just traversing again, don't mind my trek.
         // This isn't weird, it's just going up the
-        // chain to NotejotListView.
+        // chain to NotebookListView.
         ((NotebookListView)this.get_parent ()
                                .get_parent ()
                                .get_parent ()
