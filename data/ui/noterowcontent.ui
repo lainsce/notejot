@@ -10,11 +10,12 @@
         <class name="notejot-sidebar-box"/>
       </style>
       <child type="prefix">
-        <object class="GtkImage" id="badge">
-          <property name="valign">center</property>
-          <style>
-            <class name="notejot-badge"/>
-          </style>
+        <object class="NotejotNoteRowBadge">
+          <binding name="color">
+            <lookup name="color" type="NotejotNote">
+              <lookup name="note">NotejotNoteRowContent</lookup>
+            </lookup>
+          </binding>
         </object>
       </child>
       <child>

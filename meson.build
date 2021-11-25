@@ -73,6 +73,7 @@ sources = files(
     'src/Views/NotebookMoveListView.vala',
     'src/Views/View.vala',
     'src/Widgets/EditNotebookDialog.vala',
+    'src/Widgets/NoteRowBadge.vala',
     'src/Widgets/NoteRowContent.vala',
     'src/Widgets/MoveToDialog.vala',
     'src/Widgets/NotebookRowContent.vala',
