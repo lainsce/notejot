@@ -77,11 +77,15 @@ public class Notejot.NoteContentView : View {
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm, _note);
 
-            nmp.note_pin_button.set_active (_note.pinned);
-            nmp.note_pin_button.toggled.connect (() => {
+            nmp.note_pin_button.clicked.connect (() => {
                 if (_note != null)
-                    _note.pinned = nmp.note_pin_button.get_active ();
-                    vm.update_note (_note);
+                    if (!_note.pinned) {
+                        _note.pinned = true;
+                        vm.update_note (_note);
+                    } else {
+                        _note.pinned = false;
+                        vm.update_note (_note);
+                    }
             });
 
             nmp.color_button_red.toggled.connect (() => {

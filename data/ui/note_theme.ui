@@ -22,7 +22,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkToggleButton" id="note_pin_button">
+      <object class="GtkButton" id="note_pin_button">
         <property name="hexpand">1</property>
         <property name="child">
           <object class="GtkLabel">
