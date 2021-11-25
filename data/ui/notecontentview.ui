@@ -41,9 +41,9 @@
           <object class="GtkStack" id="stack">
             <property name="transition_type">crossfade</property>
             <child>
-              <object class="GtkWindowHandle">
+              <object class="GtkWindowHandle" id="empty_view">
                 <child>
-                  <object class="AdwStatusPage" id="empty_view">
+                  <object class="AdwStatusPage">
                     <property name="icon-name">list-select-symbolic</property>
                     <property name="title">Select a note</property>
                   </object>

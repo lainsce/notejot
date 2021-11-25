@@ -22,6 +22,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.ToggleButton note_pin_button;
         [GtkChild]
+        public unowned Gtk.Button delete_button;
+        [GtkChild]
         public unowned Gtk.CheckButton color_button_red;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_orange;
@@ -41,31 +43,20 @@ namespace Notejot {
         public NoteViewModel? vm {get; set;}
         public NotebookViewModel? nvm {get; set;}
         public NoteContentView? ncv {get; set;}
-        public Note? note {get; set;}
+        public Note note;
 
         public NoteTheme (NoteContentView? ncv, NoteViewModel? vm, NotebookViewModel? nvm, Note? note) {
             Object (
                 vm: vm,
                 nvm: nvm,
-                ncv: ncv,
-                note: note
+                ncv: ncv
             );
-        }
-
-        ~NoteTheme (){
-            note = null;
         }
 
         [GtkCallback]
         public void action_move_to () {
             var move_to_dialog = new Widgets.MoveToDialog (ncv, nvm, vm, note);
             move_to_dialog.show ();
-            ncv.pop.closed();
-        }
-
-        [GtkCallback]
-        void on_delete_button_clicked () {
-            ncv.note_removal_requested (note);
             ncv.pop.closed();
         }
     }

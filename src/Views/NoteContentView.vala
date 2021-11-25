@@ -8,7 +8,7 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     public unowned Gtk.Box note_view;
     [GtkChild]
-    public unowned Adw.StatusPage empty_view;
+    public unowned Gtk.WindowHandle empty_view;
     [GtkChild]
     public unowned Gtk.MenuButton s_menu;
     [GtkChild]
@@ -52,7 +52,6 @@ public class Notejot.NoteContentView : View {
     public NotebookViewModel? nvm {get; set;}
     public MainWindow? win {get; set;}
     public Adw.Leaflet? leaflet {get; set;}
-    public Widgets.NoteTheme nmp;
     public Gtk.Popover? pop;
     uint update_idle_source = 0;
 
@@ -78,7 +77,7 @@ public class Notejot.NoteContentView : View {
             s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            nmp = new Widgets.NoteTheme (this, vm, nvm, _note);
+            var nmp = new Widgets.NoteTheme (this, vm, nvm, _note);
 
             nmp.color_button_red.toggled.connect (() => {
                 if (_note != null)
@@ -120,6 +119,12 @@ public class Notejot.NoteContentView : View {
                 if (_note != null)
                     provider.load_from_data ((uint8[]) "@define-color note_color #63452c;");
                     vm.update_note_color (_note, "#63452c");
+            });
+
+            nmp.delete_button.clicked.connect (() => {
+                if (_note != null)
+                    note_removal_requested (_note);
+                    pop.closed ();
             });
 
             var adwsm = Adw.StyleManager.get_default ();

@@ -166,7 +166,6 @@
     </child>
     <child type="end">
       <object class="GtkButton" id="delete_button">
-        <signal name="clicked" handler="on_delete_button_clicked" />
         <property name="hexpand">1</property>
         <property name="child">
           <object class="GtkLabel">
