@@ -64,6 +64,9 @@
                 <binding name="nbview-model">
                   <lookup name="nbview-model">NotejotWidgetsEditNotebooksDialog</lookup>
                 </binding>
+                <binding name="view-model">
+                  <lookup name="view-model">NotejotWidgetsEditNotebooksDialog</lookup>
+                </binding>
               </object>
             </child>
           </object>

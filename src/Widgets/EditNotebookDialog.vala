@@ -21,15 +21,17 @@ namespace Notejot {
     public class Widgets.EditNotebooksDialog : Adw.Window {
         public unowned MainWindow win = null;
         public NotebookViewModel nbview_model {get; set;}
+        public NoteViewModel view_model {get; set;}
 
         [GtkChild]
         public unowned Gtk.Entry notebook_name_entry;
         [GtkChild]
         public unowned Gtk.Button notebook_add_button;
 
-        public EditNotebooksDialog (MainWindow win, NotebookViewModel nbview_model) {
+        public EditNotebooksDialog (MainWindow win, NotebookViewModel nbview_model, NoteViewModel view_model) {
             Object (
-                nbview_model: nbview_model
+                nbview_model: nbview_model,
+                view_model: view_model
             );
             this.win = win;
             this.set_modal (true);

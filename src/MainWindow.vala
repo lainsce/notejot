@@ -191,7 +191,7 @@ namespace Notejot {
         }
 
         public void action_edit_notebooks () {
-            var edit_nb_dialog = new Widgets.EditNotebooksDialog (this, nbview_model);
+            var edit_nb_dialog = new Widgets.EditNotebooksDialog (this, nbview_model, view_model);
             edit_nb_dialog.show ();
         }
     }
