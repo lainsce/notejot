@@ -52,7 +52,7 @@ public class Notejot.NoteContentView : View {
     public NotebookViewModel? nvm {get; set;}
     public MainWindow? win {get; set;}
     public Adw.Leaflet? leaflet {get; set;}
-    public Gtk.Popover? pop;
+    public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
 
     Note? _note;
@@ -142,8 +142,8 @@ public class Notejot.NoteContentView : View {
                 });
             }
 
-            pop = s_menu.get_popover ();
-            pop.add_child (null, nmp, "theme");
+            pop = (Gtk.PopoverMenu)s_menu.get_popover ();
+            pop.add_child (nmp, "theme");
 
             note_title.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
             note_title.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
