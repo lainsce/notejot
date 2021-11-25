@@ -205,6 +205,11 @@
 
 .notejot-theme button {
   font-weight: 400;
+  padding: 4px 10px;
+}
+
+.notejot-theme separator {
+  margin: 2px;
 }
 
 .notejot-titlebar,
