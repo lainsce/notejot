@@ -136,20 +136,12 @@ public class Notejot.NoteContentView : View {
                     pop.closed ();
             });
 
-            var adwsm = Adw.StyleManager.get_default ();
-            if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
-                nmp.color_button_reset.toggled.connect (() => {
-                    if (_note != null)
-                        provider.load_from_data ((uint8[]) "@define-color note_color #151515;");
-                        vm.update_note_color (_note, "#151515");
-                });
-            } else {
-                nmp.color_button_reset.toggled.connect (() => {
-                    if (_note != null)
-                        provider.load_from_data ((uint8[]) "@define-color note_color #fff;");
-                        vm.update_note_color (_note, "#fff");
-                });
-            }
+            nmp.color_button_reset.toggled.connect (() => {
+                if (_note != null) {
+                    provider.load_from_data ((uint8[]) "@define-color note_color #797775;");
+                    vm.update_note_color (_note, "#797775");
+                }
+            });
 
             pop = (Gtk.PopoverMenu)s_menu.get_popover ();
             pop.add_child (nmp, "theme");

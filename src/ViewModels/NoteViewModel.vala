@@ -23,15 +23,9 @@ public class Notejot.NoteViewModel : Object {
             subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
             text = "Type text here…",
             notebook = "<i>" + _("No Notebook") + "</i>",
+            color = "#797775",
             pinned = false
         };
-
-        var adwsm = Adw.StyleManager.get_default ();
-        if (adwsm.get_color_scheme () != Adw.ColorScheme.PREFER_LIGHT) {
-            note.color = "#151515";
-        } else {
-            note.color = "#fff";
-        }
 
         notes.add (note);
 
