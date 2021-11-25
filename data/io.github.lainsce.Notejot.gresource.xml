@@ -16,8 +16,6 @@
       <file alias="notelistview.ui">ui/notelistview.ui</file>
       <file alias="noterow.ui">ui/noterow.ui</file>
       <file alias="noterowcontent.ui">ui/noterowcontent.ui</file>
-      <file alias="noterowpin.ui">ui/noterowpin.ui</file>
-      <file alias="noterowbadge.ui">ui/noterowbadge.ui</file>
       <file alias="notebooklistview.ui">ui/notebooklistview.ui</file>
       <file alias="notebookrow.ui">ui/notebookrow.ui</file>
       <file alias="notebookrowentry.ui">ui/notebookrowentry.ui</file>

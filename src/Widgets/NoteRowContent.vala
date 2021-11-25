@@ -1,15 +1,44 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/noterowcontent.ui")]
 public class Notejot.NoteRowContent : Adw.Bin {
-    public Note? cnote { get; set;}
+    [GtkChild]
+    unowned Gtk.Image badge;
+    [GtkChild]
+    unowned Gtk.Image pin;
+
+    Binding? pinned_binding;
+
+    private Gtk.CssProvider provider = new Gtk.CssProvider();
+
+    Note? _note;
+    public Note? note {
+        get { return _note; }
+        set {
+            if (value == _note)
+                return;
+
+            pinned_binding?.unbind ();
+
+            _note = value;
+
+            pinned_binding = _note?.bind_property (
+                "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
+        }
+    }
 
     public NoteRowContent (Note note) {
         Object(
-            cnote: note
+            note: note
         );
+    }
+
+    construct {
+        badge.get_style_context().add_provider(provider, 1);
     }
 
     [GtkCallback]
     string get_subtitle_line () {
-        return cnote.notebook + " – " + cnote.text;
+        return note.notebook + " – " + note.text;
     }
 }

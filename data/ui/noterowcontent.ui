@@ -10,10 +10,11 @@
         <class name="notejot-sidebar-box"/>
       </style>
       <child type="prefix">
-        <object class="NotejotNoteRowBadge">
-          <binding name="note">
-            <lookup name="cnote">NotejotNoteRowContent</lookup>
-          </binding>
+        <object class="GtkImage" id="badge">
+          <property name="valign">center</property>
+          <style>
+            <class name="notejot-badge"/>
+          </style>
         </object>
       </child>
       <child>
@@ -29,7 +30,7 @@
               <property name="single-line-mode">yes</property>
               <binding name="label">
                 <lookup name="title" type="NotejotNote">
-                  <lookup name="cnote">NotejotNoteRowContent</lookup>
+                  <lookup name="note">NotejotNoteRowContent</lookup>
                 </lookup>
               </binding>
               <style>
@@ -47,7 +48,7 @@
               <binding name="label">
                 <closure type="gchararray" function="get_subtitle_line">
                   <lookup name="text" type="NotejotNote">
-                    <lookup name="cnote">NotejotNoteRowContent</lookup>
+                    <lookup name="note">NotejotNoteRowContent</lookup>
                   </lookup>
                 </closure>
               </binding>
@@ -59,13 +60,14 @@
         </object>
       </child>
       <child type="suffix">
-        <object class="NotejotNoteRowPin">
-          <binding name="note">
-            <lookup name="cnote">NotejotNoteRowContent</lookup>
-          </binding>
+        <object class="GtkImage" id="pin">
+          <property name="valign">center</property>
+          <property name="halign">end</property>
+          <property name="hexpand">1</property>
+          <property name="icon-name">view-pin-symbolic</property>
           <binding name="visible">
             <lookup name="pinned" type="NotejotNote">
-              <lookup name="cnote">NotejotNoteRowContent</lookup>
+              <lookup name="note">NotejotNoteRowContent</lookup>
             </lookup>
           </binding>
         </object>

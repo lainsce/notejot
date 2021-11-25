@@ -3,7 +3,7 @@
 <template class="GtkListItem">
   <property name="child">
     <object class="NotejotNoteRowContent">
-      <binding name="cnote">
+      <binding name="note">
         <lookup name="item">GtkListItem</lookup>
       </binding>
     </object>
