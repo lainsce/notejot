@@ -273,8 +273,8 @@
   color: #beaa98;
 }
 .color-reset radio {
-  background: #797775;
-  color: #797775;
+  background: @view_bg_color;
+  color: @view_bg_color;
 }
 
 .big-font {
