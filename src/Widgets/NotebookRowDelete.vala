@@ -18,6 +18,14 @@ public class Notejot.NotebookRowDelete : Adw.Bin {
 
     [GtkCallback]
     void on_delete_button_clicked () {
-        notebook.dispose ();
+        // Just traversing again, don't mind my trek.
+        // This isn't weird, it's just going up the
+        // chain to NotejotListView.
+        ((NotebookListView)this.get_parent ()
+                               .get_parent ()
+                               .get_parent ()
+                               .get_parent ()
+                               .get_parent ()
+                               .get_parent ()).notebook_removal_requested (notebook);
     }
 }
