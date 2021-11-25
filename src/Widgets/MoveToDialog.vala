@@ -52,10 +52,7 @@ namespace Notejot {
             );
             this.lcv = lcv;
             this.set_modal (true);
-
-            // I know this looks weird but it's just traversing until it finds the GTK Window,
-            // won't break because the order is final.
-            this.set_transient_for (((Gtk.Window)lcv.get_parent ().get_parent ().get_parent ().get_parent ()));
+            this.set_transient_for (MiscUtils.find_ancestor_of_type<MainWindow>(lcv));
 
             cancel_button.clicked.connect (() => {
                 this.dispose ();

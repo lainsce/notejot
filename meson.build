@@ -60,6 +60,7 @@ sources = files(
     'src/Services/StyleManager.vala',
     'src/Utils/FileUtils.vala',
     'src/Utils/FormatUtils.vala',
+    'src/Utils/MiscUtils.vala',
     'src/Utils/NoteSorter.vala',
     'src/Utils/ObservableList.vala',
     'src/Utils/ThreadUtils.vala',
