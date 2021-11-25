@@ -43,7 +43,6 @@ public class Notejot.NoteContentView : View {
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
-    Binding? pinned_binding;
     Binding? text_binding;
     Binding? bb_binding;
 
@@ -65,7 +64,6 @@ public class Notejot.NoteContentView : View {
             title_binding?.unbind ();
             subtitle_binding?.unbind ();
             notebook_binding?.unbind ();
-            pinned_binding?.unbind ();
             text_binding?.unbind ();
 
             if (_note != null)
@@ -78,6 +76,13 @@ public class Notejot.NoteContentView : View {
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm, _note);
+
+            nmp.note_pin_button.set_active (_note.pinned);
+            nmp.note_pin_button.toggled.connect (() => {
+                if (_note != null)
+                    _note.pinned = nmp.note_pin_button.get_active ();
+                    vm.update_note (_note);
+            });
 
             nmp.color_button_red.toggled.connect (() => {
                 if (_note != null)
@@ -155,8 +160,6 @@ public class Notejot.NoteContentView : View {
                 "subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             notebook_binding = _note?.bind_property (
                 "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
-            pinned_binding = _note?.bind_property (
-                "pinned", nmp.note_pin_button, "active", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property (
                 "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
 
