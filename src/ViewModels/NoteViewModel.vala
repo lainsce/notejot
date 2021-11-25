@@ -1,6 +1,5 @@
 public class Notejot.NoteViewModel : Object {
     uint timeout_id = 0;
-    int uid = 0;
 
     public ObservableList<Note> notes { get; default = new ObservableList<Note> (); }
     public NoteRepository? repository { private get; construct; }
@@ -16,10 +15,8 @@ public class Notejot.NoteViewModel : Object {
     public void create_new_note (MainWindow win) {
         var dt = new GLib.DateTime.now_local ();
 
-        uid++;
-
         var note = new Note () {
-            title = _("New Note ") + (@"$uid"),
+            title = _("New Note"),
             subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
             text = "Type text here…",
             notebook = "<i>" + _("No Notebook") + "</i>",
