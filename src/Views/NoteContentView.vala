@@ -207,7 +207,13 @@ public class Notejot.NoteContentView : View {
 
             vm.update_note_color (_note, _note.color);
 
-            bb_binding = leaflet?.bind_property ("folded", back_button, "visible", DEFAULT);
+            ((Adw.Leaflet)this.get_parent()).set_visible_child (this);
+
+            bb_binding = ((Adw.Leaflet)this.get_parent()).bind_property ("folded", back_button, "visible", SYNC_CREATE);
+
+            back_button.clicked.connect (() => {
+                ((Adw.Leaflet)this.get_parent()).set_visible_child (((MainWindow)this.get_parent().get_parent().get_parent().get_parent()).sgrid);
+            });
         }
     }
 
@@ -222,12 +228,6 @@ public class Notejot.NoteContentView : View {
         note_header.get_style_context().add_provider(provider, 1);
         note_textbox.get_style_context().add_provider(provider, 1);
         note_footer.get_style_context().add_provider(provider, 1);
-
-        leaflet?.set_visible_child (win.grid);
-
-        back_button.clicked.connect (() => {
-            win.leaf.set_visible_child (win.sgrid);
-        });
     }
 
     public void fmt_syntax_start () {
