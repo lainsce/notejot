@@ -31,9 +31,9 @@
      inkscape:snap-intersection-paths="true"
      inkscape:snap-smooth-nodes="true"
      inkscape:snap-midpoints="true"
-     inkscape:zoom="57.635581"
-     inkscape:cx="5.4566987"
-     inkscape:cy="8.2761376"
+     inkscape:zoom="40.75451"
+     inkscape:cx="8.3303664"
+     inkscape:cy="9.0051383"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -57,71 +57,17 @@
   </metadata>
   <defs
      id="defs17" />
-  <rect
-     style="fill:#241f31;stroke-width:1.54919;stop-color:#000000;fill-opacity:0.48718137"
-     id="rect865"
-     width="12"
-     height="4.5714283"
-     x="1.99992"
-     y="5.7142434" />
-  <rect
-     style="fill:#241f31;fill-opacity:1;stop-color:#000000"
-     id="rect930"
-     width="8"
-     height="1"
-     x="5"
-     y="7" />
-  <rect
-     style="fill:#241f31;fill-opacity:1;stop-color:#000000"
-     id="rect932"
-     width="5"
-     height="1"
-     x="5"
-     y="8" />
-  <rect
-     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
-     id="rect932-3"
-     width="5"
-     height="1"
-     x="5"
-     y="13" />
-  <rect
-     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
-     id="rect934"
-     width="8"
-     height="1"
-     x="5"
-     y="2" />
-  <rect
-     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
-     id="rect936"
-     width="8"
-     height="1"
-     x="5"
-     y="12" />
-  <rect
-     style="fill:#241f31;fill-opacity:0.55;stop-color:#000000"
-     id="rect932-6"
-     width="5"
-     height="1"
-     x="5"
-     y="3" />
-  <circle
-     style="fill:#241f31;stop-color:#000000"
-     id="path851"
-     cx="3.5"
-     cy="7.5"
-     r="0.5" />
-  <circle
-     style="fill:#241f31;stop-color:#000000;fill-opacity:0.55000001"
-     id="path853"
-     cx="3.5"
-     cy="2.5"
-     r="0.5" />
-  <circle
-     style="fill:#241f31;stop-color:#000000;fill-opacity:0.55000001"
-     id="path855"
-     cx="3.5"
-     cy="12.5"
-     r="0.5" />
+  <g
+     fill="#241f31"
+     id="g33">
+    <path
+       d="M 4,1 C 2.890625,1 2,1.890625 2,3 v 10 c 0,1.109375 0.890625,2 2,2 h 7 c 1.109375,0 2,-0.890625 2,-2 V 9 l -2,2 v 2 H 4 V 3 h 7 L 12.417969,1.582031 C 12.054688,1.222656 11.554688,1 11,1 Z m 0,0"
+       id="path27" />
+    <path
+       d="M 7,11 H 9 L 15,5 13,3 7,9 Z m 0,0"
+       id="path29" />
+    <path
+       d="M 5,3 H 6 V 13 H 5 Z m 0,0"
+       id="path31" />
+  </g>
 </svg>
