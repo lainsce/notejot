@@ -147,7 +147,6 @@ namespace Notejot {
         [GtkCallback]
         public void on_note_update_requested (Note note) {
             view_model.update_note (note);
-            leaflet.set_visible_child (grid);
         }
 
         [GtkCallback]
