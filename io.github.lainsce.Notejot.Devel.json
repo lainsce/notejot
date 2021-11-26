@@ -4,7 +4,6 @@
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Notejot",
-    "rename-icon" : "io.github.lainsce.Notejot.Devel",
     "finish-args" : [
         "--filesystem=xdg-run/gvfsd",
         "--socket=wayland",

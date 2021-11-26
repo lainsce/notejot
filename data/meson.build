@@ -1,6 +1,6 @@
 install_data(
-    meson.project_name() + '.gschema.xml',
-    install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
+  meson.project_name() + '.gschema.xml',
+  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
 msgfmt = find_program('msgfmt')
@@ -10,7 +10,7 @@ desktop_conf.set('icon', app_id)
 desktop_file = custom_target('desktop-file',
   input: configure_file(
     input: meson.project_name() + '.desktop.in',
-    output: '@BASENAME@' + '.desktop.in',
+    output: '@BASENAME@' + '.in',
     configuration: desktop_conf
   ),
   output: '@0@.desktop'.format(app_id),
@@ -35,11 +35,11 @@ if desktop_file_validate.found()
 endif
 
 i18n.merge_file(
-    input: meson.project_name() + '.appdata.xml.in',
-    output: meson.project_name() + '.appdata.xml',
-    po_dir: podir,
-    install: true,
-    install_dir: join_paths(get_option('datadir'), 'metainfo')
+  input: meson.project_name() + '.appdata.xml.in',
+  output: meson.project_name() + '.appdata.xml',
+  po_dir: podir,
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 subdir('icons')
