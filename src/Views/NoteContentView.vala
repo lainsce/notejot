@@ -229,12 +229,12 @@ public class Notejot.NoteContentView : View {
 
             vm.update_note_color (_note, _note.color);
 
-            ((Adw.Leaflet)this.get_parent()).set_visible_child (this);
+            ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child (this);
 
-            bb_binding = ((Adw.Leaflet)this.get_parent()).bind_property ("folded", back_button, "visible", SYNC_CREATE);
+            bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
 
             back_button.clicked.connect (() => {
-                ((Adw.Leaflet)this.get_parent()).set_visible_child (((MainWindow)this.get_parent().get_parent().get_parent().get_parent()).sgrid);
+                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
             });
 
             if (_note != null)

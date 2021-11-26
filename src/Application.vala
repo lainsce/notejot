@@ -51,7 +51,13 @@ public class Notejot.Application : Adw.Application {
         var nbrepo = new NotebookRepository ();
         var nbview_model = new NotebookViewModel (nbrepo);
 
-        new MainWindow (this, view_model, nbview_model);
+        typeof (TrashListView).ensure ();
+        typeof (TrashContentView).ensure ();
+
+        var trepo = new TrashRepository ();
+        var tview_model = new TrashViewModel (trepo);
+
+        new MainWindow (this, view_model, tview_model, nbview_model);
     }
     protected override void activate () {
         active_window?.present ();

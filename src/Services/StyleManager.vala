@@ -33,6 +33,12 @@ public class Notejot.StyleManager {
             .notejot-view text {
                 background: mix(@popover_bg_color, @note_color, 0.02);
             }
+            .notejot-view-footer {
+                border-radius: 0 0 8px 8px;;
+            }
+            .notejot-view-footer text {
+                background: mix(@popover_bg_color, @note_color, 0.02);
+            }
         ";
         css_provider.load_from_data(style.data);
         Gtk.StyleContext.add_provider_for_display (

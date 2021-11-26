@@ -48,6 +48,22 @@ public class Notejot.NoteViewModel : Object {
         save_notes ();
     }
 
+    public void restore_trash (Trash trash) {
+        var note = new Note () {
+            title = trash.title,
+            subtitle = trash.subtitle,
+            text = trash.text,
+            notebook = trash.notebook,
+            color = trash.color,
+            pinned = trash.pinned,
+        };
+
+        notes.add (note);
+
+        repository.insert_note (note);
+        save_notes ();
+    }
+
     public void update_note (Note note) {
         repository.update_note (note);
 
@@ -71,43 +87,10 @@ public class Notejot.NoteViewModel : Object {
     }
 
     public void delete_note (Note note, MainWindow win) {
-        var dialog = new Gtk.MessageDialog (win, 0, 0, 0, null);
-        dialog.modal = true;
+        notes.remove (note);
 
-        dialog.set_title (_("Delete This Note?"));
-        dialog.text = (_("Deleting means the note will be permanently lost with no recovery."));
-
-        dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
-        dialog.add_button (_("Delete"), Gtk.ResponseType.OK);
-
-        dialog.response.connect ((response_id) => {
-            switch (response_id) {
-                case Gtk.ResponseType.OK:
-                    notes.remove (note);
-
-                    repository.delete_note (note.id);
-                    save_notes ();
-                    dialog.close ();
-                    break;
-                case Gtk.ResponseType.NO:
-                    dialog.close ();
-                    break;
-                case Gtk.ResponseType.CANCEL:
-                case Gtk.ResponseType.CLOSE:
-                case Gtk.ResponseType.DELETE_EVENT:
-                    dialog.close ();
-                    return;
-                default:
-                    assert_not_reached ();
-            }
-        });
-
-        if (dialog != null) {
-            dialog.present ();
-            return;
-        } else {
-            dialog.show ();
-        }
+        repository.delete_note (note.id);
+        save_notes ();
     }
 
     async void populate_notes () {

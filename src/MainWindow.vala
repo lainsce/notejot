@@ -23,26 +23,19 @@ namespace Notejot {
         public signal void clicked ();
 
         [GtkChild]
-        public unowned Gtk.Button new_button;
-        [GtkChild]
         public unowned Gtk.MenuButton menu_button;
-
         [GtkChild]
-        public unowned Gtk.Box sgrid;
+        public unowned Gtk.Stack grid;
+        [GtkChild]
+        public unowned Gtk.Stack sgrid;
+        [GtkChild]
+        public unowned Gtk.WindowHandle nbgrid;
         [GtkChild]
         public unowned Adw.Leaflet leaf;
-        [GtkChild]
-        public unowned Gtk.Overlay list_scroller;
-        [GtkChild]
-        public unowned Notejot.NoteListView listview;
-        [GtkChild]
-        public unowned Notejot.NoteContentView grid;
-
         [GtkChild]
         public unowned Gtk.Box main_box;
 
         // Custom
-        public NoteListView view_list;
         public MainWindow? mw {get; set;}
         public Adw.Leaflet? leaflet {get; set;}
 
@@ -50,6 +43,7 @@ namespace Notejot {
         public Gtk.Settings gtk_settings;
         public NoteViewModel view_model { get; construct; }
         public NotebookViewModel nbview_model { get; construct; }
+        public TrashViewModel tview_model { get; construct; }
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -65,11 +59,12 @@ namespace Notejot {
         };
 
         public Adw.Application app { get; construct; }
-        public MainWindow (Adw.Application application, NoteViewModel view_model, NotebookViewModel nbview_model) {
+        public MainWindow (Adw.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model) {
             GLib.Object (
                 application: application,
                 app: application,
                 view_model: view_model,
+                tview_model: tview_model,
                 nbview_model: nbview_model,
                 icon_name: Config.APP_ID,
                 title: "Notejot"
@@ -148,6 +143,39 @@ namespace Notejot {
         [GtkCallback]
         public void on_note_removal_requested (Note note) {
             view_model.delete_note (note, this);
+            tview_model.create_new_trash (note);
+        }
+
+        [GtkCallback]
+        void on_clear_trash_requested () {
+            tview_model.delete_trash (this);
+        }
+
+        [GtkCallback]
+        public void on_trash_update_requested (Trash trash) {
+            tview_model.update_trash (trash);
+        }
+
+        [GtkCallback]
+        public void on_trash_restore_requested (Trash trash) {
+            tview_model.delete_one_trash (trash);
+            view_model.restore_trash (trash);
+        }
+
+        [GtkCallback]
+        public void on_action_all_notes () {
+            var settings = new Settings ();
+            settings.last_view = "list";
+            sgrid.set_visible_child_name ("notelist");
+            grid.set_visible_child_name ("note");
+        }
+
+        [GtkCallback]
+        public void on_action_trash () {
+            var settings = new Settings ();
+            settings.last_view = "trash";
+            sgrid.set_visible_child_name ("trashlist");
+            grid.set_visible_child_name ("trash");
         }
 
         public void action_about () {
