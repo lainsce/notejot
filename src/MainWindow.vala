@@ -40,10 +40,6 @@ namespace Notejot {
 
         [GtkChild]
         public unowned Gtk.Box main_box;
-        [GtkChild]
-        public unowned Gtk.Stack sidebar_stack;
-        [GtkChild]
-        public unowned Adw.HeaderBar stitlebar;
 
         // Custom
         public NoteListView view_list;
@@ -141,7 +137,7 @@ namespace Notejot {
         // IO?
         [GtkCallback]
         void on_new_note_requested () {
-            view_model.create_new_note (this);
+            view_model.create_new_note ();
         }
 
         [GtkCallback]

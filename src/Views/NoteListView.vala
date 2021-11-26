@@ -20,6 +20,10 @@
 public class Notejot.NoteListView : View {
     [GtkChild]
     unowned Gtk.SingleSelection selection_model;
+    [GtkChild]
+    public unowned Gtk.Button back_button;
+
+    Binding? bb_binding;
 
     public ObservableList<Note>? notes { get; set; }
     public Note? selected_note { get; set;}
@@ -31,8 +35,13 @@ public class Notejot.NoteListView : View {
 
             if (pos != Gtk.INVALID_LIST_POSITION)
                 to.set_object (selection_model.model.get_item (pos));
+                bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
 
             return true;
+        });
+
+        back_button.clicked.connect (() => {
+            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
         });
     }
 

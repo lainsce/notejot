@@ -22,7 +22,7 @@ public class Notejot.NotebookListView : View {
     public NotebookViewModel? nbview_model { get; set; }
     public NoteViewModel? view_model { get; set; }
 
-    public signal void new_notebook_requested ();
+    public signal void new_notebook_requested (Note note);
     public signal void notebook_removal_requested (Notebook notebook);
 
     [GtkCallback]

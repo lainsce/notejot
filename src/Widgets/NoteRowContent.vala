@@ -47,6 +47,33 @@ public class Notejot.NoteRowContent : Adw.Bin {
 
     [GtkCallback]
     string get_subtitle_line () {
-        return note.notebook + " – " + note.text;
+        var res = sync_subtitles (note.subtitle);
+        return res + " – " + note.text;
+    }
+
+    public string sync_subtitles (string subtitle) {
+        string res = "";
+        try {
+            var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+            GLib.MatchInfo match;
+
+            if (log != null) {
+                if (reg.match (subtitle, 0, out match)) {
+                    var e = new GLib.DateTime.now_local ();
+                    var d = new DateTime.local (e.get_year (),
+                                                int.parse(match.fetch_named ("month")),
+                                                int.parse(match.fetch_named ("day")),
+                                                int.parse(match.fetch_named ("hour")),
+                                                int.parse(match.fetch_named ("minute")),
+                                                e.get_second ());
+
+                    res = "%s".printf(TimeUtils.get_relative_datetime_compact(d));
+                }
+            }
+        } catch (GLib.RegexError re) {
+            warning ("%s".printf(re.message));
+        }
+
+        return res;
     }
 }

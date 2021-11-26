@@ -70,6 +70,7 @@ sources = files(
     'src/Views/NoteContentView.vala',
     'src/Views/NoteListView.vala',
     'src/Views/NotebookListView.vala',
+    'src/Views/NotebookMainListView.vala',
     'src/Views/NotebookMoveListView.vala',
     'src/Views/View.vala',
     'src/Widgets/EditNotebookDialog.vala',

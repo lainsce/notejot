@@ -30,7 +30,7 @@ public class Notejot.NoteViewModel : Object {
         populate_notes.begin ();
     }
 
-    public void create_new_note (MainWindow win) {
+    public void create_new_note () {
         var dt = new GLib.DateTime.now_local ();
 
         var note = new Note () {
