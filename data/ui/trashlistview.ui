@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="NotejotTrashListView" parent="NotejotView">
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="AdwHeaderBar" id="stitlebar">
+            <property name="show-end-title-buttons">0</property>
+            <property name="valign">center</property>
+            <property name="hexpand">0</property>
+            <property name="width-request">200</property>
+            <style>
+              <class name="notejot-stitle"/>
+              <class name="notejot-sbtitle"/>
+            </style>
+            <child>
+              <object class="GtkButton" id="back_button">
+                <property name="visible">0</property>
+                <property name="icon-name">go-previous-symbolic</property>
+              </object>
+            </child>
+            <child type="title">
+              <object class="AdwBin" />
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="hscrollbar-policy">never</property>
+            <property name="width-request">250</property>
+            <property name="vexpand">1</property>
+            <child>
+              <object class="GtkListView" id="lv">
+                <style>
+                  <class name="boxed-list" />
+                  <class name="content-sidebar" />
+                </style>
+                <property name="factory">
+                  <object class="GtkBuilderListItemFactory">
+                    <property name="resource">/io/github/lainsce/Notejot/trashrow.ui</property>
+                  </object>
+                </property>
+                <property name="model">
+                  <object class="GtkSingleSelection" id="selection_model">
+                    <property name="autoselect">no</property>
+                    <property name="can-unselect">yes</property>
+                    <property name="model">
+                      <object class="GtkFilterListModel" id="filter_model">
+                        <property name="incremental">1</property>
+                        <property name="model">
+                          <object class="GtkSortListModel">
+                            <binding name="model">
+                              <lookup name="trashs">NotejotTrashListView</lookup>
+                            </binding>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
