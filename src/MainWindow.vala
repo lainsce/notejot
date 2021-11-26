@@ -142,13 +142,13 @@ namespace Notejot {
 
         [GtkCallback]
         public void on_note_removal_requested (Note note) {
-            view_model.delete_note (note, this);
+            view_model.delete_note (note);
             tview_model.create_new_trash (note);
         }
 
         [GtkCallback]
         void on_clear_trash_requested () {
-            tview_model.delete_trash (this);
+            tview_model.delete_trash.begin (this);
         }
 
         [GtkCallback]

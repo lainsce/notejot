@@ -79,14 +79,13 @@ public class Notejot.TrashViewModel : Object {
         dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
         dialog.add_button (_("Clear"), Gtk.ResponseType.OK);
 
-        var trashsa = yield get_all_trashs();
+        var trash = yield get_all_trashs();
 
         dialog.response.connect ((response_id) => {
             switch (response_id) {
                 case Gtk.ResponseType.OK:
-                    trashs.remove_all (trashsa);
-                    repository.delete_all_trash ();
-                    save_trashs ();
+                    foreach (var t in trash)
+                        delete_one_trash (t);
                     dialog.close ();
                     break;
                 case Gtk.ResponseType.NO:

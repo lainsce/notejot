@@ -86,7 +86,7 @@ public class Notejot.NoteViewModel : Object {
         save_notes ();
     }
 
-    public void delete_note (Note note, MainWindow win) {
+    public void delete_note (Note note) {
         notes.remove (note);
 
         repository.delete_note (note.id);
