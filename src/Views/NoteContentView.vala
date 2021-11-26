@@ -150,6 +150,14 @@ public class Notejot.NoteContentView : View {
             note_title.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
             note_title.set_icon_tooltip_text (Gtk.EntryIconPosition.SECONDARY, _("Set Note Title"));
 
+            note_text.changed.connect (() => {
+                Timeout.add(60, () => {
+                    var dt = new GLib.DateTime.now_local ();
+                    _note.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
+                    return false;
+                });
+            });
+
             title_binding = _note?.bind_property (
                 "title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
             subtitle_binding = _note?.bind_property (
@@ -158,9 +166,6 @@ public class Notejot.NoteContentView : View {
                 "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property (
                 "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
-
-            if (_note != null)
-                _note.notify.connect (on_text_updated);
 
             var settings = new Settings ();
             switch (settings.font_size) {
@@ -213,6 +218,9 @@ public class Notejot.NoteContentView : View {
             back_button.clicked.connect (() => {
                 ((Adw.Leaflet)this.get_parent()).set_visible_child (((MainWindow)this.get_parent().get_parent().get_parent().get_parent()).sgrid);
             });
+
+            if (_note != null)
+                _note.notify.connect (on_text_updated);
         }
     }
 
