@@ -36,18 +36,10 @@ public class Notejot.ObservableList<T> : Object, ListModel {
         items_changed (position, 0, items.length ());
     }
 
-    public bool remove_all (List<T> items) {
+    public void remove_all (List<T> items) {
         var position = data.length ();
-
-        if (position == -1)
-            return false;
-
-        foreach (var item in items)
-            data.remove (item);
-
-        items_changed (position, 1, items.length ());
-
-        return true;
+        data.remove_all (items.length ());
+        items_changed (position, 1, 0);
     }
 
     public new T @get (uint index) {
