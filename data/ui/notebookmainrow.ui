@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="GtkListItem">
+  <property name="child">
+    <object class="GtkBox">
+      <property name="spacing">12</property>
+      <style>
+        <class name="notejot-sidebar-box-mainrow"/>
+      </style>
+      <child>
+        <object class="GtkImage" id="badge">
+          <property name="valign">center</property>
+          <property name="icon-name">notebook-symbolic</property>
+          <style>
+            <class name="dim-label"/>
+          </style>
+        </object>
+      </child>
+      <child>
+        <object class="GtkLabel" id="notebook_label">
+          <property name="valign">center</property>
+          <binding name="label">
+            <lookup name="title" type="NotejotNotebook">
+              <lookup name="item">GtkListItem</lookup>
+            </lookup>
+          </binding>
+        </object>
+      </child>
+    </object>
+  </property>
+</template>
+</interface>
