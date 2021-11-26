@@ -95,10 +95,9 @@ public class Notejot.TrashViewModel : Object {
                 case Gtk.ResponseType.CANCEL:
                 case Gtk.ResponseType.CLOSE:
                 case Gtk.ResponseType.DELETE_EVENT:
+                default:
                     dialog.close ();
                     return;
-                default:
-                    assert_not_reached ();
             }
         });
 
@@ -118,6 +117,7 @@ public class Notejot.TrashViewModel : Object {
     async void depopulate_trashs () {
         var trashs = yield repository.get_trashs ();
         this.trashs.remove_all (trashs);
+        save_trashs ();
     }
 
     void save_trashs () {

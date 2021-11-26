@@ -46,22 +46,25 @@
   box-shadow: 0 1px 3px 0 alpha(black, 0.3),
               0 4px 8px 3px alpha(black, 0.15);
 }
-.accent-button {
+.list-action-button.accent-button {
   background: @accent_bg_color;
   color: @accent_fg_color;
 }
-.accent-button:hover {
-  background: shade(@accent_bg_color, 1.05);
+.list-action-button.accent-button:hover {
+  background: shade(@accent_bg_color, 1.024);
 }
-.accent-button:active {
+.list-action-button.accent-button:active {
   background: shade(@accent_bg_color, 0.95);
 }
 .list-action-button.destructive-action {
   background: #ffdad4;
   color: #410001;
 }
+.list-action-button.destructive-action:hover {
+  background: shade(#ffdad4, 1.024);
+}
 .list-action-button.destructive-action:active {
-  background: shade(#ffdad4, 1.1);
+  background: shade(#ffdad4, 0.95);
 }
 
 .content-view {
