@@ -16,47 +16,6 @@
                 <property name="title" translatable="yes" context="shortcut window">Quit</property>
               </object>
             </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id="new">
-                <property name="accelerator">&lt;ctrl&gt;n</property>
-                <property name="title" translatable="yes" context="shortcut window">Create New Note</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkShortcutsGroup" id="format">
-            <property name="title" translatable="yes" context="shortcut window">Formatting</property>
-            <child>
-              <object class="GtkShortcutsShortcut" id="1">
-                <property name="accelerator">&lt;ctrl&gt;t</property>
-                <property name="title" translatable="yes" context="shortcut window">Remove Selected Text Formatting</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id="2">
-                <property name="accelerator">&lt;ctrl&gt;b</property>
-                <property name="title" translatable="yes" context="shortcut window">Bold Selected Text</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id="3">
-                <property name="accelerator">&lt;ctrl&gt;i</property>
-                <property name="title" translatable="yes" context="shortcut window">Italic Selected Text</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id="4">
-                <property name="accelerator">&lt;ctrl&gt;u</property>
-                <property name="title" translatable="yes" context="shortcut window">Underline Selected Text</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut" id="5">
-                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;s</property>
-                <property name="title" translatable="yes" context="shortcut window">Strikethrough Selected Text</property>
-              </object>
-            </child>
           </object>
         </child>
       </object>
