@@ -79,14 +79,10 @@ public class Notejot.TrashViewModel : Object {
         dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
         dialog.add_button (_("Clear"), Gtk.ResponseType.OK);
 
-        var trashs = yield repository.get_trashs ();
-
         dialog.response.connect ((response_id) => {
             switch (response_id) {
                 case Gtk.ResponseType.OK:
-                    foreach (var t in trashs)
-                        delete_one_trash (t);
-                    depopulate_trashs ();
+                    depopulate_trashs.begin ();
                     dialog.close ();
                     break;
                 case Gtk.ResponseType.NO:
@@ -116,8 +112,11 @@ public class Notejot.TrashViewModel : Object {
 
     async void depopulate_trashs () {
         var trashs = yield repository.get_trashs ();
+        foreach (var t in trashs) {
+            trashs.remove (t);
+            repository.delete_trash (t.id);
+        }
         this.trashs.remove_all (trashs);
-        save_trashs ();
     }
 
     void save_trashs () {

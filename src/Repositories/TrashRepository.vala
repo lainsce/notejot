@@ -54,10 +54,6 @@ public class Notejot.TrashRepository : Object {
         delete_queue.push_tail (id);
     }
 
-    public void delete_all_trash (string id) {
-        delete_queue.push_tail (id);
-    }
-
     public async bool save () {
         var trashs = yield get_trashs ();
 
