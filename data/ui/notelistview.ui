@@ -10,7 +10,7 @@
             <property name="show-end-title-buttons">0</property>
             <property name="valign">center</property>
             <property name="hexpand">0</property>
-            <property name="width-request">200</property>
+            <property name="width-request">220</property>
             <style>
               <class name="notejot-stitle"/>
               <class name="notejot-sbtitle"/>
