@@ -34,7 +34,8 @@ public class Notejot.StyleManager {
                 background: mix(@popover_bg_color, @note_color, 0.02);
             }
             .notejot-view-footer {
-                border-radius: 0 0 8px 8px;;
+                background: mix(@popover_bg_color, @note_color, 0.02);
+                border-radius: 0 0 8px 8px;
             }
             .notejot-view-footer text {
                 background: mix(@popover_bg_color, @note_color, 0.02);

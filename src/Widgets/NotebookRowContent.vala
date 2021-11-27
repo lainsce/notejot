@@ -25,6 +25,7 @@ public class Notejot.NotebookRowContent : Adw.Bin {
     public unowned Gtk.Entry notebook_entry;
 
     Binding? text_binding;
+    Binding? note_binding;
 
     Notebook? _notebook;
     public Notebook? notebook {
@@ -60,9 +61,10 @@ public class Notejot.NotebookRowContent : Adw.Bin {
             for (j = 0; j < m; j++) {
                 var nbitem = nbs.get_item (j);
 
-                if (((Note) item).notebook == ((Notebook) nbitem).title) {
-                    if (((Note) item).notebook != notebook_entry.get_text()) {
-                        vm.update_notebook (((Note) item), notebook_entry.get_text());
+                if (((Note) item).notebook == notebook_entry.get_text()) {
+                    if (((Notebook)nbitem).title == ((Note) item).notebook) {
+                        string nb = notebook_entry.get_text();
+                        vm.update_notebook (((Note) item), nb);
                     }
                 }
             }
