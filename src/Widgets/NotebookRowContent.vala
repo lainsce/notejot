@@ -49,14 +49,22 @@ public class Notejot.NotebookRowContent : Adw.Bin {
     void on_edit_notebook_requested () {
         var vm = ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).view_model;
         var notes = vm.notes;
+        var nvm = ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).nbview_model;
+        var nbs = nvm.notebooks;
 
         uint i,n = notes.get_n_items ();
         for (i = 0; i < n; i++) {
             var item = notes.get_item (i);
 
-            if (((Note) item).notebook == notebook_entry.get_text()) {
-                ((Note) item).notebook = notebook_entry.get_text();
-                vm.update_note (((Note) item));
+            uint j,m = nbs.get_n_items ();
+            for (j = 0; j < m; j++) {
+                var nbitem = nbs.get_item (j);
+
+                if (((Note) item).notebook == ((Notebook) nbitem).title) {
+                    if (((Note) item).notebook != notebook_entry.get_text()) {
+                        vm.update_notebook (((Note) item), notebook_entry.get_text());
+                    }
+                }
             }
         }
 
