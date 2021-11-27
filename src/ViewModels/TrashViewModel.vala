@@ -74,7 +74,7 @@ public class Notejot.TrashViewModel : Object {
         dialog.modal = true;
 
         dialog.set_title (_("Clear Trash?"));
-        dialog.text = (_("Clearing means the notes in Trash will be permanently lost with no recovery."));
+        dialog.text = (_("Clearing means the notes in Trash will be permanently lost with no recovery on next app launch."));
 
         dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
         dialog.add_button (_("Clear"), Gtk.ResponseType.OK);
@@ -112,11 +112,13 @@ public class Notejot.TrashViewModel : Object {
 
     async void depopulate_trashs () {
         var trashs = yield repository.get_trashs ();
-        foreach (var t in trashs) {
-            trashs.remove (t);
-            repository.delete_trash (t.id);
+        while (trashs.length () != 0) {
+            foreach (var t in trashs) {
+                trashs.remove_all (t);
+                repository.delete_trash (t.id);
+                save_trashs ();
+            }
         }
-        this.trashs.remove_all (trashs);
     }
 
     void save_trashs () {
