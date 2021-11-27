@@ -11,7 +11,10 @@
   <description xml:lang="en">
     <p>A stupidly-simple notes application for any type of short term notes or ideas.</p>
     <ul>
-        <li>Quit anytime with the shortcut Ctrl + Q</li>
+      <li>Color your notes in 8 different colors</li>
+      <li>Classify them in notebooks</li>
+      <li>Format text to your liking</li>
+      <li>Pin your most important ones</li>
     </ul>
   </description>
   <bug-database rdf:resource="https://github.com/lainsce/notejot"/>
