@@ -20,6 +20,8 @@
 public class Notejot.TrashListView : View {
     [GtkChild]
     unowned Gtk.SingleSelection selection_model;
+    [GtkChild]
+    public unowned Gtk.Button back_button;
 
     public ObservableList<Trash>? trashs { get; set; }
     public Trash? selected_trash { get; set;}
@@ -31,8 +33,13 @@ public class Notejot.TrashListView : View {
 
             if (pos != Gtk.INVALID_LIST_POSITION)
                 to.set_object (selection_model.model.get_item (pos));
+                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
+        });
+
+        back_button.clicked.connect (() => {
+            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 

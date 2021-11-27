@@ -39,6 +39,11 @@ namespace Notejot {
         public MainWindow? mw {get; set;}
         public Adw.Leaflet? leaflet {get; set;}
 
+        [GtkChild]
+        public unowned NoteListView listview;
+        [GtkChild]
+        public unowned TrashListView tlistview;
+
         // Etc
         public Gtk.Settings gtk_settings;
         public NoteViewModel view_model { get; construct; }
@@ -167,6 +172,11 @@ namespace Notejot {
             var settings = new Settings ();
             settings.last_view = "list";
             leaf.set_visible_child (sgrid);
+            if (leaf.folded) {
+                listview.back_button.set_visible (true);
+            } else {
+                listview.back_button.set_visible (false);
+            }
             sgrid.set_visible_child_name ("notelist");
             grid.set_visible_child_name ("note");
         }
@@ -176,6 +186,11 @@ namespace Notejot {
             var settings = new Settings ();
             settings.last_view = "trash";
             leaf.set_visible_child (sgrid);
+            if (leaf.folded) {
+                tlistview.back_button.set_visible (true);
+            } else {
+                tlistview.back_button.set_visible (false);
+            }
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible_child_name ("trash");
         }
