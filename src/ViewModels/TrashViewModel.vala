@@ -112,6 +112,13 @@ public class Notejot.TrashViewModel : Object {
 
     async void depopulate_trashs () {
         trashs.remove_all ();
+
+        var rtrashs = yield repository.get_trashs ();
+        foreach (var t in rtrashs) {
+            repository.delete_trash (t.id);
+        }
+
+        save_trashs ();
     }
 
     void save_trashs () {
