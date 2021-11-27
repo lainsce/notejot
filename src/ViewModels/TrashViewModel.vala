@@ -74,7 +74,7 @@ public class Notejot.TrashViewModel : Object {
         dialog.modal = true;
 
         dialog.set_title (_("Clear Trash?"));
-        dialog.text = (_("Clearing means the notes in Trash will be permanently lost with no recovery on next app launch."));
+        dialog.text = (_("Clearing means the notes in Trash will be permanently lost with no recovery."));
 
         dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
         dialog.add_button (_("Clear"), Gtk.ResponseType.OK);
