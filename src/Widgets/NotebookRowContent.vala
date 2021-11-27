@@ -47,11 +47,36 @@ public class Notejot.NotebookRowContent : Adw.Bin {
 
     [GtkCallback]
     void on_edit_notebook_requested () {
+        var vm = ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).view_model;
+        var notes = vm.notes;
+
+        uint i,n = notes.get_n_items ();
+        for (i = 0; i < n; i++) {
+            var item = notes.get_item (i);
+
+            if (((Note) item).notebook == notebook_entry.get_text()) {
+                ((Note) item).notebook = notebook_entry.get_text();
+                vm.update_note (((Note) item));
+            }
+        }
+
         ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).nbview_model.update_notebook (notebook, notebook_entry.get_text());
     }
 
     [GtkCallback]
     void on_delete_button_clicked () {
+        var vm = ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).view_model;
+        var notes = vm.notes;
+
+        uint i,n = notes.get_n_items ();
+        for (i = 0; i < n; i++) {
+            var item = notes.get_item (i);
+
+            if (((Note) item).notebook == notebook_entry.get_text()) {
+                vm.update_notebook (((Note) item), "<i>No Notebook</i>");
+            }
+        }
+
         ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>(this)).notebook_removal_requested (notebook);
     }
 }

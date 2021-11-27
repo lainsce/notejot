@@ -6,7 +6,7 @@
     "command" : "io.github.lainsce.Notejot",
     "rename-icon" : "io.github.lainsce.Notejot.Devel",
     "finish-args" : [
-    	"--filesystem=xdg-run/gvfsd",
+        "--filesystem=xdg-run/gvfsd",
         "--socket=wayland",
         "--socket=fallback-x11",
         "--share=ipc",
@@ -29,39 +29,73 @@
         "*.la"
     ],
     "modules" : [
-	    {
-		"name": "libsass",
-		"cleanup": ["*"],
+        {
+            "name" : "libsass",
+            "cleanup" : [
+                "*"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/sass/libsass.git"
+                },
+                {
+                    "type" : "script",
+                    "dest-filename" : "autogen.sh",
+                    "commands" : [
+                        "autoreconf -si"
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "sassc",
+            "cleanup" : [
+                "*"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/sass/sassc.git"
+                },
+                {
+                    "type" : "script",
+                    "dest-filename" : "autogen.sh",
+                    "commands" : [
+                        "autoreconf -si"
+                    ]
+                }
+            ]
+        },
+        {
+		"name": "pango",
+		"buildsystem": "meson",
 		"sources": [
-		    {
-			"type" : "git",
-			"url" : "https://github.com/sass/libsass.git"
-		    },
-		    {
-			"type" : "script",
-			"dest-filename" : "autogen.sh",
-			"commands" : [ "autoreconf -si" ]
-		    }
+			{
+			  "type": "git",
+			  "url": "https://gitlab.gnome.org/GNOME/pango.git",
+			  "commit" : "0c80c6d0b80cce4443e9a18fad2b4bccabaf4325"
+			}
 		]
-	    },
-	    {
-		"name": "sassc",
-		"cleanup": ["*"],
+	},
+	{
+		"name": "gtk",
+		"buildsystem": "meson",
+		"config-opts" : [
+		        "-Dexamples=false",
+		        "-Dtests=false"
+		],
 		"sources": [
-		    {
-			"type" : "git",
-			"url" : "https://github.com/sass/sassc.git"
-		    },
-		    {
-			"type" : "script",
-			"dest-filename" : "autogen.sh",
-			"commands" : [ "autoreconf -si" ]
-		    }
+			{
+			  "type": "git",
+			  "url": "https://gitlab.gnome.org/GNOME/gtk.git",
+			  "commit" : "e0c97e6fccc1f66dabddc21a6e8821347429e157"
+			}
 		]
-	    },
+	},
         {
             "name" : "libadwaita",
-            "buildsystem": "meson",
+            "buildsystem" : "meson",
             "config-opts" : [
                 "-Dvapi=true",
                 "-Dexamples=false",
@@ -89,5 +123,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "build-options" : {
+        "env" : {        }
+    }
 }
