@@ -166,6 +166,7 @@ namespace Notejot {
         public void on_action_all_notes () {
             var settings = new Settings ();
             settings.last_view = "list";
+            leaf.set_visible_child (sgrid);
             sgrid.set_visible_child_name ("notelist");
             grid.set_visible_child_name ("note");
         }
@@ -174,6 +175,7 @@ namespace Notejot {
         public void on_action_trash () {
             var settings = new Settings ();
             settings.last_view = "trash";
+            leaf.set_visible_child (sgrid);
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible_child_name ("trash");
         }
