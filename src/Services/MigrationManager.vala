@@ -51,13 +51,7 @@ namespace Notejot {
                         var notebook = task.get_string_element(4);
                         var pinned = task.get_string_element(5);
 
-                        if (pinned != "0") {
-                            win.make_note (title, subtitle, text, color, notebook, pinned);
-                        } else if (pinned != "1") {
-                            win.make_note (title, subtitle, text, color, notebook, "0");
-                        } else {
-                            win.make_note (title, subtitle, text, color, notebook, "0");
-                        }
+                        win.make_note (title, subtitle, text, color, notebook, "0");
                     }
                 }
             } catch (Error e) {
