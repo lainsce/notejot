@@ -38,10 +38,7 @@ public class Notejot.ObservableList<T> : Object, ListModel {
 
     public void remove_all () {
         var current_size = data.length ();
-
-        foreach (var i in data)
-            data.remove (i);
-
+        data = new List<T> ();
         items_changed (0, current_size, 0);
     }
 
