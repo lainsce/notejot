@@ -33,8 +33,8 @@
                 <child>
                   <object class="AdwStatusPage">
                     <property name="icon-name">user-trash-symbolic</property>
-                    <property name="title">No Trash</property>
-                    <property name="description">Find notes here that were trashed to restore them.</property>
+                    <property name="title" translatable="yes">Trash is Empty</property>
+                    <property name="description" translatable="yes">Find notes here that were trashed to restore them.</property>
                   </object>
                 </child>
               </object>

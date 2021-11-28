@@ -45,8 +45,8 @@
                 <child>
                   <object class="AdwStatusPage">
                     <property name="icon-name">list-select-symbolic</property>
-                    <property name="title">No Notes</property>
-                    <property name="description">Add a note with the + button.</property>
+                    <property name="title" translatable="yes">No Selected Notes</property>
+                    <property name="description" translatable="yes">Add a note with the + button.</property>
                   </object>
                 </child>
               </object>

@@ -68,7 +68,7 @@
         <child>
           <object class="GtkButton" id="remove_notebook_button">
             <property name="label" translatable="yes">Detach Note From Notebook</property>
-            <property name="tooltip-text" translatable="yes">Removes this Note from any known Notebook.</property>
+            <property name="tooltip-text" translatable="yes">Removes this Note from its Notebook.</property>
             <property name="sensitive">0</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
