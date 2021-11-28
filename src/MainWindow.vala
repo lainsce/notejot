@@ -253,7 +253,7 @@ namespace Notejot {
                 null
             };
 
-            var program_name = "Notejot" + Config.NAME_SUFFIX;
+            var program_name = "Notejot";
             Gtk.show_about_dialog (this,
                                    "program-name", program_name,
                                    "logo-icon-name", Config.APP_ID,

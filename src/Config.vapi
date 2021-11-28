@@ -22,7 +22,7 @@ namespace Config {
     public const string PROFILE;
     public const string NAME_SUFFIX;
     public const string GETTEXT_PACKAGE;
-    public const string LOCALEDIR;
+    public const string GNOMELOCALEDIR;
     public const string DATADIR;
     public const string APP_ID;
 }

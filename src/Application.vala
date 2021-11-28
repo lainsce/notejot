@@ -26,7 +26,7 @@ public class Notejot.Application : Adw.Application {
         Object (application_id: Config.APP_ID);
     }
     public static int main (string[] args) {
-        Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
+        Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.GNOMELOCALEDIR);
         Intl.textdomain (Config.GETTEXT_PACKAGE);
 
         var app = new Notejot.Application ();
