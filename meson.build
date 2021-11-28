@@ -1,7 +1,7 @@
 project('io.github.lainsce.Notejot', 'vala',
         version: '3.3.3',
         license: 'GPL3+',
-  meson_version: '>= 0.59.2'
+  meson_version: '>= 0.59.1'
 )
 
 gnome = import('gnome')
