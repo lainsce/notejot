@@ -51,7 +51,7 @@ namespace Notejot {
                         var notebook = task.get_string_element(4);
                         var pinned = task.get_string_element(5);
 
-                        if (pinned != null) {
+                        if (pinned != "0") {
                             win.make_note (title, subtitle, text, color, notebook, pinned);
                         } else {
                             win.make_note (title, subtitle, text, color, notebook, "0");
@@ -82,7 +82,7 @@ namespace Notejot {
                         var notebook = task.get_string_element(4);
                         var pinned = task.get_string_element(5);
 
-                        if (pinned != null) {
+                        if (pinned != "0") {
                             win.make_trash_note (title, subtitle, text, color, notebook, pinned);
                         } else {
                             win.make_trash_note (title, subtitle, text, color, notebook, "0");
