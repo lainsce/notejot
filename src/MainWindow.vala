@@ -110,6 +110,15 @@ namespace Notejot {
             if (Config.PROFILE == ".Devel")
                 add_css_class ("devel");
 
+            // Migrate things from old version
+            if (settings.schema_version == 0) {
+                var mm = new MigrationManager (this);
+                mm.migrate_from_file_trash.begin ();
+                mm.migrate_from_file_notes.begin ();
+                mm.migrate_from_file_nb.begin ();
+                settings.schema_version = 1;
+            }
+
             // Needed to ensure colors in places
             var style_manager = new StyleManager ();
             style_manager.set_css ("");
@@ -137,7 +146,7 @@ namespace Notejot {
         // IO?
         [GtkCallback]
         void on_new_note_requested () {
-            view_model.create_new_note ();
+            view_model.create_new_note (null);
         }
 
         [GtkCallback]
@@ -193,6 +202,47 @@ namespace Notejot {
             }
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible_child_name ("trash");
+        }
+
+        public void make_note (string title, string subtitle, string text, string color, string notebook, string pinned) {
+            var log = new Note ();
+            log.title = title;
+            log.subtitle = subtitle;
+            log.text = text;
+            log.color = color;
+            log.notebook = notebook;
+
+            if (pinned == "0") {
+                log.pinned = false;
+            } else if (pinned == "1") {
+                log.pinned = true;
+            }
+
+            view_model.create_new_note (log);
+        }
+
+        public void make_trash_note (string title, string subtitle, string text, string color, string notebook, string pinned) {
+            var tlog = new Note ();
+            tlog.title = title;
+            tlog.subtitle = subtitle;
+            tlog.text = text;
+            tlog.color = color;
+            tlog.notebook = notebook;
+
+            if (pinned == "0") {
+                tlog.pinned = false;
+            } else if (pinned == "1") {
+                tlog.pinned = true;
+            }
+
+            tview_model.create_new_trash (tlog);
+        }
+
+        public void make_notebook (string title) {
+            var nb = new Notebook ();
+            nb.title = title;
+
+            nbview_model.create_new_notebook (nb);
         }
 
         public void action_about () {

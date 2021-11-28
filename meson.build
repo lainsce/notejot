@@ -63,6 +63,7 @@ sources = [
   'src/Repositories/NoteRepository.vala',
   'src/Repositories/NotebookRepository.vala',
   'src/Repositories/TrashRepository.vala',
+  'src/Services/MigrationManager.vala',
   'src/Services/SettingsManager.vala',
   'src/Services/StyleManager.vala',
   'src/Utils/FileUtils.vala',

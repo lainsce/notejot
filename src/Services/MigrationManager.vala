@@ -26,7 +26,7 @@ namespace Notejot {
         private string file_name_nb;
         private string file_name_t;
 
-        public TaskManager (MainWindow win) {
+        public MigrationManager (MainWindow win) {
             this.win = win;
             file_name_n = this.app_dir + "/saved_notes.json";
             file_name_t = this.app_dir + "/saved_trash.json";
@@ -40,10 +40,8 @@ namespace Notejot {
                 if (file.query_exists()) {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
-                    var parser = new Json.Parser();
-                    parser.load_from_data(line);
-                    var root = parser.get_root();
-                    var array = root.get_array();
+                    var node = Json.from_string (line);
+                    var array = node.get_array ();
                     foreach (var tasks in array.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
@@ -53,7 +51,11 @@ namespace Notejot {
                         var notebook = task.get_string_element(4);
                         var pinned = task.get_string_element(5);
 
-                        win.make_note (title, subtitle, text, color, notebook, pinned);
+                        if (pinned != null) {
+                            win.make_note (title, subtitle, text, color, notebook, pinned);
+                        } else {
+                            win.make_note (title, subtitle, text, color, notebook, "0");
+                        }
                     }
                 }
             } catch (Error e) {
@@ -69,10 +71,8 @@ namespace Notejot {
                 if (file.query_exists()) {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
-                    var parser = new Json.Parser();
-                    parser.load_from_data(line);
-                    var root = parser.get_root();
-                    var array = root.get_array();
+                    var node = Json.from_string (line);
+                    var array = node.get_array ();
                     foreach (var tasks in array.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
@@ -80,8 +80,13 @@ namespace Notejot {
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
                         var notebook = task.get_string_element(4);
+                        var pinned = task.get_string_element(5);
 
-                        win.make_trash_note (title, subtitle, text, color, notebook);
+                        if (pinned != null) {
+                            win.make_trash_note (title, subtitle, text, color, notebook, pinned);
+                        } else {
+                            win.make_trash_note (title, subtitle, text, color, notebook, "0");
+                        }
                     }
                 }
             } catch (Error e) {
@@ -97,10 +102,8 @@ namespace Notejot {
                 if (file.query_exists()) {
                     string line;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
-                    var parser = new Json.Parser();
-                    parser.load_from_data(line);
-                    var root = parser.get_root();
-                    var array = root.get_array();
+                    var node = Json.from_string (line);
+                    var array = node.get_array ();
                     foreach (var tasks in array.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);

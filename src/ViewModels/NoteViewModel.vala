@@ -30,10 +30,10 @@ public class Notejot.NoteViewModel : Object {
         populate_notes.begin ();
     }
 
-    public void create_new_note () {
+    public void create_new_note (Note note) {
         var dt = new GLib.DateTime.now_local ();
 
-        var note = new Note () {
+        var n = new Note () {
             title = _("New Note"),
             subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
             text = "Type text here…",
@@ -42,7 +42,11 @@ public class Notejot.NoteViewModel : Object {
             pinned = false
         };
 
-        notes.add (note);
+        if (note == null) {
+            notes.add (n);
+        } else {
+            notes.add (note);
+        }
 
         repository.insert_note (note);
         save_notes ();

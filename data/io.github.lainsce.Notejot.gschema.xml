@@ -1,6 +1,11 @@
 <schemalist>
 	<schema id="io.github.lainsce.Notejot" path="/io/github/lainsce/Notejot/">
-		<key type="s" name="last-view">
+		<key type="i" name="schema-version">
+			<default>0</default>
+			<summary>Migration Version</summary>
+			<description>The version of migration to use; Do not change.</description>
+		</key>
+	  <key type="s" name="last-view">
 			<default>"grid"</default>
 			<summary>Last View Used</summary>
 			<description>The last view used in the UI</description>
@@ -16,7 +21,7 @@
 	    <description>Whether the window is maximized. Used to open window with user's preferred settings</description>
 	  </key>
 	  <key type="i" name="window-w">
-	    <default>700</default>
+	    <default>900</default>
 	    <summary>Saves window last-used width</summary>
 	    <description>The user's last used window width before closing the app</description>
 	  </key>
