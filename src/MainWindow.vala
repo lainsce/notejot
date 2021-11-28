@@ -211,7 +211,12 @@ namespace Notejot {
             log.text = text;
             log.color = color;
             log.notebook = notebook;
-            log.pinned = false;
+            
+            if (pinned == "0") {
+                log.pinned = false;
+            } else if (pinned == "1") {
+                log.pinned = true;
+            }
 
             view_model.create_new_note (log);
         }
