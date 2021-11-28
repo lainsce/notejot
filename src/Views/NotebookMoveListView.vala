@@ -22,7 +22,7 @@ public class Notejot.NotebookMoveListView : View {
     unowned Gtk.SingleSelection selection_model;
 
     public ObservableList<Notebook>? notebooks { get; set; }
-    public Notebook? selected_notebook { get; set;}
+    public Notebook? selected_notebook { get; set; }
     public NotebookViewModel? nbview_model { get; set; }
 
     construct {
