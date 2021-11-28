@@ -20,7 +20,7 @@ public class Notejot.NotebookViewModel : Object {
     uint timeout_id = 0;
 
     public ObservableList<Notebook> notebooks { get; default = new ObservableList<Notebook> (); }
-    public NotebookRepository? repository { private get; construct; }
+    public NotebookRepository? repository { get; construct; }
 
     public NotebookViewModel (NotebookRepository repository) {
         Object (repository: repository);

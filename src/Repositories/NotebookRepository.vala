@@ -107,4 +107,9 @@ public class Notejot.NotebookRepository : Object {
         unowned var link = notebooks.search<string> (id, (notebook, id) => strcmp (notebook.id, id));
         return link?.data;
     }
+
+    public inline Notebook? search_notebook_by_title (List<Notebook> notebooks, string title) {
+        unowned var link = notebooks.search<string> (title, (notebook, title) => strcmp (notebook.title, title));
+        return link?.data;
+    }
 }
