@@ -25,17 +25,21 @@ public class Notejot.NotebookRepository : Object {
 
     public async List<Notebook> get_notebooks () {
         try {
-            var contents = yield FileUtils.read_text_file (FILENAME);
+            var settings = new Settings ();
+            if (settings.schema_version == 1) {
+                var contents = yield FileUtils.read_text_file (FILENAME);
 
-            if (contents == null)
-                return new List<Notebook> ();
+                if (contents == null)
+                    return new List<Notebook> ();
 
-            var json = Json.from_string (contents);
+                var json = Json.from_string (contents);
 
-            if (json.get_node_type () != ARRAY)
-                return new List<Notebook> ();
+                if (json.get_node_type () != ARRAY)
+                    return new List<Notebook> ();
 
-            return Notebook.list_from_json (json);
+                return Notebook.list_from_json (json);
+            }
+            return new List<Notebook> ();
         } catch (Error err) {
             critical ("Error: %s", err.message);
             return new List<Notebook> ();

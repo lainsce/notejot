@@ -25,17 +25,21 @@ public class Notejot.TrashRepository : Object {
 
     public async List<Trash> get_trashs () {
         try {
-            var contents = yield FileUtils.read_text_file (FILENAME);
+            var settings = new Settings ();
+            if (settings.schema_version == 1) {
+                var contents = yield FileUtils.read_text_file (FILENAME);
 
-            if (contents == null)
-                return new List<Trash> ();
+                if (contents == null)
+                    return new List<Trash> ();
 
-            var json = Json.from_string (contents);
+                var json = Json.from_string (contents);
 
-            if (json.get_node_type () != ARRAY)
-                return new List<Trash> ();
+                if (json.get_node_type () != ARRAY)
+                    return new List<Trash> ();
 
-            return Trash.list_from_json (json);
+                return Trash.list_from_json (json);
+            }
+            return new List<Trash> ();
         } catch (Error err) {
             critical ("Error: %s", err.message);
             return new List<Trash> ();
