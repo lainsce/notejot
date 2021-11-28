@@ -4,7 +4,7 @@ install_data(
 )
 
 msgfmt = find_program('msgfmt')
-podir = join_paths(meson.project_source_root(), 'po')
+podir = join_paths(meson.source_root(), 'po')
 desktop_conf = configuration_data()
 desktop_conf.set('icon', app_id)
 desktop_file = custom_target('desktop-file',
