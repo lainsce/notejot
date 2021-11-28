@@ -45,7 +45,7 @@
     </custom>
     <translation type="gettext">io.github.lainsce.Notejot</translation>
     <releases>
-        <release version="3.3.3" date="2021-12-24">
+        <release version="3.3.3" date="2021-11-28">
             <description>
                 <p>Release: Overhaul User Interface</p>
                 <ul>
