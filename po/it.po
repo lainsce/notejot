@@ -47,7 +47,7 @@ msgstr "Appunta i tuoi più importanti"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:50
 msgid "Release: Overhaul User Interface"
-msgstr "Versione: Revisione dell'interfaccia utente"
+msgstr "Versione: Revisione della interfaccia utente"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:52
 msgid "Changed: UI now looks better layoutted, is an experiment."
@@ -95,7 +95,7 @@ msgid ""
 "Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
 "trash and also removing singluar notes from a notebook."
 msgstr ""
-"Risolto: molti bug dell'interfaccia utente sono stati corretti, ultimo ma non meno importante lo switcher del notebook e "
+"Risolto: molti bug della interfaccia utente sono stati corretti, ultimo ma non meno importante lo switcher del notebook e "
 "cestino e anche la rimozione di note singole da un taccuino".
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:80
@@ -119,7 +119,7 @@ msgid ""
 "Some UI design fixes, such as the notebook switcher being on the bottom "
 "instead of in the top."
 msgstr ""
-"Alcune correzioni alla progettazione dell'interfaccia utente, ad esempio lo switcher del notebook nella parte inferiore "
+"Alcune correzioni alla progettazione della interfaccia utente, ad esempio lo switcher del notebook nella parte inferiore "
 "invece che in alto".
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:98
@@ -180,7 +180,7 @@ msgid ""
 "settings"
 msgstr ""
 "Se la finestra è ingrandita. Usato per aprire la finestra con le preferenze delle impostazioni " 
-dell'utente"
+dello utente"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:25
 msgid "Saves window last-used width"
