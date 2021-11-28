@@ -10,17 +10,17 @@ add_project_arguments([
 
 if get_option('profile') == 'development'
   name_prefix = '(Development) '
-  profile = 'Devel'
+  profile = '.Devel'
 else
   name_prefix = ''
   profile = ''
 endif
 
-app_id = '@0@@1@'.format(meson.project_name(), profile)
+app_id = '@0@.@1@'.format(meson.project_name(), profile)
 
 conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)
-conf.set_quoted('G_LOG_DOMAIN', '@0@@1@'.format(meson.project_name(), profile))
+conf.set_quoted('G_LOG_DOMAIN', '@0@.@1@'.format(meson.project_name(), profile))
 conf.set_quoted('NAME_PREFIX', name_prefix)
 conf.set_quoted('PACKAGE_NAME', meson.project_name())
 conf.set_quoted('PACKAGE_VERSION', meson.project_version())
