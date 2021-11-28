@@ -23,12 +23,14 @@ namespace Notejot {
         private string app_dir = Environment.get_user_data_dir () +
                                  "/io.github.lainsce.Notejot";
         private string file_name_n;
+        private string file_name_p;
         private string file_name_nb;
         private string file_name_t;
 
         public MigrationManager (MainWindow win) {
             this.win = win;
             file_name_n = this.app_dir + "/saved_notes.json";
+            file_name_p = this.app_dir + "/saved_pinned_notes.json";
             file_name_t = this.app_dir + "/saved_trash.json";
             file_name_nb = this.app_dir + "/saved_notebooks.json";
         }
@@ -37,11 +39,16 @@ namespace Notejot {
             debug ("Migrate Normal Notes...");
             try {
                 var file = File.new_for_path(file_name_n);
-                if (file.query_exists()) {
+                var filep = File.new_for_path(file_name_p);
+                if (file.query_exists() && filep.query_exists()) {
                     string line;
+                    string linep;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
+                    GLib.FileUtils.get_contents (filep.get_path (), out linep);
                     var node = Json.from_string (line);
+                    var pnode = Json.from_string (linep);
                     var array = node.get_array ();
+                    var parray = pnode.get_array ();
                     foreach (var tasks in array.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
@@ -51,11 +58,18 @@ namespace Notejot {
                         var notebook = task.get_string_element(4);
                         var pinned = task.get_string_element(5);
 
-                        if (pinned == "0") {
-                            win.make_note (title, subtitle, text, color, notebook, "0");
-                        } else {
-                            win.make_note (title, subtitle, text, color, notebook, "1");
-                        }
+                        win.make_note (title, subtitle, text, color, notebook, "0");
+                    }
+                    foreach (var ptasks in parray.get_elements()) {
+                        var ptask = ptasks.get_array ();
+                        var ptitle = ptask.get_string_element(0);
+                        var psubtitle = ptask.get_string_element(1);
+                        var ptext = ptask.get_string_element(2);
+                        var pcolor = ptask.get_string_element(3);
+                        var pnotebook = ptask.get_string_element(4);
+                        var ppinned = ptask.get_string_element(5);
+
+                        win.make_note (ptitle, psubtitle, ptext, pcolor, pnotebook, "1");
                     }
                 }
             } catch (Error e) {
