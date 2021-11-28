@@ -34,6 +34,8 @@ namespace Notejot {
         public unowned Adw.Leaflet leaf;
         [GtkChild]
         public unowned Gtk.Box main_box;
+        [GtkChild]
+        public unowned Gtk.ToggleButton an_button;
 
         // Custom
         public MainWindow? mw {get; set;}
@@ -127,6 +129,7 @@ namespace Notejot {
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.leaflet = leaf;
+            an_button.set_active(true);
         }
 
         protected override bool close_request () {

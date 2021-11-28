@@ -72,34 +72,35 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="an_button">
-                        <signal name="clicked" handler="on_action_all_notes" />
+                      <object class="GtkToggleButton" id="an_button">
+                        <signal name="toggled" handler="on_action_all_notes" />
                         <property name="margin-bottom">6</property>
                         <property name="margin-start">6</property>
-                        <property name="child">
+                        <child>
                           <object class="AdwButtonContent">
                             <property name="halign">start</property>
                             <property name="label" translatable="yes">All Notes</property>
                             <property name="icon-name">view-list-symbolic</property>
                           </object>
-                        </property>
+                        </child>
                         <style>
                           <class name="content-sidebar-notebooks-button"/>
                         </style>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="t_button">
-                        <signal name="clicked" handler="on_action_trash" />
+                      <object class="GtkToggleButton" id="t_button">
+                        <signal name="toggled" handler="on_action_trash" />
+                        <property name="group">an_button</property>
                         <property name="margin-bottom">6</property>
                         <property name="margin-start">6</property>
-                        <property name="child">
+                        <child>
                           <object class="AdwButtonContent">
                             <property name="halign">start</property>
                             <property name="label" translatable="yes">Trash</property>
                             <property name="icon-name">user-trash-symbolic</property>
                           </object>
-                        </property>
+                        </child>
                         <style>
                           <class name="content-sidebar-notebooks-button"/>
                         </style>

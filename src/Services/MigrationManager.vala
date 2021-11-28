@@ -56,7 +56,6 @@ namespace Notejot {
                         var text = task.get_string_element(2);
                         var color = task.get_string_element(3);
                         var notebook = task.get_string_element(4);
-                        var pinned = task.get_string_element(5);
 
                         win.make_note (Uuid.string_random (), title, subtitle, text, color, notebook, "0");
                     }
@@ -67,7 +66,6 @@ namespace Notejot {
                         var ptext = ptask.get_string_element(2);
                         var pcolor = ptask.get_string_element(3);
                         var pnotebook = ptask.get_string_element(4);
-                        var ppinned = ptask.get_string_element(5);
 
                         win.make_note (Uuid.string_random (), ptitle, psubtitle, ptext, pcolor, pnotebook, "1");
                     }

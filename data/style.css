@@ -130,21 +130,24 @@
   margin: 0;
 }
 
-.content-sidebar-notebooks-button {
+.content-sidebar-notebooks-button.toggle {
   border: none;
   margin: 0 6px;
   box-shadow: none;
   border-radius: 8px;
   background: none;
 }
-.content-sidebar-notebooks-button label {
+.content-sidebar-notebooks-button.toggle label {
   margin: 6px;
   font-weight: 400;
 }
-.content-sidebar-notebooks-button:hover {
+.content-sidebar-notebooks-button.toggle:hover {
   background: alpha(@view_fg_color, 0.05);
 }
-.content-sidebar-notebooks-button:active {
+.content-sidebar-notebooks-button.toggle:active {
+  background: alpha(@view_fg_color, 0.1);
+}
+.content-sidebar-notebooks-button.toggle:checked {
   background: alpha(@view_fg_color, 0.1);
 }
 
