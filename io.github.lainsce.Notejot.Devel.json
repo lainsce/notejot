@@ -67,32 +67,6 @@
             ]
         },
         {
-		"name": "pango",
-		"buildsystem": "meson",
-		"sources": [
-			{
-			  "type": "git",
-			  "url": "https://gitlab.gnome.org/GNOME/pango.git",
-			  "commit" : "0c80c6d0b80cce4443e9a18fad2b4bccabaf4325"
-			}
-		]
-	},
-	{
-		"name": "gtk",
-		"buildsystem": "meson",
-		"config-opts" : [
-		        "-Dexamples=false",
-		        "-Dtests=false"
-		],
-		"sources": [
-			{
-			  "type": "git",
-			  "url": "https://gitlab.gnome.org/GNOME/gtk.git",
-			  "commit" : "e0c97e6fccc1f66dabddc21a6e8821347429e157"
-			}
-		]
-	},
-        {
             "name" : "libadwaita",
             "buildsystem" : "meson",
             "config-opts" : [

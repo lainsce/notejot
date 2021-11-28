@@ -58,7 +58,7 @@ namespace Notejot {
                         var notebook = task.get_string_element(4);
                         var pinned = task.get_string_element(5);
 
-                        win.make_note (title, subtitle, text, color, notebook, "0");
+                        win.make_note (Uuid.string_random (), title, subtitle, text, color, notebook, "0");
                     }
                     foreach (var ptasks in parray.get_elements()) {
                         var ptask = ptasks.get_array ();
@@ -69,7 +69,7 @@ namespace Notejot {
                         var pnotebook = ptask.get_string_element(4);
                         var ppinned = ptask.get_string_element(5);
 
-                        win.make_note (ptitle, psubtitle, ptext, pcolor, pnotebook, "1");
+                        win.make_note (Uuid.string_random (), ptitle, psubtitle, ptext, pcolor, pnotebook, "1");
                     }
                 }
             } catch (Error e) {
@@ -95,7 +95,7 @@ namespace Notejot {
                         var color = task.get_string_element(3);
                         var notebook = task.get_string_element(4);
 
-                        win.make_trash_note (title, subtitle, text, color, notebook, "0");
+                        win.make_trash_note (Uuid.string_random (), title, subtitle, text, color, notebook, "0");
                     }
                 }
             } catch (Error e) {
@@ -117,7 +117,7 @@ namespace Notejot {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
 
-                        win.make_notebook (title);
+                        win.make_notebook (Uuid.string_random (), title);
                     }
                 }
             } catch (Error e) {

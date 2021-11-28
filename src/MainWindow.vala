@@ -204,8 +204,9 @@ namespace Notejot {
             grid.set_visible_child_name ("trash");
         }
 
-        public void make_note (string title, string subtitle, string text, string color, string notebook, string pinned) {
+        public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {
             var log = new Note ();
+            log.id = id;
             log.title = title;
             log.subtitle = subtitle;
             log.text = text;
@@ -221,8 +222,9 @@ namespace Notejot {
             view_model.create_new_note (log);
         }
 
-        public void make_trash_note (string title, string subtitle, string text, string color, string notebook, string pinned) {
+        public void make_trash_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {
             var tlog = new Note ();
+            tlog.id = id;
             tlog.title = title;
             tlog.subtitle = subtitle;
             tlog.text = text;
@@ -233,8 +235,9 @@ namespace Notejot {
             tview_model.create_new_trash (tlog);
         }
 
-        public void make_notebook (string title) {
+        public void make_notebook (string id, string title) {
             var nb = new Notebook ();
+            nb.id = id;
             nb.title = title;
 
             nbview_model.create_new_notebook (nb);

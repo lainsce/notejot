@@ -68,7 +68,7 @@ msgid ""
 "lainsce.Notejot when using the Flatpak. Happy notetaking!"
 msgstr ""
 "Nota: le tue note e i tuoi taccuini vengono sempre salvati in ~/.var/app/io.github."
-"lainsce.Notejot quando si utilizza il Flatpak. Buone note!
+"lainsce.Notejot quando si utilizza il Flatpak. Buone note!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:60
 msgid "Release: Pinned Notes"
@@ -96,7 +96,7 @@ msgid ""
 "trash and also removing singluar notes from a notebook."
 msgstr ""
 "Risolto: molti bug della interfaccia utente sono stati corretti, ultimo ma non meno importante lo switcher del notebook e "
-"cestino e anche la rimozione di note singole da un taccuino".
+"cestino e anche la rimozione di note singole da un taccuino."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:80
 msgid "Release: Format But Don't Fail"
@@ -120,7 +120,7 @@ msgid ""
 "instead of in the top."
 msgstr ""
 "Alcune correzioni alla progettazione della interfaccia utente, ad esempio lo switcher del notebook nella parte inferiore "
-"invece che in alto".
+"invece che in alto."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:98
 msgid "Release: GTK4 and Ready!"
@@ -180,7 +180,7 @@ msgid ""
 "settings"
 msgstr ""
 "Se la finestra è ingrandita. Usato per aprire la finestra con le preferenze delle impostazioni " 
-dello utente"
+"dello utente"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:25
 msgid "Saves window last-used width"
@@ -188,7 +188,7 @@ msgstr "Salva l'ultima larghezza della finestra utilizzata"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:26
 msgid "The user's last used window width before closing the app"
-msgstr "L'ultima larghezza della finestra utilizzata dall'utente prima di chiudere l'app"
+msgstr "La ultima larghezza della finestra utilizzata dall'utente prima di chiudere l'app"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:30
 msgid "Saves window last-used height"
@@ -539,67 +539,3 @@ msgstr "Il cestino è vuoto"
 #: data/ui/trashcontentview.ui:37
 msgid "Find notes here that were trashed to restore them."
 msgstr "Trova qui le note che sono state cestinate per ripristinarle."
-
-#~ msgid "Quit anytime with the shortcut Ctrl + Q"
-#~ msgstr "Esci in qualsiasi momento con la scorciatoia Ctrl + Q"
-
-#~ msgid "Empty the Trashed Notes?"
-#~ msgstr "Svuotare le note nel cestino?"
-
-#~ msgid "Empty Trash"
-#~ msgstr "Svuota Cestino"
-
-#~ msgid "Remove notebook"
-#~ msgstr "Rimuovi Taccuino"
-
-#~ msgid "Empty note"
-#~ msgstr "Nota vuota"
-
-#~ msgid "No Notebooks"
-#~ msgstr "Nessun Taccuino"
-
-#~ msgid "No Notes"
-#~ msgstr "Nessuna Nota"
-
-#~ msgid "Notes appear here."
-#~ msgstr "Le note vengono visualizzate qui."
-
-#~ msgid "Trashed notes appear here."
-#~ msgstr "Le note nel cestino vengono visualizzate qui."
-
-#~ msgid "Selected Notes appear here."
-#~ msgstr "Le note selezionate vengono visualizzate qui."
-
-#~ msgid "Move To…"
-#~ msgstr "Sposta in…"
-
-#~ msgid "Move to Trash"
-#~ msgstr "Sposta nel Cestino"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Create New Note"
-#~ msgstr "Crea Nuova nota"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Formatting"
-#~ msgstr "Formattazione"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Remove Selected Text Formatting"
-#~ msgstr "Rimuovi la formattazione del testo selezionato"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Bold Selected Text"
-#~ msgstr "Testo selezionato in grassetto"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Italic Selected Text"
-#~ msgstr "Testo selezionato in corsivo"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Underline Selected Text"
-#~ msgstr "Testo sottolineato selezionato"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Strikethrough Selected Text"
-#~ msgstr "Testo barrato selezionato"
