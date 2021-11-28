@@ -47,7 +47,7 @@
     <releases>
         <release version="3.3.3" date="2021-11-28">
             <description>
-                <p>Release: Overhaul User Interface</p>
+                <p>Release: The Top 100</p>
                 <ul>
                     <li>Changed: UI now looks better layoutted, is an experiment.</li>
                     <li>Changed: Backend was changed to be more stable than the old one.</li>
