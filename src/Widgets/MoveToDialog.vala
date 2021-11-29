@@ -34,7 +34,11 @@ namespace Notejot {
 
                 _notebook = value;
 
-                move_button.sensitive = true;
+                if (_notebook.title != "") {
+                    move_button.sensitive = true;
+                } else {
+                    move_button.sensitive = false;
+                }
             }
         }
 
@@ -67,21 +71,17 @@ namespace Notejot {
 
         [GtkCallback]
         void on_move_notebook_requested () {
-            if (notebook != null) {
-                string nb = notebook.title;
-                view_model.update_notebook (ncv.note, nb);
-                this.dispose ();
-            }
+            string nb = notebook.title;
+            view_model.update_notebook (ncv.note, nb);
+            this.dispose ();
         }
 
         [GtkCallback]
         void on_remove_notebook_requested () {
-            if (notebook != null) {
-                string nb = "<i>" + "No Notebook" + "</i>";
-                view_model.update_notebook (ncv.note, nb);
-                remove_notebook_button.set_sensitive (false);
-                this.dispose ();
-            }
+            string nb = "<i>" + _("No Notebook") + "</i>";
+            view_model.update_notebook (ncv.note, nb);
+            remove_notebook_button.set_sensitive (false);
+            this.dispose ();
         }
     }
 }
