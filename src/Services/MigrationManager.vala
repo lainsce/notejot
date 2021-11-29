@@ -36,19 +36,15 @@ namespace Notejot {
         }
 
         public async void migrate_from_file_notes () {
-            debug ("Migrate Normal Notes...");
+            debug ("Migrate Notes...");
             try {
                 var file = File.new_for_path(file_name_n);
                 var filep = File.new_for_path(file_name_p);
-                if (file.query_exists() && filep.query_exists()) {
+                if (file.query_exists()) {
                     string line;
-                    string linep;
                     GLib.FileUtils.get_contents (file.get_path (), out line);
-                    GLib.FileUtils.get_contents (filep.get_path (), out linep);
                     var node = Json.from_string (line);
-                    var pnode = Json.from_string (linep);
                     var array = node.get_array ();
-                    var parray = pnode.get_array ();
                     foreach (var tasks in array.get_elements()) {
                         var task = tasks.get_array ();
                         var title = task.get_string_element(0);
@@ -59,6 +55,12 @@ namespace Notejot {
 
                         win.make_note (Uuid.string_random (), title, subtitle, text, color, notebook, "0");
                     }
+                }
+                if (filep.query_exists()) {
+                    string linep;
+                    GLib.FileUtils.get_contents (filep.get_path (), out linep);
+                    var pnode = Json.from_string (linep);
+                    var parray = pnode.get_array ();
                     foreach (var ptasks in parray.get_elements()) {
                         var ptask = ptasks.get_array ();
                         var ptitle = ptask.get_string_element(0);
