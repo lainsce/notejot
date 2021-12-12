@@ -1,45 +1,54 @@
-install_data(
-  meson.project_name() + '.gschema.xml',
-  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
+conf = configuration_data()
+conf.set('app_id', app_id)
+
+desktop_conf = configure_file(
+  input: meson.project_name() + '.desktop.in',
+  output: '@0@.desktop.in'.format(app_id),
+  configuration: conf
 )
 
-msgfmt = find_program('msgfmt')
-podir = join_paths(meson.source_root(), 'po')
-desktop_conf = configuration_data()
-desktop_conf.set('icon', app_id)
-desktop_file = custom_target('desktop-file',
-  input: configure_file(
-    input: meson.project_name() + '.desktop.in',
-    output: '@BASENAME@' + '.in',
-    configuration: desktop_conf
-  ),
+desktop_file = i18n.merge_file(
+  input: desktop_conf,
   output: '@0@.desktop'.format(app_id),
+  type: 'desktop',
+  po_dir: '../po',
   install: true,
-  install_dir: join_paths(get_option('datadir'), 'applications'),
-  command: [msgfmt, '--desktop',
-    '--template', '@INPUT@', '-d', podir, '-o', '@OUTPUT@',
-    '--keyword=X-GNOME-FullName', '--keyword=X-Geoclue-Reason',
-    '--keyword=Name', '--keyword=GenericName', '--keyword=Comment', '--keyword=Keywords'
-  ]
+  install_dir: join_paths(get_option('datadir'), 'applications')
 )
+
 # Validate Desktop file
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 if desktop_file_validate.found()
-  test(
-    'validate-desktop',
-    desktop_file_validate,
-    args: [
-      desktop_file.full_path()
-    ]
+  test('validate-desktop', desktop_file_validate,
+    args: [desktop_file]
   )
 endif
 
-i18n.merge_file(
+appstream_conf = configure_file(
   input: meson.project_name() + '.metainfo.xml.in',
-  output: meson.project_name() + '.metainfo.xml',
-  po_dir: podir,
+  output: '@0@.metainfo.xml.in'.format(app_id),
+  configuration: conf
+)
+
+appstream_file = i18n.merge_file(
+  input: appstream_conf,
+  output: '@0@.metainfo.xml'.format(app_id),
+  po_dir: '../po',
   install: true,
   install_dir: join_paths(get_option('datadir'), 'metainfo')
+)
+
+#Validate Appstream file
+appstream_file_validate = find_program('appstream-util', required: false)
+if appstream_file_validate.found()
+  test('validate-appstream', appstream_file_validate,
+    args: ['validate', '--nonet', appstream_file]
+  )
+endif
+
+install_data(
+  meson.project_name() + '.gschema.xml',
+  install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
 subdir('icons')
