@@ -2,7 +2,7 @@
 Name=Notejot
 Comment=Jot your ideas
 Exec=io.github.lainsce.Notejot
-Icon=@icon@
+Icon=@app_id@
 Keywords=text;plain;plaintext;notepad;notes;sticky;post-it;
 Terminal=false
 Type=Application

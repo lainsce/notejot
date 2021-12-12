@@ -1,10 +1,1 @@
-option(
-  'profile',
-  type: 'combo',
-  choices: [
-    'default',
-    'development',
-  ],
-  value: 'default',
-  description: 'The build profile for Notejot. One of "default" or "development".'
-)
+option('development', type: 'boolean', value: false, description: 'If this is a development build')

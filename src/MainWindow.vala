@@ -109,8 +109,9 @@ namespace Notejot {
             var action_fontsize = settings.create_action ("font-size");
             app.add_action(action_fontsize);
 
-            if (Config.PROFILE == ".Devel")
+            if (Config.DEVELOPMENT) {
                 add_css_class ("devel");
+            }
 
             // Migrate things from old version
             if (settings.schema_version == 0) {
@@ -254,9 +255,8 @@ namespace Notejot {
                 null
             };
 
-            var program_name = "Notejot";
             Gtk.show_about_dialog (this,
-                                   "program-name", program_name,
+                                   "program-name", "Notejot" + Config.NAME_SUFFIX,
                                    "logo-icon-name", Config.APP_ID,
                                    "version", Config.VERSION,
                                    "comments", _("Jot your ideas."),
