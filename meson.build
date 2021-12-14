@@ -20,7 +20,7 @@ conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)
 conf.set_quoted('NAME_SUFFIX', name_suffix)
 conf.set_quoted('VERSION', meson.project_version())
-conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf.set_quoted('GETTEXT_PACKAGE', app_id)
 conf.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set10('DEVELOPMENT', get_option('development'))
 configure_file(output: 'config.h', configuration: conf)
@@ -28,7 +28,7 @@ config_h_dir = include_directories('.')
 
 add_project_arguments(
   '-include', 'config.h',
-  '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
+  '-DGETTEXT_PACKAGE="@0@"'.format(app_id),
   language: 'c'
 )
 
