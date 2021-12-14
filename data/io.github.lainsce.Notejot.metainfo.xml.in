@@ -43,7 +43,7 @@
     <custom>
       <value key="GnomeSoftware::key-colors">[(246, 211, 45)]</value>
     </custom>
-    <translation type="gettext">io.github.lainsce.Notejot</translation>
+    <translation type="gettext">@app_id@</translation>
     <releases>
         <release version="3.4.9" date="2021-11-28">
             <description>
