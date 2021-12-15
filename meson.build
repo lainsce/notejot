@@ -7,7 +7,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 add_project_arguments([
-		'--target-glib=2.40',
+		'--target-glib=2.68',
 	],
 	language: 'vala',
 )
