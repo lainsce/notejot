@@ -106,4 +106,8 @@ executable(
 subdir('data')
 subdir('po')
 
-meson.add_install_script('build-aux/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
+  update_desktop_database: true
+)
