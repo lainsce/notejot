@@ -22,6 +22,8 @@ public class Notejot.NoteListView : View {
     unowned Gtk.SingleSelection selection_model;
     [GtkChild]
     public unowned Gtk.Button back_button;
+    [GtkChild]
+    public unowned Adw.HeaderBar stitlebar;
 
     public ObservableList<Note>? notes { get; set; }
 
@@ -38,6 +40,7 @@ public class Notejot.NoteListView : View {
             _selected_note = value;
 
             bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
+            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
         }
     }
     public NoteViewModel? view_model { get; set; }
