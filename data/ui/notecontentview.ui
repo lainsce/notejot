@@ -15,6 +15,7 @@
         <child>
           <object class="AdwHeaderBar" id="titlebar">
             <property name="hexpand">1</property>
+            <property name="show-start-title-buttons">0</property>
             <child type="title">
               <object class="GtkBox">
               </object>
