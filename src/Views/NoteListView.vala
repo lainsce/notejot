@@ -24,7 +24,22 @@ public class Notejot.NoteListView : View {
     public unowned Gtk.Button back_button;
 
     public ObservableList<Note>? notes { get; set; }
-    public Note? selected_note { get; set;}
+
+    Binding? bb_binding;
+    Note? _selected_note;
+    public Note? selected_note {
+        get { return _selected_note; }
+        set {
+            if (value == _selected_note)
+                return;
+
+            bb_binding?.unbind ();
+
+            _selected_note = value;
+
+            bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
+        }
+    }
     public NoteViewModel? view_model { get; set; }
 
     construct {
