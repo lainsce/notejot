@@ -62,6 +62,10 @@ namespace Notejot {
             } else {
                 remove_notebook_button.sensitive = true;
             }
+
+            if (Config.DEVELOPMENT) {
+                add_css_class ("devel");
+            }
         }
 
         [GtkCallback]
