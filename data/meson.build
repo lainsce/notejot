@@ -46,6 +46,7 @@ if appstream_file_validate.found()
   )
 endif
 
+gnome.compile_schemas(build_by_default: true)
 install_data(
   meson.project_name() + '.gschema.xml',
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
