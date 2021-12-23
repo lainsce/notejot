@@ -6,15 +6,15 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-28 01:33-0300\n"
-"PO-Revision-Date: 2021-11-08 16:15+0100\n"
-"Last-Translator: Jan Marek <janmarek28@gmail.com>\n"
+"PO-Revision-Date: 2021-12-23 17:34+0100\n"
+"Last-Translator: Jan Kožíšek <janxkozisek@gmail.com>\n"
 "Language-Team: čeština <>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:7
 #: data/io.github.lainsce.Notejot.desktop.in:4
@@ -26,34 +26,35 @@ msgid ""
 "A stupidly-simple notes application for any type of short term notes or "
 "ideas."
 msgstr ""
+"Velice jednoduchá poznámková aplikace pro každý typ poznámek nebo nápadů."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:11
 msgid "🟡 Color your notes in 8 different colors"
-msgstr ""
+msgstr "🟡Obarvěte si své poznámky až 8 různými barvami"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:12
 msgid "📓 Classify them in notebooks"
-msgstr ""
+msgstr "📓Roztřiďte si je do zápisníků"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:13
 msgid "🔤 Format text to your liking"
-msgstr ""
+msgstr "🔤Naformátujte si text podle sebe"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:14
 msgid "📌 Pin your most important ones"
-msgstr ""
+msgstr "📌Připni si ty nejdůležitější"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:50
 msgid "Release: Overhaul User Interface"
-msgstr ""
+msgstr "Vydání: Přepracováno uživatelské rozhraní"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:52
 msgid "Changed: UI now looks better layoutted, is an experiment."
-msgstr ""
+msgstr "Změněné: Prvky UI jsou lépe rozmístěné, je to experiment."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:53
 msgid "Changed: Backend was changed to be more stable than the old one."
-msgstr ""
+msgstr "Změněno: Přidáno nové zázemí, jenž je více stabilní než to původní."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:55
 #: data/io.github.lainsce.Notejot.appdata.xml.in:66
@@ -65,385 +66,389 @@ msgid ""
 "Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
 "lainsce.Notejot when using the Flatpak. Happy notetaking!"
 msgstr ""
+"Poznámka: Pokud používáte Flatpak, vaše poznámky a zápisníky jsou vždy "
+"ukládány do ~/.var/app/io.github.lainsce.Notejot  Veselé psaní!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:60
 msgid "Release: Pinned Notes"
-msgstr ""
+msgstr "Vydání: Připínání poznámek"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:62
 msgid "Added: Notes can now be pinned and are shown separately from others."
 msgstr ""
+"Přidáno: Poznámky mohou být nově připnuty a jsou zobrazovány odděleně od "
+"ostatních."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:63
 msgid "Added: Note title styling from older versions is back."
-msgstr ""
+msgstr "Přidáno: Stylizace názvu poznámek z předchozích verzí je zpět."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:64
 msgid "Added: Note searchbar is now always visible."
-msgstr ""
+msgstr "Přidáno: Vyhledávací okno je nově viditelné pořád."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:71
 msgid "Release: Usability Independence"
-msgstr ""
+msgstr "Vydání: Nezávislost používání"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:73
 msgid ""
 "Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
 "trash and also removing singluar notes from a notebook."
 msgstr ""
+"Opraveno: Hodně UI bugů bylo opraveno, například přepínač zápisníků, koš a "
+"také odebírání jednotlivých poznámek ze zápisníku."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:80
 msgid "Release: Format But Don't Fail"
-msgstr ""
+msgstr "Vydání: Formátujte bez selhání"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:82
 msgid ""
 "Fixed: formatting functions are the best they can be, plus minor fixes all "
 "around."
 msgstr ""
+"Opraveno: Funkce pro formátování jsou nejlepší, jaké mohly být. Plus menší "
+"opravy."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:89
 msgid "Release: Ready, Set, Go!"
-msgstr ""
+msgstr "Vydání: Připravit, pozor, teď!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:91
 msgid ""
 "Some UI design fixes, such as the notebook switcher being on the bottom "
 "instead of in the top."
 msgstr ""
+"Různé opravy UI, například přepínač zápisníků je nově dole místo nahoře."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:98
 msgid "Release: GTK4 and Ready!"
-msgstr ""
+msgstr "Vydání: GTK4 a pozor!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:100
 msgid "New UI"
-msgstr ""
+msgstr "Nové uživatelské rozhraní"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:101
 msgid "Using another widget to display note contents"
-msgstr ""
+msgstr "Použití jiné widgety na zobrazení obsahu poznámky"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:102
 msgid "Keyboard shortcuts for formatting"
-msgstr ""
+msgstr "Klávesové zkratky pro formátování"
 
 #: data/io.github.lainsce.Notejot.desktop.in:3
 msgid "Notejot"
-msgstr ""
+msgstr "Notejot"
 
 #: data/io.github.lainsce.Notejot.desktop.in:7
 msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
-msgstr ""
+msgstr "text;plain;plaintext;notepad;notes;sticky;post-it;"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:5
 msgid "Migration Version"
-msgstr ""
+msgstr "Migrační verze"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:6
 msgid "The version of migration to use; Do not change."
-msgstr ""
+msgstr "Používejte tuto migrační verzi; Neměnit."
 
 #: data/io.github.lainsce.Notejot.gschema.xml:10
 msgid "Last View Used"
-msgstr ""
+msgstr "Poslední použité zobrazení"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:11
 msgid "The last view used in the UI"
-msgstr ""
+msgstr "Poslední zobrazení použité v UI"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:15
 msgid "Notes Font Size"
-msgstr ""
+msgstr "Velikost fontu u poznámek"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:16
 msgid "The size of the font used in notes. (Small, Medium, Large)"
-msgstr ""
+msgstr "Velikost fontu používaná v poznámkách. (Malá, Střední, Velká)"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:20
 msgid "Saves whether the window is maximized or not"
-msgstr ""
+msgstr "Uloží, jestli je okno maximalizováno či nikoliv"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:21
 msgid ""
 "Whether the window is maximized. Used to open window with user's preferred "
 "settings"
 msgstr ""
+"Když je okno maximalizováno. Slouží k otevření okna s nastavením uživatele"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:25
 msgid "Saves window last-used width"
-msgstr ""
+msgstr "Uloží naposledy používanou délku okna"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:26
 msgid "The user's last used window width before closing the app"
-msgstr ""
+msgstr "Šířka okna naposledy používaná uživatelem před zavřením aplikace"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:30
 msgid "Saves window last-used height"
-msgstr ""
+msgstr "Uloží naposledy používanou výšku okna"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:31
 msgid "The user's last used window height before closing the app"
-msgstr ""
+msgstr "Výška okna naposledy používaná uživatelem před zavřením aplikace"
 
 #: src/MainWindow.vala:261
 msgid "Jot your ideas."
-msgstr ""
+msgstr "Zapiš si své nápady."
 
 #: src/MainWindow.vala:267
 msgid "translator-credits"
-msgstr ""
+msgstr "translator-credits"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Utils/TimeUtils.vala:34
 msgid "%a, %b %e, %Y"
-msgstr ""
+msgstr "%a, %b %e, %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Utils/TimeUtils.vala:37
 msgid "%b %e %Y"
-msgstr ""
+msgstr "%b %e %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Utils/TimeUtils.vala:40
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Utils/TimeUtils.vala:43
 msgid "%b %e"
-msgstr ""
+msgstr "%b %e"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Utils/TimeUtils.vala:46
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday
 #: src/Utils/TimeUtils.vala:49
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Utils/TimeUtils.vala:52
 msgid "%a, %b %e"
-msgstr ""
+msgstr "%a, %b %e"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Utils/TimeUtils.vala:55
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: src/Utils/TimeUtils.vala:65
 msgid "%-l:%M:%S %p"
-msgstr ""
+msgstr "%-l:%M:%S %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: src/Utils/TimeUtils.vala:68
 msgid "%-l:%M %p"
-msgstr ""
+msgstr "%-l:%M %p"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: src/Utils/TimeUtils.vala:73
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: src/Utils/TimeUtils.vala:76
 msgid "%H:%M"
-msgstr ""
+msgstr "%H:%M"
 
 #: src/Utils/TimeUtils.vala:98
 msgid "Now"
-msgstr ""
+msgstr "Teď"
 
 #: src/Utils/TimeUtils.vala:101
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "před %d minutou"
+msgstr[1] "před %d minutami"
+msgstr[2] "před %d minutami"
 
 #: src/Utils/TimeUtils.vala:104
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "před %d hodinou"
+msgstr[1] "před %d hodinami"
+msgstr[2] "před %d hodinami"
 
 #: src/Utils/TimeUtils.vala:110
 #, c-format
 msgid "in %d minute"
 msgid_plural "in %d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "za %d minutu"
+msgstr[1] "za %d minuty"
+msgstr[2] "za %d minut"
 
 #: src/Utils/TimeUtils.vala:113
 #, c-format
 msgid "in %d hour"
 msgid_plural "in %d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "za %d hodinu"
+msgstr[1] "za %d hodiny"
+msgstr[2] "za %d hodin"
 
 #: src/Utils/TimeUtils.vala:119
 msgid "Yesterday"
-msgstr ""
+msgstr "Včera"
 
 #: src/Utils/TimeUtils.vala:121
 msgid "Tomorrow"
-msgstr ""
+msgstr "Zítra"
 
 #: src/ViewModels/NoteViewModel.vala:37
-#, fuzzy
 msgid "New Note"
 msgstr "Nová poznámka"
 
 #: src/ViewModels/NoteViewModel.vala:40 src/Widgets/MoveToDialog.vala:61
 msgid "No Notebook"
-msgstr ""
+msgstr "Žádný zápisník"
 
 #: src/ViewModels/TrashViewModel.vala:76
 msgid "Clear Trash?"
-msgstr ""
+msgstr "Vysypat koš?"
 
 #: src/ViewModels/TrashViewModel.vala:77
 msgid ""
 "Clearing means the notes in Trash will be permanently lost with no recovery."
 msgstr ""
+"Vysypání způsobí, že poznámky v koši budou navždy smazány bez možnosti "
+"obnovení."
 
 #: src/ViewModels/TrashViewModel.vala:79 data/ui/move_to_dialog.ui:44
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: src/ViewModels/TrashViewModel.vala:80
 msgid "Clear"
-msgstr ""
+msgstr "Vysypat"
 
 #: src/Views/NoteContentView.vala:169
-#, fuzzy
 msgid "Set Note Title"
-msgstr "Nová poznámka"
+msgstr "Název poznámky"
 
 #: src/Views/NoteContentView.vala:399
 msgid "bold text"
-msgstr ""
+msgstr "tučné písmo"
 
 #: src/Views/NoteContentView.vala:407
 msgid "italic text"
-msgstr ""
+msgstr "kurzíva"
 
 #: src/Views/NoteContentView.vala:415
 msgid "underline text"
-msgstr ""
+msgstr "podtržené písmo"
 
 #: src/Views/NoteContentView.vala:423
 msgid "strikethrough text"
-msgstr ""
+msgstr "přeškrtnuté písmo"
 
 #: src/Views/NoteContentView.vala:431 src/Views/NoteContentView.vala:545
 #: src/Views/TrashContentView.vala:317
 msgid "Item"
-msgstr ""
+msgstr "Položka"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
-msgstr ""
+msgstr "Upravit zápisník"
 
 #: data/ui/edit_notebooks.ui:34
-#, fuzzy
 msgid "New Notebook…"
-msgstr "Nová poznámka"
+msgstr "Nový zápisník…"
 
 #: data/ui/edit_notebooks.ui:44
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 #: data/ui/move_to_dialog.ui:22
 msgid "Move"
-msgstr ""
+msgstr "Přesunout"
 
 #: data/ui/move_to_dialog.ui:34
-#, fuzzy
 msgid "Move to a Notebook"
-msgstr "Nová poznámka"
+msgstr "Přesunout do zápisníku"
 
 #: data/ui/move_to_dialog.ui:70
-#, fuzzy
 msgid "Detach Note From Notebook"
-msgstr "Nová poznámka"
+msgstr "Odepnout ze zápisníku"
 
 #: data/ui/move_to_dialog.ui:71
 msgid "Removes this Note from its Notebook."
-msgstr ""
+msgstr "Odstraní tuto poznámku z tohoto zápisníku."
 
 #: data/ui/main_window.ui:57
-#, fuzzy
 msgid "Manage Notebooks…"
-msgstr "Nová poznámka"
+msgstr "Spravovat zápisníky…"
 
 #: data/ui/main_window.ui:64
 msgid "Views"
-msgstr ""
+msgstr "Zobrazení"
 
 #: data/ui/main_window.ui:82
 msgid "All Notes"
-msgstr ""
+msgstr "Všechny poznámky"
 
 #: data/ui/main_window.ui:99
 msgid "Trash"
-msgstr ""
+msgstr "Koš"
 
 #: data/ui/main_window.ui:110
-#, fuzzy
 msgid "Notebooks"
-msgstr "Nová poznámka"
+msgstr "Zápisníky"
 
 #: data/ui/main_window.ui:180
 msgid "Add Note"
-msgstr ""
+msgstr "Přidat poznámku"
 
 #: data/ui/main_window.ui:230
 msgid "Clear Trash"
-msgstr ""
+msgstr "Vysypat koš"
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
-msgstr ""
+msgstr "Velikost textu"
 
 #: data/ui/menu.ui:10
 msgid "Small"
-msgstr ""
+msgstr "Malá"
 
 #: data/ui/menu.ui:15
 msgid "Medium"
-msgstr ""
+msgstr "Střední"
 
 #: data/ui/menu.ui:20
 msgid "Large"
-msgstr ""
+msgstr "Velká"
 
 #: data/ui/menu.ui:26
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klávesové zkratky"
 
 #: data/ui/menu.ui:30
 msgid "About Notejot"
-msgstr ""
+msgstr "O aplikaci Notejot"
 
 #: data/ui/note_theme.ui:15
-#, fuzzy
 msgid "Move Note to a Notebook"
-msgstr "Nová poznámka"
+msgstr "Přesunout do nového zápisníku"
 
 #: data/ui/note_theme.ui:29
 msgid "Pin/Unpin Note"
-msgstr ""
+msgstr "Připnout/odepnout poznámku"
 
 #: data/ui/note_theme.ui:49
 msgid "Red"
@@ -463,11 +468,11 @@ msgstr "Modrá"
 
 #: data/ui/note_theme.ui:104
 msgid "Purple"
-msgstr ""
+msgstr "Fialová"
 
 #: data/ui/note_theme.ui:118
 msgid "Brown"
-msgstr ""
+msgstr "Hnědá"
 
 #: data/ui/note_theme.ui:132
 msgid "Green"
@@ -475,70 +480,69 @@ msgstr "Zelená"
 
 #: data/ui/note_theme.ui:146
 msgid "No Color"
-msgstr ""
+msgstr "Bez barvy"
 
 #: data/ui/note_theme.ui:172
-#, fuzzy
 msgid "Delete Note"
-msgstr "Nová poznámka"
+msgstr "Smazat poznámku"
 
 #: data/ui/notecontentview.ui:48
 msgid "No Selected Notes"
-msgstr ""
+msgstr "Žádné vybrané poznámky"
 
 #: data/ui/notecontentview.ui:49
 msgid "Add a note with the + button."
-msgstr ""
+msgstr "Tlačítkem + přidáte poznámky."
 
 #: data/ui/notecontentview.ui:186
 msgid "Removes formatting from selected text"
-msgstr ""
+msgstr "Odebere formátování z vybraného textu"
 
 #: data/ui/notecontentview.ui:201
 msgid "Makes selected text emboldened"
-msgstr ""
+msgstr "Udělá vybraný text tučným"
 
 #: data/ui/notecontentview.ui:209
 msgid "Makes selected text italicized"
-msgstr ""
+msgstr "Přepne text do kurzívy"
 
 #: data/ui/notecontentview.ui:217
 msgid "Makes selected text underlined"
-msgstr ""
+msgstr "Podtrhne vybraný text"
 
 #: data/ui/notecontentview.ui:225
 msgid "Makes selected text striked through"
-msgstr ""
+msgstr "Přeškrtne vybraný text"
 
 #: data/ui/notecontentview.ui:240
 msgid "Makes selected text into an unordered list"
-msgstr ""
+msgstr "Vytvoří z vybraného textu neuspořádaný seznam"
 
 #: data/ui/notelistview.ui:26
 msgid "Search notes"
-msgstr ""
+msgstr "Prohledat poznámky"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "[shortcut window] Běžné"
 
 #: data/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "[shortcut window] Ukončit"
 
 #: data/ui/trashcontentview.ui:22
 msgid "Restore Note"
-msgstr ""
+msgstr "Obnovit poznámku"
 
 #: data/ui/trashcontentview.ui:36
 msgid "Trash is Empty"
-msgstr ""
+msgstr "Koš je prázdný"
 
 #: data/ui/trashcontentview.ui:37
 msgid "Find notes here that were trashed to restore them."
-msgstr ""
+msgstr "Zde najdete poznámky, které byly přesunuty do koše."
 
 #, fuzzy
 #~ msgid "No Notebooks"
