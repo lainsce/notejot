@@ -10,6 +10,11 @@
 @define-color view_fg_color #1d1b16;
 @define-color headerbar_fg_color #1d1b16;
 
+.solid-csd {
+  box-shadow: none;
+  outline: 1px solid @borders;
+}
+
 .circular radio {
   background: none;
   padding: 12px;
