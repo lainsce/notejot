@@ -44,6 +44,10 @@ namespace Notejot {
                     notebook_add_button.sensitive = false;
                 }
             });
+
+            if (Config.DEVELOPMENT) {
+                add_css_class ("devel");
+            }
         }
 
         [GtkCallback]
