@@ -206,7 +206,7 @@ msgstr "Anote suas idéias."
 
 #: src/MainWindow.vala:267
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr "Clovis Fabricio <github.nosklo@0sg.net>"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Utils/TimeUtils.vala:34
