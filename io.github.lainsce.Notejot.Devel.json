@@ -29,60 +29,6 @@
     ],
     "modules" : [
         {
-            "name" : "libsass",
-            "cleanup" : [
-                "*"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/sass/libsass.git"
-                },
-                {
-                    "type" : "script",
-                    "dest-filename" : "autogen.sh",
-                    "commands" : [
-                        "autoreconf -si"
-                    ]
-                }
-            ]
-        },
-        {
-            "name" : "sassc",
-            "cleanup" : [
-                "*"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/sass/sassc.git"
-                },
-                {
-                    "type" : "script",
-                    "dest-filename" : "autogen.sh",
-                    "commands" : [
-                        "autoreconf -si"
-                    ]
-                }
-            ]
-        },
-        {
-            "name" : "libadwaita",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dvapi=true",
-                "-Dexamples=false",
-                "-Dtests=false"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
-                    "branch" : "main"
-                }
-            ]
-        },
-        {
             "name" : "notejot",
             "builddir" : true,
             "buildsystem" : "meson",
