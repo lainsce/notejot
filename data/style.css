@@ -1,10 +1,10 @@
 @define-color accent_color #745c00;
 @define-color accent_bg_color #f6e468;
 @define-color accent_fg_color #201c00;
-@define-color window_bg_color #fffbf7;
-@define-color view_bg_color #f3efeb;
-@define-color headerbar_bg_color #fffbf7;
-@define-color popover_bg_color #f3efeb;
+@define-color window_bg_color #f3efeb;
+@define-color view_bg_color #fffbf7;
+@define-color headerbar_bg_color #f3efeb;
+@define-color popover_bg_color #fffbf7;
 @define-color popover_fg_color #1d1b16;
 @define-color window_fg_color #1d1b16;
 @define-color view_fg_color #1d1b16;
@@ -74,13 +74,33 @@
 
 .content-view {
 	border-radius: 8px;
-	margin: 6px;
-	margin-top: 0;
+	margin: 0 6px 6px 6px;
 }
 
 .content {
   background: @view_bg_color;
   box-shadow: none;
+}
+
+.rounded-main {
+  background: mix(@window_bg_color, black, 0.09);
+  box-shadow: none;
+  border: none;
+  margin: 0px;
+}
+.rounded-main > .rounded-main-child {
+  background: @window_bg_color;
+  box-shadow: none;
+  border-radius: 12px 0 0 12px;
+  border: none;
+}
+.rounded-main > .rounded-main-child2 {
+  background: @window_bg_color;
+  box-shadow: none;
+  border: none;
+}
+.rounded-main > separator {
+  background: @window_bg_color;
 }
 
 .content-sidebar-notebooks {
@@ -93,7 +113,7 @@
 }
 
 .content-sidebar-main {
-	margin: 12px;
+	margin: 6px;
 	margin-bottom: 0px;
 	border: none;
 	box-shadow: none;
@@ -124,10 +144,10 @@
   border-radius: 8px;
 }
 .content-sidebar-notebooks-item:hover {
-  background: alpha(@view_fg_color, 0.05);
+  background: alpha(@view_bg_color, 0.4);
 }
 .content-sidebar-notebooks-item:active {
-  background: alpha(@view_fg_color, 0.1);
+  background: alpha(@view_bg_color, 0.5);
 }
 
 .content-sidebar-contents-item .title {
@@ -147,21 +167,20 @@
   font-weight: 400;
 }
 .content-sidebar-notebooks-button.toggle:hover {
-  background: alpha(@view_fg_color, 0.05);
+  background: alpha(@window_fg_color, 0.05);
 }
 .content-sidebar-notebooks-button.toggle:active {
-  background: alpha(@view_fg_color, 0.1);
+  background: alpha(@window_fg_color, 0.1);
 }
 .content-sidebar-notebooks-button.toggle:checked {
-  background: alpha(@view_fg_color, 0.1);
+  background: alpha(@window_fg_color, 0.1);
 }
 
 .content-sidebar {
-	margin: 6px;
-	margin-top: 0;
+	margin: 0 6px 6px 6px;
 	border-radius: 8px;
 	border: none;
-	background: @popover_bg_color;
+	background: @view_bg_color;
 }
 .content-sidebar row {
   margin: 0px;
@@ -176,7 +195,7 @@
 	margin-bottom: 0px;
 	border-radius: 8px;
 	border: none;
-	background: @popover_bg_color;
+	background: @view_bg_color;
 }
 .content-sidebar-dialog row {
   margin: 0px;
@@ -196,6 +215,7 @@
   padding: 10px;
   margin: 0px;
   border-bottom: 1px solid @borders;
+  background: none;
 }
 
 .notejot-sidebar-box-row {
@@ -205,20 +225,22 @@
 }
 
 .content-header {
-  margin-top: 6px;
 	border-radius: 8px 8px 0 0;
-	border-bottom: 1px solid @borders;
 }
 
 .content-header entry {
-	background: none;
-	border: 1px solid @borders;
+	background: alpha(@view_fg_color, 0.07);
+	border: none;
 	padding: 6px 12px;
 	border-radius: 8px;
 }
 
 .content-footer {
 	border-radius: 0 0 8px 8px;
+}
+
+.content-footer box {
+	box-shadow: none;
 }
 
 .content-footer button {
@@ -270,19 +292,19 @@
 
 .notejot-searchbar {
   border-radius: 9rem;
-  padding: 0 10px;
+  padding: 0 12px;
   margin: 6px 0 6px;
   border: none;
-  background: @popover_bg_color;
+  background: @view_bg_color;
 }
 
 .notejot-searchbar image {
-  margin-left: 6px;
+  margin-left: 3px;
   padding: 0;
 }
 
 .notejot-searchbar text {
-  margin-left: 6px;
+  margin-left: 3px;
   padding: 0;
 }
 

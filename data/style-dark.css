@@ -14,3 +14,7 @@
   background: #ffb4a9;
   color: #680003;
 }
+
+.rounded-main {
+  background: mix(@window_bg_color, black, 0.18);
+}

@@ -4,7 +4,6 @@
     <child>
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
         <child>
           <object class="AdwHeaderBar" id="stitlebar">
             <property name="show-end-title-buttons">0</property>

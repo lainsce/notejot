@@ -14,6 +14,9 @@
           <object class="AdwLeaflet" id="leaf">
             <property name="can-navigate-back">1</property>
             <property name="can-navigate-forward">1</property>
+            <style>
+              <class name="rounded-main"/>
+            </style>
             <child>
               <object class="AdwLeafletPage">
                 <property name="child">
@@ -75,7 +78,6 @@
                       <object class="GtkToggleButton" id="an_button">
                         <signal name="toggled" handler="on_action_all_notes" />
                         <property name="margin-bottom">6</property>
-                        <property name="margin-start">6</property>
                         <child>
                           <object class="AdwButtonContent">
                             <property name="halign">start</property>
@@ -93,7 +95,6 @@
                         <signal name="toggled" handler="on_action_trash" />
                         <property name="group">an_button</property>
                         <property name="margin-bottom">6</property>
-                        <property name="margin-start">6</property>
                         <child>
                           <object class="AdwButtonContent">
                             <property name="halign">start</property>
@@ -145,6 +146,9 @@
                     <property name="vexpand">1</property>
                     <property name="hexpand">0</property>
                     <property name="transition-type">crossfade</property>
+                    <style>
+                      <class name="rounded-main-child"/>
+                    </style>
                     <child>
                       <object class="GtkStackPage">
                         <property name="name">notelist</property>
@@ -266,6 +270,9 @@
               <object class="AdwLeafletPage">
                 <property name="child">
                   <object class="GtkStack" id="grid">
+                    <style>
+                      <class name="rounded-main-child2"/>
+                    </style>
                     <child>
                       <object class="GtkStackPage">
                         <property name="name">note</property>
