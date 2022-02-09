@@ -62,14 +62,14 @@
   background: shade(@accent_bg_color, 0.95);
 }
 .list-action-button.destructive-action {
-  background: #ffdad4;
-  color: #410001;
+  background: #556358;
+  color: #ffffff;
 }
 .list-action-button.destructive-action:hover {
-  background: shade(#ffdad4, 1.024);
+  background: shade(#556358, 1.024);
 }
 .list-action-button.destructive-action:active {
-  background: shade(#ffdad4, 0.95);
+  background: shade(#556358, 0.95);
 }
 
 .content-view {
@@ -288,7 +288,8 @@
 }
 
 .notejot-stitle,
-.notejot-sbtitle {
+.notejot-sbtitle,
+.notejot-titlebar {
   border-bottom: none;
 	box-shadow: none;
 	background: none;
