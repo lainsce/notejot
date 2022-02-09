@@ -1,6 +1,6 @@
 @define-color accent_color #816600;
-@define-color accent_bg_color #816600;
-@define-color accent_fg_color #ffffff;
+@define-color accent_bg_color #ffd663;
+@define-color accent_fg_color #524000;
 @define-color window_bg_color #f3f1ec;
 @define-color view_bg_color #fefdf7;
 @define-color headerbar_bg_color #f3f1ec;
@@ -62,14 +62,14 @@
   background: shade(@accent_bg_color, 0.95);
 }
 .list-action-button.destructive-action {
-  background: #556358;
-  color: #ffffff;
+  background: #d6e9da;
+  color: #112015;
 }
 .list-action-button.destructive-action:hover {
-  background: shade(#556358, 1.024);
+  background: shade(#d6e9da, 1.024);
 }
 .list-action-button.destructive-action:active {
-  background: shade(#556358, 0.95);
+  background: shade(#d6e9da, 0.95);
 }
 
 .content-view {
@@ -83,7 +83,7 @@
 }
 
 .rounded-main {
-  background: mix(@window_bg_color, black, 0.09);
+  background: mix(@window_bg_color, @window_fg_color, 0.08);
   box-shadow: none;
   border: none;
   margin: 0px;
