@@ -18,6 +18,10 @@
   border-left: 1px solid @borders;
 }
 
-.rounded-main > .rounded-main-child:rtl {
+.rounded-main > .rounded-main-child:dir(rtl) {
   border-right: 1px solid @borders;
+}
+
+.list-action-button {
+  border: 1px solid @borders;
 }

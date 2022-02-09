@@ -45,6 +45,15 @@
     </custom>
     <translation type="gettext">@app_id@</translation>
     <releases>
+        <release version="3.5.0" date="2022-02-11">
+            <description>
+                <p>Release: Beautiful Superstar</p>
+                <ul>
+                    <li>Changed: UI ciolors were changed, and some UI parts now look more intuitive.</li>
+                </ul>
+                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
+            </description>
+        </release>
         <release version="3.4.9" date="2021-11-28">
             <description>
                 <p>Release: The Top 100 (3.3.3)</p>

@@ -1,14 +1,14 @@
-@define-color accent_color #745c00;
-@define-color accent_bg_color #f6e468;
-@define-color accent_fg_color #201c00;
-@define-color window_bg_color #f3efeb;
-@define-color view_bg_color #fffbf7;
-@define-color headerbar_bg_color #f3efeb;
-@define-color popover_bg_color #fffbf7;
-@define-color popover_fg_color #1d1b16;
-@define-color window_fg_color #1d1b16;
-@define-color view_fg_color #1d1b16;
-@define-color headerbar_fg_color #1d1b16;
+@define-color accent_color #816600;
+@define-color accent_bg_color #816600;
+@define-color accent_fg_color #ffffff;
+@define-color window_bg_color #f3f1ec;
+@define-color view_bg_color #fefdf7;
+@define-color headerbar_bg_color #f3f1ec;
+@define-color popover_bg_color #fefdf7;
+@define-color popover_fg_color #1d1c18;
+@define-color window_fg_color #1d1c18;
+@define-color view_fg_color #1d1c18;
+@define-color headerbar_fg_color #1d1c18;
 
 .solid-csd {
   box-shadow: none;
@@ -211,11 +211,21 @@
   font-weight: 500;
 }
 
-.notejot-sidebar-box {
-  padding: 10px;
-  margin: 0px;
-  border-bottom: 1px solid @borders;
-  background: none;
+.content-sidebar row {
+  padding: 12px;
+  margin: 6px;
+  margin-top: 3px;
+  background: mix(@view_bg_color,@view_fg_color,0.05);
+  border-radius: 8px;
+}
+.content-sidebar row:first-child {
+  margin-top: 6px;
+}
+.content-sidebar row:hover {
+  background: alpha(@view_fg_color, 0.12);
+}
+.content-sidebar row:selected {
+  background: alpha(@accent_color, 0.12);
 }
 
 .notejot-sidebar-box-row {
