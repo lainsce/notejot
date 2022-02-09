@@ -53,13 +53,6 @@
                                 <property name="icon-name">open-menu-symbolic</property>
                               </object>
                             </child>
-                            <child>
-                              <object class="GtkButton" id="en_button">
-                                <property name="action-name">win.action_edit_notebooks</property>
-                                <property name="icon-name">notebook-config-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
-                              </object>
-                            </child>
                           </object>
                         </child>
                         <child>
@@ -108,14 +101,33 @@
                       </object>
                     </child>
                         <child>
-                          <object class="GtkLabel" id="nb_label">
-                            <property name="label" translatable="yes">Notebooks</property>
-                            <property name="halign">start</property>
-                            <property name="margin-start">12</property>
-                            <style>
-                              <class name="heading"/>
-                              <class name="dim-label"/>
-                            </style>
+                          <object class="GtkBox">
+                            <property name="hexpand">1</property>
+                            <property name="homogeneous">1</property>
+                            <property name="spacing">6</property>
+                            <property name="margin-end">6</property>
+                            <child>
+                                <object class="GtkLabel" id="nb_label">
+                                <property name="label" translatable="yes">Notebooks</property>
+                                <property name="halign">start</property>
+                                <property name="margin-start">12</property>
+                                <style>
+                                  <class name="heading"/>
+                                  <class name="dim-label"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="en_button">
+                                <property name="halign">end</property>
+                                <property name="action-name">win.action_edit_notebooks</property>
+                                <property name="icon-name">notebook-config-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
+                                <style>
+                                  <class name="flat"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child>
@@ -135,6 +147,18 @@
                         </child>
                       </object>
                     </child>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwLeafletPage">
+                <property name="navigatable">0</property>
+                <property name="child">
+                  <object class="GtkSeparator">
+                    <style>
+                      <class name="no-sep2"/>
+                    </style>
                   </object>
                 </property>
               </object>

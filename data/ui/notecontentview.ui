@@ -21,19 +21,12 @@
               </object>
             </child>
             <style>
-              <class name="notejot-titlebar"/>
+              <class name="notejot-sbtitle"/>
             </style>
             <child>
               <object class="GtkButton" id="back_button">
                 <property name="visible">0</property>
                 <property name="icon-name">go-previous-symbolic</property>
-              </object>
-            </child>
-            <child type="end">
-              <object class="GtkMenuButton" id="s_menu">
-                <property name="visible">0</property>
-                <property name="menu-model">smenu</property>
-                <property name="icon-name">view-more-symbolic</property>
               </object>
             </child>
           </object>
@@ -178,6 +171,14 @@
                           <class name="content-footer"/>
                           <class name="notejot-footer"/>
                         </style>
+                        <child type="end">
+                          <object class="GtkMenuButton" id="s_menu">
+                            <property name="visible">0</property>
+                            <property name="direction">up</property>
+                            <property name="menu-model">smenu</property>
+                            <property name="icon-name">view-more-symbolic</property>
+                          </object>
+                        </child>
                         <child type="center">
                           <object class="GtkBox">
                             <property name="spacing">6</property>

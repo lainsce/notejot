@@ -13,7 +13,6 @@
             <property name="width-request">220</property>
             <style>
               <class name="notejot-stitle"/>
-              <class name="notejot-sbtitle"/>
             </style>
             <child>
               <object class="GtkButton" id="back_button">

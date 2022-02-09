@@ -180,7 +180,7 @@
 	margin: 0 6px 6px 6px;
 	border-radius: 8px;
 	border: none;
-	background: @view_bg_color;
+	background: alpha(@view_bg_color, 0.5);
 }
 .content-sidebar row {
   margin: 0px;
@@ -215,17 +215,17 @@
   padding: 12px;
   margin: 6px;
   margin-top: 3px;
-  background: mix(@view_bg_color,@view_fg_color,0.05);
+  background: alpha(@view_fg_color, 0.05);
   border-radius: 8px;
 }
 .content-sidebar row:first-child {
   margin-top: 6px;
 }
 .content-sidebar row:hover {
-  background: alpha(@view_fg_color, 0.12);
+  background: alpha(@view_fg_color, 0.11);
 }
 .content-sidebar row:selected {
-  background: alpha(@accent_color, 0.12);
+  background: alpha(@accent_color, 0.14);
 }
 
 .notejot-sidebar-box-row {
@@ -264,10 +264,13 @@
 }
 
 .no-sep {
-  background: none;
-  box-shadow: none;
-  border: none;
-  margin: 0px;
+  min-width: 0px;
+  min-height: 0px;
+}
+
+.no-sep2 {
+  min-width: 0px;
+  min-height: 0px;
 }
 
 .notejot-theme {
@@ -284,16 +287,11 @@
   margin: 2px;
 }
 
-.notejot-titlebar,
-.notejot-stitle {
-	border-bottom: none;
+.notejot-stitle,
+.notejot-sbtitle {
+  border-bottom: none;
 	box-shadow: none;
 	background: none;
-}
-
-.notejot-sbtitle > windowhandle > box > box {
-  margin: 0;
-  padding: 0;
 }
 
 .notejot-theme-grid {
