@@ -9,6 +9,7 @@
 @define-color window_fg_color #e5e3de;
 @define-color view_fg_color #e5e3de;
 @define-color headerbar_fg_color #e5e3de;
+@define-color borders alpha(#989080, 0.5);
 
 .list-action-button.destructive-action {
   background: #8c1d18;

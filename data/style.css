@@ -9,6 +9,7 @@
 @define-color window_fg_color #1d1c18;
 @define-color view_fg_color #1d1c18;
 @define-color headerbar_fg_color #1d1c18;
+@define-color borders alpha(#7d7667, 0.5);
 
 .solid-csd {
   box-shadow: none;
