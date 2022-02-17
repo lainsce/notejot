@@ -62,14 +62,14 @@
   background: shade(@accent_bg_color, 0.95);
 }
 .list-action-button.destructive-action {
-  background: #d6e9da;
-  color: #112015;
+  background: #f9dedc;
+  color: #410e0b;
 }
 .list-action-button.destructive-action:hover {
-  background: shade(#d6e9da, 1.024);
+  background: shade(#f9dedc, 1.024);
 }
 .list-action-button.destructive-action:active {
-  background: shade(#d6e9da, 0.95);
+  background: shade(#f9dedc, 0.95);
 }
 
 .content-view {
