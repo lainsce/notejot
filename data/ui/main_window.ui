@@ -84,6 +84,23 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkToggleButton" id="g_button">
+                        <signal name="toggled" handler="on_action_grid" />
+                        <property name="group">an_button</property>
+                        <property name="margin-bottom">6</property>
+                        <child>
+                          <object class="AdwButtonContent">
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Note Grid</property>
+                            <property name="icon-name">view-grid-symbolic</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="content-sidebar-notebooks-button"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkToggleButton" id="t_button">
                         <signal name="toggled" handler="on_action_trash" />
                         <property name="group">an_button</property>

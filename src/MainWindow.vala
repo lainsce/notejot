@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2021 Lains
+* Copyright (c) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -192,6 +192,20 @@ namespace Notejot {
             }
             sgrid.set_visible_child_name ("notelist");
             grid.set_visible_child_name ("note");
+        }
+
+        [GtkCallback]
+        public void on_action_grid () {
+            var settings = new Settings ();
+            settings.last_view = "grid";
+            // leaf.set_visible_child (sgrid);
+            // if (leaf.folded) {
+            //     listview.back_button.set_visible (true);
+            // } else {
+            //     listview.back_button.set_visible (false);
+            // }
+            // sgrid.set_visible_child_name ("notelist");
+            // grid.set_visible_child_name ("note");
         }
 
         [GtkCallback]
