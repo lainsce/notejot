@@ -1,32 +1,31 @@
+# This is Japanese Translation File of "notejet"
 # Ryo Nakano <ryonakaknock@gmail.com>, 2018.
+# 小山田 純 <oyamadajun@outlook.jp>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-28 01:33-0300\n"
-"PO-Revision-Date: 2021-11-08 16:16+0100\n"
-"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
+"PO-Revision-Date: 2022-02-20 01:05+0900\n"
+"Last-Translator: 小山田 純 <oyamadajun@outlook.jp>\n"
 "Language-Team: Japanese <>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:7
 #: data/io.github.lainsce.Notejot.desktop.in:4
 msgid "Jot your ideas"
-msgstr "アイデアをメモします"
+msgstr "アイデアを書き留めよう！"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:9
-#, fuzzy
 msgid ""
 "A stupidly-simple notes application for any type of short term notes or "
 "ideas."
-msgstr ""
-"一時的なノートやアイデアをメモするための、非常にシンプルな付箋アプリケーショ"
-"ンです。"
+msgstr "超シンプルなメモアプリです。"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:11
 msgid "🟡 Color your notes in 8 different colors"
@@ -131,13 +130,13 @@ msgstr ""
 
 #: data/io.github.lainsce.Notejot.desktop.in:3
 msgid "Notejot"
-msgstr ""
+msgstr "Notejot"
 
 #: data/io.github.lainsce.Notejot.desktop.in:7
-#, fuzzy
 msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
 msgstr ""
-"Text;Plain;Plaintext;Notepad;テキスト;プレーン;プレーンテキスト;メモ帳;"
+"text;plain;plaintext;notepad;テキスト;プレーン;プレーンテキスト;メモ帳;memo;"
+"ノート;no-to;"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:5
 msgid "Migration Version"
@@ -191,11 +190,11 @@ msgstr ""
 
 #: src/MainWindow.vala:261
 msgid "Jot your ideas."
-msgstr ""
+msgstr "アイデアを書き留めよう！"
 
 #: src/MainWindow.vala:267
 msgid "translator-credits"
-msgstr ""
+msgstr "小山田 純 <oyamadajun@outlook.jp>"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Utils/TimeUtils.vala:34
@@ -260,19 +259,19 @@ msgstr ""
 
 #: src/Utils/TimeUtils.vala:98
 msgid "Now"
-msgstr ""
+msgstr "今"
 
 #: src/Utils/TimeUtils.vala:101
 #, c-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
+msgstr[0] "%d分前"
 
 #: src/Utils/TimeUtils.vala:104
 #, c-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
+msgstr[0] "%d時間前"
 
 #: src/Utils/TimeUtils.vala:110
 #, c-format
@@ -288,157 +287,149 @@ msgstr[0] ""
 
 #: src/Utils/TimeUtils.vala:119
 msgid "Yesterday"
-msgstr ""
+msgstr "昨日"
 
 #: src/Utils/TimeUtils.vala:121
 msgid "Tomorrow"
-msgstr ""
+msgstr "明日"
 
 #: src/ViewModels/NoteViewModel.vala:37
-#, fuzzy
 msgid "New Note"
-msgstr "新しいノート"
+msgstr "新しいメモ"
 
 #: src/ViewModels/NoteViewModel.vala:40 src/Widgets/MoveToDialog.vala:61
 msgid "No Notebook"
-msgstr ""
+msgstr "ノートに未紐付け"
 
 #: src/ViewModels/TrashViewModel.vala:76
 msgid "Clear Trash?"
-msgstr ""
+msgstr "ゴミ箱を空にしますか？"
 
 #: src/ViewModels/TrashViewModel.vala:77
 msgid ""
 "Clearing means the notes in Trash will be permanently lost with no recovery."
-msgstr ""
+msgstr "削除したメモは復元できません。"
 
 #: src/ViewModels/TrashViewModel.vala:79 data/ui/move_to_dialog.ui:44
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: src/ViewModels/TrashViewModel.vala:80
 msgid "Clear"
-msgstr ""
+msgstr "空にする"
 
 #: src/Views/NoteContentView.vala:169
-#, fuzzy
 msgid "Set Note Title"
-msgstr "新しいノート"
+msgstr "メモのタイトルを編集"
 
 #: src/Views/NoteContentView.vala:399
 msgid "bold text"
-msgstr ""
+msgstr "太字"
 
 #: src/Views/NoteContentView.vala:407
 msgid "italic text"
-msgstr ""
+msgstr "斜体"
 
 #: src/Views/NoteContentView.vala:415
 msgid "underline text"
-msgstr ""
+msgstr "下線"
 
 #: src/Views/NoteContentView.vala:423
 msgid "strikethrough text"
-msgstr ""
+msgstr "取り消し線"
 
 #: src/Views/NoteContentView.vala:431 src/Views/NoteContentView.vala:545
 #: src/Views/TrashContentView.vala:317
 msgid "Item"
-msgstr ""
+msgstr "箇条書き"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
-msgstr ""
+msgstr "ノートを編集"
 
 #: data/ui/edit_notebooks.ui:34
-#, fuzzy
 msgid "New Notebook…"
-msgstr "新しいノート"
+msgstr "新しいノートの名前を入力…"
 
 #: data/ui/edit_notebooks.ui:44
 msgid "Add"
-msgstr ""
+msgstr "作成"
 
 #: data/ui/move_to_dialog.ui:22
 msgid "Move"
-msgstr ""
+msgstr "紐付け"
 
 #: data/ui/move_to_dialog.ui:34
-#, fuzzy
 msgid "Move to a Notebook"
-msgstr "ノートの色"
+msgstr "ノートと紐付け"
 
 #: data/ui/move_to_dialog.ui:70
-#, fuzzy
 msgid "Detach Note From Notebook"
-msgstr "ノートの色"
+msgstr "ノートとメモの紐付けの解除"
 
 #: data/ui/move_to_dialog.ui:71
 msgid "Removes this Note from its Notebook."
-msgstr ""
+msgstr "このメモは現在紐付けされているノートから削除されます。"
 
 #: data/ui/main_window.ui:57
-#, fuzzy
 msgid "Manage Notebooks…"
-msgstr "新しいノート"
+msgstr "ノートを管理…"
 
 #: data/ui/main_window.ui:64
 msgid "Views"
-msgstr ""
+msgstr " "
 
 #: data/ui/main_window.ui:82
 msgid "All Notes"
-msgstr ""
+msgstr "すべてのメモ"
 
 #: data/ui/main_window.ui:99
 msgid "Trash"
-msgstr ""
+msgstr "ゴミ箱"
 
 #: data/ui/main_window.ui:110
-#, fuzzy
 msgid "Notebooks"
-msgstr "ノートの色"
+msgstr "ノート"
 
 #: data/ui/main_window.ui:180
 msgid "Add Note"
-msgstr ""
+msgstr "メモを作成"
 
 #: data/ui/main_window.ui:230
 msgid "Clear Trash"
-msgstr ""
+msgstr "ゴミ箱を空にする"
 
 #: data/ui/menu.ui:6
 msgid "Text Size"
-msgstr ""
+msgstr "文字の大きさ"
 
 #: data/ui/menu.ui:10
 msgid "Small"
-msgstr ""
+msgstr "小"
 
 #: data/ui/menu.ui:15
 msgid "Medium"
-msgstr ""
+msgstr "中"
 
 #: data/ui/menu.ui:20
 msgid "Large"
-msgstr ""
+msgstr "大"
 
 #: data/ui/menu.ui:26
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "キーボードショートカット"
 
 #: data/ui/menu.ui:30
 msgid "About Notejot"
-msgstr ""
+msgstr "Notejotについて"
 
 #: data/ui/note_theme.ui:15
-#, fuzzy
 msgid "Move Note to a Notebook"
-msgstr "ノートの色"
+msgstr "このメモをノートに紐付け"
 
 #: data/ui/note_theme.ui:29
 msgid "Pin/Unpin Note"
-msgstr ""
+msgstr "ピン留め"
 
 #: data/ui/note_theme.ui:49
 msgid "Red"
@@ -458,90 +449,78 @@ msgstr "青"
 
 #: data/ui/note_theme.ui:104
 msgid "Purple"
-msgstr ""
+msgstr "紫"
 
 #: data/ui/note_theme.ui:118
 msgid "Brown"
-msgstr ""
+msgstr "茶"
 
 #: data/ui/note_theme.ui:132
 msgid "Green"
 msgstr "緑"
 
 #: data/ui/note_theme.ui:146
-#, fuzzy
 msgid "No Color"
-msgstr "ノートの色"
+msgstr "なし"
 
 #: data/ui/note_theme.ui:172
-#, fuzzy
 msgid "Delete Note"
-msgstr "新しいノート"
+msgstr "このメモを削除"
 
 #: data/ui/notecontentview.ui:48
 msgid "No Selected Notes"
-msgstr ""
+msgstr "メモが選択されていません"
 
 #: data/ui/notecontentview.ui:49
 msgid "Add a note with the + button."
-msgstr ""
+msgstr "＋ボタンをクリックしてメモを作成できます。"
 
 #: data/ui/notecontentview.ui:186
 msgid "Removes formatting from selected text"
-msgstr ""
+msgstr "選択した範囲の書式を削除"
 
 #: data/ui/notecontentview.ui:201
 msgid "Makes selected text emboldened"
-msgstr ""
+msgstr "選択した範囲を太字にする"
 
 #: data/ui/notecontentview.ui:209
 msgid "Makes selected text italicized"
-msgstr ""
+msgstr "選択した範囲を斜体にする"
 
 #: data/ui/notecontentview.ui:217
 msgid "Makes selected text underlined"
-msgstr ""
+msgstr "選択した範囲に下線を引く"
 
 #: data/ui/notecontentview.ui:225
 msgid "Makes selected text striked through"
-msgstr ""
+msgstr "選択した範囲に取り消し線を引く"
 
 #: data/ui/notecontentview.ui:240
 msgid "Makes selected text into an unordered list"
-msgstr ""
+msgstr "選択した範囲を箇条書きにする"
 
 #: data/ui/notelistview.ui:26
 msgid "Search notes"
-msgstr ""
+msgstr "メモを検索"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: data/ui/shortcuts.ui:16
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "終了"
 
 #: data/ui/trashcontentview.ui:22
 msgid "Restore Note"
-msgstr ""
+msgstr "リリースノート"
 
 #: data/ui/trashcontentview.ui:36
 msgid "Trash is Empty"
-msgstr ""
+msgstr "ゴミ箱は空です"
 
 #: data/ui/trashcontentview.ui:37
 msgid "Find notes here that were trashed to restore them."
-msgstr ""
-
-#~ msgid "Quit anytime with the shortcut Ctrl + Q"
-#~ msgstr "ショートカット Ctrl + Q で、いつでも終了できます"
-
-#~ msgid "Lains"
-#~ msgstr "Lains"
-
-#, fuzzy
-#~ msgid "No Notebooks"
-#~ msgstr "新しいノート"
+msgstr "ゴミ箱に入れたメモはここで探します。"
