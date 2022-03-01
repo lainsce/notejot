@@ -51,7 +51,7 @@ public class Notejot.NoteGridView : View {
 
             if (pos != Gtk.INVALID_LIST_POSITION)
                 to.set_object (selection_model.model.get_item (pos));
-                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
+                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid);
 
             return true;
         });
