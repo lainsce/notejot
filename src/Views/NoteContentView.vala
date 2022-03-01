@@ -241,6 +241,7 @@ public class Notejot.NoteContentView : View {
             back_button.clicked.connect (() => {
                 if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).get_visible_child () == ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid) {
                     ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child_name ("notegrid");
+                    ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid);
                 } else {
                     ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
                 }
