@@ -65,6 +65,7 @@ public class Notejot.NoteContentView : View {
     Binding? notebook_binding;
     Binding? text_binding;
     Binding? bb_binding;
+    Binding? bbb_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
     public NoteViewModel? vm {get; set;}
@@ -238,10 +239,18 @@ public class Notejot.NoteContentView : View {
             bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
 
             back_button.clicked.connect (() => {
-                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+                if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).get_visible_child () == ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid) {
+                    ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child_name ("notegrid");
+                } else {
+                    ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+                }
             });
 
-            back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid.visible != false ? true : false;
+            if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).folded) {
+                back2_button.visible = false;
+            } else {
+                back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid.visible != false ? true : false;
+            }
 
             back2_button.clicked.connect (() => {
                 ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child_name ("notegrid");
