@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="NotejotNoteListView" parent="NotejotView">
+  <template class="NotejotNoteGridView" parent="NotejotView">
     <child>
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar" id="stitlebar">
-            <property name="show-end-title-buttons">0</property>
+            <property name="show-end-title-buttons">1</property>
             <property name="show-start-title-buttons">0</property>
             <property name="valign">center</property>
             <property name="hexpand">0</property>
@@ -32,14 +32,13 @@
             <property name="width-request">250</property>
             <property name="vexpand">1</property>
             <child>
-              <object class="GtkListView" id="lv">
+              <object class="GtkGridView" id="gv">
                 <style>
-                  <class name="boxed-list"/>
-                  <class name="content-sidebar"/>
+                  <class name="content-sidebar" />
                 </style>
                 <property name="factory">
                   <object class="GtkBuilderListItemFactory">
-                    <property name="resource">/io/github/lainsce/Notejot/noterow.ui</property>
+                    <property name="resource">/io/github/lainsce/Notejot/notegridrow.ui</property>
                   </object>
                 </property>
                 <property name="model">
@@ -52,19 +51,19 @@
                         <property name="model">
                           <object class="GtkSortListModel">
                             <binding name="model">
-                              <lookup name="notes">NotejotNoteListView</lookup>
+                              <lookup name="notes">NotejotNoteGridView</lookup>
                             </binding>
                             <property name="sorter">
-                              <object class="NotejotNoteSorter"/>
+                              <object class="NotejotNoteSorter" />
                             </property>
                           </object>
                         </property>
                         <property name="filter">
                           <object class="GtkStringFilter">
                             <property name="expression">
-                              <lookup name="title" type="NotejotNote"/>
+                              <lookup name="title" type="NotejotNote"></lookup>
                             </property>
-                            <property name="search" bind-source="NotejotNoteListView" bind-property="note-search"/>
+                            <property name="search" bind-source="NotejotNoteGridView" bind-property="note-search"/>
                           </object>
                         </property>
                       </object>
@@ -79,4 +78,3 @@
     </child>
   </template>
 </interface>
-

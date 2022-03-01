@@ -11,7 +11,10 @@
       <file alias="menu.ui">ui/menu.ui</file>
       <file alias="note_theme.ui">ui/note_theme.ui</file>
       <file alias="notecontentview.ui">ui/notecontentview.ui</file>
+      <file alias="notegridview.ui">ui/notegridview.ui</file>
       <file alias="notelistview.ui">ui/notelistview.ui</file>
+      <file alias="notegridrow.ui">ui/notegridrow.ui</file>
+      <file alias="notegridrowcontent.ui">ui/notegridrowcontent.ui</file>
       <file alias="noterow.ui">ui/noterow.ui</file>
       <file alias="noterowbadge.ui">ui/noterowbadge.ui</file>
       <file alias="noterowcontent.ui">ui/noterowcontent.ui</file>

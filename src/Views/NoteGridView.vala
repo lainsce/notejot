@@ -16,8 +16,8 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-[GtkTemplate (ui = "/io/github/lainsce/Notejot/notelistview.ui")]
-public class Notejot.NoteListView : View {
+[GtkTemplate (ui = "/io/github/lainsce/Notejot/notegridview.ui")]
+public class Notejot.NoteGridView : View {
     [GtkChild]
     unowned Gtk.SingleSelection selection_model;
     [GtkChild]
@@ -41,7 +41,6 @@ public class Notejot.NoteListView : View {
             _selected_note = value;
 
             bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
-            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
         }
     }
     public NoteViewModel? view_model { get; set; }

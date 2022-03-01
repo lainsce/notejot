@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -56,6 +56,8 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     public unowned Gtk.Button back_button;
     [GtkChild]
+    public unowned Gtk.Button back2_button;
+    [GtkChild]
     public new unowned Adw.HeaderBar titlebar;
 
     Binding? title_binding;
@@ -88,6 +90,8 @@ public class Notejot.NoteContentView : View {
                 _note.notify.disconnect (on_text_updated);
 
             _note = value;
+
+            fmt_syntax_start ();
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
@@ -235,6 +239,12 @@ public class Notejot.NoteContentView : View {
 
             back_button.clicked.connect (() => {
                 ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+            });
+
+            back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid.visible != false ? true : false;
+
+            back2_button.clicked.connect (() => {
+                ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child_name ("notegrid");
             });
 
             if (_note != null)

@@ -229,6 +229,20 @@
   background: alpha(@accent_color, 0.14);
 }
 
+.content-sidebar child {
+  padding: 12px;
+  margin: 6px;
+  margin-top: 6px;
+  background: alpha(@view_fg_color, 0.05);
+  border-radius: 8px;
+}
+.content-sidebar child:hover {
+  background: alpha(@view_fg_color, 0.11);
+}
+.content-sidebar child:selected {
+  background: alpha(@accent_color, 0.14);
+}
+
 .notejot-sidebar-box-row {
   padding: 20px;
   margin: 0px;
@@ -305,7 +319,7 @@
   padding: 0 12px;
   margin: 6px 0 6px;
   border: none;
-  background: @view_bg_color;
+  background: @window_bg_color;
 }
 
 .notejot-searchbar image {

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2021 Lains
+* Copyright (c) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -40,6 +40,7 @@ public class Notejot.Application : Adw.Application {
         add_action_entries (app_entries, this);
 
         typeof (NoteListView).ensure ();
+        typeof (NoteGridView).ensure ();
         typeof (NoteContentView).ensure ();
 
         var repo = new NoteRepository ();

@@ -16,24 +16,32 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-class Notejot.NoteSorter : Gtk.Sorter {
-  protected override Gtk.Ordering compare (Object? item1, Object? item2) {
-    var note1 = item1 as Note;
-    var note2 = item2 as Note;
+[GtkTemplate (ui = "/io/github/lainsce/Notejot/notegridrowcontent.ui")]
+public class Notejot.NoteGridRowContent : Adw.Bin {
+    [GtkChild]
+    unowned Gtk.Image pin;
 
-    if (note1 == null || note2 == null)
-      return EQUAL;
+    Binding? pinned_binding;
 
-    if (note1.pinned || note2.pinned) {
-        return LARGER;
-    } else if (!note1.pinned || !note2.pinned) {
-        return SMALLER;
-    } else {
-        return Gtk.Ordering.from_cmpfunc (note1.subtitle.collate (note2.subtitle));
+    Note? _note;
+    public Note? note {
+        get { return _note; }
+        set {
+            if (value == _note)
+                return;
+
+            pinned_binding?.unbind ();
+
+            _note = value;
+
+            pinned_binding = _note?.bind_property (
+                "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+        }
     }
-  }
 
-  protected override Gtk.SorterOrder get_order () {
-    return TOTAL;
-  }
+    public NoteGridRowContent (Note note) {
+        Object(
+            note: note
+        );
+    }
 }

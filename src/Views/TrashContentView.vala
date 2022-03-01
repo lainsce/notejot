@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -77,6 +77,8 @@ public class Notejot.TrashContentView : View {
             text_binding?.unbind ();
 
             _trash = value;
+
+            fmt_syntax_start ();
 
             s_menu.visible = _trash != null ? true : false;
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;

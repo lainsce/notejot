@@ -29,6 +29,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Stack sgrid;
         [GtkChild]
+        public unowned Gtk.Stack ggrid;
+        [GtkChild]
         public unowned Gtk.WindowHandle nbgrid;
         [GtkChild]
         public unowned Adw.Leaflet leaf;
@@ -43,6 +45,8 @@ namespace Notejot {
 
         [GtkChild]
         public unowned NoteListView listview;
+        [GtkChild]
+        public unowned NoteGridView gridview;
         [GtkChild]
         public unowned TrashListView tlistview;
 
@@ -190,22 +194,27 @@ namespace Notejot {
             } else {
                 listview.back_button.set_visible (false);
             }
+            sgrid.set_visible (true);
             sgrid.set_visible_child_name ("notelist");
+            grid.set_visible (true);
             grid.set_visible_child_name ("note");
+            ggrid.set_visible (false);
         }
 
         [GtkCallback]
         public void on_action_grid () {
             var settings = new Settings ();
             settings.last_view = "grid";
-            // leaf.set_visible_child (sgrid);
-            // if (leaf.folded) {
-            //     listview.back_button.set_visible (true);
-            // } else {
-            //     listview.back_button.set_visible (false);
-            // }
-            // sgrid.set_visible_child_name ("notelist");
-            // grid.set_visible_child_name ("note");
+            leaf.set_visible_child (ggrid);
+            if (leaf.folded) {
+                gridview.back_button.set_visible (true);
+            } else {
+                gridview.back_button.set_visible (false);
+            }
+            ggrid.set_visible_child_name ("notegrid");
+            grid.set_visible (false);
+            sgrid.set_visible (false);
+            ggrid.set_visible (true);
         }
 
         [GtkCallback]
@@ -218,8 +227,11 @@ namespace Notejot {
             } else {
                 tlistview.back_button.set_visible (false);
             }
+            sgrid.set_visible (true);
+            grid.set_visible (true);
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible_child_name ("trash");
+            ggrid.set_visible (false);
         }
 
         public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {
