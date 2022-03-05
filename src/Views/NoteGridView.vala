@@ -19,14 +19,12 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notegridview.ui")]
 public class Notejot.NoteGridView : View {
     [GtkChild]
-    unowned Gtk.SingleSelection selection_model;
-    [GtkChild]
     public unowned Gtk.Button back_button;
     [GtkChild]
     public unowned Adw.HeaderBar stitlebar;
 
     public ObservableList<Note>? notes { get; set; }
-    public string? note_search { get; set; }
+    public Gtk.SingleSelection? ss {get; set;}
 
     Binding? bb_binding;
     Note? _selected_note;
@@ -45,12 +43,16 @@ public class Notejot.NoteGridView : View {
     }
     public NoteViewModel? view_model { get; set; }
 
+    public NoteGridView () {
+        Object (ss: ss);
+    }
+
     construct {
-        selection_model.bind_property ("selected", this, "selected-note", DEFAULT, (_, from, ref to) => {
+        ss.bind_property ("selected", this, "selected-note", DEFAULT, (_, from, ref to) => {
             var pos = (uint) from;
 
             if (pos != Gtk.INVALID_LIST_POSITION)
-                to.set_object (selection_model.model.get_item (pos));
+                to.set_object (ss.model.get_item (pos));
                 ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid);
 
             return true;

@@ -114,7 +114,7 @@
 }
 
 .content-sidebar-main {
-	margin: 6px;
+	margin: 6px 12px;
 	margin-bottom: 0px;
 	border: none;
 	box-shadow: none;
@@ -122,18 +122,17 @@
 }
 
 .content-sidebar-main row {
-  margin: 0px;
   margin-bottom: 6px;
-  padding: 0px;
-  border-radius: 8px;
+  padding: 3px 2px;
+  border-radius: 999px;
 }
 
 .content-sidebar-main row:hover {
-  background: none;
+  background: alpha(@view_fg_color, 0.05);
 }
 
-.content-sidebar-main row:active {
-  background: none;
+.content-sidebar-main row:selected {
+  background: alpha(@view_fg_color, 0.1);
 }
 
 .content-sidebar-notebooks-item {
@@ -158,9 +157,10 @@
 
 .content-sidebar-notebooks-button.toggle {
   border: none;
-  margin: 0 6px;
+  margin: 0 12px;
+  padding: 6px 12px;
   box-shadow: none;
-  border-radius: 8px;
+  border-radius: 999px;
   background: none;
 }
 .content-sidebar-notebooks-button.toggle label {

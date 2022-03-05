@@ -42,35 +42,9 @@
                     <property name="resource">/io/github/lainsce/Notejot/noterow.ui</property>
                   </object>
                 </property>
-                <property name="model">
-                  <object class="GtkSingleSelection" id="selection_model">
-                    <property name="autoselect">no</property>
-                    <property name="can-unselect">yes</property>
-                    <property name="model">
-                      <object class="GtkFilterListModel" id="filter_model">
-                        <property name="incremental">1</property>
-                        <property name="model">
-                          <object class="GtkSortListModel">
-                            <binding name="model">
-                              <lookup name="notes">NotejotNoteListView</lookup>
-                            </binding>
-                            <property name="sorter">
-                              <object class="NotejotNoteSorter"/>
-                            </property>
-                          </object>
-                        </property>
-                        <property name="filter">
-                          <object class="GtkStringFilter">
-                            <property name="expression">
-                              <lookup name="title" type="NotejotNote"/>
-                            </property>
-                            <property name="search" bind-source="NotejotNoteListView" bind-property="note-search"/>
-                          </object>
-                        </property>
-                      </object>
-                    </property>
-                  </object>
-                </property>
+                <binding name="model">
+                  <lookup name="ss">NotejotNoteListView</lookup>
+                </binding>
               </object>
             </child>
           </object>

@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkSingleSelection" id="selection_model">
+    <property name="autoselect">no</property>
+    <property name="can-unselect">yes</property>
+    <property name="model">
+      <object class="GtkFilterListModel" id="filter_model">
+        <property name="incremental">1</property>
+        <property name="model">
+          <object class="GtkSortListModel">
+            <binding name="model">
+              <lookup name="notes">listview</lookup>
+            </binding>
+            <property name="sorter">
+              <object class="NotejotNoteSorter"/>
+            </property>
+          </object>
+        </property>
+        <property name="filter">
+          <object class="GtkAnyFilter">
+            <child>
+              <object class="GtkStringFilter">
+                <property name="expression">
+                  <lookup name="title" type="NotejotNote"/>
+                </property>
+                <property name="search" bind-source="note_search" bind-property="text"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStringFilter">
+                <property name="expression">
+                  <lookup name="title" type="NotejotNotebook"/>
+                </property>
+                <property name="search" bind-source="note_search" bind-property="text"/>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
   <template class="NotejotMainWindow" parent="AdwApplicationWindow">
     <property name="visible">1</property>
     <property name="default-width">830</property>
@@ -227,9 +264,7 @@
                                         <binding name="view-model">
                                           <lookup name="view-model">NotejotMainWindow</lookup>
                                         </binding>
-                                        <binding name="note-search">
-                                          <lookup name="text">note_search</lookup>
-                                        </binding>
+                                        <property name="ss">selection_model</property>
                                       </object>
                                     </child>
                                   </object>
@@ -260,12 +295,12 @@
                       <object class="GtkStackPage">
                         <property name="name">gnote</property>
                         <property name="child">
-                          <object class="NotejotNoteContentView">
+                          <object class="NotejotNoteContentView" id="gnotecontent">
                             <property name="hexpand">yes</property>
                             <signal name="note_update_requested" handler="on_note_update_requested"/>
                             <signal name="note_removal_requested" handler="on_note_removal_requested"/>
                             <binding name="note">
-                              <lookup name="selected-note">gridview</lookup>
+                              <lookup name="selected-note">listview</lookup>
                             </binding>
                             <binding name="vm">
                               <lookup name="view-model">NotejotMainWindow</lookup>
@@ -322,9 +357,7 @@
                                         <binding name="view-model">
                                           <lookup name="view-model">NotejotMainWindow</lookup>
                                         </binding>
-                                        <binding name="note-search">
-                                          <lookup name="text">note_search</lookup>
-                                        </binding>
+                                        <property name="ss">selection_model</property>
                                       </object>
                                     </child>
                                   </object>
@@ -428,7 +461,7 @@
                       <object class="GtkStackPage">
                         <property name="name">note</property>
                         <property name="child">
-                          <object class="NotejotNoteContentView">
+                          <object class="NotejotNoteContentView" id="notecontent">
                             <property name="hexpand">yes</property>
                             <signal name="note_update_requested" handler="on_note_update_requested"/>
                             <signal name="note_removal_requested" handler="on_note_removal_requested"/>

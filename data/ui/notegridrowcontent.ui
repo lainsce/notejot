@@ -85,7 +85,8 @@
               <property name="halign">start</property>
               <property name="valign">start</property>
               <property name="ellipsize">end</property>
-              <property name="max-width-chars">30</property>
+              <property name="max-width-chars">35</property>
+              <property name="single-line-mode">yes</property>
               <property name="use-markup">1</property>
               <binding name="label">
                 <lookup name="text" type="NotejotNote">

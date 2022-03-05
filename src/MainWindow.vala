@@ -38,10 +38,17 @@ namespace Notejot {
         public unowned Gtk.Box main_box;
         [GtkChild]
         public unowned Gtk.ToggleButton an_button;
+        [GtkChild]
+        public unowned Gtk.SingleSelection selection_model;
+        [GtkChild]
+        public unowned NoteContentView notecontent;
+        [GtkChild]
+        public unowned NoteContentView gnotecontent;
 
         // Custom
         public MainWindow? mw {get; set;}
         public Adw.Leaflet? leaflet {get; set;}
+        public Gtk.SelectionModel? ss {get; set;}
 
         [GtkChild]
         public unowned NoteListView listview;
@@ -134,6 +141,7 @@ namespace Notejot {
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.leaflet = leaf;
+            notecontent.back2_button.set_visible (false);
             an_button.set_active(true);
         }
 
@@ -194,6 +202,7 @@ namespace Notejot {
             } else {
                 listview.back_button.set_visible (false);
             }
+            notecontent.back2_button.set_visible (false);
             sgrid.set_visible (true);
             sgrid.set_visible_child_name ("notelist");
             grid.set_visible (true);

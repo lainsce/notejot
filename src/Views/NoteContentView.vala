@@ -65,7 +65,6 @@ public class Notejot.NoteContentView : View {
     Binding? notebook_binding;
     Binding? text_binding;
     Binding? bb_binding;
-    Binding? bbb_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
     public NoteViewModel? vm {get; set;}
