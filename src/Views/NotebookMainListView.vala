@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -18,9 +18,25 @@
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookmainlistview.ui")]
 public class Notejot.NotebookMainListView : View {
+    [GtkChild]
+    public unowned Gtk.SingleSelection selection_model;
+
     public ObservableList<Notebook>? notebooks { get; set; }
     public NotebookViewModel? nbview_model { get; set; }
-    public NoteViewModel? view_model { get; set; }
+    public Notebook? selected_notebook { get; set; }
+    public string? sntext { get; set; }
 
-    public signal void new_notebook_requested (Note note);
+    construct {
+        selection_model.bind_property ("selected", this, "selected-notebook", DEFAULT, (_, from, ref to) => {
+            var pos = (uint) from;
+
+            if (pos != Gtk.INVALID_LIST_POSITION)
+                to.set_object (selection_model.model.get_item (pos));
+                sntext = ((Notebook)selection_model.model.get_item (pos)).title;
+
+            return true;
+        });
+    }
+
+    public signal void new_notebook_requested (Notebook notebook);
 }

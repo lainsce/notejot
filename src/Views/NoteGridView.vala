@@ -24,7 +24,7 @@ public class Notejot.NoteGridView : View {
     public unowned Adw.HeaderBar stitlebar;
 
     public ObservableList<Note>? notes { get; set; }
-    public Gtk.SingleSelection? ss {get; set;}
+    public Gtk.SingleSelection? ss {get; construct;}
 
     Binding? bb_binding;
     Note? _selected_note;

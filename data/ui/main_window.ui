@@ -17,21 +17,29 @@
           </object>
         </property>
         <property name="filter">
-          <object class="GtkAnyFilter">
+          <object class="GtkEveryFilter">
             <child>
               <object class="GtkStringFilter">
+                <property name="ignore-case">0</property>
+                <property name="match-mode">exact</property>
                 <property name="expression">
-                  <lookup name="title" type="NotejotNote"/>
+                  <lookup name="notebook" type="NotejotNote"/>
                 </property>
-                <property name="search" bind-source="note_search" bind-property="text"/>
+                <property name="search" bind-source="nblistview" bind-property="sntext"/>
               </object>
             </child>
             <child>
-              <object class="GtkStringFilter">
-                <property name="expression">
-                  <lookup name="title" type="NotejotNotebook"/>
-                </property>
-                <property name="search" bind-source="note_search" bind-property="text"/>
+              <object class="GtkAnyFilter">
+                <child>
+                  <object class="GtkStringFilter">
+                    <property name="ignore-case">0</property>
+                    <property name="match-mode">exact</property>
+                    <property name="expression">
+                      <lookup name="title" type="NotejotNote"/>
+                    </property>
+                    <property name="search" bind-source="note_search" bind-property="text"/>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -39,6 +47,7 @@
       </object>
     </property>
   </object>
+
   <template class="NotejotMainWindow" parent="AdwApplicationWindow">
     <property name="visible">1</property>
     <property name="default-width">830</property>

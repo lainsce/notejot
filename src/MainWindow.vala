@@ -49,6 +49,7 @@ namespace Notejot {
         public MainWindow? mw {get; set;}
         public Adw.Leaflet? leaflet {get; set;}
         public Gtk.SelectionModel? ss {get; set;}
+        public NotebookMainListView? mlv {get; set;}
 
         [GtkChild]
         public unowned NoteListView listview;
@@ -56,6 +57,8 @@ namespace Notejot {
         public unowned NoteGridView gridview;
         [GtkChild]
         public unowned TrashListView tlistview;
+        [GtkChild]
+        public unowned NotebookMainListView nblistview;
 
         // Etc
         public Gtk.Settings gtk_settings;
@@ -203,6 +206,8 @@ namespace Notejot {
                 listview.back_button.set_visible (false);
             }
             notecontent.back2_button.set_visible (false);
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
             sgrid.set_visible (true);
             sgrid.set_visible_child_name ("notelist");
             grid.set_visible (true);
@@ -221,6 +226,8 @@ namespace Notejot {
                 gridview.back_button.set_visible (false);
             }
             ggrid.set_visible_child_name ("notegrid");
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
             grid.set_visible (false);
             sgrid.set_visible (false);
             ggrid.set_visible (true);
