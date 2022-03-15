@@ -84,24 +84,24 @@
 }
 
 .rounded-main {
-  background: mix(@window_bg_color, @window_fg_color, 0.08);
+  background: mix(@window_bg_color, @window_fg_color, 0.1);
   box-shadow: none;
   border: none;
   margin: 0px;
 }
 .rounded-main > .rounded-main-child {
-  background: @window_bg_color;
+  background: mix(@window_bg_color, @window_fg_color, 0.02);
   box-shadow: none;
   border-radius: 12px 0 0 12px;
   border: none;
 }
 .rounded-main > .rounded-main-child2 {
-  background: @window_bg_color;
+  background: mix(@window_bg_color, @window_fg_color, 0.02);
   box-shadow: none;
   border: none;
 }
 .rounded-main > separator {
-  background: @window_bg_color;
+  background: mix(@window_bg_color, @window_fg_color, 0.02);
 }
 
 .content-sidebar-notebooks {
@@ -181,7 +181,7 @@
 	margin: 0 6px 6px 6px;
 	border-radius: 8px;
 	border: none;
-	background: @view_bg_color;
+	background: alpha(@view_bg_color, 0.9);
 }
 .content-sidebar row {
   margin: 0px;
