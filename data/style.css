@@ -181,7 +181,7 @@
 	margin: 0 6px 6px 6px;
 	border-radius: 8px;
 	border: none;
-	background: alpha(@view_bg_color, 0.5);
+	background: @view_bg_color;
 }
 .content-sidebar row {
   margin: 0px;
