@@ -233,27 +233,22 @@ public class Notejot.NoteContentView : View {
 
             vm.update_note_color (_note, _note.color);
 
-            ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child (this);
-
+            // ListView Back Button
             bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
-
             back_button.clicked.connect (() => {
-                if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).get_visible_child () == ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid) {
-                    ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child_name ("notegrid");
-                    ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid);
-                } else {
-                    ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
-                }
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
             });
 
+            // GridView Back Button
             if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).folded) {
                 back2_button.visible = false;
             } else {
-                back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).ggrid.visible != false ? true : false;
+                back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.get_visible_child_name () == "notegrid" != false ? true : false;
             }
-
             back2_button.clicked.connect (() => {
-                ((Gtk.Stack)MiscUtils.find_ancestor_of_type<Gtk.Stack>(this)).set_visible_child_name ("notegrid");
+                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.set_visible (true);
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid.set_visible (false);
             });
 
             if (_note != null)

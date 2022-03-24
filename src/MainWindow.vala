@@ -29,8 +29,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Stack sgrid;
         [GtkChild]
-        public unowned Gtk.Stack ggrid;
-        [GtkChild]
         public unowned Gtk.WindowHandle nbgrid;
         [GtkChild]
         public unowned Adw.Leaflet leaf;
@@ -43,7 +41,9 @@ namespace Notejot {
         [GtkChild]
         public unowned NoteContentView notecontent;
         [GtkChild]
-        public unowned NoteContentView gnotecontent;
+        public unowned Gtk.Overlay list_scroller;
+        [GtkChild]
+        public unowned Gtk.Overlay glist_scroller;
 
         // Custom
         public MainWindow? mw {get; set;}
@@ -144,7 +144,6 @@ namespace Notejot {
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.leaflet = leaf;
-            notecontent.back2_button.set_visible (false);
             an_button.set_active(true);
         }
 
@@ -200,37 +199,36 @@ namespace Notejot {
             var settings = new Settings ();
             settings.last_view = "list";
             leaf.set_visible_child (sgrid);
+            sgrid.set_hexpand (false);
+            sgrid.set_visible_child_name ("notelist");
+            grid.set_visible (true);
+            grid.set_visible_child_name ("note");
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
             if (leaf.folded) {
                 listview.back_button.set_visible (true);
             } else {
                 listview.back_button.set_visible (false);
             }
             notecontent.back2_button.set_visible (false);
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            sgrid.set_visible (true);
-            sgrid.set_visible_child_name ("notelist");
-            grid.set_visible (true);
-            grid.set_visible_child_name ("note");
-            ggrid.set_visible (false);
         }
 
         [GtkCallback]
         public void on_action_grid () {
             var settings = new Settings ();
             settings.last_view = "grid";
-            leaf.set_visible_child (ggrid);
+            leaf.set_visible_child (sgrid);
+            sgrid.set_hexpand (true);
+            sgrid.set_visible_child_name ("notegrid");
+            grid.set_visible (false);
+            grid.set_visible_child_name ("note");
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
             if (leaf.folded) {
                 gridview.back_button.set_visible (true);
             } else {
                 gridview.back_button.set_visible (false);
             }
-            ggrid.set_visible_child_name ("notegrid");
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            grid.set_visible (false);
-            sgrid.set_visible (false);
-            ggrid.set_visible (true);
         }
 
         [GtkCallback]
@@ -238,16 +236,18 @@ namespace Notejot {
             var settings = new Settings ();
             settings.last_view = "trash";
             leaf.set_visible_child (sgrid);
+            sgrid.set_hexpand (false);
+            sgrid.set_visible_child_name ("trashlist");
+            grid.set_visible (true);
+            grid.set_visible_child_name ("trash");
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
             if (leaf.folded) {
                 tlistview.back_button.set_visible (true);
             } else {
                 tlistview.back_button.set_visible (false);
             }
-            sgrid.set_visible (true);
-            grid.set_visible (true);
-            sgrid.set_visible_child_name ("trashlist");
-            grid.set_visible_child_name ("trash");
-            ggrid.set_visible (false);
+            notecontent.back2_button.set_visible (false);
         }
 
         public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {
