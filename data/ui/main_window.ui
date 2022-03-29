@@ -202,7 +202,7 @@
                               <object class="GtkButton" id="en_button">
                                 <property name="halign">end</property>
                                 <property name="action-name">win.action_edit_notebooks</property>
-                                <property name="tooltip-text" translatable="yes">Manage Notebooks…</property>
+                                <property name="tooltip-text" translatable="yes">Add/Remove/Rename notebooks</property>
                                 <child>
                                   <object class="AdwButtonContent">
                                     <property name="icon-name">notebook-config-symbolic</property>
