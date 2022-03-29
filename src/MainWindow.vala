@@ -37,6 +37,10 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.ToggleButton an_button;
         [GtkChild]
+        public unowned Gtk.ToggleButton g_button;
+        [GtkChild]
+        public unowned Gtk.ToggleButton t_button;
+        [GtkChild]
         public unowned Gtk.SingleSelection selection_model;
         [GtkChild]
         public unowned NoteContentView notecontent;

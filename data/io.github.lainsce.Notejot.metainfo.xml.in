@@ -45,11 +45,14 @@
     </custom>
     <translation type="gettext">@app_id@</translation>
     <releases>
-        <release version="3.5.0" date="2022-02-11">
+        <release version="3.5.0" date="2022-03-29">
             <description>
                 <p>Release: Beautiful Superstar</p>
                 <ul>
-                    <li>Changed: UI ciolors were changed, and some UI parts now look more intuitive.</li>
+                    <li>Added: New Notes Grid view, access your notes in a grid.</li>
+                    <li>Changed: UI colors were changed, and some UI parts now look more intuitive.</li>
+                    <li>Fixed: Unordered list formatting.</li>
+                    <li>Fixed: Some UI bugs.</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
