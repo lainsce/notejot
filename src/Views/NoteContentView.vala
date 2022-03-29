@@ -541,19 +541,45 @@ public class Notejot.NoteContentView : View {
             var text_buffer = text_view.get_buffer();
             string text;
             int text_length = 0;
-            Gtk.TextIter start, end, cursor_iter;
+            Gtk.TextIter start, end, starts, ends, cursor_iter;
             text_buffer.get_selection_bounds(out start, out end);
 
             if (text_buffer.get_has_selection()) {
-                if (start.starts_line()){
-                    text = text_buffer.get_text(start, end, false);
-                    if (text.has_prefix("- ")){
-                        var delete_end = start.copy();
-                        delete_end.forward_chars(2);
-                        text_buffer.delete(ref start, ref delete_end);
-                    } else {
-                        text_buffer.insert(ref start, "- ", -1);
+                text = text_buffer.get_text(start, end, false);
+                if (text.has_prefix("- ")){
+                    var lines = text.strip ().split("\n");
+                    string list_line = "";
+
+                    foreach (var line in lines) {
+                        if (line == lines[0]) {
+                            list_line += line.replace("- ", "");
+                        } else {
+                            list_line += "\n" + line.replace("- ", "");
+                        }
                     }
+                    text_buffer.insert(ref start, list_line, -1);
+
+                    text_buffer.get_selection_bounds(out starts, out ends);
+                    text_buffer.delete(ref starts, ref ends);
+
+                    select_text(text_view, 0, list_line.length);
+                } else {
+                    var lines = text.strip ().split("\n");
+                    string list_line = "";
+
+                    foreach (var line in lines) {
+                        if (line == lines[0]) {
+                            list_line += "- " + line;
+                        } else {
+                            list_line += "\n" + "- " + line;
+                        }
+                    }
+                    text_buffer.insert(ref start, list_line, -1);
+
+                    text_buffer.get_selection_bounds(out starts, out ends);
+                    text_buffer.delete(ref starts, ref ends);
+
+                    select_text(text_view, 0, list_line.length);
                 }
             } else {
                 helptext = _("Item");
