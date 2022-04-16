@@ -1,25 +1,8 @@
-.content-view {
+.content-sidebar row {
 	border: 1px solid @borders;
 }
-
-.content-sidebar {
+.content-sidebar child {
 	border: 1px solid @borders;
-}
-
-.content-header {
-	border-bottom: 1px solid @borders;
-}
-
-.content-footer > revealer > box {
-	border-top: 1px solid @borders;
-}
-
-.rounded-main > .rounded-main-child {
-  border-left: 1px solid @borders;
-}
-
-.rounded-main > .rounded-main-child:dir(rtl) {
-  border-right: 1px solid @borders;
 }
 
 .list-action-button {

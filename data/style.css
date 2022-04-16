@@ -1,15 +1,8 @@
 @define-color accent_color #816600;
 @define-color accent_bg_color #ffd663;
 @define-color accent_fg_color #524000;
-@define-color window_bg_color #f3f1ec;
-@define-color view_bg_color #fefdf7;
-@define-color headerbar_bg_color #f3f1ec;
-@define-color popover_bg_color #fefdf7;
-@define-color popover_fg_color #1d1c18;
-@define-color window_fg_color #1d1c18;
-@define-color view_fg_color #1d1c18;
-@define-color headerbar_fg_color #1d1c18;
-@define-color borders alpha(#7d7667, 0.5);
+@define-color window_bg_color #fff;
+@define-color headerbar_bg_color #fff;
 
 .solid-csd {
   box-shadow: none;
@@ -79,29 +72,47 @@
 }
 
 .content {
-  background: @view_bg_color;
   box-shadow: none;
+  border: none;
 }
 
-.rounded-main {
-  background: mix(@window_bg_color, @window_fg_color, 0.1);
+.view-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 0;
+  margin: 0;
+}
+.view-title-bold {
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+}
+.view-subtitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+}
+
+.rounded-main-child {
+  background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 1.41));
   box-shadow: none;
   border: none;
-  margin: 0px;
 }
-.rounded-main > .rounded-main-child {
-  background: mix(@window_bg_color, @window_fg_color, 0.02);
-  box-shadow: none;
-  border-radius: 12px 0 0 12px;
-  border: none;
-}
-.rounded-main > .rounded-main-child2 {
-  background: mix(@window_bg_color, @window_fg_color, 0.02);
+.rounded-main-child2 {
+  background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 1.41));
   box-shadow: none;
   border: none;
 }
-.rounded-main > separator {
-  background: mix(@window_bg_color, @window_fg_color, 0.02);
+.rounded-main-child3 {
+  background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 1.41));
+  box-shadow: none;
+  border: none;
+}
+.notejot-note headerbar {
+  box-shadow: none;
+  border: none;
+  background: none;
 }
 
 .content-sidebar-notebooks {
@@ -124,15 +135,16 @@
 .content-sidebar-main row {
   margin-bottom: 6px;
   padding: 3px 2px;
-  border-radius: 999px;
+  border-radius: 12px;
+  background: none;
 }
 
 .content-sidebar-main row:hover {
-  background: alpha(@view_fg_color, 0.05);
+  background: alpha(@view_fg_color, 0.11);
 }
 
 .content-sidebar-main row:selected {
-  background: alpha(@view_fg_color, 0.1);
+  background: alpha(@view_fg_color, 0.11);
 }
 
 .content-sidebar-notebooks-item {
@@ -142,12 +154,13 @@
   border: none;
   box-shadow: none;
   border-radius: 8px;
+  background: none;
 }
 .content-sidebar-notebooks-item:hover {
-  background: alpha(@view_bg_color, 0.4);
+  background: alpha(@view_fg_color, 0.11);
 }
 .content-sidebar-notebooks-item:active {
-  background: alpha(@view_bg_color, 0.5);
+  background: alpha(@view_fg_color, 0.11);
 }
 
 .content-sidebar-contents-item .title {
@@ -160,28 +173,27 @@
   margin: 0 12px;
   padding: 6px 12px;
   box-shadow: none;
-  border-radius: 999px;
+  border-radius: 12px;
   background: none;
 }
 .content-sidebar-notebooks-button.toggle label {
   margin: 6px;
-  font-weight: 400;
+  font-weight: 600;
 }
 .content-sidebar-notebooks-button.toggle:hover {
-  background: alpha(@window_fg_color, 0.05);
+  background: alpha(@window_fg_color, 0.11);
 }
 .content-sidebar-notebooks-button.toggle:active {
-  background: alpha(@window_fg_color, 0.1);
+  background: alpha(@window_fg_color, 0.11);
 }
 .content-sidebar-notebooks-button.toggle:checked {
-  background: alpha(@window_fg_color, 0.1);
+  background: alpha(@window_fg_color, 0.11);
 }
 
 .content-sidebar {
 	margin: 0 6px 6px 6px;
-	border-radius: 8px;
 	border: none;
-	background: alpha(@view_bg_color, 0.9);
+	background: none;
 }
 .content-sidebar row {
   margin: 0px;
@@ -216,8 +228,8 @@
   padding: 12px;
   margin: 6px;
   margin-top: 3px;
-  background: alpha(@view_fg_color, 0.05);
   border-radius: 8px;
+  background: alpha(@view_fg_color, 0.05);
 }
 .content-sidebar row:first-child {
   margin-top: 6px;
@@ -226,38 +238,27 @@
   background: alpha(@view_fg_color, 0.11);
 }
 .content-sidebar row:selected {
-  background: alpha(@accent_color, 0.14);
+  background: alpha(@view_fg_color, 0.11);
 }
 
 .content-sidebar child {
   padding: 12px;
   margin: 6px;
   margin-top: 6px;
-  background: alpha(@view_fg_color, 0.05);
   border-radius: 8px;
+  background: alpha(@view_fg_color, 0.05);
 }
 .content-sidebar child:hover {
   background: alpha(@view_fg_color, 0.11);
 }
 .content-sidebar child:selected {
-  background: alpha(@accent_color, 0.14);
+  background: alpha(@view_fg_color, 0.11);
 }
 
 .notejot-sidebar-box-row {
   padding: 20px;
   margin: 0px;
   border-bottom: 1px solid @borders;
-}
-
-.content-header {
-	border-radius: 8px 8px 0 0;
-}
-
-.content-header entry {
-	background: alpha(@view_fg_color, 0.07);
-	border: none;
-	padding: 6px 12px;
-	border-radius: 8px;
 }
 
 .content-footer {
@@ -276,16 +277,6 @@
 }
 .content-footer button:active {
   background: alpha(@view_fg_color, 0.188);
-}
-
-.no-sep {
-  min-width: 0px;
-  min-height: 0px;
-}
-
-.no-sep2 {
-  min-width: 0px;
-  min-height: 0px;
 }
 
 .notejot-theme {
@@ -319,7 +310,6 @@
   padding: 0 12px;
   margin: 6px 0 6px;
   border: none;
-  background: @window_bg_color;
 }
 
 .notejot-searchbar image {

@@ -3,8 +3,11 @@
   <template class="NotejotTrashContentView" parent="NotejotView">
     <property name="vexpand">1</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="main_box">
         <property name="orientation">vertical</property>
+        <style>
+          <class name="notejot-note"/>
+        </style>
         <child>
           <object class="AdwHeaderBar" id="titlebar">
             <property name="hexpand">1</property>
@@ -31,7 +34,7 @@
             <child>
               <object class="GtkWindowHandle" id="empty_view">
                 <child>
-                  <object class="AdwStatusPage">
+                  <object class="AdwStatusPage" id="trash_status_page">
                     <property name="icon-name">user-trash-symbolic</property>
                     <property name="title" translatable="yes">Trash is Empty</property>
                     <property name="description" translatable="yes">Find notes here that were trashed to restore them.</property>
@@ -57,12 +60,12 @@
                             <child>
                               <object class="GtkEntry" id="trash_title">
                                 <property name="margin-bottom">12</property>
-                                <property name="margin-start">12</property>
-                                <property name="margin-end">12</property>
-                                <property name="margin-top">12</property>
-                                <property name="hexpand">1</property>
+                                <property name="margin-start">18</property>
+                                <property name="margin-end">18</property>
+                                <property name="tooltip-text" translatable="yes">Note name</property>
                                 <style>
-                                  <class name="title-1" />
+                                  <class name="view-title-bold" />
+                                  <class name="flat" />
                                 </style>
                               </object>
                             </child>
@@ -76,17 +79,19 @@
                             <property name="margin-start">21</property>
                             <property name="margin-end">21</property>
                             <child>
-                              <object class="GtkLabel" id="trash_subtitle" />
+                              <object class="GtkLabel" id="trash_subtitle">
+                                <property name="margin-end">12</property>
+                              </object>
                             </child>
                             <child>
                               <object class="GtkImage" id="notebook_icon">
-                                <property name="halign">end</property>
-                                <property name="hexpand">1</property>
+                                <property name="halign">start</property>
                                 <property name="icon-name">notebook-symbolic</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkLabel" id="notebook_subtitle">
+                                <property name="halign">start</property>
                                 <property name="use-markup">1</property>
                               </object>
                             </child>
@@ -97,16 +102,21 @@
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="content-header" />
-                      <class name="notejot-header"/>
-                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="orientation">horizontal</property>
+                    <property name="margin-start">21</property>
+                    <property name="margin-end">21</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkScrolledWindow">
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>
+                    <property name="margin-start">21</property>
+                    <property name="margin-end">21</property>
                     <child>
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
@@ -114,8 +124,6 @@
                           <object class="GtkTextView" id="trash_textbox">
                             <property name="wrap-mode">word-char</property>
                             <property name="bottom-margin">21</property>
-                            <property name="left-margin">21</property>
-                            <property name="right-margin">21</property>
                             <property name="top-margin">21</property>
                             <property name="vexpand">1</property>
                             <property name="buffer">
@@ -147,7 +155,7 @@
                               </object>
                             </property>
                             <style>
-                              <class name="notejot-view-footer"/>
+                              <class name="notejot-view"/>
                             </style>
                           </object>
                         </child>

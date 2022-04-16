@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -24,21 +24,11 @@ public class Notejot.StyleManager {
                 background: mix(@view_bg_color, @note_color, 0.55);
                 border-radius: 9999px;
             }
-            .notejot-header {
-                background: mix(@view_bg_color, @note_color, 0.1);
+            .notejot-note {
+                background: linear-gradient(135deg, @view_bg_color, mix(@note_color, @view_bg_color, 0.92));
             }
-            .notejot-footer {
-                background: mix(@view_bg_color, @note_color, 0.1);
-            }
-            .notejot-view text {
-                background: mix(@popover_bg_color, @note_color, 0.02);
-            }
-            .notejot-view-footer {
-                background: mix(@popover_bg_color, @note_color, 0.02);
-                border-radius: 0 0 8px 8px;
-            }
-            .notejot-view-footer text {
-                background: mix(@popover_bg_color, @note_color, 0.02);
+            .notejot-view, .notejot-view:disabled text {
+                background: transparent;
             }
         ";
         css_provider.load_from_data(style.data);

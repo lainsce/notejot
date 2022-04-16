@@ -10,7 +10,10 @@
   <template class="NotejotNoteContentView" parent="NotejotView">
     <property name="vexpand">1</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="main_box">
+        <style>
+          <class name="notejot-note"/>
+        </style>
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar" id="titlebar">
@@ -20,9 +23,13 @@
               <object class="GtkBox">
               </object>
             </child>
-            <style>
-              <class name="notejot-sbtitle"/>
-            </style>
+            <child type="end">
+              <object class="GtkMenuButton" id="s_menu">
+                <property name="visible">0</property>
+                <property name="menu-model">smenu</property>
+                <property name="icon-name">view-more-symbolic</property>
+              </object>
+            </child>
             <child>
               <object class="GtkButton" id="back_button">
                 <property name="visible">0</property>
@@ -54,9 +61,6 @@
             <child>
               <object class="GtkBox" id="note_view">
                 <property name="orientation">vertical</property>
-                <style>
-                  <class name="content-view" />
-                </style>
                 <child>
                   <object class="GtkBox" id="note_header">
                     <property name="orientation">vertical</property>
@@ -69,12 +73,12 @@
                             <child>
                               <object class="GtkEntry" id="note_title">
                                 <property name="margin-bottom">12</property>
-                                <property name="margin-start">12</property>
-                                <property name="margin-end">12</property>
-                                <property name="margin-top">12</property>
-                                <property name="hexpand">1</property>
+                                <property name="margin-start">18</property>
+                                <property name="margin-end">18</property>
+                                <property name="tooltip-text" translatable="yes">Edit note name</property>
                                 <style>
-                                  <class name="title-1" />
+                                  <class name="view-title-bold" />
+                                  <class name="flat" />
                                 </style>
                               </object>
                             </child>
@@ -88,17 +92,19 @@
                             <property name="margin-start">21</property>
                             <property name="margin-end">21</property>
                             <child>
-                              <object class="GtkLabel" id="note_subtitle" />
+                              <object class="GtkLabel" id="note_subtitle">
+                                <property name="margin-end">12</property>
+                              </object>
                             </child>
                             <child>
                               <object class="GtkImage" id="notebook_icon">
-                                <property name="halign">end</property>
-                                <property name="hexpand">1</property>
+                                <property name="halign">start</property>
                                 <property name="icon-name">notebook-symbolic</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkLabel" id="notebook_subtitle">
+                                <property name="halign">start</property>
                                 <property name="use-markup">1</property>
                               </object>
                             </child>
@@ -109,16 +115,21 @@
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="content-header" />
-                      <class name="notejot-header"/>
-                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="orientation">horizontal</property>
+                    <property name="margin-start">21</property>
+                    <property name="margin-end">21</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkScrolledWindow">
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>
+                    <property name="margin-start">21</property>
+                    <property name="margin-end">21</property>
                     <child>
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
@@ -126,8 +137,6 @@
                           <object class="GtkTextView" id="note_textbox">
                             <property name="wrap-mode">word-char</property>
                             <property name="bottom-margin">21</property>
-                            <property name="left-margin">21</property>
-                            <property name="right-margin">21</property>
                             <property name="top-margin">21</property>
                             <property name="vexpand">1</property>
                             <property name="buffer">
@@ -175,19 +184,11 @@
                       <object class="GtkActionBar" id="note_footer">
                         <style>
                           <class name="content-footer"/>
-                          <class name="notejot-footer"/>
                         </style>
-                        <child type="end">
-                          <object class="GtkMenuButton" id="s_menu">
-                            <property name="visible">0</property>
-                            <property name="direction">up</property>
-                            <property name="menu-model">smenu</property>
-                            <property name="icon-name">view-more-symbolic</property>
-                          </object>
-                        </child>
                         <child type="center">
                           <object class="GtkBox">
                             <property name="spacing">6</property>
+                            <property name="margin-bottom">18</property>
                             <child>
                               <object class="GtkButton" id="normal_button">
                                 <property name="receives-default">1</property>

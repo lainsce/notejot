@@ -22,6 +22,8 @@ public class Notejot.TrashContentView : View {
     public signal void clicked ();
 
     [GtkChild]
+    public unowned Gtk.Box main_box;
+    [GtkChild]
     public unowned Gtk.Stack stack;
     [GtkChild]
     public unowned Gtk.Box trash_view;
@@ -29,8 +31,6 @@ public class Notejot.TrashContentView : View {
     public unowned Gtk.WindowHandle empty_view;
     [GtkChild]
     public unowned Gtk.Button s_menu;
-    [GtkChild]
-    unowned Gtk.Box trash_header;
     [GtkChild]
     unowned Gtk.Entry trash_title;
     [GtkChild]
@@ -51,6 +51,8 @@ public class Notejot.TrashContentView : View {
     unowned Gtk.TextTag s_font;
     [GtkChild]
     public new unowned Adw.HeaderBar titlebar;
+    [GtkChild]
+    unowned Adw.StatusPage trash_status_page;
 
     Binding? title_binding;
     Binding? subtitle_binding;
@@ -79,6 +81,7 @@ public class Notejot.TrashContentView : View {
             _trash = value;
 
             fmt_syntax_start ();
+            main_box.get_style_context().add_provider(provider, 1);
 
             s_menu.visible = _trash != null ? true : false;
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
@@ -148,9 +151,18 @@ public class Notejot.TrashContentView : View {
         fmt_syntax_start ();
 
         trash_view.sensitive = false;
+        main_box.get_style_context().add_provider(provider, 1);
 
-        trash_header.get_style_context().add_provider(provider, 1);
-        trash_textbox.get_style_context().add_provider(provider, 1);
+        Timeout.add_seconds (1, () => {
+            if (vm.trashs.get_n_items () == 1) {
+                trash_status_page.set_title (_("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _("Note"));
+            } else if (vm.trashs.get_n_items () >= 0) {
+                trash_status_page.set_title (_("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _("Notes"));
+            } else {
+                trash_status_page.set_title (_("Trash is Empty"));
+            }
+            return false;
+        });
     }
 
     public signal void trash_update_requested (Trash trash);

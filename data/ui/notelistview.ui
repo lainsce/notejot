@@ -27,6 +27,16 @@
           </object>
         </child>
         <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="yes">Notes</property>
+            <property name="halign">start</property>
+            <property name="margin-start">12</property>
+            <style>
+              <class name="view-title"/>
+            </style>
+          </object>
+        </child>
+        <child>
           <object class="GtkScrolledWindow">
             <property name="hscrollbar-policy">never</property>
             <property name="width-request">250</property>

@@ -44,4 +44,28 @@ public class Notejot.NoteGridRowContent : Adw.Bin {
             note: note
         );
     }
+
+    [GtkCallback]
+    string get_text_line () {
+        var res = sync_texts (note.text);
+        return res;
+    }
+
+    public string sync_texts (string text) {
+        string res = "";
+        try {
+            var reg = new Regex("""(?m)(?<sentence>[^.!?\s][^.!?]*(?:[.!?](?!['"]?\s|$)[^.!?]*)*[.!?]?['"]?(?=\s|$))$""");
+            GLib.MatchInfo match;
+
+            if (log != null) {
+                if (reg.match (text, 0, out match)) {
+                    res = "%s".printf(match.fetch_named ("sentence"));
+                }
+            }
+        } catch (GLib.RegexError re) {
+            warning ("%s".printf(re.message));
+        }
+
+        return res;
+    }
 }

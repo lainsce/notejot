@@ -81,20 +81,23 @@
             </object>
           </child>
           <child>
-            <object class="GtkLabel">
-              <property name="halign">start</property>
-              <property name="valign">start</property>
-              <property name="ellipsize">end</property>
-              <property name="wrap">1</property>
-              <property name="use-markup">1</property>
-              <property name="max-width-chars">40</property>
-              <binding name="label">
-                <lookup name="text" type="NotejotNote">
-                  <lookup name="note">NotejotNoteGridRowContent</lookup>
-                </lookup>
-              </binding>
+            <object class="GtkTextView">
+              <property name="sensitive">0</property>
+              <property name="wrap-mode">char</property>
+              <property name="buffer">
+                <object class="GtkTextBuffer">
+                  <binding name="text">
+                    <closure type="gchararray" function="get_text_line">
+                      <lookup name="text" type="NotejotNote">
+                        <lookup name="note">NotejotNoteGridRowContent</lookup>
+                      </lookup>
+                    </closure>
+                  </binding>
+                </object>
+              </property>
               <style>
                 <class name="caption"/>
+                <class name="notejot-view"/>
               </style>
             </object>
           </child>

@@ -26,8 +26,6 @@ class Notejot.NoteSorter : Gtk.Sorter {
 
     if (note1.pinned || note2.pinned) {
         return LARGER;
-    } else if (!note1.pinned || !note2.pinned) {
-        return SMALLER;
     } else {
         return Gtk.Ordering.from_cmpfunc (note1.subtitle.collate (note2.subtitle));
     }

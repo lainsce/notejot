@@ -35,6 +35,10 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Box main_box;
         [GtkChild]
+        public unowned Gtk.Separator sep1;
+        [GtkChild]
+        public unowned Gtk.Separator sep2;
+        [GtkChild]
         public unowned Gtk.ToggleButton an_button;
         [GtkChild]
         public unowned Gtk.ToggleButton g_button;
@@ -206,6 +210,7 @@ namespace Notejot {
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("notelist");
             grid.set_visible (true);
+            sep2.set_visible (true);
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
@@ -225,6 +230,7 @@ namespace Notejot {
             sgrid.set_hexpand (true);
             sgrid.set_visible_child_name ("notegrid");
             grid.set_visible (false);
+            sep2.set_visible (false);
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
@@ -243,6 +249,7 @@ namespace Notejot {
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible (true);
+            sep2.set_visible (true);
             grid.set_visible_child_name ("trash");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);

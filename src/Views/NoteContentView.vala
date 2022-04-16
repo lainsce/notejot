@@ -22,6 +22,8 @@ public class Notejot.NoteContentView : View {
     public signal void clicked ();
 
     [GtkChild]
+    public unowned Gtk.Box main_box;
+    [GtkChild]
     public unowned Gtk.Stack stack;
     [GtkChild]
     public unowned Gtk.Box note_view;
@@ -29,10 +31,6 @@ public class Notejot.NoteContentView : View {
     public unowned Gtk.WindowHandle empty_view;
     [GtkChild]
     public unowned Gtk.MenuButton s_menu;
-    [GtkChild]
-    unowned Gtk.Box note_header;
-    [GtkChild]
-    unowned Gtk.ActionBar note_footer;
     [GtkChild]
     unowned Gtk.Entry note_title;
     [GtkChild]
@@ -92,6 +90,7 @@ public class Notejot.NoteContentView : View {
             _note = value;
 
             fmt_syntax_start ();
+            main_box.get_style_context().add_provider(provider, 1);
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
@@ -168,10 +167,6 @@ public class Notejot.NoteContentView : View {
             pop = (Gtk.PopoverMenu)s_menu.get_popover ();
             pop.add_child (nmp, "theme");
 
-            note_title.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"document-edit-symbolic");
-            note_title.set_icon_activatable (Gtk.EntryIconPosition.SECONDARY, true);
-            note_title.set_icon_tooltip_text (Gtk.EntryIconPosition.SECONDARY, _("Set Note Title"));
-
             note_text.changed.connect (() => {
                 Timeout.add(60, () => {
                     var dt = new GLib.DateTime.now_local ();
@@ -233,6 +228,8 @@ public class Notejot.NoteContentView : View {
 
             vm.update_note_color (_note, _note.color);
 
+            note_textbox.grab_focus ();
+
             // ListView Back Button
             bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
             back_button.clicked.connect (() => {
@@ -264,9 +261,7 @@ public class Notejot.NoteContentView : View {
 
     construct {
         fmt_syntax_start ();
-        note_header.get_style_context().add_provider(provider, 1);
-        note_textbox.get_style_context().add_provider(provider, 1);
-        note_footer.get_style_context().add_provider(provider, 1);
+        main_box.get_style_context().add_provider(provider, 1);
     }
 
     public signal void note_update_requested (Note note);
