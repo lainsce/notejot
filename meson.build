@@ -1,5 +1,5 @@
 project('io.github.lainsce.Notejot', 'vala',
-        version: '3.5.0',
+        version: '3.5.1',
         meson_version: '>= 0.59.0'
 )
 
