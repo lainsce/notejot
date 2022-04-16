@@ -59,6 +59,7 @@
           <object class="AdwLeaflet" id="leaf">
             <property name="can-navigate-back">1</property>
             <property name="can-navigate-forward">1</property>
+            <property name="visible-child">nbgrid</property>
             <child>
               <object class="AdwLeafletPage">
                 <property name="child">
@@ -282,6 +283,7 @@
                                           <lookup name="view-model">NotejotMainWindow</lookup>
                                         </binding>
                                         <property name="ss">selection_model</property>
+                                        <property name="leaf">leaf</property>
                                       </object>
                                     </child>
                                   </object>
@@ -334,6 +336,7 @@
                                           <lookup name="view-model">NotejotMainWindow</lookup>
                                         </binding>
                                         <property name="ss">selection_model</property>
+                                        <property name="leaf">leaf</property>
                                       </object>
                                     </child>
                                   </object>
@@ -384,6 +387,7 @@
                                         <binding name="tview-model">
                                           <lookup name="tview-model">NotejotMainWindow</lookup>
                                         </binding>
+                                        <property name="leaf">leaf</property>
                                       </object>
                                     </child>
                                   </object>

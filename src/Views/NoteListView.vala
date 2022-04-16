@@ -26,7 +26,6 @@ public class Notejot.NoteListView : View {
     public ObservableList<Note>? notes { get; set; }
     public Gtk.SingleSelection? ss {get; construct;}
 
-    Binding? bb_binding;
     Note? _selected_note;
     public Note? selected_note {
         get { return _selected_note; }
@@ -34,18 +33,17 @@ public class Notejot.NoteListView : View {
             if (value == _selected_note)
                 return;
 
-            bb_binding?.unbind ();
-
             _selected_note = value;
-
-            bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
-            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
         }
     }
     public NoteViewModel? view_model { get; set; }
+    public Adw.Leaflet leaf { get; construct; }
 
     public NoteListView () {
-        Object (ss: ss);
+        Object (
+            ss: ss,
+            leaf: leaf
+        );
     }
 
     construct {
@@ -58,6 +56,9 @@ public class Notejot.NoteListView : View {
 
             return true;
         });
+
+        leaf.bind_property ("folded", back_button, "visible", SYNC_CREATE);
+        leaf.bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
 
         back_button.clicked.connect (() => {
             ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);

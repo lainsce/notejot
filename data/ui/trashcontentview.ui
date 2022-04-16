@@ -11,6 +11,7 @@
         <child>
           <object class="AdwHeaderBar" id="titlebar">
             <property name="hexpand">1</property>
+            <property name="show-start-title-buttons">0</property>
             <child type="title">
               <object class="GtkBox">
               </object>
@@ -19,6 +20,12 @@
               <class name="notejot-titlebar"/>
             </style>
             <child type="start">
+              <object class="GtkButton" id="back_button">
+                <property name="visible">0</property>
+                <property name="icon-name">go-previous-symbolic</property>
+              </object>
+            </child>
+            <child type="end">
               <object class="GtkButton" id="s_menu">
                 <property name="visible">0</property>
                 <property name="icon-name">edit-undo-symbolic</property>

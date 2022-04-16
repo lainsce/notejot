@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -22,10 +22,29 @@ public class Notejot.TrashListView : View {
     unowned Gtk.SingleSelection selection_model;
     [GtkChild]
     public unowned Gtk.Button back_button;
+    [GtkChild]
+    public unowned Adw.HeaderBar stitlebar;
 
     public ObservableList<Trash>? trashs { get; set; }
-    public Trash? selected_trash { get; set;}
     public TrashViewModel? tview_model { get; set; }
+    public Adw.Leaflet leaf { get; construct; }
+
+    Trash? _selected_trash;
+    public Trash? selected_trash {
+        get { return _selected_trash; }
+        set {
+            if (value == _selected_trash)
+                return;
+
+            _selected_trash = value;
+        }
+    }
+
+    public TrashListView () {
+        Object (
+            leaf: leaf
+        );
+    }
 
     construct {
         selection_model.bind_property ("selected", this, "selected-trash", DEFAULT, (_, from, ref to) => {
@@ -37,6 +56,9 @@ public class Notejot.TrashListView : View {
 
             return true;
         });
+
+        leaf.bind_property ("folded", back_button, "visible", SYNC_CREATE);
+        leaf.bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
 
         back_button.clicked.connect (() => {
             ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);

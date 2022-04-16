@@ -24,6 +24,8 @@ public class Notejot.TrashContentView : View {
     [GtkChild]
     public unowned Gtk.Box main_box;
     [GtkChild]
+    public unowned Gtk.Button back_button;
+    [GtkChild]
     public unowned Gtk.Stack stack;
     [GtkChild]
     public unowned Gtk.Box trash_view;
@@ -54,6 +56,7 @@ public class Notejot.TrashContentView : View {
     [GtkChild]
     unowned Adw.StatusPage trash_status_page;
 
+    Binding? bb_binding;
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
@@ -138,6 +141,12 @@ public class Notejot.TrashContentView : View {
             provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_trash.color));
 
             vm.update_trash_color (_trash, _trash.color);
+
+            // TrashView Back Button
+            bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
+            back_button.clicked.connect (() => {
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+            });
         }
     }
 

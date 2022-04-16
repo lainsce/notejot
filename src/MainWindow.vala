@@ -147,7 +147,6 @@ namespace Notejot {
             // Needed to ensure colors in places
             var style_manager = new StyleManager ();
             style_manager.set_css ("");
-            //
 
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
