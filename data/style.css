@@ -99,6 +99,10 @@
   box-shadow: none;
   border: none;
 }
+.rounded-main-child listview {
+  background: none;
+}
+
 .rounded-main-child2 {
   background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 1.41));
   box-shadow: none;
@@ -118,7 +122,6 @@
 .content-sidebar-notebooks {
 	margin: 6px;
 	margin-bottom: 0px;
-	border-radius: 8px;
 	border: none;
 	box-shadow: none;
 	background: none;
@@ -206,15 +209,23 @@
 .content-sidebar-dialog {
 	margin: 6px 12px;
 	margin-bottom: 0px;
-	border-radius: 8px;
 	border: none;
 	background: @view_bg_color;
 }
 .content-sidebar-dialog row {
   margin: 0px;
-  padding: 0px;
+  margin-bottom: 6px;
+  border-radius: 12px;
+  border: none;
+  background: alpha(@view_fg_color, 0.05);
 }
-.content-sidebar-dialog row:last-child box {
+.content-sidebar-dialog row:hover {
+  background: alpha(@view_fg_color, 0.11);
+}
+.content-sidebar-dialog row:selected {
+  background: alpha(@view_fg_color, 0.11);
+}
+.content-sidebar-dialog row box {
   border: none;
 }
 

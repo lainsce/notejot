@@ -22,6 +22,9 @@
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
+        <style>
+          <class name="rounded-main-child"/>
+        </style>
         <child>
           <object class="AdwHeaderBar">
             <style>
