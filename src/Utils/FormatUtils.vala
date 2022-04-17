@@ -35,9 +35,9 @@ namespace Notejot {
             case Format.BOLD:
                 return "**";
             case Format.ITALIC:
-                return "_";
+                return "*";
             case Format.UNDERLINE:
-                return "=";
+                return "_";
             case Format.STRIKETHROUGH:
                 return "~";
             default:
@@ -49,9 +49,9 @@ namespace Notejot {
         switch (wrap) {
             case "**":
                 return Format.BOLD;
-            case "_":
+            case "*":
                 return Format.ITALIC;
-            case "=":
+            case "_":
                 return Format.UNDERLINE;
             case "~":
                 return Format.STRIKETHROUGH;

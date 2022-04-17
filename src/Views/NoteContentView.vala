@@ -413,7 +413,7 @@ public class Notejot.NoteContentView : View {
     public void action_italic () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "_", _("italic text"));
+            text_wrap(textfield, "*", _("italic text"));
         }
     }
 
@@ -421,7 +421,7 @@ public class Notejot.NoteContentView : View {
     public void action_ul () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "=", _("underline text"));
+            text_wrap(textfield, "_", _("underline text"));
         }
     }
 
@@ -640,7 +640,7 @@ public class Notejot.NoteContentView : View {
             string measure_text, buf = buffer.get_text (start, end, true);
 
             try {
-                var regex = new Regex("""(?s)(?<wrap>\*{2}|[_=~]).*\g{wrap}""");
+                var regex = new Regex("""(?s)(?<wrap>\*{2}|[*_~]).*\g{wrap}""");
 
                 if (regex.match (buf, 0, out match)) {
                     do {
