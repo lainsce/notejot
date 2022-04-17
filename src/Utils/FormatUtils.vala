@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -33,11 +33,11 @@ namespace Notejot {
     public string format_to_string(Format fmt) {
         switch (fmt) {
             case Format.BOLD:
-                return "|";
+                return "**";
             case Format.ITALIC:
-                return "*";
-            case Format.UNDERLINE:
                 return "_";
+            case Format.UNDERLINE:
+                return "=";
             case Format.STRIKETHROUGH:
                 return "~";
             default:
@@ -47,11 +47,11 @@ namespace Notejot {
 
     public Format string_to_format(string wrap) {
         switch (wrap) {
-            case "|":
+            case "**":
                 return Format.BOLD;
-            case "*":
-                return Format.ITALIC;
             case "_":
+                return Format.ITALIC;
+            case "=":
                 return Format.UNDERLINE;
             case "~":
                 return Format.STRIKETHROUGH;
