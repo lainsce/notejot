@@ -131,10 +131,6 @@ namespace Notejot {
             var action_fontsize = settings.create_action ("font-size");
             app.add_action(action_fontsize);
 
-            if (Config.DEVELOPMENT) {
-                add_css_class ("devel");
-            }
-
             // Migrate things from old version
             if (settings.schema_version == 0) {
                 var mm = new MigrationManager (this);

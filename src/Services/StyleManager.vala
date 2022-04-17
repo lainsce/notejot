@@ -25,7 +25,7 @@ public class Notejot.StyleManager {
                 border-radius: 9999px;
             }
             .notejot-note {
-                background: linear-gradient(135deg, @view_bg_color, mix(@note_color, @view_bg_color, 0.92));
+                background: linear-gradient(135deg, @window_bg_color, mix(@window_bg_color, @note_color, 0.08));
             }
             .notejot-view, .notejot-view:disabled text {
                 background: transparent;
