@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -23,6 +23,8 @@ namespace Notejot {
         public unowned Gtk.Button note_pin_button;
         [GtkChild]
         public unowned Gtk.Button delete_button;
+        [GtkChild]
+        public unowned Gtk.Button export_button;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_red;
         [GtkChild]

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2021 Lains
+* Copyright (C) 2017-2022 Lains
 *
 * This program is free software; you can redistribute it &&/or
 * modify it under the terms of the GNU General Public
@@ -25,4 +25,40 @@ namespace Notejot.MiscUtils {
 
       return null;
     }
+
+    public async File? display_save_dialog (MainWindow win) {
+        var chooser = new Gtk.FileChooserNative (null, win, Gtk.FileChooserAction.SAVE, null, null);
+        chooser.set_transient_for(win);
+        var filter1 = new Gtk.FileFilter ();
+        filter1.set_filter_name (_("Markdown files"));
+        filter1.add_pattern ("*.md");
+        chooser.add_filter (filter1);
+        var filter = new Gtk.FileFilter ();
+        filter.set_filter_name (_("All files"));
+        filter.add_pattern ("*");
+        chooser.add_filter (filter);
+
+        var response = yield run_dialog_async (chooser);
+
+        if (response == Gtk.ResponseType.ACCEPT) {
+            return chooser.get_file ();
+        }
+
+        return null;
+    }
+
+    private async Gtk.ResponseType run_dialog_async (Gtk.FileChooserNative dialog) {
+        var response = Gtk.ResponseType.CANCEL;
+
+        dialog.response.connect (r => {
+        	response = (Gtk.ResponseType) r;
+
+        	run_dialog_async.callback ();
+        });
+
+        dialog.show ();
+
+        yield;
+        return response;
+	}
 }

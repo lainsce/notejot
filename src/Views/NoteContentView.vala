@@ -157,6 +157,13 @@ public class Notejot.NoteContentView : View {
                     pop.closed ();
             });
 
+            nmp.export_button.clicked.connect (() => {
+                if (_note != null)
+                    // Export note to file user chooses.
+                    export_note.begin (vm, _note);
+                    pop.closed ();
+            });
+
             nmp.color_button_reset.toggled.connect (() => {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #797775;");
@@ -270,6 +277,19 @@ public class Notejot.NoteContentView : View {
     void on_text_updated () {
         note_update_requested (note);
         fmt_syntax_start ();
+    }
+
+    public async void export_note (NoteViewModel vm, Note note) throws Error {
+        debug ("Export button pressed.");
+        string tasks = "";
+        var file = yield MiscUtils.display_save_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
+
+        tasks += "% " + note.title +
+            "\n% " + note.subtitle +
+            "\n% Notebook: " + note.notebook.replace ("<i>", "").replace ("</i>", "") +
+            "\n\n" + note.text;
+
+        GLib.FileUtils.set_contents (file.get_path(), tasks);
     }
 
     public void fmt_syntax_start () {
