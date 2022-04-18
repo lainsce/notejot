@@ -12,7 +12,7 @@
               <lookup name="notes">listview</lookup>
             </binding>
             <property name="sorter">
-              <object class="NotejotNoteSorter"/>
+              <object class="NotejotNoteSorter" id="sorter"/>
             </property>
           </object>
         </property>

@@ -52,6 +52,8 @@ namespace Notejot {
         public unowned Gtk.Overlay list_scroller;
         [GtkChild]
         public unowned Gtk.Overlay glist_scroller;
+        [GtkChild]
+        public unowned Gtk.Sorter sorter;
 
         // Custom
         public MainWindow? mw {get; set;}
@@ -173,6 +175,7 @@ namespace Notejot {
         [GtkCallback]
         public void on_note_update_requested (Note note) {
             view_model.update_note (note);
+            sorter.changed (Gtk.SorterChange.DIFFERENT);
         }
 
         [GtkCallback]
