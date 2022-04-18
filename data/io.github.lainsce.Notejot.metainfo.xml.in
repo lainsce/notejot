@@ -50,6 +50,8 @@
                 <p>Release: Silver</p>
                 <ul>
                     <li>Changed: UI now follows my own style that complements that of Adwaita, called Solo.</li>
+                    <li>Changed: The syntax follows Markdown conventions where possible.</li>
+                    <li>Fixed: The mobile UI has been fixed, back buttons should show up without issue.</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
