@@ -107,6 +107,16 @@
                           </object>
                         </child>
                         <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Views</property>
+                            <property name="halign">start</property>
+                            <property name="margin-start">12</property>
+                            <style>
+                              <class name="view-title"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkRevealer" id="search_revealer">
                             <property name="reveal-child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
                             <child>
@@ -123,19 +133,9 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkLabel">
-                            <property name="label" translatable="yes">Views</property>
-                            <property name="halign">start</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-bottom">6</property>
-                            <style>
-                              <class name="view-title"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
                           <object class="GtkToggleButton" id="an_button">
                             <signal name="toggled" handler="on_action_all_notes"/>
+                            <property name="margin-top">6</property>
                             <property name="margin-bottom">6</property>
                             <child>
                               <object class="AdwButtonContent">
