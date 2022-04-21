@@ -45,6 +45,15 @@
     </custom>
     <translation type="gettext">@app_id@</translation>
     <releases>
+        <release version="3.5.2" date="2022-04-20">
+            <description>
+                <p>Release: Stargon</p>
+                <ul>
+                    <li>Changed: UI fixes.</li>
+                </ul>
+                <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
+            </description>
+        </release>
         <release version="3.5.1" date="2022-04-20">
             <description>
                 <p>Release: Silver</p>
