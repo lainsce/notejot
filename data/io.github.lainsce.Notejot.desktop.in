@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Notejot
 Comment=Jot your ideas
-Exec=io.github.lainsce.Notejot
+Exec=@app_id@
 Icon=@app_id@
 Keywords=text;plain;plaintext;notepad;notes;sticky;post-it;
 Terminal=false
