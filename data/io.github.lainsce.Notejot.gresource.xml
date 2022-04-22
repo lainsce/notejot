@@ -40,6 +40,11 @@
       <file alias="scalable/actions/document-edit-symbolic.svg">icons/hicolor/scalable/actions/document-edit-symbolic.svg</file>
       <file alias="scalable/actions/font-x-generic-symbolic.svg">icons/hicolor/scalable/actions/font-x-generic-symbolic.svg</file>
       <file alias="scalable/actions/list-select-symbolic.svg">icons/hicolor/scalable/actions/list-select-symbolic.svg</file>
+      <file alias="scalable/actions/format-text-bold-symbolic.svg">icons/hicolor/scalable/actions/format-text-bold-symbolic.svg</file>
+      <file alias="scalable/actions/format-text-italic-symbolic.svg">icons/hicolor/scalable/actions/format-text-italic-symbolic.svg</file>
+      <file alias="scalable/actions/format-text-strikethrough-symbolic.svg">icons/hicolor/scalable/actions/format-text-strikethrough-symbolic.svg</file>
+      <file alias="scalable/actions/format-text-underline-symbolic.svg">icons/hicolor/scalable/actions/format-text-underline-symbolic.svg</file>
+      <file alias="scalable/actions/view-list-bullet-symbolic.svg">icons/hicolor/scalable/actions/view-list-bullet-symbolic.svg</file>
     </gresource>
 </gresources>
 
