@@ -32,5 +32,14 @@
       <file alias="trashrowbadge.ui">ui/trashrowbadge.ui</file>
       <file alias="trashrowcontent.ui">ui/trashrowcontent.ui</file>
     </gresource>
+    <gresource prefix="/io/github/lainsce/Notejot/icons">
+      <file alias="scalable/actions/notebook-add-symbolic.svg">icons/hicolor/scalable/actions/notebook-add-symbolic.svg</file>
+      <file alias="scalable/actions/notebook-config-symbolic.svg">icons/hicolor/scalable/actions/notebook-config-symbolic.svg</file>
+      <file alias="scalable/actions/notebook-symbolic.svg">icons/hicolor/scalable/actions/notebook-symbolic.svg</file>
+      <file alias="scalable/actions/view-grid-symbolic.svg">icons/hicolor/scalable/actions/view-grid-symbolic.svg</file>
+      <file alias="scalable/actions/document-edit-symbolic.svg">icons/hicolor/scalable/actions/document-edit-symbolic.svg</file>
+      <file alias="scalable/actions/font-x-generic-symbolic.svg">icons/hicolor/scalable/actions/font-x-generic-symbolic.svg</file>
+      <file alias="scalable/actions/list-select-symbolic.svg">icons/hicolor/scalable/actions/list-select-symbolic.svg</file>
+    </gresource>
 </gresources>
 

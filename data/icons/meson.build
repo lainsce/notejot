@@ -10,5 +10,3 @@ install_data(
   install_dir: join_paths(icondir, 'symbolic/apps'),
   rename: '@0@-symbolic.svg'.format(app_id),
 )
-
-subdir('hicolor')
