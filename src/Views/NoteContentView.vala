@@ -57,6 +57,10 @@ public class Notejot.NoteContentView : View {
     public unowned Gtk.Button back2_button;
     [GtkChild]
     public new unowned Adw.HeaderBar titlebar;
+    [GtkChild]
+    unowned Gtk.Revealer picture_revealer;
+    [GtkChild]
+    unowned Gtk.Picture picture;
 
     Binding? title_binding;
     Binding? subtitle_binding;
@@ -95,6 +99,15 @@ public class Notejot.NoteContentView : View {
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
+            picture_revealer.reveal_child = _note.picture != null ? true : false;
+            picture_revealer.visible = _note.picture != null ? true : false;
+
+            try {
+                var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
+                picture.set_pixbuf (pixbuf);
+            } catch (Error err) {
+                print (err.message);
+            }
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm);
 
@@ -287,6 +300,7 @@ public class Notejot.NoteContentView : View {
         tasks += "% " + note.title +
             "\n% " + note.subtitle +
             "\n% Notebook: " + note.notebook.replace ("<i>", "").replace ("</i>", "") +
+            "\n% Picture: " + note.picture.replace ("file://", "") +
             "\n\n" + note.text;
 
         GLib.FileUtils.set_contents (file.get_path(), tasks);
@@ -342,6 +356,30 @@ public class Notejot.NoteContentView : View {
         // because of utf8
         int real_start = builder.str.index_of_nth_char(start);
         builder.erase(real_start, len);
+    }
+
+    [GtkCallback]
+    public async void action_picture () {
+        // implement picture
+        debug ("Open button pressed.");
+        var file = yield MiscUtils.display_open_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
+        try {
+            var pixbuf = new Gdk.Pixbuf.from_file(file.get_path ());
+            note.picture = file.get_path ();
+            picture.set_pixbuf (pixbuf);
+            picture_revealer.set_reveal_child (true);
+            picture_revealer.set_visible (true);
+        } catch (Error err) {
+            print (err.message);
+        }
+    }
+
+    [GtkCallback]
+    public void action_picture_remove () {
+        note.picture = "";
+        picture.file = null;
+        picture_revealer.set_reveal_child (false);
+        picture_revealer.set_visible (false);
     }
 
     [GtkCallback]

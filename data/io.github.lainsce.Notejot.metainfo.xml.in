@@ -49,6 +49,7 @@
             <description>
                 <p>Release: Stargon</p>
                 <ul>
+                    <li>Added: An option to give a note a header image.</li>
                     <li>Changed: UI fixes.</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>

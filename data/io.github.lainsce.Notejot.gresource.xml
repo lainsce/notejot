@@ -45,6 +45,8 @@
       <file alias="scalable/actions/format-text-strikethrough-symbolic.svg">icons/hicolor/scalable/actions/format-text-strikethrough-symbolic.svg</file>
       <file alias="scalable/actions/format-text-underline-symbolic.svg">icons/hicolor/scalable/actions/format-text-underline-symbolic.svg</file>
       <file alias="scalable/actions/view-list-bullet-symbolic.svg">icons/hicolor/scalable/actions/view-list-bullet-symbolic.svg</file>
+      <file alias="scalable/actions/image-round-symbolic.svg">icons/hicolor/scalable/actions/image-round-symbolic.svg</file>
+      <file alias="scalable/actions/view-pin-symbolic.svg">icons/hicolor/scalable/actions/view-pin-symbolic.svg</file>
     </gresource>
 </gresources>
 

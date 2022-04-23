@@ -47,6 +47,30 @@ namespace Notejot.MiscUtils {
         return null;
     }
 
+    public async File? display_open_dialog (MainWindow win) {
+        var chooser = new Gtk.FileChooserNative (null, win, Gtk.FileChooserAction.OPEN, null, null);
+        chooser.set_transient_for(win);
+        var filter1 = new Gtk.FileFilter ();
+        filter1.set_filter_name (_("Image files"));
+        filter1.add_pattern ("*.png");
+        filter1.add_pattern ("*.gif");
+        filter1.add_pattern ("*.jpg");
+        filter1.add_pattern ("*.jpeg");
+        chooser.add_filter (filter1);
+        var filter = new Gtk.FileFilter ();
+        filter.set_filter_name (_("All files"));
+        filter.add_pattern ("*");
+        chooser.add_filter (filter);
+
+        var response = yield run_dialog_async (chooser);
+
+        if (response == Gtk.ResponseType.ACCEPT) {
+            return chooser.get_file ();
+        }
+
+        return null;
+    }
+
     private async Gtk.ResponseType run_dialog_async (Gtk.FileChooserNative dialog) {
         var response = Gtk.ResponseType.CANCEL;
 

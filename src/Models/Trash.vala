@@ -24,6 +24,7 @@ namespace Notejot {
         public string text { get; set; }
         public string color { get; set; }
         public string notebook { get; set; }
+        public string picture { get; set; }
         public bool pinned { get; set; }
 
         public static Trash from_json (Json.Node node) requires (node.get_node_type () == OBJECT) {

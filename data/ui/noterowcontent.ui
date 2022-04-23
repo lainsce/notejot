@@ -10,12 +10,29 @@
         <class name="notejot-sidebar-box"/>
       </style>
       <child type="prefix">
-        <object class="NotejotNoteRowBadge">
-          <binding name="color">
-            <lookup name="color" type="NotejotNote">
-              <lookup name="note">NotejotNoteRowContent</lookup>
-            </lookup>
-          </binding>
+        <object class="GtkBox">
+          <property name="orientation">vertical</property>
+          <property name="valign">center</property>
+          <property name="spacing">6</property>
+          <child>
+            <object class="NotejotNoteRowBadge">
+              <binding name="color">
+                <lookup name="color" type="NotejotNote">
+                  <lookup name="note">NotejotNoteRowContent</lookup>
+                </lookup>
+              </binding>
+            </object>
+          </child>
+          <child>
+            <object class="GtkImage" id="pin">
+              <property name="icon-name">view-pin-symbolic</property>
+              <binding name="visible">
+                <lookup name="pinned" type="NotejotNote">
+                  <lookup name="note">NotejotNoteRowContent</lookup>
+                </lookup>
+              </binding>
+            </object>
+          </child>
         </object>
       </child>
       <child>
@@ -64,16 +81,18 @@
         </object>
       </child>
       <child type="suffix">
-        <object class="GtkImage" id="pin">
-          <property name="valign">center</property>
-          <property name="halign">end</property>
-          <property name="hexpand">1</property>
-          <property name="icon-name">view-pin-symbolic</property>
-          <binding name="visible">
-            <lookup name="pinned" type="NotejotNote">
-              <lookup name="note">NotejotNoteRowContent</lookup>
-            </lookup>
-          </binding>
+        <object class="GtkRevealer">
+        <property name="valign">center</property>
+        <property name="width-request">48</property>
+        <property name="reveal-child">1</property>
+          <style>
+            <class name="notejot-image"/>
+          </style>
+          <child>
+            <object class="GtkPicture" id="pix">
+              <property name="can-shrink">1</property>
+            </object>
+          </child>
         </object>
       </child>
     </object>

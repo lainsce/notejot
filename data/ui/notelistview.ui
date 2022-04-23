@@ -10,7 +10,7 @@
             <property name="show-start-title-buttons">0</property>
             <property name="valign">center</property>
             <property name="hexpand">0</property>
-            <property name="width-request">200</property>
+            <property name="width-request">280</property>
             <style>
               <class name="notejot-stitle"/>
             </style>
@@ -39,7 +39,7 @@
         <child>
           <object class="GtkScrolledWindow">
             <property name="hscrollbar-policy">never</property>
-            <property name="width-request">250</property>
+            <property name="width-request">280</property>
             <property name="vexpand">1</property>
             <child>
               <object class="GtkListView" id="lv">

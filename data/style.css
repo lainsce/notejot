@@ -62,6 +62,23 @@
   box-shadow: 0 4px 8px 3px alpha(#f9dedc, 0.30);
 }
 
+.list-action-button-small {
+  border-radius: 999px;
+}
+.list-action-button-small.destructive-action {
+  background: #f9dedc;
+  color: #410e0b;
+  box-shadow: 0 2px 4px 1px alpha(#f9dedc, 0.30);
+}
+.list-action-button-small.destructive-action:hover {
+  background: shade(#f9dedc, 1.024);
+  box-shadow: 0 3px 5px 2px alpha(#f9dedc, 0.30);
+}
+.list-action-button-small.destructive-action:active {
+  background: shade(#f9dedc, 0.95);
+  box-shadow: 0 2px 4px 1px alpha(#f9dedc, 0.30);
+}
+
 .content-view {
 	border-radius: 8px;
 	margin: 0 6px 6px 6px;
@@ -327,6 +344,12 @@
 .notejot-searchbar text {
   margin-left: 3px;
   padding: 0;
+}
+
+.notejot-image {
+  border-radius: 12px;
+  padding: 0;
+  margin: 0;
 }
 
 .nw-action {
