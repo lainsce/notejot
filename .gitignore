@@ -3,6 +3,11 @@ build/
 ~*
 *~
 .flatpak-builder/
+.flatpak/flatpak-builder/*
+.flatpak/
+.flatpak/*
+.vscode/
+.vscode/*
 app-dir/
 debian/com.github.lainsce.notejot.debhelper.log
 debian/com.github.lainsce.notejot.substvars
