@@ -103,8 +103,10 @@ public class Notejot.NoteContentView : View {
             picture_revealer.visible = _note.picture != null ? true : false;
 
             try {
-                var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
-                picture.set_pixbuf (pixbuf);
+                if (_note.picture != null) {
+                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
+                    picture.set_pixbuf (pixbuf);
+                }
             } catch (Error err) {
                 print (err.message);
             }

@@ -41,9 +41,15 @@ public class Notejot.NoteRowContent : Adw.Bin {
 
             pix.visible = _note.picture != null ? true : false;
 
-            var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
-            pix.set_pixbuf (pixbuf);
-            pix.set_size_request (48, 48);
+            try {
+                if (_note.picture != null) {
+                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
+                    pix.set_pixbuf (pixbuf);
+                    pix.set_size_request (48, 48);
+                }
+            } catch (Error err) {
+                print (err.message);
+            }
         }
     }
 
