@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-28 01:33-0300\n"
-"PO-Revision-Date: 2022-01-09 18:58+0100\n"
+"PO-Revision-Date: 2022-05-04 17:32+0200\n"
 "Last-Translator: Alem swaj <alemswaj@tutanota.com>\n"
 "Language-Team: French <alemswaj@tutnaota.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 41.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:7
 #: data/io.github.lainsce.Notejot.desktop.in:4
@@ -34,29 +34,29 @@ msgstr ""
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:11
 msgid "🟡 Color your notes in 8 different colors"
-msgstr "Colorez vos notes avec 8 coleurs différentes"
+msgstr "🟡 Colorez vos notes avec 8 couleurs différentes"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:12
 msgid "📓 Classify them in notebooks"
-msgstr "Rangez les dans des carnets de notes"
+msgstr "📓 Rangez-les dans des carnets de notes"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:13
 msgid "🔤 Format text to your liking"
-msgstr "Formatez le texte comme vous le préferez"
+msgstr "🔤 Formatez le texte comme vous le préférez"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:14
 msgid "📌 Pin your most important ones"
-msgstr "Épinglez vos notes les plus importantes"
+msgstr "📌 Épinglez vos notes les plus importantes"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:50
 msgid "Release: Overhaul User Interface"
-msgstr "Nouveauté: Refonte de l'interface utilisateur"
+msgstr "Version : Refonte de l'Interface Utilisateur"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:52
 msgid "Changed: UI now looks better layoutted, is an experiment."
 msgstr ""
-"Modifié : L'interface utilisateur est maintenant mieux agencée, c'est une "
-"expérience."
+"Modification : L'interface utilisateur est maintenant mieux agencée, c'est "
+"une expérience."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:53
 msgid "Changed: Backend was changed to be more stable than the old one."
@@ -72,57 +72,56 @@ msgid ""
 "Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
 "lainsce.Notejot when using the Flatpak. Happy notetaking!"
 msgstr ""
-"Remarque: Les notes et les carnets de notes sont maintenant enregistrer dans "
-"~/.var/app/io.github.lainsce.Notejot pour la version Flatpak. Bonne prise de "
-"note!"
+"Remarque : Vos notes et carnets de notes sont maintenant enregistrés dans ~/."
+"var/app/io.github.lainsce.Notejot pour la version Flatpak. Bonne prise de "
+"note !"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:60
 msgid "Release: Pinned Notes"
-msgstr "Nouveauté : Notes épinglées"
+msgstr "Version : Notes Épinglées"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:62
 msgid "Added: Notes can now be pinned and are shown separately from others."
 msgstr ""
-"Ajouté : Les notes peuvent maintenant être épinglées et sont affichées "
+"Ajout : Les notes peuvent maintenant être épinglées et sont affichées "
 "séparément des autres."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:63
 msgid "Added: Note title styling from older versions is back."
-msgstr "Ajouté: L'ancienne version du style pour les titres est de retours"
+msgstr "Ajout : L'ancienne version du style pour les titres est de retour."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:64
 msgid "Added: Note searchbar is now always visible."
 msgstr ""
-"Ajouté : la barre de recherche des notes est désormais toujours visible."
+"Ajout : la barre de recherche des notes est désormais toujours visible."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:71
 msgid "Release: Usability Independence"
-msgstr "Nouveauté: Utilisation indépendante"
+msgstr "Version : Indépendance de l'Utilisabilité"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:73
 msgid ""
 "Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
 "trash and also removing singluar notes from a notebook."
 msgstr ""
-"Corrigé : de nombreux bugs d'interface ont été corrigés, notamment le "
-"sélecteur de bloc-notes et la corbeille, ainsi que la suppression des notes "
-"isolées."
+"Correction de nombreux bugs d'interface, notamment le sélecteur de bloc-"
+"notes et la corbeille, ainsi que la suppression des notes isolées."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:80
 msgid "Release: Format But Don't Fail"
-msgstr "Nouveauté : Formatez mais n'échouez pas"
+msgstr "Nouveauté : Formatez Mais N'échouez Pas"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:82
 msgid ""
 "Fixed: formatting functions are the best they can be, plus minor fixes all "
 "around."
 msgstr ""
-"Corrigé : les fonctions de formatage ont été optimisées, et des corrections "
-"mineures ont été apportées."
+"Corrections : les fonctions de formatage ont été optimisées, et des "
+"corrections mineures ont été apportées."
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:89
 msgid "Release: Ready, Set, Go!"
-msgstr "Nouveauté: À vos marques, prêts, partez !"
+msgstr "Version : À vos marques, Prêts, Partez !"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:91
 msgid ""
@@ -134,7 +133,7 @@ msgstr ""
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:98
 msgid "Release: GTK4 and Ready!"
-msgstr "Nouveauté: GTK4 est là!"
+msgstr "Version : GTK4 est là!"
 
 #: data/io.github.lainsce.Notejot.appdata.xml.in:100
 msgid "New UI"
@@ -191,7 +190,7 @@ msgid ""
 "settings"
 msgstr ""
 "Indique si la fenêtre est maximisée. Utilisé pour ouvrir la fenêtre avec les "
-"paramètres préférés de l'utilisateur."
+"paramètres préférés de l'utilisateur"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:25
 msgid "Saves window last-used width"
@@ -201,17 +200,17 @@ msgstr "Sauvegarde la dernière largeur de fenêtre utilisée par l'utilisateur"
 msgid "The user's last used window width before closing the app"
 msgstr ""
 "La dernière largeur de fenêtre utilisée par l'utilisateur avant de fermer "
-"l'application."
+"l'application"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:30
 msgid "Saves window last-used height"
-msgstr "Sauvegarde la dernière longeur de fenêtre utilisée"
+msgstr "Sauvegarde la dernière longueur de fenêtre utilisée par l'utilisateur"
 
 #: data/io.github.lainsce.Notejot.gschema.xml:31
 msgid "The user's last used window height before closing the app"
 msgstr ""
 "La dernière hauteur de fenêtre utilisée par l'utilisateur avant de fermer "
-"l'application."
+"l'application"
 
 #: src/MainWindow.vala:261
 msgid "Jot your ideas."
@@ -219,7 +218,9 @@ msgstr "Notez vos idées."
 
 #: src/MainWindow.vala:267
 msgid "translator-credits"
-msgstr "Almeswaj <alemswaj@tutanota.com>"
+msgstr ""
+"Almeswaj <alemswaj@tutanota.com>\n"
+"Irénée Thirion"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Utils/TimeUtils.vala:34
@@ -305,7 +306,7 @@ msgstr[1] "il y a %d heures"
 msgid "in %d minute"
 msgid_plural "in %d minutes"
 msgstr[0] "dans %d minute"
-msgstr[1] "dans %d minute"
+msgstr[1] "dans %d minutes"
 
 #: src/Utils/TimeUtils.vala:113
 #, c-format
@@ -332,7 +333,7 @@ msgstr "Pas de carnet de notes"
 
 #: src/ViewModels/TrashViewModel.vala:76
 msgid "Clear Trash?"
-msgstr "Vider la corbeille?"
+msgstr "Vider la corbeille ?"
 
 #: src/ViewModels/TrashViewModel.vala:77
 msgid ""
@@ -380,7 +381,7 @@ msgstr "Modifier les carnets de notes"
 
 #: data/ui/edit_notebooks.ui:34
 msgid "New Notebook…"
-msgstr "Nouveau carnet de notes"
+msgstr "Nouveau carnet de notes..."
 
 #: data/ui/edit_notebooks.ui:44
 msgid "Add"
@@ -400,11 +401,11 @@ msgstr "Détacher la note du Carnet de note"
 
 #: data/ui/move_to_dialog.ui:71
 msgid "Removes this Note from its Notebook."
-msgstr "Supprime la note de son carnet de notes"
+msgstr "Supprime cette note de son carnet de notes."
 
 #: data/ui/main_window.ui:57
 msgid "Manage Notebooks…"
-msgstr "Gérer les carnets de notes..."
+msgstr "Gérer les carnets de notes…"
 
 #: data/ui/main_window.ui:64
 msgid "Views"
@@ -420,7 +421,7 @@ msgstr "Corbeille"
 
 #: data/ui/main_window.ui:110
 msgid "Notebooks"
-msgstr "Canert de notes"
+msgstr "Carnet de notes"
 
 #: data/ui/main_window.ui:180
 msgid "Add Note"
@@ -460,7 +461,7 @@ msgstr "Déplacer une note vers un carnet de notes"
 
 #: data/ui/note_theme.ui:29
 msgid "Pin/Unpin Note"
-msgstr "Épingler/Désépingler une Note"
+msgstr "Épingler / Désépingler une Note"
 
 #: data/ui/note_theme.ui:49
 msgid "Red"
@@ -500,15 +501,15 @@ msgstr "Supprimer la note"
 
 #: data/ui/notecontentview.ui:48
 msgid "No Selected Notes"
-msgstr "Pas de notes sélectionées"
+msgstr "Pas de notes sélectionnées"
 
 #: data/ui/notecontentview.ui:49
 msgid "Add a note with the + button."
-msgstr "Ajouter une note avec le boutton +."
+msgstr "Ajoutez une note avec le boutton +."
 
 #: data/ui/notecontentview.ui:186
 msgid "Removes formatting from selected text"
-msgstr "Supprime la formatage du texte sélectionné"
+msgstr "Supprime le formatage du texte sélectionné"
 
 #: data/ui/notecontentview.ui:201
 msgid "Makes selected text emboldened"
@@ -528,11 +529,11 @@ msgstr "Barrer le texte"
 
 #: data/ui/notecontentview.ui:240
 msgid "Makes selected text into an unordered list"
-msgstr "Transformer le texte sélectionné en une liste non ordonnée."
+msgstr "Transformer le texte sélectionné en une liste non ordonnée"
 
 #: data/ui/notelistview.ui:26
 msgid "Search notes"
-msgstr "Recherchez de notes"
+msgstr "Rechercher des notes"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
