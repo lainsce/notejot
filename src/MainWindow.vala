@@ -180,8 +180,8 @@ namespace Notejot {
 
         [GtkCallback]
         public void on_note_removal_requested (Note note) {
-            view_model.delete_note (note);
             tview_model.create_new_trash (note);
+            view_model.delete_note (note);
         }
 
         [GtkCallback]

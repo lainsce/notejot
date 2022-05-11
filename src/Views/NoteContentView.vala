@@ -108,11 +108,14 @@ public class Notejot.NoteContentView : View {
             export_button.visible = _note != null ? true : false;
             delete_button.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
-            picture_revealer.reveal_child = _note.picture != null ? true : false;
-            picture_revealer.visible = _note.picture != null ? true : false;
+
+            if (_note.picture != "") {
+                picture_revealer.reveal_child = _note.picture != null ? true : false;
+                picture_revealer.visible = _note.picture != null ? true : false;
+            }
 
             try {
-                if (_note.picture != null) {
+                if (_note.picture != "") {
                     var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
                     picture.set_pixbuf (pixbuf);
                 }

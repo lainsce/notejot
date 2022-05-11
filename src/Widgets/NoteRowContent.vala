@@ -56,10 +56,12 @@ public class Notejot.NoteRowContent : Adw.Bin {
             pinned_binding = _note?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
 
-            pix.visible = _note.picture != null ? true : false;
+            if (_note.picture != "") {
+                pix.visible = _note.picture != null ? true : false;
+            }
 
             try {
-                if (_note.picture != null) {
+                if (_note.picture != "") {
                     var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
                     pix.set_pixbuf (pixbuf);
                     pix.set_size_request (48, 48);
