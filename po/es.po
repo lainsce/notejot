@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-09 21:00+0100\n"
-"PO-Revision-Date: 2022-02-09 21:02+0100\n"
+"POT-Creation-Date: 2022-05-06 17:58+0200\n"
+"PO-Revision-Date: 2022-05-06 18:07+0200\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -44,24 +44,27 @@ msgid "📌 Pin your most important ones"
 msgstr "📌 Fije sus notas más importantes"
 
 #: data/io.github.lainsce.Notejot.metainfo.xml.in:50
-msgid "Release: Beautiful Superstar"
-msgstr "Versión: Superestrella hermosa"
+msgid "Release: Stargon"
+msgstr "Versión: Stargon"
 
 #: data/io.github.lainsce.Notejot.metainfo.xml.in:52
-msgid ""
-"Changed: UI ciolors were changed, and some UI parts now look more intuitive."
-msgstr ""
-"Cambiado: Se han cambiado los colores de la interfaz de usuario y algunas "
-"partes de la misma tienen ahora un aspecto más intuitivo."
+msgid "Added: An option to give a note a header image."
+msgstr "Añadido: Una opción para dar a una nota una imagen de cabecera."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:54
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:64
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:74
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:85
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:94
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:103
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:112
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:123
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:53
+msgid "Changed: UI fixes."
+msgstr "Cambiado: Corrección de la interfaz de usuario."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:55
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:66
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:78
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:88
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:98
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:109
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:118
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:127
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:136
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:147
 msgid ""
 "Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
 "lainsce.Notejot when using the Flatpak. Happy notetaking!"
@@ -69,52 +72,102 @@ msgstr ""
 "Nota: Sus notas y cuadernos se guardan siempre en ~/.var/app/io.github."
 "lainsce.Notejot cuando utilice el Flatpak. ¡Feliz toma de notas!"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:59
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:60
+msgid "Release: Silver"
+msgstr "Versión: Plata"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:62
+msgid ""
+"Changed: UI now follows my own style that complements that of Adwaita, "
+"called Solo."
+msgstr ""
+"Cambiado: La interfaz de usuario ahora sigue mi propio estilo que "
+"complementa el de Adwaita, llamado Solo."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:63
+msgid "Changed: The syntax follows Markdown conventions where possible."
+msgstr ""
+"Cambiado: La sintaxis sigue las convenciones de Markdown cuando es posible."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:64
+msgid ""
+"Fixed: The mobile UI has been fixed, back buttons should show up without "
+"issue."
+msgstr ""
+"Corregido: Se ha arreglado la interfaz de usuario del móvil, los botones de "
+"retroceso deberían aparecer sin problemas."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:71
+msgid "Release: Beautiful Superstar"
+msgstr "Versión: Superestrella hermosa"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:73
+msgid "Added: New Notes Grid view, access your notes in a grid."
+msgstr ""
+"Añadido: Nueva vista de cuadrícula de notas, acceda a sus notas en una "
+"cuadrícula."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:74
+msgid ""
+"Changed: UI colors were changed, and some UI parts now look more intuitive."
+msgstr ""
+"Cambiado: Se han cambiado los colores de la interfaz de usuario y algunas "
+"partes de la misma tienen ahora un aspecto más intuitivo."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:75
+msgid "Fixed: Unordered list formatting."
+msgstr "Corregido: Formato de listas desordenadas."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:76
+msgid "Fixed: Some UI bugs."
+msgstr "Corregido: Algunos errores en la interfaz de usuario."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:83
 msgid "Release: The Top 100 (3.3.3)"
 msgstr "Versión: El Top 100 (3.3.3)"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:61
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:71
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:85
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:95
 msgid "Changed: UI now looks better layoutted, is an experiment."
 msgstr ""
 "Cambiado: La interfaz de usuario ahora tiene un mejor diseño, es un "
 "experimento."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:62
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:72
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:86
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:96
 msgid "Changed: Backend was changed to be more stable than the old one."
 msgstr ""
 "Cambiado: Se ha cambiado el código para que sea más estable que el antiguo."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:69
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:93
 msgid "Release: The Top 100"
 msgstr "Versión: El Top 100"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:79
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:103
 msgid "Release: Pinned Notes"
 msgstr "Versión: Notas fijas"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:81
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:105
 msgid "Added: Notes can now be pinned and are shown separately from others."
 msgstr ""
 "Añadido: Ahora las notas se pueden fijar y se muestran por separado de las "
 "demás."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:82
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:106
 msgid "Added: Note title styling from older versions is back."
 msgstr ""
 "Añadido: El estilo de los títulos de las notas de las versiones anteriores "
 "ha vuelto."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:83
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:107
 msgid "Added: Note searchbar is now always visible."
 msgstr "Añadido: La barra de búsqueda de notas está ahora siempre visible."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:90
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:114
 msgid "Release: Usability Independence"
 msgstr "Versión: Independencia de la usabilidad"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:92
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:116
 msgid ""
 "Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
 "trash and also removing singluar notes from a notebook."
@@ -123,11 +176,11 @@ msgstr ""
 "menos importante, el conmutador de libretas y la papelera, así como borrar "
 "notas individuales de una libreta."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:99
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:123
 msgid "Release: Format But Don't Fail"
 msgstr "Versión: Formatee pero no falle"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:101
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:125
 msgid ""
 "Fixed: formatting functions are the best they can be, plus minor fixes all "
 "around."
@@ -135,11 +188,11 @@ msgstr ""
 "Corregido: las funciones de formateo son las mejores posibles, además de "
 "pequeñas correcciones en general."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:108
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:132
 msgid "Release: Ready, Set, Go!"
 msgstr "Versión: Preparados, listos, ¡ya!"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:110
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:134
 msgid ""
 "Some UI design fixes, such as the notebook switcher being on the bottom "
 "instead of in the top."
@@ -148,19 +201,19 @@ msgstr ""
 "selector de cuadernos esté en la parte inferior en lugar de en la parte "
 "superior."
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:117
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:141
 msgid "Release: GTK4 and Ready!"
 msgstr "Versión: ¡GTK4 y listo!"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:119
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:143
 msgid "New UI"
 msgstr "Interfaz de usuario renovada"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:120
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:144
 msgid "Using another widget to display note contents"
 msgstr "Utilizado otro widget para mostrar el contenido de las notas"
 
-#: data/io.github.lainsce.Notejot.metainfo.xml.in:121
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:145
 msgid "Keyboard shortcuts for formatting"
 msgstr "Atajos de teclado para dar formato"
 
@@ -229,14 +282,26 @@ msgstr ""
 "La última altura de ventana usada por el usuario antes de cerrar la "
 "aplicación"
 
-#: src/MainWindow.vala:262
+#: src/MainWindow.vala:313
 msgid "Jot your ideas."
 msgstr "Anote sus ideas."
 
 #. TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
-#: src/MainWindow.vala:269
+#: src/MainWindow.vala:320
 msgid "translator-credits"
 msgstr "Óscar Fernández Díaz <oscfdezdz@tuta.io>"
+
+#: src/Utils/MiscUtils.vala:33
+msgid "Markdown files"
+msgstr "Archivos Markdown"
+
+#: src/Utils/MiscUtils.vala:37 src/Utils/MiscUtils.vala:61
+msgid "All files"
+msgstr "Todos los archivos"
+
+#: src/Utils/MiscUtils.vala:54
+msgid "Image files"
+msgstr "Archivos de imagen"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Utils/TimeUtils.vala:34
@@ -363,7 +428,7 @@ msgstr ""
 "Las notas borradas se perderán permanentemente sin la posibilidad de "
 "recuperarlas."
 
-#: src/ViewModels/TrashViewModel.vala:79 data/ui/move_to_dialog.ui:44
+#: src/ViewModels/TrashViewModel.vala:79 data/ui/move_to_dialog.ui:58
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -371,84 +436,104 @@ msgstr "Cancelar"
 msgid "Clear"
 msgstr "Vaciar"
 
-#: src/Views/NoteContentView.vala:169
-msgid "Set Note Title"
-msgstr "Establecer título de nota"
-
-#: src/Views/NoteContentView.vala:399
+#: src/Views/NoteContentView.vala:468
 msgid "bold text"
 msgstr "texto en negrita"
 
-#: src/Views/NoteContentView.vala:407
+#: src/Views/NoteContentView.vala:476
 msgid "italic text"
 msgstr "texto en cursiva"
 
-#: src/Views/NoteContentView.vala:415
+#: src/Views/NoteContentView.vala:484
 msgid "underline text"
 msgstr "texto subrayado"
 
-#: src/Views/NoteContentView.vala:423
+#: src/Views/NoteContentView.vala:492
 msgid "strikethrough text"
 msgstr "texto tachado"
 
-#: src/Views/NoteContentView.vala:431 src/Views/NoteContentView.vala:545
-#: src/Views/TrashContentView.vala:317
+#: src/Views/NoteContentView.vala:500 src/Views/NoteContentView.vala:640
+#: src/Views/TrashContentView.vala:340
 msgid "Item"
 msgstr "Elemento"
+
+#: src/Views/TrashContentView.vala:167 src/Views/TrashContentView.vala:169
+msgid "Trash has"
+msgstr "La papelera tiene"
+
+#: src/Views/TrashContentView.vala:167
+msgid "Note"
+msgstr "Nota"
+
+#: src/Views/TrashContentView.vala:169 data/ui/notelistview.ui:31
+msgid "Notes"
+msgstr "Notas"
+
+#: src/Views/TrashContentView.vala:171 data/ui/trashcontentview.ui:46
+msgid "Trash is Empty"
+msgstr "La papelera está vacía"
 
 #: data/ui/edit_notebooks.ui:6
 msgid "Edit Notebooks"
 msgstr "Editar cuaderno"
 
-#: data/ui/edit_notebooks.ui:45
+#: data/ui/edit_notebooks.ui:48
 msgid "New Notebook…"
 msgstr "Cuaderno nuevo…"
 
-#: data/ui/edit_notebooks.ui:55
+#: data/ui/edit_notebooks.ui:58
 msgid "Add"
 msgstr "Añadir"
 
-#: data/ui/move_to_dialog.ui:22
+#: data/ui/move_to_dialog.ui:36
 msgid "Move"
 msgstr "Mover"
 
-#: data/ui/move_to_dialog.ui:34
+#: data/ui/move_to_dialog.ui:48
 msgid "Move to a Notebook"
 msgstr "Mover a un cuaderno"
 
-#: data/ui/move_to_dialog.ui:70
+#: data/ui/move_to_dialog.ui:84
 msgid "Detach Note From Notebook"
 msgstr "Retirar nota del cuaderno"
 
-#: data/ui/move_to_dialog.ui:71
+#: data/ui/move_to_dialog.ui:85
 msgid "Removes this Note from its Notebook."
 msgstr "Borra esta nota de su cuaderno."
 
-#: data/ui/main_window.ui:60
+#: data/ui/main_window.ui:111
 msgid "Views"
 msgstr "Vistas"
 
-#: data/ui/main_window.ui:77
+#: data/ui/main_window.ui:124
+msgid "Search notes"
+msgstr "Buscar notas"
+
+#: data/ui/main_window.ui:143
 msgid "All Notes"
 msgstr "Todas las notas"
 
-#: data/ui/main_window.ui:94
+#: data/ui/main_window.ui:160
+msgid "Note Grid"
+msgstr "Cuadrícula de notas"
+
+#: data/ui/main_window.ui:177 data/ui/trashlistview.ui:30
 msgid "Trash"
 msgstr "Papelera"
 
-#: data/ui/main_window.ui:111
-msgid "Notebooks"
-msgstr "Cuadernos"
+#: data/ui/main_window.ui:194
+msgid "NOTEBOOKS"
+msgstr "CUADERNOS"
 
-#: data/ui/main_window.ui:125
-msgid "Manage Notebooks…"
-msgstr "Gestionar cuadernos…"
+#: data/ui/main_window.ui:207
+msgid "Add/Remove/Rename notebooks"
+msgstr "Añadir/eliminar/renombrar cuadernos"
 
-#: data/ui/main_window.ui:209
+#: data/ui/main_window.ui:295 data/ui/main_window.ui:348
 msgid "Add Note"
 msgstr "Añadir nota"
 
-#: data/ui/main_window.ui:259
+#: data/ui/main_window.ui:399
 msgid "Clear Trash"
 msgstr "Vaciar papelera"
 
@@ -517,44 +602,56 @@ msgid "No Color"
 msgstr "Sin color"
 
 #: data/ui/note_theme.ui:172
+msgid "Export Note…"
+msgstr "Exportar nota…"
+
+#: data/ui/note_theme.ui:186
 msgid "Delete Note"
 msgstr "Borrar nota"
 
-#: data/ui/notecontentview.ui:42
+#: data/ui/notecontentview.ui:55
 msgid "No Selected Notes"
 msgstr "Sin notas seleccionadas"
 
-#: data/ui/notecontentview.ui:43
+#: data/ui/notecontentview.ui:56
 msgid "Add a note with the + button."
 msgstr "Añada una nota con el botón +."
 
-#: data/ui/notecontentview.ui:188
+#: data/ui/notecontentview.ui:84
+msgid "Edit note name"
+msgstr "Editar nombre de la nota"
+
+#: data/ui/notecontentview.ui:145
+msgid "Remove Picture"
+msgstr "Quitar imagen"
+
+#: data/ui/notecontentview.ui:234
 msgid "Removes formatting from selected text"
 msgstr "Quita el formato del texto seleccionado"
 
-#: data/ui/notecontentview.ui:203
+#: data/ui/notecontentview.ui:249
 msgid "Makes selected text emboldened"
 msgstr "Texto seleccionado en negrita"
 
-#: data/ui/notecontentview.ui:211
+#: data/ui/notecontentview.ui:257
 msgid "Makes selected text italicized"
 msgstr "Texto seleccionado en cursiva"
 
-#: data/ui/notecontentview.ui:219
+#: data/ui/notecontentview.ui:265
 msgid "Makes selected text underlined"
 msgstr "Subraya el texto seleccionado"
 
-#: data/ui/notecontentview.ui:227
+#: data/ui/notecontentview.ui:273
 msgid "Makes selected text striked through"
 msgstr "Tacha el texto seleccionado"
 
-#: data/ui/notecontentview.ui:242
+#: data/ui/notecontentview.ui:288
 msgid "Makes selected text into an unordered list"
 msgstr "Organiza el texto seleccionado en una lista desordenada"
 
-#: data/ui/notelistview.ui:25
-msgid "Search notes"
-msgstr "Buscar notas"
+#: data/ui/notecontentview.ui:296
+msgid "Adds a header picture to the note"
+msgstr "Añade una imagen de cabecera a la nota"
 
 #: data/ui/shortcuts.ui:12
 msgctxt "shortcut window"
@@ -566,14 +663,14 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Salir"
 
-#: data/ui/trashcontentview.ui:22
+#: data/ui/trashcontentview.ui:32
 msgid "Restore Note"
 msgstr "Restaurar nota"
 
-#: data/ui/trashcontentview.ui:36
-msgid "Trash is Empty"
-msgstr "La papelera está vacía"
-
-#: data/ui/trashcontentview.ui:37
+#: data/ui/trashcontentview.ui:47
 msgid "Find notes here that were trashed to restore them."
 msgstr "Encuentre aquí las notas borradas para restaurarlas."
+
+#: data/ui/trashcontentview.ui:72
+msgid "Note name"
+msgstr "Nombre de la nota"
