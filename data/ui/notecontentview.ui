@@ -94,7 +94,6 @@
                                     <property name="orientation">horizontal</property>
                                     <child>
                                       <object class="GtkEntry" id="note_title">
-                                        <property name="margin-bottom">12</property>
                                         <property name="hexpand">1</property>
                                         <property name="tooltip-text" translatable="yes">Edit note name</property>
                                         <style>

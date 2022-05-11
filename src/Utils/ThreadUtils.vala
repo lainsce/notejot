@@ -35,7 +35,7 @@ class Notejot.Worker {
 namespace Notejot.ThreadUtils {
     Once<ThreadPool<Worker>> _once;
 
-    unowned ThreadPool<Worker> _get_thread_pool () {
+    unowned ThreadPool<Worker> _get_thread_pool () throws ThreadError {
         return _once.once (() => {
             var tp = new ThreadPool<Worker>.with_owned_data (worker => worker.run (), 1, false);
             return tp;

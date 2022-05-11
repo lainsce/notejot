@@ -32,8 +32,13 @@ public class Notejot.NoteRowContent : Adw.Bin {
     public string? color {
         get { return _color; }
         set {
+            if (value == _color)
+                return;
+
+            _color = value;
+
             provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
-            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
+            ((NoteListView)MiscUtils.find_ancestor_of_type<NoteListView>(this)).view_model.update_note_color (_note, _color);
         }
     }
 
