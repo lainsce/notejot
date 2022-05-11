@@ -22,10 +22,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Button note_pin_button;
         [GtkChild]
-        public unowned Gtk.Button delete_button;
-        [GtkChild]
-        public unowned Gtk.Button export_button;
-        [GtkChild]
         public unowned Gtk.CheckButton color_button_red;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_orange;

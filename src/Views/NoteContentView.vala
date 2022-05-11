@@ -56,6 +56,10 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     public unowned Gtk.Button back2_button;
     [GtkChild]
+    public unowned Gtk.Button delete_button;
+    [GtkChild]
+    public unowned Gtk.Button export_button;
+    [GtkChild]
     public new unowned Adw.HeaderBar titlebar;
     [GtkChild]
     unowned Gtk.Revealer picture_revealer;
@@ -75,6 +79,9 @@ public class Notejot.NoteContentView : View {
     public Adw.Leaflet? leaflet {get; set;}
     public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
+
+    public signal void note_update_requested (Note note);
+    public signal void note_removal_requested (Note note);
 
     Note? _note;
     public Note? note {
@@ -98,6 +105,8 @@ public class Notejot.NoteContentView : View {
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
+            export_button.visible = _note != null ? true : false;
+            delete_button.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
             picture_revealer.reveal_child = _note.picture != null ? true : false;
             picture_revealer.visible = _note.picture != null ? true : false;
@@ -166,17 +175,9 @@ public class Notejot.NoteContentView : View {
                     vm.update_note_color (_note, "#63452c");
             });
 
-            nmp.delete_button.clicked.connect (() => {
+            delete_button.clicked.connect (() => {
                 if (_note != null)
                     note_removal_requested (_note);
-                    pop.closed ();
-            });
-
-            nmp.export_button.clicked.connect (() => {
-                if (_note != null)
-                    // Export note to file user chooses.
-                    export_note.begin (vm, _note);
-                    pop.closed ();
             });
 
             nmp.color_button_reset.toggled.connect (() => {
@@ -284,10 +285,12 @@ public class Notejot.NoteContentView : View {
     construct {
         fmt_syntax_start ();
         main_box.get_style_context().add_provider(provider, 1);
-    }
 
-    public signal void note_update_requested (Note note);
-    public signal void note_removal_requested (Note note);
+        export_button.clicked.connect (() => {
+            if (_note != null)
+                export_note.begin (vm, _note);
+        });
+    }
 
     void on_text_updated () {
         note_update_requested (note);

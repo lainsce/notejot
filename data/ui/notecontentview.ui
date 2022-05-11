@@ -42,6 +42,20 @@
                 <property name="icon-name">go-previous-symbolic</property>
               </object>
             </child>
+            <child type="end">
+              <object class="GtkButton" id="export_button">
+                <property name="visible">0</property>
+                <property name="icon-name">document-send-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Export note…</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkButton" id="delete_button">
+                <property name="visible">0</property>
+                <property name="icon-name">user-trash-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Trash note…</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
@@ -65,6 +79,7 @@
                   <object class="AdwClamp" >
                     <property name="margin-start">21</property>
                     <property name="margin-end">21</property>
+                    <property name="margin-top">6</property>
                     <child>
                       <object class="GtkBox" id="note">
                         <property name="orientation">vertical</property>
@@ -93,28 +108,46 @@
                                 <child>
                                   <object class="GtkBox">
                                     <property name="orientation">horizontal</property>
-                                    <property name="spacing">6</property>
+                                    <property name="spacing">12</property>
                                     <property name="margin-bottom">12</property>
                                     <child>
-                                      <object class="GtkLabel" id="note_subtitle">
-                                        <property name="margin-end">12</property>
+                                      <object class="GtkBox">
+                                        <child>
+                                          <object class="GtkLabel" id="note_subtitle">
+                                            <property name="margin-end">12</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkImage" id="notebook_icon">
+                                            <property name="halign">start</property>
+                                            <property name="margin-end">6</property>
+                                            <property name="icon-name">notebook-symbolic</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="notebook_subtitle">
+                                            <property name="halign">start</property>
+                                            <property name="use-markup">1</property>
+                                          </object>
+                                        </child>
+                                        <style>
+                                          <class name="dim-label"/>
+                                        </style>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkImage" id="notebook_icon">
-                                        <property name="halign">start</property>
-                                        <property name="icon-name">notebook-symbolic</property>
+                                      <object class="GtkButton" id="picture_button">
+                                        <property name="halign">end</property>
+                                        <property name="hexpand">1</property>
+                                        <property name="receives-default">1</property>
+                                        <property name="tooltip-text" translatable="yes">Adds a header picture to the note</property>
+                                        <signal name="clicked" handler="action_picture" />
+                                        <property name="icon-name">image-round-symbolic</property>
+                                        <style>
+                                          <class name="flat"/>
+                                        </style>
                                       </object>
                                     </child>
-                                    <child>
-                                      <object class="GtkLabel" id="notebook_subtitle">
-                                        <property name="halign">start</property>
-                                        <property name="use-markup">1</property>
-                                      </object>
-                                    </child>
-                                    <style>
-                                      <class name="dim-label"/>
-                                    </style>
                                   </object>
                                 </child>
                               </object>
@@ -288,14 +321,6 @@
                                         <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
                                         <signal name="clicked" handler="action_item" />
                                         <property name="icon-name">view-list-bullet-symbolic</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkButton" id="picture_button">
-                                        <property name="receives-default">1</property>
-                                        <property name="tooltip-text" translatable="yes">Adds a header picture to the note</property>
-                                        <signal name="clicked" handler="action_picture" />
-                                        <property name="icon-name">image-round-symbolic</property>
                                       </object>
                                     </child>
                                   </object>

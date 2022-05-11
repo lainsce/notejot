@@ -160,37 +160,5 @@
         </style>
       </object>
     </child>
-    <child>
-      <object class="GtkSeparator">
-      </object>
-    </child>
-    <child type="end">
-      <object class="GtkButton" id="export_button">
-        <property name="hexpand">1</property>
-        <property name="child">
-          <object class="GtkLabel">
-            <property name="label" translatable="yes">Export Note…</property>
-            <property name="xalign">0</property>
-          </object>
-        </property>
-        <style>
-          <class name="flat" />
-        </style>
-      </object>
-    </child>
-    <child type="end">
-      <object class="GtkButton" id="delete_button">
-        <property name="hexpand">1</property>
-        <property name="child">
-          <object class="GtkLabel">
-            <property name="label" translatable="yes">Delete Note</property>
-            <property name="xalign">0</property>
-          </object>
-        </property>
-        <style>
-          <class name="flat" />
-        </style>
-      </object>
-    </child>
   </template>
 </interface>

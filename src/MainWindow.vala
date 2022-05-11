@@ -267,7 +267,7 @@ namespace Notejot {
             log.text = text;
             log.color = color;
             log.notebook = notebook;
-            
+
             if (pinned == "0") {
                 log.pinned = false;
             } else if (pinned == "1") {

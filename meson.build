@@ -75,12 +75,10 @@ sources = [
   'src/Views/View.vala',
   'src/Widgets/EditNotebookDialog.vala',
   'src/Widgets/NoteGridRowContent.vala',
-  'src/Widgets/NoteRowBadge.vala',
   'src/Widgets/NoteRowContent.vala',
   'src/Widgets/MoveToDialog.vala',
   'src/Widgets/NotebookRowContent.vala',
   'src/Widgets/NoteTheme.vala',
-  'src/Widgets/TrashRowBadge.vala',
   'src/Widgets/TrashRowContent.vala',
 ]
 

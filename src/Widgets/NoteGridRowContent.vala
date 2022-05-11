@@ -20,8 +20,20 @@
 public class Notejot.NoteGridRowContent : Adw.Bin {
     [GtkChild]
     unowned Gtk.Image pin;
+    [GtkChild]
+    unowned Gtk.Box row_box;
 
     Binding? pinned_binding;
+    private Gtk.CssProvider provider = new Gtk.CssProvider();
+
+    string? _color;
+    public string? color {
+        get { return _color; }
+        set {
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
+            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
+        }
+    }
 
     Note? _note;
     public Note? note {
@@ -43,6 +55,10 @@ public class Notejot.NoteGridRowContent : Adw.Bin {
         Object(
             note: note
         );
+    }
+
+    construct {
+        row_box.get_style_context().add_provider(provider, 1);
     }
 
     [GtkCallback]

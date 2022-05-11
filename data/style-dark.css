@@ -1,31 +1,11 @@
 @define-color accent_color #e6c419;
 @define-color accent_bg_color #6d5600;
 @define-color accent_fg_color #ffd663;
-@define-color window_bg_color #111;
-@define-color headerbar_bg_color #111;
+@define-color window_bg_color #2d2d2d;
+@define-color headerbar_bg_color #2d2d2d;
+@define-color view_bg_color #0d0d0d;
 
 .list-action-button.destructive-action {
   background: #8c1d18;
   color: #f2b8b5;
-}
-
-.rounded-main-child {
-  background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 0.35));
-  box-shadow: none;
-  border: none;
-}
-.rounded-main-child2 {
-  background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 0.35));
-  box-shadow: none;
-  border: none;
-}
-.rounded-main-child3 {
-  background: linear-gradient(135deg, @view_bg_color, shade(@accent_bg_color, 0.35));
-  box-shadow: none;
-  border: none;
-}
-.notejot-note headerbar {
-  box-shadow: none;
-  border: none;
-  background: none;
 }

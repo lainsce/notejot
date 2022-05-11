@@ -16,7 +16,6 @@
       <file alias="notegridrow.ui">ui/notegridrow.ui</file>
       <file alias="notegridrowcontent.ui">ui/notegridrowcontent.ui</file>
       <file alias="noterow.ui">ui/noterow.ui</file>
-      <file alias="noterowbadge.ui">ui/noterowbadge.ui</file>
       <file alias="noterowcontent.ui">ui/noterowcontent.ui</file>
       <file alias="notebooklistview.ui">ui/notebooklistview.ui</file>
       <file alias="notebookrow.ui">ui/notebookrow.ui</file>
@@ -29,7 +28,6 @@
       <file alias="trashcontentview.ui">ui/trashcontentview.ui</file>
       <file alias="trashlistview.ui">ui/trashlistview.ui</file>
       <file alias="trashrow.ui">ui/trashrow.ui</file>
-      <file alias="trashrowbadge.ui">ui/trashrowbadge.ui</file>
       <file alias="trashrowcontent.ui">ui/trashrowcontent.ui</file>
     </gresource>
     <gresource prefix="/io/github/lainsce/Notejot/icons">
@@ -47,6 +45,6 @@
       <file alias="scalable/actions/view-list-bullet-symbolic.svg">icons/hicolor/scalable/actions/view-list-bullet-symbolic.svg</file>
       <file alias="scalable/actions/image-round-symbolic.svg">icons/hicolor/scalable/actions/image-round-symbolic.svg</file>
       <file alias="scalable/actions/view-pin-symbolic.svg">icons/hicolor/scalable/actions/view-pin-symbolic.svg</file>
+      <file alias="scalable/actions/document-send-symbolic.svg">icons/hicolor/scalable/actions/document-send-symbolic.svg</file>
     </gresource>
 </gresources>
-

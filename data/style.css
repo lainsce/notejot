@@ -1,8 +1,9 @@
 @define-color accent_color #816600;
 @define-color accent_bg_color #ffd663;
 @define-color accent_fg_color #524000;
-@define-color window_bg_color #fff;
-@define-color headerbar_bg_color #fff;
+@define-color window_bg_color #f0f0f2;
+@define-color headerbar_bg_color #f0f0f2;
+@define-color view_bg_color #fafafa;
 
 .solid-csd {
   box-shadow: none;
@@ -108,7 +109,7 @@
 }
 
 .rounded-main-child {
-  background: linear-gradient(135deg, @window_bg_color, mix(@window_bg_color, @accent_bg_color, 0.2));
+  background: @window_bg_color;
   box-shadow: none;
   border: none;
 }
@@ -117,12 +118,12 @@
 }
 
 .rounded-main-child2 {
-  background: linear-gradient(135deg, @window_bg_color, mix(@window_bg_color, @accent_bg_color, 0.2));
+  background: @window_bg_color;
   box-shadow: none;
   border: none;
 }
 .rounded-main-child3 {
-  background: linear-gradient(135deg, @window_bg_color, mix(@window_bg_color, @accent_bg_color, 0.2));
+  background: @window_bg_color;
   box-shadow: none;
   border: none;
 }
@@ -249,34 +250,42 @@
 }
 
 .content-sidebar row {
-  padding: 12px;
   margin: 6px;
   margin-top: 3px;
   border-radius: 8px;
-  background: alpha(@view_fg_color, 0.05);
+  background: @view_bg_color;
 }
 .content-sidebar row:first-child {
   margin-top: 6px;
 }
 .content-sidebar row:hover {
-  background: alpha(@view_fg_color, 0.11);
+  background: shade(@view_bg_color, 0.90);
 }
 .content-sidebar row:selected {
-  background: alpha(@view_fg_color, 0.11);
+  background: alpha(@accent_bg_color, 0.20);
+  }
+
+  .notejot-sidebar-box {
+    padding: 12px;
+    border-radius: 8px;
 }
 
 .content-sidebar child {
-  padding: 12px;
   margin: 6px;
   margin-top: 6px;
   border-radius: 8px;
-  background: alpha(@view_fg_color, 0.05);
+  background: @view_bg_color;
 }
-.content-sidebar child:hover {
-  background: alpha(@view_fg_color, 0.11);
+.content-sidebar row:hover {
+  background: shade(@view_bg_color, 0.90);
 }
-.content-sidebar child:selected {
-  background: alpha(@view_fg_color, 0.11);
+.content-sidebar row:selected {
+  background: alpha(@accent_bg_color, 0.20);
+}
+
+.notejot-sidebar-grid-box {
+  padding: 12px;
+  border-radius: 8px;
 }
 
 .notejot-sidebar-box-row {
@@ -332,6 +341,7 @@
 .notejot-searchbar {
   border-radius: 9rem;
   padding: 0 12px;
+  background: @view_bg_color;
   margin: 6px 0 6px;
   border: none;
 }

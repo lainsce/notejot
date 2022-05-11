@@ -20,12 +20,14 @@ public class Notejot.StyleManager {
     public void set_css (string color) {
         var css_provider = new Gtk.CssProvider();
         string style = @"
-            .notejot-badge {
-                background: mix(@view_bg_color, @note_color, 0.55);
-                border-radius: 9999px;
+            .notejot-sidebar-box {
+                border-right: 3px solid mix(@view_bg_color, @note_color, 0.55);
+            }
+            .notejot-sidebar-grid-box {
+                border-top: 3px solid mix(@view_bg_color, @note_color, 0.55);
             }
             .notejot-note {
-                background: linear-gradient(135deg, @window_bg_color, mix(@window_bg_color, @note_color, 0.08));
+                background: mix(@view_bg_color, @note_color, 0.05);
             }
             .notejot-view, .notejot-view:disabled text {
                 background: transparent;
