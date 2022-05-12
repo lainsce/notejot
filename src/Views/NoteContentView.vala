@@ -80,9 +80,6 @@ public class Notejot.NoteContentView : View {
     public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
 
-    public signal void note_update_requested (Note note);
-    public signal void note_removal_requested (Note note);
-
     Note? _note;
     public Note? note {
         get { return _note; }
@@ -109,7 +106,7 @@ public class Notejot.NoteContentView : View {
             delete_button.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            if (_note.picture != "") {
+            if (_note != null) {
                 picture_revealer.reveal_child = _note.picture != null ? true : false;
                 picture_revealer.visible = _note.picture != null ? true : false;
             }
@@ -284,6 +281,9 @@ public class Notejot.NoteContentView : View {
             vm: vm
         );
     }
+
+    public signal void note_update_requested (Note note);
+    public signal void note_removal_requested (Note note);
 
     construct {
         fmt_syntax_start ();
