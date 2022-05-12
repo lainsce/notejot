@@ -61,7 +61,7 @@ public class Notejot.NoteRowContent : Adw.Bin {
             }
 
             try {
-                if (_note.picture != "") {
+                if (_note != null) {
                     var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
                     pix.set_pixbuf (pixbuf);
                     pix.set_size_request (48, 48);
