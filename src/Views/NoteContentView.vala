@@ -112,7 +112,7 @@ public class Notejot.NoteContentView : View {
             }
 
             try {
-                if (_note != null && _note.picture != "") {
+                if (_note != null && _note.picture != null) {
                     var file = File.new_for_uri (_note.picture);
                     picture.set_file (file);
                 }

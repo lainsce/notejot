@@ -83,9 +83,7 @@ public class Notejot.NoteRepository : Object {
             current_note.notebook = note.notebook;
             current_note.color = note.color;
             current_note.pinned = note.pinned;
-            if (current_note.picture != null) {
-                current_note.picture = note.picture;
-            }
+            current_note.picture = note.picture;
         }
 
         string? note_id = null;

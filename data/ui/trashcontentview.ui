@@ -119,6 +119,20 @@
                   </object>
                 </child>
                 <child>
+                  <object class="GtkRevealer" id="picture_revealer">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <style>
+                      <class name="notejot-image"/>
+                    </style>
+                    <child>
+                      <object class="GtkPicture" id="picture">
+                      <property name="can-shrink">1</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
                   <object class="GtkScrolledWindow">
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>

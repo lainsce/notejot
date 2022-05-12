@@ -75,6 +75,7 @@ public class Notejot.TrashRepository : Object {
             current_trash.notebook = trash.notebook;
             current_trash.color = trash.color;
             current_trash.pinned = trash.pinned;
+            current_trash.picture = trash.picture;
         }
 
         string? trash_id = null;

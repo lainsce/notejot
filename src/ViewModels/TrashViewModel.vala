@@ -37,6 +37,7 @@ public class Notejot.TrashViewModel : Object {
             text = note.text,
             notebook = note.notebook,
             color = note.color,
+            picture = note.picture,
             pinned = note.pinned
         };
 
