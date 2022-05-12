@@ -112,7 +112,7 @@ public class Notejot.NoteContentView : View {
             }
 
             try {
-                if (_note != null) {
+                if (_note != null && _note.picture != null) {
                     var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
                     picture.set_pixbuf (pixbuf);
                 }
