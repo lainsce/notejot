@@ -107,14 +107,14 @@ public class Notejot.NoteContentView : View {
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
             if (_note != null) {
-                picture_revealer.reveal_child = _note.picture != null ? true : false;
-                picture_revealer.visible = _note.picture != null ? true : false;
+                picture_revealer.reveal_child = _note.picture != "" ? true : false;
+                picture_revealer.visible = _note.picture != "" ? true : false;
             }
 
             try {
-                if (_note != null && _note.picture != null) {
-                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
-                    picture.set_pixbuf (pixbuf);
+                if (_note != null && _note.picture != "") {
+                    var file = File.new_for_uri (_note.picture);
+                    picture.set_file (file);
                 }
             } catch (Error err) {
                 print (err.message);
@@ -372,11 +372,12 @@ public class Notejot.NoteContentView : View {
         debug ("Open button pressed.");
         var file = yield MiscUtils.display_open_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
         try {
-            var pixbuf = new Gdk.Pixbuf.from_file(file.get_path ());
             note.picture = file.get_path ();
-            picture.set_pixbuf (pixbuf);
+            picture.set_file (file);
             picture_revealer.set_reveal_child (true);
             picture_revealer.set_visible (true);
+            picture.set_visible (true);
+            vm.update_note (_note);
         } catch (Error err) {
             print (err.message);
         }
@@ -388,6 +389,8 @@ public class Notejot.NoteContentView : View {
         picture.file = null;
         picture_revealer.set_reveal_child (false);
         picture_revealer.set_visible (false);
+        picture.set_visible (false);
+        vm.update_note (_note);
     }
 
     [GtkCallback]
