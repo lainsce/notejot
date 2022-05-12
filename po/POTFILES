@@ -39,12 +39,10 @@ src/Views/TrashListView.vala
 src/Views/View.vala
 
 src/Widgets/EditNotebookDialog.vala
-src/Widgets/NoteRowBadge.vala
 src/Widgets/NoteRowContent.vala
 src/Widgets/MoveToDialog.vala
 src/Widgets/NotebookRowContent.vala
 src/Widgets/NoteTheme.vala
-src/Widgets/TrashRowBadge.vala
 src/Widgets/TrashRowContent.vala
 
 data/ui/edit_notebooks.ui
@@ -55,7 +53,6 @@ data/ui/note_theme.ui
 data/ui/notecontentview.ui
 data/ui/notelistview.ui
 data/ui/noterow.ui
-data/ui/noterowbadge.ui
 data/ui/noterowcontent.ui
 data/ui/notebooklistview.ui
 data/ui/notebookrow.ui
@@ -68,5 +65,4 @@ data/ui/shortcuts.ui
 data/ui/trashcontentview.ui
 data/ui/trashlistview.ui
 data/ui/trashrow.ui
-data/ui/trashrowbadge.ui
 data/ui/trashrowcontent.ui

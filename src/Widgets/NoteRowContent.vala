@@ -56,9 +56,7 @@ public class Notejot.NoteRowContent : Adw.Bin {
             pinned_binding = _note?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
 
-            if (_note != null) {
-                pix.visible = _note.picture != null ? true : false;
-            }
+            pix.visible = _note.picture != "" ? true : false;
 
             try {
                 if (_note != null) {

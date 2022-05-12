@@ -8,7 +8,7 @@
         <class name="notejot-sidebar-box-mainrow"/>
       </style>
       <child>
-        <object class="GtkImage" id="badge">
+        <object class="GtkImage">
           <property name="valign">center</property>
           <property name="icon-name">notebook-symbolic</property>
           <style>
