@@ -122,12 +122,15 @@
                   <object class="GtkRevealer" id="picture_revealer">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
+                    <property name="reveal-child">0</property>
+                    <property name="visible">0</property>
                     <style>
                       <class name="notejot-image"/>
                     </style>
                     <child>
                       <object class="GtkPicture" id="picture">
                       <property name="can-shrink">1</property>
+                      <property name="visible">0</property>
                       </object>
                     </child>
                   </object>

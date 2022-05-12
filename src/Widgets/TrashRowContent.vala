@@ -20,8 +20,29 @@
 public class Notejot.TrashRowContent : Adw.Bin {
     [GtkChild]
     unowned Gtk.Image pin;
+    [GtkChild]
+    unowned Gtk.Picture pix;
+    [GtkChild]
+    unowned Gtk.Revealer pix_revealer;
+    [GtkChild]
+    unowned Gtk.Box row_box;
 
     Binding? pinned_binding;
+    private Gtk.CssProvider provider = new Gtk.CssProvider();
+
+    string? _color;
+    public string? color {
+        get { return _color; }
+        set {
+            if (value == _color)
+                return;
+
+            _color = value;
+
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_trash.color));
+            ((TrashListView)MiscUtils.find_ancestor_of_type<TrashListView>(this)).tview_model.update_trash_color (_trash, _color);
+        }
+    }
 
     Trash? _trash;
     public Trash? trash {
@@ -36,6 +57,19 @@ public class Notejot.TrashRowContent : Adw.Bin {
 
             pinned_binding = _trash?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+
+            try {
+                if (_trash != null && _trash.picture != null) {
+                    var pixbuf = new Gdk.Pixbuf.from_file(_trash.picture);
+                    pix.set_pixbuf (pixbuf);
+                    pix.set_size_request (48, 48);
+                    pix.visible = _trash.picture != null ? true : false;
+                    pix_revealer.reveal_child = _trash.picture != null ? true : false;
+                    pix_revealer.visible = _trash.picture != null ? true : false;
+                }
+            } catch (Error err) {
+                print (err.message);
+            }
         }
     }
 
@@ -43,6 +77,10 @@ public class Notejot.TrashRowContent : Adw.Bin {
         Object(
             trash: trash
         );
+    }
+
+    construct {
+        row_box.get_style_context().add_provider(provider, 1);
     }
 
     [GtkCallback]

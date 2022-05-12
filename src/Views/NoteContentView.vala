@@ -65,6 +65,8 @@ public class Notejot.NoteContentView : View {
     unowned Gtk.Revealer picture_revealer;
     [GtkChild]
     unowned Gtk.Picture picture;
+    [GtkChild]
+    unowned Gtk.Button picture_button;
 
     Binding? title_binding;
     Binding? subtitle_binding;
@@ -106,15 +108,17 @@ public class Notejot.NoteContentView : View {
             delete_button.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            if (_note != null) {
-                picture_revealer.reveal_child = _note.picture != "" ? true : false;
-                picture_revealer.visible = _note.picture != "" ? true : false;
-            }
-
             try {
                 if (_note != null && _note.picture != null) {
-                    var file = File.new_for_uri (_note.picture);
-                    picture.set_file (file);
+                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
+                    picture.set_pixbuf (pixbuf);
+                    picture_revealer.reveal_child = _note.picture != null ? true : false;
+                    picture_revealer.visible = _note.picture != null ? true : false;
+                    picture.visible = _note.picture != null ? true : false;
+                    picture_button.sensitive = false;
+                } else {
+                    picture.visible = false;
+                    picture_button.sensitive = true;
                 }
             } catch (Error err) {
                 print (err.message);
@@ -173,11 +177,6 @@ public class Notejot.NoteContentView : View {
                 if (_note != null)
                     provider.load_from_data ((uint8[]) "@define-color note_color #63452c;");
                     vm.update_note_color (_note, "#63452c");
-            });
-
-            delete_button.clicked.connect (() => {
-                if (_note != null)
-                    note_removal_requested (_note);
             });
 
             nmp.color_button_reset.toggled.connect (() => {
@@ -289,9 +288,14 @@ public class Notejot.NoteContentView : View {
         fmt_syntax_start ();
         main_box.get_style_context().add_provider(provider, 1);
 
+        delete_button.clicked.connect (() => {
+            if (note != null)
+                note_removal_requested (note);
+        });
+
         export_button.clicked.connect (() => {
-            if (_note != null)
-                export_note.begin (vm, _note);
+            if (note != null)
+                export_note.begin (vm, note);
         });
     }
 
@@ -307,8 +311,9 @@ public class Notejot.NoteContentView : View {
 
         tasks += "% " + note.title +
             "\n% " + note.subtitle +
+            "\n% Color: " + note.color +
             "\n% Notebook: " + note.notebook.replace ("<i>", "").replace ("</i>", "") +
-            "\n% Picture: " + note.picture.replace ("file://", "") +
+            "\n% Picture: " + note.picture +
             "\n\n" + note.text;
 
         GLib.FileUtils.set_contents (file.get_path(), tasks);
@@ -373,10 +378,12 @@ public class Notejot.NoteContentView : View {
         var file = yield MiscUtils.display_open_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
         try {
             note.picture = file.get_path ();
-            picture.set_file (file);
+            var pixbuf = new Gdk.Pixbuf.from_file(note.picture);
+            picture.set_pixbuf (pixbuf);
             picture_revealer.set_reveal_child (true);
             picture_revealer.set_visible (true);
             picture.set_visible (true);
+            picture_button.sensitive = false;
             vm.update_note (_note);
         } catch (Error err) {
             print (err.message);
@@ -386,10 +393,11 @@ public class Notejot.NoteContentView : View {
     [GtkCallback]
     public void action_picture_remove () {
         note.picture = "";
-        picture.file = null;
+        picture.set_pixbuf (null);
         picture_revealer.set_reveal_child (false);
         picture_revealer.set_visible (false);
         picture.set_visible (false);
+        picture_button.sensitive = true;
         vm.update_note (_note);
     }
 

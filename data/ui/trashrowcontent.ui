@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
 <template class="NotejotTrashRowContent" parent="AdwBin">
+  <binding name="color">
+    <lookup name="color" type="NotejotTrash">
+      <lookup name="trash">NotejotTrashRowContent</lookup>
+    </lookup>
+  </binding>
   <property name="child">
-    <object class="GtkBox">
+    <object class="GtkBox" id="row_box">
       <property name="orientation">horizontal</property>
       <property name="valign">center</property>
       <property name="spacing">6</property>
       <style>
         <class name="notejot-sidebar-box"/>
       </style>
+      <child type="prefix">
+        <object class="GtkRevealer" id="pix_revealer">
+        <property name="vexpand">1</property>
+        <property name="height-request">48</property>
+        <property name="reveal-child">0</property>
+        <property name="visible">0</property>
+          <style>
+            <class name="notejot-image"/>
+          </style>
+          <child>
+            <object class="GtkPicture" id="pix">
+              <property name="can-shrink">1</property>
+              <property name="keep-aspect-ratio">0</property>
+              <property name="visible">0</property>
+            </object>
+          </child>
+        </object>
+      </child>
       <child>
         <object class="GtkBox">
           <property name="orientation">vertical</property>

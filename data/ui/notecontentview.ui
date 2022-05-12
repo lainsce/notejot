@@ -76,7 +76,7 @@
               <object class="GtkBox" id="note_view">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="AdwClamp" >
+                  <object class="GtkBox" >
                     <property name="margin-start">21</property>
                     <property name="margin-end">21</property>
                     <property name="margin-top">6</property>
@@ -162,6 +162,8 @@
                           <object class="GtkRevealer" id="picture_revealer">
                             <property name="margin-top">6</property>
                             <property name="margin-bottom">6</property>
+                            <property name="reveal-child">0</property>
+                            <property name="visible">0</property>
                             <style>
                               <class name="notejot-image"/>
                             </style>
@@ -170,6 +172,7 @@
                                 <child>
                                   <object class="GtkPicture" id="picture">
                                   <property name="can-shrink">1</property>
+                                  <property name="visible">0</property>
                                   </object>
                                 </child>
                                 <child type="overlay">
@@ -182,7 +185,8 @@
                                     <property name="margin-end">18</property>
                                     <property name="margin-bottom">18</property>
                                     <style>
-                                      <class name="opaque"/>
+                                      <class name="osd"/>
+                                      <class name="circular"/>
                                     </style>
                                   </object>
                                 </child>

@@ -15,18 +15,19 @@
         <class name="notejot-sidebar-box"/>
       </style>
       <child type="prefix">
-        <object class="GtkBox">
-          <property name="orientation">vertical</property>
-          <property name="valign">center</property>
-          <property name="spacing">6</property>
+        <object class="GtkRevealer" id="pix_revealer">
+        <property name="vexpand">1</property>
+        <property name="height-request">48</property>
+        <property name="reveal-child">0</property>
+        <property name="visible">0</property>
+          <style>
+            <class name="notejot-image"/>
+          </style>
           <child>
-            <object class="GtkImage" id="pin">
-              <property name="icon-name">view-pin-symbolic</property>
-              <binding name="visible">
-                <lookup name="pinned" type="NotejotNote">
-                  <lookup name="note">NotejotNoteRowContent</lookup>
-                </lookup>
-              </binding>
+            <object class="GtkPicture" id="pix">
+              <property name="can-shrink">1</property>
+              <property name="keep-aspect-ratio">0</property>
+              <property name="visible">0</property>
             </object>
           </child>
         </object>
@@ -77,16 +78,20 @@
         </object>
       </child>
       <child type="suffix">
-        <object class="GtkRevealer">
-        <property name="valign">center</property>
-        <property name="width-request">48</property>
-        <property name="reveal-child">1</property>
-          <style>
-            <class name="notejot-image"/>
-          </style>
+        <object class="GtkBox">
+          <property name="orientation">vertical</property>
+          <property name="valign">center</property>
+          <property name="spacing">6</property>
+          <property name="hexpand">1</property>
+          <property name="halign">end</property>
           <child>
-            <object class="GtkPicture" id="pix">
-              <property name="can-shrink">1</property>
+            <object class="GtkImage" id="pin">
+              <property name="icon-name">view-pin-symbolic</property>
+              <binding name="visible">
+                <lookup name="pinned" type="NotejotNote">
+                  <lookup name="note">NotejotNoteRowContent</lookup>
+                </lookup>
+              </binding>
             </object>
           </child>
         </object>
