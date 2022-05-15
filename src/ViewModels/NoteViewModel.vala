@@ -45,11 +45,11 @@ public class Notejot.NoteViewModel : Object {
 
         if (note == null) {
             notes.add (n);
+            repository.insert_note (n);
         } else {
             notes.add (note);
+            repository.insert_note (note);
         }
-
-        repository.insert_note (note);
         save_notes ();
     }
 
