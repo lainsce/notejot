@@ -106,23 +106,11 @@ public class Notejot.NoteContentView : View {
             s_menu.visible = _note != null ? true : false;
             export_button.visible = _note != null ? true : false;
             delete_button.visible = _note != null ? true : false;
+            picture_revealer.visible = _note.picture != "" ? true : false;
+            picture_revealer.reveal_child = _note.picture != "" ? true : false;
+            picture.visible = _note.picture != "" ? true : false;
+            picture_button.sensitive = _note.picture == "" ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
-
-            try {
-                if (_note != null && _note.picture != null) {
-                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
-                    picture.set_pixbuf (pixbuf);
-                    picture_revealer.reveal_child = _note.picture != null ? true : false;
-                    picture_revealer.visible = _note.picture != null ? true : false;
-                    picture.visible = _note.picture != null ? true : false;
-                    picture_button.sensitive = false;
-                } else {
-                    picture.visible = false;
-                    picture_button.sensitive = true;
-                }
-            } catch (Error err) {
-                print (err.message);
-            }
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm);
 
@@ -272,6 +260,16 @@ public class Notejot.NoteContentView : View {
 
             if (_note != null)
                 _note.notify.connect (on_text_updated);
+
+            try {
+                if (_note != null && _note.picture != "") {
+                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
+                    picture.set_pixbuf (pixbuf);
+                    picture_button.sensitive = false;
+                }
+            } catch (Error err) {
+                print (err.message);
+            }
         }
     }
 

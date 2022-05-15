@@ -58,14 +58,15 @@ public class Notejot.NoteRowContent : Adw.Bin {
             pinned_binding = _note?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
 
+            pix_revealer.visible = _note.picture != "" ? true : false;
+            pix_revealer.reveal_child = _note.picture != "" ? true : false;
+            pix.visible = _note.picture != "" ? true : false;
+
             try {
                 if (_note != null && _note.picture != null) {
                     var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
                     pix.set_pixbuf (pixbuf);
                     pix.set_size_request (48, 48);
-                    pix.visible = _note.picture != null ? true : false;
-                    pix_revealer.reveal_child = _note.picture != null ? true : false;
-                    pix_revealer.visible = _note.picture != null ? true : false;
                 }
             } catch (Error err) {
                 print (err.message);

@@ -92,20 +92,9 @@ public class Notejot.TrashContentView : View {
 
             s_menu.visible = _trash != null ? true : false;
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
-
-            try {
-                if (_trash != null && _trash.picture != "") {
-                    var pixbuf = new Gdk.Pixbuf.from_file(_trash.picture);
-                    picture.set_pixbuf (pixbuf);
-                    picture.visible = _trash.picture != "" ? true : false;
-                    picture_revealer.reveal_child = _trash.picture != "" ? true : false;
-                    picture_revealer.visible = _trash.picture != "" ? true : false;
-                } else {
-                    picture.visible = false;
-                }
-            } catch (Error err) {
-                print (err.message);
-            }
+            picture.visible = _trash.picture != "" ? true : false;
+            picture_revealer.reveal_child = _trash.picture != "" ? true : false;
+            picture_revealer.visible = _trash.picture != "" ? true : false;
 
             title_binding = _trash?.bind_property (
                 "title", trash_title, "text", SYNC_CREATE|BIDIRECTIONAL);
@@ -165,6 +154,17 @@ public class Notejot.TrashContentView : View {
             back_button.clicked.connect (() => {
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
             });
+
+            try {
+                if (_trash != null && _trash.picture != "") {
+                    var pixbuf = new Gdk.Pixbuf.from_file(_trash.picture);
+                    picture.set_pixbuf (pixbuf);
+                } else {
+                    picture.visible = false;
+                }
+            } catch (Error err) {
+                print (err.message);
+            }
         }
     }
 

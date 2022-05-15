@@ -58,14 +58,15 @@ public class Notejot.TrashRowContent : Adw.Bin {
             pinned_binding = _trash?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
 
+            pix.visible = _trash.picture != "" ? true : false;
+            pix_revealer.reveal_child = _trash.picture != "" ? true : false;
+            pix_revealer.visible = _trash.picture != "" ? true : false;
+
             try {
                 if (_trash != null && _trash.picture != null) {
                     var pixbuf = new Gdk.Pixbuf.from_file(_trash.picture);
                     pix.set_pixbuf (pixbuf);
                     pix.set_size_request (48, 48);
-                    pix.visible = _trash.picture != null ? true : false;
-                    pix_revealer.reveal_child = _trash.picture != null ? true : false;
-                    pix_revealer.visible = _trash.picture != null ? true : false;
                 }
             } catch (Error err) {
                 print (err.message);
