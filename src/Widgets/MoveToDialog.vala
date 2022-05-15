@@ -57,7 +57,7 @@ namespace Notejot {
                 this.dispose ();
             });
 
-            if (ncv.note.notebook == "<i>" + _("No Notebook") + "</i>") {
+            if (ncv.note.notebook == _("No Notebook")) {
                 remove_notebook_button.sensitive = false;
             } else {
                 remove_notebook_button.sensitive = true;
@@ -77,7 +77,7 @@ namespace Notejot {
 
         [GtkCallback]
         void on_remove_notebook_requested () {
-            string nb = "<i>" + _("No Notebook") + "</i>";
+            string nb = _("No Notebook");
             view_model.update_notebook (ncv.note, nb);
             remove_notebook_button.set_sensitive (false);
             this.dispose ();

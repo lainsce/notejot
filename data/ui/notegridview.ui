@@ -30,7 +30,7 @@
           <object class="GtkLabel">
             <property name="label" translatable="yes">Note Grid</property>
             <property name="halign">start</property>
-            <property name="margin-start">12</property>
+            <property name="margin-start">18</property>
             <property name="margin-bottom">12</property>
             <property name="margin-top">6</property>
             <style>
@@ -43,6 +43,8 @@
             <property name="hscrollbar-policy">never</property>
             <property name="width-request">250</property>
             <property name="vexpand">1</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
             <child>
               <object class="GtkGridView" id="gv">
                 <property name="max-columns">4</property>

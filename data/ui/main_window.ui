@@ -136,8 +136,8 @@
                               <object class="GtkSearchEntry" id="note_search">
                                 <property name="placeholder-text" translatable="yes">Search notes</property>
                                 <property name="hexpand">1</property>
-                                <property name="margin-start">12</property>
-                                <property name="margin-end">12</property>
+                                <property name="margin-start">18</property>
+                                <property name="margin-end">18</property>
                                 <style>
                                   <class name="notejot-searchbar"/>
                                 </style>
@@ -148,6 +148,8 @@
                         <child>
                           <object class="GtkToggleButton" id="an_button">
                             <signal name="toggled" handler="on_action_all_notes"/>
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
                             <property name="margin-top">6</property>
                             <property name="margin-bottom">6</property>
                             <child>
@@ -167,6 +169,8 @@
                             <signal name="toggled" handler="on_action_grid"/>
                             <property name="group">an_button</property>
                             <property name="margin-bottom">6</property>
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
                             <child>
                               <object class="AdwButtonContent">
                                 <property name="halign">start</property>
@@ -183,8 +187,9 @@
                           <object class="GtkToggleButton" id="t_button">
                             <signal name="toggled" handler="on_action_trash"/>
                             <property name="group">an_button</property>
-                            <property name="margin-bottom">6</property>
                             <property name="valign">start</property>
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
                             <child>
                               <object class="AdwButtonContent">
                                 <property name="halign">start</property>
@@ -200,6 +205,8 @@
                         <child>
                           <object class="GtkScrolledWindow">
                             <property name="vexpand">1</property>
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
                             <child>
                               <object class="NotejotNotebookMainListView" id="nblistview">
                                 <binding name="notebooks">

@@ -28,10 +28,12 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     public unowned Gtk.Box note_view;
     [GtkChild]
-    public unowned Gtk.WindowHandle empty_view;
+public unowned Gtk.Box empty_view;
     [GtkChild]
     public unowned Gtk.MenuButton s_menu;
     [GtkChild]
+unowned Gtk.Box note_header;
+[GtkChild]
     unowned Gtk.Entry note_title;
     [GtkChild]
     unowned Gtk.Label note_subtitle;
@@ -61,11 +63,18 @@ public class Notejot.NoteContentView : View {
     public unowned Gtk.Button delete_button;
     [GtkChild]
     public unowned Gtk.Button export_button;
+    [GtkChild]
+    unowned Gtk.Button image_button;
+    [GtkChild]
+    unowned Gtk.Button image_remove_button;
+    [GtkChild]
+    unowned Notejot.NotePicture image;
 
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
     Binding? text_binding;
+    Binding ? pix_binding;
     Binding? bb_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
@@ -87,6 +96,7 @@ public class Notejot.NoteContentView : View {
             subtitle_binding?.unbind ();
             notebook_binding?.unbind ();
             text_binding?.unbind ();
+            pix_binding ? .unbind ();
 
             if (_note != null)
                 _note.notify.disconnect (on_text_updated);
@@ -101,6 +111,14 @@ public class Notejot.NoteContentView : View {
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
             export_button.visible = _note != null ? true : false;
             delete_button.visible = _note != null ? true : false;
+            image_remove_button.visible = _note.picture != null ? true : false;
+            image_button.visible = _note.picture != null ? false : true;
+
+            if (_note.picture != "") {
+                note_header.add_css_class ("shim");
+            } else {
+                note_header.remove_css_class ("shim");
+            }
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm);
 
@@ -194,6 +212,8 @@ public class Notejot.NoteContentView : View {
                 "notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property (
                 "text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
+            pix_binding = _note ? .bind_property (
+                "picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
 
             var settings = new Settings ();
             switch (settings.font_size) {
@@ -288,12 +308,33 @@ public class Notejot.NoteContentView : View {
         string tasks = "";
         var file = yield MiscUtils.display_save_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
 
-        tasks += "% " + note.title +
-            "\n% " + note.subtitle +
-            "\n% Notebook: " + note.notebook.replace ("<i>", "").replace ("</i>", "") +
-            "\n\n" + note.text;
+        tasks += "% " + note.title + "\n% " + note.subtitle + "\n% Notebook: " + note.notebook + "\n\n" + note.text;
 
         GLib.FileUtils.set_contents (file.get_path(), tasks);
+    }
+
+    [GtkCallback]
+    public async void action_picture () {
+        // implement picture
+        debug ("Open button pressed.");
+        var file = yield MiscUtils.display_open_dialog (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)));
+
+        note.picture = file.get_path ();
+        image.file = file.get_path ();
+        image_button.visible = false;
+        image_remove_button.visible = true;
+        note_header.add_css_class ("shim");
+        note_update_requested (note);
+    }
+
+    [GtkCallback]
+    public void action_picture_remove () {
+        note.picture = "";
+        image.file = null;
+        image_button.visible = true;
+        image_remove_button.visible = false;
+        note_update_requested (note);
+        note_header.remove_css_class ("shim");
     }
 
     public void fmt_syntax_start () {

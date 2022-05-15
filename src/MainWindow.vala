@@ -149,6 +149,7 @@ namespace Notejot {
             var style_manager = new StyleManager ();
             style_manager.set_css ("");
 
+this.set_size_request (360, 360);
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.leaflet = leaf;

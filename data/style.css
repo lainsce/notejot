@@ -81,8 +81,8 @@
 }
 
 .content-view {
-	border-radius: 8px;
-	margin: 0 6px 6px 6px;
+  border-radius: 8px;
+    margin: 0 6px 6px 6px;
 }
 
 .content {
@@ -91,19 +91,19 @@
 }
 
 .view-title {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 300;
   padding: 0;
   margin: 0;
 }
 .view-title-bold {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 600;
   border-radius: 8px;
 }
 .view-subtitle {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 20px;
+    font-weight: 500;
   padding: 0;
   margin: 0;
 }
@@ -134,19 +134,19 @@
 }
 
 .content-sidebar-notebooks {
-	margin: 6px;
-	margin-bottom: 0px;
-	border: none;
-	box-shadow: none;
-	background: none;
+  margin: 6px;
+    margin-bottom: 0px;
+    border: none;
+    box-shadow: none;
+    background: none;
 }
 
 .content-sidebar-main {
-	margin: 6px 12px;
-	margin-bottom: 0px;
-	border: none;
-	box-shadow: none;
-	background: none;
+  margin: 6px 12px;
+    margin-bottom: 0px;
+    border: none;
+    box-shadow: none;
+    background: none;
 }
 
 .content-sidebar-main row {
@@ -157,7 +157,7 @@
 }
 
 .content-sidebar-main row:hover {
-  background: alpha(@view_fg_color, 0.11);
+  background: alpha(@view_fg_color, 0.05);
 }
 
 .content-sidebar-main row:selected {
@@ -174,7 +174,7 @@
   background: none;
 }
 .content-sidebar-notebooks-item:hover {
-  background: alpha(@view_fg_color, 0.11);
+  background: alpha(@view_fg_color, 0.05);
 }
 .content-sidebar-notebooks-item:active {
   background: alpha(@view_fg_color, 0.11);
@@ -195,10 +195,10 @@
 }
 .content-sidebar-notebooks-button.toggle label {
   margin: 6px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .content-sidebar-notebooks-button.toggle:hover {
-  background: alpha(@window_fg_color, 0.11);
+  background: alpha(@window_fg_color, 0.05);
 }
 .content-sidebar-notebooks-button.toggle:active {
   background: alpha(@window_fg_color, 0.11);
@@ -208,9 +208,10 @@
 }
 
 .content-sidebar {
-	margin: 0 6px 6px 6px;
-	border: none;
-	background: none;
+  margin: 0;
+    padding: 0px;
+    border: none;
+    background: none;
 }
 .content-sidebar row {
   margin: 0px;
@@ -221,23 +222,23 @@
 }
 
 .content-sidebar-dialog {
-	margin: 6px 12px;
-	margin-bottom: 0px;
-	border: none;
-	background: @view_bg_color;
+  margin: 6px 12px;
+    margin-bottom: 0px;
+    border: none;
+    background: @view_bg_color;
 }
 .content-sidebar-dialog row {
   margin: 0px;
   margin-bottom: 6px;
   border-radius: 12px;
   border: none;
-  background: alpha(@view_fg_color, 0.05);
+  background: @view_bg_color;
 }
 .content-sidebar-dialog row:hover {
-  background: alpha(@view_fg_color, 0.11);
+  background: mix(@view_bg_color, @accent_bg_color, 0.10);
 }
 .content-sidebar-dialog row:selected {
-  background: alpha(@view_fg_color, 0.11);
+  background: mix(@view_bg_color, @accent_bg_color, 0.20);
 }
 .content-sidebar-dialog row box {
   border: none;
@@ -259,15 +260,15 @@
   margin-top: 6px;
 }
 .content-sidebar row:hover {
-  background: shade(@view_bg_color, 0.90);
+  background: mix(@view_bg_color, @accent_bg_color, 0.10);
 }
 .content-sidebar row:selected {
-  background: alpha(@accent_bg_color, 0.20);
+  background: mix(@view_bg_color, @accent_bg_color, 0.20);
   }
 
-  .notejot-sidebar-box {
-    padding: 12px;
-    border-radius: 8px;
+.notejot-sidebar-box {
+  padding: 12px;
+  border-radius: 8px;
 }
 
 .content-sidebar child {
@@ -276,11 +277,11 @@
   border-radius: 8px;
   background: @view_bg_color;
 }
-.content-sidebar row:hover {
-  background: shade(@view_bg_color, 0.90);
+.content-sidebar child:hover {
+  background: mix(@view_bg_color, @accent_bg_color, 0.10);
 }
-.content-sidebar row:selected {
-  background: alpha(@accent_bg_color, 0.20);
+.content-sidebar child:selected {
+  background: mix(@view_bg_color, @accent_bg_color, 0.20);
 }
 
 .notejot-sidebar-grid-box {
@@ -295,11 +296,11 @@
 }
 
 .content-footer {
-	border-radius: 0 0 8px 8px;
+  border-radius: 0 0 8px 8px;
 }
 
 .content-footer box {
-	box-shadow: none;
+  box-shadow: none;
 }
 
 .content-footer button {
@@ -330,8 +331,8 @@
 .notejot-sbtitle,
 .notejot-titlebar {
   border-bottom: none;
-	box-shadow: none;
-	background: none;
+  box-shadow: none;
+    background: none;
 }
 
 .notejot-theme-grid {
@@ -356,12 +357,19 @@
   padding: 0;
 }
 
-.notejot-image {
-  border-radius: 12px;
+.shim {
+  background-image: linear-gradient(180deg,
+      alpha(#000, 0.0),
+      alpha(#000, 0.15),
+      alpha(#000, 0.3));
+  color: @view_bg_color;
   padding: 0;
   margin: 0;
 }
 
+.shim headerbar {
+  color: @view_bg_color;
+}
 .nw-action {
   background: @headerbar_bg_color;
 }

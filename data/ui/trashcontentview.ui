@@ -115,8 +115,6 @@
                 <child>
                   <object class="GtkSeparator">
                     <property name="orientation">horizontal</property>
-                    <property name="margin-start">21</property>
-                    <property name="margin-end">21</property>
                   </object>
                 </child>
                 <child>
@@ -174,8 +172,6 @@
                 <child>
                   <object class="GtkSeparator">
                     <property name="orientation">horizontal</property>
-                    <property name="margin-start">21</property>
-                    <property name="margin-end">21</property>
                     <property name="margin-bottom">18</property>
                   </object>
                 </child>

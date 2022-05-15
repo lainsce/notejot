@@ -79,6 +79,7 @@ sources = [
   'src/Widgets/MoveToDialog.vala',
   'src/Widgets/NotebookRowContent.vala',
   'src/Widgets/NoteTheme.vala',
+  'src/Widgets/NotePicture.vala',
   'src/Widgets/TrashRowContent.vala',
 ]
 
