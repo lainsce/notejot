@@ -60,7 +60,6 @@ public class Notejot.NoteRowContent : Adw.Bin {
 
             pix_revealer.visible = _note.picture != "" ? true : false;
             pix_revealer.reveal_child = _note.picture != "" ? true : false;
-            pix.visible = _note.picture != "" ? true : false;
 
             try {
                 if (_note != null && _note.picture != null) {

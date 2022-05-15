@@ -108,7 +108,6 @@ public class Notejot.NoteContentView : View {
             delete_button.visible = _note != null ? true : false;
             picture_revealer.visible = _note.picture != "" ? true : false;
             picture_revealer.reveal_child = _note.picture != "" ? true : false;
-            picture.visible = _note.picture != "" ? true : false;
             picture_button.sensitive = _note.picture == "" ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 

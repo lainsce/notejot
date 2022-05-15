@@ -92,7 +92,6 @@ public class Notejot.TrashContentView : View {
 
             s_menu.visible = _trash != null ? true : false;
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
-            picture.visible = _trash.picture != "" ? true : false;
             picture_revealer.reveal_child = _trash.picture != "" ? true : false;
             picture_revealer.visible = _trash.picture != "" ? true : false;
 

@@ -131,7 +131,6 @@
                     <child>
                       <object class="GtkPicture" id="picture">
                         <property name="can-shrink">1</property>
-                        <property name="visible">0</property>
                         <binding name="file">
                           <closure type="GFile" function="get_file">
                             <lookup name="picture" type="NotejotTrash">

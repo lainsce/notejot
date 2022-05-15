@@ -58,7 +58,6 @@ public class Notejot.TrashRowContent : Adw.Bin {
             pinned_binding = _trash?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
 
-            pix.visible = _trash.picture != "" ? true : false;
             pix_revealer.reveal_child = _trash.picture != "" ? true : false;
             pix_revealer.visible = _trash.picture != "" ? true : false;
         }
