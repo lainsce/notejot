@@ -39,17 +39,16 @@ public class Notejot.NoteViewModel : Object {
             text = _("Type text here…"),
             notebook = "<i>" + _("No Notebook") + "</i>",
             color = "#797775",
-            picture = "",
             pinned = false
         };
 
         if (note == null) {
             notes.add (n);
-            repository.insert_note (n);
         } else {
             notes.add (note);
-            repository.insert_note (note);
         }
+
+        repository.insert_note (note);
         save_notes ();
     }
 
@@ -61,7 +60,6 @@ public class Notejot.NoteViewModel : Object {
             notebook = trash.notebook,
             color = trash.color,
             pinned = trash.pinned,
-            picture = trash.picture,
         };
 
         notes.add (note);

@@ -56,17 +56,11 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     public unowned Gtk.Button back2_button;
     [GtkChild]
+    public new unowned Adw.HeaderBar titlebar;
+    [GtkChild]
     public unowned Gtk.Button delete_button;
     [GtkChild]
     public unowned Gtk.Button export_button;
-    [GtkChild]
-    public new unowned Adw.HeaderBar titlebar;
-    [GtkChild]
-    unowned Gtk.Revealer picture_revealer;
-    [GtkChild]
-    unowned Gtk.Picture picture;
-    [GtkChild]
-    unowned Gtk.Button picture_button;
 
     Binding? title_binding;
     Binding? subtitle_binding;
@@ -104,12 +98,9 @@ public class Notejot.NoteContentView : View {
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
+            stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
             export_button.visible = _note != null ? true : false;
             delete_button.visible = _note != null ? true : false;
-            picture_revealer.visible = _note.picture != "" ? true : false;
-            picture_revealer.reveal_child = _note.picture != "" ? true : false;
-            picture_button.sensitive = _note.picture == "" ? true : false;
-            stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm);
 
@@ -164,6 +155,17 @@ public class Notejot.NoteContentView : View {
                 if (_note != null)
                     provider.load_from_data ((uint8[]) "@define-color note_color #63452c;");
                     vm.update_note_color (_note, "#63452c");
+            });
+
+            delete_button.clicked.connect (() => {
+                if (_note != null)
+                    note_removal_requested (_note);
+            });
+
+            export_button.clicked.connect (() => {
+                if (_note != null)
+                    // Export note to file user chooses.
+                    export_note.begin (vm, _note);
             });
 
             nmp.color_button_reset.toggled.connect (() => {
@@ -268,35 +270,13 @@ public class Notejot.NoteContentView : View {
         );
     }
 
-    public signal void note_update_requested (Note note);
-    public signal void note_removal_requested (Note note);
-
     construct {
         fmt_syntax_start ();
         main_box.get_style_context().add_provider(provider, 1);
-
-        delete_button.clicked.connect (() => {
-            if (note != null)
-                note_removal_requested (note);
-        });
-
-        export_button.clicked.connect (() => {
-            if (note != null)
-                export_note.begin (vm, note);
-        });
     }
 
-    [GtkCallback]
-    File get_file () {
-        var res = sync_pix (note.picture);
-        note_update_requested (note);
-        return res;
-    }
-
-    public File sync_pix (string picture) {
-        var file = File.new_for_uri (picture);
-        return file;
-    }
+    public signal void note_update_requested (Note note);
+    public signal void note_removal_requested (Note note);
 
     void on_text_updated () {
         note_update_requested (note);
@@ -310,9 +290,7 @@ public class Notejot.NoteContentView : View {
 
         tasks += "% " + note.title +
             "\n% " + note.subtitle +
-            "\n% Color: " + note.color +
             "\n% Notebook: " + note.notebook.replace ("<i>", "").replace ("</i>", "") +
-            "\n% Picture: " + note.picture +
             "\n\n" + note.text;
 
         GLib.FileUtils.set_contents (file.get_path(), tasks);
@@ -368,36 +346,6 @@ public class Notejot.NoteContentView : View {
         // because of utf8
         int real_start = builder.str.index_of_nth_char(start);
         builder.erase(real_start, len);
-    }
-
-    [GtkCallback]
-    public async void action_picture () {
-        // implement picture
-        debug ("Open button pressed.");
-        var file = yield MiscUtils.display_open_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
-        try {
-            note.picture = file.get_path ();
-            var pixbuf = new Gdk.Pixbuf.from_file(note.picture);
-            picture.set_pixbuf (pixbuf);
-            picture_revealer.set_reveal_child (true);
-            picture_revealer.set_visible (true);
-            picture.set_visible (true);
-            picture_button.sensitive = false;
-            note_update_requested (note);
-        } catch (Error err) {
-            print (err.message);
-        }
-    }
-
-    [GtkCallback]
-    public void action_picture_remove () {
-        note.picture = "";
-        picture.set_pixbuf (null);
-        picture_revealer.set_reveal_child (false);
-        picture_revealer.set_visible (false);
-        picture.set_visible (false);
-        picture_button.sensitive = true;
-        note_update_requested (note);
     }
 
     [GtkCallback]

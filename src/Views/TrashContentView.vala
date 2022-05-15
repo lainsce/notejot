@@ -55,10 +55,6 @@ public class Notejot.TrashContentView : View {
     public new unowned Adw.HeaderBar titlebar;
     [GtkChild]
     unowned Adw.StatusPage trash_status_page;
-    [GtkChild]
-    unowned Gtk.Revealer picture_revealer;
-    [GtkChild]
-    unowned Gtk.Picture picture;
 
     Binding? bb_binding;
     Binding? title_binding;
@@ -92,8 +88,6 @@ public class Notejot.TrashContentView : View {
 
             s_menu.visible = _trash != null ? true : false;
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
-            picture_revealer.reveal_child = _trash.picture != "" ? true : false;
-            picture_revealer.visible = _trash.picture != "" ? true : false;
 
             title_binding = _trash?.bind_property (
                 "title", trash_title, "text", SYNC_CREATE|BIDIRECTIONAL);
@@ -178,17 +172,6 @@ public class Notejot.TrashContentView : View {
             }
             return false;
         });
-    }
-
-    [GtkCallback]
-    File get_file () {
-        var res = sync_pix (trash.picture);
-        return res;
-    }
-
-    public File sync_pix (string picture) {
-        var file = File.new_for_uri (picture);
-        return file;
     }
 
     public signal void trash_update_requested (Trash trash);

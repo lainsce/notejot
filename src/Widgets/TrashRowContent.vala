@@ -21,10 +21,6 @@ public class Notejot.TrashRowContent : Adw.Bin {
     [GtkChild]
     unowned Gtk.Image pin;
     [GtkChild]
-    unowned Gtk.Picture pix;
-    [GtkChild]
-    unowned Gtk.Revealer pix_revealer;
-    [GtkChild]
     unowned Gtk.Box row_box;
 
     Binding? pinned_binding;
@@ -57,9 +53,6 @@ public class Notejot.TrashRowContent : Adw.Bin {
 
             pinned_binding = _trash?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
-
-            pix_revealer.reveal_child = _trash.picture != "" ? true : false;
-            pix_revealer.visible = _trash.picture != "" ? true : false;
         }
     }
 
@@ -71,17 +64,6 @@ public class Notejot.TrashRowContent : Adw.Bin {
 
     construct {
         row_box.get_style_context().add_provider(provider, 1);
-    }
-
-    [GtkCallback]
-    File get_file () {
-        var res = sync_pix (trash.picture);
-        return res;
-    }
-
-    public File sync_pix (string picture) {
-        var file = File.new_for_uri (picture);
-        return file;
     }
 
     [GtkCallback]
