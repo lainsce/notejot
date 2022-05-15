@@ -39,6 +39,7 @@ public class Notejot.NoteViewModel : Object {
             text = _("Type text here…"),
             notebook = "<i>" + _("No Notebook") + "</i>",
             color = "#797775",
+            picture = "",
             pinned = false
         };
 
@@ -59,6 +60,7 @@ public class Notejot.NoteViewModel : Object {
             text = trash.text,
             notebook = trash.notebook,
             color = trash.color,
+            picture = trash.picture,
             pinned = trash.pinned,
         };
 

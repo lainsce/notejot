@@ -82,6 +82,7 @@ public class Notejot.NoteRepository : Object {
             current_note.text = note.text;
             current_note.notebook = note.notebook;
             current_note.color = note.color;
+            current_note.picture = note.picture;
             current_note.pinned = note.pinned;
         }
 

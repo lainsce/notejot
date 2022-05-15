@@ -121,6 +121,9 @@ namespace Notejot {
             var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
             menu_button.menu_model = (MenuModel)builder.get_object ("menu");
 
+            var theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
+            theme.add_resource_path ("/io/github/lainsce/Notejot/");
+
             // Preparing window to be shown
             var settings = new Settings ();
             set_default_size(
