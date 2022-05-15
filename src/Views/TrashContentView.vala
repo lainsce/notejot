@@ -154,17 +154,6 @@ public class Notejot.TrashContentView : View {
             back_button.clicked.connect (() => {
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
             });
-
-            try {
-                if (_trash != null && _trash.picture != "") {
-                    var pixbuf = new Gdk.Pixbuf.from_file(_trash.picture);
-                    picture.set_pixbuf (pixbuf);
-                } else {
-                    picture.visible = false;
-                }
-            } catch (Error err) {
-                print (err.message);
-            }
         }
     }
 
@@ -190,6 +179,17 @@ public class Notejot.TrashContentView : View {
             }
             return false;
         });
+    }
+
+    [GtkCallback]
+    File get_file () {
+        var res = sync_pix (trash.picture);
+        return res;
+    }
+
+    public File sync_pix (string picture) {
+        var file = File.new_for_uri (picture);
+        return file;
     }
 
     public signal void trash_update_requested (Trash trash);

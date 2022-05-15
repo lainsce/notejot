@@ -85,6 +85,17 @@ public class Notejot.NoteRowContent : Adw.Bin {
     }
 
     [GtkCallback]
+    File get_file () {
+        var res = sync_pix (note.picture);
+        return res;
+    }
+
+    public File sync_pix (string picture) {
+        var file = File.new_for_uri (picture);
+        return file;
+    }
+
+    [GtkCallback]
     string get_subtitle_line () {
         var res = sync_subtitles (note.subtitle);
         return res + " – " + note.text;

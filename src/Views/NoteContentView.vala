@@ -260,16 +260,6 @@ public class Notejot.NoteContentView : View {
 
             if (_note != null)
                 _note.notify.connect (on_text_updated);
-
-            try {
-                if (_note != null && _note.picture != "") {
-                    var pixbuf = new Gdk.Pixbuf.from_file(_note.picture);
-                    picture.set_pixbuf (pixbuf);
-                    picture_button.sensitive = false;
-                }
-            } catch (Error err) {
-                print (err.message);
-            }
         }
     }
 
@@ -295,6 +285,18 @@ public class Notejot.NoteContentView : View {
             if (note != null)
                 export_note.begin (vm, note);
         });
+    }
+
+    [GtkCallback]
+    File get_file () {
+        var res = sync_pix (note.picture);
+        note_update_requested (note);
+        return res;
+    }
+
+    public File sync_pix (string picture) {
+        var file = File.new_for_uri (picture);
+        return file;
     }
 
     void on_text_updated () {
@@ -382,7 +384,7 @@ public class Notejot.NoteContentView : View {
             picture_revealer.set_visible (true);
             picture.set_visible (true);
             picture_button.sensitive = false;
-            vm.update_note (_note);
+            note_update_requested (note);
         } catch (Error err) {
             print (err.message);
         }
@@ -396,7 +398,7 @@ public class Notejot.NoteContentView : View {
         picture_revealer.set_visible (false);
         picture.set_visible (false);
         picture_button.sensitive = true;
-        vm.update_note (_note);
+        note_update_requested (note);
     }
 
     [GtkCallback]

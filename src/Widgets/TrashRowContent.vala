@@ -61,16 +61,6 @@ public class Notejot.TrashRowContent : Adw.Bin {
             pix.visible = _trash.picture != "" ? true : false;
             pix_revealer.reveal_child = _trash.picture != "" ? true : false;
             pix_revealer.visible = _trash.picture != "" ? true : false;
-
-            try {
-                if (_trash != null && _trash.picture != null) {
-                    var pixbuf = new Gdk.Pixbuf.from_file(_trash.picture);
-                    pix.set_pixbuf (pixbuf);
-                    pix.set_size_request (48, 48);
-                }
-            } catch (Error err) {
-                print (err.message);
-            }
         }
     }
 
@@ -82,6 +72,17 @@ public class Notejot.TrashRowContent : Adw.Bin {
 
     construct {
         row_box.get_style_context().add_provider(provider, 1);
+    }
+
+    [GtkCallback]
+    File get_file () {
+        var res = sync_pix (trash.picture);
+        return res;
+    }
+
+    public File sync_pix (string picture) {
+        var file = File.new_for_uri (picture);
+        return file;
     }
 
     [GtkCallback]
