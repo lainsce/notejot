@@ -52,9 +52,6 @@
             <child>
               <object class="GtkBox" id="trash_view">
                 <property name="orientation">vertical</property>
-                <style>
-                  <class name="content-view" />
-                </style>
                 <child>
                   <object class="GtkBox" id="trash_header">
                     <property name="orientation">vertical</property>
@@ -66,13 +63,14 @@
                             <property name="orientation">horizontal</property>
                             <child>
                               <object class="GtkEntry" id="trash_title">
-                                <property name="margin-bottom">12</property>
+                                <property name="margin-bottom">17</property>
+                                <property name="margin-top">6</property>
                                 <property name="margin-start">18</property>
                                 <property name="margin-end">18</property>
                                 <property name="hexpand">1</property>
                                 <property name="tooltip-text" translatable="yes">Note name</property>
                                 <style>
-                                  <class name="view-title-bold" />
+                                  <class name="view-title" />
                                   <class name="flat" />
                                 </style>
                               </object>
@@ -83,17 +81,20 @@
                           <object class="GtkBox">
                             <property name="orientation">horizontal</property>
                             <property name="spacing">6</property>
-                            <property name="margin-bottom">12</property>
-                            <property name="margin-start">21</property>
-                            <property name="margin-end">21</property>
+                            <property name="margin-bottom">17</property>
+                            <property name="margin-start">18</property>
+                            <property name="margin-end">6</property>
                             <child>
                               <object class="GtkLabel" id="trash_subtitle">
-                                <property name="margin-end">12</property>
+                                <style>
+                                  <class name="view-subtitle" />
+                                </style>
                               </object>
                             </child>
                             <child>
                               <object class="GtkImage" id="notebook_icon">
-                                <property name="halign">start</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">1</property>
                                 <property name="icon-name">notebook-symbolic</property>
                               </object>
                             </child>
@@ -103,9 +104,6 @@
                                 <property name="use-markup">1</property>
                               </object>
                             </child>
-                            <style>
-                              <class name="dim-label"/>
-                            </style>
                           </object>
                         </child>
                       </object>
@@ -123,6 +121,7 @@
                     <property name="vexpand">1</property>
                     <property name="margin-start">21</property>
                     <property name="margin-end">21</property>
+                    <property name="margin-bottom">18</property>
                     <child>
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
@@ -167,12 +166,6 @@
                         </child>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="orientation">horizontal</property>
-                    <property name="margin-bottom">18</property>
                   </object>
                 </child>
               </object>

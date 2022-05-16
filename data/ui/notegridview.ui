@@ -45,9 +45,10 @@
             <property name="vexpand">1</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
+            <property name="margin-bottom">12</property>
             <child>
               <object class="GtkGridView" id="gv">
-                <property name="max-columns">4</property>
+                <property name="max-columns">5</property>
                 <style>
                   <class name="content-sidebar"/>
                 </style>

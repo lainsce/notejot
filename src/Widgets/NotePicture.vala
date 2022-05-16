@@ -1,21 +1,21 @@
 /*
- * Copyright (C) 2017-2022 Lains
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1301 USA
- */
+* Copyright (C) 2017-2022 Lains
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*/
 public class Notejot.NotePicture : Gtk.Widget {
     private string _file;
     private Gdk.Texture _texture;
@@ -30,7 +30,11 @@ public class Notejot.NotePicture : Gtk.Widget {
             this._file = value ? .strip ();
 
             if (value != null) {
-                this._texture = Gdk.Texture.from_filename (value.strip ());
+                try {
+                    this._texture = Gdk.Texture.from_filename (value.strip ());
+                } catch (Error e) {
+                    // w/e lol
+                }
 
                 this.queue_draw ();
                 this.queue_resize ();
@@ -39,7 +43,7 @@ public class Notejot.NotePicture : Gtk.Widget {
     }
 
     protected override Gtk.SizeRequestMode get_request_mode () {
-        return HEIGHT_FOR_WIDTH;
+        return WIDTH_FOR_HEIGHT;
     }
 
     protected override void snapshot (Gtk.Snapshot snapshot) {
@@ -48,7 +52,7 @@ public class Notejot.NotePicture : Gtk.Widget {
         }
 
         var ideal_width = this.get_width ();
-        var ideal_height = ideal_width / this._texture.get_intrinsic_aspect_ratio ();
+        var ideal_height = this.get_height ();
 
         var ideal_ratio = ideal_width / ideal_height;
 
@@ -85,46 +89,10 @@ public class Notejot.NotePicture : Gtk.Widget {
         this._texture.snapshot (snapshot, ideal_width, ideal_height);
     }
 
-    protected override void measure (Gtk.Orientation orientation,
-        int for_size,
-        out int minimum,
-        out int natural,
-        out int minimum_baseline,
-        out int natural_baseline) {
-        if (this._texture == null || for_size == 0) {
-            minimum = natural = 0;
-            minimum_baseline = natural_baseline = -1;
+    public void clear_image () {
+        this._texture = null;
 
-            return;
-        }
-
-        if (orientation == HORIZONTAL) {
-            minimum = 0;
-            natural = this._texture.get_width ();
-            minimum_baseline = natural_baseline = -1;
-
-            return;
-        }
-
-        if (for_size == -1) {
-            minimum = 0;
-            natural = this._texture.get_height ();
-            minimum_baseline = natural_baseline = -1;
-
-            return;
-        }
-
-        double c_width, c_height;
-        this._texture.compute_concrete_size (
-            for_size,
-            0.0,
-            this._texture.get_width (),
-            this._texture.get_height (),
-            out c_width,
-            out c_height
-        );
-
-        minimum = natural = (int) c_height;
-        minimum_baseline = natural_baseline = -1;
+        this.queue_draw ();
+        this.queue_resize ();
     }
 }

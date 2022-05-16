@@ -54,6 +54,7 @@
                       <object class="GtkOverlay">
                         <child>
                           <object class="NotejotNotePicture" id="image">
+                            <property name="height-request">140</property>
                           </object>
                         </child>
                         <child type="overlay">
@@ -87,20 +88,6 @@
                                     <property name="icon-name">go-previous-symbolic</property>
                                   </object>
                                 </child>
-                                <child type="end">
-                                  <object class="GtkButton" id="export_button">
-                                    <property name="visible">0</property>
-                                    <property name="icon-name">document-send-symbolic</property>
-                                    <property name="tooltip-text" translatable="yes">Export note…</property>
-                                  </object>
-                                </child>
-                                <child type="end">
-                                  <object class="GtkButton" id="delete_button">
-                                    <property name="visible">0</property>
-                                    <property name="icon-name">user-trash-symbolic</property>
-                                    <property name="tooltip-text" translatable="yes">Trash note…</property>
-                                  </object>
-                                </child>
                               </object>
                             </child>
                             <child>
@@ -132,7 +119,7 @@
                                     <property name="orientation">horizontal</property>
                                     <property name="spacing">6</property>
                                     <property name="margin-bottom">12</property>
-                                    <property name="margin-start">21</property>
+                                    <property name="margin-start">18</property>
                                     <property name="margin-end">6</property>
                                     <child>
                                       <object class="GtkLabel" id="note_subtitle">
