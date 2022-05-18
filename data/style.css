@@ -33,8 +33,13 @@
 }
 
 .list-action-button {
-  padding: 10px;
+  padding: 13px;
   border-radius: 999px;
+}
+
+.list-action-button image {
+  min-width: 24px;
+  min-height: 24px;
 }
 
 .list-action-button.accent-button {
