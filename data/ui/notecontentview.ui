@@ -54,7 +54,7 @@
                       <object class="GtkOverlay">
                         <child>
                           <object class="NotejotNotePicture" id="image">
-                            <property name="height-request">140</property>
+                            <property name="height-request">145</property>
                           </object>
                         </child>
                         <child type="overlay">
@@ -233,6 +233,9 @@
                 <child>
                   <object class="GtkSeparator">
                     <property name="orientation">horizontal</property>
+                    <style>
+                      <class name="content-footer-separator"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -244,25 +247,12 @@
                         <style>
                           <class name="content-footer"/>
                         </style>
-                        <child type="center">
+                        <child type="start">
                           <object class="GtkBox">
-                            <property name="spacing">6</property>
-                            <property name="margin-bottom">18</property>
-                            <child>
-                              <object class="GtkButton" id="normal_button">
-                                <property name="receives-default">1</property>
-                                <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
-                                <signal name="clicked" handler="action_normal" />
-                                <property name="icon-name">font-x-generic-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSeparator">
-                                <style>
-                                  <class name="spacer"/>
-                                </style>
-                              </object>
-                            </child>
+                            <property name="spacing">13</property>
+                            <property name="margin-start">13</property>
+                            <property name="margin-bottom">13</property>
+                            <property name="margin-top">13</property>
                             <child>
                               <object class="GtkButton" id="bold_button">
                                 <property name="receives-default">1</property>
@@ -296,18 +286,27 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkSeparator">
-                                <style>
-                                  <class name="spacer"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
                               <object class="GtkButton" id="ulist_button">
                                 <property name="receives-default">1</property>
                                 <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
                                 <signal name="clicked" handler="action_item" />
                                 <property name="icon-name">view-list-bullet-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkBox">
+                            <property name="spacing">13</property>
+                            <property name="margin-end">13</property>
+                            <property name="margin-bottom">13</property>
+                            <property name="margin-top">13</property>
+                            <child>
+                              <object class="GtkButton" id="normal_button">
+                                <property name="receives-default">1</property>
+                                <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
+                                <signal name="clicked" handler="action_normal" />
+                                <property name="icon-name">font-x-generic-symbolic</property>
                               </object>
                             </child>
                           </object>

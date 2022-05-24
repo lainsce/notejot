@@ -332,8 +332,18 @@
   border-bottom: 1px solid @borders;
 }
 
+.content-footer-separator {
+  background-image: linear-gradient(
+      180deg,
+      alpha(#000, 0),
+      alpha(#000, 0.10)
+  );
+  background-color: alpha(#000, 0);
+  min-height: 8px;
+}
+
 .content-footer {
-  border-radius: 0 0 8px 8px;
+  background: @view_bg_color;
 }
 
 .content-footer box {
@@ -398,30 +408,34 @@
 
 .scrim {
   background-image: linear-gradient(180deg,
-      alpha(#000, 0.25),
-      alpha(#000, 0.2),
-      alpha(#000, 0.15),
+      alpha(#000, 0.12),
       alpha(#000, 0.1),
+      alpha(#000, 0.07),
       alpha(#000, 0.05),
+      alpha(#000, 0.02),
       alpha(#000, 0),
+      alpha(#000, 0.02),
       alpha(#000, 0.05),
+      alpha(#000, 0.07),
       alpha(#000, 0.1),
+      alpha(#000, 0.12),
       alpha(#000, 0.15),
+      alpha(#000, 0.17),
       alpha(#000, 0.2),
+      alpha(#000, 0.22),
       alpha(#000, 0.25),
-      alpha(#000, 0.3),
-      alpha(#000, 0.35),
-      alpha(#000, 0.4),
-      alpha(#000, 0.45),
-      alpha(#000, 0.5),
-      alpha(#000, 0.55));
+      alpha(#000, 0.27));
   color: #fff;
+  text-shadow: 0 -1px alpha(#000, 0.75);
+  -gtk-icon-shadow: 0 -1px alpha(#000, 0.75);
   padding: 0;
   margin: 0;
 }
 
 .scrim headerbar {
   color: #fff;
+  text-shadow: 0 -1px alpha(#000, 0.75);
+  -gtk-icon-shadow: 0 -1px alpha(#000, 0.75);
 }
 
 .nw-action {
