@@ -225,12 +225,12 @@ msgstr ""
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
 #: src/Utils/TimeUtils.vala:34
 msgid "%a, %b %e, %Y"
-msgstr "%a, %b %e, %Y"
+msgstr "%A %e %B %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date and year
 #: src/Utils/TimeUtils.vala:37
 msgid "%b %e %Y"
-msgstr "%b %e %Y"
+msgstr "%e %b %Y"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the year
 #: src/Utils/TimeUtils.vala:40
@@ -240,7 +240,7 @@ msgstr "%Y"
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Utils/TimeUtils.vala:43
 msgid "%b %e"
-msgstr "%b %e"
+msgstr "%e %b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: src/Utils/TimeUtils.vala:46
@@ -256,12 +256,12 @@ msgstr "%a"
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Utils/TimeUtils.vala:52
 msgid "%a, %b %e"
-msgstr "%a, %b %e"
+msgstr "%a %e %b"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Utils/TimeUtils.vala:55
 msgid "%b"
-msgstr "%b"
+msgstr "%B"
 
 #. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: src/Utils/TimeUtils.vala:65
