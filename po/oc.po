@@ -1,0 +1,554 @@
+# Translation in Occitan language.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lainsce.Notejot package.
+# Quentin PAGÈS, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: io.github.lainsce.Notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-28 01:33-0300\n"
+"PO-Revision-Date: 2022-05-29 17:12+0200\n"
+"Last-Translator: Quentin PAGÈS\n"
+"Language-Team: \n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:7
+#: data/io.github.lainsce.Notejot.desktop.in:4
+msgid "Jot your ideas"
+msgstr "Notatz vòstras idèas"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:9
+msgid ""
+"A stupidly-simple notes application for any type of short term notes or "
+"ideas."
+msgstr ""
+"Una aplicacion tras que simpla per la presa de nòtas per tot tipe de nòtas "
+"brèvas o idèas."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:11
+msgid "🟡 Color your notes in 8 different colors"
+msgstr "🟡 Coloratz vòstras nòtas amb 8 diferentas colors"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:12
+msgid "📓 Classify them in notebooks"
+msgstr "📓 Classatz-las dins de quasernets"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:13
+msgid "🔤 Format text to your liking"
+msgstr "🔤 Formatatge de tèxte coma o volgatz"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:14
+msgid "📌 Pin your most important ones"
+msgstr "📌 Penjatz vòstras nòtas mai importantas"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:50
+msgid "Release: Overhaul User Interface"
+msgstr "Version : refonda de l’interfàcia utilizaire"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:52
+msgid "Changed: UI now looks better layoutted, is an experiment."
+msgstr ""
+"Modificat : l’interfàcia grafica sembla melhorament agençada, es en òbra."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:53
+msgid "Changed: Backend was changed to be more stable than the old one."
+msgstr "Cambiat : lo backend foguèt modificat per ganhar en estabilitat."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:55
+#: data/io.github.lainsce.Notejot.appdata.xml.in:66
+#: data/io.github.lainsce.Notejot.appdata.xml.in:75
+#: data/io.github.lainsce.Notejot.appdata.xml.in:84
+#: data/io.github.lainsce.Notejot.appdata.xml.in:93
+#: data/io.github.lainsce.Notejot.appdata.xml.in:104
+msgid ""
+"Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
+"lainsce.Notejot when using the Flatpak. Happy notetaking!"
+msgstr ""
+"Nòta : vòstras nòtas e quasernets son totjorn salvats dins ~/.var/app/io."
+"github.lainsce.Notejot en utilizant Flatpak. Bona presa de nòtas !"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:60
+msgid "Release: Pinned Notes"
+msgstr "Version : nòtas penjadas"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:62
+msgid "Added: Notes can now be pinned and are shown separately from others."
+msgstr ""
+"Apondut : las nòtas pòdon ara èsser penjadas e son mostradas a despart de "
+"las autras."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:63
+msgid "Added: Note title styling from older versions is back."
+msgstr "Apondut : l’estil del títol de las nòtas tòrna coma abans."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:64
+msgid "Added: Note searchbar is now always visible."
+msgstr "Apondut : la barra de recèrca de nòtas es ara totjorn visibla."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:71
+msgid "Release: Usability Independence"
+msgstr "Version : independéncia d’utilizabilitat"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:73
+msgid ""
+"Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
+"trash and also removing singluar notes from a notebook."
+msgstr ""
+"Reglat : mantuna avaria d’interfàcia grafica, darrièr e pas lo mendre la "
+"bascula entre quasernets e l’escobilhièr e tanben la desplaçament de nòta "
+"entre quasernets."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:80
+msgid "Release: Format But Don't Fail"
+msgstr "Version : format sens fracàs"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:82
+msgid ""
+"Fixed: formatting functions are the best they can be, plus minor fixes all "
+"around."
+msgstr ""
+"Reglat : las foncions de formatatge son al max, amai de pichonas correccions "
+"de pertot."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:89
+msgid "Release: Ready, Set, Go!"
+msgstr "Version : Lèst, Prèst, Zo !"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:91
+msgid ""
+"Some UI design fixes, such as the notebook switcher being on the bottom "
+"instead of in the top."
+msgstr ""
+"D’unas correccion de concepcion d’interfàcia, coma la bascula entre "
+"quasernet qu'èra enbàs e non pas ennaut."
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:98
+msgid "Release: GTK4 and Ready!"
+msgstr "Version : GTK4 e lèsta !"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:100
+msgid "New UI"
+msgstr "Interfàcia novèla"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:101
+msgid "Using another widget to display note contents"
+msgstr "Utilizar un autre widget per afichar lo contengut de nòta"
+
+#: data/io.github.lainsce.Notejot.appdata.xml.in:102
+msgid "Keyboard shortcuts for formatting"
+msgstr "Acorchis de clavièr pel formatatge de tèxte"
+
+#: data/io.github.lainsce.Notejot.desktop.in:3
+msgid "Notejot"
+msgstr "Notejot"
+
+#: data/io.github.lainsce.Notejot.desktop.in:7
+msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
+msgstr ""
+"tèxt;tèxte;brut;simple;nòta;quasernet;bremba;post-it;notar;escriure;libres;"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:5
+msgid "Migration Version"
+msgstr "Version de migration"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:6
+msgid "The version of migration to use; Do not change."
+msgstr "La version de migracion d’utilizar ; cambiar pas."
+
+#: data/io.github.lainsce.Notejot.gschema.xml:10
+msgid "Last View Used"
+msgstr "Darrièra vista utilizasa"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:11
+msgid "The last view used in the UI"
+msgstr "La darrièra vista utilizada dins l’interfàcia"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:15
+msgid "Notes Font Size"
+msgstr "Talha de la polissa"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:16
+msgid "The size of the font used in notes. (Small, Medium, Large)"
+msgstr "La talha de la polissa utilizada per las nòtas. (Pichon, mejon, grand)"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:20
+msgid "Saves whether the window is maximized or not"
+msgstr "Enregistra se la fenèstra èra maximizada o pas"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:21
+msgid ""
+"Whether the window is maximized. Used to open window with user's preferred "
+"settings"
+msgstr ""
+"Indica se la fenèstra es maximizada. Utilizat per dobrir la fenèstra amb lo "
+"paramètre preferit de l’utilizaire"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:25
+msgid "Saves window last-used width"
+msgstr "Enregistra la darrièra largor de fenèstra utilizada"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:26
+msgid "The user's last used window width before closing the app"
+msgstr ""
+"La darrièra largor de fenèstra utilizada per l'utilizaire abans de tampar "
+"l’aplicacion"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:30
+msgid "Saves window last-used height"
+msgstr "Enregistra la darrièra nautor de fenèstra utilizada"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:31
+msgid "The user's last used window height before closing the app"
+msgstr ""
+"La darrièra nautor de fenèstra utilizada per l'utilizaire abans de tampar "
+"l’aplicacion"
+
+#: src/MainWindow.vala:261
+msgid "Jot your ideas."
+msgstr "Notatz vòstras idèas."
+
+#: src/MainWindow.vala:267
+msgid "translator-credits"
+msgstr "Quentin PAGÈS"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
+#: src/Utils/TimeUtils.vala:34
+msgid "%a, %b %e, %Y"
+msgstr "%A %e %B de %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
+#: src/Utils/TimeUtils.vala:37
+msgid "%b %e %Y"
+msgstr "%-e %B %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the year
+#: src/Utils/TimeUtils.vala:40
+msgid "%Y"
+msgstr "%Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date
+#: src/Utils/TimeUtils.vala:43
+msgid "%b %e"
+msgstr "%e %b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
+#: src/Utils/TimeUtils.vala:46
+msgid "%a %Y"
+msgstr "%a %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
+#: src/Utils/TimeUtils.vala:49
+#, c-format
+msgid "%a"
+msgstr "%a"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
+#: src/Utils/TimeUtils.vala:52
+msgid "%a, %b %e"
+msgstr "%a %e %b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
+#: src/Utils/TimeUtils.vala:55
+msgid "%b"
+msgstr "%b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
+#: src/Utils/TimeUtils.vala:65
+msgid "%-l:%M:%S %p"
+msgstr "%-l:%M:%S %p"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
+#: src/Utils/TimeUtils.vala:68
+msgid "%-l:%M %p"
+msgstr "%-l:%M %p"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
+#: src/Utils/TimeUtils.vala:73
+msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
+#: src/Utils/TimeUtils.vala:76
+msgid "%H:%M"
+msgstr "%H'h'%M"
+
+#: src/Utils/TimeUtils.vala:98
+msgid "Now"
+msgstr "Ara"
+
+#: src/Utils/TimeUtils.vala:101
+#, c-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "fa %d minuta"
+msgstr[1] "fa %d minutas"
+
+#: src/Utils/TimeUtils.vala:104
+#, c-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "fa %d ora"
+msgstr[1] "fa %d oras"
+
+#: src/Utils/TimeUtils.vala:110
+#, c-format
+msgid "in %d minute"
+msgid_plural "in %d minutes"
+msgstr[0] "d’aquí %d minuta"
+msgstr[1] "d’aquí %d minutas"
+
+#: src/Utils/TimeUtils.vala:113
+#, c-format
+msgid "in %d hour"
+msgid_plural "in %d hours"
+msgstr[0] "d’aquí %d ora"
+msgstr[1] "d’aquí %d oras"
+
+#: src/Utils/TimeUtils.vala:119
+msgid "Yesterday"
+msgstr "Ièr"
+
+#: src/Utils/TimeUtils.vala:121
+msgid "Tomorrow"
+msgstr "Deman"
+
+#: src/ViewModels/NoteViewModel.vala:37
+msgid "New Note"
+msgstr "Nòta novèla"
+
+#: src/ViewModels/NoteViewModel.vala:40 src/Widgets/MoveToDialog.vala:61
+msgid "No Notebook"
+msgstr "Cap de quasernet"
+
+#: src/ViewModels/TrashViewModel.vala:76
+msgid "Clear Trash?"
+msgstr "Escafar l’escobilhièr ?"
+
+#: src/ViewModels/TrashViewModel.vala:77
+msgid ""
+"Clearing means the notes in Trash will be permanently lost with no recovery."
+msgstr ""
+"Escafar significa que las nòtas de l’escobilhièr seràn permanent perdudas "
+"sens possibilitat de recuperacion."
+
+#: src/ViewModels/TrashViewModel.vala:79 data/ui/move_to_dialog.ui:44
+msgid "Cancel"
+msgstr "Anullar"
+
+#: src/ViewModels/TrashViewModel.vala:80
+msgid "Clear"
+msgstr "Escafar"
+
+#: src/Views/NoteContentView.vala:169
+msgid "Set Note Title"
+msgstr "Definir lo títol de la nòta"
+
+#: src/Views/NoteContentView.vala:399
+msgid "bold text"
+msgstr "tèxte en gras"
+
+#: src/Views/NoteContentView.vala:407
+msgid "italic text"
+msgstr "tèxte en italica"
+
+#: src/Views/NoteContentView.vala:415
+msgid "underline text"
+msgstr "tèxte soslinhat"
+
+#: src/Views/NoteContentView.vala:423
+msgid "strikethrough text"
+msgstr "tèxte raiat"
+
+#: src/Views/NoteContentView.vala:431 src/Views/NoteContentView.vala:545
+#: src/Views/TrashContentView.vala:317
+msgid "Item"
+msgstr "Element"
+
+#: data/ui/edit_notebooks.ui:6
+msgid "Edit Notebooks"
+msgstr "Modificar los quasernets"
+
+#: data/ui/edit_notebooks.ui:34
+msgid "New Notebook…"
+msgstr "Quasernet de nòtas novèl…"
+
+#: data/ui/edit_notebooks.ui:44
+msgid "Add"
+msgstr "Ajustar"
+
+#: data/ui/move_to_dialog.ui:22
+msgid "Move"
+msgstr "Desplaçar"
+
+#: data/ui/move_to_dialog.ui:34
+msgid "Move to a Notebook"
+msgstr "Desplaçar dins un quasernet"
+
+#: data/ui/move_to_dialog.ui:70
+msgid "Detach Note From Notebook"
+msgstr "Destacar la nòta d’al quasernet"
+
+#: data/ui/move_to_dialog.ui:71
+msgid "Removes this Note from its Notebook."
+msgstr "Suprimir aquesta nòta del seu quasernet."
+
+#: data/ui/main_window.ui:57
+msgid "Manage Notebooks…"
+msgstr "Gerir los quasernets…"
+
+#: data/ui/main_window.ui:64
+msgid "Views"
+msgstr "Vistas"
+
+#: data/ui/main_window.ui:82
+msgid "All Notes"
+msgstr "Totas las nòtas"
+
+#: data/ui/main_window.ui:99
+msgid "Trash"
+msgstr "Escobilhièr"
+
+#: data/ui/main_window.ui:110
+msgid "Notebooks"
+msgstr "Quasernets"
+
+#: data/ui/main_window.ui:180
+msgid "Add Note"
+msgstr "Ajustar una nòta"
+
+#: data/ui/main_window.ui:230
+msgid "Clear Trash"
+msgstr "Escafar l’escobilhièr"
+
+#: data/ui/menu.ui:6
+msgid "Text Size"
+msgstr "Talha del tèxte"
+
+#: data/ui/menu.ui:10
+msgid "Small"
+msgstr "Pichon"
+
+#: data/ui/menu.ui:15
+msgid "Medium"
+msgstr "Mejan"
+
+#: data/ui/menu.ui:20
+msgid "Large"
+msgstr "Grand"
+
+#: data/ui/menu.ui:26
+msgid "Keyboard Shortcuts"
+msgstr "Acorchis de clavièr"
+
+#: data/ui/menu.ui:30
+msgid "About Notejot"
+msgstr "A prepaus de Notejot"
+
+#: data/ui/note_theme.ui:15
+msgid "Move Note to a Notebook"
+msgstr "Desplaçar la nòta dins un quasernet"
+
+#: data/ui/note_theme.ui:29
+msgid "Pin/Unpin Note"
+msgstr "Penjar/Despenjar nòta"
+
+#: data/ui/note_theme.ui:49
+msgid "Red"
+msgstr "Roge"
+
+#: data/ui/note_theme.ui:62
+msgid "Orange"
+msgstr "Irange"
+
+#: data/ui/note_theme.ui:76
+msgid "Yellow"
+msgstr "Jaune"
+
+#: data/ui/note_theme.ui:90
+msgid "Blue"
+msgstr "Blau"
+
+#: data/ui/note_theme.ui:104
+msgid "Purple"
+msgstr "Violet"
+
+#: data/ui/note_theme.ui:118
+msgid "Brown"
+msgstr "Marron"
+
+#: data/ui/note_theme.ui:132
+msgid "Green"
+msgstr "Verd"
+
+#: data/ui/note_theme.ui:146
+msgid "No Color"
+msgstr "Cap de color"
+
+#: data/ui/note_theme.ui:172
+msgid "Delete Note"
+msgstr "Suprimir la nòta"
+
+#: data/ui/notecontentview.ui:48
+msgid "No Selected Notes"
+msgstr "Cap de nòta pas seleccionada"
+
+#: data/ui/notecontentview.ui:49
+msgid "Add a note with the + button."
+msgstr "Apondètz una nòta amb lo boton « + »."
+
+#: data/ui/notecontentview.ui:186
+msgid "Removes formatting from selected text"
+msgstr "Tirar lo formatatge del tèxte seleccionat"
+
+#: data/ui/notecontentview.ui:201
+msgid "Makes selected text emboldened"
+msgstr "Met lo tèxte seleccionat en gras"
+
+#: data/ui/notecontentview.ui:209
+msgid "Makes selected text italicized"
+msgstr "Met lo tèxte seleccionat en italica"
+
+#: data/ui/notecontentview.ui:217
+msgid "Makes selected text underlined"
+msgstr "Fa venir lo tèxte seleccionat soslinhat"
+
+#: data/ui/notecontentview.ui:225
+msgid "Makes selected text striked through"
+msgstr "Fa venir lo tèxte seleccionat raiat"
+
+#: data/ui/notecontentview.ui:240
+msgid "Makes selected text into an unordered list"
+msgstr "Crèa una lista pas ordenada amb lo tèxte seleccionat"
+
+#: data/ui/notelistview.ui:26
+msgid "Search notes"
+msgstr "Cercar de nòtas"
+
+#: data/ui/shortcuts.ui:12
+msgctxt "shortcut window"
+msgid "General"
+msgstr "General"
+
+#: data/ui/shortcuts.ui:16
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Quitar"
+
+#: data/ui/trashcontentview.ui:22
+msgid "Restore Note"
+msgstr "Restaurar la nòta"
+
+#: data/ui/trashcontentview.ui:36
+msgid "Trash is Empty"
+msgstr "L'escobilhièr es void"
+
+#: data/ui/trashcontentview.ui:37
+msgid "Find notes here that were trashed to restore them."
+msgstr ""
+"Trapatz aicí las nòtas enviadas a l’escobilhièr per dire de las restaurar."
