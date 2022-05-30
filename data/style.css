@@ -161,26 +161,31 @@
 }
 
 .content-sidebar-main {
-  margin: 6px 12px;
+  margin: 6px 9px;
   margin-bottom: 0px;
   border: none;
   box-shadow: none;
   background: none;
 }
 
-.content-sidebar-main row {
+.content-sidebar-main child {
   margin-bottom: 6px;
-  padding: 3px 2px;
-  border-radius: 12px;
+  margin-left: 3px;
+  margin-right: 3px;
+  padding: 3px 5px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px @borders;
   background: none;
 }
 
-.content-sidebar-main row:hover {
+.content-sidebar-main child:hover {
   background: alpha(@view_fg_color, 0.05);
+  box-shadow: 0 0 0 2px @borders;
 }
 
-.content-sidebar-main row:selected {
+.content-sidebar-main child:selected {
   background: alpha(@view_fg_color, 0.11);
+  box-shadow: 0 0 0 2px alpha(@view_fg_color, 0.11);
 }
 
 .content-sidebar-notebooks-item {
@@ -276,9 +281,9 @@
 }
 
 .notejot-sidebar-box-mainrow {
-  padding: 10px;
+  padding: 2px;
   margin: 0px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .content-sidebar row {
@@ -332,18 +337,12 @@
   border-bottom: 1px solid @borders;
 }
 
-.content-footer-separator {
-  background-image: linear-gradient(
-      180deg,
-      alpha(#000, 0),
-      alpha(#000, 0.10)
-  );
-  background-color: alpha(#000, 0);
-  min-height: 8px;
+.content-header {
+  background: @window_bg_color;
 }
 
 .content-footer {
-  background: @view_bg_color;
+  background: mix(@accent_bg_color, @view_bg_color, 0.90);
 }
 
 .content-footer box {
@@ -426,16 +425,12 @@
       alpha(#000, 0.25),
       alpha(#000, 0.27));
   color: #fff;
-  text-shadow: 0 -1px alpha(#000, 0.75);
-  -gtk-icon-shadow: 0 -1px alpha(#000, 0.75);
   padding: 0;
   margin: 0;
 }
 
 .scrim headerbar {
   color: #fff;
-  text-shadow: 0 -1px alpha(#000, 0.75);
-  -gtk-icon-shadow: 0 -1px alpha(#000, 0.75);
 }
 
 .nw-action {

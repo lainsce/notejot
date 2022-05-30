@@ -3,22 +3,12 @@
 <template class="GtkListItem">
   <property name="child">
     <object class="GtkBox">
-      <property name="spacing">12</property>
       <style>
         <class name="notejot-sidebar-box-mainrow"/>
       </style>
       <child>
-        <object class="GtkImage">
-          <property name="valign">center</property>
-          <property name="icon-name">notebook-symbolic</property>
-          <style>
-            <class name="dim-label"/>
-          </style>
-        </object>
-      </child>
-      <child>
         <object class="GtkLabel" id="notebook_label">
-          <property name="valign">center</property>
+          <property name="xalign">0</property>
           <binding name="label">
             <lookup name="title" type="NotejotNotebook">
               <lookup name="item">GtkListItem</lookup>

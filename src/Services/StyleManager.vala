@@ -26,7 +26,7 @@ public class Notejot.StyleManager {
                 border-top: 5px solid mix(@view_bg_color, @note_color, 0.55);
             }
             .notejot-note {
-                background: mix(@view_bg_color, @note_color, 0.05);
+                background: mix(@view_bg_color, @note_color, 0.025);
             }
             .notejot-view, .notejot-view:disabled text {
                 background: transparent;

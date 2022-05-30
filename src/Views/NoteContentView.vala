@@ -277,8 +277,10 @@ public class Notejot.NoteContentView : View {
                 _note.notify.connect (on_text_updated);
                 if (image.file != "") {
                     note_header.add_css_class ("scrim");
+                    note_header.remove_css_class ("content-header");
                 } else {
                     note_header.remove_css_class ("scrim");
+                    note_header.add_css_class ("content-header");
                 }
             }
         }
@@ -324,6 +326,7 @@ public class Notejot.NoteContentView : View {
         image_button.visible = false;
         image_remove_button.visible = true;
         note_header.add_css_class ("scrim");
+        note_header.remove_css_class ("content-header");
         note_update_requested (note);
     }
 
@@ -334,6 +337,7 @@ public class Notejot.NoteContentView : View {
         image_button.visible = true;
         image_remove_button.visible = false;
         note_header.remove_css_class ("scrim");
+        note_header.add_css_class ("content-header");
         note_update_requested (note);
     }
 

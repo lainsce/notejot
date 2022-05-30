@@ -6,8 +6,10 @@
         <property name="hscrollbar-policy">never</property>
         <property name="vexpand">1</property>
         <property name="width-request">200</property>
+        <property name="height-request">100</property>
         <child>
-          <object class="GtkListView" id="lv">
+          <object class="GtkGridView" id="lv">
+            <property name="max-columns">3</property>
             <style>
               <class name="boxed-list" />
               <class name="content-sidebar-main" />

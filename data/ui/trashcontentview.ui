@@ -32,6 +32,8 @@
                         <property name="icon-name">user-trash-symbolic</property>
                         <property name="title" translatable="yes">Trash is Empty</property>
                         <property name="description" translatable="yes">Find notes here that were trashed to restore them.</property>
+                        <property name="vexpand">1</property>
+                        <property name="valign">center</property>
                       </object>
                     </child>
                   </object>
@@ -53,6 +55,9 @@
                         <child type="overlay">
                           <object class="GtkBox" id="trash_header">
                             <property name="orientation">vertical</property>
+                            <style>
+                              <class name="content-header"/>
+                            </style>
                             <child>
                               <object class="AdwHeaderBar" id="titlebar">
                                 <property name="hexpand">1</property>

@@ -39,6 +39,8 @@
                         <property name="icon-name">list-select-symbolic</property>
                         <property name="title" translatable="yes">No Selected Notes</property>
                         <property name="description" translatable="yes">Add a note with the + button.</property>
+                        <property name="vexpand">1</property>
+                        <property name="valign">center</property>
                       </object>
                     </child>
                   </object>
@@ -60,6 +62,9 @@
                         <child type="overlay">
                           <object class="GtkBox" id="note_header">
                             <property name="orientation">vertical</property>
+                            <style>
+                              <class name="content-header"/>
+                            </style>
                             <child>
                               <object class="AdwHeaderBar" id="titlebar">
                                 <property name="hexpand">1</property>
@@ -174,11 +179,6 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkSeparator">
-                    <property name="orientation">horizontal</property>
-                  </object>
-                </child>
-                <child>
                   <object class="GtkScrolledWindow">
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>
@@ -228,14 +228,6 @@
                         </child>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="orientation">horizontal</property>
-                    <style>
-                      <class name="content-footer-separator"/>
-                    </style>
                   </object>
                 </child>
                 <child>
