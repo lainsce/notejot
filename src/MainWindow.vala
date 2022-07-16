@@ -216,6 +216,7 @@ this.set_size_request (360, 360);
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
+            gridview.ss.set_selected (-1);
             if (leaf.folded) {
                 listview.back_button.set_visible (true);
             } else {
@@ -236,6 +237,7 @@ this.set_size_request (360, 360);
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
+            gridview.ss.set_selected (-1);
             if (leaf.folded) {
                 gridview.back_button.set_visible (true);
             } else {
@@ -255,6 +257,7 @@ this.set_size_request (360, 360);
             grid.set_visible_child_name ("trash");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
+            gridview.ss.set_selected (-1);
             if (leaf.folded) {
                 tlistview.back_button.set_visible (true);
             } else {
