@@ -149,7 +149,7 @@ namespace Notejot {
             var style_manager = new StyleManager ();
             style_manager.set_css ("");
 
-this.set_size_request (360, 360);
+            this.set_size_request (360, 360);
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.leaflet = leaf;
@@ -231,6 +231,7 @@ this.set_size_request (360, 360);
             leaf.set_visible_child (sgrid);
             sgrid.set_hexpand (true);
             sgrid.set_visible_child_name ("notegrid");
+            sgrid.set_visible (true);
             grid.set_visible (false);
             sep2.set_visible (false);
             grid.set_visible_child_name ("note");
