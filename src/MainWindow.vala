@@ -211,6 +211,7 @@ namespace Notejot {
             leaf.set_visible_child (sgrid);
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("notelist");
+            sgrid.set_visible (true);
             grid.set_visible (true);
             sep2.set_visible (true);
             grid.set_visible_child_name ("note");
@@ -231,7 +232,6 @@ namespace Notejot {
             leaf.set_visible_child (sgrid);
             sgrid.set_hexpand (true);
             sgrid.set_visible_child_name ("notegrid");
-            sgrid.set_visible (true);
             grid.set_visible (false);
             sep2.set_visible (false);
             grid.set_visible_child_name ("note");
