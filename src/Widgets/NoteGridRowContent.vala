@@ -24,6 +24,7 @@ public class Notejot.NoteGridRowContent : Adw.Bin {
     private unowned Gtk.Box row_box;
 
     private Binding? pinned_binding;
+    private Binding? color_binding;
     private Gtk.CssProvider provider = new Gtk.CssProvider();
 
     private string? _color;
@@ -48,12 +49,14 @@ public class Notejot.NoteGridRowContent : Adw.Bin {
                 return;
 
             pinned_binding?.unbind ();
+            color_binding?.unbind ();
 
             _note = value;
-            color = value.color;
 
             pinned_binding = _note?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+            color_binding = _note?.bind_property (
+                "color", this, "color", SYNC_CREATE|BIDIRECTIONAL);
         }
     }
 

@@ -24,6 +24,7 @@ public class Notejot.NoteRowContent : Adw.Bin {
     private unowned Gtk.Box row_box;
 
     private Binding? pinned_binding;
+    private Binding? color_binding;
     private Gtk.CssProvider provider = new Gtk.CssProvider();
 
     private string? _color;
@@ -36,7 +37,7 @@ public class Notejot.NoteRowContent : Adw.Bin {
             _color = value;
 
             provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
-            ((NoteListView)MiscUtils.find_ancestor_of_type<NoteListView>(this)).view_model.update_note_color (_note, _color);
+            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
         }
     }
 
@@ -48,12 +49,14 @@ public class Notejot.NoteRowContent : Adw.Bin {
                 return;
 
             pinned_binding?.unbind ();
+            color_binding?.unbind ();
 
             _note = value;
-            color = value.color;
 
             pinned_binding = _note?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+            color_binding = _note?.bind_property (
+                "color", this, "color", SYNC_CREATE|BIDIRECTIONAL);
         }
     }
 
