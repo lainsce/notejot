@@ -274,6 +274,7 @@ namespace Notejot {
             log.subtitle = subtitle;
             log.text = text;
             log.color = color;
+            log.picture = "";
             log.notebook = notebook;
 
             if (pinned == "0") {
@@ -292,6 +293,7 @@ namespace Notejot {
             tlog.subtitle = subtitle;
             tlog.text = text;
             tlog.color = color;
+            tlog.picture = "";
             tlog.notebook = notebook;
             tlog.pinned = false;
 

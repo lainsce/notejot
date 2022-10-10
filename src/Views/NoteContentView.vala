@@ -209,7 +209,7 @@ public class Notejot.NoteContentView : View {
             title_binding = _note?.bind_property ("title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
             subtitle_binding = _note?.bind_property ("subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
-            pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+            pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE|BIDIRECTIONAL);
 
             image_button.visible = image.file != "" ? false : true;
             image_remove_button.visible = image.file == "" ? false : true;
@@ -752,3 +752,4 @@ public class Notejot.NoteContentView : View {
         return "";
     }
 }
+

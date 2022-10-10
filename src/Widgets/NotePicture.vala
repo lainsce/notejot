@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301 USA
  */
 sealed class Notejot.NotePicture : Gtk.Widget {
-    private string _file;
-    private Gdk.Texture _texture;
+    private string _file = null;
+    private Gdk.Texture _texture = null;
 
     public string file {
         get { return this._file; }
@@ -31,7 +31,7 @@ sealed class Notejot.NotePicture : Gtk.Widget {
 
             if (value != null) {
                 try {
-                    this._texture = Gdk.Texture.from_filename (value.strip ());
+                    this._texture = Gdk.Texture.from_filename (value?.strip ());
                 } catch (Error e) {
                     // w/e lol
                 }
@@ -45,7 +45,6 @@ sealed class Notejot.NotePicture : Gtk.Widget {
     ~NotePicture () {
         this._texture = null;
         this._file = null;
-        this.destroy ();
     }
 
     protected override Gtk.SizeRequestMode get_request_mode () {

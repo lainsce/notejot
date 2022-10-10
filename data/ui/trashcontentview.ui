@@ -27,12 +27,12 @@
                 </child>
                 <child>
                   <object class="GtkWindowHandle">
+                    <property name="vexpand">1</property>
                     <child>
                       <object class="AdwStatusPage" id="trash_status_page">
                         <property name="icon-name">user-trash-symbolic</property>
                         <property name="title" translatable="yes">Trash is Empty</property>
                         <property name="description" translatable="yes">Find notes here that were trashed to restore them.</property>
-                        <property name="vexpand">1</property>
                         <property name="valign">center</property>
                       </object>
                     </child>

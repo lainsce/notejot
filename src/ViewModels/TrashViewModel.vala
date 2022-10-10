@@ -42,9 +42,6 @@ public class Notejot.TrashViewModel : Object {
         };
 
         trashs.add (trash);
-
-        repository.insert_trash (trash);
-        save_trashs ();
     }
 
     public void update_trash (Trash trash) {

@@ -52,7 +52,7 @@ public class Notejot.NoteListView : View {
 
             if (pos != Gtk.INVALID_LIST_POSITION)
                 to.set_object (ss.model.get_item (pos));
-                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
+                leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
         });
@@ -61,7 +61,7 @@ public class Notejot.NoteListView : View {
         leaf.bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
 
         back_button.clicked.connect (() => {
-            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
+            leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 

@@ -38,6 +38,7 @@ public class Notejot.NoteRowContent : Adw.Bin {
 
             provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
             ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
+            row_box.get_style_context().add_provider(provider, 1);
         }
     }
 

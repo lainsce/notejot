@@ -38,6 +38,7 @@ public class Notejot.TrashRowContent : Adw.Bin {
 
             provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_trash.color));
             ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).tview_model.update_trash_color (_trash, _color);
+            row_box.get_style_context().add_provider(provider, 1);
         }
     }
 

@@ -56,7 +56,7 @@ public class Notejot.NoteGridView : View {
                     ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.set_visible (false);
                     ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid.set_visible (true);
                 }
-                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
+                leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
         });
@@ -64,7 +64,7 @@ public class Notejot.NoteGridView : View {
         leaf.bind_property ("folded", back_button, "visible", SYNC_CREATE);
 
         back_button.clicked.connect (() => {
-            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
+            leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 
