@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
 <template class="NotejotTrashRowContent" parent="AdwBin">
-  <binding name="color">
-    <lookup name="color" type="NotejotTrash">
-      <lookup name="trash">NotejotTrashRowContent</lookup>
-    </lookup>
-  </binding>
   <property name="child">
     <object class="GtkBox" id="row_box">
       <property name="orientation">horizontal</property>

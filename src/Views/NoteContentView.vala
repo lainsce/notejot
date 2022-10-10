@@ -92,7 +92,7 @@ public class Notejot.NoteContentView : View {
             subtitle_binding?.unbind ();
             notebook_binding?.unbind ();
             text_binding?.unbind ();
-            pix_binding ? .unbind ();
+            pix_binding?.unbind ();
 
             if (_note != null)
                 _note.notify.disconnect (on_text_updated);
@@ -105,8 +105,6 @@ public class Notejot.NoteContentView : View {
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
-            image_remove_button.visible = image.file != "" ? true : false;
-            image_button.visible = image.file != "" ? false : true;
 
             var nmp = new Widgets.NoteTheme (this, vm, nvm);
 
@@ -208,7 +206,10 @@ public class Notejot.NoteContentView : View {
             subtitle_binding = _note?.bind_property ("subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             notebook_binding = _note?.bind_property ("notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
-            pix_binding = _note ? .bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+            pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+
+            image_button.visible = image.file != "" ? false : true;
+            image_remove_button.visible = image.file == "" ? false : true;
 
             var settings = new Settings ();
             switch (settings.font_size) {

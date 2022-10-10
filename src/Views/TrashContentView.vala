@@ -56,30 +56,30 @@ public class Notejot.TrashContentView : View {
     [GtkChild]
     unowned Adw.StatusPage trash_status_page;
 
-    Binding ? bb_binding;
-    Binding ? title_binding;
-    Binding ? subtitle_binding;
-    Binding ? notebook_binding;
-    Binding ? text_binding;
+    Binding? bb_binding;
+    Binding? title_binding;
+    Binding? subtitle_binding;
+    Binding? notebook_binding;
+    Binding? text_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider ();
-    public TrashViewModel ? vm { get; set; }
-    public NotebookViewModel ? nvm { get; set; }
-    public MainWindow ? win { get; set; }
-    public Gtk.PopoverMenu ? pop;
+    public TrashViewModel? vm { get; set; }
+    public NotebookViewModel? nvm { get; set; }
+    public MainWindow? win { get; set; }
+    public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
 
-    Trash ? _trash;
-    public Trash ? trash {
+    Trash? _trash;
+    public Trash? trash {
         get { return _trash; }
         set {
             if (value == _trash)
                 return;
 
-            title_binding ? .unbind ();
-            subtitle_binding ? .unbind ();
-            notebook_binding ? .unbind ();
-            text_binding ? .unbind ();
+            title_binding?.unbind ();
+            subtitle_binding?.unbind ();
+            notebook_binding?.unbind ();
+            text_binding?.unbind ();
 
             _trash = value;
 
@@ -89,10 +89,10 @@ public class Notejot.TrashContentView : View {
             s_menu.visible = _trash != null ? true : false;
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
 
-            title_binding = _trash ? .bind_property ("title", trash_title, "label", SYNC_CREATE | BIDIRECTIONAL);
-            subtitle_binding = _trash ? .bind_property ("subtitle", trash_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
-            notebook_binding = _trash ? .bind_property ("notebook", notebook_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
-            text_binding = _trash ? .bind_property ("text", trash_text, "text", SYNC_CREATE | BIDIRECTIONAL);
+            title_binding = _trash?.bind_property ("title", trash_title, "label", SYNC_CREATE | BIDIRECTIONAL);
+            subtitle_binding = _trash?.bind_property ("subtitle", trash_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
+            notebook_binding = _trash?.bind_property ("notebook", notebook_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
+            text_binding = _trash?.bind_property ("text", trash_text, "text", SYNC_CREATE | BIDIRECTIONAL);
 
             var settings = new Settings ();
             switch (settings.font_size) {
@@ -146,7 +146,7 @@ public class Notejot.TrashContentView : View {
         }
     }
 
-    public TrashContentView (TrashViewModel ? vm) {
+    public TrashContentView (TrashViewModel? vm) {
         Object (
             vm: vm
         );
@@ -222,7 +222,7 @@ public class Notejot.TrashContentView : View {
         return GLib.Source.REMOVE;
     }
 
-    public void extend_selection_to_format_block (Gtk.TextView text_view, Format ? format = null) {
+    public void extend_selection_to_format_block (Gtk.TextView text_view, Format? format = null) {
         Gtk.TextIter sel_start, sel_end;
         var text_buffer = text_view.get_buffer ();
         text_buffer.get_selection_bounds (out sel_start, out sel_end);

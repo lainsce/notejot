@@ -19,14 +19,14 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/trashrowcontent.ui")]
 public class Notejot.TrashRowContent : Adw.Bin {
     [GtkChild]
-    unowned Gtk.Image pin;
+    private unowned Gtk.Image pin;
     [GtkChild]
-    unowned Gtk.Box row_box;
+    private unowned Gtk.Box row_box;
 
-    Binding? pinned_binding;
+    private Binding? pinned_binding;
     private Gtk.CssProvider provider = new Gtk.CssProvider();
 
-    string? _color;
+    private string? _color;
     public string? color {
         get { return _color; }
         set {
@@ -40,7 +40,7 @@ public class Notejot.TrashRowContent : Adw.Bin {
         }
     }
 
-    Trash? _trash;
+    private Trash? _trash;
     public Trash? trash {
         get { return _trash; }
         set {
@@ -50,6 +50,7 @@ public class Notejot.TrashRowContent : Adw.Bin {
             pinned_binding?.unbind ();
 
             _trash = value;
+            color = value.color;
 
             pinned_binding = _trash?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);

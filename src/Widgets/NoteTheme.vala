@@ -42,11 +42,11 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.CheckButton color_button_reset;
 
-        public NoteViewModel ? vm { get; set; }
-        public NotebookViewModel ? nvm { get; set; }
-        public NoteContentView ? ncv { get; set; }
+        public NoteViewModel? vm { get; set; }
+        public NotebookViewModel? nvm { get; set; }
+        public NoteContentView? ncv { get; set; }
 
-        public NoteTheme (NoteContentView ? ncv, NoteViewModel ? vm, NotebookViewModel ? nvm) {
+        public NoteTheme (NoteContentView? ncv, NoteViewModel? vm, NotebookViewModel? nvm) {
             Object (
                 vm: vm,
                 nvm: nvm,

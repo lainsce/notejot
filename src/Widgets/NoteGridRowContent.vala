@@ -19,14 +19,14 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notegridrowcontent.ui")]
 public class Notejot.NoteGridRowContent : Adw.Bin {
     [GtkChild]
-    unowned Gtk.Image pin;
+    private unowned Gtk.Image pin;
     [GtkChild]
-    unowned Gtk.Box row_box;
+    private unowned Gtk.Box row_box;
 
-    Binding? pinned_binding;
+    private Binding? pinned_binding;
     private Gtk.CssProvider provider = new Gtk.CssProvider();
 
-    string? _color;
+    private string? _color;
     public string? color {
         get { return _color; }
         set {
@@ -40,7 +40,7 @@ public class Notejot.NoteGridRowContent : Adw.Bin {
         }
     }
 
-    Note? _note;
+    private Note? _note;
     public Note? note {
         get { return _note; }
         set {
@@ -50,6 +50,7 @@ public class Notejot.NoteGridRowContent : Adw.Bin {
             pinned_binding?.unbind ();
 
             _note = value;
+            color = value.color;
 
             pinned_binding = _note?.bind_property (
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);

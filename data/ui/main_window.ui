@@ -82,18 +82,6 @@
                             <style>
                               <class name="notejot-stitle"/>
                             </style>
-                            <child type="start">
-                              <object class="GtkBox">
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label">Notejot</property>
-                                    <style>
-                                      <class name="title"/>
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
                             <child type="title">
                               <object class="GtkBox">
                               </object>

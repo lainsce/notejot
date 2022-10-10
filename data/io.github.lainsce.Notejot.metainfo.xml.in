@@ -46,9 +46,9 @@
     </custom>
     <translation type="gettext">@app_id@</translation>
     <releases>
-        <release version="3.5.2" date="2022-04-20">
+        <release version="3.6.0" date="2022-12-31">
             <description>
-                <p>Release: Stargon</p>
+                <p>Release: Stargone</p>
                 <ul>
                     <li>Added: An option to give a note a header image.</li>
                     <li>Changed: UI fixes.</li>

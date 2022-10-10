@@ -23,11 +23,11 @@ sealed class Notejot.NotePicture : Gtk.Widget {
     public string file {
         get { return this._file; }
         set {
-            if (this._file == value ? .strip ()) {
+            if (this._file == value?.strip ()) {
                 return;
             }
 
-            this._file = value ? .strip ();
+            this._file = value?.strip ();
 
             if (value != null) {
                 try {
