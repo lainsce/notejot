@@ -433,6 +433,18 @@
   color: #fff;
 }
 
+.scrim box > label,
+.scrim .image-text-button label,
+.scrim entry text {
+  text-shadow: 0 1px 3px black;
+}
+.scrim image {
+  -gtk-icon-shadow: 0 1px 3px black;
+}
+.scrim .close image {
+  box-shadow: 0 1px 3px black;
+}
+
 .nw-action {
   background: @headerbar_bg_color;
 }
