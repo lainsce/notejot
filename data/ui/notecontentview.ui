@@ -81,6 +81,11 @@
                                     <property name="icon-name">view-more-symbolic</property>
                                   </object>
                                 </child>
+                                <child type="end">
+                                  <object class="GtkButton" id="delete_button">
+                                    <property name="icon-name">user-trash-symbolic</property>
+                                  </object>
+                                </child>
                                 <child>
                                   <object class="GtkButton" id="back_button">
                                     <property name="visible">0</property>
@@ -128,23 +133,29 @@
                                     <property name="margin-end">6</property>
                                     <child>
                                       <object class="GtkLabel" id="note_subtitle">
+                                        <property name="xalign">0</property>
+                                        <property name="hexpand">1</property>
                                         <style>
                                           <class name="view-subtitle" />
                                         </style>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkImage" id="notebook_icon">
-                                        <property name="halign">end</property>
-                                        <property name="hexpand">1</property>
-                                        <property name="icon-name">notebook-symbolic</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="notebook_subtitle">
-                                        <property name="halign">start</property>
-                                        <property name="use-markup">1</property>
-                                        <property name="margin-end">6</property>
+                                      <object class="GtkButton" id="notebook_button">
+                                        <property name="tooltip-text" translatable="yes">Sets the notebook of the note</property>
+                                        <style>
+                                          <class name="flat"/>
+                                        </style>
+                                        <child>
+                                          <object class="AdwButtonContent">
+                                            <property name="icon-name">notebook-symbolic</property>
+                                            <binding name="label">
+                                              <lookup name="notebook" type="NotejotNote">
+                                                <lookup name="note">NotejotNoteContentView</lookup>
+                                              </lookup>
+                                            </binding>
+                                          </object>
+                                        </child>
                                       </object>
                                     </child>
                                     <child>

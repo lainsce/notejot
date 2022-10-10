@@ -38,8 +38,6 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     unowned Gtk.Label note_subtitle;
     [GtkChild]
-    unowned Gtk.Label notebook_subtitle;
-    [GtkChild]
     public unowned Gtk.TextView note_textbox;
     [GtkChild]
     unowned Gtk.TextBuffer note_text;
@@ -65,10 +63,13 @@ public class Notejot.NoteContentView : View {
     unowned Gtk.Button image_remove_button;
     [GtkChild]
     unowned Notejot.NotePicture image;
+    [GtkChild]
+    unowned Gtk.Button delete_button;
+    [GtkChild]
+    unowned Gtk.Button notebook_button;
 
     Binding? title_binding;
     Binding? subtitle_binding;
-    Binding? notebook_binding;
     Binding? text_binding;
     Binding? pix_binding;
     Binding? bb_binding;
@@ -90,7 +91,6 @@ public class Notejot.NoteContentView : View {
 
             title_binding?.unbind ();
             subtitle_binding?.unbind ();
-            notebook_binding?.unbind ();
             text_binding?.unbind ();
             pix_binding?.unbind ();
 
@@ -106,7 +106,7 @@ public class Notejot.NoteContentView : View {
             s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 
-            var nmp = new Widgets.NoteTheme (this, vm, nvm);
+            var nmp = new Widgets.NoteTheme ();
 
             nmp.note_pin_button.clicked.connect (() => {
                 if (_note != null) {
@@ -169,11 +169,15 @@ public class Notejot.NoteContentView : View {
                 }
             });
 
-            nmp.delete_button.clicked.connect (() => {
+            delete_button.clicked.connect (() => {
                 if (_note != null) {
                     note_removal_requested (_note);
-                    pop.closed ();
                 }
+            });
+
+            notebook_button.clicked.connect (() => {
+                var move_to_dialog = new Widgets.MoveToDialog (this, nvm, vm);
+                move_to_dialog.show ();
             });
 
             nmp.export_button.clicked.connect (() => {
@@ -204,7 +208,6 @@ public class Notejot.NoteContentView : View {
 
             title_binding = _note?.bind_property ("title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
             subtitle_binding = _note?.bind_property ("subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
-            notebook_binding = _note?.bind_property ("notebook", notebook_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
             pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
 
