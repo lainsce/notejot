@@ -27,7 +27,7 @@
         </style>
         <child>
           <object class="HeAppBar">
-            <property name="show-buttons">0</property>
+            <property name="show-buttons">1</property>
             <property name="show-back">0</property>
             <property name="flat">1</property>
           </object>
