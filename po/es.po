@@ -78,11 +78,11 @@ msgstr "Versión: Plata"
 
 #: data/io.github.lainsce.Notejot.metainfo.xml.in:62
 msgid ""
-"Changed: UI now follows my own style that complements that of Adwaita, "
+"Changed: UI now follows my own style that complements that of He.Albumaita, "
 "called Solo."
 msgstr ""
 "Cambiado: La interfaz de usuario ahora sigue mi propio estilo que "
-"complementa el de Adwaita, llamado Solo."
+"complementa el de He.Albumaita, llamado Solo."
 
 #: data/io.github.lainsce.Notejot.metainfo.xml.in:63
 msgid "Changed: The syntax follows Markdown conventions where possible."

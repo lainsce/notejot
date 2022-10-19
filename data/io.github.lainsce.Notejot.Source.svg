@@ -22,7 +22,7 @@
    style="display:inline;enable-background:new"
    viewBox="0 0 192 152">
   <title
-     id="title4162">Adwaita Icon Template</title>
+     id="title4162">He.Albumaita Icon Template</title>
   <defs
      id="defs3">
     <linearGradient
@@ -474,7 +474,7 @@
     <rdf:RDF>
       <cc:Work
          rdf:about="">
-        <dc:title>Adwaita Icon Template</dc:title>
+        <dc:title>He.Albumaita Icon Template</dc:title>
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />

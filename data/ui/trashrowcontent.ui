@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-<template class="NotejotTrashRowContent" parent="AdwBin">
-  <property name="child">
+<template class="NotejotTrashRowContent" parent="HeBin">
+  <child>
     <object class="GtkBox" id="row_box">
       <property name="orientation">horizontal</property>
       <property name="valign">center</property>
@@ -33,6 +33,7 @@
           <child>
             <object class="GtkLabel">
               <property name="halign">start</property>
+              <property name="hexpand">1</property>
               <property name="ellipsize">end</property>
               <property name="single-line-mode">yes</property>
               <property name="max-width-chars">25</property>
@@ -68,6 +69,6 @@
         </object>
       </child>
     </object>
-  </property>
+  </child>
 </template>
 </interface>

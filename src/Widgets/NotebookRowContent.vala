@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookrowcontent.ui")]
-public class Notejot.NotebookRowContent : Adw.Bin {
+public class Notejot.NotebookRowContent : He.Bin {
     public signal void clicked ();
     public NotebookViewModel? notebooks {get; set;}
 

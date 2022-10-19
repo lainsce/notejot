@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 *
 */
-public class Notejot.Application : Adw.Application {
+public class Notejot.Application : He.Application {
     private const GLib.ActionEntry app_entries[] = {
         { "quit", quit },
     };
@@ -33,6 +33,10 @@ public class Notejot.Application : Adw.Application {
         return app.run (args);
     }
     protected override void startup () {
+        Gdk.RGBA accent_color = { 0 };
+        accent_color.parse("#e0a101");
+        default_accent_color = He.Color.from_gdk_rgba(accent_color);
+
         resource_base_path = "/io/github/lainsce/Notejot";
 
         base.startup ();

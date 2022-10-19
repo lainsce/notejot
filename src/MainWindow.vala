@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/main_window.ui")]
-    public class MainWindow : Adw.ApplicationWindow {
+    public class MainWindow : He.ApplicationWindow {
         delegate void HookFunc ();
         public signal void clicked ();
 
@@ -31,7 +31,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.WindowHandle nbgrid;
         [GtkChild]
-        public unowned Adw.Leaflet leaf;
+        public unowned Bis.Album albumt;
         [GtkChild]
         public unowned Gtk.Box main_box;
         [GtkChild]
@@ -49,15 +49,15 @@ namespace Notejot {
         [GtkChild]
         public unowned NoteContentView notecontent;
         [GtkChild]
-        public unowned Gtk.Overlay list_scroller;
+        public unowned He.OverlayButton list_scroller;
         [GtkChild]
-        public unowned Gtk.Overlay glist_scroller;
+        public unowned He.OverlayButton glist_scroller;
         [GtkChild]
         public unowned Gtk.Sorter sorter;
 
         // Custom
         public MainWindow? mw {get; set;}
-        public Adw.Leaflet? leaflet {get; set;}
+        public Bis.Album? album {get; set;}
         public Gtk.SelectionModel? ss {get; set;}
         public NotebookMainListView? mlv {get; set;}
 
@@ -89,8 +89,8 @@ namespace Notejot {
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
         };
 
-        public Adw.Application app { get; construct; }
-        public MainWindow (Adw.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model) {
+        public He.Application app { get; construct; }
+        public MainWindow (He.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model) {
             GLib.Object (
                 application: application,
                 app: application,
@@ -152,7 +152,7 @@ namespace Notejot {
             this.set_size_request (360, 360);
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
-            this.leaflet = leaf;
+            this.album = albumt;
             an_button.set_active(true);
         }
 
@@ -208,7 +208,7 @@ namespace Notejot {
         public void on_action_all_notes () {
             var settings = new Settings ();
             settings.last_view = "list";
-            leaf.set_visible_child (sgrid);
+            albumt.set_visible_child (sgrid);
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("notelist");
             sgrid.set_visible (true);
@@ -218,10 +218,10 @@ namespace Notejot {
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
             gridview.ss.set_selected (-1);
-            if (leaf.folded) {
-                listview.back_button.set_visible (true);
+            if (albumt.folded) {
+               listview.stitlebar.back_button.set_visible (true);
             } else {
-                listview.back_button.set_visible (false);
+                listview.stitlebar.back_button.set_visible (false);
             }
             notecontent.back2_button.set_visible (false);
         }
@@ -230,7 +230,7 @@ namespace Notejot {
         public void on_action_grid () {
             var settings = new Settings ();
             settings.last_view = "grid";
-            leaf.set_visible_child (sgrid);
+            albumt.set_visible_child (sgrid);
             sgrid.set_hexpand (true);
             sgrid.set_visible_child_name ("notegrid");
             grid.set_visible (false);
@@ -239,10 +239,10 @@ namespace Notejot {
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
             gridview.ss.set_selected (-1);
-            if (leaf.folded) {
-                gridview.back_button.set_visible (true);
+            if (albumt.folded) {
+               gridview.stitlebar.back_button.set_visible (true);
             } else {
-                gridview.back_button.set_visible (false);
+                gridview.stitlebar.back_button.set_visible (false);
             }
         }
 
@@ -250,7 +250,7 @@ namespace Notejot {
         public void on_action_trash () {
             var settings = new Settings ();
             settings.last_view = "trash";
-            leaf.set_visible_child (sgrid);
+            albumt.set_visible_child (sgrid);
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible (true);
@@ -259,10 +259,10 @@ namespace Notejot {
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
             gridview.ss.set_selected (-1);
-            if (leaf.folded) {
-                tlistview.back_button.set_visible (true);
+            if (albumt.folded) {
+               tlistview.stitlebar.back_button.set_visible (true);
             } else {
-                tlistview.back_button.set_visible (false);
+                tlistview.stitlebar.back_button.set_visible (false);
             }
             notecontent.back2_button.set_visible (false);
         }
@@ -309,26 +309,23 @@ namespace Notejot {
         }
 
         public void action_about () {
-            const string COPYRIGHT = "Copyright \xc2\xa9 2017-2021 Paulo \"Lains\" Galardi\n";
-
-            const string? AUTHORS[] = {
-                "Paulo \"Lains\" Galardi",
-                null
-            };
-
-            Gtk.show_about_dialog (this,
-                                   "program-name", "Notejot" + Config.NAME_SUFFIX,
-                                   "logo-icon-name", Config.APP_ID,
-                                   "version", Config.VERSION,
-                                   "comments", _("Jot your ideas."),
-                                   "copyright", COPYRIGHT,
-                                   "authors", AUTHORS,
-                                   "artists", null,
-                                   "license-type", Gtk.License.GPL_3_0,
-                                   "wrap-license", false,
-                                   // TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
-                                   "translator-credits", _("translator-credits"),
-                                   null);
+            var about = new He.AboutWindow (
+                this,
+                "Notejot",
+                Config.APP_ID,
+                Config.VERSION,
+                Config.APP_ID,
+                "https://github.com/lainsce/notejot/tree/main/po",
+                "https://github.com/lainsce/notejot/issues/new",
+                "https://github.com/lainsce/notejot",
+                // TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
+                {(_("…"))},
+                {"Paulo \"Lains\" Galardi"},
+                2017-2022,
+                He.AboutWindow.Licenses.GPLv3,
+                He.Colors.NONE
+            );
+            about.present ();
         }
 
         public void action_keys () {
@@ -349,3 +346,4 @@ namespace Notejot {
         }
     }
 }
+

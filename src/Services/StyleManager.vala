@@ -22,7 +22,7 @@ public class Notejot.StyleManager {
             .notejot-sidebar-box {
                 border-right: 5px solid mix(@view_bg_color, @note_color, 0.55);
             }
-            .notejot-sidebar-grid-box {
+            .notejot-sidebar-box-grid {
                 border-top: 5px solid mix(@view_bg_color, @note_color, 0.55);
             }
             .notejot-note {

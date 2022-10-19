@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/noterowcontent.ui")]
-public class Notejot.NoteRowContent : Adw.Bin {
+public class Notejot.NoteRowContent : He.Bin {
     [GtkChild]
     private unowned Gtk.Image pin;
     [GtkChild]
@@ -35,8 +35,7 @@ public class Notejot.NoteRowContent : Adw.Bin {
                 return;
 
             _color = value;
-
-            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_color));
             ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
             row_box.get_style_context().add_provider(provider, 1);
         }
@@ -68,7 +67,16 @@ public class Notejot.NoteRowContent : Adw.Bin {
     }
 
     construct {
+        row_box.add_css_class ("notejot-sidebar-box");
         row_box.get_style_context().add_provider(provider, 1);
+    }
+
+    ~NoteRowContent () {
+        while (this.get_first_child () != null) {
+            var c = this.get_first_child ();
+            c.unparent ();
+        }
+        this.unparent ();
     }
 
     [GtkCallback]

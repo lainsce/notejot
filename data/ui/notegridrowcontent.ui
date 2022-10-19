@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-<template class="NotejotNoteGridRowContent" parent="AdwBin">
-  <property name="child">
+<template class="NotejotNoteGridRowContent" parent="HeBin">
+  <child>
     <object class="GtkBox" id="row_box">
       <property name="orientation">vertical</property>
       <property name="spacing">6</property>
       <property name="width-request">150</property>
       <property name="height-request">150</property>
       <style>
-        <class name="notejot-sidebar-grid-box"/>
+        <class name="notejot-sidebar-box-grid"/>
       </style>
       <child type="prefix">
         <object class="GtkBox">
@@ -70,9 +70,10 @@
             </object>
           </child>
           <child>
-            <object class="GtkTextView">
+            <object class="GtkTextView" id="textbox">
               <property name="sensitive">0</property>
               <property name="wrap-mode">char</property>
+              <property name="hexpand">1</property>
               <property name="buffer">
                 <object class="GtkTextBuffer">
                   <binding name="text">
@@ -93,7 +94,7 @@
         </object>
       </child>
     </object>
-  </property>
+  </child>
 </template>
 </interface>
 

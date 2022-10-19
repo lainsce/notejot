@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/trashrowcontent.ui")]
-public class Notejot.TrashRowContent : Adw.Bin {
+public class Notejot.TrashRowContent : He.Bin {
     [GtkChild]
     private unowned Gtk.Image pin;
     [GtkChild]
@@ -69,6 +69,14 @@ public class Notejot.TrashRowContent : Adw.Bin {
 
     construct {
         row_box.get_style_context().add_provider(provider, 1);
+    }
+
+    ~TrashRowContent () {
+        while (this.get_first_child () != null) {
+            var c = this.get_first_child ();
+            c.unparent ();
+        }
+        this.unparent ();
     }
 
     [GtkCallback]

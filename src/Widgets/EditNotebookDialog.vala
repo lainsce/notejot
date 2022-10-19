@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/edit_notebooks.ui")]
-    public class Widgets.EditNotebooksDialog : Adw.Window {
+    public class Widgets.EditNotebooksDialog : He.Window {
         public unowned MainWindow win = null;
         public NotebookViewModel nbview_model {get; set;}
         public NoteViewModel view_model {get; set;}
@@ -44,10 +44,6 @@ namespace Notejot {
                     notebook_add_button.sensitive = false;
                 }
             });
-
-            if (Config.DEVELOPMENT) {
-                add_css_class ("devel");
-            }
         }
 
         [GtkCallback]

@@ -89,7 +89,8 @@ dependencies = [
   dependency('glib-2.0'),
   dependency('gobject-2.0'),
   dependency('gee-0.8'),
-  dependency('libadwaita-1'),
+  dependency('libhelium-1'),
+  dependency('libbismuth-1'),
   dependency('gmodule-2.0'),
   dependency('json-glib-1.0'),
   meson.get_compiler('c').find_library('m', required: true)

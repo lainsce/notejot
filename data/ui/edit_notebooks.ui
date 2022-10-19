@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="NotejotWidgetsEditNotebooksDialog" parent="AdwWindow">
+  <template class="NotejotWidgetsEditNotebooksDialog" parent="HeWindow">
     <property name="title" translatable="yes">Edit Notebooks</property>
     <property name="modal">1</property>
     <property name="default-width">360</property>
@@ -26,10 +26,10 @@
           <class name="rounded-main-child"/>
         </style>
         <child>
-          <object class="AdwHeaderBar">
-            <style>
-              <class name="flat"/>
-            </style>
+          <object class="HeAppBar">
+            <property name="show-buttons">0</property>
+            <property name="show-back">0</property>
+            <property name="flat">1</property>
           </object>
         </child>
         <child>
@@ -53,8 +53,8 @@
                     <property name="sensitive">0</property>
                     <signal name="clicked" handler="on_new_notebook_requested" />
                     <property name="child">
-                      <object class="AdwButtonContent">
-                        <property name="icon-name">list-add-symbolic</property>
+                      <object class="HeButtonContent">
+                        <property name="icon">list-add-symbolic</property>
                         <property name="label" translatable="yes">Add</property>
                       </object>
                     </property>
@@ -81,6 +81,10 @@
                 <binding name="view-model">
                   <lookup name="view-model">NotejotWidgetsEditNotebooksDialog</lookup>
                 </binding>
+                <style>
+                  <class name="boxed-list"/>
+                  <class name="content-sidebar"/>
+                </style>
               </object>
             </child>
           </object>

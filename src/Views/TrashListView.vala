@@ -17,17 +17,15 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/trashlistview.ui")]
-public class Notejot.TrashListView : View {
+public class Notejot.TrashListView : He.Bin {
     [GtkChild]
     unowned Gtk.SingleSelection selection_model;
     [GtkChild]
-    public unowned Gtk.Button back_button;
-    [GtkChild]
-    public unowned Adw.HeaderBar stitlebar;
+    public unowned He.AppBar stitlebar;
 
     public ObservableList<Trash>? trashs { get; set; }
     public TrashViewModel? tview_model { get; set; }
-    public Adw.Leaflet leaf { get; construct; }
+    public Bis.Album album { get; construct; }
 
     Trash? _selected_trash;
     public Trash? selected_trash {
@@ -42,7 +40,7 @@ public class Notejot.TrashListView : View {
 
     public TrashListView () {
         Object (
-            leaf: leaf
+            album: album
         );
     }
 
@@ -52,16 +50,16 @@ public class Notejot.TrashListView : View {
 
             if (pos != Gtk.INVALID_LIST_POSITION)
                 to.set_object (selection_model.model.get_item (pos));
-                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
+                ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
         });
 
-        leaf.bind_property ("folded", back_button, "visible", SYNC_CREATE);
-        leaf.bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
+        album.bind_property ("folded", stitlebar, "show-back", SYNC_CREATE);
+        album.bind_property ("folded", stitlebar, "show-buttons", SYNC_CREATE);
 
-        back_button.clicked.connect (() => {
-            ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
+        stitlebar.back_button.clicked.connect (() => {
+            ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 

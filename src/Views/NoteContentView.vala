@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notecontentview.ui")]
-public class Notejot.NoteContentView : View {
+public class Notejot.NoteContentView : He.Bin {
     delegate void HookFunc ();
     public signal void clicked ();
 
@@ -36,7 +36,7 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     unowned Gtk.Entry note_title;
     [GtkChild]
-    unowned Gtk.Label note_subtitle;
+    unowned He.ViewSubTitle note_subtitle;
     [GtkChild]
     public unowned Gtk.TextView note_textbox;
     [GtkChild]
@@ -52,11 +52,9 @@ public class Notejot.NoteContentView : View {
     [GtkChild]
     unowned Gtk.TextTag s_font;
     [GtkChild]
-    public unowned Gtk.Button back_button;
-    [GtkChild]
     public unowned Gtk.Button back2_button;
     [GtkChild]
-    public new unowned Adw.HeaderBar titlebar;
+    public new unowned He.AppBar titlebar;
     [GtkChild]
     unowned Gtk.Button image_button;
     [GtkChild]
@@ -67,18 +65,23 @@ public class Notejot.NoteContentView : View {
     unowned Gtk.Button delete_button;
     [GtkChild]
     unowned Gtk.Button notebook_button;
+    [GtkChild]
+    public new unowned He.AppBar ftitlebar;
+    [GtkChild]
+    unowned He.EmptyPage empty;
 
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? text_binding;
     Binding? pix_binding;
     Binding? bb_binding;
+    Binding? bb2_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
     public NoteViewModel? vm {get; set;}
     public NotebookViewModel? nvm {get; set;}
     public MainWindow? win {get; set;}
-    public Adw.Leaflet? leaflet {get; set;}
+    public Bis.Album? album {get; set;}
     public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
 
@@ -175,11 +178,6 @@ public class Notejot.NoteContentView : View {
                 }
             });
 
-            notebook_button.clicked.connect (() => {
-                var move_to_dialog = new Widgets.MoveToDialog (this, nvm, vm);
-                move_to_dialog.show ();
-            });
-
             nmp.export_button.clicked.connect (() => {
                 if (_note != null) {
                     // Export note to file user chooses.
@@ -260,19 +258,20 @@ public class Notejot.NoteContentView : View {
             note_textbox.grab_focus ();
 
             // ListView Back Button
-            bb_binding = ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
-            back_button.clicked.connect (() => {
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+            bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
+            bb2_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", ftitlebar, "show-back", SYNC_CREATE);
+            titlebar.back_button.clicked.connect (() => {
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
             });
 
             // GridView Back Button
-            if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).folded) {
+            if (((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).folded) {
                 back2_button.visible = false;
             } else {
                 back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.get_visible_child_name () == "notegrid" != false ? true : false;
             }
             back2_button.clicked.connect (() => {
-                ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
+                ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.set_visible (true);
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid.set_visible (false);
             });
@@ -299,6 +298,13 @@ public class Notejot.NoteContentView : View {
     construct {
         fmt_syntax_start ();
         main_box.get_style_context().add_provider(provider, 1);
+        note_textbox.remove_css_class ("view");
+        empty.action_button.visible = false;
+
+        notebook_button.clicked.connect (() => {
+            var move_to_dialog = new Widgets.MoveToDialog (this, nvm, vm);
+            move_to_dialog.present ();
+        });
     }
 
     public signal void note_update_requested (Note note);

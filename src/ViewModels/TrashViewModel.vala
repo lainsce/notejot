@@ -68,31 +68,12 @@ public class Notejot.TrashViewModel : Object {
     }
 
     public async void delete_trash (MainWindow win) {
-        var dialog = new Gtk.MessageDialog (win, 0, 0, 0, null);
-        dialog.modal = true;
+        var p_button = new He.FillButton ("Clear");
+        var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trashed Notes"), _("Clearing means the notes in Trash will be permanently lost with no recovery."), "dialog-warning-symbolic", p_button, null);
 
-        dialog.set_title (_("Clear Trash?"));
-        dialog.text = (_("Clearing means the notes in Trash will be permanently lost with no recovery."));
-
-        dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
-        dialog.add_button (_("Clear"), Gtk.ResponseType.OK);
-
-        dialog.response.connect ((response_id) => {
-            switch (response_id) {
-                case Gtk.ResponseType.OK:
-                    depopulate_trashs.begin ();
-                    dialog.close ();
-                    break;
-                case Gtk.ResponseType.NO:
-                    dialog.close ();
-                    break;
-                case Gtk.ResponseType.CANCEL:
-                case Gtk.ResponseType.CLOSE:
-                case Gtk.ResponseType.DELETE_EVENT:
-                default:
-                    dialog.close ();
-                    return;
-            }
+        p_button.clicked.connect (() => {
+            depopulate_trashs.begin ();
+            dialog.close ();
         });
 
         if (dialog != null) {

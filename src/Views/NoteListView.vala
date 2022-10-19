@@ -17,11 +17,9 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notelistview.ui")]
-public class Notejot.NoteListView : View {
+public class Notejot.NoteListView : He.Bin {
     [GtkChild]
-    public unowned Gtk.Button back_button;
-    [GtkChild]
-    public unowned Adw.HeaderBar stitlebar;
+    public unowned He.AppBar stitlebar;
 
     public ObservableList<Note>? notes { get; set; }
     public Gtk.SingleSelection? ss {get; construct;}
@@ -37,12 +35,12 @@ public class Notejot.NoteListView : View {
         }
     }
     public NoteViewModel? view_model { get; set; }
-    public Adw.Leaflet leaf { get; construct; }
+    public Bis.Album album { get; construct; }
 
     public NoteListView () {
         Object (
             ss: ss,
-            leaf: leaf
+            album: album
         );
     }
 
@@ -52,18 +50,19 @@ public class Notejot.NoteListView : View {
 
             if (pos != Gtk.INVALID_LIST_POSITION)
                 to.set_object (ss.model.get_item (pos));
-                leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
+                album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
         });
 
-        leaf.bind_property ("folded", back_button, "visible", SYNC_CREATE);
-        leaf.bind_property ("folded", stitlebar, "show-end-title-buttons", SYNC_CREATE);
+        album.bind_property ("folded", stitlebar, "show-back", SYNC_CREATE);
+        album.bind_property ("folded", stitlebar, "show-buttons", SYNC_CREATE);
 
-        back_button.clicked.connect (() => {
-            leaf.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
+        stitlebar.back_button.clicked.connect (() => {
+            album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 
     public signal void new_note_requested ();
 }
+

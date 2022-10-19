@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="NotejotNotebookMoveListView" parent="NotejotView">
+  <template class="NotejotNotebookMoveListView" parent="HeBin">
     <child>
       <object class="GtkScrolledWindow">
         <property name="hscrollbar-policy">never</property>
         <property name="width-request">250</property>
         <property name="vexpand">1</property>
+        <property name="hexpand">1</property>
         <child>
           <object class="GtkListView" id="lv">
             <style>
               <class name="boxed-list" />
-              <class name="content-sidebar-dialog" />
+              <class name="content-sidebar" />
             </style>
             <property name="factory">
               <object class="GtkBuilderListItemFactory">

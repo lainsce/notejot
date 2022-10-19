@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-<template class="NotejotNotebookRowContent" parent="AdwBin">
-  <property name="child">
+<template class="NotejotNotebookRowContent" parent="HeBin">
+  <child>
     <object class="GtkBox">
       <property name="orientation">horizontal</property>
       <property name="valign">center</property>
@@ -31,6 +31,6 @@
         </object>
       </child>
     </object>
-  </property>
+  </child>
 </template>
 </interface>

@@ -47,7 +47,7 @@
       </object>
     </property>
   </object>
-  <template class="NotejotMainWindow" parent="AdwApplicationWindow">
+  <template class="NotejotMainWindow" parent="HeApplicationWindow">
     <property name="visible">1</property>
     <property name="default-width">830</property>
     <property name="default-height">700</property>
@@ -56,36 +56,23 @@
         <property name="orientation">vertical</property>
         <property name="homogeneous">1</property>
         <child>
-          <object class="AdwLeaflet" id="leaf">
+          <object class="BisAlbum" id="albumt">
             <property name="can-navigate-back">1</property>
             <property name="can-navigate-forward">1</property>
             <property name="visible-child">nbgrid</property>
             <child>
-              <object class="AdwLeafletPage">
+              <object class="BisAlbumPage">
                 <property name="child">
                   <object class="GtkWindowHandle" id="nbgrid">
-                    <property name="hexpand">0</property>
-                    <property name="vexpand">1</property>
-                    <style>
-                      <class name="rounded-main-child"/>
-                    </style>
                     <child>
                       <object class="GtkBox">
-                        <property name="hexpand">0</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="AdwHeaderBar" id="nbtitlebar">
-                            <property name="show-end-title-buttons" bind-source="leaf" bind-property="folded" bind-flags="sync-create"/>
-                            <property name="valign">center</property>
-                            <property name="hexpand">0</property>
-                            <property name="width-request">220</property>
-                            <style>
-                              <class name="notejot-stitle"/>
-                            </style>
-                            <child type="title">
-                              <object class="GtkBox">
-                              </object>
-                            </child>
+                          <object class="HeAppBar" id="nbtitlebar">
+                            <property name="show-buttons">0</property>
+                            <property name="show-back">0</property>
+                            <property name="flat">1</property>
+                            <property name="width-request">260</property>
                             <child type="end">
                               <object class="GtkMenuButton" id="menu_button">
                                 <property name="icon-name">open-menu-symbolic</property>
@@ -106,15 +93,8 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkLabel">
-                            <property name="label" translatable="yes">Local</property>
-                            <property name="halign">start</property>
-                            <property name="margin-start">18</property>
-                            <property name="margin-bottom">12</property>
-                            <property name="margin-top">6</property>
-                            <style>
-                              <class name="view-title"/>
-                            </style>
+                          <object class="HeViewTitle">
+                            <property name="label" translatable="yes">Views</property>
                           </object>
                         </child>
                         <child>
@@ -122,7 +102,6 @@
                             <property name="reveal-child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
                             <child>
                               <object class="GtkBox">
-                                <property name="hexpand">1</property>
                                 <property name="orientation">vertical</property>
                                 <child>
                                   <object class="GtkSearchEntry" id="note_search">
@@ -157,10 +136,10 @@
                             <property name="margin-top">6</property>
                             <property name="margin-bottom">6</property>
                             <child>
-                              <object class="AdwButtonContent">
+                              <object class="HeButtonContent">
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">All Notes</property>
-                                <property name="icon-name">view-list-symbolic</property>
+                                <property name="icon">view-list-symbolic</property>
                               </object>
                             </child>
                             <style>
@@ -176,10 +155,10 @@
                             <property name="margin-start">6</property>
                             <property name="margin-end">6</property>
                             <child>
-                              <object class="AdwButtonContent">
+                              <object class="HeButtonContent">
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">Note Grid</property>
-                                <property name="icon-name">view-grid-symbolic</property>
+                                <property name="icon">view-grid-symbolic</property>
                               </object>
                             </child>
                             <style>
@@ -195,10 +174,10 @@
                             <property name="margin-start">6</property>
                             <property name="margin-end">6</property>
                             <child>
-                              <object class="AdwButtonContent">
+                              <object class="HeButtonContent">
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">Trash</property>
-                                <property name="icon-name">user-trash-symbolic</property>
+                                <property name="icon">user-trash-symbolic</property>
                               </object>
                             </child>
                             <style>
@@ -213,42 +192,33 @@
               </object>
             </child>
             <child>
-              <object class="AdwLeafletPage">
+              <object class="BisAlbumPage">
                 <property name="navigatable">0</property>
                 <property name="child">
                   <object class="GtkSeparator" id="sep1">
-                    <style>
-                      <class name="no-sep2"/>
-                    </style>
                   </object>
                 </property>
               </object>
             </child>
             <child>
-              <object class="AdwLeafletPage">
+              <object class="BisAlbumPage">
                 <property name="child">
                   <object class="GtkStack" id="sgrid">
-                    <property name="vexpand">1</property>
-                    <property name="hexpand">0</property>
-                    <property name="hhomogeneous">0</property>
                     <property name="transition-type">crossfade</property>
-                    <style>
-                      <class name="rounded-main-child2"/>
-                    </style>
                     <child>
                       <object class="GtkStackPage">
                         <property name="name">notegrid</property>
                         <property name="child">
-                          <object class="GtkOverlay" id="glist_scroller">
+                          <object class="HeOverlayButton" id="glist_scroller">
+                            <property name="tooltip-text" translatable="yes">Add Note</property>
+                            <property name="icon">list-add-symbolic</property>
+                            <signal name="clicked" handler="on_new_note_requested"/>
                             <child>
                               <object class="GtkBox">
-                                <property name="vexpand">1</property>
-                                <property name="hexpand">0</property>
                                 <property name="orientation">vertical</property>
                                 <child>
                                   <object class="GtkScrolledWindow" id="gscroller">
                                     <property name="hscrollbar-policy">never</property>
-                                    <property name="vexpand">1</property>
                                     <child>
                                       <object class="NotejotNoteGridView" id="gridview">
                                         <signal name="new_note_requested" handler="on_new_note_requested"/>
@@ -261,27 +231,11 @@
                                           <lookup name="view-model">NotejotMainWindow</lookup>
                                         </binding>
                                         <property name="ss">selection_model</property>
-                                        <property name="leaf">leaf</property>
+                                        <property name="album">albumt</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <child type="overlay">
-                              <object class="GtkButton" id="gnew_button">
-                                <property name="tooltip-text" translatable="yes">Add Note</property>
-                                <property name="icon-name">list-add-symbolic</property>
-                                <signal name="clicked" handler="on_new_note_requested"/>
-                                <property name="valign">end</property>
-                                <property name="halign">end</property>
-                                <property name="margin-end">18</property>
-                                <property name="margin-bottom">18</property>
-                                <style>
-                                  <class name="list-action-button"/>
-                                  <class name="accent-button"/>
-                                  <class name="opaque"/>
-                                </style>
                               </object>
                             </child>
                           </object>
@@ -292,16 +246,16 @@
                       <object class="GtkStackPage">
                         <property name="name">notelist</property>
                         <property name="child">
-                          <object class="GtkOverlay" id="list_scroller">
+                          <object class="HeOverlayButton" id="list_scroller">
+                            <property name="tooltip-text" translatable="yes">Add Note</property>
+                            <property name="icon">list-add-symbolic</property>
+                            <signal name="clicked" handler="on_new_note_requested"/>
                             <child>
                               <object class="GtkBox">
-                                <property name="vexpand">1</property>
-                                <property name="hexpand">0</property>
                                 <property name="orientation">vertical</property>
                                 <child>
                                   <object class="GtkScrolledWindow" id="bscroller">
                                     <property name="hscrollbar-policy">never</property>
-                                    <property name="vexpand">1</property>
                                     <child>
                                       <object class="NotejotNoteListView" id="listview">
                                         <signal name="new_note_requested" handler="on_new_note_requested"/>
@@ -314,27 +268,11 @@
                                           <lookup name="view-model">NotejotMainWindow</lookup>
                                         </binding>
                                         <property name="ss">selection_model</property>
-                                        <property name="leaf">leaf</property>
+                                        <property name="album">albumt</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <child type="overlay">
-                              <object class="GtkButton" id="new_button">
-                                <property name="tooltip-text" translatable="yes">Add Note</property>
-                                <property name="icon-name">list-add-symbolic</property>
-                                <signal name="clicked" handler="on_new_note_requested"/>
-                                <property name="valign">end</property>
-                                <property name="halign">end</property>
-                                <property name="margin-end">18</property>
-                                <property name="margin-bottom">18</property>
-                                <style>
-                                  <class name="list-action-button"/>
-                                  <class name="accent-button"/>
-                                  <class name="opaque"/>
-                                </style>
                               </object>
                             </child>
                           </object>
@@ -345,16 +283,17 @@
                       <object class="GtkStackPage">
                         <property name="name">trashlist</property>
                         <property name="child">
-                          <object class="GtkOverlay" id="tlist_scroller">
+                          <object class="HeOverlayButton" id="tlist_scroller">
+                            <property name="tooltip-text" translatable="yes">Clear Trash</property>
+                            <property name="icon">user-trash-symbolic</property>
+                            <property name="color">red</property>
+                            <signal name="clicked" handler="on_clear_trash_requested"/>
                             <child>
                               <object class="GtkBox">
-                                <property name="vexpand">1</property>
-                                <property name="hexpand">0</property>
                                 <property name="orientation">vertical</property>
                                 <child>
                                   <object class="GtkScrolledWindow" id="tscroller">
                                     <property name="hscrollbar-policy">never</property>
-                                    <property name="vexpand">1</property>
                                     <child>
                                       <object class="NotejotTrashListView" id="tlistview">
                                         <binding name="trashs">
@@ -365,27 +304,11 @@
                                         <binding name="tview-model">
                                           <lookup name="tview-model">NotejotMainWindow</lookup>
                                         </binding>
-                                        <property name="leaf">leaf</property>
+                                        <property name="album">albumt</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <child type="overlay">
-                              <object class="GtkButton" id="trash_button">
-                                <property name="tooltip-text" translatable="yes">Clear Trash</property>
-                                <property name="icon-name">user-trash-symbolic</property>
-                                <signal name="clicked" handler="on_clear_trash_requested"/>
-                                <property name="valign">end</property>
-                                <property name="halign">end</property>
-                                <property name="margin-end">18</property>
-                                <property name="margin-bottom">18</property>
-                                <style>
-                                  <class name="list-action-button"/>
-                                  <class name="destructive-action"/>
-                                  <class name="opaque"/>
-                                </style>
                               </object>
                             </child>
                           </object>
@@ -397,30 +320,23 @@
               </object>
             </child>
             <child>
-              <object class="AdwLeafletPage">
+              <object class="BisAlbumPage">
                 <property name="navigatable">0</property>
                 <property name="child">
                   <object class="GtkSeparator" id="sep2">
-                    <style>
-                      <class name="no-sep"/>
-                    </style>
                   </object>
                 </property>
               </object>
             </child>
             <child>
-              <object class="AdwLeafletPage">
+              <object class="BisAlbumPage">
                 <property name="child">
                   <object class="GtkStack" id="grid">
-                    <style>
-                      <class name="rounded-main-child3"/>
-                    </style>
                     <child>
                       <object class="GtkStackPage">
                         <property name="name">note</property>
                         <property name="child">
                           <object class="NotejotNoteContentView" id="notecontent">
-                            <property name="hexpand">yes</property>
                             <signal name="note_update_requested" handler="on_note_update_requested"/>
                             <signal name="note_removal_requested" handler="on_note_removal_requested"/>
                             <binding name="note">
@@ -435,8 +351,8 @@
                             <binding name="win">
                               <lookup name="mw">NotejotMainWindow</lookup>
                             </binding>
-                            <binding name="leaflet">
-                              <lookup name="leaflet">NotejotMainWindow</lookup>
+                            <binding name="album">
+                              <lookup name="album">NotejotMainWindow</lookup>
                             </binding>
                           </object>
                         </property>
@@ -447,7 +363,6 @@
                         <property name="name">trash</property>
                         <property name="child">
                           <object class="NotejotTrashContentView">
-                            <property name="hexpand">yes</property>
                             <signal name="trash_update_requested" handler="on_trash_update_requested"/>
                             <signal name="trash_restore_requested" handler="on_trash_restore_requested"/>
                             <binding name="trash">

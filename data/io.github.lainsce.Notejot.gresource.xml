@@ -3,7 +3,6 @@
     <gresource prefix="/io/github/lainsce/Notejot">
       <file alias="style.css">style.css</file>
       <file alias="style-dark.css">style-dark.css</file>
-      <file alias="style-hc.css">style-hc.css</file>
 
       <file alias="edit_notebooks.ui">ui/edit_notebooks.ui</file>
       <file alias="move_to_dialog.ui">ui/move_to_dialog.ui</file>

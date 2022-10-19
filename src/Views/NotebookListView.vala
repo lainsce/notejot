@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notebooklistview.ui")]
-public class Notejot.NotebookListView : View {
+public class Notejot.NotebookListView : He.Bin {
     public ObservableList<Notebook>? notebooks { get; set; }
     public NotebookViewModel? nbview_model { get; set; }
     public NoteViewModel? view_model { get; set; }

@@ -18,7 +18,7 @@
 */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/move_to_dialog.ui")]
-    public class Widgets.MoveToDialog : Adw.Window {
+    public class Widgets.MoveToDialog : He.Window {
         public signal void clicked ();
         public unowned NoteContentView ncv = null;
         public NotebookViewModel nbview_model {get; set;}
@@ -61,10 +61,6 @@ namespace Notejot {
                 remove_notebook_button.sensitive = false;
             } else {
                 remove_notebook_button.sensitive = true;
-            }
-
-            if (Config.DEVELOPMENT) {
-                add_css_class ("devel");
             }
         }
 

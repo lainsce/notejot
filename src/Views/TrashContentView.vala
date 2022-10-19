@@ -17,14 +17,12 @@
  * Boston, MA 02110-1301 USA
  */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/trashcontentview.ui")]
-public class Notejot.TrashContentView : View {
+public class Notejot.TrashContentView : He.Bin {
     delegate void HookFunc ();
     public signal void clicked ();
 
     [GtkChild]
     public unowned Gtk.Box main_box;
-    [GtkChild]
-    public unowned Gtk.Button back_button;
     [GtkChild]
     public unowned Gtk.Stack stack;
     [GtkChild]
@@ -34,9 +32,9 @@ public class Notejot.TrashContentView : View {
     [GtkChild]
     public unowned Gtk.Button s_menu;
     [GtkChild]
-    unowned Gtk.Label trash_title;
+    unowned He.ViewTitle trash_title;
     [GtkChild]
-    unowned Gtk.Label trash_subtitle;
+    unowned He.ViewSubTitle trash_subtitle;
     [GtkChild]
     unowned Gtk.Label notebook_subtitle;
     [GtkChild]
@@ -52,11 +50,14 @@ public class Notejot.TrashContentView : View {
     [GtkChild]
     unowned Gtk.TextTag s_font;
     [GtkChild]
-    public new unowned Adw.HeaderBar titlebar;
+    public new unowned He.AppBar titlebar;
     [GtkChild]
-    unowned Adw.StatusPage trash_status_page;
+    unowned He.AppBar ftitlebar;
+    [GtkChild]
+    unowned He.EmptyPage trash_status_page;
 
     Binding? bb_binding;
+    Binding? bb2_binding;
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
@@ -139,9 +140,10 @@ public class Notejot.TrashContentView : View {
             vm.update_trash_color (_trash, _trash.color);
 
             // TrashView Back Button
-            bb_binding = ((Adw.Leaflet) MiscUtils.find_ancestor_of_type<Adw.Leaflet> (this)).bind_property ("folded", back_button, "visible", SYNC_CREATE);
-            back_button.clicked.connect (() => {
-                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).leaf.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).sgrid);
+            bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
+            bb2_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", ftitlebar, "show-back", SYNC_CREATE);
+            titlebar.back_button.clicked.connect (() => {
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).album.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).sgrid);
             });
         }
     }
@@ -156,14 +158,16 @@ public class Notejot.TrashContentView : View {
         fmt_syntax_start ();
 
         main_box.get_style_context ().add_provider (provider, 1);
+        trash_textbox.remove_css_class ("view");
+        trash_status_page.action_button.visible = false;
 
         Timeout.add_seconds (1, () => {
             if (vm.trashs.get_n_items () == 1) {
-                trash_status_page.set_title (_ ("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _ ("Note"));
+                trash_status_page.title = (_ ("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _ ("Note"));
             } else if (vm.trashs.get_n_items () >= 0) {
-                trash_status_page.set_title (_ ("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _ ("Notes"));
+                trash_status_page.title = (_ ("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _ ("Notes"));
             } else {
-                trash_status_page.set_title (_ ("Trash is Empty"));
+                trash_status_page.title = (_ ("Trash is Empty"));
             }
             return false;
         });

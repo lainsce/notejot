@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookmovelistview.ui")]
-public class Notejot.NotebookMoveListView : View {
+public class Notejot.NotebookMoveListView : He.Bin {
     [GtkChild]
     unowned Gtk.SingleSelection selection_model;
 
