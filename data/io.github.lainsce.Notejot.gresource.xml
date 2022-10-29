@@ -2,7 +2,6 @@
 <gresources>
     <gresource prefix="/io/github/lainsce/Notejot">
       <file alias="style.css">style.css</file>
-      <file alias="style-dark.css">style-dark.css</file>
 
       <file alias="edit_notebooks.ui">ui/edit_notebooks.ui</file>
       <file alias="move_to_dialog.ui">ui/move_to_dialog.ui</file>
@@ -10,10 +9,7 @@
       <file alias="menu.ui">ui/menu.ui</file>
       <file alias="note_theme.ui">ui/note_theme.ui</file>
       <file alias="notecontentview.ui">ui/notecontentview.ui</file>
-      <file alias="notegridview.ui">ui/notegridview.ui</file>
       <file alias="notelistview.ui">ui/notelistview.ui</file>
-      <file alias="notegridrow.ui">ui/notegridrow.ui</file>
-      <file alias="notegridrowcontent.ui">ui/notegridrowcontent.ui</file>
       <file alias="noterow.ui">ui/noterow.ui</file>
       <file alias="noterowcontent.ui">ui/noterowcontent.ui</file>
       <file alias="notebooklistview.ui">ui/notebooklistview.ui</file>

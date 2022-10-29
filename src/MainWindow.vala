@@ -41,8 +41,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.ToggleButton an_button;
         [GtkChild]
-        public unowned Gtk.ToggleButton g_button;
-        [GtkChild]
         public unowned Gtk.ToggleButton t_button;
         [GtkChild]
         public unowned Gtk.SingleSelection selection_model;
@@ -50,8 +48,6 @@ namespace Notejot {
         public unowned NoteContentView notecontent;
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
-        [GtkChild]
-        public unowned He.OverlayButton glist_scroller;
         [GtkChild]
         public unowned Gtk.Sorter sorter;
 
@@ -63,8 +59,6 @@ namespace Notejot {
 
         [GtkChild]
         public unowned NoteListView listview;
-        [GtkChild]
-        public unowned NoteGridView gridview;
         [GtkChild]
         public unowned TrashListView tlistview;
         [GtkChild]
@@ -217,33 +211,12 @@ namespace Notejot {
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
-            gridview.ss.set_selected (-1);
             if (albumt.folded) {
                listview.stitlebar.back_button.set_visible (true);
             } else {
                 listview.stitlebar.back_button.set_visible (false);
             }
             notecontent.back2_button.set_visible (false);
-        }
-
-        [GtkCallback]
-        public void on_action_grid () {
-            var settings = new Settings ();
-            settings.last_view = "grid";
-            albumt.set_visible_child (sgrid);
-            sgrid.set_hexpand (true);
-            sgrid.set_visible_child_name ("notegrid");
-            grid.set_visible (false);
-            sep2.set_visible (false);
-            grid.set_visible_child_name ("note");
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            gridview.ss.set_selected (-1);
-            if (albumt.folded) {
-               gridview.stitlebar.back_button.set_visible (true);
-            } else {
-                gridview.stitlebar.back_button.set_visible (false);
-            }
         }
 
         [GtkCallback]
@@ -258,7 +231,6 @@ namespace Notejot {
             grid.set_visible_child_name ("trash");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
-            gridview.ss.set_selected (-1);
             if (albumt.folded) {
                tlistview.stitlebar.back_button.set_visible (true);
             } else {

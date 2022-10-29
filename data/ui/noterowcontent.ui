@@ -23,7 +23,7 @@
                 </lookup>
               </binding>
               <style>
-                <class name="heading"/>
+                <class name="cb-title"/>
               </style>
             </object>
           </child>
@@ -46,7 +46,7 @@
                 </closure>
               </binding>
               <style>
-                <class name="caption"/>
+                <class name="cb-subtitle"/>
               </style>
             </object>
           </child>

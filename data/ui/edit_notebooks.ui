@@ -5,6 +5,7 @@
   <template class="NotejotWidgetsEditNotebooksDialog" parent="HeWindow">
     <property name="title" translatable="yes">Edit Notebooks</property>
     <property name="modal">1</property>
+    <property name="resizable">0</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
     <property name="default-widget">notebook_add_button</property>
@@ -22,9 +23,6 @@
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <style>
-          <class name="rounded-main-child"/>
-        </style>
         <child>
           <object class="HeAppBar">
             <property name="show-buttons">1</property>
@@ -33,43 +31,20 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkBox">
-                <property name="spacing">12</property>
-                <property name="margin-start">12</property>
-                <property name="margin-end">12</property>
-                <property name="margin-bottom">6</property>
-                <child>
-                  <object class="GtkEntry" id="notebook_name_entry">
-                    <property name="hexpand">1</property>
-                    <property name="activates-default">1</property>
-                    <property name="placeholder-text" translatable="yes">New Notebook…</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="notebook_add_button">
-                    <property name="sensitive">0</property>
-                    <signal name="clicked" handler="on_new_notebook_requested" />
-                    <property name="child">
-                      <object class="HeButtonContent">
-                        <property name="icon">list-add-symbolic</property>
-                        <property name="label" translatable="yes">Add</property>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-              </object>
-            </child>
+          <object class="HeViewTitle">
+            <property name="label">Manage Notebooks</property>
           </object>
         </child>
         <child>
           <object class="GtkScrolledWindow">
             <property name="margin-bottom">12</property>
             <property name="vexpand">1</property>
+            <property name="hexpand">1</property>
+            <property name="margin-start">14</property>
+            <property name="margin-end">14</property>
             <child>
               <object class="NotejotNotebookListView" id="listview">
+                <property name="hexpand">1</property>
                 <binding name="notebooks">
                   <lookup name="notebooks" type="NotejotNotebookViewModel">
                     <lookup name="nbview-model">NotejotWidgetsEditNotebooksDialog</lookup>
@@ -85,6 +60,38 @@
                   <class name="boxed-list"/>
                   <class name="content-sidebar"/>
                 </style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">12</property>
+                <property name="margin-start">18</property>
+                <property name="margin-end">18</property>
+                <property name="margin-bottom">18</property>
+                <child>
+                  <object class="GtkEntry" id="notebook_name_entry">
+                    <property name="hexpand">1</property>
+                    <property name="activates-default">1</property>
+                    <property name="placeholder-text" translatable="yes">New Notebook…</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="HeFillButton" id="notebook_add_button">
+                    <property name="sensitive">0</property>
+                    <signal name="clicked" handler="on_new_notebook_requested" />
+                    <property name="child">
+                      <object class="HeButtonContent">
+                        <property name="icon">list-add-symbolic</property>
+                        <property name="label" translatable="yes">Add</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

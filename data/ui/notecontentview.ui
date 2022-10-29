@@ -66,22 +66,17 @@
                               <object class="HeAppBar" id="titlebar">
                                 <property name="flat">1</property>
                                 <property name="width-request">420</property>
+                                <child>
+                                  <object class="GtkButton" id="back2_button">
+                                    <property name="visible">0</property>
+                                    <property name="icon-name">go-previous-symbolic</property>
+                                  </object>
+                                </child>
                                 <child type="end">
                                   <object class="GtkMenuButton" id="s_menu">
                                     <property name="visible">0</property>
                                     <property name="menu-model">smenu</property>
                                     <property name="icon-name">view-more-symbolic</property>
-                                  </object>
-                                </child>
-                                <child type="end">
-                                  <object class="GtkButton" id="delete_button">
-                                    <property name="icon-name">user-trash-symbolic</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton" id="back2_button">
-                                    <property name="visible">0</property>
-                                    <property name="icon-name">go-previous-symbolic</property>
                                   </object>
                                 </child>
                               </object>
@@ -97,9 +92,9 @@
                                     <child>
                                       <object class="GtkEntry" id="note_title">
                                         <property name="margin-top">6</property>
-                                        <property name="margin-bottom">12</property>
+                                        <property name="margin-bottom">6</property>
                                         <property name="margin-start">16</property>
-                                        <property name="margin-end">16</property>
+                                        <property name="margin-end">12</property>
                                         <property name="hexpand">1</property>
                                         <property name="tooltip-text" translatable="yes">Edit note name</property>
                                         <style>
@@ -121,11 +116,8 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="notebook_button">
+                                      <object class="HeDisclosureButton" id="notebook_button">
                                         <property name="tooltip-text" translatable="yes">Sets the notebook of the note</property>
-                                        <style>
-                                          <class name="flat"/>
-                                        </style>
                                         <child>
                                           <object class="HeButtonContent">
                                             <property name="icon">notebook-symbolic</property>
@@ -139,24 +131,23 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="image_button">
+                                      <object class="HeDisclosureButton" id="image_button">
                                         <property name="tooltip-text" translatable="yes">Adds a header picture to the note</property>
                                         <signal name="clicked" handler="action_picture" />
                                         <property name="icon-name">image-round-symbolic</property>
-                                        <style>
-                                          <class name="flat"/>
-                                        </style>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="image_remove_button">
+                                      <object class="HeDisclosureButton" id="image_remove_button">
                                         <property name="tooltip-text" translatable="yes">Removes the header picture</property>
                                         <property name="visible">0</property>
                                         <signal name="clicked" handler="action_picture_remove" />
                                         <property name="icon-name">edit-delete-symbolic</property>
-                                        <style>
-                                          <class name="flat"/>
-                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="HeDisclosureButton" id="delete_button">
+                                        <property name="icon-name">user-trash-symbolic</property>
                                       </object>
                                     </child>
                                   </object>
@@ -173,8 +164,6 @@
                   <object class="GtkScrolledWindow">
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>
-                    <property name="margin-start">21</property>
-                    <property name="margin-end">21</property>
                     <child>
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
@@ -183,6 +172,8 @@
                             <property name="wrap-mode">word-char</property>
                             <property name="bottom-margin">21</property>
                             <property name="top-margin">21</property>
+                            <property name="left-margin">21</property>
+                            <property name="right-margin">21</property>
                             <property name="vexpand">1</property>
                             <property name="buffer">
                               <object class="GtkTextBuffer" id="note_text">

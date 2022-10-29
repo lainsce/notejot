@@ -37,8 +37,7 @@ public class Notejot.NotebookRowContent : He.Bin {
 
             _notebook = value;
 
-            text_binding = _notebook?.bind_property (
-                "title", notebook_entry, "text", SYNC_CREATE|BIDIRECTIONAL);
+            text_binding = _notebook?.bind_property ("title", notebook_entry, "text", SYNC_CREATE|BIDIRECTIONAL);
         }
     }
 

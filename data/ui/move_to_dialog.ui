@@ -4,6 +4,7 @@
   <requires lib="libhandy" version="0.0"/>
   <template class="NotejotWidgetsMoveToDialog" parent="HeWindow">
     <property name="modal">1</property>
+    <property name="resizable">0</property>
     <property name="default-width">360</property>
     <property name="default-height">480</property>
     <property name="default-widget">move_button</property>
@@ -24,46 +25,16 @@
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <style>
-          <class name="rounded-main-child"/>
-        </style>
         <child>
           <object class="HeAppBar">
-            <property name="show-buttons">0</property>
+            <property name="show-buttons">1</property>
             <property name="show-back">0</property>
             <property name="flat">1</property>
-            <child type="end">
-              <object class="GtkButton" id="move_button">
-                <property name="label" translatable="yes">Move</property>
-                <property name="sensitive">0</property>
-                <property name="margin-end">6</property>
-                <property name="margin-top">6</property>
-                <signal name="clicked" handler="on_move_notebook_requested" />
-                <style>
-                  <class name="suggested-action"/>
-                </style>
-              </object>
-            </child>
-            <child type="title">
-              <object class="GtkLabel">
-                <property name="label" translatable="yes">Move to a Notebook</property>
-                <property name="valign">center</property>
-                <property name="margin-top">6</property>
-                <style>
-                  <class name="title"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="cancel_button">
-                <property name="label" translatable="yes">Cancel</property>
-                <property name="margin-start">6</property>
-                <property name="margin-top">6</property>
-              </object>
-            </child>
-            <style>
-              <class name="flat"/>
-            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeViewTitle">
+            <property name="label">Move to a Notebook</property>
           </object>
         </child>
         <child>
@@ -71,6 +42,8 @@
             <property name="vexpand">1</property>
             <child>
               <object class="NotejotNotebookMoveListView" id="listview">
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
                 <binding name="notebooks">
                   <lookup name="notebooks" type="NotejotNotebookViewModel">
                     <lookup name="nbview-model">NotejotWidgetsMoveToDialog</lookup>
@@ -85,15 +58,31 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="remove_notebook_button">
-            <property name="label" translatable="yes">Detach Note From Notebook</property>
-            <property name="tooltip-text" translatable="yes">Removes this Note from its Notebook.</property>
-            <property name="sensitive">0</property>
-            <property name="margin-start">12</property>
-            <property name="margin-end">12</property>
-            <property name="margin-top">12</property>
-            <property name="margin-bottom">12</property>
-            <signal name="clicked" handler="on_remove_notebook_requested" />
+          <object class="GtkBox">
+            <child>
+              <object class="HeTintButton" id="remove_notebook_button">
+                <property name="label" translatable="yes">Detach Note From Notebook</property>
+                <property name="tooltip-text" translatable="yes">Removes this Note from its Notebook.</property>
+                <property name="sensitive">0</property>
+                <property name="margin-start">18</property>
+                <property name="margin-end">12</property>
+                <property name="margin-top">12</property>
+                <property name="margin-bottom">18</property>
+                <signal name="clicked" handler="on_remove_notebook_requested" />
+              </object>
+            </child>
+            <child>
+              <object class="HeFillButton" id="move_button">
+                <property name="label" translatable="yes">Move Note To Notebook</property>
+                <property name="tooltip-text" translatable="yes">Moves this Note to a Notebook.</property>
+                <property name="sensitive">0</property>
+                <property name="margin-start">12</property>
+                <property name="margin-end">18</property>
+                <property name="margin-top">12</property>
+                <property name="margin-bottom">18</property>
+                <signal name="clicked" handler="on_move_notebook_requested" />
+              </object>
+            </child>
           </object>
         </child>
       </object>

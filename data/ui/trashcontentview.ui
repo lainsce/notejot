@@ -17,7 +17,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="HeAppBar" id="ftitlebar">
-                    <property name="show-buttons">0</property>
+                    <property name="show-buttons">1</property>
                     <property name="show-back">0</property>
                     <property name="width-request">420</property>
                   </object>
@@ -57,22 +57,14 @@
                             </style>
                             <child>
                               <object class="HeAppBar" id="titlebar">
-                                <child type="end">
-                                  <object class="GtkButton" id="s_menu">
-                                    <property name="visible">0</property>
-                                    <property name="icon-name">edit-undo-symbolic</property>
-                                    <property name="tooltip-text" translatable="yes">Restore Note</property>
-                                    <signal name="clicked" handler="on_trash_restore_requested" />
-                                    <property name="width-request">420</property>
-                                  </object>
-                                </child>
+                                <property name="show-buttons">1</property>
+                                <property name="width-request">420</property>
                               </object>
                             </child>
                             <child>
                               <object class="GtkBox">
                                 <property name="orientation">vertical</property>
                                 <property name="vexpand">1</property>
-                                <property name="valign">end</property>
                                 <child>
                                   <object class="GtkBox">
                                     <property name="orientation">horizontal</property>
@@ -86,9 +78,6 @@
                                   <object class="GtkBox">
                                     <property name="orientation">horizontal</property>
                                     <property name="spacing">6</property>
-                                    <property name="margin-bottom">12</property>
-                                    <property name="margin-start">18</property>
-                                    <property name="margin-end">6</property>
                                     <child>
                                       <object class="HeViewSubTitle" id="trash_subtitle">
                                       </object>
@@ -104,6 +93,15 @@
                                         <property name="halign">start</property>
                                         <property name="use-markup">1</property>
                                         <property name="margin-end">6</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="HeDisclosureButton" id="s_menu">
+                                        <property name="visible">0</property>
+                                        <property name="icon-name">edit-undo-symbolic</property>
+                                        <property name="tooltip-text" translatable="yes">Restore Note</property>
+                                        <property name="margin-end">18</property>
+                                        <signal name="clicked" handler="on_trash_restore_requested" />
                                       </object>
                                     </child>
                                   </object>
@@ -125,8 +123,6 @@
                   <object class="GtkScrolledWindow">
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>
-                    <property name="margin-start">21</property>
-                    <property name="margin-end">21</property>
                     <property name="sensitive">0</property>
                     <child>
                       <object class="GtkBox">
@@ -136,7 +132,10 @@
                             <property name="wrap-mode">word-char</property>
                             <property name="bottom-margin">21</property>
                             <property name="top-margin">21</property>
+                            <property name="left-margin">21</property>
+                            <property name="right-margin">21</property>
                             <property name="vexpand">1</property>
+                            <property name="hexpand">1</property>
                             <property name="buffer">
                               <object class="GtkTextBuffer" id="trash_text">
                                 <property name="tag_table">

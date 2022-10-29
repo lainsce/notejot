@@ -30,11 +30,6 @@
   margin: 0 6px 6px 6px;
 }
 
-.content {
-  box-shadow: none;
-  border: none;
-}
-
 .notejot-note headerbar {
   box-shadow: none;
   border: none;
@@ -96,9 +91,6 @@
 .content-sidebar-notebooks-button image {
   margin-left: 9px;
 }
-.content-sidebar-notebooks-button:rtl image {
-  margin-right: 9px;
-}
 .content-sidebar-notebooks-button:hover {
   background: mix(@view_bg_color, @accent_bg_color, 0.10);
 }
@@ -128,43 +120,43 @@
 
 .scrim {
   background-image: linear-gradient(180deg,
-      alpha(#000, 0.12),
-      alpha(#000, 0.1),
-      alpha(#000, 0.07),
-      alpha(#000, 0.05),
-      alpha(#000, 0.02),
-      alpha(#000, 0),
-      alpha(#000, 0.02),
-      alpha(#000, 0.05),
-      alpha(#000, 0.07),
-      alpha(#000, 0.1),
-      alpha(#000, 0.12),
-      alpha(#000, 0.15),
-      alpha(#000, 0.17),
-      alpha(#000, 0.2),
-      alpha(#000, 0.22),
-      alpha(#000, 0.25),
-      alpha(#000, 0.27));
-  color: #fff;
+      alpha(#2d2d2d, 0.12),
+      alpha(#2d2d2d, 0.1),
+      alpha(#2d2d2d, 0.07),
+      alpha(#2d2d2d, 0.05),
+      alpha(#2d2d2d, 0.02),
+      alpha(#2d2d2d, 0),
+      alpha(#2d2d2d, 0.02),
+      alpha(#2d2d2d, 0.05),
+      alpha(#2d2d2d, 0.07),
+      alpha(#2d2d2d, 0.1),
+      alpha(#2d2d2d, 0.12),
+      alpha(#2d2d2d, 0.15),
+      alpha(#2d2d2d, 0.17),
+      alpha(#2d2d2d, 0.2),
+      alpha(#2d2d2d, 0.22),
+      alpha(#2d2d2d, 0.25),
+      alpha(#2d2d2d, 0.27));
+  color: #fafafa;
   padding: 0;
   margin: 0;
 }
 .scrim headerbar {
-  color: #fff;
+  color: #fafafa;
 }
 .scrim box > label,
 .scrim .image-text-button label,
 .scrim entry text {
-  text-shadow: 0 1px 2px black;
+  text-shadow: 0 1px 2px #2d2d2d;
 }
 .scrim image {
-  -gtk-icon-shadow: 0 1px 2px black;
+  -gtk-icon-shadow: 0 1px 2px #2d2d2d;
 }
 .scrim .close image {
-  box-shadow: 0 1px 2px black;
+  box-shadow: 0 1px 2px #2d2d2d;
 }
 .scrim .maximize image {
-  box-shadow: 0 1px 2px black;
+  box-shadow: 0 1px 2px #2d2d2d;
 }
 
 .color-red radio {

@@ -6,6 +6,7 @@
       <object class="GtkScrolledWindow">
         <property name="hscrollbar-policy">never</property>
         <property name="vexpand">1</property>
+        <property name="hexpand">1</property>
         <child>
           <object class="GtkListView" id="lv">
             <style>
