@@ -16,4 +16,6 @@ jobs:
         with:
           bundle: io.github.lainsce.Notejot.Devel.flatpak
           manifest-path: io.github.lainsce.Notejot.Devel.json
+          repository-name: catalogue
+          repository-url: https://repo.tauos.co/catalogue.flatpakrepo
           run-tests: true
