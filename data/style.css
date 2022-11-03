@@ -77,10 +77,6 @@
   background: @window_bg_color;
 }
 
-.navigation-rail-button {
-  background: none;
-}
-
 .notejot-sidebar-box {
   padding: 20px;
   margin: 0px;
