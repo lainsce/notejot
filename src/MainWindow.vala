@@ -43,13 +43,9 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Separator sep2;
         [GtkChild]
-        public unowned Gtk.ToggleButton an_button;
+        public unowned He.NavigationRail rail;
         [GtkChild]
-        public unowned Gtk.ToggleButton t_button;
-        [GtkChild]
-        public unowned Gtk.ToggleButton anf_button;
-        [GtkChild]
-        public unowned Gtk.ToggleButton tf_button;
+        public unowned He.NavigationRail srail;
         [GtkChild]
         public unowned Gtk.SingleSelection selection_model;
         [GtkChild]
@@ -151,8 +147,32 @@ namespace Notejot {
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
-            an_button.set_active(true);
-            anf_button.set_active(true);
+            view_title.label = _("Notes");
+
+            ((Gtk.BoxLayout) srail.get_layout_manager ()).orientation = Gtk.Orientation.HORIZONTAL;
+            srail.halign = Gtk.Align.CENTER;
+
+            sgrid.notify["visible-child-name"].connect (() => {
+                if (rail.stack.get_visible_child_name () == "notelist") {
+                    settings.last_view = "list";
+                    albumt.set_visible_child (sbox);
+                    sgrid.set_visible_child_name ("notelist");
+                    grid.set_visible_child_name ("note");
+                    nblistview.sntext = "";
+                    nblistview.selection_model.set_selected (-1);
+                    view_title.label = _("Notes");
+                    search_button.set_visible (true);
+                } else {
+                    settings.last_view = "trash";
+                    albumt.set_visible_child (sbox);
+                    sgrid.set_visible_child_name ("trashlist");
+                    grid.set_visible_child_name ("trash");
+                    nblistview.sntext = "";
+                    nblistview.selection_model.set_selected (-1);
+                    view_title.label = _("Trash");
+                    search_button.set_visible (false);
+                }
+            });
         }
 
         protected override bool close_request () {
@@ -202,50 +222,6 @@ namespace Notejot {
             tview_model.delete_one_trash (trash);
             view_model.restore_trash (trash);
         }
-
-        [GtkCallback]
-        public void on_action_all_notes () {
-            var settings = new Settings ();
-            settings.last_view = "list";
-            albumt.set_visible_child (sbox);
-            sgrid.set_hexpand (false);
-            sgrid.set_visible_child_name ("notelist");
-            sgrid.set_visible (true);
-            grid.set_visible (true);
-            sep2.set_visible (true);
-            grid.set_visible_child_name ("note");
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            view_title.label = _("Notes");
-            search_button.set_visible (true);
-        }
-
-        [GtkCallback]
-        public void on_action_trash () {
-            var settings = new Settings ();
-            settings.last_view = "trash";
-            albumt.set_visible_child (sbox);
-            sgrid.set_hexpand (false);
-            sgrid.set_visible_child_name ("trashlist");
-            grid.set_visible (true);
-            sep2.set_visible (true);
-            grid.set_visible_child_name ("trash");
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            view_title.label = _("Trash");
-            search_button.set_visible (false);
-        }
-
-        [GtkCallback]
-        public void on_action_fall_notes () {
-            on_action_all_notes ();
-        }
-
-        [GtkCallback]
-        public void on_action_ftrash () {
-            on_action_trash ();
-        }
-
 
         public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {
             var log = new Note ();

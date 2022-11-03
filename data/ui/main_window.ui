@@ -79,65 +79,8 @@
                 <property name="child">
                   <object class="GtkWindowHandle" id="nbgrid">
                     <child>
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <property name="valign">center</property>
-                        <style>
-                          <class name="navigation-rail"/>
-                        </style>
-                        <child>
-                          <object class="GtkToggleButton" id="an_button">
-                            <signal name="toggled" handler="on_action_all_notes"/>
-                            <binding name="active">
-                              <lookup name="active">anf_button</lookup>
-                            </binding>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="icon-name">view-list-symbolic</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Notes</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <style>
-                              <class name="navigation-rail-button"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToggleButton" id="t_button">
-                            <signal name="toggled" handler="on_action_trash"/>
-                            <property name="group">an_button</property>
-                            <binding name="active">
-                              <lookup name="active">tf_button</lookup>
-                            </binding>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="icon-name">user-trash-symbolic</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Trash</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <style>
-                              <class name="navigation-rail-button"/>
-                            </style>
-                          </object>
-                        </child>
+                      <object class="HeNavigationRail" id="rail">
+                        <property name="stack">sgrid</property>
                       </object>
                     </child>
                   </object>
@@ -285,6 +228,8 @@
                         <child>
                           <object class="GtkStackPage">
                             <property name="name">notelist</property>
+                            <property name="title">Notes</property>
+                            <property name="icon-name">view-list-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="list_scroller">
                                 <property name="tooltip-text" translatable="yes">Add Note</property>
@@ -322,6 +267,8 @@
                         <child>
                           <object class="GtkStackPage">
                             <property name="name">trashlist</property>
+                            <property name="title">Trash</property>
+                            <property name="icon-name">user-trash-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="tlist_scroller">
                                 <property name="tooltip-text" translatable="yes">Clear Trash</property>
@@ -358,75 +305,16 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRevealer">
-                        <binding name="reveal-child">
-                          <lookup name="folded">albumt</lookup>
-                        </binding>
+                      <object class="GtkSeparator" id="sep3">
+                        <property name="orientation">horizontal</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HeNavigationRail" id="srail">
+                        <property name="stack">sgrid</property>
                         <binding name="visible">
                           <lookup name="folded">albumt</lookup>
                         </binding>
-                        <style>
-                          <class name="navigation-rail-folded"/>
-                        </style>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">horizontal</property>
-                            <property name="halign">center</property>
-                            <child>
-                              <object class="GtkToggleButton" id="anf_button">
-                                <signal name="toggled" handler="on_action_fall_notes"/>
-                                <binding name="active">
-                                  <lookup name="active">an_button</lookup>
-                                </binding>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="icon-name">view-list-symbolic</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Notes</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="navigation-rail-button"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkToggleButton" id="tf_button">
-                                <signal name="toggled" handler="on_action_ftrash"/>
-                                <property name="group">anf_button</property>
-                                <binding name="active">
-                                  <lookup name="active">t_button</lookup>
-                                </binding>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="icon-name">user-trash-symbolic</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Trash</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="navigation-rail-button"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
                       </object>
                     </child>
                   </object>
