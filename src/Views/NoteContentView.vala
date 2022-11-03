@@ -52,8 +52,6 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.TextTag s_font;
     [GtkChild]
-    public unowned Gtk.Button back2_button;
-    [GtkChild]
     public new unowned He.AppBar titlebar;
     [GtkChild]
     unowned Gtk.Button image_button;
@@ -75,7 +73,6 @@ public class Notejot.NoteContentView : He.Bin {
     Binding? text_binding;
     Binding? pix_binding;
     Binding? bb_binding;
-    Binding? bb2_binding;
 
     private Gtk.CssProvider provider = new Gtk.CssProvider();
     public NoteViewModel? vm {get; set;}
@@ -259,21 +256,8 @@ public class Notejot.NoteContentView : He.Bin {
 
             // ListView Back Button
             bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
-            bb2_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", ftitlebar, "show-back", SYNC_CREATE);
             titlebar.back_button.clicked.connect (() => {
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
-            });
-
-            // GridView Back Button
-            if (((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).folded) {
-                back2_button.visible = false;
-            } else {
-                back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.get_visible_child_name () == "notegrid" != false ? true : false;
-            }
-            back2_button.clicked.connect (() => {
-                ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.set_visible (true);
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid.set_visible (false);
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sbox);
             });
 
             if (_note != null) {

@@ -20,8 +20,6 @@
 public class Notejot.TrashListView : He.Bin {
     [GtkChild]
     unowned Gtk.SingleSelection selection_model;
-    [GtkChild]
-    public unowned He.AppBar stitlebar;
 
     public ObservableList<Trash>? trashs { get; set; }
     public TrashViewModel? tview_model { get; set; }
@@ -53,13 +51,6 @@ public class Notejot.TrashListView : He.Bin {
                 ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
-        });
-
-        album.bind_property ("folded", stitlebar, "show-back", SYNC_CREATE);
-        album.bind_property ("folded", stitlebar, "show-buttons", SYNC_CREATE);
-
-        stitlebar.back_button.clicked.connect (() => {
-            ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 

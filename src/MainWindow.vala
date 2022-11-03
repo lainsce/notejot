@@ -27,6 +27,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Stack grid;
         [GtkChild]
+        public unowned Gtk.Box sbox;
+        [GtkChild]
         public unowned Gtk.Stack sgrid;
         [GtkChild]
         public unowned Gtk.WindowHandle nbgrid;
@@ -43,11 +45,17 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.ToggleButton t_button;
         [GtkChild]
+        public unowned Gtk.ToggleButton anf_button;
+        [GtkChild]
+        public unowned Gtk.ToggleButton tf_button;
+        [GtkChild]
         public unowned Gtk.SingleSelection selection_model;
         [GtkChild]
         public unowned NoteContentView notecontent;
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
+        [GtkChild]
+        public unowned He.ViewTitle view_title;
         [GtkChild]
         public unowned Gtk.Sorter sorter;
 
@@ -148,6 +156,7 @@ namespace Notejot {
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
             an_button.set_active(true);
+            anf_button.set_active(true);
         }
 
         protected override bool close_request () {
@@ -202,7 +211,7 @@ namespace Notejot {
         public void on_action_all_notes () {
             var settings = new Settings ();
             settings.last_view = "list";
-            albumt.set_visible_child (sgrid);
+            albumt.set_visible_child (sbox);
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("notelist");
             sgrid.set_visible (true);
@@ -211,19 +220,14 @@ namespace Notejot {
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
-            if (albumt.folded) {
-               listview.stitlebar.back_button.set_visible (true);
-            } else {
-                listview.stitlebar.back_button.set_visible (false);
-            }
-            notecontent.back2_button.set_visible (false);
+            view_title.label = _("All Notes");
         }
 
         [GtkCallback]
         public void on_action_trash () {
             var settings = new Settings ();
             settings.last_view = "trash";
-            albumt.set_visible_child (sgrid);
+            albumt.set_visible_child (sbox);
             sgrid.set_hexpand (false);
             sgrid.set_visible_child_name ("trashlist");
             grid.set_visible (true);
@@ -231,13 +235,42 @@ namespace Notejot {
             grid.set_visible_child_name ("trash");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
-            if (albumt.folded) {
-               tlistview.stitlebar.back_button.set_visible (true);
-            } else {
-                tlistview.stitlebar.back_button.set_visible (false);
-            }
-            notecontent.back2_button.set_visible (false);
+            view_title.label = _("Trash");
         }
+
+        [GtkCallback]
+        public void on_action_fall_notes () {
+            var settings = new Settings ();
+            settings.last_view = "list";
+            albumt.set_visible_child (sbox);
+            sgrid.set_hexpand (false);
+            sgrid.set_visible_child_name ("notelist");
+            sgrid.set_visible (true);
+            grid.set_visible (true);
+            sep2.set_visible (true);
+            grid.set_visible_child_name ("note");
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
+            view_title.label = _("All Notes");
+        }
+
+        [GtkCallback]
+        public void on_action_ftrash () {
+            var settings = new Settings ();
+            settings.last_view = "trash";
+            albumt.set_visible_child (sbox);
+            sgrid.set_hexpand (false);
+            sgrid.set_visible_child_name ("trashlist");
+            grid.set_visible (true);
+            sep2.set_visible (true);
+            grid.set_visible_child_name ("trash");
+            nblistview.sntext = "";
+            nblistview.selection_model.set_selected (-1);
+            view_title.label = _("Trash");
+            t_button.active = true;
+            an_button.active = false;
+        }
+
 
         public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {
             var log = new Note ();
@@ -295,7 +328,7 @@ namespace Notejot {
                 {"Paulo \"Lains\" Galardi"},
                 2017-2022,
                 He.AboutWindow.Licenses.GPLv3,
-                He.Colors.NONE
+                He.Colors.YELLOW
             );
             about.present ();
         }

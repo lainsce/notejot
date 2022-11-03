@@ -18,9 +18,6 @@
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notelistview.ui")]
 public class Notejot.NoteListView : He.Bin {
-    [GtkChild]
-    public unowned He.AppBar stitlebar;
-
     public ObservableList<Note>? notes { get; set; }
     public Gtk.SingleSelection? ss {get; construct;}
 
@@ -53,13 +50,6 @@ public class Notejot.NoteListView : He.Bin {
                 album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
 
             return true;
-        });
-
-        album.bind_property ("folded", stitlebar, "show-back", SYNC_CREATE);
-        album.bind_property ("folded", stitlebar, "show-buttons", SYNC_CREATE);
-
-        stitlebar.back_button.clicked.connect (() => {
-            album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).nbgrid);
         });
     }
 

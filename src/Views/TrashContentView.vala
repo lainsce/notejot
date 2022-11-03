@@ -52,12 +52,9 @@ public class Notejot.TrashContentView : He.Bin {
     [GtkChild]
     public new unowned He.AppBar titlebar;
     [GtkChild]
-    unowned He.AppBar ftitlebar;
-    [GtkChild]
     unowned He.EmptyPage trash_status_page;
 
     Binding? bb_binding;
-    Binding? bb2_binding;
     Binding? title_binding;
     Binding? subtitle_binding;
     Binding? notebook_binding;
@@ -141,9 +138,8 @@ public class Notejot.TrashContentView : He.Bin {
 
             // TrashView Back Button
             bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
-            bb2_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", ftitlebar, "show-back", SYNC_CREATE);
             titlebar.back_button.clicked.connect (() => {
-                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).album.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).sgrid);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).album.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).sbox);
             });
         }
     }

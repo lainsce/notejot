@@ -34,7 +34,7 @@ public class Notejot.Application : He.Application {
     }
     protected override void startup () {
         Gdk.RGBA accent_color = { 0 };
-        accent_color.parse("#e8c349");
+        accent_color.parse("#febc16");
         default_accent_color = He.Color.from_gdk_rgba(accent_color);
 
         resource_base_path = "/io/github/lainsce/Notejot";

@@ -25,6 +25,12 @@
   border: 1px solid @borders;
 }
 
+.chip:hover {
+  background: mix(@view_bg_color, @accent_bg_color, 0.10);
+  box-shadow: 0 0 0 1px solid mix(@view_bg_color, @accent_bg_color, 0.10);
+  color: @view_fg_color;
+}
+
 .content-view {
   border-radius: 8px;
   margin: 0 6px 6px 6px;
@@ -58,21 +64,9 @@
 .content-sidebar row:selected {
   background: mix(@view_bg_color, @accent_bg_color, 0.20);
 }
-.content-sidebar child {
-  margin: 6px;
-  padding: 0px;
-  margin-top: 6px;
-  border-radius: 8px;
-  background: @view_bg_color;
-}
+
 .notejot-sidebar-box {
   border-radius: 8px;
-}
-.content-sidebar child:hover {
-  background: mix(@view_bg_color, @accent_bg_color, 0.10);
-}
-.content-sidebar child:selected {
-  background: mix(@view_bg_color, @accent_bg_color, 0.20);
 }
 
 .content-sidebar-main {
@@ -83,22 +77,44 @@
   background: @window_bg_color;
 }
 
-.content-sidebar-notebooks-button {
-  margin: 6px 9px 0 9px;
-  padding: 6px;
-  border-radius: 12px;
+.navigation-rail {
+  margin: 12px 6px 0 6px;
 }
-.content-sidebar-notebooks-button image {
-  margin-left: 9px;
+.navigation-rail-folded {
+  margin: 6px 0 6px 0;
+  border-top: 1px solid @borders;
 }
-.content-sidebar-notebooks-button:hover {
-  background: mix(@view_bg_color, @accent_bg_color, 0.10);
+.navigation-rail-button {
+  background: none;
 }
-.content-sidebar-notebooks-button:active {
-  background: mix(@view_bg_color, @accent_bg_color, 0.20);
+.navigation-rail-button image {
+  margin-bottom: 4px;
+  border-radius: 999px;
+  min-height: 32px;
+  min-width: 56px;
+  background: none;
 }
-.content-sidebar-notebooks-button:checked {
-  background: mix(@view_bg_color, @accent_bg_color, 0.30);
+.navigation-rail-button label {
+  color: @view_fg_color;
+  font-weight: 500;
+}
+.navigation-rail-button:checked label {
+  font-weight: 700;
+}
+.navigation-rail-button:hover image {
+  background: mix(@view_bg_color, @accent_bg_color, 0.50);
+  color: @view_fg_color;
+  box-shadow: none;
+}
+.navigation-rail-button:checked image {
+  background: mix(@view_bg_color, @accent_bg_color, 0.25);
+  color: mix(@view_fg_color, @accent_bg_color, 0.50);
+  box-shadow: none;
+}
+.navigation-rail-button:hover:checked image {
+  background: mix(@view_bg_color, @accent_bg_color, 0.50);
+  color: @view_fg_color;
+  box-shadow: none;
 }
 
 .notejot-sidebar-box {
@@ -141,22 +157,28 @@
   padding: 0;
   margin: 0;
 }
-.scrim headerbar {
+.scrim headerbar,
+.scrim .disclosure-button {
   color: #fafafa;
 }
 .scrim box > label,
 .scrim .image-text-button label,
-.scrim entry text {
+.scrim entry text,
+.scrim widget > label {
   text-shadow: 0 1px 2px #2d2d2d;
 }
 .scrim image {
   -gtk-icon-shadow: 0 1px 2px #2d2d2d;
 }
-.scrim .close image {
+.scrim .close image,
+.scrim .maximize image,
+.scrim .image-text-button,
+.scrim .disclosure-button {
   box-shadow: 0 1px 2px #2d2d2d;
 }
-.scrim .maximize image {
-  box-shadow: 0 1px 2px #2d2d2d;
+
+.notejot-searchbar {
+  border-radius: 999px;
 }
 
 .color-red radio {
@@ -214,4 +236,3 @@
 .nb * {
   background: none;
 }
-

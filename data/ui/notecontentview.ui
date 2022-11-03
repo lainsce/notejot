@@ -147,6 +147,7 @@
                                     </child>
                                     <child>
                                       <object class="HeDisclosureButton" id="delete_button">
+                                        <property name="tooltip-text" translatable="yes">Trashes the note</property>
                                         <property name="icon-name">user-trash-symbolic</property>
                                       </object>
                                     </child>

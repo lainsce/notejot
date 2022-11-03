@@ -7,19 +7,6 @@
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>
         <child>
-          <object class="HeAppBar" id="stitlebar">
-            <property name="show-buttons">0</property>
-            <property name="valign">center</property>
-            <property name="flat">1</property>
-            <property name="width-request">260</property>
-          </object>
-        </child>
-        <child>
-          <object class="HeViewTitle">
-            <property name="label" translatable="yes">Trash</property>
-          </object>
-        </child>
-        <child>
           <object class="GtkScrolledWindow">
             <property name="hscrollbar-policy">never</property>
             <property name="vexpand">1</property>

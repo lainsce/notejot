@@ -25,8 +25,6 @@ namespace Notejot {
         public NoteViewModel view_model {get; set;}
 
         [GtkChild]
-        public unowned Gtk.Button cancel_button;
-        [GtkChild]
         public unowned Gtk.Button remove_notebook_button;
         [GtkChild]
         public unowned Gtk.Button move_button;
@@ -52,10 +50,6 @@ namespace Notejot {
             this.ncv = ncv;
             this.set_modal (true);
             this.set_transient_for (MiscUtils.find_ancestor_of_type<MainWindow>(ncv));
-
-            cancel_button.clicked.connect (() => {
-                this.dispose ();
-            });
 
             if (ncv.note.notebook == _("No Notebook")) {
                 remove_notebook_button.sensitive = false;
