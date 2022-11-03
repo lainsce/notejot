@@ -289,6 +289,9 @@ namespace Notejot {
         }
 
         public void action_about () {
+            // TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
+            string translators = (_(""));
+
             var about = new He.AboutWindow (
                 this,
                 "Notejot",
@@ -298,10 +301,9 @@ namespace Notejot {
                 "https://github.com/lainsce/notejot/tree/main/po",
                 "https://github.com/lainsce/notejot/issues/new",
                 "https://github.com/lainsce/notejot",
-                // TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
-                {(_("…"))},
+                {translators},
                 {"Paulo \"Lains\" Galardi"},
-                2017-2022,
+                2017, // Year of first publication.
                 He.AboutWindow.Licenses.GPLv3,
                 He.Colors.YELLOW
             );
