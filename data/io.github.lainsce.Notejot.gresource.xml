@@ -6,7 +6,6 @@
       <file alias="edit_notebooks.ui">ui/edit_notebooks.ui</file>
       <file alias="move_to_dialog.ui">ui/move_to_dialog.ui</file>
       <file alias="main_window.ui">ui/main_window.ui</file>
-      <file alias="menu.ui">ui/menu.ui</file>
       <file alias="note_theme.ui">ui/note_theme.ui</file>
       <file alias="notecontentview.ui">ui/notecontentview.ui</file>
       <file alias="notelistview.ui">ui/notelistview.ui</file>
@@ -19,7 +18,6 @@
       <file alias="notebookmainrow.ui">ui/notebookmainrow.ui</file>
       <file alias="notebookmovelistview.ui">ui/notebookmovelistview.ui</file>
       <file alias="notebookmoverow.ui">ui/notebookmoverow.ui</file>
-      <file alias="shortcuts.ui">ui/shortcuts.ui</file>
       <file alias="trashcontentview.ui">ui/trashcontentview.ui</file>
       <file alias="trashlistview.ui">ui/trashlistview.ui</file>
       <file alias="trashrow.ui">ui/trashrow.ui</file>

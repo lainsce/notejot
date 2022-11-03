@@ -47,6 +47,19 @@
       </object>
     </property>
   </object>
+  <menu id="menu">
+    <item>
+      <attribute name="label" translatable="yes">Text size</attribute>
+      <attribute name="display-hint">inline-buttons</attribute>
+      <attribute name="custom">zoom-grid</attribute>
+    </item>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">About Notejot</attribute>
+        <attribute name="action">win.action_about</attribute>
+      </item>
+    </section>
+  </menu>
   <template class="NotejotMainWindow" parent="HeApplicationWindow">
     <property name="visible">1</property>
     <property name="default-width">800</property>
@@ -156,6 +169,62 @@
                         <child type="end">
                           <object class="GtkMenuButton" id="menu_button">
                             <property name="icon-name">open-menu-symbolic</property>
+                            <property name="popover">
+                              <object class="GtkPopoverMenu">
+                                  <property name="menu-model">menu</property>
+                                  <child type="zoom-grid">
+                                      <object class="GtkBox">
+                                          <property name="hexpand">1</property>
+                                          <property name="orientation">vertical</property>
+                                          <property name="spacing">6</property>
+                                          <property name="margin-top">6</property>
+                                          <property name="margin-bottom">6</property>
+                                          <property name="margin-start">10</property>
+                                          <property name="margin-end">6</property>
+                                          <child>
+                                            <object class="GtkBox">
+                                              <child>
+                                                <object class="GtkLabel">
+                                                  <property name="label" translatable="true">Font Size</property>
+                                                  <property name="sensitive">0</property>
+                                                </object>
+                                              </child>
+                                            </object>
+                                          </child>
+                                          <child>
+                                            <object class="GtkBox">
+                                              <style>
+                                                <class name="linked"/>
+                                              </style>
+                                              <child>
+                                                  <object class="GtkToggleButton" id="s">
+                                                      <property name="label">Small</property>
+                                                      <property name="action-name">app.font-size</property>
+                                                      <property name="action-target">"'small'"</property>
+                                                  </object>
+                                              </child>
+                                              <child>
+                                                  <object class="GtkToggleButton">
+                                                      <property name="label">Medium</property>
+                                                      <property name="action-name">app.font-size</property>
+                                                      <property name="action-target">"'medium'"</property>
+                                                      <property name="group">s</property>
+                                                  </object>
+                                              </child>
+                                              <child>
+                                                  <object class="GtkToggleButton">
+                                                      <property name="label">Large</property>
+                                                      <property name="action-name">app.font-size</property>
+                                                      <property name="action-target">"'large'"</property>
+                                                      <property name="group">s</property>
+                                                  </object>
+                                              </child>
+                                            </object>
+                                          </child>
+                                      </object>
+                                  </child>
+                              </object>
+                          </property>
                           </object>
                         </child>
                         <child type="end">

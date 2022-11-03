@@ -25,6 +25,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.MenuButton menu_button;
         [GtkChild]
+        public unowned Gtk.ToggleButton search_button;
+        [GtkChild]
         public unowned Gtk.Stack grid;
         [GtkChild]
         public unowned Gtk.Box sbox;
@@ -81,13 +83,11 @@ namespace Notejot {
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_ABOUT = "action_about";
-        public const string ACTION_KEYS = "action_keys";
         public const string ACTION_EDIT_NOTEBOOKS = "action_edit_notebooks";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
               {ACTION_ABOUT, action_about },
-              {ACTION_KEYS, action_keys},
               {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
         };
 
@@ -117,12 +117,8 @@ namespace Notejot {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
             app.set_accels_for_action("app.quit", {"<Ctrl>q"});
-            app.set_accels_for_action ("win.action_keys", {"<Ctrl>question"});
 
             // Main View
-            var builder = new Gtk.Builder.from_resource ("/io/github/lainsce/Notejot/menu.ui");
-            menu_button.menu_model = (MenuModel)builder.get_object ("menu");
-
             var theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
             theme.add_resource_path ("/io/github/lainsce/Notejot/");
 
@@ -220,7 +216,8 @@ namespace Notejot {
             grid.set_visible_child_name ("note");
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
-            view_title.label = _("All Notes");
+            view_title.label = _("Notes");
+            search_button.set_visible (true);
         }
 
         [GtkCallback]
@@ -236,39 +233,17 @@ namespace Notejot {
             nblistview.sntext = "";
             nblistview.selection_model.set_selected (-1);
             view_title.label = _("Trash");
+            search_button.set_visible (false);
         }
 
         [GtkCallback]
         public void on_action_fall_notes () {
-            var settings = new Settings ();
-            settings.last_view = "list";
-            albumt.set_visible_child (sbox);
-            sgrid.set_hexpand (false);
-            sgrid.set_visible_child_name ("notelist");
-            sgrid.set_visible (true);
-            grid.set_visible (true);
-            sep2.set_visible (true);
-            grid.set_visible_child_name ("note");
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            view_title.label = _("All Notes");
+            on_action_all_notes ();
         }
 
         [GtkCallback]
         public void on_action_ftrash () {
-            var settings = new Settings ();
-            settings.last_view = "trash";
-            albumt.set_visible_child (sbox);
-            sgrid.set_hexpand (false);
-            sgrid.set_visible_child_name ("trashlist");
-            grid.set_visible (true);
-            sep2.set_visible (true);
-            grid.set_visible_child_name ("trash");
-            nblistview.sntext = "";
-            nblistview.selection_model.set_selected (-1);
-            view_title.label = _("Trash");
-            t_button.active = true;
-            an_button.active = false;
+            on_action_trash ();
         }
 
 
@@ -331,18 +306,6 @@ namespace Notejot {
                 He.Colors.YELLOW
             );
             about.present ();
-        }
-
-        public void action_keys () {
-            try {
-                var build = new Gtk.Builder ();
-                build.add_from_resource ("/io/github/lainsce/Notejot/shortcuts.ui");
-                var window =  (Gtk.ShortcutsWindow) build.get_object ("shortcuts-notejot");
-                window.set_transient_for (this);
-                window.show ();
-            } catch (Error e) {
-                warning ("Failed to open shortcuts window: %s\n", e.message);
-            }
         }
 
         public void action_edit_notebooks () {
