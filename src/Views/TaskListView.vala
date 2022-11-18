@@ -16,44 +16,45 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-[GtkTemplate (ui = "/io/github/lainsce/Notejot/notelistview.ui")]
-public class Notejot.NoteListView : He.Bin {
-    public ObservableList<Note>? notes { get; set; }
-    public Gtk.SingleSelection? ss {get; construct;}
+[GtkTemplate (ui = "/io/github/lainsce/Notejot/tasklistview.ui")]
+public class Notejot.TaskListView : He.Bin {
+    [GtkChild]
+    unowned Gtk.SingleSelection selection_model;
 
-    Note? _selected_note;
-    public Note? selected_note {
-        get { return _selected_note; }
+    public ObservableList<Task>? tasks { get; set; }
+
+    Task? _selected_task;
+    public Task? selected_task {
+        get { return _selected_task; }
         set {
-            if (value == _selected_note)
+            if (value == _selected_task)
                 return;
 
             if (value != null)
-                _selected_note = value;
+                _selected_task = value;
         }
     }
-    public NoteViewModel? view_model { get; set; }
+    public TaskViewModel? tsview_model { get; set; }
     public Bis.Album album { get; construct; }
 
-    public NoteListView () {
+    public TaskListView () {
         Object (
-            ss: ss,
             album: album
         );
     }
 
     construct {
-        ss.bind_property ("selected", this, "selected-note", DEFAULT, (_, from, ref to) => {
+        selection_model.bind_property ("selected", this, "selected-task", DEFAULT, (_, from, ref to) => {
             var pos = (uint) from;
 
             if (pos != Gtk.INVALID_LIST_POSITION)
-                to.set_object (ss.model.get_item (pos));
-                album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
+                to.set_object (selection_model.model.get_item (pos));
+                
 
             return true;
         });
     }
 
-    public signal void new_note_requested ();
+    public signal void new_task_requested ();
 }
 

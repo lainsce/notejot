@@ -22,6 +22,10 @@
       <file alias="trashlistview.ui">ui/trashlistview.ui</file>
       <file alias="trashrow.ui">ui/trashrow.ui</file>
       <file alias="trashrowcontent.ui">ui/trashrowcontent.ui</file>
+      <file alias="tasklistview.ui">ui/tasklistview.ui</file>
+      <file alias="taskrow.ui">ui/taskrow.ui</file>
+      <file alias="taskrowcontent.ui">ui/taskrowcontent.ui</file>
+      <file alias="task_dialog.ui">ui/task_dialog.ui</file>
     </gresource>
     <gresource prefix="/io/github/lainsce/Notejot/icons">
       <file alias="scalable/actions/notebook-add-symbolic.svg">icons/hicolor/scalable/actions/notebook-add-symbolic.svg</file>

@@ -103,12 +103,10 @@
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="HeAppBar" id="nbtitlebar">
-                        <binding name="show-buttons">
-                          <lookup name="folded">albumt</lookup>
-                        </binding>
+                        <property name="show-buttons">0</property>
                         <property name="show-back">0</property>
                         <property name="flat">1</property>
-                        <property name="width-request">260</property>
+                        <property name="width-request">320</property>
                         <child type="end">
                           <object class="GtkMenuButton" id="menu_button">
                             <property name="icon-name">open-menu-symbolic</property>
@@ -186,7 +184,7 @@
                     </child>
                     <child>
                       <object class="HeViewTitle" id="view_title">
-                        <property name="label" translatable="yes">———————</property>
+                        <property name="label">———————</property>
                       </object>
                     </child>
                     <child>
@@ -253,6 +251,43 @@
                                               <lookup name="view-model">NotejotMainWindow</lookup>
                                             </binding>
                                             <property name="ss">selection_model</property>
+                                            <property name="album">albumt</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">tasklist</property>
+                            <property name="title">Tasks</property>
+                            <property name="icon-name">month-symbolic</property>
+                            <property name="child">
+                              <object class="HeOverlayButton" id="tslist_scroller">
+                                <property name="tooltip-text" translatable="yes">Clear Trash</property>
+                                <property name="icon">list-add-symbolic</property>
+                                <signal name="clicked" handler="on_new_task_requested"/>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkScrolledWindow" id="tsscroller">
+                                        <property name="hscrollbar-policy">never</property>
+                                        <child>
+                                          <object class="NotejotTaskListView" id="tslistview">
+                                            <binding name="tasks">
+                                              <lookup name="tasks" type="NotejotTaskViewModel">
+                                                <lookup name="tsview-model">NotejotMainWindow</lookup>
+                                              </lookup>
+                                            </binding>
+                                            <binding name="tsview-model">
+                                              <lookup name="tsview-model">NotejotMainWindow</lookup>
+                                            </binding>
                                             <property name="album">albumt</property>
                                           </object>
                                         </child>

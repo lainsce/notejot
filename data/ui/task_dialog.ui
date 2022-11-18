@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="NotejotWidgetsTaskDialog" parent="HeWindow">
+    <property name="title" translatable="yes">Edit Notebooks</property>
+    <property name="modal">1</property>
+    <property name="resizable">0</property>
+    <property name="default-width">360</property>
+    <property name="default-height">200</property>
+    <property name="default-widget">task_add_button</property>
+    <child>
+      <object class="GtkShortcutController">
+        <property name="scope">managed</property>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">Escape</property>
+            <property name="action">action(window.close)</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="HeAppBar">
+            <property name="show-buttons">1</property>
+            <property name="show-back">0</property>
+            <property name="flat">1</property>
+          </object>
+        </child>
+        <child>
+          <object class="HeViewTitle">
+            <property name="label">New Task</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">12</property>
+                <property name="margin-top">12</property>
+                <property name="margin-start">18</property>
+                <property name="margin-end">18</property>
+                <property name="margin-bottom">18</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkEntry" id="task_name_entry">
+                    <property name="hexpand">1</property>
+                    <property name="placeholder-text" translatable="yes">Task Name…</property>
+                  </object>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="task_detail_entry">
+                        <property name="hexpand">1</property>
+                        <property name="activates-default">1</property>
+                        <property name="placeholder-text" translatable="yes">Task Details…</property>
+                    </object>
+                </child>
+                <child>
+                  <object class="HeFillButton" id="task_add_button">
+                    <property name="sensitive">0</property>
+                    <property name="halign">end</property>
+                    <signal name="clicked" handler="on_new_task_requested" />
+                    <property name="child">
+                      <object class="HeButtonContent">
+                        <property name="icon">list-add-symbolic</property>
+                        <property name="label" translatable="yes">Add</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

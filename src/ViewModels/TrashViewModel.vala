@@ -43,6 +43,17 @@ public class Notejot.TrashViewModel : Object {
 
         trashs.add (trash);
     }
+    
+    public void create_new_trash_task (Task task) {
+        var trash = new Trash () {
+            title = task.title,
+            subtitle = task.subtitle,
+            text = task.text,
+            color = task.color
+        };
+
+        trashs.add (trash);
+    }
 
     public void update_trash (Trash trash) {
         repository.update_trash (trash);
@@ -69,7 +80,7 @@ public class Notejot.TrashViewModel : Object {
 
     public async void delete_trash (MainWindow win) {
         var p_button = new He.FillButton ("Clear");
-        var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trashed Notes"), _("Clearing means the notes in Trash will be permanently lost with no recovery."), "dialog-warning-symbolic", p_button, null);
+        var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trash"), _("Clearing means the items in Trash will be permanently lost with no recovery."), "dialog-warning-symbolic", p_button, null);
 
         p_button.clicked.connect (() => {
             depopulate_trashs.begin ();

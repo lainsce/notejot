@@ -159,11 +159,11 @@ public class Notejot.TrashContentView : He.Bin {
 
         Timeout.add_seconds (1, () => {
             if (vm.trashs.get_n_items () == 1) {
-                trash_status_page.title = (_ ("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _ ("Note"));
+                trash_status_page.title = (_("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _("Item"));
             } else if (vm.trashs.get_n_items () >= 0) {
-                trash_status_page.title = (_ ("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _ ("Notes"));
+                trash_status_page.title = (_("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _("Items"));
             } else {
-                trash_status_page.title = (_ ("Trash is Empty"));
+                trash_status_page.title = (_("Trash is Empty"));
             }
             return false;
         });

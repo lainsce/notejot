@@ -56,6 +56,8 @@ namespace Notejot {
         public unowned He.ViewTitle view_title;
         [GtkChild]
         public unowned Gtk.Sorter sorter;
+        [GtkChild]
+        public unowned He.AppBar nbtitlebar;
 
         // Custom
         public MainWindow? mw {get; set;}
@@ -75,6 +77,7 @@ namespace Notejot {
         public NoteViewModel view_model { get; construct; }
         public NotebookViewModel nbview_model { get; construct; }
         public TrashViewModel tview_model { get; construct; }
+        public TaskViewModel tsview_model { get; construct; }
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -88,13 +91,14 @@ namespace Notejot {
         };
 
         public He.Application app { get; construct; }
-        public MainWindow (He.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model) {
+        public MainWindow (He.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model, TaskViewModel tsview_model) {
             GLib.Object (
                 application: application,
                 app: application,
                 view_model: view_model,
                 tview_model: tview_model,
                 nbview_model: nbview_model,
+                tsview_model: tsview_model,
                 icon_name: Config.APP_ID,
                 title: "Notejot"
             );
@@ -157,16 +161,45 @@ namespace Notejot {
                     settings.last_view = "list";
                     albumt.set_visible_child (sbox);
                     sgrid.set_visible_child_name ("notelist");
+                    grid.set_visible (true);
+                    sep2.set_visible (true);
                     grid.set_visible_child_name ("note");
+                    if (album.folded) {
+                        nbtitlebar.show_buttons = false;
+                    } else {
+                        nbtitlebar.show_buttons = false;
+                    }
                     nblistview.sntext = "";
                     nblistview.selection_model.set_selected (-1);
                     view_title.label = _("Notes");
                     search_button.set_visible (true);
-                } else {
+                } else if (rail.stack.get_visible_child_name () == "tasklist") {
+                    settings.last_view = "task";
+                    albumt.set_visible_child (sbox);
+                    sgrid.set_visible_child_name ("tasklist");
+                    grid.set_visible (false);
+                    sep2.set_visible (false);
+                    if (album.folded) {
+                        nbtitlebar.show_buttons = true;
+                    } else {
+                        nbtitlebar.show_buttons = true;
+                    }
+                    nblistview.sntext = "";
+                    nblistview.selection_model.set_selected (-1);
+                    view_title.label = _("Tasks");
+                    search_button.set_visible (false);
+                } else if (rail.stack.get_visible_child_name () == "trashlist") {
                     settings.last_view = "trash";
                     albumt.set_visible_child (sbox);
+                    sep2.set_visible (true);
                     sgrid.set_visible_child_name ("trashlist");
+                    grid.set_visible (true);
                     grid.set_visible_child_name ("trash");
+                    if (album.folded) {
+                        nbtitlebar.show_buttons = false;
+                    } else {
+                        nbtitlebar.show_buttons = false;
+                    }
                     nblistview.sntext = "";
                     nblistview.selection_model.set_selected (-1);
                     view_title.label = _("Trash");
@@ -208,6 +241,17 @@ namespace Notejot {
         }
 
         [GtkCallback]
+        void on_new_task_requested () {
+            var task_dialog = new Widgets.TaskDialog (this, tsview_model);
+            task_dialog.present ();
+        }
+
+        public void task_removal_requested (Task task) {
+            tview_model.create_new_trash_task (task);
+            tsview_model.delete_task (task);
+        }
+
+        [GtkCallback]
         void on_clear_trash_requested () {
             tview_model.delete_trash.begin (this);
         }
@@ -219,8 +263,13 @@ namespace Notejot {
 
         [GtkCallback]
         public void on_trash_restore_requested (Trash trash) {
-            tview_model.delete_one_trash (trash);
-            view_model.restore_trash (trash);
+            if (trash.notebook != null) { // Dumb, but works
+                tview_model.delete_one_trash (trash);
+                view_model.restore_trash (trash);
+            } else {
+                tview_model.delete_one_trash (trash);
+                tsview_model.restore_trash (trash);
+            }
         }
 
         public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {

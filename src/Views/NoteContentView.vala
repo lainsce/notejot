@@ -258,6 +258,7 @@ public class Notejot.NoteContentView : He.Bin {
             bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
             titlebar.back_button.clicked.connect (() => {
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sbox);
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).listview.selected_note = null;
             });
 
             if (_note != null) {
