@@ -29,16 +29,20 @@
           <object class="HeAppBar">
             <property name="show-buttons">1</property>
             <property name="show-back">0</property>
-            <property name="flat">1</property>
+            <property name="scroller">sw</property>
+            <property name="viewtitle-widget">
+              <object class="GtkLabel" id="view_title">
+                <property name="label">Move to a Notebook</property>
+                <property name="halign">start</property>
+                <style>
+                  <class name="view-title"/>
+                </style>
+              </object>
+            </property>
           </object>
         </child>
         <child>
-          <object class="HeViewTitle">
-            <property name="label">Move to a Notebook</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow">
+          <object class="GtkScrolledWindow" id="sw">
             <property name="vexpand">1</property>
             <child>
               <object class="NotejotNotebookMoveListView" id="listview">
@@ -50,8 +54,7 @@
                   </lookup>
                 </binding>
                 <style>
-                  <class name="boxed-list"/>
-                  <class name="content-sidebar"/>
+                  <class name="content-list"/>
                 </style>
               </object>
             </child>

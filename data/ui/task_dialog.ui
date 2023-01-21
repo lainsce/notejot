@@ -27,12 +27,15 @@
           <object class="HeAppBar">
             <property name="show-buttons">1</property>
             <property name="show-back">0</property>
-            <property name="flat">1</property>
-          </object>
-        </child>
-        <child>
-          <object class="HeViewTitle">
-            <property name="label">New Task</property>
+            <property name="viewtitle-widget">
+              <object class="GtkLabel">
+                <property name="label">New Task</property>
+                <property name="halign">start</property>
+                <style>
+                  <class name="view-title"/>
+                </style>
+              </object>
+            </property>
           </object>
         </child>
         <child>
@@ -46,6 +49,9 @@
                 <property name="margin-end">18</property>
                 <property name="margin-bottom">18</property>
                 <property name="orientation">vertical</property>
+                <style>
+                  <class name="mini-content-block"/>
+                </style>
                 <child>
                   <object class="GtkEntry" id="task_name_entry">
                     <property name="hexpand">1</property>
@@ -59,19 +65,19 @@
                         <property name="placeholder-text" translatable="yes">Task Details…</property>
                     </object>
                 </child>
-                <child>
-                  <object class="HeFillButton" id="task_add_button">
-                    <property name="sensitive">0</property>
-                    <property name="halign">end</property>
-                    <signal name="clicked" handler="on_new_task_requested" />
-                    <property name="child">
-                      <object class="HeButtonContent">
-                        <property name="icon">list-add-symbolic</property>
-                        <property name="label" translatable="yes">Add</property>
-                      </object>
-                    </property>
+              </object>
+            </child>
+            <child>
+              <object class="HeFillButton" id="task_add_button">
+                <property name="sensitive">0</property>
+                <property name="halign">end</property>
+                <signal name="clicked" handler="on_new_task_requested" />
+                <property name="child">
+                  <object class="HeButtonContent">
+                    <property name="icon">list-add-symbolic</property>
+                    <property name="label" translatable="yes">Add</property>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
           </object>

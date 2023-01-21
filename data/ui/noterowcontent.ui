@@ -6,6 +6,9 @@
       <property name="orientation">horizontal</property>
       <property name="valign">center</property>
       <property name="spacing">6</property>
+      <style>
+        <class name="mini-content-block"/>
+      </style>
       <child>
         <object class="GtkBox">
           <property name="orientation">vertical</property>

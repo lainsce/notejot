@@ -33,27 +33,15 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Stack sgrid;
         [GtkChild]
-        public unowned Gtk.WindowHandle nbgrid;
-        [GtkChild]
         public unowned Bis.Album albumt;
         [GtkChild]
         public unowned Gtk.Box main_box;
-        [GtkChild]
-        public unowned Gtk.Separator sep1;
-        [GtkChild]
-        public unowned Gtk.Separator sep2;
-        [GtkChild]
-        public unowned He.NavigationRail rail;
-        [GtkChild]
-        public unowned He.NavigationRail srail;
         [GtkChild]
         public unowned Gtk.SingleSelection selection_model;
         [GtkChild]
         public unowned NoteContentView notecontent;
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
-        [GtkChild]
-        public unowned He.ViewTitle view_title;
         [GtkChild]
         public unowned Gtk.Sorter sorter;
         [GtkChild]
@@ -134,6 +122,23 @@ namespace Notejot {
             var action_fontsize = settings.create_action ("font-size");
             app.add_action(action_fontsize);
 
+            if (settings.sort_mode == 0) {
+                sgrid.visible_child_name = "notelist";
+            } else if (settings.sort_mode == 1) {
+                sgrid.visible_child_name = "tasklist";
+            } else if (settings.sort_mode == 2) {
+                sgrid.visible_child_name = "trashlist";
+            }
+            sgrid.notify["visible-child-name"].connect (() => {
+                if (sgrid.visible_child_name == "notelist") {
+                    settings.sort_mode = 0;
+                } else if (sgrid.visible_child_name == "tasklist") {
+                    settings.sort_mode = 1;
+                } else if (sgrid.visible_child_name == "trashlist") {
+                    settings.sort_mode = 2;
+                }
+            });
+
             // Migrate things from old version
             if (settings.schema_version == 0) {
                 var mm = new MigrationManager (this);
@@ -151,61 +156,6 @@ namespace Notejot {
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
-            view_title.label = _("Notes");
-
-            ((Gtk.BoxLayout) srail.get_layout_manager ()).orientation = Gtk.Orientation.HORIZONTAL;
-            srail.halign = Gtk.Align.CENTER;
-
-            sgrid.notify["visible-child-name"].connect (() => {
-                if (rail.stack.get_visible_child_name () == "notelist") {
-                    settings.last_view = "list";
-                    albumt.set_visible_child (sbox);
-                    sgrid.set_visible_child_name ("notelist");
-                    grid.set_visible (true);
-                    sep2.set_visible (true);
-                    grid.set_visible_child_name ("note");
-                    if (album.folded) {
-                        nbtitlebar.show_buttons = false;
-                    } else {
-                        nbtitlebar.show_buttons = false;
-                    }
-                    nblistview.sntext = "";
-                    nblistview.selection_model.set_selected (-1);
-                    view_title.label = _("Notes");
-                    search_button.set_visible (true);
-                } else if (rail.stack.get_visible_child_name () == "tasklist") {
-                    settings.last_view = "task";
-                    albumt.set_visible_child (sbox);
-                    sgrid.set_visible_child_name ("tasklist");
-                    grid.set_visible (false);
-                    sep2.set_visible (false);
-                    if (album.folded) {
-                        nbtitlebar.show_buttons = true;
-                    } else {
-                        nbtitlebar.show_buttons = true;
-                    }
-                    nblistview.sntext = "";
-                    nblistview.selection_model.set_selected (-1);
-                    view_title.label = _("Tasks");
-                    search_button.set_visible (false);
-                } else if (rail.stack.get_visible_child_name () == "trashlist") {
-                    settings.last_view = "trash";
-                    albumt.set_visible_child (sbox);
-                    sep2.set_visible (true);
-                    sgrid.set_visible_child_name ("trashlist");
-                    grid.set_visible (true);
-                    grid.set_visible_child_name ("trash");
-                    if (album.folded) {
-                        nbtitlebar.show_buttons = false;
-                    } else {
-                        nbtitlebar.show_buttons = false;
-                    }
-                    nblistview.sntext = "";
-                    nblistview.selection_model.set_selected (-1);
-                    view_title.label = _("Trash");
-                    search_button.set_visible (false);
-                }
-            });
         }
 
         protected override bool close_request () {

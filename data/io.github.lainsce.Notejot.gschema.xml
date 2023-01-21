@@ -5,6 +5,11 @@
 			<summary>Migration Version</summary>
 			<description>The version of migration to use; Do not change.</description>
 		</key>
+		<key type="i" name="sort-mode">
+			<default>0</default>
+			<summary>Last Seen View</summary>
+			<description>The last seen view on the sidebar.</description>
+		</key>
 	  <key type="s" name="last-view">
 			<default>"grid"</default>
 			<summary>Last View Used</summary>

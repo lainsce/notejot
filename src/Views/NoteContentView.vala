@@ -34,9 +34,9 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.Box note_header;
     [GtkChild]
-    unowned Gtk.Entry note_title;
+    unowned He.BottomBar note_footer;
     [GtkChild]
-    unowned He.ViewSubTitle note_subtitle;
+    unowned Gtk.Entry note_title;
     [GtkChild]
     public unowned Gtk.TextView note_textbox;
     [GtkChild]
@@ -101,6 +101,8 @@ public class Notejot.NoteContentView : He.Bin {
 
             fmt_syntax_start ();
             main_box.get_style_context().add_provider(provider, 1);
+            note_header.get_style_context().add_provider(provider, 2);
+            note_footer.get_style_context().add_provider(provider, 3);
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
@@ -202,7 +204,7 @@ public class Notejot.NoteContentView : He.Bin {
             });
 
             title_binding = _note?.bind_property ("title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
-            subtitle_binding = _note?.bind_property ("subtitle", note_subtitle, "label", SYNC_CREATE|BIDIRECTIONAL);
+            subtitle_binding = _note?.bind_property ("subtitle", titlebar, "viewsubtitle-label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
             pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE|BIDIRECTIONAL);
 
@@ -265,11 +267,14 @@ public class Notejot.NoteContentView : He.Bin {
                 _note.notify.connect (on_text_updated);
                 if (image.file != "") {
                     note_header.add_css_class ("scrim");
-                    note_header.remove_css_class ("content-header");
+                    note_header.remove_css_class ("notejot-header");
                 } else {
                     note_header.remove_css_class ("scrim");
-                    note_header.add_css_class ("content-header");
+                    note_header.add_css_class ("notejot-header");
                 }
+
+                note_footer.add_css_class ("notejot-footer");
+                note_footer.remove_css_class ("bottom-bar");
             }
         }
     }
@@ -283,6 +288,8 @@ public class Notejot.NoteContentView : He.Bin {
     construct {
         fmt_syntax_start ();
         main_box.get_style_context().add_provider(provider, 1);
+        note_header.get_style_context().add_provider(provider, 2);
+        note_footer.get_style_context().add_provider(provider, 3);
         note_textbox.remove_css_class ("view");
         empty.action_button.visible = false;
 

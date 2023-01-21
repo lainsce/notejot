@@ -12,8 +12,7 @@
           <object class="GtkGridView" id="lv">
             <property name="max-columns">2</property>
             <style>
-              <class name="boxed-list" />
-              <class name="content-sidebar-main" />
+              <class name="content-list" />
             </style>
             <property name="factory">
               <object class="GtkBuilderListItemFactory">

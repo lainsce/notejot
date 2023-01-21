@@ -8,7 +8,7 @@
   padding: 12px;
   border-width: 1px;
   border-style: solid;
-  border-radius: 8px;
+  border-radius: 999px;
   border-color: alpha(@window_fg_color, 0.3);
 }
 
@@ -25,73 +25,10 @@
   border: 1px solid @borders;
 }
 
-.chip:hover {
-  background: mix(@view_bg_color, @accent_bg_color, 0.10);
-  box-shadow: 0 0 0 1px mix(@view_bg_color, @accent_bg_color, 0.10);
-  color: @view_fg_color;
-}
-
-.content-view {
-  border-radius: 8px;
-  margin: 0 6px 6px 6px;
-}
-
 .notejot-note headerbar {
   box-shadow: none;
   border: none;
   background: none;
-}
-
-.content-sidebar {
-  margin: 0;
-  padding: 0px;
-  border: none;
-  background: none;
-}
-.content-sidebar row {
-  padding: 0px;
-  margin: 6px;
-  margin-top: 3px;
-  border-radius: 8px;
-  background: @view_bg_color;
-}
-.content-sidebar row:first-child {
-  margin-top: 6px;
-}
-.content-sidebar row:hover {
-  background: @accent_bg_color;
-}
-.content-sidebar row:selected {
-  background: @accent_bg_color;
-}
-
-.notejot-sidebar-box {
-  border-radius: 8px;
-}
-
-.content-sidebar-main {
-  background: @window_bg_color;
-  margin: 6px 9px;
-}
-.content-sidebar-main child {
-  background: @window_bg_color;
-}
-
-.notejot-sidebar-box {
-  padding: 20px;
-  margin: 0px;
-}
-.notejot-sidebar-box-row {
-  padding: 20px;
-  margin: 0px;
-}
-.notejot-sidebar-box-grid {
-  padding: 12px;
-  border-radius: 8px;
-}
-
-.content-header {
-  background: @window_bg_color;
 }
 
 .scrim {
@@ -122,18 +59,21 @@
   color: #fafafa;
 }
 .scrim box > label,
-.scrim .image-text-button label,
+.scrim > label,
 .scrim entry text,
 .scrim widget > label {
+  color: #fafafa;
   text-shadow: 0 1px 2px #2d2d2d;
 }
 .scrim image {
+  color: #fafafa;
   -gtk-icon-shadow: 0 1px 2px #2d2d2d;
 }
 .scrim .close image,
 .scrim .maximize image,
 .scrim .image-text-button,
 .scrim .disclosure-button {
+  color: #fafafa;
   box-shadow: 0 1px 2px #2d2d2d;
 }
 

@@ -10,8 +10,7 @@
         <child>
           <object class="GtkListView" id="lv">
             <style>
-              <class name="boxed-list" />
-              <class name="content-sidebar" />
+              <class name="content-list" />
             </style>
             <property name="factory">
               <object class="GtkBuilderListItemFactory">

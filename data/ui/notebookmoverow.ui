@@ -5,7 +5,7 @@
     <object class="GtkBox">
       <property name="spacing">12</property>
       <style>
-        <class name="notejot-sidebar-box-row"/>
+        <class name="mini-content-block"/>
       </style>
       <child>
         <object class="GtkLabel" id="notebook_label">

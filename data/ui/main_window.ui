@@ -75,29 +75,6 @@
             <property name="visible-child">sbox</property>
             <child>
               <object class="BisAlbumPage">
-                <property name="navigatable">0</property>
-                <property name="child">
-                  <object class="GtkWindowHandle" id="nbgrid">
-                    <child>
-                      <object class="HeNavigationRail" id="rail">
-                        <property name="stack">sgrid</property>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="BisAlbumPage">
-                <property name="navigatable">0</property>
-                <property name="child">
-                  <object class="GtkSeparator" id="sep1">
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="BisAlbumPage">
                 <property name="child">
                   <object class="GtkBox" id="sbox">
                     <property name="orientation">vertical</property>
@@ -105,9 +82,14 @@
                       <object class="HeAppBar" id="nbtitlebar">
                         <property name="show-buttons">0</property>
                         <property name="show-back">0</property>
-                        <property name="flat">1</property>
-                        <property name="width-request">320</property>
-                        <child type="end">
+                        <property name="width-request">300</property>
+                        <property name="viewtitle-widget">
+                          <object class="HeViewChooser">
+                            <property name="stack">sgrid</property>
+                          </object>
+                        </property>
+                        <property name="viewsubtitle-label"> </property>
+                        <child>
                           <object class="GtkMenuButton" id="menu_button">
                             <property name="icon-name">open-menu-symbolic</property>
                             <property name="popover">
@@ -133,10 +115,7 @@
                                             </object>
                                           </child>
                                           <child>
-                                            <object class="GtkBox">
-                                              <style>
-                                                <class name="linked"/>
-                                              </style>
+                                            <object class="HeSegmentedButton">
                                               <child>
                                                   <object class="GtkToggleButton" id="s">
                                                       <property name="label">Small</property>
@@ -168,23 +147,18 @@
                           </property>
                           </object>
                         </child>
-                        <child type="end">
+                        <child>
                           <object class="GtkButton" id="en_button">
                             <property name="action-name">win.action_edit_notebooks</property>
                             <property name="tooltip-text" translatable="yes">Manage notebooks</property>
                             <property name="icon-name">notebook-config-symbolic</property>
                           </object>
                         </child>
-                        <child type="end">
+                        <child>
                           <object class="GtkToggleButton" id="search_button">
                             <property name="icon-name">system-search-symbolic</property>
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HeViewTitle" id="view_title">
-                        <property name="label">———————</property>
                       </object>
                     </child>
                     <child>
@@ -200,7 +174,7 @@
                                 <property name="margin-end">18</property>
                                 <property name="halign">start</property>
                                 <style>
-                                  <class name="notejot-searchbar"/>
+                                  <class name="search"/>
                                 </style>
                               </object>
                             </child>
@@ -339,28 +313,6 @@
                         </child>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkSeparator" id="sep3">
-                        <property name="orientation">horizontal</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HeNavigationRail" id="srail">
-                        <property name="stack">sgrid</property>
-                        <binding name="visible">
-                          <lookup name="folded">albumt</lookup>
-                        </binding>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="BisAlbumPage">
-                <property name="navigatable">0</property>
-                <property name="child">
-                  <object class="GtkSeparator" id="sep2">
                   </object>
                 </property>
               </object>

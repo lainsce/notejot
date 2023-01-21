@@ -21,10 +21,6 @@
       </object>
     </child>
     <child>
-      <object class="GtkSeparator">
-      </object>
-    </child>
-    <child>
       <object class="GtkGrid">
         <property name="column_spacing">6</property>
         <property name="row_spacing">6</property>
@@ -143,10 +139,6 @@
         <style>
           <class name="notejot-theme-grid"/>
         </style>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparator">
       </object>
     </child>
     <child>

@@ -7,7 +7,7 @@
       <property name="valign">center</property>
       <property name="spacing">6</property>
       <style>
-        <class name="notejot-sidebar-box"/>
+        <class name="mini-content-block"/>
       </style>
       <child>
         <object class="GtkBox">

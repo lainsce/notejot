@@ -25,6 +25,7 @@ public class Notejot.Settings : Object {
     public int window_w { get; set; }
     public int window_h { get; set; }
     public int schema_version { get; set; }
+    public int sort_mode { get; set; }
 
     construct {
         settings.bind ("last-view", this, "last-view", DEFAULT);
@@ -32,6 +33,7 @@ public class Notejot.Settings : Object {
         settings.bind ("window-w", this, "window-w", DEFAULT);
         settings.bind ("window-h", this, "window-h", DEFAULT);
         settings.bind ("schema-version", this, "schema-version", DEFAULT);
+        settings.bind ("sort-mode", this, "sort-mode", DEFAULT);
     }
 
     public Action create_action (string key) {

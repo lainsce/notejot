@@ -32,9 +32,7 @@ public class Notejot.TrashContentView : He.Bin {
     [GtkChild]
     public unowned Gtk.Button s_menu;
     [GtkChild]
-    unowned He.ViewTitle trash_title;
-    [GtkChild]
-    unowned He.ViewSubTitle trash_subtitle;
+    unowned Gtk.Label trash_title;
     [GtkChild]
     unowned Gtk.Label notebook_subtitle;
     [GtkChild]
@@ -88,7 +86,7 @@ public class Notejot.TrashContentView : He.Bin {
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
 
             title_binding = _trash?.bind_property ("title", trash_title, "label", SYNC_CREATE | BIDIRECTIONAL);
-            subtitle_binding = _trash?.bind_property ("subtitle", trash_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
+            subtitle_binding = _trash?.bind_property ("subtitle", titlebar, "viewsubtitle-label", SYNC_CREATE|BIDIRECTIONAL);
             notebook_binding = _trash?.bind_property ("notebook", notebook_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
             text_binding = _trash?.bind_property ("text", trash_text, "text", SYNC_CREATE | BIDIRECTIONAL);
 

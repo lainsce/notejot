@@ -20,13 +20,22 @@ public class Notejot.StyleManager {
         var css_provider=new Gtk.CssProvider ();
         string style = @"
             .notejot-sidebar-box {
-                border-right: 5px solid mix(@view_bg_color, @note_color, 0.55);
+                border-right: 5px solid mix(@card_bg_color, @note_color, 0.55);
             }
             .notejot-sidebar-box-grid {
-                border-top: 5px solid mix(@view_bg_color, @note_color, 0.55);
+                border-top: 5px solid mix(@card_bg_color, @note_color, 0.55);
             }
             .notejot-note {
-                background: mix(@view_bg_color, @note_color, 0.025);
+                background: mix(@card_bg_color, @note_color, 0.05);
+            }
+            .notejot-footer {
+                background: mix(@card_bg_color, @note_color, 0.1);
+                color: @view_fg_color;
+                padding: 12px;
+                min-height: 48px;
+            }
+            .notejot-header {
+                background: mix(@card_bg_color, @note_color, 0.1);
             }
             .notejot-view, .notejot-view:disabled text {
                 background: transparent;
