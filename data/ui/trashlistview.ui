@@ -10,11 +10,11 @@
           <object class="GtkScrolledWindow">
             <property name="hscrollbar-policy">never</property>
             <property name="vexpand">1</property>
-            <property name="margin-start">12</property>
-            <property name="margin-end">12</property>
             <child>
               <object class="GtkListView" id="lv">
                 <property name="hexpand">1</property>
+                <property name="margin-start">18</property>
+                <property name="margin-end">18</property>
                 <style>
                   <class name="content-list" />
                 </style>

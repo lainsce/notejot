@@ -8,6 +8,9 @@
     <property name="default-width">360</property>
     <property name="default-height">480</property>
     <property name="default-widget">move_button</property>
+    <style>
+      <class name="dialog-content"/>
+    </style>
     <binding name="notebook">
       <lookup name="selected-notebook">listview</lookup>
     </binding>

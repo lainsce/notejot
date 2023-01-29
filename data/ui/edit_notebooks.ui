@@ -9,6 +9,9 @@
     <property name="default-width">360</property>
     <property name="default-height">480</property>
     <property name="default-widget">notebook_add_button</property>
+    <style>
+      <class name="dialog-content"/>
+    </style>
     <child>
       <object class="GtkShortcutController">
         <property name="scope">managed</property>
