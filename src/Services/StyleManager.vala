@@ -25,8 +25,8 @@ public class Notejot.StyleManager {
             .notejot-sidebar-box-grid {
                 border-top: 5px solid mix(@card_bg_color, @note_color, 0.55);
             }
-            .notejot-note {
-                background: mix(@card_bg_color, @note_color, 0.05);
+            .notejot-note, .notejot-body {
+                background: mix(@card_bg_color, @note_color, 0.1);
             }
             .notejot-footer {
                 background: mix(@card_bg_color, @note_color, 0.1);
@@ -37,8 +37,10 @@ public class Notejot.StyleManager {
             .notejot-header {
                 background: mix(@card_bg_color, @note_color, 0.1);
             }
-            .notejot-view, .notejot-view:disabled text {
-                background: transparent;
+            .notejot-view {
+                background: shade(@card_bg_color, 1.66);
+                margin: 8px;
+                border-radius: 12px;
             }
         ";
         css_provider.load_from_data (style.data);

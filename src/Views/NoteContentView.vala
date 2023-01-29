@@ -34,6 +34,8 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.Box note_header;
     [GtkChild]
+    unowned Gtk.Box note_body;
+    [GtkChild]
     unowned He.BottomBar note_footer;
     [GtkChild]
     unowned Gtk.Entry note_title;
@@ -103,6 +105,7 @@ public class Notejot.NoteContentView : He.Bin {
             main_box.get_style_context().add_provider(provider, 1);
             note_header.get_style_context().add_provider(provider, 2);
             note_footer.get_style_context().add_provider(provider, 3);
+            note_body.get_style_context().add_provider(provider, 4);
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
@@ -290,6 +293,7 @@ public class Notejot.NoteContentView : He.Bin {
         main_box.get_style_context().add_provider(provider, 1);
         note_header.get_style_context().add_provider(provider, 2);
         note_footer.get_style_context().add_provider(provider, 3);
+        note_body.get_style_context().add_provider(provider, 4);
         note_textbox.remove_css_class ("view");
         empty.action_button.visible = false;
 

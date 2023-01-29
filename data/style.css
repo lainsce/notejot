@@ -22,7 +22,6 @@
 
 .outline {
   background: none;
-  border: 1px solid @borders;
 }
 
 .notejot-note headerbar {

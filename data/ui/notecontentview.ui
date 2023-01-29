@@ -13,6 +13,7 @@
     <child>
       <object class="GtkBox" id="main_box">
         <style>
+          <class name="main-view"/>
           <class name="notejot-note"/>
         </style>
         <property name="orientation">vertical</property>
@@ -122,8 +123,11 @@
                     <property name="hscrollbar_policy">never</property>
                     <property name="vexpand">1</property>
                     <child>
-                      <object class="GtkBox">
+                      <object class="GtkBox" id="note_body">
                         <property name="orientation">vertical</property>
+                        <style>
+                          <class name="notejot-body"/>
+                        </style>
                         <child>
                           <object class="GtkTextView" id="note_textbox">
                             <property name="wrap-mode">word-char</property>

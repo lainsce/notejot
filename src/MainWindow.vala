@@ -29,7 +29,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Stack grid;
         [GtkChild]
-        public unowned Gtk.Box sbox;
+        public unowned He.SideBar sbox;
         [GtkChild]
         public unowned Gtk.Stack sgrid;
         [GtkChild]
@@ -45,7 +45,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Sorter sorter;
         [GtkChild]
-        public unowned He.AppBar nbtitlebar;
+        public unowned He.ViewChooser viewchooser;
 
         // Custom
         public MainWindow? mw {get; set;}
