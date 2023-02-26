@@ -30,7 +30,7 @@ public class Notejot.StyleManager {
             }
             .notejot-textview {
                 background: image(mix(@view_bg_color, @note_color, 0.08));
-                margin: 8px;
+                margin: 6px 18px 12px 18px;
             }
         """;
         css_provider.load_from_data (style.data);

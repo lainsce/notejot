@@ -70,9 +70,6 @@
                                     <property name="hexpand">1</property>
                                     <property name="halign">start</property>
                                     <property name="tooltip-text" translatable="yes">Note Name</property>
-                                    <style>
-                                      <class name="view-title" />
-                                    </style>
                                   </object>
                                 </property>
                                 <child>

@@ -38,7 +38,7 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned He.BottomBar note_footer;
     [GtkChild]
-    unowned Gtk.Entry note_title;
+    unowned He.TextField note_title;
     [GtkChild]
     public unowned Gtk.TextView note_textbox;
     [GtkChild]
