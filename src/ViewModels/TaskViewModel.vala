@@ -72,9 +72,8 @@ public class Notejot.TaskViewModel : Object {
 
     public void update_task_color (Task task, string color) {
         task.color = color;
-
         var style_manager = new StyleManager ();
-        style_manager.set_css (color);
+        style_manager.set_css ();
         repository.update_task (task);
 
         save_tasks ();

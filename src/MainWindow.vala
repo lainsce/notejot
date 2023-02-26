@@ -150,12 +150,14 @@ namespace Notejot {
 
             // Needed to ensure colors in places
             var style_manager = new StyleManager ();
-            style_manager.set_css ("");
+            style_manager.set_css ();
 
             this.set_size_request (360, 360);
             this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
+
+            menu_button.get_popover ().has_arrow = false;
         }
 
         protected override bool close_request () {

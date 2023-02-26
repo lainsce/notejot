@@ -78,9 +78,8 @@ public class Notejot.NoteViewModel : Object {
 
     public void update_note_color (Note note, string color) {
         note.color = color;
-
         var style_manager = new StyleManager ();
-        style_manager.set_css (color);
+        style_manager.set_css ();
         repository.update_note (note);
 
         save_notes ();

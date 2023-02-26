@@ -63,9 +63,8 @@ public class Notejot.TrashViewModel : Object {
 
     public void update_trash_color (Trash trash, string color) {
         trash.color = color;
-
         var style_manager = new StyleManager ();
-        style_manager.set_css (color);
+        style_manager.set_css ();
         repository.update_trash (trash);
 
         save_trashs ();

@@ -72,7 +72,6 @@
                                     <property name="tooltip-text" translatable="yes">Edit note name</property>
                                     <style>
                                       <class name="view-title" />
-                                      <class name="flat" />
                                     </style>
                                   </object>
                                 </property>
@@ -164,9 +163,6 @@
                                 </property>
                               </object>
                             </property>
-                            <style>
-                              <class name="notejot-view"/>
-                            </style>
                           </object>
                         </child>
                       </object>
@@ -179,9 +175,6 @@
                     <property name="transition-type">crossfade</property>
                     <child>
                       <object class="HeBottomBar" id="note_footer">
-                        <style>
-                          <class name="notejot-footer"/>
-                        </style>
                         <property name="hexpand">1</property>
                         <child type="left">
                           <object class="HeIconicButton" id="bold_button">

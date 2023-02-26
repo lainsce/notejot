@@ -16,33 +16,23 @@
  * Boston, MA 02110-1301 USA
  */
 public class Notejot.StyleManager {
-    public void set_css (string color) {
+    public void set_css () {
         var css_provider=new Gtk.CssProvider ();
-        string style = @"
+        string style = """
             .notejot-sidebar-box {
-                border-right: 5px solid mix(@card_bg_color, @note_color, 0.55);
-            }
-            .notejot-sidebar-box-grid {
-                border-top: 5px solid mix(@card_bg_color, @note_color, 0.55);
+                border-right: 5px solid mix(@view_bg_color, @note_color, 0.55);
             }
             .notejot-note, .notejot-body {
-                background: mix(@card_bg_color, @note_color, 0.1);
-            }
-            .notejot-footer {
-                background: mix(@card_bg_color, @note_color, 0.1);
-                color: @view_fg_color;
-                padding: 12px;
-                min-height: 48px;
+                background: mix(@view_bg_color, @note_color, 0.05);
             }
             .notejot-header {
-                background: mix(@card_bg_color, @note_color, 0.1);
+                background: mix(@view_bg_color, @note_color, 0.05);
             }
-            .notejot-view {
-                background: shade(@card_bg_color, 1.66);
+            .notejot-textview {
+                background: image(mix(@view_bg_color, @note_color, 0.08));
                 margin: 8px;
-                border-radius: 12px;
             }
-        ";
+        """;
         css_provider.load_from_data (style.data);
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (),

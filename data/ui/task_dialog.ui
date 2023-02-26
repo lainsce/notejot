@@ -26,63 +26,59 @@
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
+        <property name="margin-top">24</property>
+        <property name="margin-start">24</property>
+        <property name="margin-bottom">24</property>
+        <property name="margin-end">24</property>
+        <property name="spacing">12</property>
         <child>
-          <object class="HeAppBar">
-            <property name="show-buttons">1</property>
-            <property name="show-back">0</property>
-            <property name="viewtitle-widget">
-              <object class="GtkLabel">
-                <property name="label">New Task</property>
-                <property name="halign">start</property>
-                <style>
-                  <class name="view-title"/>
-                </style>
-              </object>
-            </property>
+          <object class="GtkLabel">
+            <property name="label">New Task</property>
+            <property name="halign">start</property>
+            <style>
+              <class name="view-title"/>
+            </style>
           </object>
         </child>
         <child>
           <object class="GtkBox">
             <property name="orientation">vertical</property>
+            <property name="spacing">12</property>
             <child>
               <object class="GtkBox">
                 <property name="spacing">12</property>
-                <property name="margin-top">12</property>
-                <property name="margin-start">18</property>
-                <property name="margin-end">18</property>
-                <property name="margin-bottom">18</property>
                 <property name="orientation">vertical</property>
-                <style>
-                  <class name="mini-content-block"/>
-                </style>
                 <child>
-                  <object class="GtkEntry" id="task_name_entry">
+                  <object class="HeTextField" id="task_name_entry">
                     <property name="hexpand">1</property>
-                    <property name="placeholder-text" translatable="yes">Task Name…</property>
+                    <property name="placeholder-text" translatable="yes">Task Name</property>
                   </object>
                 </child>
                 <child>
-                    <object class="GtkEntry" id="task_detail_entry">
+                    <object class="HeTextField" id="task_detail_entry">
                         <property name="hexpand">1</property>
-                        <property name="activates-default">1</property>
-                        <property name="placeholder-text" translatable="yes">Task Details…</property>
+                        <property name="placeholder-text" translatable="yes">Task Details</property>
                     </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HeFillButton" id="task_add_button">
-                <property name="sensitive">0</property>
-                <property name="halign">end</property>
-                <property name="margin-end">18</property>
-                <property name="margin-bottom">18</property>
-                <signal name="clicked" handler="on_new_task_requested" />
-                <property name="child">
-                  <object class="HeButtonContent">
-                    <property name="icon">list-add-symbolic</property>
-                    <property name="label" translatable="yes">Add</property>
+              <object class="GtkBox">
+                <property name="spacing">12</property>
+                <child>
+                  <object class="HeTextButton" id="cancel_button">
+                    <property name="hexpand">1</property>
+                    <property name="label" translatable="yes">Cancel</property>
                   </object>
-                </property>
+                </child>
+                <child>
+                  <object class="HeFillButton" id="task_add_button">
+                    <property name="sensitive">0</property>
+                    <property name="hexpand">1</property>
+                    <signal name="clicked" handler="on_new_task_requested" />
+                    <property name="label" translatable="yes">Add Task</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

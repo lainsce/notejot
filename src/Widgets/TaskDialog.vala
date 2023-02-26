@@ -23,11 +23,13 @@ namespace Notejot {
         public TaskViewModel tsview_model {get; set;}
 
         [GtkChild]
-        public unowned Gtk.Entry task_name_entry;
+        public unowned He.TextField task_name_entry;
         [GtkChild]
-        public unowned Gtk.Entry task_detail_entry;
+        public unowned He.TextField task_detail_entry;
         [GtkChild]
         public unowned Gtk.Button task_add_button;
+        [GtkChild]
+        public unowned Gtk.Button cancel_button;
 
         public TaskDialog (MainWindow win, TaskViewModel tsview_model) {
             Object (
@@ -38,11 +40,15 @@ namespace Notejot {
             this.set_transient_for (win);
 
             task_name_entry.notify["text"].connect (() => {
-                if (task_name_entry.get_text () != "") {
+                if (task_name_entry.get_entry ().get_text () != "") {
                     task_add_button.sensitive = true;
                 } else {
                     task_add_button.sensitive = false;
                 }
+            });
+
+            cancel_button.clicked.connect (() => {
+                this.close ();
             });
         }
 

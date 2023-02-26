@@ -204,6 +204,7 @@
                               <object class="HeOverlayButton" id="list_scroller">
                                 <property name="tooltip-text" translatable="yes">Add Note</property>
                                 <property name="icon">list-add-symbolic</property>
+                                <property name="typeb">primary</property>
                                 <signal name="clicked" handler="on_new_note_requested"/>
                                 <child>
                                   <object class="GtkBox">
@@ -241,8 +242,9 @@
                             <property name="icon-name">month-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="tslist_scroller">
-                                <property name="tooltip-text" translatable="yes">Clear Trash</property>
+                                <property name="tooltip-text" translatable="yes">Add Task</property>
                                 <property name="icon">list-add-symbolic</property>
+                                <property name="typeb">primary</property>
                                 <signal name="clicked" handler="on_new_task_requested"/>
                                 <child>
                                   <object class="GtkBox">
