@@ -52,7 +52,7 @@
                       <object class="GtkOverlay">
                         <child>
                           <object class="NotejotNotePicture" id="image">
-                            <property name="height-request">160</property>
+                            <property name="height-request">190</property>
                             <property name="width-request">450</property>
                           </object>
                         </child>
@@ -66,7 +66,7 @@
                               <object class="HeAppBar" id="titlebar">
                                 <property name="scroller">sw</property>
                                 <property name="viewtitle-widget">
-                                  <object class="GtkEntry" id="note_title">
+                                  <object class="HeTextField" id="note_title">
                                     <property name="hexpand">1</property>
                                     <property name="halign">start</property>
                                     <property name="tooltip-text" translatable="yes">Edit note name</property>
