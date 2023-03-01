@@ -20,7 +20,7 @@
           <object class="GtkEveryFilter">
             <child>
               <object class="GtkStringFilter">
-                <property name="ignore-case">0</property>
+                <property name="ignore-case">1</property>
                 <property name="match-mode">exact</property>
                 <property name="expression">
                   <lookup name="notebook" type="NotejotNote"/>
@@ -178,8 +178,8 @@
                             </child>
                             <child>
                               <object class="NotejotNotebookMainListView" id="nblistview">
-                                <property name="margin-start">6</property>
-                                <property name="margin-end">6</property>
+                                <property name="margin-start">18</property>
+                                <property name="margin-end">18</property>
                                 <binding name="notebooks">
                                   <lookup name="notebooks" type="NotejotNotebookViewModel">
                                     <lookup name="nbview-model">NotejotMainWindow</lookup>

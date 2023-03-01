@@ -2,11 +2,9 @@
 <interface>
 <template class="GtkListItem">
   <property name="child">
-    <object class="HeChip">
-      <binding name="label">
-        <lookup name="title" type="NotejotNotebook">
-          <lookup name="item">GtkListItem</lookup>
-        </lookup>
+    <object class="NotejotNotebookMainRowContent">
+      <binding name="notebook">
+        <lookup name="item">GtkListItem</lookup>
       </binding>
     </object>
   </property>
