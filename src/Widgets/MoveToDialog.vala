@@ -62,7 +62,7 @@ namespace Notejot {
         void on_move_notebook_requested () {
             string nb = notebook.title;
             view_model.update_notebook (ncv.note, nb);
-            this.dispose ();
+            this.close ();
         }
 
         [GtkCallback]
@@ -70,7 +70,7 @@ namespace Notejot {
             string nb = _("No Notebook");
             view_model.update_notebook (ncv.note, nb);
             remove_notebook_button.set_sensitive (false);
-            this.dispose ();
+            this.close ();
         }
     }
 }

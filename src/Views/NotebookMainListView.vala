@@ -30,11 +30,19 @@ public class Notejot.NotebookMainListView : He.Bin {
         selection_model.bind_property ("selected", this, "selected-notebook", DEFAULT, (_, from, ref to) => {
             var pos = (uint) from;
 
-            if (pos != Gtk.INVALID_LIST_POSITION)
+            if (pos != Gtk.INVALID_LIST_POSITION) {
                 to.set_object (selection_model.model.get_item (pos));
                 sntext = ((Notebook)selection_model.model.get_item (pos)).title;
+            }
 
             return true;
+        });
+
+
+        selection_model.selection_changed.connect (() => {
+            if (sntext != "" && selected_notebook.title != "" && sntext == selected_notebook.title) {
+                selection_model.unselect_all ();
+            }
         });
     }
 

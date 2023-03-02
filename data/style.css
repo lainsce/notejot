@@ -3,6 +3,10 @@
   outline: 1px solid @borders;
 }
 
+.search {
+  border-radius: 999px;
+}
+
 .circular radio {
   background: none;
   padding: 12px;
