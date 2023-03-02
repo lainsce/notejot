@@ -15,8 +15,6 @@
       <file alias="notebookrow.ui">ui/notebookrow.ui</file>
       <file alias="notebookrowcontent.ui">ui/notebookrowcontent.ui</file>
       <file alias="notebookmainlistview.ui">ui/notebookmainlistview.ui</file>
-      <file alias="notebookmainrow.ui">ui/notebookmainrow.ui</file>
-      <file alias="notebookmainrowcontent.ui">ui/notebookmainrowcontent.ui</file>
       <file alias="notebookmovelistview.ui">ui/notebookmovelistview.ui</file>
       <file alias="notebookmoverow.ui">ui/notebookmoverow.ui</file>
       <file alias="trashcontentview.ui">ui/trashcontentview.ui</file>
