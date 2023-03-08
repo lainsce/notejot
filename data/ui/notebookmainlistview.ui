@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="NotejotNotebookMainListView" parent="HeBin">
-    <child>
-      <object class="GtkScrolledWindow">
-        <property name="hscrollbar-policy">never</property>
-        <property name="width-request">250</property>
-        <property name="height-request">100</property>
-        <child>
-          <object class="HeChipGroup" id="lv">
-            <property name="margin-end">18</property>
-            <property name="selection_model">
-              <object class="GtkSingleSelection" id="selection_model">
-                <property name="autoselect">0</property>
-                <property name="can-unselect">1</property>
-                <binding name="model">
-                  <lookup name="notebooks">NotejotNotebookMainListView</lookup>
-                </binding>
-              </object>
-            </property>
+    <property name="child">
+      <object class="HeChipGroup" id="lv">
+        <property name="margin-end">18</property>
+        <property name="selection_model">
+          <object class="GtkSingleSelection" id="selection_model">
+            <property name="autoselect">0</property>
+            <property name="can-unselect">1</property>
+            <binding name="model">
+              <lookup name="notebooks">NotejotNotebookMainListView</lookup>
+            </binding>
           </object>
-        </child>
+        </property>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

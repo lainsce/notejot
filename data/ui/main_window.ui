@@ -170,6 +170,7 @@
                                 <property name="placeholder-text" translatable="yes">Search notes</property>
                                 <property name="margin-start">18</property>
                                 <property name="margin-end">18</property>
+                                <property name="margin-bottom">3</property>
                                 <property name="halign">start</property>
                                 <style>
                                   <class name="search"/>
