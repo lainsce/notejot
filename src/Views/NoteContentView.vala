@@ -262,7 +262,7 @@ public class Notejot.NoteContentView : View {
             if (((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).folded) {
                 back2_button.visible = false;
             } else {
-                back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.get_visible_child_name () == "notegrid" != false ? true : false;
+                back2_button.visible = ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid.get_visible_child_name () != "notegrid";
             }
             back2_button.clicked.connect (() => {
                 ((Adw.Leaflet)MiscUtils.find_ancestor_of_type<Adw.Leaflet>(this)).set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sgrid);
