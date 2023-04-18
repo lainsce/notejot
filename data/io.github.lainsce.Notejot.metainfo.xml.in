@@ -114,7 +114,7 @@
             <description>
                 <p>Release: Usability Independence</p>
                 <ul>
-                    <li>Fixed: many UI bugs were fixed, last but not least the notebook switcher and trash and also removing singluar notes from a notebook.</li>
+                    <li>Fixed: many UI bugs were fixed, last but not least the notebook switcher and trash and also removing singular notes from a notebook.</li>
                 </ul>
                 <p>Note: Your notes and notebooks are always saved in ~/.var/app/io.github.lainsce.Notejot when using the Flatpak. Happy notetaking!</p>
             </description>
