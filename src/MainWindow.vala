@@ -112,7 +112,7 @@ namespace Notejot {
 
             // Preparing window to be shown
             var settings = new Settings ();
-            set_default_size(
+            set_default_size (
                 settings.window_w,
                 settings.window_h
             );
@@ -281,7 +281,7 @@ namespace Notejot {
                 {translators},
                 {"Paulo \"Lains\" Galardi"},
                 2017, // Year of first publication.
-                He.AboutWindow.Licenses.GPLv3,
+                He.AboutWindow.Licenses.GPLV3,
                 He.Colors.YELLOW
             );
             about.present ();
