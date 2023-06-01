@@ -1,27 +1,117 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg height="16px" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <filter id="a" height="100%" width="100%" x="0%" y="0%">
-        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
-    </filter>
-    <mask id="b">
-        <g filter="url(#a)">
-            <rect fill-opacity="0.5" height="16" width="16"/>
-        </g>
-    </mask>
-    <clipPath id="c">
-        <rect height="152" width="192"/>
-    </clipPath>
-    <g clip-path="url(#c)" fill="#e5a50a" fill-opacity="0.997061" mask="url(#b)" transform="matrix(1 0 0 1 -168 -16)">
-        <path d="m 28 55 h 88 v 1 h -88 z m 0 0"/>
-        <path d="m 28 67 h 88 v 1 h -88 z m 0 0"/>
-        <path d="m 28 79 h 88 v 1 h -88 z m 0 0"/>
-        <path d="m 28 103 h 88 v 1 h -88 z m 0 0"/>
-        <path d="m 28 91 h 88 v 1 h -88 z m 0 0"/>
-        <path d="m 28 115 h 88 v 1 h -88 z m 0 0"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16px"
+   viewBox="0 0 16 16"
+   width="16px"
+   version="1.1"
+   id="svg35"
+   sodipodi:docname="io.github.lainsce.Notejot-symbolic.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs39" />
+  <sodipodi:namedview
+     id="namedview37"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     showguides="false"
+     inkscape:zoom="48.875"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:window-width="2560"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg35">
+    <inkscape:grid
+       type="xygrid"
+       id="grid374" />
+  </sodipodi:namedview>
+  <filter
+     id="a"
+     height="1"
+     width="1"
+     x="0"
+     y="0">
+    <feColorMatrix
+       in="SourceGraphic"
+       type="matrix"
+       values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
+       id="feColorMatrix2" />
+  </filter>
+  <mask
+     id="b">
+    <g
+       filter="url(#a)"
+       id="g7">
+      <rect
+         fill-opacity="0.5"
+         height="16"
+         width="16"
+         id="rect5" />
     </g>
-    <g fill="#241f31">
-        <path d="m 4 1 c -1.109375 0 -2 0.890625 -2 2 v 10 c 0 1.109375 0.890625 2 2 2 h 7 c 1.109375 0 2 -0.890625 2 -2 v -4 l -2 2 v 2 h -7 v -10 h 7 l 1.417969 -1.417969 c -0.363281 -0.359375 -0.863281 -0.582031 -1.417969 -0.582031 z m 0 0"/>
-        <path d="m 7 11 h 2 l 6 -6 l -2 -2 l -6 6 z m 0 0"/>
-        <path d="m 5 3 h 1 v 10 h -1 z m 0 0"/>
-    </g>
+  </mask>
+  <clipPath
+     id="c">
+    <rect
+       height="152"
+       width="192"
+       id="rect10" />
+  </clipPath>
+  <g
+     clip-path="url(#c)"
+     fill="#e5a50a"
+     fill-opacity="0.997061"
+     mask="url(#b)"
+     transform="matrix(1 0 0 1 -168 -16)"
+     id="g25">
+    <path
+       d="m 28 55 h 88 v 1 h -88 z m 0 0"
+       id="path13" />
+    <path
+       d="m 28 67 h 88 v 1 h -88 z m 0 0"
+       id="path15" />
+    <path
+       d="m 28 79 h 88 v 1 h -88 z m 0 0"
+       id="path17" />
+    <path
+       d="m 28 103 h 88 v 1 h -88 z m 0 0"
+       id="path19" />
+    <path
+       d="m 28 91 h 88 v 1 h -88 z m 0 0"
+       id="path21" />
+    <path
+       d="m 28 115 h 88 v 1 h -88 z m 0 0"
+       id="path23" />
+  </g>
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="M 2.1269531,1 C 1.5117017,1 1,1.5117017 1,2.1269531 V 13.873047 C 1,14.488298 1.5117017,15 2.1269531,15 H 13.873047 C 14.488298,15 15,14.488298 15,13.873047 V 2.1269531 C 15,1.5117017 14.488298,1 13.873047,1 Z m 0,1.0761719 H 13.873047 c 0.03727,0 0.05078,0.013515 0.05078,0.050781 V 13.873047 c 0,0.03727 -0.01351,0.05078 -0.05078,0.05078 H 2.1269531 c -0.037266,0 -0.050781,-0.01351 -0.050781,-0.05078 V 2.1269531 c 0,-0.037266 0.013515,-0.050781 0.050781,-0.050781 z"
+     id="rect376" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.02627;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     d="M 12.573745,4.2840172 8.5064686,10.498787 Z"
+     id="path1058" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.07012;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     d="M 1.5645368,4.5 H 8.4354632 Z"
+     id="path1060" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.07012;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     d="M 1.5645368,7.5 H 8.4354632 Z"
+     id="path1060-3" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1.0414;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     d="M 2,10.5 H 8.5070212 Z"
+     id="path1060-6" />
 </svg>
