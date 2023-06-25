@@ -35,7 +35,7 @@
             <property name="scroller">sw</property>
             <property name="viewtitle-widget">
               <object class="GtkLabel" id="view_title">
-                <property name="label">Move to a Notebook</property>
+                <property name="label" translatable="yes">Move to a Notebook</property>
                 <property name="halign">start</property>
                 <style>
                   <class name="view-title"/>

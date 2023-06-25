@@ -33,7 +33,7 @@
         <property name="spacing">12</property>
         <child>
           <object class="GtkLabel">
-            <property name="label">New Task</property>
+            <property name="label" translatable="yes">New Task</property>
             <property name="halign">start</property>
             <style>
               <class name="view-title"/>
