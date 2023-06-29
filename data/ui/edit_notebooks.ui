@@ -33,7 +33,7 @@
             <property name="scroller">sw</property>
             <property name="viewtitle-widget">
               <object class="GtkLabel" id="view_title">
-                <property name="label">Edit Notebooks</property>
+                <property name="label" translatable="yes">Edit Notebooks</property>
                 <property name="halign">start</property>
                 <style>
                   <class name="view-title"/>

@@ -199,7 +199,7 @@
                         <child>
                           <object class="GtkStackPage">
                             <property name="name">notelist</property>
-                            <property name="title">Notes</property>
+                            <property name="title" translatable="yes">Notes</property>
                             <property name="icon-name">view-list-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="list_scroller">
@@ -239,7 +239,7 @@
                         <child>
                           <object class="GtkStackPage">
                             <property name="name">tasklist</property>
-                            <property name="title">Tasks</property>
+                            <property name="title" translatable="yes">Tasks</property>
                             <property name="icon-name">month-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="tslist_scroller">
@@ -277,7 +277,7 @@
                         <child>
                           <object class="GtkStackPage">
                             <property name="name">trashlist</property>
-                            <property name="title">Trash</property>
+                            <property name="title" translatable="yes">Trash</property>
                             <property name="icon-name">user-trash-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="tlist_scroller">

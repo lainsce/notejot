@@ -69,7 +69,7 @@
               <child>
                 <object class="GtkButton" id="delete_button">
                   <property name="tooltip-text" translatable="yes">Delete the task</property>
-                  <property name="label">Delete Task</property>
+                  <property name="label" translatable="yes">Delete Task</property>
                 </object>
               </child>
               <child>
