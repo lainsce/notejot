@@ -1,0 +1,653 @@
+# Turkish translation for io.github.lainsce.Notejot.
+# Copyright (C) 2023 io.github.lainsce.Notejot's COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lainsce.Notejot package.
+#
+# Sabri Ünal <libreajans@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: io.github.lainsce.Notejot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-26 01:36+0300\n"
+"PO-Revision-Date: 2023-06-26 02:16+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Turkish <takim@gnome.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: data/io.github.lainsce.Notejot.desktop.in:3
+msgid "Notejot"
+msgstr "Notejot"
+
+#: data/io.github.lainsce.Notejot.desktop.in:4
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:7
+msgid "Jot your ideas"
+msgstr "Düşüncelerinizi hızlıca not alın"
+
+#: data/io.github.lainsce.Notejot.desktop.in:7
+msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
+msgstr ""
+"text;plain;plaintext;notepad;notes;sticky;post-it;metin;düz;düz metin;not "
+"defteri;yapışkan notlar;"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:9
+msgid ""
+"A stupidly-simple notes application for any type of short term notes or "
+"ideas."
+msgstr ""
+"Her türlü kısa vadeli not veya fikir için çok basit bir not uygulaması."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:11
+msgid "🟡 Color your notes in 8 different colors"
+msgstr "🟡 notlarınızı 8 farklı renkle renklendirin"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:12
+msgid "📓 Classify them in notebooks"
+msgstr "📓 Onları farklı not defterlerinde sınıflandırın"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:13
+msgid "🔤 Format text to your liking"
+msgstr "🔤 Hoşunuza giden şekilde metni biçimlendirin"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:14
+msgid "📌 Pin your most important ones"
+msgstr "📌 En enemli notlarınızı sabitleyin"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:51
+msgid "Release: Stargone"
+msgstr "Sürüm: Stargone"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:53
+msgid "Added: An option to give a note a header image."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:54
+msgid "Changed: UI fixes."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:56
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:67
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:79
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:89
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:99
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:110
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:119
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:128
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:137
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:148
+msgid ""
+"Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
+"lainsce.Notejot when using the Flatpak. Happy notetaking!"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:61
+msgid "Release: Silver"
+msgstr "Sürüm: Gümüş"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:63
+msgid ""
+"Changed: UI now follows my own style that complements that of He.Albumaita, "
+"called Solo."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:64
+msgid "Changed: The syntax follows Markdown conventions where possible."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:65
+msgid ""
+"Fixed: The mobile UI has been fixed, back buttons should show up without "
+"issue."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:72
+msgid "Release: Beautiful Superstar"
+msgstr "Sürüm: Güzel Süper Yıldız"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:74
+msgid "Added: New Notes Grid view, access your notes in a grid."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:75
+msgid ""
+"Changed: UI colors were changed, and some UI parts now look more intuitive."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:76
+msgid "Fixed: Unordered list formatting."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:77
+msgid "Fixed: Some UI bugs."
+msgstr "Bazı kullanıcı arayüzü hataları düzeltildi."
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:84
+msgid "Release: The Top 100 (3.3.3)"
+msgstr "Sürüm: Top 100 (3.3.3)"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:86
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:96
+msgid "Changed: UI now looks better layoutted, is an experiment."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:87
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:97
+msgid "Changed: Backend was changed to be more stable than the old one."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:94
+msgid "Release: The Top 100"
+msgstr "Sürüm: Top 100"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:104
+msgid "Release: Pinned Notes"
+msgstr "Sürüm: Sabitlenmiş Notlar"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:106
+msgid "Added: Notes can now be pinned and are shown separately from others."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:107
+msgid "Added: Note title styling from older versions is back."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:108
+msgid "Added: Note searchbar is now always visible."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:115
+msgid "Release: Usability Independence"
+msgstr "Sürüm: Kullanılabilirlik Bağımsızlığı"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:117
+msgid ""
+"Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
+"trash and also removing singular notes from a notebook."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:124
+msgid "Release: Format But Don't Fail"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:126
+msgid ""
+"Fixed: formatting functions are the best they can be, plus minor fixes all "
+"around."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:133
+msgid "Release: Ready, Set, Go!"
+msgstr "Sürüm: Hazır, Ayarla, Git!"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:135
+msgid ""
+"Some UI design fixes, such as the notebook switcher being on the bottom "
+"instead of in the top."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:142
+msgid "Release: GTK4 and Ready!"
+msgstr "Sürüm: GTK4 ve Hazır!"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:144
+msgid "New UI"
+msgstr "Yeni arayüz"
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:145
+msgid "Using another widget to display note contents"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:146
+msgid "Keyboard shortcuts for formatting"
+msgstr "Biçimlendirme için klavye Kısayolları"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:5
+msgid "Migration Version"
+msgstr "Taşıma Sürümü"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:6
+msgid "The version of migration to use; Do not change."
+msgstr "Kullanılacak taşıma sürümü; Değiştirmeyin."
+
+#: data/io.github.lainsce.Notejot.gschema.xml:10
+msgid "Last Seen View"
+msgstr "Son Görülme Görünümü"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:11
+msgid "The last seen view on the sidebar."
+msgstr "Kenar çubuğunda son görülme görünümü."
+
+#: data/io.github.lainsce.Notejot.gschema.xml:15
+msgid "Last View Used"
+msgstr "Kullanılan Son Görünüm"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:16
+msgid "The last view used in the UI"
+msgstr "Arayüzde kullanılan son görünüm"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:20
+msgid "Notes Font Size"
+msgstr "Not Yazı Tipi Boyutları"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:21
+msgid "The size of the font used in notes. (Small, Medium, Large)"
+msgstr ""
+"Notlarda kullanılan yazı tipinin boyutu. (Small (Küçük), Medium (Orta), "
+"Large (Büyük))"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:25
+msgid "Saves whether the window is maximized or not"
+msgstr "Pencerenin ekranı kapsayıp kapsamadığı durumunu kaydeder"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:26
+msgid ""
+"Whether the window is maximized. Used to open window with user's preferred "
+"settings"
+msgstr ""
+"Pencerenin büyütülmüş olup olmadığı. Kullanıcının tercih ettiği ayarlarla "
+"pencere açmak için kullanılır"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:30
+msgid "Saves window last-used width"
+msgstr "Pencerenin son kullanılan genişliğini kaydeder"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:31
+msgid "The user's last used window width before closing the app"
+msgstr ""
+"Uygulamayı kapatmadan önce kullanıcının son kullandığı pencere genişliği"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:35
+msgid "Saves window last-used height"
+msgstr "Pencerenin son kullanılan yüksekliğini kaydeder"
+
+#: data/io.github.lainsce.Notejot.gschema.xml:36
+msgid "The user's last used window height before closing the app"
+msgstr ""
+"Uygulamayı kapatmadan önce kullanıcının son kullandığı pencere yüksekliği"
+
+#: data/ui/edit_notebooks.ui:6 data/ui/edit_notebooks.ui:36
+#: data/ui/task_dialog.ui:6
+msgid "Edit Notebooks"
+msgstr "Not Defterlerini Düzenle"
+
+#: data/ui/edit_notebooks.ui:86
+msgid "New Notebook…"
+msgstr "Yeni Not Defteri…"
+
+#: data/ui/edit_notebooks.ui:96
+msgid "Add"
+msgstr "Ekle"
+
+#: data/ui/main_window.ui:52
+msgid "Text size"
+msgstr "Metin boyutu"
+
+#: data/ui/main_window.ui:58
+msgid "About Notejot"
+msgstr "Notejot Hakkında"
+
+#: data/ui/main_window.ui:100
+msgid "Manage notebooks"
+msgstr "Not defterlerini yönet"
+
+#: data/ui/main_window.ui:170
+msgid "Search notes"
+msgstr "Notları ara"
+
+#: data/ui/main_window.ui:202
+msgid "Notes"
+msgstr "Notlar"
+
+#: data/ui/main_window.ui:206
+msgid "Add Note"
+msgstr "Not Ekle"
+
+#: data/ui/main_window.ui:242
+msgid "Tasks"
+msgstr "Görevler"
+
+#: data/ui/main_window.ui:246 data/ui/task_dialog.ui:79
+msgid "Add Task"
+msgstr "Görev Ekle"
+
+#: data/ui/main_window.ui:280
+msgid "Trash"
+msgstr "Çöp"
+
+#: data/ui/main_window.ui:284
+msgid "Clear Trash"
+msgstr "Çöpü Temizle"
+
+#: data/ui/move_to_dialog.ui:38
+msgid "Move to a Notebook"
+msgstr "Not Defterine Taşı"
+
+#: data/ui/move_to_dialog.ui:70
+msgid "Detach Note From Notebook"
+msgstr "Notu, Not Defterinden Ayır"
+
+#: data/ui/move_to_dialog.ui:71
+msgid "Removes this Note from its Notebook."
+msgstr "Bu notu, not defterinden kaldırır."
+
+#: data/ui/move_to_dialog.ui:82
+msgid "Move Note To Notebook"
+msgstr "Notu, Not Defterine Taşı"
+
+#: data/ui/move_to_dialog.ui:83
+msgid "Moves this Note to a Notebook."
+msgstr "Bu notu bir not defterine taşır."
+
+#: data/ui/notecontentview.ui:38
+msgid "No Selected Notes"
+msgstr "Seçilmiş Not Yok"
+
+#: data/ui/notecontentview.ui:39
+msgid "Add a note with the + button."
+msgstr "+ düğmesi ile not ekleyin."
+
+#: data/ui/notecontentview.ui:72
+msgid "Note Name"
+msgstr "Not Adı"
+
+#: data/ui/notecontentview.ui:90
+msgid "Trashes the note"
+msgstr "Notu, çöp kutusuna taşır"
+
+#: data/ui/notecontentview.ui:96
+msgid "Sets the notebook of the note"
+msgstr "Notun, not defterini ayarlar"
+
+#: data/ui/notecontentview.ui:179
+msgid "Makes selected text emboldened"
+msgstr "Seçili metni kalın yapar"
+
+#: data/ui/notecontentview.ui:187
+msgid "Makes selected text italicized"
+msgstr "Seçili metni eğik yapar"
+
+#: data/ui/notecontentview.ui:195
+msgid "Makes selected text underlined"
+msgstr "Seçili metnin altını çizer"
+
+#: data/ui/notecontentview.ui:203
+msgid "Makes selected text striked through"
+msgstr "Seçili metnin üstünü çizer"
+
+#: data/ui/notecontentview.ui:211
+msgid "Makes selected text into an unordered list"
+msgstr "Seçili metni sırasız liste yapar"
+
+#: data/ui/notecontentview.ui:218
+msgid "Adds a header picture to the note"
+msgstr "Nota başlık resmi ekler"
+
+#: data/ui/notecontentview.ui:225
+msgid "Removes the header picture"
+msgstr "Başlık resmini kaldırır"
+
+#: data/ui/notecontentview.ui:234
+msgid "Removes formatting from selected text"
+msgstr "Seçili metinden biçimlendirmeyi kaldırır"
+
+#: data/ui/note_theme.ui:14
+msgid "Pin/Unpin Note"
+msgstr "Notu Sabitle/Sabitlemeyi Kaldır"
+
+#: data/ui/note_theme.ui:30 data/ui/taskrowcontent.ui:94
+msgid "Red"
+msgstr "Kırmızı"
+
+#: data/ui/note_theme.ui:43 data/ui/taskrowcontent.ui:107
+msgid "Orange"
+msgstr "Turuncu"
+
+#: data/ui/note_theme.ui:57 data/ui/taskrowcontent.ui:121
+msgid "Yellow"
+msgstr "Sarı"
+
+#: data/ui/note_theme.ui:71 data/ui/taskrowcontent.ui:135
+msgid "Blue"
+msgstr "Mavi"
+
+#: data/ui/note_theme.ui:85 data/ui/taskrowcontent.ui:149
+msgid "Purple"
+msgstr "Mor"
+
+#: data/ui/note_theme.ui:99 data/ui/taskrowcontent.ui:163
+msgid "Brown"
+msgstr "Kahverengi"
+
+#: data/ui/note_theme.ui:113 data/ui/taskrowcontent.ui:177
+msgid "Green"
+msgstr "Yeşil"
+
+#: data/ui/note_theme.ui:127 data/ui/taskrowcontent.ui:191
+msgid "No Color"
+msgstr "Renksiz"
+
+#: data/ui/note_theme.ui:149
+msgid "Export Note…"
+msgstr "Notu Dışa Aktar…"
+
+#: data/ui/task_dialog.ui:36 src/ViewModels/TaskViewModel.vala:37
+msgid "New Task"
+msgstr "Yeni Görev"
+
+#: data/ui/task_dialog.ui:54
+msgid "Task Name"
+msgstr "Görev Adı"
+
+#: data/ui/task_dialog.ui:60
+msgid "Task Details"
+msgstr "Görev Ayrıntıları"
+
+#: data/ui/task_dialog.ui:71
+msgid "Cancel"
+msgstr "İptal"
+
+#: data/ui/taskrowcontent.ui:71
+msgid "Delete the task"
+msgstr "Görevi sil"
+
+#: data/ui/taskrowcontent.ui:72
+msgid "Delete Task"
+msgstr "Görevi Sil"
+
+#: data/ui/trashcontentview.ui:32 src/Views/TrashContentView.vala:164
+msgid "Trash is Empty"
+msgstr "Çöp Boş"
+
+#: data/ui/trashcontentview.ui:33
+msgid "Find notes here that were trashed to restore them."
+msgstr "Geri yüklemek için çöpe atılan notları burada bulun."
+
+#: data/ui/trashcontentview.ui:67
+msgid "Edit note name"
+msgstr "Not adını düzenle"
+
+#: data/ui/trashcontentview.ui:77
+msgid "Restore Note"
+msgstr "Notu Geri Yükle"
+
+#. TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
+#: src/MainWindow.vala:270
+msgid "translator_credits"
+msgstr "Sabri Ünal <libreajans@gmail.com>"
+
+#: src/Utils/MiscUtils.vala:33
+msgid "Markdown files"
+msgstr "Markdown dosyaları"
+
+#: src/Utils/MiscUtils.vala:37 src/Utils/MiscUtils.vala:61
+msgid "All files"
+msgstr "Tüm dosyalar"
+
+#: src/Utils/MiscUtils.vala:54
+msgid "Image files"
+msgstr "Görüntü dosyaları"
+
+# https://docs.gtk.org/glib/method.DateTime.format.html
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
+#: src/Utils/TimeUtils.vala:34
+msgid "%a, %b %e, %Y"
+msgstr "%a, %b %e, %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date and year
+#: src/Utils/TimeUtils.vala:37
+msgid "%b %e %Y"
+msgstr "%b %e %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the year
+#: src/Utils/TimeUtils.vala:40
+msgid "%Y"
+msgstr "%Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the date
+#: src/Utils/TimeUtils.vala:43
+msgid "%b %e"
+msgstr "%b %e"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and year.
+#: src/Utils/TimeUtils.vala:46
+msgid "%a %Y"
+msgstr "%a %Y"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday
+#: src/Utils/TimeUtils.vala:49
+#, c-format
+msgid "%a"
+msgstr "%a"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
+#: src/Utils/TimeUtils.vala:52
+msgid "%a, %b %e"
+msgstr "%a, %b %e"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the month.
+#: src/Utils/TimeUtils.vala:55
+msgid "%b"
+msgstr "%b"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
+#: src/Utils/TimeUtils.vala:65
+msgid "%-l:%M:%S %p"
+msgstr "%-l:%M:%S %p"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
+#: src/Utils/TimeUtils.vala:68
+msgid "%-l:%M %p"
+msgstr "%-l:%M %p"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
+#: src/Utils/TimeUtils.vala:73
+msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#. / TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
+#: src/Utils/TimeUtils.vala:76
+msgid "%H:%M"
+msgstr "%H:%M"
+
+#: src/Utils/TimeUtils.vala:98
+msgid "Now"
+msgstr "Şimdi"
+
+#: src/Utils/TimeUtils.vala:101
+#, c-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "%d dakika önce"
+
+#: src/Utils/TimeUtils.vala:104
+#, c-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "%d saat önce"
+
+#: src/Utils/TimeUtils.vala:110
+#, c-format
+msgid "in %d minute"
+msgid_plural "in %d minutes"
+msgstr[0] "%d dakika içinde"
+
+#: src/Utils/TimeUtils.vala:113
+#, c-format
+msgid "in %d hour"
+msgid_plural "in %d hours"
+msgstr[0] "%d saat içinde"
+
+#: src/Utils/TimeUtils.vala:119
+msgid "Yesterday"
+msgstr "Dün"
+
+#: src/Utils/TimeUtils.vala:121
+msgid "Tomorrow"
+msgstr "Yarın"
+
+#: src/ViewModels/NoteViewModel.vala:37
+msgid "New Note"
+msgstr "Yeni Not"
+
+#: src/ViewModels/NoteViewModel.vala:39
+msgid "Type text here…"
+msgstr "Metni buraya yazınız…"
+
+#: src/ViewModels/NoteViewModel.vala:40 src/Widgets/MoveToDialog.vala:54
+#: src/Widgets/MoveToDialog.vala:70
+msgid "No Notebook"
+msgstr "Not Defteri Yok"
+
+#: src/ViewModels/TaskViewModel.vala:39
+msgid "Task text here"
+msgstr "Görev metni buraya"
+
+#: src/ViewModels/TrashViewModel.vala:82
+msgid "Clear Trash?"
+msgstr "Çöp Temizlensin Mi?"
+
+#: src/ViewModels/TrashViewModel.vala:82
+msgid "Empties the Trash"
+msgstr "Çöpü boşaltır"
+
+#: src/ViewModels/TrashViewModel.vala:82
+msgid ""
+"Clearing means the items in Trash will be permanently lost with no recovery."
+msgstr ""
+"Temizleme, Çöp Kutusundaki ögelerin kurtarılmadan kalıcı olarak kaybolacağı "
+"anlamına gelir."
+
+#: src/Views/NoteContentView.vala:484
+msgid "bold text"
+msgstr "kalın metin"
+
+#: src/Views/NoteContentView.vala:492
+msgid "italic text"
+msgstr "eğik metin"
+
+#: src/Views/NoteContentView.vala:500
+msgid "underline text"
+msgstr "altı çizili metin"
+
+#: src/Views/NoteContentView.vala:508
+msgid "strikethrough text"
+msgstr "üstü çizili metin"
+
+#: src/Views/NoteContentView.vala:516 src/Views/NoteContentView.vala:656
+#: src/Views/TrashContentView.vala:333
+msgid "Item"
+msgstr "Öge"
+
+#: src/Views/TrashContentView.vala:160
+#, c-format
+msgid "Trash has %s Item"
+msgstr "%s Öge Çöpte"
+
+#: src/Views/TrashContentView.vala:162
+#, c-format
+msgid "Trash has %s Items"
+msgstr "%s Öge Çöpte"
