@@ -74,10 +74,12 @@ public class Notejot.NoteRowContent : He.Bin {
             pix_binding = _note?.bind_property (
                 "picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
 
-            if (_note.picture != "") {
-                image.visible = true;
-            } else {
-                image.visible = false;
+            if (_note != null) {
+                if (_note.picture != "") {
+                    image.visible = true;
+                } else {
+                    image.visible = false;
+                }
             }
         }
     }
