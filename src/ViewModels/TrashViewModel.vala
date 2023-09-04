@@ -40,24 +40,11 @@ public class Notejot.TrashViewModel : Object {
             picture = note.picture,
             pinned = note.pinned
         };
-
-        trashs.add (trash);
-    }
-    
-    public void create_new_trash_task (Task task) {
-        var trash = new Trash () {
-            title = task.title,
-            subtitle = task.subtitle,
-            text = task.text,
-            color = task.color
-        };
-
         trashs.add (trash);
     }
 
     public void update_trash (Trash trash) {
         repository.update_trash (trash);
-
         save_trashs ();
     }
 
@@ -66,13 +53,11 @@ public class Notejot.TrashViewModel : Object {
         var style_manager = new StyleManager ();
         style_manager.set_css ();
         repository.update_trash (trash);
-
         save_trashs ();
     }
 
     public void delete_one_trash (Trash trash) {
         trashs.remove (trash);
-
         repository.delete_trash (trash.id);
         save_trashs ();
     }
@@ -80,12 +65,10 @@ public class Notejot.TrashViewModel : Object {
     public async void delete_trash (MainWindow win) {
         var p_button = new He.FillButton ("Clear");
         var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trash"), _("Clearing means the items in Trash will be permanently lost with no recovery."), "dialog-warning-symbolic", p_button, null);
-
         p_button.clicked.connect (() => {
             depopulate_trashs.begin ();
             dialog.close ();
         });
-
         if (dialog != null) {
             dialog.present ();
             return;
@@ -101,12 +84,10 @@ public class Notejot.TrashViewModel : Object {
 
     async void depopulate_trashs () {
         trashs.remove_all ();
-
         var rtrashs = yield repository.get_trashs ();
         foreach (var t in rtrashs) {
             repository.delete_trash (t.id);
         }
-
         save_trashs ();
     }
 
@@ -116,9 +97,7 @@ public class Notejot.TrashViewModel : Object {
 
         timeout_id = Timeout.add (500, () => {
             timeout_id = 0;
-
             repository.save.begin ();
-
             return Source.REMOVE;
         });
     }

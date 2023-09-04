@@ -76,31 +76,23 @@
             <child>
               <object class="BisAlbumPage">
                 <property name="child">
-                  <object class="HeSideBar" id="sbox">
-                    <style>
-                      <class name="sidebar-view"/>
-                    </style>
-                    <property name="titlewidget">
-                      <object class="HeViewChooser" id="viewchooser">
-                        <property name="stack">sgrid</property>
-                      </object>
-                    </property>
-                    <property name="subtitle"> </property>
+                  <object class="HeSideBar" id="mbox">
                     <property name="has-margins">0</property>
                     <property name="show-back">0</property>
                     <property name="show-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
-                    <child type="titlebar-button">
-                      <object class="GtkToggleButton" id="search_button">
-                        <property name="icon-name">system-search-symbolic</property>
+                    <style>
+                      <class name="sidebar2-view"/>
+                    </style>
+                    <property name="titlewidget">
+                      <object class="GtkLabel">
+                        <property name="margin-end">12</property>
+                        <property name="halign">start</property>
+                        <property name="label">Notejot</property>
+                        <style>
+                          <class name="heading"/>
+                        </style>
                       </object>
-                    </child>
-                    <child type="titlebar-button">
-                      <object class="GtkButton" id="en_button">
-                        <property name="action-name">win.action_edit_notebooks</property>
-                        <property name="tooltip-text" translatable="yes">Manage notebooks</property>
-                        <property name="icon-name">notebook-config-symbolic</property>
-                      </object>
-                    </child>
+                    </property>
                     <child type="titlebar-button">
                       <object class="GtkMenuButton" id="menu_button">
                         <property name="icon-name">open-menu-symbolic</property>
@@ -160,6 +152,82 @@
                       </object>
                     </child>
                     <child>
+                      <object class="NotejotNavigationSection" id="viewchooser">
+                        <property name="stack">sgrid</property>
+                        <property name="valign">start</property>
+                        <property name="vexpand">0</property>
+                        <property name="vexpand-set">1</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="margin-top">12</property>
+                        <property name="margin-start">18</property>
+                        <property name="margin-bottom">6</property>
+                        <property name="halign">start</property>
+                        <property name="label">Notebooks</property>
+                        <style>
+                          <class name="heading"/>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="NotejotNotebookMainListView" id="nblistview">
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">18</property>
+                        <binding name="notebooks">
+                          <lookup name="notebooks" type="NotejotNotebookViewModel">
+                            <lookup name="nbview-model">NotejotMainWindow</lookup>
+                          </lookup>
+                        </binding>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HeTextButton" id="en_button">
+                        <property name="margin-start">18</property>
+                        <property name="margin-end">18</property>
+                        <property name="margin-bottom">18</property>
+                        <property name="action-name">win.action_edit_notebooks</property>
+                        <property name="tooltip-text" translatable="yes">Manage notebooks</property>
+                        <child>
+                          <object class="HeButtonContent">
+                            <property name="icon">notebook-config-symbolic</property>
+                            <property name="label" translatable="yes">Edit Notebooks…</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </child>        
+            <child>
+              <object class="BisAlbumPage">
+                <property name="child">
+                  <object class="HeSideBar" id="sbox">
+                    <style>
+                      <class name="sidebar-view"/>
+                    </style>
+                    <property name="titlewidget">
+                      <object class="GtkLabel" id="sbox-title">
+                        <property name="margin-end">12</property>
+                        <property name="halign">start</property>
+                        <property name="label" bind-source="sgrid" bind-property="visible-child-name" bind-flags="sync-create"/>
+                        <style>
+                          <class name="view-title"/>
+                        </style>
+                      </object>
+                    </property>
+                    <property name="has-margins">0</property>
+                    <property name="show-back">0</property>
+                    <property name="show-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
+                    <child type="titlebar-button">
+                      <object class="GtkToggleButton" id="search_button">
+                        <property name="icon-name">system-search-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkRevealer" id="search_revealer">
                         <property name="reveal-child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
                         <child>
@@ -177,17 +245,6 @@
                                 </style>
                               </object>
                             </child>
-                            <child>
-                              <object class="NotejotNotebookMainListView" id="nblistview">
-                                <property name="margin-start">18</property>
-                                <property name="margin-end">18</property>
-                                <binding name="notebooks">
-                                  <lookup name="notebooks" type="NotejotNotebookViewModel">
-                                    <lookup name="nbview-model">NotejotMainWindow</lookup>
-                                  </lookup>
-                                </binding>
-                              </object>
-                            </child>
                           </object>
                         </child>
                       </object>
@@ -198,9 +255,9 @@
                         <property name="hexpand">1</property>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">notelist</property>
-                            <property name="title" translatable="yes">Notes</property>
-                            <property name="icon-name">view-list-symbolic</property>
+                            <property name="name">All Notes</property>
+                            <property name="title">All Notes</property>
+                            <property name="icon-name">text-x-generic-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="list_scroller">
                                 <property name="tooltip-text" translatable="yes">Add Note</property>
@@ -238,46 +295,8 @@
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">tasklist</property>
-                            <property name="title" translatable="yes">Tasks</property>
-                            <property name="icon-name">month-symbolic</property>
-                            <property name="child">
-                              <object class="HeOverlayButton" id="tslist_scroller">
-                                <property name="tooltip-text" translatable="yes">Add Task</property>
-                                <property name="icon">list-add-symbolic</property>
-                                <property name="typeb">primary</property>
-                                <signal name="clicked" handler="on_new_task_requested"/>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkScrolledWindow" id="tsscroller">
-                                        <property name="hscrollbar-policy">never</property>
-                                        <child>
-                                          <object class="NotejotTaskListView" id="tslistview">
-                                            <binding name="tasks">
-                                              <lookup name="tasks" type="NotejotTaskViewModel">
-                                                <lookup name="tsview-model">NotejotMainWindow</lookup>
-                                              </lookup>
-                                            </binding>
-                                            <binding name="tsview-model">
-                                              <lookup name="tsview-model">NotejotMainWindow</lookup>
-                                            </binding>
-                                            <property name="album">albumt</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkStackPage">
-                            <property name="name">trashlist</property>
-                            <property name="title" translatable="yes">Trash</property>
+                            <property name="name">Trash</property>
+                            <property name="title">Trash</property>
                             <property name="icon-name">user-trash-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="tlist_scroller">

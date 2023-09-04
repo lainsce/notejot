@@ -62,10 +62,7 @@ public class Notejot.Application : He.Application {
         var trepo = new TrashRepository ();
         var tview_model = new TrashViewModel (trepo);
 
-        var tsrepo = new TaskRepository ();
-        var tsview_model = new TaskViewModel (tsrepo);
-
-        new MainWindow (this, view_model, tview_model, nbview_model, tsview_model);
+        new MainWindow (this, view_model, tview_model, nbview_model);
     }
     protected override void activate () {
         active_window?.present ();

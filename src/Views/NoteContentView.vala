@@ -105,7 +105,6 @@ public class Notejot.NoteContentView : He.Bin {
             main_box.get_style_context().add_provider(provider, 1);
             note_header.get_style_context().add_provider(provider, 2);
             note_footer.get_style_context().add_provider(provider, 3);
-            note_body.get_style_context().add_provider(provider, 4);
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
@@ -129,6 +128,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #a51d2d;");
                     vm.update_note_color (_note, "#a51d2d");
+                    vm.update_note (_note);
                 }
             });
 
@@ -136,6 +136,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #c64600;");
                     vm.update_note_color (_note, "#c64600");
+                    vm.update_note (_note);
                 }
             });
 
@@ -143,6 +144,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #e5a50a;");
                     vm.update_note_color (_note, "#e5a50a");
+                    vm.update_note (_note);
                 }
             });
 
@@ -150,6 +152,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #26a269;");
                     vm.update_note_color (_note, "#26a269");
+                    vm.update_note (_note);
                 }
             });
 
@@ -157,6 +160,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #1a5fb4;");
                     vm.update_note_color (_note, "#1a5fb4");
+                    vm.update_note (_note);
                 }
             });
 
@@ -164,6 +168,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #613583;");
                     vm.update_note_color (_note, "#613583");
+                    vm.update_note (_note);
                 }
             });
 
@@ -171,6 +176,7 @@ public class Notejot.NoteContentView : He.Bin {
                 if (_note != null) {
                     provider.load_from_data ((uint8[]) "@define-color note_color #63452c;");
                     vm.update_note_color (_note, "#63452c");
+                    vm.update_note (_note);
                 }
             });
 
@@ -190,8 +196,9 @@ public class Notejot.NoteContentView : He.Bin {
 
             nmp.color_button_reset.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #797775;");
-                    vm.update_note_color (_note, "#797775");
+                    provider.load_from_data ((uint8[]) "@define-color note_color #ffffff00;");
+                    vm.update_note_color (_note, "#ffffff00");
+                    vm.update_note (_note);
                 }
             });
 
@@ -277,7 +284,6 @@ public class Notejot.NoteContentView : He.Bin {
                     note_header.add_css_class ("notejot-header");
                 }
 
-                note_textbox.add_css_class ("text-view");
                 note_textbox.add_css_class ("notejot-textview");
             }
         }
@@ -294,7 +300,6 @@ public class Notejot.NoteContentView : He.Bin {
         main_box.get_style_context().add_provider(provider, 1);
         note_header.get_style_context().add_provider(provider, 2);
         note_footer.get_style_context().add_provider(provider, 3);
-        note_body.get_style_context().add_provider(provider, 4);
         note_textbox.remove_css_class ("view");
         empty.action_button.visible = false;
 

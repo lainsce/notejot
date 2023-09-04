@@ -32,20 +32,16 @@ public class Notejot.NotebookViewModel : Object {
 
     public void create_new_notebook (Notebook notebook) {
         notebooks.add (notebook);
-
-        repository.insert_notebook (notebook);
         save_notebooks ();
     }
 
     public void update_notebook (Notebook notebook, string nb) {
         repository.update_notebook.begin (notebook, nb);
-
         save_notebooks ();
     }
 
     public void delete_notebook (Notebook notebook) {
         notebooks.remove (notebook);
-
         repository.delete_notebook (notebook.id);
         save_notebooks ();
     }
@@ -61,9 +57,7 @@ public class Notejot.NotebookViewModel : Object {
 
         timeout_id = Timeout.add (500, () => {
             timeout_id = 0;
-
             repository.save.begin ();
-
             return Source.REMOVE;
         });
     }

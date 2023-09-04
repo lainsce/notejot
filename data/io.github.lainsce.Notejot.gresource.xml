@@ -13,6 +13,8 @@
       <file alias="noterowcontent.ui">ui/noterowcontent.ui</file>
       <file alias="notebooklistview.ui">ui/notebooklistview.ui</file>
       <file alias="notebookrow.ui">ui/notebookrow.ui</file>
+      <file alias="notebookmainrow.ui">ui/notebookmainrow.ui</file>
+      <file alias="notebookmainrowcontent.ui">ui/notebookmainrowcontent.ui</file>
       <file alias="notebookrowcontent.ui">ui/notebookrowcontent.ui</file>
       <file alias="notebookmainlistview.ui">ui/notebookmainlistview.ui</file>
       <file alias="notebookmovelistview.ui">ui/notebookmovelistview.ui</file>
@@ -21,10 +23,6 @@
       <file alias="trashlistview.ui">ui/trashlistview.ui</file>
       <file alias="trashrow.ui">ui/trashrow.ui</file>
       <file alias="trashrowcontent.ui">ui/trashrowcontent.ui</file>
-      <file alias="tasklistview.ui">ui/tasklistview.ui</file>
-      <file alias="taskrow.ui">ui/taskrow.ui</file>
-      <file alias="taskrowcontent.ui">ui/taskrowcontent.ui</file>
-      <file alias="task_dialog.ui">ui/task_dialog.ui</file>
     </gresource>
     <gresource prefix="/io/github/lainsce/Notejot/icons">
       <file alias="scalable/actions/notebook-add-symbolic.svg">icons/hicolor/scalable/actions/notebook-add-symbolic.svg</file>
@@ -42,5 +40,7 @@
       <file alias="scalable/actions/image-round-symbolic.svg">icons/hicolor/scalable/actions/image-round-symbolic.svg</file>
       <file alias="scalable/actions/view-pin-symbolic.svg">icons/hicolor/scalable/actions/view-pin-symbolic.svg</file>
       <file alias="scalable/actions/document-send-symbolic.svg">icons/hicolor/scalable/actions/document-send-symbolic.svg</file>
+      <file alias="scalable/actions/text-x-generic-filled-symbolic.svg">icons/hicolor/scalable/actions/text-x-generic-filled-symbolic.svg</file>
+      <file alias="scalable/actions/user-trash-filled-symbolic.svg">icons/hicolor/scalable/actions/user-trash-filled-symbolic.svg</file>
     </gresource>
 </gresources>

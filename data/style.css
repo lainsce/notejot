@@ -28,10 +28,22 @@
   background: none;
 }
 
-.notejot-note headerbar,
-.notejot-note entry {
-  box-shadow: none;
-  border: none;
+.notejot-note headerbar {
+  background: none;
+}
+.notejot-note .text-field {
+  background: alpha(@window_fg_color, 0.08);
+}
+.notejot-note .disclosure-button {
+  background: alpha(@window_fg_color, 0.08);
+}
+.notejot-note .disclosure-button:hover {
+  background: alpha(@window_fg_color, 0.14);
+}
+.notejot-note .disclosure-button:active {
+  background: alpha(@window_fg_color, 0.15);
+}
+.notejot-note .disclosure-button .toggle {
   background: none;
 }
 
@@ -137,6 +149,93 @@
   font-size: 0.9rem;
 }
 
+.sidebar2-view {
+  background: @surface_high_bg_color;
+  box-shadow: inset -1px 0 0 0 alpha(@outline, 0.38),
+	            inset -1px 0 0 0 alpha(@window_bg_color, 0.15);
+}
+.sidebar2-view .disclosure-button {
+  background: alpha(@window_fg_color, 0.08);
+}
+.sidebar2-view .disclosure-button:hover {
+  background: alpha(@window_fg_color, 0.14);
+}
+.sidebar2-view .disclosure-button:active {
+  background: alpha(@window_fg_color, 0.15);
+}
+.sidebar2-view .disclosure-button > .toggle {
+  background: none;
+}
+.sidebar2-view .navigation-rail-button:hover {
+  box-shadow: none;
+  background: alpha(@window_fg_color, 0.08);
+}
+.sidebar2-view .navigation-rail-button:checked {
+  box-shadow: none;
+  background: alpha(@window_fg_color, 0.08);
+}
+.sidebar2-view .navigation-rail-button:hover:checked {
+  box-shadow: none;
+  background: alpha(@window_fg_color, 0.08);
+}
+
 button.flat:not(:hover):not(:active) {
   background: none;
+  border-radius: 9px;
+}
+
+// NavigationSection, upstream when done
+.navigation-section {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+.navigation-section-button {
+  background: none;
+  margin: 3px 18px 3px 18px;
+  min-height: 33px;
+}
+
+.navigation-section-button:disabled {
+  background: alpha(@view_fg_color, 0.12);
+  color: alpha(@view_fg_color, 0.38);
+  box-shadow: none;
+}
+
+.navigation-section-button:hover {
+  background: @surface_high_bg_color;
+}
+.navigation-section-button:checked {
+  background: @surface_highest_bg_color;
+}
+.navigation-section-button:hover:checked {
+  background: @surface_highest_bg_color;
+}
+
+.navigation-section-button image {
+  margin: 0 0 0 8px;
+  padding: 0;
+  color: @view_fg_color;
+  min-height: 22px;
+}
+.navigation-section-button label {
+  margin: 0;
+  padding: 0;
+  color: @view_fg_color;
+  font-weight: 400;
+}
+.navigation-section-button:checked label {
+  font-weight: 600;
+}
+.navigation-section-button:hover image {
+  color: @view_fg_color;
+  box-shadow: none;
+}
+.navigation-section-button:checked image {
+  color: @view_fg_color;
+  box-shadow: none;
+}
+.navigation-section-button:hover:checked image {
+  color: @view_fg_color;
+  box-shadow: none;
 }

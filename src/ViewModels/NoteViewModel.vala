@@ -31,26 +31,23 @@ public class Notejot.NoteViewModel : Object {
     }
 
     public void create_new_note (Note? note) {
-        var dt = new GLib.DateTime.now_local ();
-
-        var n = new Note () {
-            title = _("New Note"),
-            subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
-            text = _("Type text here…"),
-            notebook = _("No Notebook"),
-            color = "#797775",
-            picture = "",
-            pinned = false
-        };
-
         if (note == null) {
+            var dt = new GLib.DateTime.now_local ();
+            var n = new Note () {
+                title = _("New Note"),
+                subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
+                text = _("Type text here…"),
+                notebook = _("No Notebook"),
+                color = "#ffffff00",
+                picture = "",
+                pinned = false
+            };
             notes.add (n);
-            repository.insert_note (n);
+            save_notes ();
         } else {
             notes.add (note);
-            repository.insert_note (note);
+            save_notes ();
         }
-        save_notes ();
     }
 
     public void restore_trash (Trash trash) {
@@ -63,16 +60,12 @@ public class Notejot.NoteViewModel : Object {
             picture = trash.picture,
             pinned = trash.pinned,
         };
-
         notes.add (note);
-
-        repository.insert_note (note);
         save_notes ();
     }
 
     public void update_note (Note note) {
         repository.update_note (note);
-
         save_notes ();
     }
 
@@ -81,19 +74,16 @@ public class Notejot.NoteViewModel : Object {
         var style_manager = new StyleManager ();
         style_manager.set_css ();
         repository.update_note (note);
-
         save_notes ();
     }
 
     public void update_notebook (Note note, string nb) {
         repository.update_notebook.begin (note, nb);
-
         save_notes ();
     }
 
     public void delete_note (Note note) {
         notes.remove (note);
-
         repository.delete_note (note.id);
         save_notes ();
     }
@@ -107,12 +97,9 @@ public class Notejot.NoteViewModel : Object {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
         }
-
         timeout_id = Timeout.add (500, () => {
             timeout_id = 0;
-
             repository.save.begin ();
-
             return Source.REMOVE;
         });
     }

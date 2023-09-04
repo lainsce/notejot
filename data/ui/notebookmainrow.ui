@@ -2,8 +2,8 @@
 <interface>
 <template class="GtkListItem">
   <property name="child">
-    <object class="NotejotTaskRowContent">
-      <binding name="task">
+    <object class="NotejotNotebookMainRowContent">
+      <binding name="notebook">
         <lookup name="item">GtkListItem</lookup>
       </binding>
     </object>

@@ -45,7 +45,7 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Sorter sorter;
         [GtkChild]
-        public unowned He.ViewChooser viewchooser;
+        public unowned Notejot.NavigationSection viewchooser;
 
         // Custom
         public MainWindow? mw {get; set;}
@@ -65,7 +65,6 @@ namespace Notejot {
         public NoteViewModel view_model { get; construct; }
         public NotebookViewModel nbview_model { get; construct; }
         public TrashViewModel tview_model { get; construct; }
-        public TaskViewModel tsview_model { get; construct; }
 
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -79,14 +78,13 @@ namespace Notejot {
         };
 
         public He.Application app { get; construct; }
-        public MainWindow (He.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model, TaskViewModel tsview_model) {
+        public MainWindow (He.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model) {
             GLib.Object (
                 application: application,
                 app: application,
                 view_model: view_model,
                 tview_model: tview_model,
                 nbview_model: nbview_model,
-                tsview_model: tsview_model,
                 icon_name: Config.APP_ID,
                 title: "Notejot"
             );
@@ -110,6 +108,8 @@ namespace Notejot {
             var theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
             theme.add_resource_path ("/io/github/lainsce/Notejot/");
 
+            viewchooser.remove_css_class ("sidebar-view");
+
             // Preparing window to be shown
             var settings = new Settings ();
             set_default_size (
@@ -123,19 +123,15 @@ namespace Notejot {
             app.add_action(action_fontsize);
 
             if (settings.sort_mode == 0) {
-                sgrid.visible_child_name = "notelist";
+                sgrid.visible_child_name = "All Notes";
             } else if (settings.sort_mode == 1) {
-                sgrid.visible_child_name = "tasklist";
-            } else if (settings.sort_mode == 2) {
-                sgrid.visible_child_name = "trashlist";
+                sgrid.visible_child_name = "Trash";
             }
             sgrid.notify["visible-child-name"].connect (() => {
-                if (sgrid.visible_child_name == "notelist") {
+                if (sgrid.visible_child_name == "All Notes") {
                     settings.sort_mode = 0;
-                } else if (sgrid.visible_child_name == "tasklist") {
+                } else if (sgrid.visible_child_name == "Trash") {
                     settings.sort_mode = 1;
-                } else if (sgrid.visible_child_name == "trashlist") {
-                    settings.sort_mode = 2;
                 }
             });
 
@@ -193,17 +189,6 @@ namespace Notejot {
         }
 
         [GtkCallback]
-        void on_new_task_requested () {
-            var task_dialog = new Widgets.TaskDialog (this, tsview_model);
-            task_dialog.present ();
-        }
-
-        public void task_removal_requested (Task task) {
-            tview_model.create_new_trash_task (task);
-            tsview_model.delete_task (task);
-        }
-
-        [GtkCallback]
         void on_clear_trash_requested () {
             tview_model.delete_trash.begin (this);
         }
@@ -215,13 +200,8 @@ namespace Notejot {
 
         [GtkCallback]
         public void on_trash_restore_requested (Trash trash) {
-            if (trash.notebook != null) { // Dumb, but works
-                tview_model.delete_one_trash (trash);
-                view_model.restore_trash (trash);
-            } else {
-                tview_model.delete_one_trash (trash);
-                tsview_model.restore_trash (trash);
-            }
+            tview_model.delete_one_trash (trash);
+            view_model.restore_trash (trash);
         }
 
         public void make_note (string id, string title, string subtitle, string text, string color, string notebook, string pinned) {

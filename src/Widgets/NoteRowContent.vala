@@ -35,9 +35,16 @@ public class Notejot.NoteRowContent : He.Bin {
                 return;
 
             _color = value;
-            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_color));
-            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
-            row_box.get_style_context().add_provider(provider, 1);
+
+            if (_color == "#ffffff00" || _color == "#797775") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @outline;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
+                row_box.get_style_context().add_provider(provider, 1);
+            } else {
+                provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_color));
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
+                row_box.get_style_context().add_provider(provider, 1);
+            }
         }
     }
 

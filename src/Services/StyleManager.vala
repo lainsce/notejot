@@ -20,7 +20,7 @@ public class Notejot.StyleManager {
         var css_provider=new Gtk.CssProvider ();
         string style = """
             .notejot-sidebar-box {
-                border-right: 5px solid mix(@view_bg_color, @note_color, 0.55);
+                border-right: 5px solid mix(@surface_bg_color, @note_color, 0.5);
             }
             .notejot-note, .notejot-body {
                 background: mix(@view_bg_color, @note_color, 0.05);
@@ -29,8 +29,9 @@ public class Notejot.StyleManager {
                 background: mix(@view_bg_color, @note_color, 0.05);
             }
             .notejot-textview {
-                background: image(mix(@view_bg_color, @note_color, 0.08));
-                margin: 6px 18px 12px 18px;
+                background: mix(@surface_bg_color, @note_color, 0.08);
+                margin: 24px 18px 0 18px;
+                border-radius: 12px;
             }
         """;
         css_provider.load_from_data (style.data);
