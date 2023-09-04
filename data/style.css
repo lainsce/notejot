@@ -76,7 +76,7 @@
 }
 .scrim box > label,
 .scrim > label,
-.scrim entry text,
+.scrim text,
 .scrim widget > label {
   color: #fafafa;
   text-shadow: 0 1px 2px #2d2d2d;
@@ -184,7 +184,7 @@ button.flat:not(:hover):not(:active) {
   border-radius: 9px;
 }
 
-// NavigationSection, upstream when done
+/* NavigationSection, upstream when done */
 .navigation-section {
   background: none;
   padding: 0;
@@ -227,15 +227,17 @@ button.flat:not(:hover):not(:active) {
 .navigation-section-button:checked label {
   font-weight: 600;
 }
-.navigation-section-button:hover image {
-  color: @view_fg_color;
+.navigation-section-button:hover image,
+.navigation-section-button:hover label {
+  color: @accent_color;
   box-shadow: none;
 }
 .navigation-section-button:checked image {
   color: @view_fg_color;
   box-shadow: none;
 }
-.navigation-section-button:hover:checked image {
-  color: @view_fg_color;
+.navigation-section-button:hover:checked image,
+.navigation-section-button:hover:checked label {
+  color: @accent_color;
   box-shadow: none;
 }

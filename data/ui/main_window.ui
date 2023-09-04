@@ -260,7 +260,7 @@
                             <property name="icon-name">text-x-generic-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="list_scroller">
-                                <property name="tooltip-text" translatable="yes">Add Note</property>
+                                <property name="primary-tooltip" translatable="yes">Add Note</property>
                                 <property name="icon">list-add-symbolic</property>
                                 <property name="typeb">primary</property>
                                 <signal name="clicked" handler="on_new_note_requested"/>
@@ -300,7 +300,7 @@
                             <property name="icon-name">user-trash-symbolic</property>
                             <property name="child">
                               <object class="HeOverlayButton" id="tlist_scroller">
-                                <property name="tooltip-text" translatable="yes">Clear Trash</property>
+                                <property name="primary-tooltip" translatable="yes">Clear Trash</property>
                                 <property name="icon">user-trash-symbolic</property>
                                 <property name="color">red</property>
                                 <signal name="clicked" handler="on_clear_trash_requested"/>

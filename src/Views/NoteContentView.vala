@@ -214,7 +214,7 @@ public class Notejot.NoteContentView : He.Bin {
                 });
             });
 
-            title_binding = _note?.bind_property ("title", note_title, "text", SYNC_CREATE|BIDIRECTIONAL);
+            title_binding = _note?.bind_property ("title", note_title.get_entry (), "text", SYNC_CREATE|BIDIRECTIONAL);
             subtitle_binding = _note?.bind_property ("subtitle", titlebar, "viewsubtitle-label", SYNC_CREATE|BIDIRECTIONAL);
             text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
             pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE|BIDIRECTIONAL);
@@ -262,8 +262,13 @@ public class Notejot.NoteContentView : He.Bin {
                 }
             });
 
-            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
-            vm.update_note_color (_note, _note.color);
+            if (_note.color == "#ffffff00" || _note.color == "#797775") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @surface_bg_color;");
+                vm.update_note_color (_note, _note.color);
+            } else {
+                provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
+                vm.update_note_color (_note, _note.color);
+            }
 
             note_textbox.grab_focus ();
 
@@ -277,9 +282,11 @@ public class Notejot.NoteContentView : He.Bin {
             if (_note != null) {
                 _note.notify.connect (on_text_updated);
                 if (image.file != "") {
+                    image.file = _note.picture;
                     note_header.add_css_class ("scrim");
                     note_header.remove_css_class ("notejot-header");
                 } else {
+                    image.file = "";
                     note_header.remove_css_class ("scrim");
                     note_header.add_css_class ("notejot-header");
                 }
@@ -334,7 +341,7 @@ public class Notejot.NoteContentView : He.Bin {
         var file = yield MiscUtils.display_open_dialog (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)));
 
         note.picture = file.get_path ();
-        image.file = file.get_path ();
+        image.file = note.picture;
         image_button.visible = false;
         image_remove_button.visible = true;
         note_header.add_css_class ("scrim");

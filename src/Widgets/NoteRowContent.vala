@@ -22,9 +22,13 @@ public class Notejot.NoteRowContent : He.Bin {
     private unowned Gtk.Image pin;
     [GtkChild]
     private unowned Gtk.Box row_box;
+    [GtkChild]
+    unowned Notejot.NotePicture image;
 
     private Binding? pinned_binding;
     private Binding? color_binding;
+    private Binding? pix_binding;
+
     private Gtk.CssProvider provider = new Gtk.CssProvider();
 
     private string? _color;
@@ -57,6 +61,7 @@ public class Notejot.NoteRowContent : He.Bin {
 
             pinned_binding?.unbind ();
             color_binding?.unbind ();
+            pix_binding?.unbind ();
 
             _note = value;
 
@@ -64,6 +69,14 @@ public class Notejot.NoteRowContent : He.Bin {
                 "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
             color_binding = _note?.bind_property (
                 "color", this, "color", SYNC_CREATE|BIDIRECTIONAL);
+            pix_binding = _note?.bind_property (
+                "picture", image, "file", SYNC_CREATE|BIDIRECTIONAL);
+            
+            if (_note.picture != "") {
+                image.visible = true;
+            } else {
+                image.visible = false;
+            }
         }
     }
 

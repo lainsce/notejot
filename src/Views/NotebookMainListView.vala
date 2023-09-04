@@ -19,7 +19,7 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookmainlistview.ui")]
 public class Notejot.NotebookMainListView : He.Bin {
     [GtkChild]
-    public unowned Gtk.NoSelection selection_model;
+    public unowned Gtk.SingleSelection selection_model;
 
     public ObservableList<Notebook>? notebooks { get; set; }
     public NotebookViewModel? nbview_model { get; set; }

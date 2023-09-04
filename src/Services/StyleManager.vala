@@ -30,8 +30,9 @@ public class Notejot.StyleManager {
             }
             .notejot-textview {
                 background: mix(@surface_bg_color, @note_color, 0.08);
-                margin: 24px 18px 0 18px;
+                margin: 18px 18px 1px 18px;
                 border-radius: 12px;
+                box-shadow: 0 0 0 1px alpha(@outline, 0.15);
             }
         """;
         css_provider.load_from_data (style.data);
