@@ -9,15 +9,6 @@
       <style>
         <class name="mini-content-block"/>
       </style>
-      <child type="suffix">
-        <object class="NotejotNotePicture" id="image">
-          <property name="height-request">44</property>
-          <property name="width-request">44</property>
-          <property name="rounded">1</property>
-          <property name="valign">center</property>
-          <property name="halign">center</property>
-        </object>
-      </child>
       <child>
         <object class="GtkBox">
           <property name="orientation">vertical</property>
@@ -65,7 +56,7 @@
       </child>
       <child>
         <object class="GtkImage" id="pin">
-          <property name="valign">center</property>
+          <property name="valign">start</property>
           <property name="halign">end</property>
           <property name="hexpand">1</property>
           <property name="icon-name">view-pin-symbolic</property>
@@ -74,6 +65,13 @@
               <lookup name="note">NotejotNoteRowContent</lookup>
             </lookup>
           </binding>
+        </object>
+      </child>
+      <child type="suffix">
+        <object class="NotejotNotePicture" id="image">
+          <property name="height-request">44</property>
+          <property name="width-request">44</property>
+          <property name="rounded">1</property>
         </object>
       </child>
     </object>

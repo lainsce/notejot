@@ -46,10 +46,6 @@ sealed class Notejot.NotePicture : Gtk.Widget {
     public bool rounded {
         get { return _rounded; }
         set { 
-            if (_rounded == value) {
-                return;
-            }
-
             _rounded = value;
         }
     }
@@ -85,22 +81,20 @@ sealed class Notejot.NotePicture : Gtk.Widget {
             var resize_y = offset;
             var resize_width = width - offset;
             var resize_height = height;
-            if (_rounded) {
-                var rect = Graphene.Rect ();
-                var size = Graphene.Size ();
-                rect.init (resize_x, resize_y, resize_width, resize_height);
-                var rrect = Gsk.RoundedRect ();
-                rrect.init (rect, size.init(12, 12), size.init(12, 12), size.init(12, 12), size.init(12, 12));
-                snapshot.push_rounded_clip (rrect);
-                snapshot.scale (offset, height);
-                snapshot.pop ();
-            } else {
-                var rect = Graphene.Rect.zero ();
-                rect.init (resize_x, resize_y, resize_width, resize_height);
-                snapshot.push_clip (rect);
-                snapshot.scale (offset, height);
-                snapshot.pop ();
-            }
+            this.notify["rounded"].connect (() => {
+                if (rounded) {
+                    Gsk.RoundedRect rrect = {};
+                    rrect.init_from_rect ({{ resize_x, resize_y }, { resize_width, resize_height }}, 12);
+                    snapshot.push_rounded_clip (rrect);
+                    snapshot.pop ();
+                } else {
+                    var rect = Graphene.Rect.zero ();
+                    rect.init (resize_x, resize_y, resize_width, resize_height);
+                    snapshot.push_clip (rect);
+                    snapshot.scale (offset, height);
+                    snapshot.pop ();
+                }
+            });
         } else {
             var new_height = int.parse ("%f".printf (width / ideal_ratio));
             var offset = (height - new_height) / 2;
@@ -108,22 +102,20 @@ sealed class Notejot.NotePicture : Gtk.Widget {
             var resize_y = offset;
             var resize_width = width;
             var resize_height = height - offset;
-            if (_rounded) {
-                var rect = Graphene.Rect ();
-                var size = Graphene.Size ();
-                rect.init (resize_x, resize_y, resize_width, resize_height);
-                var rrect = Gsk.RoundedRect ();
-                rrect.init (rect, size.init(12, 12), size.init(12, 12), size.init(12, 12), size.init(12, 12));
-                snapshot.push_rounded_clip (rrect);
-                snapshot.scale (offset, height);
-                snapshot.pop ();
-            } else {
-                var rect = Graphene.Rect.zero ();
-                rect.init (resize_x, resize_y, resize_width, resize_height);
-                snapshot.push_clip (rect);
-                snapshot.scale (width, offset);
-                snapshot.pop ();
-            }
+            this.notify["rounded"].connect (() => {
+                if (rounded) {
+                    Gsk.RoundedRect rrect = {};
+                    rrect.init_from_rect ({{ resize_x, resize_y }, { resize_width, resize_height }}, 12);
+                    snapshot.push_rounded_clip (rrect);
+                    snapshot.pop ();
+                } else {
+                    var rect = Graphene.Rect.zero ();
+                    rect.init (resize_x, resize_y, resize_width, resize_height);
+                    snapshot.push_clip (rect);
+                    snapshot.scale (offset, height);
+                    snapshot.pop ();
+                }
+            });
         }
         this._texture.snapshot (snapshot, ideal_width, ideal_height);
     }
