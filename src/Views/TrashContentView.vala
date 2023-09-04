@@ -86,8 +86,10 @@ public class Notejot.TrashContentView : He.Bin {
             stack.visible_child = _trash != null ? (Gtk.Widget) trash_view : empty_view;
 
             title_binding = _trash?.bind_property ("title", trash_title, "label", SYNC_CREATE | BIDIRECTIONAL);
-            subtitle_binding = _trash?.bind_property ("subtitle", titlebar, "viewsubtitle-label", SYNC_CREATE|BIDIRECTIONAL);
-            notebook_binding = _trash?.bind_property ("notebook", notebook_subtitle, "label", SYNC_CREATE | BIDIRECTIONAL);
+            subtitle_binding = _trash?.bind_property ("subtitle", titlebar,
+                                                      "viewsubtitle-label", SYNC_CREATE | BIDIRECTIONAL);
+            notebook_binding = _trash?.bind_property ("notebook", notebook_subtitle,
+                                                      "label", SYNC_CREATE | BIDIRECTIONAL);
             text_binding = _trash?.bind_property ("text", trash_text, "text", SYNC_CREATE | BIDIRECTIONAL);
 
             var settings = new Settings ();
@@ -135,9 +137,12 @@ public class Notejot.TrashContentView : He.Bin {
             vm.update_trash_color (_trash, _trash.color);
 
             // TrashView Back Button
-            bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
+            bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>
+                (this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
             titlebar.back_button.clicked.connect (() => {
-                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).album.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).sbox);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).album.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                        (this)).sbox);
             });
         }
     }
@@ -157,9 +162,11 @@ public class Notejot.TrashContentView : He.Bin {
 
         Timeout.add_seconds (1, () => {
             if (vm.trashs.get_n_items () == 1) {
-                trash_status_page.title = (_("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _("Item"));
+                trash_status_page.title = (_("Trash has") + " " +
+                                             vm.trashs.get_n_items ().to_string () + " " + _("Item"));
             } else if (vm.trashs.get_n_items () >= 0) {
-                trash_status_page.title = (_("Trash has") + " " + vm.trashs.get_n_items ().to_string () + " " + _("Items"));
+                trash_status_page.title = (_("Trash has") + " " +
+                                             vm.trashs.get_n_items ().to_string () + " " + _("Items"));
             } else {
                 trash_status_page.title = (_("Trash is Empty"));
             }
@@ -423,10 +430,10 @@ public class Notejot.TrashContentView : He.Bin {
     }
 
     public string get_selected_text (Gtk.TextBuffer buffer) {
-        Gtk.TextIter A;
-        Gtk.TextIter B;
-        if (buffer.get_selection_bounds (out A, out B)) {
-            return buffer.get_text (A, B, true);
+        Gtk.TextIter a;
+        Gtk.TextIter b;
+        if (buffer.get_selection_bounds (out a, out b)) {
+            return buffer.get_text (a, b, true);
         }
 
         return "";

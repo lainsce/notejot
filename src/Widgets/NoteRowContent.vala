@@ -29,7 +29,7 @@ public class Notejot.NoteRowContent : He.Bin {
     private Binding? color_binding;
     private Binding? pix_binding;
 
-    private Gtk.CssProvider provider = new Gtk.CssProvider();
+    private Gtk.CssProvider provider = new Gtk.CssProvider ();
 
     private string? _color;
     public string? color {
@@ -42,12 +42,14 @@ public class Notejot.NoteRowContent : He.Bin {
 
             if (_color == "#ffffff00" || _color == "#797775") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @outline;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
-                row_box.get_style_context().add_provider(provider, 1);
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _color);
+                row_box.get_style_context ().add_provider (provider, 1);
             } else {
-                provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_color));
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).view_model.update_note_color (_note, _color);
-                row_box.get_style_context().add_provider(provider, 1);
+                provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf (_color));
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _color);
+                row_box.get_style_context ().add_provider (provider, 1);
             }
         }
     }
@@ -66,12 +68,12 @@ public class Notejot.NoteRowContent : He.Bin {
             _note = value;
 
             pinned_binding = _note?.bind_property (
-                "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+                "pinned", pin, "visible", SYNC_CREATE | BIDIRECTIONAL);
             color_binding = _note?.bind_property (
-                "color", this, "color", SYNC_CREATE|BIDIRECTIONAL);
+                "color", this, "color", SYNC_CREATE | BIDIRECTIONAL);
             pix_binding = _note?.bind_property (
-                "picture", image, "file", SYNC_CREATE|BIDIRECTIONAL);
-            
+                "picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+
             if (_note.picture != "") {
                 image.visible = true;
             } else {
@@ -81,14 +83,14 @@ public class Notejot.NoteRowContent : He.Bin {
     }
 
     public NoteRowContent (Note note) {
-        Object(
+        Object (
             note: note
         );
     }
 
     construct {
         row_box.add_css_class ("notejot-sidebar-box");
-        row_box.get_style_context().add_provider(provider, 1);
+        row_box.get_style_context ().add_provider (provider, 1);
     }
 
     ~NoteRowContent () {
@@ -108,24 +110,24 @@ public class Notejot.NoteRowContent : He.Bin {
     public string sync_subtitles (string subtitle) {
         string res = "";
         try {
-            var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+            var reg = new Regex ("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
             GLib.MatchInfo match;
 
             if (log != null) {
                 if (reg.match (subtitle, 0, out match)) {
                     var e = new GLib.DateTime.now_local ();
                     var d = new DateTime.local (e.get_year (),
-                                                int.parse(match.fetch_named ("month")),
-                                                int.parse(match.fetch_named ("day")),
-                                                int.parse(match.fetch_named ("hour")),
-                                                int.parse(match.fetch_named ("minute")),
+                                                int.parse (match.fetch_named ("month")),
+                                                int.parse (match.fetch_named ("day")),
+                                                int.parse (match.fetch_named ("hour")),
+                                                int.parse (match.fetch_named ("minute")),
                                                 e.get_second ());
 
-                    res = "%s".printf(TimeUtils.get_relative_datetime_compact(d));
+                    res = "%s".printf (TimeUtils.get_relative_datetime_compact (d));
                 }
             }
         } catch (GLib.RegexError re) {
-            warning ("%s".printf(re.message));
+            warning ("%s".printf (re.message));
         }
 
         return res;

@@ -34,8 +34,6 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.Box note_header;
     [GtkChild]
-    unowned Gtk.Box note_body;
-    [GtkChild]
     unowned He.BottomBar note_footer;
     [GtkChild]
     unowned He.TextField note_title;
@@ -214,10 +212,11 @@ public class Notejot.NoteContentView : He.Bin {
                 });
             });
 
-            title_binding = _note?.bind_property ("title", note_title.get_entry (), "text", SYNC_CREATE|BIDIRECTIONAL);
-            subtitle_binding = _note?.bind_property ("subtitle", titlebar, "viewsubtitle-label", SYNC_CREATE|BIDIRECTIONAL);
-            text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE|BIDIRECTIONAL);
-            pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE|BIDIRECTIONAL);
+            title_binding = _note?.bind_property ("title", note_title.get_entry (), "text", SYNC_CREATE | BIDIRECTIONAL);
+            subtitle_binding = _note?.bind_property ("subtitle", titlebar, "viewsubtitle-label", 
+                                                     SYNC_CREATE | BIDIRECTIONAL);
+            text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE | BIDIRECTIONAL);
+            pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
 
             image_button.visible = image.file != "" ? false : true;
             image_remove_button.visible = image.file == "" ? false : true;
@@ -736,13 +735,13 @@ public class Notejot.NoteContentView : He.Bin {
                         // measure the offset of the actual unicode glyphs,
                         // not the byte offset
                         measure_text = buf[0:match_start_offset];
-                        match_start_offset = measure_text.char_count();
+                        match_start_offset = measure_text.char_count ();
                         measure_text = buf[0:match_end_offset];
-                        match_end_offset = measure_text.char_count();
+                        match_end_offset = measure_text.char_count ();
 
-                        Format format = string_to_format(match.fetch_named("wrap"));
+                        Format format = string_to_format (match.fetch_named("wrap"));
 
-                        format_blocks += FormatBlock() {
+                        format_blocks += FormatBlock () {
                             start = match_start_offset,
                             end = match_end_offset,
                             format = format

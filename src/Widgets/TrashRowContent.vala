@@ -25,7 +25,7 @@ public class Notejot.TrashRowContent : He.Bin {
 
     private Binding? pinned_binding;
     private Binding? color_binding;
-    private Gtk.CssProvider provider = new Gtk.CssProvider();
+    private Gtk.CssProvider provider = new Gtk.CssProvider ();
 
     private string? _color;
     public string? color {
@@ -36,9 +36,10 @@ public class Notejot.TrashRowContent : He.Bin {
 
             _color = value;
 
-            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_trash.color));
-            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).tview_model.update_trash_color (_trash, _color);
-            row_box.get_style_context().add_provider(provider, 1);
+            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf (_trash.color));
+            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                (this)).tview_model.update_trash_color (_trash, _color);
+            row_box.get_style_context ().add_provider (provider, 1);
         }
     }
 
@@ -55,20 +56,20 @@ public class Notejot.TrashRowContent : He.Bin {
             _trash = value;
 
             pinned_binding = _trash?.bind_property (
-                "pinned", pin, "visible", SYNC_CREATE|BIDIRECTIONAL);
+                "pinned", pin, "visible", SYNC_CREATE | BIDIRECTIONAL);
             color_binding = _trash?.bind_property (
-                "color", this, "color", SYNC_CREATE|BIDIRECTIONAL);
+                "color", this, "color", SYNC_CREATE | BIDIRECTIONAL);
         }
     }
 
     public TrashRowContent (Trash trash) {
-        Object(
+        Object (
             trash: trash
         );
     }
 
     construct {
-        row_box.get_style_context().add_provider(provider, 1);
+        row_box.get_style_context ().add_provider (provider, 1);
     }
 
     ~TrashRowContent () {
@@ -88,24 +89,24 @@ public class Notejot.TrashRowContent : He.Bin {
     public string sync_subtitles (string subtitle) {
         string res = "";
         try {
-            var reg = new Regex("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
+            var reg = new Regex ("""(?m)^.*, (?<day>\d{2})/(?<month>\d{2}) (?<hour>\d{2})∶(?<minute>\d{2})$""");
             GLib.MatchInfo match;
 
             if (log != null) {
                 if (reg.match (subtitle, 0, out match)) {
                     var e = new GLib.DateTime.now_local ();
                     var d = new DateTime.local (e.get_year (),
-                                                int.parse(match.fetch_named ("month")),
-                                                int.parse(match.fetch_named ("day")),
-                                                int.parse(match.fetch_named ("hour")),
-                                                int.parse(match.fetch_named ("minute")),
+                                                int.parse (match.fetch_named ("month")),
+                                                int.parse (match.fetch_named ("day")),
+                                                int.parse (match.fetch_named ("hour")),
+                                                int.parse (match.fetch_named ("minute")),
                                                 e.get_second ());
 
-                    res = "%s".printf(TimeUtils.get_relative_datetime_compact(d));
+                    res = "%s".printf (TimeUtils.get_relative_datetime_compact (d));
                 }
             }
         } catch (GLib.RegexError re) {
-            warning ("%s".printf(re.message));
+            warning ("%s".printf (re.message));
         }
 
         return res;
