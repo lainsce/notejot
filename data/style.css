@@ -133,8 +133,8 @@
 }
 
 .color-reset radio {
-  background: @view_bg_color;
-  color: @view_bg_color;
+  background: @surface_bg_color;
+  color: @surface_bg_color;
 }
 
 .big-font {
@@ -150,7 +150,7 @@
 }
 
 .sidebar2-view {
-  background: @surface_high_bg_color;
+  background: @surface_container_high_bg_color;
   box-shadow: inset -1px 0 0 0 alpha(@outline, 0.38),
 	            inset -1px 0 0 0 alpha(@window_bg_color, 0.15);
 }
@@ -203,13 +203,13 @@ button.flat:not(:hover):not(:active) {
 }
 
 .navigation-section-button:hover {
-  background: @surface_high_bg_color;
+  background: @surface_container_high_bg_color;
 }
 .navigation-section-button:checked {
-  background: @surface_highest_bg_color;
+  background: @surface_container_highest_bg_color;
 }
 .navigation-section-button:hover:checked {
-  background: @surface_highest_bg_color;
+  background: @surface_container_highest_bg_color;
 }
 
 .navigation-section-button image {
