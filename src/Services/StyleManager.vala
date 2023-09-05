@@ -23,16 +23,15 @@ public class Notejot.StyleManager {
                 border-right: 5px solid mix(@surface_bg_color, @note_color, 0.5);
             }
             .notejot-note, .notejot-body {
-                background: mix(@view_bg_color, @note_color, 0.05);
+                background: mix(@surface_bg_color, @note_color, 0.05);
             }
             .notejot-header {
-                background: mix(@view_bg_color, @note_color, 0.05);
+                background: mix(@surface_bg_color, @note_color, 0.05);
             }
             .notejot-textview {
-                background: mix(@surface_bg_color, @note_color, 0.08);
+                background: mix(@surface_container_bg_color, @note_color, 0.08);
                 margin: 18px 18px 1px 18px;
                 border-radius: 12px;
-                box-shadow: 0 0 0 1px alpha(@outline, 0.15);
             }
         """;
         css_provider.load_from_data (style.data);
