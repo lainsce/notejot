@@ -5,6 +5,7 @@
 
 .search {
   border-radius: 999px;
+  background: @surface_container_lowest_bg_color;
 }
 
 .circular radio {
