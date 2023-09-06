@@ -30,24 +30,7 @@
 }
 
 .scrim {
-  background-image: linear-gradient(180deg,
-      alpha(#2d2d2d, 0.12),
-      alpha(#2d2d2d, 0.1),
-      alpha(#2d2d2d, 0.07),
-      alpha(#2d2d2d, 0.05),
-      alpha(#2d2d2d, 0.02),
-      alpha(#2d2d2d, 0),
-      alpha(#2d2d2d, 0.02),
-      alpha(#2d2d2d, 0.05),
-      alpha(#2d2d2d, 0.07),
-      alpha(#2d2d2d, 0.1),
-      alpha(#2d2d2d, 0.12),
-      alpha(#2d2d2d, 0.15),
-      alpha(#2d2d2d, 0.17),
-      alpha(#2d2d2d, 0.2),
-      alpha(#2d2d2d, 0.22),
-      alpha(#2d2d2d, 0.25),
-      alpha(#2d2d2d, 0.27));
+  background: alpha(@scrim, 0.2);
   color: #fafafa;
   padding: 0;
   margin: 0;
