@@ -6,9 +6,6 @@
       <property name="orientation">horizontal</property>
       <property name="valign">center</property>
       <property name="spacing">12</property>
-      <style>
-        <class name="mini-content-block"/>
-      </style>
       <child>
         <object class="GtkImage">
           <property name="halign">start</property>

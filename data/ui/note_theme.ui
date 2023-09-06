@@ -2,19 +2,18 @@
 <interface>
   <template class="NotejotWidgetsNoteTheme" parent="GtkBox">
     <property name="orientation">vertical</property>
-    <property name="spacing">8</property>
     <style>
       <class name="notejot-theme" />
     </style>
     <child>
-      <object class="HeTextButton" id="note_pin_button">
-        <property name="hexpand">1</property>
-        <property name="child">
-          <object class="HeButtonContent">
-            <property name="icon">view-pin-symbolic</property>
-            <property name="label" translatable="yes">Pin/Unpin Note</property>
-          </object>
-        </property>
+      <object class="GtkLabel">
+        <property name="margin-start">8</property>
+        <property name="margin-bottom">6</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Note Color</property>
+        <style>
+          <class name="dim-label"/>
+        </style>
       </object>
     </child>
     <child>
@@ -138,6 +137,20 @@
         <style>
           <class name="notejot-theme-grid"/>
         </style>
+      </object>
+    </child>
+    <child>
+      <object class="HeDivider"></object>
+    </child>
+    <child>
+      <object class="HeTextButton" id="note_pin_button">
+        <property name="hexpand">1</property>
+        <property name="child">
+          <object class="HeButtonContent">
+            <property name="icon">view-pin-symbolic</property>
+            <property name="label" translatable="yes">Pin/Unpin Note</property>
+          </object>
+        </property>
       </object>
     </child>
     <child>

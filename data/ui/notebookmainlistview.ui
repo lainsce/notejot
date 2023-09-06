@@ -10,7 +10,7 @@
         <child>
           <object class="GtkListView" id="lv">
             <style>
-              <class name="content-list" />
+              <class name="notejot-list" />
             </style>
             <property name="factory">
               <object class="GtkBuilderListItemFactory">

@@ -67,17 +67,52 @@
 }
 .scrim .text-field {
   box-shadow: 0 0 0 1px alpha(@view_bg_color, 0.38);
-  background: none;
+  background: alpha(@window_bg_color, 0.08);
 }
 .scrim .text-field * {
   opacity: 1;
   color: @view_bg_color;
   text-shadow: 0 1px 2px @view_fg_color;
+  caret-color: @view_bg_color;
 }
 
 .notejot-searchbar {
   border-radius: 999px;
   background: @surface_container_lowest_bg_color;
+}
+
+.notejot-list {
+  background: none;
+}
+.notejot-list row widget > box > box {
+  background: none;
+  min-height: 56px;
+  min-width: 150px;
+  border-radius: 28px;
+}
+.notejot-list row {
+  margin: 0;
+  padding: 0;
+}
+.notejot-list row:hover {
+  background: none;
+}
+.notejot-list row:hover widget > box > box {
+  background: alpha(@window_fg_color, 0.08);
+}
+.notejot-list row widget > box > box image {
+  margin: 0 0 0 16px;
+  padding: 0;
+  color: @view_fg_color;
+  min-height: 16px;
+  -gtk-icon-size: 16px;
+}
+.notejot-list row widget > box > box label {
+  margin: 0;
+  padding: 0;
+  color: @view_fg_color;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .color-red radio {
@@ -169,7 +204,7 @@
 .navigation-section-button {
   background: none;
   margin: 0 18px 0 18px;
-  min-height: 56px;
+  min-height: 46px;
   min-width: 150px;
   border-radius: 28px;
 }
@@ -191,8 +226,8 @@
   margin: 0 0 0 8px;
   padding: 0;
   color: @view_fg_color;
-  min-height: 24px;
-  -gtk-icon-size: 24px;
+  min-height: 16px;
+  -gtk-icon-size: 16px;
 }
 .navigation-section-button label {
   margin: 0;
