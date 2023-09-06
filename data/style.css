@@ -19,13 +19,28 @@
   border-radius: 999px;
   border-color: alpha(@window_fg_color, 0.3);
 }
-
 .circular radio:hover {
   border-color: alpha(@window_fg_color, 0.6);
 }
-
 .circular radio:checked {
   border-color: alpha(@window_fg_color, 0.3);
+}
+
+.notejot-theme .textual-button {
+  border-radius: 9px;
+  background: none;
+  color: @view_fg_color;
+  box-shadow: none;
+}
+.notejot-theme .textual-button:hover {
+  border-radius: 9px;
+  background: alpha(@window_fg_color, 0.05);
+  color: @view_fg_color;
+}
+.notejot-theme .textual-button:active {
+  border-radius: 9px;
+  background: alpha(@window_fg_color, 0.08);
+  color: @view_fg_color;
 }
 
 .outline .text-field {
@@ -71,37 +86,30 @@
   background: alpha(@meson_red, 0.5);
   color: alpha(@meson_red, 0);
 }
-
 .color-orange radio {
   background: alpha(@lepton_orange, 0.5);
   color: alpha(@lepton_orange, 0);
 }
-
 .color-yellow radio {
   background: alpha(@electron_yellow, 0.5);
   color: alpha(@electron_yellow, 0);
 }
-
 .color-green radio {
   background: alpha(@muon_green, 0.5);
   color: alpha(@muon_green, 0);
 }
-
 .color-blue radio {
   background: alpha(@proton_blue, 0.5);
   color: alpha(@proton_blue, 0);
 }
-
 .color-purple radio {
   background: alpha(@tau_purple, 0.5);
   color: alpha(@tau_purple, 0);
 }
-
 .color-brown radio {
   background: alpha(@gluon_brown, 0.5);
   color: alpha(@gluon_brown, 0);
 }
-
 .color-reset radio {
   background: alpha(@surface_bg_color, 0.5);
   color: alpha(@surface_bg_color, 0);
@@ -110,15 +118,14 @@
 .big-font {
   font-size: 20px;
 }
-
 .med-font {
   font-size: 16px;
 }
-
 .sml-font {
   font-size: 12px;
 }
 
+/* MainSideBar, upstream when done */
 .sidebar2-view {
   background: @surface_container_high_bg_color;
   box-shadow: inset -1px 0 0 0 alpha(@outline, 0.38),
@@ -155,11 +162,6 @@
   background: alpha(@window_fg_color, 0.08);
 }
 
-button.flat:not(:hover):not(:active) {
-  background: none;
-  border-radius: 9px;
-}
-
 /* NavigationSection, upstream when done */
 .navigation-section {
   background: none;
@@ -173,13 +175,11 @@ button.flat:not(:hover):not(:active) {
   min-width: 150px;
   border-radius: 28px;
 }
-
 .navigation-section-button:disabled {
   background: alpha(@view_fg_color, 0.12);
   color: alpha(@view_fg_color, 0.38);
   box-shadow: none;
 }
-
 .navigation-section-button:hover {
   background: alpha(@window_fg_color, 0.08);
 }
@@ -189,7 +189,6 @@ button.flat:not(:hover):not(:active) {
 .navigation-section-button:hover:checked {
   background: @suggested_container_bg_color;
 }
-
 .navigation-section-button image {
   margin: 0 0 0 8px;
   padding: 0;

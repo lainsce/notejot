@@ -7,7 +7,7 @@
       <class name="notejot-theme" />
     </style>
     <child>
-      <object class="GtkButton" id="note_pin_button">
+      <object class="HeTextButton" id="note_pin_button">
         <property name="hexpand">1</property>
         <property name="child">
           <object class="GtkLabel">
@@ -15,9 +15,6 @@
             <property name="xalign">0</property>
           </object>
         </property>
-        <style>
-          <class name="flat" />
-        </style>
       </object>
     </child>
     <child>
@@ -142,7 +139,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkButton" id="export_button">
+      <object class="HeTextButton" id="export_button">
         <property name="hexpand">1</property>
         <property name="child">
           <object class="GtkLabel">
@@ -150,9 +147,6 @@
             <property name="xalign">0</property>
           </object>
         </property>
-        <style>
-          <class name="flat" />
-        </style>
       </object>
     </child>
   </template>
