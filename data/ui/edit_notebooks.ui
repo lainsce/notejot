@@ -43,8 +43,10 @@
           </object>
         </child>
         <child>
+          <object class="HeDivider"></object>
+        </child>
+        <child>
           <object class="GtkScrolledWindow" id="sw">
-            <property name="margin-bottom">12</property>
             <property name="vexpand">1</property>
             <property name="hexpand">1</property>
             <property name="margin-start">20</property>
@@ -63,12 +65,12 @@
                 <binding name="view-model">
                   <lookup name="view-model">NotejotWidgetsEditNotebooksDialog</lookup>
                 </binding>
-                <style>
-                  <class name="content-list"/>
-                </style>
               </object>
             </child>
           </object>
+        </child>
+        <child>
+          <object class="HeDivider"></object>
         </child>
         <child>
           <object class="GtkBox">
