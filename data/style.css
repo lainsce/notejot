@@ -175,8 +175,10 @@ button.flat:not(:hover):not(:active) {
 }
 .navigation-section-button {
   background: none;
-  margin: 3px 18px 3px 18px;
-  min-height: 33px;
+  margin: 0 18px 0 18px;
+  min-height: 56px;
+  min-width: 150px;
+  border-radius: 28px;
 }
 
 .navigation-section-button:disabled {
@@ -186,29 +188,31 @@ button.flat:not(:hover):not(:active) {
 }
 
 .navigation-section-button:hover {
-  background: @surface_container_high_bg_color;
+  background: @surface_container_bg_color;
 }
 .navigation-section-button:checked {
-  background: @surface_container_highest_bg_color;
+  background: @suggested_container_bg_color;
 }
 .navigation-section-button:hover:checked {
-  background: @surface_container_highest_bg_color;
+  background: @suggested_container_bg_color;
 }
 
 .navigation-section-button image {
   margin: 0 0 0 8px;
   padding: 0;
   color: @view_fg_color;
-  min-height: 22px;
+  min-height: 24px;
+  -gtk-icon-size: 24px;
 }
 .navigation-section-button label {
   margin: 0;
   padding: 0;
   color: @view_fg_color;
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 14px
 }
 .navigation-section-button:checked label {
-  font-weight: 600;
+  font-weight: 700;
 }
 .navigation-section-button:hover image,
 .navigation-section-button:hover label {
