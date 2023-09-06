@@ -33,7 +33,6 @@
 }
 
 .scrim {
-  background: alpha(@scrim, 0.2);
   color: @view_bg_color;
   padding: 0;
   margin: 0;
@@ -69,42 +68,42 @@
 
 .color-red radio {
   background: alpha(@meson_red, 0.5);
-  color: alpha(@meson_red, 0.5);
+  color: alpha(@meson_red, 0);
 }
 
 .color-orange radio {
   background: alpha(@lepton_orange, 0.5);
-  color: alpha(@lepton_orange, 0.5);
+  color: alpha(@lepton_orange, 0);
 }
 
 .color-yellow radio {
   background: alpha(@electron_yellow, 0.5);
-  color: alpha(@electron_yellow, 0.5);
+  color: alpha(@electron_yellow, 0);
 }
 
 .color-green radio {
   background: alpha(@muon_green, 0.5);
-  color: alpha(@muon_green, 0.5);
+  color: alpha(@muon_green, 0);
 }
 
 .color-blue radio {
   background: alpha(@proton_blue, 0.5);
-  color: alpha(@proton_blue, 0.5);
+  color: alpha(@proton_blue, 0);
 }
 
 .color-purple radio {
   background: alpha(@tau_purple, 0.5);
-  color: alpha(@tau_purple, 0.5);
+  color: alpha(@tau_purple, 0);
 }
 
 .color-brown radio {
   background: alpha(@gluon_brown, 0.5);
-  color: alpha(@gluon_brown, 0.5);
+  color: alpha(@gluon_brown, 0);
 }
 
 .color-reset radio {
-  background: @surface_bg_color;
-  color: @surface_bg_color;
+  background: alpha(@surface_bg_color, 0.5);
+  color: alpha(@surface_bg_color, 0);
 }
 
 .big-font {

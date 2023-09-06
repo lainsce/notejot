@@ -33,6 +33,9 @@ public class Notejot.StyleManager {
                 margin: 18px 18px 1px 18px;
                 border-radius: 12px;
             }
+            .scrim {
+                background: alpha(mix(@scrim, @note_color, 0.08), 0.2);
+            }
         """;
         css_provider.load_from_data (style.data);
         Gtk.StyleContext.add_provider_for_display (
