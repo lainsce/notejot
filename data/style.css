@@ -52,27 +52,22 @@
   padding: 0;
   margin: 0;
 }
-.scrim headerbar,
-.scrim .disclosure-button {
-  color: #fafafa;
-}
-.scrim box > label,
-.scrim > label,
-.scrim text,
-.scrim widget > label {
+.scrim .view-subtitle {
   color: #fafafa;
   text-shadow: 0 1px 2px #2d2d2d;
 }
-.scrim image {
-  color: #fafafa;
-  -gtk-icon-shadow: 0 1px 2px #2d2d2d;
-}
 .scrim .close image,
 .scrim .maximize image,
-.scrim .image-text-button,
-.scrim .disclosure-button {
+.scrim .minimize image {
   color: #fafafa;
+  -gtk-icon-shadow: 0 1px 2px #2d2d2d;
   box-shadow: 0 1px 2px #2d2d2d;
+}
+.scrim .disclosure-button {
+  box-shadow: 0 1px 2px #2d2d2d;
+}
+.scrim .text-field {
+  opacity: 0.88;
 }
 
 .notejot-searchbar {
@@ -212,19 +207,18 @@ button.flat:not(:hover):not(:active) {
   font-size: 14px
 }
 .navigation-section-button:checked label {
+  color: @suggested_container_fg_color;
   font-weight: 700;
 }
 .navigation-section-button:hover image,
 .navigation-section-button:hover label {
-  color: @accent_color;
   box-shadow: none;
 }
 .navigation-section-button:checked image {
-  color: @view_fg_color;
+  color: @suggested_container_fg_color;
   box-shadow: none;
 }
 .navigation-section-button:hover:checked image,
 .navigation-section-button:hover:checked label {
-  color: @accent_color;
   box-shadow: none;
 }
