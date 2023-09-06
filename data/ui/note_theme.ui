@@ -10,9 +10,9 @@
       <object class="HeTextButton" id="note_pin_button">
         <property name="hexpand">1</property>
         <property name="child">
-          <object class="GtkLabel">
+          <object class="HeButtonContent">
+            <property name="icon">view-pin-symbolic</property>
             <property name="label" translatable="yes">Pin/Unpin Note</property>
-            <property name="xalign">0</property>
           </object>
         </property>
       </object>
@@ -142,9 +142,9 @@
       <object class="HeTextButton" id="export_button">
         <property name="hexpand">1</property>
         <property name="child">
-          <object class="GtkLabel">
+          <object class="HeButtonContent">
+            <property name="icon">document-export-symbolic</property>
             <property name="label" translatable="yes">Export Note…</property>
-            <property name="xalign">0</property>
           </object>
         </property>
       </object>
