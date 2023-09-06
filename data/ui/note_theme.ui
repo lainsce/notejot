@@ -21,6 +21,8 @@
       <object class="GtkGrid">
         <property name="column_spacing">6</property>
         <property name="row_spacing">6</property>
+        <property name="margin_start">6</property>
+        <property name="margin_end">6</property>
         <property name="hexpand">1</property>
         <child>
           <object class="GtkCheckButton" id="color_button_red">
