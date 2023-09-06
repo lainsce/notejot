@@ -92,6 +92,9 @@
                                   <object class="HeDisclosureButton" id="delete_button">
                                     <property name="tooltip-text" translatable="yes">Trashes the note</property>
                                     <property name="icon-name">user-trash-symbolic</property>
+                                    <style>
+                                      <class name="image-button"/>
+                                    </style>
                                   </object>
                                 </child>
                                 <child>
