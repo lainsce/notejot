@@ -31,23 +31,23 @@
 
 .scrim {
   background: alpha(@scrim, 0.2);
-  color: #fafafa;
+  color: @view_bg_color;
   padding: 0;
   margin: 0;
 }
 .scrim .view-subtitle {
-  color: #fafafa;
-  text-shadow: 0 1px 2px #2d2d2d;
+  color: @view_bg_color;
+  text-shadow: 0 1px 2px @view_fg_color;
 }
 .scrim .close image,
 .scrim .maximize image,
 .scrim .minimize image {
-  color: #fafafa;
-  -gtk-icon-shadow: 0 1px 2px #2d2d2d;
-  box-shadow: 0 1px 2px #2d2d2d;
+  color: @view_bg_color;
+  -gtk-icon-shadow: 0 1px 2px @view_fg_color;
+  box-shadow: 0 1px 2px @view_fg_color;
 }
 .scrim .disclosure-button {
-  box-shadow: 0 1px 2px #2d2d2d;
+  box-shadow: 0 1px 2px @view_fg_color;
 }
 .scrim .text-field {
   opacity: 0.88;
@@ -59,38 +59,38 @@
 }
 
 .color-red radio {
-  background: #db898e;
-  color: #db898e;
+  background: alpha(@meson_red, 0.5);
+  color: alpha(@meson_red, 0.5);
 }
 
 .color-orange radio {
-  background: #eeab7a;
-  color: #eeab7a;
+  background: alpha(@lepton_orange, 0.5);
+  color: alpha(@lepton_orange, 0.5);
 }
 
 .color-yellow radio {
-  background: #f6dc83;
-  color: #f6dc83;
+  background: alpha(@electron_yellow, 0.5);
+  color: alpha(@electron_yellow, 0.5);
 }
 
 .color-green radio {
-  background: #92dcb9;
-  color: #92dcb9;
+  background: alpha(@muon_green, 0.5);
+  color: alpha(@muon_green, 0.5);
 }
 
 .color-blue radio {
-  background: #89b3e6;
-  color: #89b3e6;
+  background: alpha(@proton_blue, 0.5);
+  color: alpha(@proton_blue, 0.5);
 }
 
 .color-purple radio {
-  background: #bc99c8;
-  color: #bc99c8;
+  background: alpha(@tau_purple, 0.5);
+  color: alpha(@tau_purple, 0.5);
 }
 
 .color-brown radio {
-  background: #beaa98;
-  color: #beaa98;
+  background: alpha(@gluon_brown, 0.5);
+  color: alpha(@gluon_brown, 0.5);
 }
 
 .color-reset radio {
@@ -99,15 +99,15 @@
 }
 
 .big-font {
-  font-size: 1.4rem;
+  font-size: 20px;
 }
 
 .med-font {
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 .sml-font {
-  font-size: 0.9rem;
+  font-size: 12px;
 }
 
 .sidebar2-view {
