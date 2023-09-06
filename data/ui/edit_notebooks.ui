@@ -47,8 +47,8 @@
             <property name="margin-bottom">12</property>
             <property name="vexpand">1</property>
             <property name="hexpand">1</property>
-            <property name="margin-start">14</property>
-            <property name="margin-end">14</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
             <child>
               <object class="NotejotNotebookListView" id="listview">
                 <property name="hexpand">1</property>
@@ -76,14 +76,13 @@
             <child>
               <object class="GtkBox">
                 <property name="spacing">12</property>
-                <property name="margin-start">18</property>
-                <property name="margin-end">18</property>
-                <property name="margin-bottom">18</property>
+                <property name="margin-start">24</property>
+                <property name="margin-end">24</property>
+                <property name="margin-bottom">24</property>
                 <child>
-                  <object class="GtkEntry" id="notebook_name_entry">
+                  <object class="HeTextField" id="notebook_name_entry">
                     <property name="hexpand">1</property>
-                    <property name="activates-default">1</property>
-                    <property name="placeholder-text" translatable="yes">New Notebook…</property>
+                    <property name="placeholder-text" translatable="yes">Notebook Name</property>
                   </object>
                 </child>
                 <child>

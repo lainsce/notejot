@@ -25,9 +25,9 @@ namespace Notejot {
         public NoteViewModel view_model {get; set;}
 
         [GtkChild]
-        public unowned Gtk.Button remove_notebook_button;
+        public unowned He.TextButton remove_notebook_button;
         [GtkChild]
-        public unowned Gtk.Button move_button;
+        public unowned He.FillButton move_button;
 
         Notebook? _notebook;
         public Notebook? notebook {
@@ -56,6 +56,8 @@ namespace Notejot {
             } else {
                 remove_notebook_button.sensitive = true;
             }
+
+            this.add_css_class ("dialog-content");
         }
 
         [GtkCallback]

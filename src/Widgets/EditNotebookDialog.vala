@@ -24,9 +24,9 @@ namespace Notejot {
         public NoteViewModel view_model {get; set;}
 
         [GtkChild]
-        public unowned Gtk.Entry notebook_name_entry;
+        public unowned He.TextField notebook_name_entry;
         [GtkChild]
-        public unowned Gtk.Button notebook_add_button;
+        public unowned He.FillButton notebook_add_button;
 
         public EditNotebooksDialog (MainWindow win, NotebookViewModel nbview_model, NoteViewModel view_model) {
             Object (
@@ -37,21 +37,23 @@ namespace Notejot {
             this.set_modal (true);
             this.set_transient_for (win);
 
-            notebook_name_entry.notify["text"].connect (() => {
-                if (notebook_name_entry.get_text () != "") {
+            notebook_name_entry.get_entry ().notify["text"].connect (() => {
+                if (notebook_name_entry.get_entry ().get_text () != "") {
                     notebook_add_button.sensitive = true;
                 } else {
                     notebook_add_button.sensitive = false;
                 }
             });
+
+            this.add_css_class ("dialog-content");
         }
 
         [GtkCallback]
         void on_new_notebook_requested () {
             var notebook = new Notebook ();
-            notebook.title = notebook_name_entry.text;
+            notebook.title = notebook_name_entry.get_entry ().text;
             nbview_model.create_new_notebook (notebook);
-            notebook_name_entry.text = "";
+            notebook_name_entry.get_entry ().text = "";
         }
     }
 }

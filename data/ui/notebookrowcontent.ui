@@ -7,7 +7,7 @@
       <property name="valign">center</property>
       <property name="spacing">12</property>
       <child type="prefix">
-        <object class="GtkEntry" id="notebook_entry">
+        <object class="HeTextField" id="notebook_entry">
           <property name="valign">center</property>
           <property name="hexpand">1</property>
           <style>
@@ -17,14 +17,10 @@
         </object>
       </child>
       <child type="suffix">
-        <object class="GtkButton" id="delete_button">
+        <object class="HeDisclosureButton" id="delete_button">
           <property name="icon-name">window-close-symbolic</property>
           <property name="valign">center</property>
           <signal name="clicked" handler="on_delete_button_clicked" />
-          <style>
-            <class name="flat" />
-            <class name="circular" />
-          </style>
         </object>
       </child>
     </object>

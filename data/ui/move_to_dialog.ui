@@ -49,8 +49,8 @@
             <property name="vexpand">1</property>
             <child>
               <object class="NotejotNotebookMoveListView" id="listview">
-                <property name="margin-start">12</property>
-                <property name="margin-end">12</property>
+                <property name="margin-start">20</property>
+                <property name="margin-end">20</property>
                 <binding name="notebooks">
                   <lookup name="notebooks" type="NotejotNotebookViewModel">
                     <lookup name="nbview-model">NotejotWidgetsMoveToDialog</lookup>
@@ -66,14 +66,14 @@
         <child>
           <object class="GtkBox">
             <child>
-              <object class="HeTintButton" id="remove_notebook_button">
+              <object class="HeTextButton" id="remove_notebook_button">
                 <property name="label" translatable="yes">Detach Note From Notebook</property>
                 <property name="tooltip-text" translatable="yes">Removes this Note from its Notebook.</property>
                 <property name="sensitive">0</property>
-                <property name="margin-start">18</property>
+                <property name="margin-start">24</property>
                 <property name="margin-end">12</property>
                 <property name="margin-top">12</property>
-                <property name="margin-bottom">18</property>
+                <property name="margin-bottom">24</property>
                 <signal name="clicked" handler="on_remove_notebook_requested" />
               </object>
             </child>
@@ -83,9 +83,9 @@
                 <property name="tooltip-text" translatable="yes">Moves this Note to a Notebook.</property>
                 <property name="sensitive">0</property>
                 <property name="margin-start">12</property>
-                <property name="margin-end">18</property>
+                <property name="margin-end">24</property>
                 <property name="margin-top">12</property>
-                <property name="margin-bottom">18</property>
+                <property name="margin-bottom">24</property>
                 <signal name="clicked" handler="on_move_notebook_requested" />
               </object>
             </child>
