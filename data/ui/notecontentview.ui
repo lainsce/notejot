@@ -52,7 +52,7 @@
                       <object class="GtkOverlay">
                         <child>
                           <object class="NotejotNotePicture" id="image">
-                            <property name="height-request">138</property>
+                            <property name="height-request">160</property>
                             <property name="width-request">450</property>
                             <property name="rounded">0</property>
                           </object>
