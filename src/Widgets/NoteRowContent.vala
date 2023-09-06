@@ -81,6 +81,14 @@ public class Notejot.NoteRowContent : He.Bin {
                     image.visible = false;
                 }
             }
+
+            image.notify["file"].connect (() => {
+                if (image.file != "") {
+                    image.visible = true;
+                } else {
+                    image.visible = false;
+                }
+            });
         }
     }
 

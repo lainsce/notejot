@@ -6,6 +6,9 @@
       <binding name="notebook">
         <lookup name="item">GtkListItem</lookup>
       </binding>
+      <style>
+        <class name="mini-content-block"/>
+      </style>
     </object>
   </property>
 </template>

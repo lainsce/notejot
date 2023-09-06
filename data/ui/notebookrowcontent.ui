@@ -6,9 +6,6 @@
       <property name="orientation">horizontal</property>
       <property name="valign">center</property>
       <property name="spacing">12</property>
-      <style>
-        <class name="mini-content-block"/>
-      </style>
       <child type="prefix">
         <object class="GtkEntry" id="notebook_entry">
           <property name="valign">center</property>

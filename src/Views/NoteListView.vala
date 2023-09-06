@@ -18,26 +18,18 @@
 */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notelistview.ui")]
 public class Notejot.NoteListView : He.Bin {
+    [GtkChild]
+    public Gtk.SingleSelection ss;
+
     public ObservableList<Note>? notes { get; set; }
-    public Gtk.SingleSelection? ss {get; construct;}
-
-    Note? _selected_note;
-    public Note? selected_note {
-        get { return _selected_note; }
-        set {
-            if (value == _selected_note)
-                return;
-
-            if (value != null)
-                _selected_note = value;
-        }
-    }
+    public Note? selected_note { get; set; }
+    public NotebookMainListView? nblistview { get; set; }
+    public He.TextField? note_search { get; set; }
     public NoteViewModel? view_model { get; set; }
     public Bis.Album album { get; construct; }
 
     public NoteListView () {
         Object (
-            ss: ss,
             album: album
         );
     }

@@ -45,8 +45,14 @@ sealed class Notejot.NotePicture : Gtk.Widget {
     private bool _rounded;
     public bool rounded {
         get { return _rounded; }
-        set { 
+        set {
+            if (this._rounded == value) {
+                return;
+            }
+
             _rounded = value;
+            this.queue_draw ();
+            this.queue_resize ();
         }
     }
 
@@ -84,7 +90,7 @@ sealed class Notejot.NotePicture : Gtk.Widget {
             this.notify["rounded"].connect (() => {
                 if (rounded) {
                     Gsk.RoundedRect rrect = {};
-                    rrect.init_from_rect ({{ resize_x, resize_y }, { resize_width, resize_height }}, 12);
+                    rrect.init_from_rect ({{ resize_x + 12, resize_y + 12 }, { resize_width - 12, resize_height - 12 }}, 12);
                     snapshot.push_rounded_clip (rrect);
                     snapshot.pop ();
                 } else {
@@ -105,7 +111,7 @@ sealed class Notejot.NotePicture : Gtk.Widget {
             this.notify["rounded"].connect (() => {
                 if (rounded) {
                     Gsk.RoundedRect rrect = {};
-                    rrect.init_from_rect ({{ resize_x, resize_y }, { resize_width, resize_height }}, 12);
+                    rrect.init_from_rect ({{ resize_x + 12, resize_y + 12 }, { resize_width - 12, resize_height - 12 }}, 12);
                     snapshot.push_rounded_clip (rrect);
                     snapshot.pop ();
                 } else {

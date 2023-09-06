@@ -4,6 +4,9 @@
 }
 
 .search {
+  margin: 8px 18px;
+}
+.search .text-field {
   border-radius: 999px;
   background: @surface_container_lowest_bg_color;
 }
@@ -50,7 +53,13 @@
   box-shadow: 0 1px 2px @view_fg_color;
 }
 .scrim .text-field {
-  opacity: 0.88;
+  box-shadow: 0 0 0 1px alpha(@view_bg_color, 0.38);
+  background: none;
+}
+.scrim .text-field * {
+  opacity: 1;
+  color: @view_bg_color;
+  text-shadow: 0 1px 2px @view_fg_color;
 }
 
 .notejot-searchbar {
@@ -119,13 +128,19 @@
   background: alpha(@window_fg_color, 0.08);
 }
 .sidebar2-view .disclosure-button:hover {
-  background: alpha(@window_fg_color, 0.14);
+  background: @accent_color;
 }
 .sidebar2-view .disclosure-button:active {
-  background: alpha(@window_fg_color, 0.15);
+  background: @accent_color;
 }
 .sidebar2-view .disclosure-button > .toggle {
   background: none;
+}
+.sidebar2-view .mini-content-block:hover {
+  background: alpha(@window_fg_color, 0.08);
+}
+.sidebar2-view .mini-content-block:active {
+  background: alpha(@window_fg_color, 0.08);
 }
 .sidebar2-view .navigation-rail-button:hover {
   box-shadow: none;
@@ -166,7 +181,7 @@ button.flat:not(:hover):not(:active) {
 }
 
 .navigation-section-button:hover {
-  background: @surface_container_bg_color;
+  background: alpha(@window_fg_color, 0.08);
 }
 .navigation-section-button:checked {
   background: @suggested_container_bg_color;
@@ -187,7 +202,7 @@ button.flat:not(:hover):not(:active) {
   padding: 0;
   color: @view_fg_color;
   font-weight: 500;
-  font-size: 14px
+  font-size: 14px;
 }
 .navigation-section-button:checked label {
   color: @suggested_container_fg_color;

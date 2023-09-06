@@ -37,13 +37,9 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.Box main_box;
         [GtkChild]
-        public unowned Gtk.SingleSelection selection_model;
-        [GtkChild]
         public unowned NoteContentView notecontent;
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
-        [GtkChild]
-        public unowned Gtk.Sorter sorter;
         [GtkChild]
         public unowned Notejot.NavigationSection viewchooser;
 
@@ -179,7 +175,6 @@ namespace Notejot {
         [GtkCallback]
         public void on_note_update_requested (Note note) {
             view_model.update_note (note);
-            sorter.changed (Gtk.SorterChange.DIFFERENT);
         }
 
         [GtkCallback]

@@ -1,52 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkSingleSelection" id="selection_model">
-    <property name="autoselect">no</property>
-    <property name="can-unselect">yes</property>
-    <property name="model">
-      <object class="GtkFilterListModel" id="filter_model">
-        <property name="incremental">1</property>
-        <property name="model">
-          <object class="GtkSortListModel">
-            <binding name="model">
-              <lookup name="notes">listview</lookup>
-            </binding>
-            <property name="sorter">
-              <object class="NotejotNoteSorter" id="sorter"/>
-            </property>
-          </object>
-        </property>
-        <property name="filter">
-          <object class="GtkEveryFilter">
-            <child>
-              <object class="GtkStringFilter">
-                <property name="ignore-case">1</property>
-                <property name="match-mode">exact</property>
-                <property name="expression">
-                  <lookup name="notebook" type="NotejotNote"/>
-                </property>
-                <property name="search" bind-source="nblistview" bind-property="sntext"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkAnyFilter">
-                <child>
-                  <object class="GtkStringFilter">
-                    <property name="ignore-case">0</property>
-                    <property name="match-mode">exact</property>
-                    <property name="expression">
-                      <lookup name="title" type="NotejotNote"/>
-                    </property>
-                    <property name="search" bind-source="note_search" bind-property="text"/>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </property>
-      </object>
-    </property>
-  </object>
   <menu id="menu">
     <item>
       <attribute name="label" translatable="yes">Text size</attribute>
@@ -211,9 +164,9 @@
               <object class="BisAlbumPage">
                 <property name="child">
                   <object class="HeSideBar" id="sbox">
-                    <style>
-                      <class name="sidebar-view"/>
-                    </style>
+                    <property name="has-margins">0</property>
+                    <property name="show-back">0</property>
+                    <property name="show-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
                     <property name="titlewidget">
                       <object class="GtkLabel" id="sbox-title">
                         <property name="margin-end">12</property>
@@ -224,9 +177,6 @@
                         </style>
                       </object>
                     </property>
-                    <property name="has-margins">0</property>
-                    <property name="show-back">0</property>
-                    <property name="show-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
                     <child type="titlebar-button">
                       <object class="GtkToggleButton" id="search_button">
                         <property name="icon-name">system-search-symbolic</property>
@@ -236,20 +186,11 @@
                       <object class="GtkRevealer" id="search_revealer">
                         <property name="reveal-child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
                         <child>
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkSearchEntry" id="note_search">
-                                <property name="placeholder-text" translatable="yes">Search notes</property>
-                                <property name="margin-start">18</property>
-                                <property name="margin-end">18</property>
-                                <property name="margin-bottom">3</property>
-                                <property name="halign">start</property>
-                                <style>
-                                  <class name="search"/>
-                                </style>
-                              </object>
-                            </child>
+                          <object class="HeTextField" id="note_search">
+                            <property name="placeholder-text" translatable="yes">Search notes…</property>
+                            <style>
+                              <class name="search"/>
+                            </style>
                           </object>
                         </child>
                       </object>
@@ -286,8 +227,9 @@
                                             <binding name="view-model">
                                               <lookup name="view-model">NotejotMainWindow</lookup>
                                             </binding>
-                                            <property name="ss">selection_model</property>
                                             <property name="album">albumt</property>
+                                            <property name="nblistview">nblistview</property>
+                                            <property name="note_search">note_search</property>
                                           </object>
                                         </child>
                                       </object>
@@ -338,6 +280,9 @@
                         </child>
                       </object>
                     </child>
+                    <style>
+                      <class name="sidebar-view"/>
+                    </style>
                   </object>
                 </property>
               </object>
