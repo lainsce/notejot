@@ -19,7 +19,7 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notelistview.ui")]
 public class Notejot.NoteListView : He.Bin {
     [GtkChild]
-    public Gtk.SingleSelection ss;
+    public unowned Gtk.SingleSelection ss;
 
     public ObservableList<Note>? notes { get; set; }
     public Note? selected_note { get; set; }
@@ -38,11 +38,13 @@ public class Notejot.NoteListView : He.Bin {
         ss.bind_property ("selected", this, "selected-note", DEFAULT, (_, from, ref to) => {
             var pos = (uint) from;
 
-            if (pos != Gtk.INVALID_LIST_POSITION)
+            if (pos != Gtk.INVALID_LIST_POSITION) {
                 to.set_object (ss.model.get_item (pos));
                 album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).grid);
-
-            return true;
+                return true;
+            } else {
+                return false;
+            }
         });
     }
 
