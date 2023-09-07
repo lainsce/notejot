@@ -97,6 +97,7 @@
 .notejot-list row {
   margin: 0;
   padding: 0;
+  background: none;
 }
 .notejot-list row:hover {
   background: none;
