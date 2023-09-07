@@ -41,7 +41,7 @@ namespace Notejot {
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
         [GtkChild]
-        public unowned Notejot.NavigationSection viewchooser;
+        public unowned He.NavigationSection viewchooser;
 
         // Custom
         public MainWindow? mw {get; set;}

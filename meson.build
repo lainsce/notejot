@@ -71,7 +71,6 @@ sources = [
   'src/Widgets/NotebookMainRowContent.vala',
   'src/Widgets/NoteRowContent.vala',
   'src/Widgets/MoveToDialog.vala',
-  'src/Widgets/NavigationSection.vala',
   'src/Widgets/NotebookRowContent.vala',
   'src/Widgets/NoteTheme.vala',
   'src/Widgets/NotePicture.vala',
