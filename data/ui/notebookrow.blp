@@ -1,0 +1,10 @@
+using Gtk 4.0;
+
+template ListItem {
+  child: $NotejotNotebookRowContent {
+    styles [
+      "mini-content-block",
+    ]
+    notebook: bind template.item;
+  };
+}

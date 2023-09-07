@@ -53,3 +53,43 @@ install_data(
 )
 
 subdir('icons')
+
+# Blueprint
+subproject('blueprint-compiler')
+blueprints = custom_target(
+  'blueprints',
+  input: files(
+    'ui/edit_notebooks.blp',
+    'ui/main_window.blp',
+    'ui/move_to_dialog.blp',
+    'ui/note_theme.blp',
+    'ui/notebooklistview.blp',
+    'ui/notebookmainlistview.blp',
+    'ui/notebookmainrow.blp',
+    'ui/notebookmainrowcontent.blp',
+    'ui/notebookmovelistview.blp',
+    'ui/notebookmoverow.blp',
+    'ui/notebookrow.blp',
+    'ui/notebookrowcontent.blp',
+    'ui/notecontentview.blp',
+    'ui/notelistview.blp',
+    'ui/noterow.blp',
+    'ui/noterowcontent.blp',
+    'ui/trashcontentview.blp',
+    'ui/trashlistview.blp',
+    'ui/trashrow.blp',
+    'ui/trashrowcontent.blp',
+  ),
+  output: '.',
+  command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
+)
+#
+
+asresources = gnome.compile_resources(
+	'as-resources',
+  'io.github.lainsce.Notejot.gresource.xml',
+	source_dir: meson.current_build_dir(),
+  dependencies: blueprints,
+	c_name: 'as',
+  install_dir: get_option('datadir') / meson.project_name(),
+)

@@ -1,0 +1,59 @@
+using Gtk 4.0;
+using He 1;
+
+template $NotejotNoteListView : He.Bin {
+  vexpand: true;
+  hexpand: true;
+
+  Box box {
+    orientation: vertical;
+
+    ScrolledWindow {
+      hscrollbar-policy: never;
+      vexpand: true;
+
+      ListView lv {
+        hexpand: true;
+        margin-start: 18;
+        margin-end: 18;
+
+        styles [
+          "content-list"
+        ]
+        factory: BuilderListItemFactory {
+          resource: "/io/github/lainsce/Notejot/noterow.ui";
+        };
+        model: SingleSelection ss {
+          autoselect: false;
+          can-unselect: true;
+          model: FilterListModel filter_model {
+            incremental: true;
+            model: SortListModel {
+              model: bind template.notes;
+              sorter: $NotejotNoteSorter sorter { };
+            };
+            filter: EveryFilter {
+              StringFilter {
+                ignore-case: true;
+                match-mode: exact;
+                search: bind template.note_search as <$NotejotNoteListView>.nblistview as <$NotejotNotebookMainListView>.sntext;
+              }
+
+              StringFilter {
+                ignore-case: false;
+                match-mode: exact;
+                search: bind template.note_search as <$NotejotNoteListView>.note_search as <He.TextField>.text;
+              }
+
+              StringFilter {
+                ignore-case: false;
+                match-mode: exact;
+                search: bind template.note_search as <$NotejotNoteListView>.note_search as <He.TextField>.text;
+              }
+            };
+          };
+        };
+      }
+    }
+  }
+}

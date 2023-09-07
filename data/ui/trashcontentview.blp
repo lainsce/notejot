@@ -1,0 +1,140 @@
+using Gtk 4.0;
+using He 1;
+
+template $NotejotTrashContentView : He.Bin {
+  vexpand: true;
+  hexpand: true;
+
+  Box main_box {
+    styles [
+      "main-view",
+      "notejot-note"
+    ]
+
+    orientation: vertical;
+
+    Stack stack {
+      transition-type: crossfade;
+
+      Box empty_view {
+        orientation: vertical;
+
+        He.AppBar ftitlebar {
+          show-buttons: true;
+          show-back: false;
+          width-request: 420;
+        }
+
+        WindowHandle {
+          vexpand: true;
+
+          He.EmptyPage trash_status_page {
+            icon: "user-trash-symbolic";
+            title: _("Trash is Empty");
+            description: _("Find notes here that were trashed to restore them.");
+            valign: center;
+          }
+        }
+      }
+
+      Box trash_view {
+        orientation: vertical;
+
+        WindowHandle {
+          styles [
+            "notejot-header"
+          ]
+
+          Overlay {
+            $NotejotNotePicture image {
+              height-request: 160;
+            }
+
+            [overlay]
+            Box trash_header {
+              orientation: vertical;
+
+              He.AppBar titlebar {
+                show-buttons: true;
+                width-request: 420;
+                viewtitle-widget: 
+                Label trash_title {
+                  hexpand: true;
+                  halign: start;
+                  tooltip-text: _("Edit note name");
+
+                  styles [
+                    "view-title",
+                  ]
+                };
+
+                He.DisclosureButton s_menu {
+                  visible: false;
+                  icon-name: "edit-undo-symbolic";
+                  tooltip-text: _("Restore Note");
+                  clicked => $on_trash_restore_requested();
+                }
+
+                Label notebook_subtitle {
+                  use-markup: true;
+                }
+
+                Image notebook_icon {
+                  icon-name: "notebook-symbolic";
+                }
+              }
+            }
+          }
+        }
+
+        ScrolledWindow {
+          hscrollbar-policy: never;
+          vexpand: true;
+          sensitive: false;
+
+          Box {
+            orientation: vertical;
+
+            TextView trash_textbox {
+              wrap-mode: word_char;
+              bottom-margin: 21;
+              top-margin: 21;
+              left-margin: 21;
+              right-margin: 21;
+              vexpand: true;
+              hexpand: true;
+              buffer: 
+              TextBuffer trash_text {
+                tag-table: TextTagTable {
+                  [tag]
+                  TextTag bold_font {
+                    weight: 700;
+                  }
+
+                  [tag]
+                  TextTag italic_font {
+                    style: italic;
+                  }
+
+                  [tag]
+                  TextTag ul_font {
+                    underline: single;
+                  }
+
+                  [tag]
+                  TextTag s_font {
+                    strikethrough: true;
+                  }
+                };
+              };
+
+              styles [
+                "notejot-view"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

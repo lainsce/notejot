@@ -1,0 +1,26 @@
+using Gtk 4.0;
+using He 1;
+
+template $NotejotNotebookMoveListView : He.Bin {
+  ScrolledWindow {
+    hscrollbar-policy: never;
+    width-request: 250;
+    vexpand: true;
+    hexpand: true;
+
+    ListView lv {
+      styles [
+        "content-list",
+      ]
+      factory: BuilderListItemFactory {
+        resource: "/io/github/lainsce/Notejot/notebookmoverow.ui";
+      };
+      model:  SingleSelection selection_model {
+        autoselect: false;
+        model: SortListModel {
+          model: bind template.notebooks;
+        };
+      };
+    }
+  }
+}

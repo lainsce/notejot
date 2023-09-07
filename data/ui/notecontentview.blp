@@ -1,0 +1,227 @@
+using Gtk 4.0;
+using He 1;
+
+menu smenu {
+  section {
+    item {
+      custom: "theme";
+    }
+  }
+}
+
+template $NotejotNoteContentView : He.Bin {
+  vexpand: true;
+  hexpand: true;
+
+  Box main_box {
+    styles [
+      "main-view",
+      "notejot-note"
+    ]
+
+    orientation: vertical;
+
+    Stack stack {
+      transition-type: crossfade;
+
+      Box empty_view {
+        orientation: vertical;
+
+        He.AppBar ftitlebar {
+          show-back: false;
+          width-request: 360;
+        }
+
+        WindowHandle {
+          vexpand: true;
+
+          He.EmptyPage empty {
+            icon: "list-select-symbolic";
+            title: _("No Selected Notes");
+            description: _("Add a note with the + button.");
+          }
+        }
+      }
+
+      Box note_view {
+        orientation: vertical;
+
+        WindowHandle {
+          Overlay {
+            $NotejotNotePicture image {
+              height-request: 160;
+              width-request: 450;
+              rounded: false;
+            }
+
+            [overlay]
+            Box note_header {
+              orientation: vertical;
+
+              styles [
+                "notejot-header"
+              ]
+
+              He.AppBar titlebar {
+                scroller: sw;
+                viewtitle-widget: He.TextField note_title {
+                  hexpand: true;
+                  placeholder-text: "Note Name";
+                  visibility: true;
+                  tooltip-text: _("Note Name");
+                };
+
+                Button back2_button {
+                  visible: false;
+                  icon-name: "go-previous-symbolic";
+                }
+
+                MenuButton s_menu {
+                  visible: false;
+                  menu-model: smenu;
+                  icon-name: "view-more-symbolic";
+                }
+
+                He.DisclosureButton delete_button {
+                  tooltip-text: _("Trashes the note");
+                  icon-name: "user-trash-symbolic";
+
+                  styles [
+                    "image-button"
+                  ]
+                }
+
+                He.DisclosureButton notebook_button {
+                  tooltip-text: _("Sets the notebook of the note");
+
+                  He.ButtonContent {
+                    icon: "notebook-symbolic";
+                    label: bind template.note as <$NotejotNote>.notebook;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        ScrolledWindow sw {
+          hscrollbar-policy: never;
+          vexpand: true;
+
+          Box note_body {
+            orientation: vertical;
+
+            styles [
+              "notejot-body"
+            ]
+
+            TextView note_textbox {
+              wrap-mode: word_char;
+              bottom-margin: 21;
+              top-margin: 21;
+              left-margin: 21;
+              right-margin: 21;
+              vexpand: true;
+              buffer: 
+              TextBuffer note_text {
+                tag-table: TextTagTable {
+                  [tag]
+                  TextTag bold_font {
+                    weight: 700;
+                  }
+
+                  [tag]
+                  TextTag italic_font {
+                    style: italic;
+                  }
+
+                  [tag]
+                  TextTag ul_font {
+                    underline: single;
+                  }
+
+                  [tag]
+                  TextTag s_font {
+                    strikethrough: true;
+                  }
+                };
+              };
+            }
+          }
+        }
+
+        Revealer format_revealer {
+          can-focus: false;
+          transition-type: crossfade;
+
+          He.BottomBar note_footer {
+            hexpand: true;
+
+            [left]
+            He.IconicButton bold_button {
+              receives-default: true;
+              tooltip-text: _("Makes selected text emboldened");
+              clicked => $action_bold();
+              icon-name: "format-text-bold-symbolic";
+            }
+
+            [left]
+            He.IconicButton italic_button {
+              receives-default: true;
+              tooltip-text: _("Makes selected text italicized");
+              clicked => $action_italic();
+              icon-name: "format-text-italic-symbolic";
+            }
+
+            [left]
+            He.IconicButton ul_button {
+              receives-default: true;
+              tooltip-text: _("Makes selected text underlined");
+              clicked => $action_ul();
+              icon-name: "format-text-underline-symbolic";
+            }
+
+            [left]
+            He.IconicButton s_button {
+              receives-default: true;
+              tooltip-text: _("Makes selected text striked through");
+              clicked => $action_s();
+              icon-name: "format-text-strikethrough-symbolic";
+            }
+
+            [left]
+            He.IconicButton ulist_button {
+              receives-default: true;
+              tooltip-text: _("Makes selected text into an unordered list");
+              clicked => $action_item();
+              icon-name: "view-list-bullet-symbolic";
+            }
+
+            [right]
+            He.IconicButton image_button {
+              tooltip-text: _("Adds a header picture to the note");
+              clicked => $action_picture();
+              icon-name: "image-round-symbolic";
+            }
+
+            [right]
+            He.IconicButton image_remove_button {
+              tooltip-text: _("Removes the header picture");
+              visible: false;
+              clicked => $action_picture_remove();
+              icon-name: "edit-delete-symbolic";
+            }
+
+            [right]
+            He.IconicButton normal_button {
+              receives-default: true;
+              tooltip-text: _("Removes formatting from selected text");
+              clicked => $action_normal();
+              icon-name: "font-x-generic-symbolic";
+            }
+          }
+        }
+      }
+    }
+  }
+}

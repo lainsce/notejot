@@ -1,0 +1,23 @@
+using Gtk 4.0;
+using He 1;
+
+template $NotejotNotebookMainRowContent : He.Bin {
+  Box {
+    orientation: horizontal;
+    valign: center;
+    spacing: 12;
+
+    Image {
+      halign: start;
+      valign: center;
+      icon-name: "notebook-symbolic";
+    }
+
+    Label notebook_entry {
+      halign: start;
+      valign: center;
+      hexpand: true;
+    }
+  }
+}
+

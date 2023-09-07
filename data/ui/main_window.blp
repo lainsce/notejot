@@ -1,0 +1,285 @@
+using Gtk 4.0;
+using He 1;
+using Bis 1;
+
+menu menu {
+  item {
+    label: _("Text size");
+    custom: "zoom-grid";
+  }
+
+  section {
+    item {
+      label: _("About Notejot");
+      action: "win.action_about";
+    }
+  }
+}
+
+template $NotejotMainWindow : He.ApplicationWindow {
+  visible: true;
+  default-width: 800;
+  default-height: 500;
+
+  Box main_box {
+    orientation: vertical;
+    homogeneous: true;
+
+    Bis.Album albumt {
+      can-navigate-back: true;
+      can-navigate-forward: true;
+      visible-child: sbox;
+
+      Bis.AlbumPage {
+        child: He.SideBar mbox {
+          has-margins: false;
+          show-back: false;
+          show-buttons: bind albumt.folded;
+
+          styles [
+            "sidebar2-view"
+          ]
+          titlewidget: 
+          Label {
+            margin-end: 12;
+            halign: start;
+            label: "Notejot";
+
+            styles [
+              "heading"
+            ]
+          };
+
+          [titlebar-button]
+          MenuButton menu_button {
+            icon-name: "open-menu-symbolic";
+            popover: 
+            PopoverMenu {
+              menu-model: menu;
+
+              [zoom-grid]
+              Box {
+                hexpand: true;
+                orientation: vertical;
+                spacing: 6;
+                margin-top: 6;
+                margin-bottom: 6;
+                margin-start: 10;
+                margin-end: 6;
+
+                Box {
+                  Label {
+                    label: _("Font Size");
+                    sensitive: false;
+                  }
+                }
+
+                He.SegmentedButton {
+                  ToggleButton s {
+                    label: "Small";
+                    action-name: "app.font-size";
+                    action-target: "\"\'small\'\"";
+                  }
+
+                  ToggleButton {
+                    label: "Medium";
+                    action-name: "app.font-size";
+                    action-target: "\"\'medium\'\"";
+                    group: s;
+                  }
+
+                  ToggleButton {
+                    label: "Large";
+                    action-name: "app.font-size";
+                    action-target: "\"\'large\'\"";
+                    group: s;
+                  }
+                }
+              }
+            }
+
+            ;
+          }
+
+          $NotejotNavigationSection viewchooser {
+            stack: sgrid;
+            valign: start;
+            margin-top: 8;
+            vexpand: false;
+            vexpand-set: true;
+          }
+
+          He.Divider {
+            is-inset: true;
+          }
+
+          Label {
+            margin-start: 18;
+            margin-bottom: 6;
+            halign: start;
+            label: "Notebooks";
+
+            styles [
+              "heading",
+              "dim-label"
+            ]
+          }
+
+          $NotejotNotebookMainListView nblistview {
+            margin-start: 18;
+            margin-end: 18;
+            notebooks: bind template.nbview-model as <$NotejotNotebookViewModel>.notebooks;
+          }
+
+          He.TextButton en_button {
+            margin-start: 18;
+            margin-end: 18;
+            margin-top: 6;
+            margin-bottom: 18;
+            action-name: "win.action_edit_notebooks";
+            tooltip-text: _("Manage notebooks");
+
+            He.ButtonContent {
+              icon: "notebook-config-symbolic";
+              label: _("Edit Notebooks…");
+            }
+          }
+        };
+      }
+
+      Bis.AlbumPage {
+        child: He.SideBar sbox {
+          has-margins: false;
+          show-back: false;
+          show-buttons: bind albumt.folded;
+          titlewidget: 
+          Label sbox-title {
+            margin-end: 12;
+            halign: start;
+            label: bind sgrid.visible-child-name;
+
+            styles [
+              "view-title",
+            ]
+          }
+
+          ;
+
+          [titlebar-button]
+          ToggleButton search_button {
+            icon-name: "system-search-symbolic";
+          }
+
+          Revealer search_revealer {
+            reveal-child: bind search_button.active;
+
+            He.TextField note_search {
+              placeholder-text: _("Search notes…");
+
+              styles [
+                "search",
+              ]
+            }
+          }
+
+          Stack sgrid {
+            transition-type: crossfade;
+            hexpand: true;
+
+            StackPage {
+              name: "All Notes";
+              title: "All Notes";
+              icon-name: "text-x-generic-symbolic";
+              child: He.OverlayButton list_scroller {
+                primary-tooltip: _("Add Note");
+                icon: "list-add-symbolic";
+                typeb: primary;
+                clicked => $on_new_note_requested();
+
+                Box {
+                  orientation: vertical;
+
+                  ScrolledWindow bscroller {
+                    hscrollbar-policy: never;
+
+                    $NotejotNoteListView listview {
+                      new-note-requested => $on_new_note_requested();
+                      album: albumt;
+                      nblistview: nblistview;
+                      note-search: note_search;
+                      view-model: bind template.view-model;
+                      notes: bind template.view-model as <$NotejotNoteViewModel>.notes;
+                    }
+                  }
+                }
+              }
+
+              ;
+            }
+
+            StackPage {
+              name: "Trash";
+              title: "Trash";
+              icon-name: "user-trash-symbolic";
+              child: He.OverlayButton tlist_scroller {
+                primary-tooltip: _("Clear Trash");
+                icon: "user-trash-symbolic";
+                color: red;
+                clicked => $on_clear_trash_requested();
+
+                Box {
+                  orientation: vertical;
+
+                  ScrolledWindow tscroller {
+                    hscrollbar-policy: never;
+
+                    $NotejotTrashListView tlistview {
+                      album: albumt;
+                      tview-model: bind template.tview-model;
+                      trashs: bind template.tview-model as <$NotejotTrashViewModel>.trashs;
+                    }
+                  }
+                }
+              };
+            }
+          }
+
+          styles [
+            "sidebar-view",
+          ]
+        };
+      }
+
+      Bis.AlbumPage {
+        child: Stack grid {
+          StackPage {
+            name: "note";
+            child: 
+            $NotejotNoteContentView notecontent {
+              note-update-requested => $on_note_update_requested();
+              note-removal-requested => $on_note_removal_requested();
+              note: bind listview.selected-note;
+              vm: bind template.view-model;
+              nvm: bind template.nbview-model;
+              win: bind template.mw;
+              album: bind template.album;
+            };
+          }
+
+          StackPage {
+            name: "trash";
+            child: 
+            $NotejotTrashContentView {
+              trash-update-requested => $on_trash_update_requested();
+              trash-restore-requested => $on_trash_restore_requested();
+              trash: bind tlistview.selected-trash;
+              vm: bind template.tview-model;
+              nvm: bind template.nbview-model;
+              win: bind template.mw;
+            };
+          }
+        };
+      }
+    }
+  }
+}

@@ -1,16 +1,10 @@
 project('io.github.lainsce.Notejot', 'vala',
         version: '3.6.0',
-        meson_version: '>= 0.59.0'
+        meson_version: '>= 0.60.0'
 )
 
 gnome = import('gnome')
 i18n = import('i18n')
-
-add_project_arguments([
-		'--target-glib=2.68',
-	],
-	language: 'vala',
-)
 
 if get_option('development')
   app_id = 'io.github.lainsce.Notejot.Devel'
@@ -35,11 +29,12 @@ add_project_arguments(
   '-DGETTEXT_PACKAGE="@0@"'.format(app_id),
   language: 'c'
 )
-
-asresources = gnome.compile_resources(
-  'as-resources', 'data/io.github.lainsce.Notejot.gresource.xml',
-  source_dir: 'data',
-  c_name: 'as'
+add_project_arguments(
+  [
+		'--target-glib=2.68',
+    '--gresourcesdir', meson.current_build_dir() / 'data',
+	],
+	language: 'vala',
 )
 
 sources = [
@@ -96,17 +91,19 @@ dependencies = [
   meson.get_compiler('c').find_library('m', required: true)
 ]
 
-executable(
-  meson.project_name(),
-  sources,
-  asresources,
-  dependencies: dependencies,
-  vala_args: [meson.project_source_root() + '/src/Config.vapi'],
-  install : true
-)
-
 subdir('data')
 subdir('po')
+
+executable(
+  meson.project_name(),
+  asresources,
+  sources: sources,
+  vala_args: [
+    meson.current_source_dir () + '/src/' + '/Config.vapi',
+  ],
+  dependencies: dependencies,
+  install: true,
+)
 
 gnome.post_install(
   glib_compile_schemas: true,

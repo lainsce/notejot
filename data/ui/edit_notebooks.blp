@@ -1,0 +1,85 @@
+using Gtk 4.0;
+using He 1;
+
+template $NotejotWidgetsEditNotebooksDialog : He.Window {
+  title: _("Edit Notebooks");
+  modal: true;
+  resizable: false;
+  default-width: 360;
+  default-height: 480;
+  default-widget: notebook_add_button;
+
+  styles [
+    "dialog-content",
+  ]
+
+  ShortcutController {
+    scope: managed;
+
+    Shortcut {
+      trigger: "Escape";
+      action: "action(window.close)";
+    }
+  }
+
+  Box {
+    orientation: vertical;
+
+    He.AppBar {
+      show-buttons: true;
+      show-back: false;
+      scroller: sw;
+      viewtitle-widget: Label view_title {
+        label: _("Edit Notebooks");
+        halign: start;
+
+        styles [
+          "view-title",
+        ]
+      };
+    }
+
+    He.Divider {
+    }
+
+    ScrolledWindow sw {
+      vexpand: true;
+      hexpand: true;
+      margin-start: 20;
+      margin-end: 20;
+
+      $NotejotNotebookListView listview {
+        hexpand: true;
+        notebooks: bind template.nbview-model as <$NotejotNotebookViewModel>.notebooks;
+      }
+    }
+
+    He.Divider {
+    }
+
+    Box {
+      orientation: vertical;
+
+      Box {
+        spacing: 12;
+        margin-start: 24;
+        margin-end: 24;
+        margin-bottom: 24;
+
+        He.TextField notebook_name_entry {
+          hexpand: true;
+          placeholder-text: _("Notebook Name");
+        }
+
+        He.FillButton notebook_add_button {
+          sensitive: false;
+          clicked => $on_new_notebook_requested();
+          child: He.ButtonContent {
+            icon: "list-add-symbolic";
+            label: _("Add");
+          };
+        }
+      }
+    }
+  }
+}

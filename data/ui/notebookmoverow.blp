@@ -1,0 +1,16 @@
+using Gtk 4.0;
+
+template ListItem {
+  child: Box {
+    spacing: 12;
+
+    styles [
+      "mini-content-block",
+    ]
+
+    Label notebook_label {
+      valign: center;
+      label: bind template.item as <$NotejotNotebook>.title;
+    }
+  };
+}
