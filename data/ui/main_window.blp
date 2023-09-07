@@ -175,10 +175,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
 
             He.TextField note_search {
               placeholder-text: _("Search notes…");
-
-              styles [
-                "search",
-              ]
+              is-search: true;
             }
           }
 

@@ -11,10 +11,7 @@ template $NotejotNotebookRowContent : He.Bin {
     He.TextField notebook_entry {
       valign: center;
       hexpand: true;
-
-      styles [
-        "outline",
-      ]
+      is-outline: true;
 
       activate => $on_edit_notebook_requested();
     }
