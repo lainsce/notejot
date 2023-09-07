@@ -1,8 +1,3 @@
-.solid-csd {
-  box-shadow: none;
-  outline: 1px solid @borders;
-}
-
 .search {
   margin: 8px 18px;
 }
@@ -75,50 +70,6 @@
   text-shadow: 0 1px 2px @view_fg_color;
   caret-color: @view_bg_color;
 }
-.scrim .text-field text {
-  font-size: 24px;
-  font-weight: 300;
-}
-
-.notejot-searchbar {
-  border-radius: 999px;
-  background: @surface_container_lowest_bg_color;
-}
-
-.notejot-list {
-  background: none;
-}
-.notejot-list row widget > box > box {
-  background: none;
-  min-height: 56px;
-  min-width: 150px;
-  border-radius: 28px;
-}
-.notejot-list row {
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-.notejot-list row:hover {
-  background: none;
-}
-.notejot-list row:hover widget > box > box {
-  background: alpha(@window_fg_color, 0.08);
-}
-.notejot-list row widget > box > box image {
-  margin: 0 0 0 16px;
-  padding: 0;
-  color: @view_fg_color;
-  min-height: 16px;
-  -gtk-icon-size: 16px;
-}
-.notejot-list row widget > box > box label {
-  margin: 0;
-  padding: 0;
-  color: @view_fg_color;
-  font-weight: 500;
-  font-size: 14px;
-}
 
 .color-red radio {
   background: alpha(@meson_red, 0.5);
@@ -163,7 +114,8 @@
   font-size: 12px;
 }
 
-.notejot-header .text-field text {
+.appbar .text-field text,
+.flat-appbar .text-field text {
   font-size: 24px;
   font-weight: 300;
 }
@@ -203,62 +155,4 @@
 .sidebar2-view .navigation-rail-button:hover:checked {
   box-shadow: none;
   background: alpha(@window_fg_color, 0.08);
-}
-
-/* NavigationSection, upstream when done */
-.navigation-section {
-  background: none;
-  padding: 0;
-  margin: 0;
-}
-.navigation-section-button {
-  background: none;
-  margin: 0 18px 0 18px;
-  min-height: 46px;
-  min-width: 150px;
-  border-radius: 28px;
-}
-.navigation-section-button:disabled {
-  background: alpha(@view_fg_color, 0.12);
-  color: alpha(@view_fg_color, 0.38);
-  box-shadow: none;
-}
-.navigation-section-button:hover {
-  background: alpha(@window_fg_color, 0.08);
-}
-.navigation-section-button:checked {
-  background: @suggested_container_bg_color;
-}
-.navigation-section-button:hover:checked {
-  background: @suggested_container_bg_color;
-}
-.navigation-section-button image {
-  margin: 0 0 0 8px;
-  padding: 0;
-  color: @view_fg_color;
-  min-height: 16px;
-  -gtk-icon-size: 16px;
-}
-.navigation-section-button label {
-  margin: 0;
-  padding: 0;
-  color: @view_fg_color;
-  font-weight: 500;
-  font-size: 14px;
-}
-.navigation-section-button:checked label {
-  color: @suggested_container_fg_color;
-  font-weight: 700;
-}
-.navigation-section-button:hover image,
-.navigation-section-button:hover label {
-  box-shadow: none;
-}
-.navigation-section-button:checked image {
-  color: @suggested_container_fg_color;
-  box-shadow: none;
-}
-.navigation-section-button:hover:checked image,
-.navigation-section-button:hover:checked label {
-  box-shadow: none;
 }
