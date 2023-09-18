@@ -23,7 +23,7 @@ public class Notejot.NoteRowContent : He.Bin {
     [GtkChild]
     private unowned Gtk.Box row_box;
     [GtkChild]
-    unowned Notejot.NotePicture image;
+    unowned He.ContentBlockImage image;
 
     private Binding? pinned_binding;
     private Binding? color_binding;
@@ -112,9 +112,15 @@ public class Notejot.NoteRowContent : He.Bin {
     }
 
     [GtkCallback]
+    string get_text_line () {
+        var res = sync_text (note.text);
+        return res;
+    }
+
+    [GtkCallback]
     string get_subtitle_line () {
         var res = sync_subtitles (note.subtitle);
-        return res + " – " + note.text;
+        return res;
     }
 
     public string sync_subtitles (string subtitle) {
@@ -134,6 +140,23 @@ public class Notejot.NoteRowContent : He.Bin {
                                                 e.get_second ());
 
                     res = "%s".printf (TimeUtils.get_relative_datetime_compact (d));
+                }
+            }
+        } catch (GLib.RegexError re) {
+            warning ("%s".printf (re.message));
+        }
+
+        return res;
+    }
+    public string sync_text (string text) {
+        string res = "";
+        try {
+            var reg = new Regex ("""(?m)^(?<s>.*\n*.*)\n*""");
+            GLib.MatchInfo match;
+
+            if (log != null) {
+                if (reg.match (text, 0, out match)) {
+                    res = "%s".printf (match.fetch_named ("s"));
                 }
             }
         } catch (GLib.RegexError re) {

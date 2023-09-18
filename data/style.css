@@ -101,6 +101,17 @@
   font-size: 12px;
 }
 
+.rounded-pic {
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+}
+.unrounded-pic {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
 /* MainSideBar, upstream when done */
 .sidebar2-view {
   background: @surface_container_high_bg_color;

@@ -58,7 +58,7 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.Button image_remove_button;
     [GtkChild]
-    unowned Notejot.NotePicture image;
+    unowned He.ContentBlockImage image;
     [GtkChild]
     unowned Gtk.Button delete_button;
     [GtkChild]
@@ -340,7 +340,7 @@ public class Notejot.NoteContentView : He.Bin {
         var file = yield MiscUtils.display_open_dialog (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)));
 
         note.picture = file.get_path ();
-        image.file = note.picture;
+        image.file = "file://"+note.picture;
         image_button.visible = false;
         image_remove_button.visible = true;
         note_header.add_css_class ("scrim");
@@ -351,7 +351,7 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkCallback]
     public void action_picture_remove () {
         note.picture = "";
-        image.clear_image ();
+        image.file = "";
         image_button.visible = true;
         image_remove_button.visible = false;
         note_header.remove_css_class ("scrim");

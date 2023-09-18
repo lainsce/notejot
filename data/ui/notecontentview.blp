@@ -48,10 +48,10 @@ template $NotejotNoteContentView : He.Bin {
 
         WindowHandle {
           Overlay {
-            $NotejotNotePicture image {
-              height-request: 160;
-              width-request: 450;
-              rounded: false;
+            He.ContentBlockImage image {
+              requested-height: 160;
+              requested-width: 450;
+              styles ["unrounded-pic"]
             }
 
             [overlay]

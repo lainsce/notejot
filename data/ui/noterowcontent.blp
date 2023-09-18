@@ -5,15 +5,17 @@ template $NotejotNoteRowContent : He.Bin {
   Box row_box {
     orientation: horizontal;
     valign: center;
-    spacing: 6;
+    spacing: 12;
+    hexpand: true;
 
     styles ["mini-content-block"]
 
     [prefix]
-    $NotejotNotePicture image {
-      height-request: 44;
-      width-request: 44;
-      rounded: true;
+    He.ContentBlockImage image {
+      requested-height: 48;
+      requested-width: 48;
+      valign: start;
+      styles ["rounded-pic"]
     }
 
     Box {
@@ -29,26 +31,43 @@ template $NotejotNoteRowContent : He.Bin {
 
         styles ["cb-title"]
       }
-
-      Label subtitle {
+      Label text {
         halign: start;
         hexpand: true;
         ellipsize: end;
-        single-line-mode: true;
+        lines: 2;
+        xalign: 0;
         max-width-chars: 25;
         use-markup: true;
-        label: bind $get_subtitle_line (template.note as <$NotejotNote>.subtitle, template.note as <$NotejotNote>.text) as <string>;
+        label: bind $get_text_line (template.note as <$NotejotNote>.text) as <string>;
 
         styles ["cb-subtitle"]
       }
     }
 
-    Image pin {
+    Box {
       valign: start;
       halign: end;
-      hexpand: true;
-      icon-name: "view-pin-symbolic";
-      visible: bind template.note as <$NotejotNote>.pinned;
+      spacing: 6;
+
+      Label subtitle {
+        valign: center;
+        ellipsize: end;
+        single-line-mode: true;
+        xalign: 0;
+        max-width-chars: 5;
+        use-markup: true;
+        label: bind $get_subtitle_line (template.note as <$NotejotNote>.subtitle) as <string>;
+
+        styles ["caption"]
+      }
+
+      Image pin {
+        valign: center;
+        hexpand: true;
+        icon-name: "view-pin-symbolic";
+        visible: bind template.note as <$NotejotNote>.pinned;
+      }
     }
   }
 }
