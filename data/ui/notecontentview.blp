@@ -117,7 +117,7 @@ template $NotejotNoteContentView : He.Bin {
               orientation: vertical;
 
               styles [
-                "notejot-body"
+                "notejot-textview"
               ]
 
               TextView note_textbox {
@@ -163,6 +163,10 @@ template $NotejotNoteContentView : He.Bin {
 
             He.BottomBar note_footer {
               hexpand: true;
+
+              styles [
+                "notejot-footer"
+              ]
 
               [left]
               He.IconicButton bold_button {

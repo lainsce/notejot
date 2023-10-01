@@ -23,8 +23,11 @@ public class Notejot.StyleManager {
                 background: mix(@surface_bg_color, @note_color, 0.5);
                 border-radius: 99px;
             }
-            .notejot-note, .notejot-body, .notejot-header {
+            .notejot-header {
                 background: mix(@surface_bg_color, @note_color, 0.05);
+            }
+            .notejot-footer {
+                background-color: mix(@surface_container_bg_color, @note_color, 0.05);
             }
             .scrim {
                 background: alpha(mix(@scrim, @note_color, 0.08), 0.2);

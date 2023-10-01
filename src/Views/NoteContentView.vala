@@ -34,6 +34,8 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.Box note_header;
     [GtkChild]
+    public unowned Gtk.Box note_body;
+    [GtkChild]
     unowned He.BottomBar note_footer;
     [GtkChild]
     unowned He.TextField note_title;
@@ -277,6 +279,7 @@ public class Notejot.NoteContentView : He.Bin {
                 main_box.get_style_context().add_provider(provider, 1);
                 note_header.get_style_context().add_provider(provider, 2);
                 note_footer.get_style_context().add_provider(provider, 3);
+                note_body.get_style_context().add_provider(provider, 4);
             } else if (_note.color == "red") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
@@ -284,6 +287,7 @@ public class Notejot.NoteContentView : He.Bin {
                 main_box.get_style_context().add_provider(provider, 1);
                 note_header.get_style_context().add_provider(provider, 2);
                 note_footer.get_style_context().add_provider(provider, 3);
+                note_body.get_style_context().add_provider(provider, 4);
             } else if (_note.color == "yellow") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
@@ -291,6 +295,7 @@ public class Notejot.NoteContentView : He.Bin {
                 main_box.get_style_context().add_provider(provider, 1);
                 note_header.get_style_context().add_provider(provider, 2);
                 note_footer.get_style_context().add_provider(provider, 3);
+                note_body.get_style_context().add_provider(provider, 4);
             } else if (_note.color == "green") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
@@ -298,6 +303,7 @@ public class Notejot.NoteContentView : He.Bin {
                 main_box.get_style_context().add_provider(provider, 1);
                 note_header.get_style_context().add_provider(provider, 2);
                 note_footer.get_style_context().add_provider(provider, 3);
+                note_body.get_style_context().add_provider(provider, 4);
             } else if (_note.color == "blue") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
@@ -312,9 +318,11 @@ public class Notejot.NoteContentView : He.Bin {
                 main_box.get_style_context().add_provider(provider, 1);
                 note_header.get_style_context().add_provider(provider, 2);
                 note_footer.get_style_context().add_provider(provider, 3);
+                note_body.get_style_context().add_provider(provider, 4);
             }
 
             note_textbox.grab_focus ();
+            note_textbox.remove_css_class ("view");
 
             // ListView Back Button
             bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
@@ -334,8 +342,6 @@ public class Notejot.NoteContentView : He.Bin {
                     note_header.remove_css_class ("scrim");
                     note_header.add_css_class ("notejot-header");
                 }
-
-                note_textbox.add_css_class ("notejot-textview");
             }
         }
     }
@@ -348,7 +354,6 @@ public class Notejot.NoteContentView : He.Bin {
 
     construct {
         fmt_syntax_start ();
-        note_textbox.remove_css_class ("view");
         empty.action_button.visible = false;
 
         notebook_button.clicked.connect (() => {
