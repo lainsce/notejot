@@ -22,6 +22,7 @@ public class Notejot.NotebookMainListView : He.Bin {
     public unowned Gtk.SingleSelection selection_model;
 
     public ObservableList<Notebook>? notebooks { get; set; }
+    public NoteViewModel? view_model { get; set; }
     public NotebookViewModel? nbview_model { get; set; }
     public Notebook? selected_notebook { get; set; }
     public string? sntext { get; set; }

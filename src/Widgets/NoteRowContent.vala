@@ -21,7 +21,7 @@ public class Notejot.NoteRowContent : He.Bin {
     [GtkChild]
     private unowned Gtk.Image pin;
     [GtkChild]
-    private unowned Gtk.Box row_box;
+    private unowned Gtk.Box box;
     [GtkChild]
     unowned He.ContentBlockImage image;
 
@@ -40,16 +40,36 @@ public class Notejot.NoteRowContent : He.Bin {
 
             _color = value;
 
-            if (_color == "#ffffff00" || _color == "#797775") {
+            if (_color == "") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @outline;");
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
                     (this)).view_model.update_note_color (_note, _color);
-                row_box.get_style_context ().add_provider (provider, 1);
-            } else {
-                provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf (_color));
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "red") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
                 ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
                     (this)).view_model.update_note_color (_note, _color);
-                row_box.get_style_context ().add_provider (provider, 1);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "yellow") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "green") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "blue") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "purple") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _color);
+                box.get_style_context ().add_provider (provider, 1);
             }
         }
     }
@@ -99,8 +119,8 @@ public class Notejot.NoteRowContent : He.Bin {
     }
 
     construct {
-        row_box.add_css_class ("notejot-sidebar-box");
-        row_box.get_style_context ().add_provider (provider, 1);
+        box.add_css_class ("notejot-sidebar-box");
+        box.get_style_context ().add_provider (provider, 1);
     }
 
     ~NoteRowContent () {

@@ -30,13 +30,14 @@ template $NotejotNoteListView : He.Bin {
           model: FilterListModel filter_model {
             incremental: true;
             model: SortListModel {
-              model: bind template.notes;
-              sorter: $NotejotNoteSorter sorter { };
+              model: bind template.view-model as <$NotejotNoteViewModel>.notes;
+              sorter: $NotejotNoteSorter sorter {};
             };
             filter: EveryFilter {
               StringFilter {
                 ignore-case: true;
                 match-mode: exact;
+                expression: bind template.note_search as <$NotejotNoteListView>.nblistview as <$NotejotNotebookMainListView>.sntext;
                 search: bind template.note_search as <$NotejotNoteListView>.nblistview as <$NotejotNotebookMainListView>.sntext;
               }
 

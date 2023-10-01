@@ -26,8 +26,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.CheckButton color_button_red;
         [GtkChild]
-        public unowned Gtk.CheckButton color_button_orange;
-        [GtkChild]
         public unowned Gtk.CheckButton color_button_yellow;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_green;
@@ -35,8 +33,6 @@ namespace Notejot {
         public unowned Gtk.CheckButton color_button_blue;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_purple;
-        [GtkChild]
-        public unowned Gtk.CheckButton color_button_brown;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_reset;
     }

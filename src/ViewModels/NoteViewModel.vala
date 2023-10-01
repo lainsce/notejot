@@ -38,7 +38,7 @@ public class Notejot.NoteViewModel : Object {
                 subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M")),
                 text = _("Type text here…"),
                 notebook = _("No Notebook"),
-                color = "#ffffff00",
+                color = "",
                 picture = "",
                 pinned = false
             };

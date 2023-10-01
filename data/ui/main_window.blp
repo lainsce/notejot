@@ -34,7 +34,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
         child: He.SideBar mbox {
           has-margins: false;
           show-back: false;
-          show-buttons: bind albumt.folded;
+          show-buttons: true;
           width-request: 213;
 
           styles [
@@ -129,6 +129,8 @@ template $NotejotMainWindow : He.ApplicationWindow {
           $NotejotNotebookMainListView nblistview {
             margin-start: 18;
             margin-end: 18;
+            view-model: bind template.view-model as <$NotejotNoteViewModel>;
+            nbview-model: bind template.nbview-model as <$NotejotNotebookViewModel>;
             notebooks: bind template.nbview-model as <$NotejotNotebookViewModel>.notebooks;
           }
 
@@ -170,13 +172,15 @@ template $NotejotMainWindow : He.ApplicationWindow {
             icon-name: "system-search-symbolic";
           }
 
-          Revealer search_revealer {
-            reveal-child: bind search_button.active;
-
-            He.TextField note_search {
-              placeholder-text: _("Search notes…");
-              is-search: true;
-            }
+          He.TextField note_search {
+            visible: bind search_button.active;
+            placeholder-text: _("Search notes…");
+            is-search: true;
+            visibility: true;
+            margin-end: 18;
+            margin-start: 18;
+            margin-top: 9;
+            margin-bottom: 9;
           }
 
           Stack sgrid {
@@ -202,9 +206,9 @@ template $NotejotMainWindow : He.ApplicationWindow {
                     $NotejotNoteListView listview {
                       new-note-requested => $on_new_note_requested();
                       album: albumt;
-                      nblistview: nblistview;
                       note-search: note_search;
-                      view-model: bind template.view-model;
+                      view-model: bind template.view-model as <$NotejotNoteViewModel>;
+                      nbview-model: bind template.nbview-model as <$NotejotNotebookViewModel>;
                       notes: bind template.view-model as <$NotejotNoteViewModel>.notes;
                     }
                   }

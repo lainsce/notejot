@@ -17,7 +17,9 @@ template $NotejotNotebookMainListView : He.Bin {
         resource: "/io/github/lainsce/Notejot/notebookmainrow.ui";
       };
       model: SingleSelection selection_model {
-        model: bind template.notebooks;
+        autoselect: false;
+        can-unselect: true;
+        model: bind template.nbview-model as <$NotejotNotebookViewModel>.notebooks;
       };
     }
   }

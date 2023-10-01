@@ -100,9 +100,6 @@ public class Notejot.NoteContentView : He.Bin {
             _note = value;
 
             fmt_syntax_start ();
-            main_box.get_style_context().add_provider(provider, 1);
-            note_header.get_style_context().add_provider(provider, 2);
-            note_footer.get_style_context().add_provider(provider, 3);
 
             format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
@@ -124,56 +121,40 @@ public class Notejot.NoteContentView : He.Bin {
 
             nmp.color_button_red.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #a51d2d;");
-                    vm.update_note_color (_note, "#a51d2d");
-                    vm.update_note (_note);
-                }
-            });
-
-            nmp.color_button_orange.toggled.connect (() => {
-                if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #c64600;");
-                    vm.update_note_color (_note, "#c64600");
+                    provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
+                    vm.update_note_color (_note, "red");
                     vm.update_note (_note);
                 }
             });
 
             nmp.color_button_yellow.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #e5a50a;");
-                    vm.update_note_color (_note, "#e5a50a");
+                    provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
+                    vm.update_note_color (_note, "yellow");
                     vm.update_note (_note);
                 }
             });
 
             nmp.color_button_green.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #26a269;");
-                    vm.update_note_color (_note, "#26a269");
+                    provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
+                    vm.update_note_color (_note, "green");
                     vm.update_note (_note);
                 }
             });
 
             nmp.color_button_blue.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #1a5fb4;");
-                    vm.update_note_color (_note, "#1a5fb4");
+                    provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
+                    vm.update_note_color (_note, "blue");
                     vm.update_note (_note);
                 }
             });
 
             nmp.color_button_purple.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #613583;");
-                    vm.update_note_color (_note, "#613583");
-                    vm.update_note (_note);
-                }
-            });
-
-            nmp.color_button_brown.toggled.connect (() => {
-                if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #63452c;");
-                    vm.update_note_color (_note, "#63452c");
+                    provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
+                    vm.update_note_color (_note, "purple");
                     vm.update_note (_note);
                 }
             });
@@ -194,8 +175,8 @@ public class Notejot.NoteContentView : He.Bin {
 
             nmp.color_button_reset.toggled.connect (() => {
                 if (_note != null) {
-                    provider.load_from_data ((uint8[]) "@define-color note_color #ffffff00;");
-                    vm.update_note_color (_note, "#ffffff00");
+                    provider.load_from_data ((uint8[]) "@define-color note_color @surface_bg_color;");
+                    vm.update_note_color (_note, "");
                     vm.update_note (_note);
                 }
             });
@@ -261,12 +242,76 @@ public class Notejot.NoteContentView : He.Bin {
                 }
             });
 
-            if (_note.color == "#ffffff00" || _note.color == "#797775") {
+            if (_note.color == "#ffffff00" || _note.color == "#797775" || _note.color == "#63452c" || _note.color == "#c64600") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @surface_bg_color;");
-                vm.update_note_color (_note, _note.color);
-            } else {
-                provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf(_note.color));
-                vm.update_note_color (_note, _note.color);
+                vm.update_note_color (_note, "");
+            }
+
+            // Move note colors to semantic names instead of rando hexcodes
+            if (_note.color == "#a51d2d") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
+                vm.update_note_color (_note, "red");
+                vm.update_note (_note);
+            } else if (_note.color == "#e5a50a") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
+                vm.update_note_color (_note, "yellow");
+                vm.update_note (_note);
+            } else if (_note.color == "#26a269") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
+                vm.update_note_color (_note, "green");
+                vm.update_note (_note);
+            } else if (_note.color == "#1a5fb4") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
+                vm.update_note_color (_note, "blue");
+                vm.update_note (_note);
+            } else if (_note.color == "#613583") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
+                vm.update_note_color (_note, "purple");
+                vm.update_note (_note);
+            }
+
+            if (_note.color == "") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @surface_bg_color;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context().add_provider(provider, 1);
+                note_header.get_style_context().add_provider(provider, 2);
+                note_footer.get_style_context().add_provider(provider, 3);
+            } else if (_note.color == "red") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context().add_provider(provider, 1);
+                note_header.get_style_context().add_provider(provider, 2);
+                note_footer.get_style_context().add_provider(provider, 3);
+            } else if (_note.color == "yellow") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context().add_provider(provider, 1);
+                note_header.get_style_context().add_provider(provider, 2);
+                note_footer.get_style_context().add_provider(provider, 3);
+            } else if (_note.color == "green") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context().add_provider(provider, 1);
+                note_header.get_style_context().add_provider(provider, 2);
+                note_footer.get_style_context().add_provider(provider, 3);
+            } else if (_note.color == "blue") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context().add_provider(provider, 1);
+                note_header.get_style_context().add_provider(provider, 2);
+                note_footer.get_style_context().add_provider(provider, 3);
+            } else if (_note.color == "purple") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context().add_provider(provider, 1);
+                note_header.get_style_context().add_provider(provider, 2);
+                note_footer.get_style_context().add_provider(provider, 3);
             }
 
             note_textbox.grab_focus ();
@@ -303,9 +348,6 @@ public class Notejot.NoteContentView : He.Bin {
 
     construct {
         fmt_syntax_start ();
-        main_box.get_style_context().add_provider(provider, 1);
-        note_header.get_style_context().add_provider(provider, 2);
-        note_footer.get_style_context().add_provider(provider, 3);
         note_textbox.remove_css_class ("view");
         empty.action_button.visible = false;
 

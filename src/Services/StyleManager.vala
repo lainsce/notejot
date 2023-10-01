@@ -20,18 +20,11 @@ public class Notejot.StyleManager {
         var css_provider=new Gtk.CssProvider ();
         string style = """
             .notejot-sidebar-box {
-                border-right: 5px solid mix(@surface_bg_color, @note_color, 0.5);
+                background: mix(@surface_bg_color, @note_color, 0.5);
+                border-radius: 99px;
             }
-            .notejot-note, .notejot-body {
+            .notejot-note, .notejot-body, .notejot-header {
                 background: mix(@surface_bg_color, @note_color, 0.05);
-            }
-            .notejot-header {
-                background: mix(@surface_bg_color, @note_color, 0.05);
-            }
-            .notejot-textview {
-                background: mix(@surface_container_bg_color, @note_color, 0.08);
-                margin: 18px 18px 1px 18px;
-                border-radius: 12px;
             }
             .scrim {
                 background: alpha(mix(@scrim, @note_color, 0.08), 0.2);

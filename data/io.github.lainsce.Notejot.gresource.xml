@@ -23,6 +23,8 @@
       <file alias="trashlistview.ui">ui/trashlistview.ui</file>
       <file alias="trashrow.ui">ui/trashrow.ui</file>
       <file alias="trashrowcontent.ui">ui/trashrowcontent.ui</file>
+
+      <file alias="texture.png">assets/texture.png</file>
     </gresource>
     <gresource prefix="/io/github/lainsce/Notejot/icons">
       <file alias="scalable/actions/notebook-add-symbolic.svg">icons/hicolor/scalable/actions/notebook-add-symbolic.svg</file>

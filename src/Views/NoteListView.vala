@@ -26,6 +26,7 @@ public class Notejot.NoteListView : He.Bin {
     public NotebookMainListView? nblistview { get; set; }
     public He.TextField? note_search { get; set; }
     public NoteViewModel? view_model { get; set; }
+    public NotebookViewModel? nbview_model { get; set; }
     public Bis.Album album { get; construct; }
 
     public NoteListView () {

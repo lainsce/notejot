@@ -28,6 +28,10 @@
   color: @view_fg_color;
 }
 
+.notejot-textview {
+  background: url("resource://io/github/lainsce/Notejot/texture.png"),  @surface_container_bg_color;
+}
+
 .scrim {
   color: white;
   padding: 0;
@@ -59,35 +63,31 @@
 }
 
 .color-red radio {
-  background: alpha(@meson_red, 0.5);
+  background: alpha(@meson_red, 0.65);
   color: alpha(@meson_red, 0);
 }
 .color-orange radio {
-  background: alpha(@lepton_orange, 0.5);
+  background: alpha(@lepton_orange, 0.65);
   color: alpha(@lepton_orange, 0);
 }
 .color-yellow radio {
-  background: alpha(@electron_yellow, 0.5);
+  background: alpha(@electron_yellow, 0.65);
   color: alpha(@electron_yellow, 0);
 }
 .color-green radio {
-  background: alpha(@muon_green, 0.5);
+  background: alpha(@muon_green, 0.65);
   color: alpha(@muon_green, 0);
 }
 .color-blue radio {
-  background: alpha(@proton_blue, 0.5);
+  background: alpha(@proton_blue, 0.65);
   color: alpha(@proton_blue, 0);
 }
 .color-purple radio {
-  background: alpha(@tau_purple, 0.5);
+  background: alpha(@tau_purple, 0.65);
   color: alpha(@tau_purple, 0);
 }
-.color-brown radio {
-  background: alpha(@gluon_brown, 0.5);
-  color: alpha(@gluon_brown, 0);
-}
 .color-reset radio {
-  background: alpha(@surface_bg_color, 0.5);
+  background: alpha(@surface_bg_color, 0.65);
   color: alpha(@surface_bg_color, 0);
 }
 
