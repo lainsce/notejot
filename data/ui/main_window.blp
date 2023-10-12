@@ -35,6 +35,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
           has-margins: false;
           show-back: false;
           show-left-title-buttons: true;
+          show-right-title-buttons: bind albumt.folded;
           width-request: 213;
 
           styles [
@@ -155,6 +156,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
           has-margins: false;
           show-back: false;
           show-left-title-buttons: bind albumt.folded;
+          show-right-title-buttons: bind albumt.folded;
           width-request: 320;
           titlewidget: 
           Label sbox-title {
