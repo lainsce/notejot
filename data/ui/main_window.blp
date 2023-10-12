@@ -34,7 +34,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
         child: He.SideBar mbox {
           has-margins: false;
           show-back: false;
-          show-buttons: true;
+          show-left-title-buttons: true;
           width-request: 213;
 
           styles [
@@ -154,7 +154,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
         child: He.SideBar sbox {
           has-margins: false;
           show-back: false;
-          show-buttons: bind albumt.folded;
+          show-left-title-buttons: bind albumt.folded;
           width-request: 320;
           titlewidget: 
           Label sbox-title {
@@ -277,6 +277,7 @@ template $NotejotMainWindow : He.ApplicationWindow {
               vm: bind template.tview-model;
               nvm: bind template.nbview-model;
               win: bind template.mw;
+              album: bind template.album;
             };
           }
         };

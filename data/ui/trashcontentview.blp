@@ -1,5 +1,6 @@
 using Gtk 4.0;
 using He 1;
+using Bis 1;
 
 template $NotejotTrashContentView : He.Bin {
   vexpand: true;
@@ -20,7 +21,8 @@ template $NotejotTrashContentView : He.Bin {
         orientation: vertical;
 
         He.AppBar ftitlebar {
-          show-buttons: true;
+          show-left-title-buttons: bind template.album as <Bis.Album>.folded;
+          show-right-title-buttons: true;
           show-back: false;
           width-request: 420;
         }
@@ -55,7 +57,8 @@ template $NotejotTrashContentView : He.Bin {
               orientation: vertical;
 
               He.AppBar titlebar {
-                show-buttons: true;
+                show-left-title-buttons: bind template.album as <Bis.Album>.folded;
+                show-right-title-buttons: true;
                 width-request: 420;
                 viewtitle-widget: 
                 Label trash_title {

@@ -62,6 +62,7 @@ public class Notejot.TrashContentView : He.Bin {
     public TrashViewModel? vm { get; set; }
     public NotebookViewModel? nvm { get; set; }
     public MainWindow? win { get; set; }
+    public Bis.Album? album {get; set;}
     public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
 

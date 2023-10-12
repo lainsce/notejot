@@ -1,5 +1,6 @@
 using Gtk 4.0;
 using He 1;
+using Bis 1;
 
 menu smenu {
   section {
@@ -29,7 +30,8 @@ template $NotejotNoteContentView : He.Bin {
 
         He.AppBar ftitlebar {
           show-back: false;
-          show-buttons: false;
+          show-left-title-buttons: bind template.album as <Bis.Album>.folded;
+          show-right-title-buttons: true;
           width-request: 360;
         }
 
@@ -64,7 +66,8 @@ template $NotejotNoteContentView : He.Bin {
               ]
 
               He.AppBar titlebar {
-                show-buttons: false;
+                show-left-title-buttons: bind template.album as <Bis.Album>.folded;
+                show-right-title-buttons: true;
                 viewtitle-widget: He.TextField note_title {
                   hexpand: true;
                   placeholder-text: "Note Name";
