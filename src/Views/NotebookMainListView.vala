@@ -19,30 +19,29 @@
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notebookmainlistview.ui")]
 public class Notejot.NotebookMainListView : He.Bin {
     [GtkChild]
-    public unowned Gtk.SingleSelection selection_model;
+    public unowned Gtk.SingleSelection ss;
 
     public ObservableList<Notebook>? notebooks { get; set; }
-    public NoteViewModel? view_model { get; set; }
     public NotebookViewModel? nbview_model { get; set; }
     public Notebook? selected_notebook { get; set; }
     public string? sntext { get; set; }
 
     construct {
-        selection_model.bind_property ("selected", this, "selected-notebook", DEFAULT, (_, from, ref to) => {
+        ss.bind_property ("selected", this, "selected-notebook", DEFAULT, (_, from, ref to) => {
             var pos = (uint) from;
 
             if (pos != Gtk.INVALID_LIST_POSITION) {
-                to.set_object (selection_model.model.get_item (pos));
-                sntext = ((Notebook)selection_model.model.get_item (pos)).title;
+                to.set_object (ss.model.get_item (pos));
+                sntext = ((Notebook)ss.model.get_item (pos)).title;
             }
 
             return true;
         });
 
 
-        selection_model.selection_changed.connect (() => {
+        ss.selection_changed.connect (() => {
             if (sntext != "" && selected_notebook.title != "" && sntext == selected_notebook.title) {
-                selection_model.unselect_all ();
+                ss.unselect_all ();
             }
         });
     }
