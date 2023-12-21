@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="NotejotNotebookMainListView" parent="HeBin">
+    <property name="vexpand">1</property>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="hscrollbar-policy">never</property>
+        <property name="vexpand">1</property>
+        <property name="hexpand">1</property>
+        <child>
+          <object class="GtkListView" id="lv">
+            <style>
+              <class name="navigation-section-list" />
+            </style>
+            <property name="factory">
+              <object class="GtkBuilderListItemFactory">
+                <property name="resource">/io/github/lainsce/Notejot/notebookmainrow.ui</property>
+              </object>
+            </property>
+            <property name="model">
+              <object class="GtkSingleSelection" id="ss">
+                <property name="autoselect">0</property>
+                <property name="can-unselect">1</property>
+                <binding name="model">
+                  <lookup name="notebooks">NotejotNotebookMainListView</lookup>
+                </binding>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
