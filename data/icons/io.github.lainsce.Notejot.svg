@@ -1,4 +1,5 @@
-<svg width="129" height="128" viewBox="0 0 129 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1135_5)">
 <g filter="url(#filter0_ii_1135_5)">
 <rect width="128" height="128" rx="24" fill="url(#paint0_linear_1135_5)"/>
 </g>
@@ -17,6 +18,7 @@
 <path d="M128 100V80L84 124H104C117.255 124 128 113.255 128 100Z" fill="black" fill-opacity="0.08"/>
 <g filter="url(#filter2_d_1135_5)">
 <path d="M73.9933 59.5343L115.116 3.23446C116.42 1.44882 118.926 1.06019 120.71 2.36685L126.831 6.85086C128.591 8.13954 128.993 10.6 127.737 12.3825L88.2645 68.3772C87.9523 68.82 87.5534 69.1949 87.092 69.4789L77.566 75.3427C74.6299 77.15 70.9355 74.6444 71.5288 71.248L73.2831 61.2054C73.3886 60.6013 73.6316 60.0295 73.9933 59.5343Z" fill="white" fill-opacity="0.01" shape-rendering="crispEdges"/>
+</g>
 </g>
 </g>
 <defs>
@@ -74,5 +76,8 @@
 <stop stop-color="#FED97C"/>
 <stop offset="1" stop-color="#E0A101"/>
 </linearGradient>
+<clipPath id="clip0_1135_5">
+<rect width="128" height="128" rx="24" fill="white"/>
+</clipPath>
 </defs>
 </svg>
