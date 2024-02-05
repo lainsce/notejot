@@ -54,6 +54,8 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.TextTag s_font;
     [GtkChild]
+    unowned Gtk.TextTag mono_font;
+    [GtkChild]
     public new unowned He.AppBar titlebar;
     [GtkChild]
     unowned Gtk.Button image_button;
@@ -442,6 +444,9 @@ public class Notejot.NoteContentView : He.Bin {
                 case Format.UNDERLINE:
                 tag = ul_font;
                 break;
+                case Format.MONOSPACE:
+                tag = mono_font;
+                break;
             }
 
             buffer.apply_tag (tag, fmt_start, fmt_end);
@@ -572,6 +577,14 @@ public class Notejot.NoteContentView : He.Bin {
         var textfield = note_textbox;
         if (textfield != null) {
             insert_item(textfield, _("Item"));
+        }
+    }
+
+    [GtkCallback]
+    public void action_monospace () {
+        var textfield = note_textbox;
+        if (textfield != null) {
+            text_wrap(textfield, "`", _("monospace text"));
         }
     }
 
@@ -774,7 +787,7 @@ public class Notejot.NoteContentView : He.Bin {
         string measure_text, buf = buffer.get_text (start, end, true);
 
         try {
-            var regex = new Regex("""(?s)(?<wrap>\*{2}|[*_~]).*?\g{wrap}""");
+            var regex = new Regex("""(?s)(?<wrap>\*{2}|[*_~`]).*?\g{wrap}""");
 
             if (regex.match (buf, 0, out match)) {
                 do {

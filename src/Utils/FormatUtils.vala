@@ -21,7 +21,8 @@ namespace Notejot {
         BOLD,
         ITALIC,
         UNDERLINE,
-        STRIKETHROUGH
+        STRIKETHROUGH,
+        MONOSPACE
     }
 
     public struct FormatBlock {
@@ -40,6 +41,8 @@ namespace Notejot {
                 return "_";
             case Format.STRIKETHROUGH:
                 return "~";
+            case Format.MONOSPACE:
+                return "`";
             default:
                 assert_not_reached();
         }
@@ -55,6 +58,8 @@ namespace Notejot {
                 return Format.UNDERLINE;
             case "~":
                 return Format.STRIKETHROUGH;
+            case "`":
+                return Format.MONOSPACE;
             default:
                 assert_not_reached();
         }

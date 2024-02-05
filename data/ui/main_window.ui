@@ -168,7 +168,7 @@
                 <property name="child">
                   <object class="HeSideBar" id="sbox">
                     <property name="has-margins">0</property>
-                    <property name="width-request">320</property>
+                    <property name="width-request">345</property>
                     <property name="show-back">0</property>
                     <property name="show-left-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
                     <property name="show-right-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>

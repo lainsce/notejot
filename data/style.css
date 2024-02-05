@@ -116,8 +116,6 @@
 /* MainSideBar, upstream when done */
 .sidebar2-view {
   background: @surface_container_high_bg_color;
-  box-shadow: inset -1px 0 0 0 alpha(@outline, 0.38),
-	            inset -1px 0 0 0 alpha(@window_bg_color, 0.15);
 }
 .sidebar2-view .disclosure-button {
   background: alpha(@window_fg_color, 0.08);

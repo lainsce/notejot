@@ -151,6 +151,13 @@ template $NotejotNoteContentView : He.Bin {
                     TextTag s_font {
                       strikethrough: true;
                     }
+
+                    [tag]
+                    TextTag mono_font {
+                      font: "Source Code Pro Regular 12";
+                      background: "#8888882d";
+                      background-full-height: true;
+                    }
                   };
                 };
               }
@@ -208,6 +215,14 @@ template $NotejotNoteContentView : He.Bin {
                 tooltip-text: _("Makes selected text into an unordered list");
                 clicked => $action_item();
                 icon-name: "view-list-bullet-symbolic";
+              }
+
+              [left]
+              He.IconicButton monospace_button {
+                receives-default: true;
+                tooltip-text: _("Makes selected text monospace");
+                clicked => $action_monospace();
+                icon-name: "format-text-plaintext-symbolic";
               }
 
               [right]

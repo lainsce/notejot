@@ -48,6 +48,8 @@ public class Notejot.TrashContentView : He.Bin {
     [GtkChild]
     unowned Gtk.TextTag s_font;
     [GtkChild]
+    unowned Gtk.TextTag mono_font;
+    [GtkChild]
     public new unowned He.AppBar titlebar;
     [GtkChild]
     unowned He.EmptyPage trash_status_page;
@@ -218,6 +220,9 @@ public class Notejot.TrashContentView : He.Bin {
                 break;
             case Format.UNDERLINE:
                 tag = ul_font;
+                break;
+            case Format.MONOSPACE:
+                tag = mono_font;
                 break;
             }
 
@@ -401,7 +406,7 @@ public class Notejot.TrashContentView : He.Bin {
         string measure_text, buf = buffer.get_text (start, end, true);
 
         try {
-            var regex = new Regex ("""(?s)(?<wrap>\*{2}|[*_~]).*?\g{wrap}""");
+            var regex = new Regex ("""(?s)(?<wrap>\*{2}|[*_~`]).*?\g{wrap}""");
 
             if (regex.match (buf, 0, out match)) {
                 do {
