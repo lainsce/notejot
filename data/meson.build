@@ -60,6 +60,7 @@ blueprints = custom_target(
   'blueprints',
   input: files(
     'ui/edit_notebooks.blp',
+    'ui/main_menu.blp',
     'ui/move_to_dialog.blp',
     'ui/note_theme.blp',
     'ui/notebooklistview.blp',

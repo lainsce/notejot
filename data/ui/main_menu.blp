@@ -1,0 +1,60 @@
+using Gtk 4.0;
+using He 1;
+
+template $NotejotWidgetsMainMenu : Box {
+  orientation: vertical;
+  styles [
+    "notejot-theme",
+  ]
+
+  Box {
+    orientation: vertical;
+    spacing: 6;
+    margin-start: 6;
+    margin-end: 10;
+
+    Label {
+      label: _('Font Size');
+      halign: start;
+      styles [
+        "caption",
+        "dim-label",
+      ]
+    }
+
+    He.SegmentedButton {
+      ToggleButton s {
+        label: 'Small';
+        action-name: 'app.font-size';
+        action-target: '"\'small\'"';
+      }
+
+      ToggleButton {
+        label: 'Medium';
+        action-name: 'app.font-size';
+        action-target: '"\'medium\'"';
+        group: s;
+      }
+
+      ToggleButton {
+        label: 'Large';
+        action-name: 'app.font-size';
+        action-target: '"\'large\'"';
+        group: s;
+      }
+    }
+  }
+
+  He.Divider {
+  }
+
+  He.TextButton about_button {
+    hexpand: true;
+    action-name: 'win.action_about';
+    child: 
+    He.ButtonContent {
+      icon: "dialog-information-symbolic";
+      label: _("About Notejot");
+    };
+  }
+}

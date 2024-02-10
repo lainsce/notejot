@@ -67,7 +67,8 @@ sources = [
   'src/Views/TrashContentView.vala',
   'src/Views/TrashListView.vala',
   'src/Views/View.vala',
-  'src/Widgets/EditNotebookDialog.vala',\
+  'src/Widgets/EditNotebookDialog.vala',
+  'src/Widgets/MainMenu.vala',
   'src/Widgets/NotebookMainRowContent.vala',
   'src/Widgets/NoteRowContent.vala',
   'src/Widgets/MoveToDialog.vala',

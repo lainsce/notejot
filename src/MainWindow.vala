@@ -149,7 +149,15 @@ namespace Notejot {
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
 
-            menu_button.get_popover ().has_arrow = false;
+            // Main Menu
+            var nmp = new Widgets.MainMenu ();
+            var pop = (Gtk.PopoverMenu)menu_button.get_popover ();
+            pop.add_child (nmp, "zoom");
+            pop.has_arrow = false;
+
+            nmp.about_button.clicked.connect (() => {
+                pop.closed ();
+            });
         }
 
         protected override bool close_request () {

@@ -9,12 +9,13 @@ template $NotejotWidgetsNoteTheme : Box {
   ]
 
   Label {
-    margin-start: 8;
-    margin-bottom: 6;
+    margin-start: 6;
+    margin-end: 10;
     halign: start;
     label: _("Note Color");
 
     styles [
+      "caption",
       "dim-label",
     ]
   }
@@ -23,7 +24,7 @@ template $NotejotWidgetsNoteTheme : Box {
     column-spacing: 6;
     row-spacing: 6;
     margin-start: 6;
-    margin-end: 6;
+    margin-end: 10;
     hexpand: true;
 
     CheckButton color_button_red {
