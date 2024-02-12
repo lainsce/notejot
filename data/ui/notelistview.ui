@@ -66,7 +66,9 @@
                                 </property>
                                 <binding name="search">
                                   <lookup name="text">
-                                    <lookup name="note_search">NotejotNoteListView</lookup>
+                                    <lookup name="entry">
+                                      <lookup name="note_search">NotejotNoteListView</lookup>
+                                    </lookup>
                                   </lookup>
                                 </binding>
                               </object>
@@ -80,7 +82,9 @@
                                 </property>
                                 <binding name="search">
                                   <lookup name="text">
-                                    <lookup name="note_search">NotejotNoteListView</lookup>
+                                    <lookup name="entry">
+                                      <lookup name="note_search">NotejotNoteListView</lookup>
+                                    </lookup>
                                   </lookup>
                                 </binding>
                               </object>

@@ -122,19 +122,16 @@
                         </style>
                       </object>
                     </property>
-                    <child type="titlebar-button">
-                      <object class="GtkToggleButton" id="search_button">
-                        <property name="icon-name">system-search-symbolic</property>
-                      </object>
-                    </child>
                     <child>
                       <object class="HeTextField" id="note_search">
                         <property name="is-search">1</property>
                         <property name="visibility">1</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
-                        <property name="visible" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
+                        <property name="margin-top">6</property>
+                        <property name="margin-bottom">6</property>
                         <property name="placeholder-text" translatable="yes">Search notes…</property>
+                        <property name="prefix-icon">system-search-symbolic</property>
                       </object>
                     </child>
                     <child>

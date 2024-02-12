@@ -60,14 +60,14 @@ public class Notejot.NotebookRowContent : He.Bin {
             var item = notes.get_item (i);
 
             if (target_notebook.title == ((Note) item).notebook) {
-                if (((Note) item).notebook != notebook_entry.get_entry ().get_text ()) {
-                    vm.update_notebook (((Note) item), notebook_entry.get_entry ().get_text ());
+                if (((Note) item).notebook != notebook_entry.get_internal_entry ().get_text ()) {
+                    vm.update_notebook (((Note) item), notebook_entry.get_internal_entry ().get_text ());
                 }
             }
         }
 
         ((NotebookListView)MiscUtils.find_ancestor_of_type<NotebookListView>
-            (this)).nbview_model.update_notebook (notebook, notebook_entry.get_entry ().get_text ());
+            (this)).nbview_model.update_notebook (notebook, notebook_entry.get_internal_entry ().get_text ());
     }
 
     [GtkCallback]
@@ -80,7 +80,7 @@ public class Notejot.NotebookRowContent : He.Bin {
         for (i = 0; i < n; i++) {
             var item = notes.get_item (i);
 
-            if (((Note) item).notebook == notebook_entry.get_entry ().get_text ()) {
+            if (((Note) item).notebook == notebook_entry.get_internal_entry ().get_text ()) {
                 vm.update_notebook (((Note) item), "<i>No Notebook</i>");
             }
         }

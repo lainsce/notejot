@@ -197,7 +197,7 @@ public class Notejot.NoteContentView : He.Bin {
                 });
             });
 
-            title_binding = _note?.bind_property ("title", note_title.get_entry (), "text", SYNC_CREATE | BIDIRECTIONAL);
+            title_binding = _note?.bind_property ("title", note_title.get_internal_entry (), "text", SYNC_CREATE | BIDIRECTIONAL);
             subtitle_binding = _note?.bind_property ("subtitle", titlebar, "viewsubtitle-label", 
                                                      SYNC_CREATE | BIDIRECTIONAL);
             text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE | BIDIRECTIONAL);

@@ -25,8 +25,6 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.MenuButton menu_button;
         [GtkChild]
-        public unowned Gtk.ToggleButton search_button;
-        [GtkChild]
         public unowned Gtk.Stack grid;
         [GtkChild]
         public unowned He.SideBar sbox;
