@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.lainsce.Notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 16:39+0900\n"
+"POT-Creation-Date: 2024-03-16 17:38+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Removes formatting from selected text"
 msgstr ""
 
-#: data/ui/trashcontentview.blp:35 src/Views/TrashContentView.vala:174
+#: data/ui/trashcontentview.blp:35 src/Views/TrashContentView.vala:171
 msgid "Trash is Empty"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgid "strikethrough text"
 msgstr ""
 
 #: src/Views/NoteContentView.vala:579 src/Views/NoteContentView.vala:727
-#: src/Views/TrashContentView.vala:169 src/Views/TrashContentView.vala:346
+#: src/Views/TrashContentView.vala:343
 msgid "Item"
 msgstr ""
 
@@ -595,10 +595,9 @@ msgstr ""
 msgid "monospace text"
 msgstr ""
 
-#: src/Views/TrashContentView.vala:168 src/Views/TrashContentView.vala:171
-msgid "Trash has"
-msgstr ""
-
-#: src/Views/TrashContentView.vala:172
-msgid "Items"
-msgstr ""
+#: src/Views/TrashContentView.vala:168
+#, c-format
+msgid "Trash has %u Item"
+msgid_plural "Trash has %u Items"
+msgstr[0] ""
+msgstr[1] ""
