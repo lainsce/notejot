@@ -2,20 +2,18 @@ data/io.github.lainsce.Notejot.desktop.in
 data/io.github.lainsce.Notejot.metainfo.xml.in
 data/io.github.lainsce.Notejot.gschema.xml
 
-data/ui/edit_notebooks.ui
+data/ui/edit_notebooks.blp
+data/ui/main_menu.blp
 data/ui/main_window.ui
-data/ui/move_to_dialog.ui
-data/ui/notecontentview.ui
-data/ui/note_theme.ui
-data/ui/task_dialog.ui
-data/ui/taskrowcontent.ui
-data/ui/trashcontentview.ui
+data/ui/move_to_dialog.blp
+data/ui/note_theme.blp
+data/ui/notecontentview.blp
+data/ui/trashcontentview.blp
 
 src/MainWindow.vala
 src/Utils/MiscUtils.vala
 src/Utils/TimeUtils.vala
 src/ViewModels/NoteViewModel.vala
-src/ViewModels/TaskViewModel.vala
 src/ViewModels/TrashViewModel.vala
 src/Views/NoteContentView.vala
 src/Views/TrashContentView.vala
