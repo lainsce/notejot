@@ -164,12 +164,9 @@ public class Notejot.TrashContentView : He.Bin {
         trash_status_page.action_button.visible = false;
 
         Timeout.add_seconds (1, () => {
-            if (vm.trashs.get_n_items () == 1) {
-                trash_status_page.title = (_("Trash has") + " " +
-                                             vm.trashs.get_n_items ().to_string () + " " + _("Item"));
-            } else if (vm.trashs.get_n_items () >= 0) {
-                trash_status_page.title = (_("Trash has") + " " +
-                                             vm.trashs.get_n_items ().to_string () + " " + _("Items"));
+            if (vm.trashs.get_n_items () > 0) {
+                trash_status_page.title = ngettext("Trash has %u Item", "Trash has %u Items", vm.trashs.get_n_items ())
+                                            .printf (vm.trashs.get_n_items ());
             } else {
                 trash_status_page.title = (_("Trash is Empty"));
             }

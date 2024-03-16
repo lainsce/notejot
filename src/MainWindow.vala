@@ -248,7 +248,7 @@ namespace Notejot {
 
         public void action_about () {
             // TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
-            string translators = (_(""));
+            string translators = (_("translator-credits"));
 
             var about = new He.AboutWindow (
                 this,
