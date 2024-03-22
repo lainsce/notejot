@@ -21,7 +21,7 @@
       <kudo>ModernToolkit</kudo>
       <kudo>HiDpiIcon</kudo>
     </kudos>
-    <developer>
+    <developer id="us.lainsce">
         <name translatable="no">Lains</name>
     </developer>
     <url type="homepage">https://github.com/lainsce/notejot/</url>
