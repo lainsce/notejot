@@ -22,6 +22,9 @@
       <kudo>HiDpiIcon</kudo>
     </kudos>
     <developer_name translate="no">Lains</developer_name>
+    <developer id="io.github.lainsce">
+        <name translate="no">Lains</name>
+    </developer>
     <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
     <url type="donation">https://www.ko-fi.com/lainsce/</url>
