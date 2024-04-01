@@ -28,6 +28,7 @@
     <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
     <url type="donation">https://www.ko-fi.com/lainsce/</url>
+    <url type="vcs-browser">https://github.com/lainsce/notejot/</url>
     <url type="translate">https://github.com/lainsce/notejot/blob/main/po/README.md</url>
     <launchable type="desktop-id">io.github.lainsce.Notejot.desktop</launchable>
     <screenshots>
