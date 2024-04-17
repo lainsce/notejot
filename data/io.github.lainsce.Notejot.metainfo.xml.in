@@ -3,7 +3,7 @@
     <id>@app_id@</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>GPL-3.0+</project_license>
-    <name translatable="no">Notejot</name>
+    <name translate="no">Notejot</name>
     <summary>Jot your ideas</summary>
     <description>
         <p>A stupidly-simple notes application for any type of short term notes or ideas.</p>
@@ -21,10 +21,14 @@
       <kudo>ModernToolkit</kudo>
       <kudo>HiDpiIcon</kudo>
     </kudos>
-    <developer_name translatable="no">Lains</developer_name>
+    <developer_name translate="no">Lains</developer_name>
+    <developer id="io.github.lainsce">
+        <name translate="no">Lains</name>
+    </developer>
     <url type="homepage">https://github.com/lainsce/notejot/</url>
     <url type="bugtracker">https://github.com/lainsce/notejot/issues</url>
     <url type="donation">https://www.ko-fi.com/lainsce/</url>
+    <url type="vcs-browser">https://github.com/lainsce/notejot/</url>
     <url type="translate">https://github.com/lainsce/notejot/blob/main/po/README.md</url>
     <launchable type="desktop-id">io.github.lainsce.Notejot.desktop</launchable>
     <screenshots>
@@ -47,7 +51,7 @@
     <translation type="gettext">@app_id@</translation>
     <releases>
         <release version="3.6.0" date="2022-12-31">
-            <description>
+            <description translate="no">
                 <p>Release: Stargone</p>
                 <ul>
                     <li>Added: An option to give a note a header image.</li>
@@ -57,7 +61,7 @@
             </description>
         </release>
         <release version="3.5.1" date="2022-04-20">
-            <description>
+            <description translate="no">
                 <p>Release: Silver</p>
                 <ul>
                     <li>Changed: UI now follows my own style that complements that of He.Albumaita, called Solo.</li>
@@ -68,7 +72,7 @@
             </description>
         </release>
         <release version="3.5.0" date="2022-03-29">
-            <description>
+            <description translate="no">
                 <p>Release: Beautiful Superstar</p>
                 <ul>
                     <li>Added: New Notes Grid view, access your notes in a grid.</li>
@@ -80,7 +84,7 @@
             </description>
         </release>
         <release version="3.4.9" date="2021-11-28">
-            <description>
+            <description translate="no">
                 <p>Release: The Top 100 (3.3.3)</p>
                 <ul>
                     <li>Changed: UI now looks better layoutted, is an experiment.</li>
@@ -90,7 +94,7 @@
             </description>
         </release>
         <release version="3.3.3" date="2021-11-28">
-            <description>
+            <description translate="no">
                 <p>Release: The Top 100</p>
                 <ul>
                     <li>Changed: UI now looks better layoutted, is an experiment.</li>
@@ -100,7 +104,7 @@
             </description>
         </release>
         <release version="3.2.0" date="2021-10-13">
-            <description>
+            <description translate="no">
                 <p>Release: Pinned Notes</p>
                 <ul>
                     <li>Added: Notes can now be pinned and are shown separately from others.</li>
@@ -111,7 +115,7 @@
             </description>
         </release>
         <release version="3.1.3" date="2021-09-07">
-            <description>
+            <description translate="no">
                 <p>Release: Usability Independence</p>
                 <ul>
                     <li>Fixed: many UI bugs were fixed, last but not least the notebook switcher and trash and also removing singular notes from a notebook.</li>
@@ -120,7 +124,7 @@
             </description>
         </release>
         <release version="3.1.2" date="2021-08-22">
-            <description>
+            <description translate="no">
                 <p>Release: Format But Don't Fail</p>
                 <ul>
                     <li>Fixed: formatting functions are the best they can be, plus minor fixes all around.</li>
@@ -129,7 +133,7 @@
             </description>
         </release>
         <release version="3.1.0" date="2021-08-13">
-            <description>
+            <description translate="no">
                 <p>Release: Ready, Set, Go!</p>
                 <ul>
                     <li>Some UI design fixes, such as the notebook switcher being on the bottom instead of in the top.</li>
@@ -138,7 +142,7 @@
             </description>
         </release>
         <release version="3.0.0" date="2021-04-25">
-            <description>
+            <description translate="no">
                 <p>Release: GTK4 and Ready!</p>
                 <ul>
                     <li>New UI</li>
