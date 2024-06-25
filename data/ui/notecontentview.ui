@@ -65,6 +65,7 @@
                             <child>
                               <object class="HeAppBar" id="titlebar">
                                 <property name="scroller">sw</property>
+                                <property name="show-left-title-buttons">0</property>
                                 <property name="viewtitle-widget">
                                   <object class="HeTextField" id="note_title">
                                     <property name="hexpand">1</property>

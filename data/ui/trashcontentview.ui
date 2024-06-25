@@ -60,6 +60,7 @@
                               <object class="HeAppBar" id="titlebar">
                                 <property name="width-request">420</property>
                                 <property name="height-request">182</property>
+                                <property name="show-left-title-buttons">0</property>
                                 <property name="viewtitle-widget">
                                   <object class="GtkLabel" id="trash_title">
                                     <property name="hexpand">1</property>
