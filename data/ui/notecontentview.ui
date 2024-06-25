@@ -52,7 +52,7 @@
                       <object class="GtkOverlay">
                         <child>
                           <object class="HeContentBlockImage" id="image">
-                            <property name="height-request">160</property>
+                            <property name="height-request">182</property>
                             <property name="width-request">450</property>
                             <property name="rounded">0</property>
                           </object>
