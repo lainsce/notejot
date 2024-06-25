@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="NotejotNotebookMainListView" parent="HeBin">
-    <property name="vexpand">1</property>
+  <template class="NotejotNotebookListView" parent="HeBin">
+    <signal name="notebook_removal_requested" handler="on_notebook_removal_requested" />
     <child>
       <object class="GtkScrolledWindow">
         <property name="hscrollbar-policy">never</property>
@@ -10,19 +10,17 @@
         <child>
           <object class="GtkListView" id="lv">
             <style>
-              <class name="navigation-section-list" />
+              <class name="content-list" />
             </style>
             <property name="factory">
               <object class="GtkBuilderListItemFactory">
-                <property name="resource">/io/github/lainsce/Notejot/notebookmainrow.ui</property>
+                <property name="resource">/io/github/lainsce/Notejot/notebookrow.ui</property>
               </object>
             </property>
             <property name="model">
-              <object class="GtkSingleSelection" id="ss">
-                <property name="autoselect">0</property>
-                <property name="can-unselect">1</property>
+              <object class="GtkNoSelection" id="selection_model">
                 <binding name="model">
-                  <lookup name="notebooks">NotejotNotebookMainListView</lookup>
+                  <lookup name="notebooks">NotejotNotebookListView</lookup>
                 </binding>
               </object>
             </property>

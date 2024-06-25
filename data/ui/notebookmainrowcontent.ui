@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="NotejotNotebookMainRowContent" parent="HeBin">
+  <child>
+    <object class="GtkBox">
+      <property name="orientation">horizontal</property>
+      <property name="valign">center</property>
+      <property name="spacing">12</property>
+      <child>
+        <object class="GtkImage">
+          <property name="halign">start</property>
+          <property name="valign">center</property>
+          <property name="icon-name">notebook-symbolic</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkLabel" id="notebook_entry">
+          <property name="halign">start</property>
+          <property name="valign">center</property>
+          <property name="hexpand">1</property>
+        </object>
+      </child>
+    </object>
+  </child>
+</template>
+</interface>

@@ -2,8 +2,16 @@
 <interface>
   <menu id="menu">
     <item>
-      <attribute name="custom">zoom</attribute>
+      <attribute name="label" translatable="yes">Text size</attribute>
+      <attribute name="display-hint">inline-buttons</attribute>
+      <attribute name="custom">zoom-grid</attribute>
     </item>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">About Notejot</attribute>
+        <attribute name="action">win.action_about</attribute>
+      </item>
+    </section>
   </menu>
   <template class="NotejotMainWindow" parent="HeApplicationWindow">
     <property name="visible">1</property>
@@ -24,8 +32,7 @@
                   <object class="HeSideBar" id="mbox">
                     <property name="has-margins">0</property>
                     <property name="show-back">0</property>
-                    <property name="width-request">213</property>"
-                    <property name="show-left-title-buttons">1</property>
+                    <property name="width-request">213</property>
                     <property name="show-right-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
                     <style>
                       <class name="sidebar2-view"/>
@@ -43,7 +50,59 @@
                     <child type="titlebar-button">
                       <object class="GtkMenuButton" id="menu_button">
                         <property name="icon-name">open-menu-symbolic</property>
-                        <property name="menu-model">menu</property>
+                        <property name="popover">
+                          <object class="GtkPopoverMenu">
+                              <property name="menu-model">menu</property>
+                              <child type="zoom-grid">
+                                  <object class="GtkBox">
+                                      <property name="hexpand">1</property>
+                                      <property name="orientation">vertical</property>
+                                      <property name="spacing">6</property>
+                                      <property name="margin-top">6</property>
+                                      <property name="margin-bottom">6</property>
+                                      <property name="margin-start">10</property>
+                                      <property name="margin-end">6</property>
+                                      <child>
+                                        <object class="GtkBox">
+                                          <child>
+                                            <object class="GtkLabel">
+                                              <property name="label" translatable="true">Font Size</property>
+                                              <property name="sensitive">0</property>
+                                            </object>
+                                          </child>
+                                        </object>
+                                      </child>
+                                      <child>
+                                        <object class="HeSegmentedButton">
+                                          <child>
+                                              <object class="GtkToggleButton" id="s">
+                                                  <property name="label">Small</property>
+                                                  <property name="action-name">app.font-size</property>
+                                                  <property name="action-target">"'small'"</property>
+                                              </object>
+                                          </child>
+                                          <child>
+                                              <object class="GtkToggleButton">
+                                                  <property name="label">Medium</property>
+                                                  <property name="action-name">app.font-size</property>
+                                                  <property name="action-target">"'medium'"</property>
+                                                  <property name="group">s</property>
+                                              </object>
+                                          </child>
+                                          <child>
+                                              <object class="GtkToggleButton">
+                                                  <property name="label">Large</property>
+                                                  <property name="action-name">app.font-size</property>
+                                                  <property name="action-target">"'large'"</property>
+                                                  <property name="group">s</property>
+                                              </object>
+                                          </child>
+                                        </object>
+                                      </child>
+                                  </object>
+                              </child>
+                          </object>
+                      </property>
                       </object>
                     </child>
                     <child>
@@ -102,15 +161,14 @@
                   </object>
                 </property>
               </object>
-            </child>
+            </child>        
             <child>
               <object class="BisAlbumPage">
                 <property name="child">
                   <object class="HeSideBar" id="sbox">
                     <property name="has-margins">0</property>
-                    <property name="width-request">345</property>
                     <property name="show-back">0</property>
-                    <property name="show-left-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
+                    <property name="width-request">345</property>
                     <property name="show-right-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
                     <property name="titlewidget">
                       <object class="GtkLabel" id="sbox-title">
@@ -122,22 +180,28 @@
                         </style>
                       </object>
                     </property>
+                    <child type="titlebar-button">
+                      <object class="GtkToggleButton" id="search_button">
+                        <property name="icon-name">system-search-symbolic</property>
+                      </object>
+                    </child>
                     <child>
-                      <object class="HeTextField" id="note_search">
-                        <property name="is-search">1</property>
-                        <property name="visibility">1</property>
-                        <property name="margin-start">18</property>
-                        <property name="margin-end">18</property>
-                        <property name="margin-top">6</property>
-                        <property name="margin-bottom">6</property>
-                        <property name="placeholder-text" translatable="yes">Search notes…</property>
-                        <property name="prefix-icon">system-search-symbolic</property>
+                      <object class="GtkRevealer" id="search_revealer">
+                        <property name="reveal-child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
+                        <child>
+                          <object class="HeTextField" id="note_search">
+                            <property name="placeholder-text" translatable="yes">Search notes…</property>
+                            <style>
+                              <class name="search"/>
+                            </style>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
                       <object class="GtkStack" id="sgrid">
                         <property name="transition-type">crossfade</property>
-
+                        <property name="hexpand">1</property>
                         <child>
                           <object class="GtkStackPage">
                             <property name="name">All Notes</property>
@@ -188,7 +252,7 @@
                               <object class="HeOverlayButton" id="tlist_scroller">
                                 <property name="primary-tooltip" translatable="yes">Clear Trash</property>
                                 <property name="icon">user-trash-symbolic</property>
-                                <property name="typeb">secondary</property>
+                                <property name="color">red</property>
                                 <signal name="clicked" handler="on_clear_trash_requested"/>
                                 <child>
                                   <object class="GtkBox">

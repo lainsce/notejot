@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="NotejotTrashListView" parent="HeBin">
+    <property name="vexpand">1</property>
+    <property name="hexpand">1</property>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="hscrollbar-policy">never</property>
+            <property name="vexpand">1</property>
+            <child>
+              <object class="GtkListView" id="lv">
+                <property name="hexpand">1</property>
+                <property name="margin-start">18</property>
+                <property name="margin-end">18</property>
+                <style>
+                  <class name="content-list" />
+                </style>
+                <property name="factory">
+                  <object class="GtkBuilderListItemFactory">
+                    <property name="resource">/io/github/lainsce/Notejot/trashrow.ui</property>
+                  </object>
+                </property>
+                <property name="model">
+                  <object class="GtkSingleSelection" id="selection_model">
+                    <property name="autoselect">no</property>
+                    <property name="can-unselect">yes</property>
+                    <property name="model">
+                      <object class="GtkFilterListModel" id="filter_model">
+                        <property name="incremental">1</property>
+                        <property name="model">
+                          <object class="GtkSortListModel">
+                            <binding name="model">
+                              <lookup name="trashs">NotejotTrashListView</lookup>
+                            </binding>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

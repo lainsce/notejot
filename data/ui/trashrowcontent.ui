@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<template class="NotejotTrashRowContent" parent="HeBin">
+  <child>
+    <object class="GtkBox" id="row_box">
+      <property name="orientation">horizontal</property>
+      <property name="valign">center</property>
+      <property name="spacing">6</property>
+      <style>
+        <class name="mini-content-block"/>
+      </style>
+      <child>
+        <object class="GtkBox">
+          <property name="orientation">vertical</property>
+          <property name="valign">center</property>
+          <property name="spacing">6</property>
+          <property name="margin-start">6</property>
+          <child>
+            <object class="GtkLabel">
+              <property name="halign">start</property>
+              <property name="ellipsize">end</property>
+              <property name="single-line-mode">yes</property>
+              <binding name="label">
+                <lookup name="title" type="NotejotTrash">
+                  <lookup name="trash">NotejotTrashRowContent</lookup>
+                </lookup>
+              </binding>
+              <style>
+                <class name="cb-title"/>
+              </style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkLabel">
+              <property name="halign">start</property>
+              <property name="hexpand">1</property>
+              <property name="ellipsize">end</property>
+              <property name="single-line-mode">yes</property>
+              <property name="max-width-chars">25</property>
+              <property name="use-markup">1</property>
+              <binding name="label">
+                <closure type="gchararray" function="get_subtitle_line">
+                  <lookup name="subtitle" type="NotejotTrash">
+                    <lookup name="trash">NotejotTrashRowContent</lookup>
+                  </lookup>
+                  <lookup name="text" type="NotejotTrash">
+                    <lookup name="trash">NotejotTrashRowContent</lookup>
+                  </lookup>
+                </closure>
+              </binding>
+              <style>
+                <class name="cb-subtitle"/>
+              </style>
+            </object>
+          </child>
+        </object>
+      </child>
+      <child type="suffix">
+        <object class="GtkImage" id="pin">
+          <property name="valign">center</property>
+          <property name="halign">end</property>
+          <property name="hexpand">1</property>
+          <property name="icon-name">view-pin-symbolic</property>
+          <binding name="visible">
+            <lookup name="pinned" type="NotejotTrash">
+              <lookup name="trash">NotejotTrashRowContent</lookup>
+            </lookup>
+          </binding>
+        </object>
+      </child>
+    </object>
+  </child>
+</template>
+</interface>
