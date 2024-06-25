@@ -9,12 +9,17 @@
       <style>
         <class name="mini-content-block"/>
       </style>
+      <child type="prefix">
+        <object class="HeContentBlockImage" id="image">
+          <property name="requested-height">48</property>
+          <property name="requested-width">48</property>
+        </object>
+      </child>
       <child>
         <object class="GtkBox">
           <property name="orientation">vertical</property>
           <property name="valign">center</property>
           <property name="spacing">6</property>
-          <property name="margin-start">6</property>
           <child>
             <object class="GtkLabel">
               <property name="halign">start</property>
@@ -35,14 +40,10 @@
               <property name="halign">start</property>
               <property name="hexpand">1</property>
               <property name="ellipsize">end</property>
-              <property name="single-line-mode">yes</property>
               <property name="max-width-chars">25</property>
               <property name="use-markup">1</property>
               <binding name="label">
-                <closure type="gchararray" function="get_subtitle_line">
-                  <lookup name="subtitle" type="NotejotTrash">
-                    <lookup name="trash">NotejotTrashRowContent</lookup>
-                  </lookup>
+                <closure type="gchararray" function="get_text_line">
                   <lookup name="text" type="NotejotTrash">
                     <lookup name="trash">NotejotTrashRowContent</lookup>
                   </lookup>
@@ -55,17 +56,56 @@
           </child>
         </object>
       </child>
-      <child type="suffix">
-        <object class="GtkImage" id="pin">
-          <property name="valign">center</property>
+      <child>
+        <object class="GtkBox">
           <property name="halign">end</property>
-          <property name="hexpand">1</property>
-          <property name="icon-name">view-pin-symbolic</property>
-          <binding name="visible">
-            <lookup name="pinned" type="NotejotTrash">
-              <lookup name="trash">NotejotTrashRowContent</lookup>
-            </lookup>
-          </binding>
+          <property name="valign">start</property>
+          <property name="spacing">6</property>
+          <child>
+            <object class="GtkLabel">
+              <property name="halign">start</property>
+              <property name="valign">start</property>
+              <property name="hexpand">1</property>
+              <property name="ellipsize">end</property>
+              <property name="single-line-mode">yes</property>
+              <property name="max-width-chars">25</property>
+              <property name="use-markup">1</property>
+              <binding name="label">
+                <closure type="gchararray" function="get_subtitle_line">
+                  <lookup name="subtitle" type="NotejotTrash">
+                    <lookup name="trash">NotejotTrashRowContent</lookup>
+                  </lookup>
+                </closure>
+              </binding>
+              <style>
+                <class name="caption"/>
+              </style>
+            </object>
+          </child>
+          <child>
+            <object class="GtkImage" id="pin">
+              <property name="valign">start</property>
+              <property name="halign">end</property>
+              <property name="hexpand">1</property>
+              <property name="icon-name">view-pin-symbolic</property>
+              <binding name="visible">
+                <lookup name="pinned" type="NotejotTrash">
+                  <lookup name="trash">NotejotTrashRowContent</lookup>
+                </lookup>
+              </binding>
+            </object>
+          </child>
+          <child>
+            <object class="GtkBox" id="box">
+              <property name="width-request">16</property>
+              <property name="height-request">16</property>
+              <property name="halign">1</property>
+              <property name="valign">1</property>
+              <style>
+                <class name="trashjot-sidebar-box"/>
+              </style>
+            </object>
+          </child>
         </object>
       </child>
     </object>

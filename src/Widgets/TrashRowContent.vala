@@ -21,10 +21,14 @@ public class Notejot.TrashRowContent : He.Bin {
     [GtkChild]
     private unowned Gtk.Image pin;
     [GtkChild]
-    private unowned Gtk.Box row_box;
+    private unowned Gtk.Box box;
+    [GtkChild]
+    unowned He.ContentBlockImage image;
 
     private Binding? pinned_binding;
     private Binding? color_binding;
+    private Binding? pix_binding;
+
     private Gtk.CssProvider provider = new Gtk.CssProvider ();
 
     private string? _color;
@@ -36,10 +40,37 @@ public class Notejot.TrashRowContent : He.Bin {
 
             _color = value;
 
-            provider.load_from_data ((uint8[]) "@define-color note_color %s;".printf (_trash.color));
-            ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                (this)).tview_model.update_trash_color (_trash, _color);
-            row_box.get_style_context ().add_provider (provider, 1);
+            if (_color == "") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @outline;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).tview_model.update_trash_color (_trash, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "red") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).tview_model.update_trash_color (_trash, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "yellow") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).tview_model.update_trash_color (_trash, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "green") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).tview_model.update_trash_color (_trash, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "blue") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).tview_model.update_trash_color (_trash, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            } else if (_color == "purple") {
+                provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
+                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
+                    (this)).tview_model.update_trash_color (_trash, _color);
+                box.get_style_context ().add_provider (provider, 1);
+            }
         }
     }
 
@@ -52,6 +83,7 @@ public class Notejot.TrashRowContent : He.Bin {
 
             pinned_binding?.unbind ();
             color_binding?.unbind ();
+            pix_binding?.unbind ();
 
             _trash = value;
 
@@ -59,6 +91,24 @@ public class Notejot.TrashRowContent : He.Bin {
                 "pinned", pin, "visible", SYNC_CREATE | BIDIRECTIONAL);
             color_binding = _trash?.bind_property (
                 "color", this, "color", SYNC_CREATE | BIDIRECTIONAL);
+            pix_binding = _trash?.bind_property (
+                "picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+
+            if (_trash != null) {
+                if (_trash.picture != "") {
+                    image.visible = true;
+                } else {
+                    image.visible = false;
+                }
+            }
+
+            image.notify["file"].connect (() => {
+                if (image.file != "") {
+                    image.visible = true;
+                } else {
+                    image.visible = false;
+                }
+            });
         }
     }
 
@@ -69,7 +119,8 @@ public class Notejot.TrashRowContent : He.Bin {
     }
 
     construct {
-        row_box.get_style_context ().add_provider (provider, 1);
+        box.add_css_class ("notejot-sidebar-box");
+        box.get_style_context ().add_provider (provider, 1);
     }
 
     ~TrashRowContent () {
@@ -81,9 +132,15 @@ public class Notejot.TrashRowContent : He.Bin {
     }
 
     [GtkCallback]
+    string get_text_line () {
+        var res = sync_text (trash.text);
+        return res;
+    }
+
+    [GtkCallback]
     string get_subtitle_line () {
         var res = sync_subtitles (trash.subtitle);
-        return res + " – " + trash.text;
+        return res;
     }
 
     public string sync_subtitles (string subtitle) {
@@ -103,6 +160,23 @@ public class Notejot.TrashRowContent : He.Bin {
                                                 e.get_second ());
 
                     res = "%s".printf (TimeUtils.get_relative_datetime_compact (d));
+                }
+            }
+        } catch (GLib.RegexError re) {
+            warning ("%s".printf (re.message));
+        }
+
+        return res;
+    }
+    public string sync_text (string text) {
+        string res = "";
+        try {
+            var reg = new Regex ("""(?m)^(?<s>.*\n*.*)\n*""");
+            GLib.MatchInfo match;
+
+            if (log != null) {
+                if (reg.match (text, 0, out match)) {
+                    res = "%s".printf (match.fetch_named ("s"));
                 }
             }
         } catch (GLib.RegexError re) {
