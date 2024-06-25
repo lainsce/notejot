@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="NotejotWidgetsMainMenu" parent="GtkBox">
+    <property name="orientation">1</property>
+    <style>
+      <class name="notejot-theme"/>
+    </style>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">1</property>
+        <property name="spacing">6</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">10</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="true">Font Size</property>
+            <property name="halign">1</property>
+            <style>
+              <class name="caption"/>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeSegmentedButton">
+            <child>
+              <object class="GtkToggleButton" id="s">
+                <property name="label">Small</property>
+                <property name="action-name">app.font-size</property>
+                <property name="action-target">"'small'"</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkToggleButton">
+                <property name="label">Medium</property>
+                <property name="action-name">app.font-size</property>
+                <property name="action-target">"'medium'"</property>
+                <property name="group">s</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkToggleButton">
+                <property name="label">Large</property>
+                <property name="action-name">app.font-size</property>
+                <property name="action-target">"'large'"</property>
+                <property name="group">s</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HeDivider"></object>
+    </child>
+    <child>
+      <object class="HeTextButton" id="about_button">
+        <property name="hexpand">true</property>
+        <property name="action-name">win.action_about</property>
+        <property name="child">
+          <object class="HeButtonContent">
+            <property name="icon">dialog-information-symbolic</property>
+            <property name="label" translatable="true">About Notejot</property>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>

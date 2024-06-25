@@ -30,7 +30,6 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="HeAppBar">
-            <property name="show-buttons">1</property>
             <property name="show-back">0</property>
             <property name="scroller">sw</property>
             <property name="viewtitle-widget">

@@ -18,7 +18,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="HeAppBar" id="ftitlebar">
-                    <property name="show-buttons">1</property>
+                    <property name="show-left-title-buttons">0</property>
                     <property name="show-back">0</property>
                     <property name="width-request">420</property>
                   </object>
@@ -50,9 +50,7 @@
                       <object class="GtkOverlay">
                         <child>
                           <object class="HeContentBlockImage" id="image">
-                            <property name="height-request">182</property>
-                            <property name="width-request">450</property>
-                            <property name="rounded">0</property>
+                            <property name="requested-height">160</property>
                           </object>
                         </child>
                         <child type="overlay">
@@ -60,8 +58,8 @@
                             <property name="orientation">vertical</property>
                             <child>
                               <object class="HeAppBar" id="titlebar">
-                                <property name="show-buttons">1</property>
                                 <property name="width-request">420</property>
+                                <property name="height-request">182</property>
                                 <property name="viewtitle-widget">
                                   <object class="GtkLabel" id="trash_title">
                                     <property name="hexpand">1</property>
