@@ -64,6 +64,7 @@
                                   <object class="GtkLabel" id="trash_title">
                                     <property name="hexpand">1</property>
                                     <property name="halign">start</property>
+                                    <property name="width-request">240</property>
                                     <property name="tooltip-text" translatable="yes">Edit note name</property>
                                     <style>
                                       <class name="view-title" />
