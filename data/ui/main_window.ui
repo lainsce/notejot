@@ -169,6 +169,7 @@
                     <property name="has-margins">0</property>
                     <property name="show-back">0</property>
                     <property name="width-request">345</property>
+                    <property name="show-left-title-buttons">0</property>
                     <property name="show-right-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
                     <property name="titlewidget">
                       <object class="GtkLabel" id="sbox-title">
