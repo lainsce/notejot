@@ -69,7 +69,7 @@
                                 <property name="viewtitle-widget">
                                   <object class="HeTextField" id="note_title">
                                     <property name="hexpand">1</property>
-                                    <property name="width-request">240</property>
+                                    <property name="width-request">280</property>
                                     <property name="halign">start</property>
                                     <property name="placeholder-text">Note Name</property>
                                     <property name="visibility">1</property>
