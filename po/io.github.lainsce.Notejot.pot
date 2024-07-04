@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.lainsce.Notejot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-28 01:33-0300\n"
+"POT-Creation-Date: 2024-03-16 17:38+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,124 +18,187 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:7
+#: data/io.github.lainsce.Notejot.desktop.in:3
+msgid "Notejot"
+msgstr ""
+
 #: data/io.github.lainsce.Notejot.desktop.in:4
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:7
 msgid "Jot your ideas"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:9
+#: data/io.github.lainsce.Notejot.desktop.in:7
+msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:9
 msgid ""
 "A stupidly-simple notes application for any type of short term notes or "
 "ideas."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:11
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:11
 msgid "🟡 Color your notes in 8 different colors"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:12
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:12
 msgid "📓 Classify them in notebooks"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:13
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:13
 msgid "🔤 Format text to your liking"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:14
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:14
 msgid "📌 Pin your most important ones"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:50
-msgid "Release: Overhaul User Interface"
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:51
+msgid "Release: Stargone"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:52
-msgid "Changed: UI now looks better layoutted, is an experiment."
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:53
+msgid "Added: An option to give a note a header image."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:53
-msgid "Changed: Backend was changed to be more stable than the old one."
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:54
+msgid "Changed: UI fixes."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:55
-#: data/io.github.lainsce.Notejot.appdata.xml.in:66
-#: data/io.github.lainsce.Notejot.appdata.xml.in:75
-#: data/io.github.lainsce.Notejot.appdata.xml.in:84
-#: data/io.github.lainsce.Notejot.appdata.xml.in:93
-#: data/io.github.lainsce.Notejot.appdata.xml.in:104
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:56
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:67
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:79
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:89
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:99
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:110
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:119
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:128
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:137
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:148
 msgid ""
 "Note: Your notes and notebooks are always saved in ~/.var/app/io.github."
 "lainsce.Notejot when using the Flatpak. Happy notetaking!"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:60
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:61
+msgid "Release: Silver"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:63
+msgid ""
+"Changed: UI now follows my own style that complements that of He.Albumaita, "
+"called Solo."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:64
+msgid "Changed: The syntax follows Markdown conventions where possible."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:65
+msgid ""
+"Fixed: The mobile UI has been fixed, back buttons should show up without "
+"issue."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:72
+msgid "Release: Beautiful Superstar"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:74
+msgid "Added: New Notes Grid view, access your notes in a grid."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:75
+msgid ""
+"Changed: UI colors were changed, and some UI parts now look more intuitive."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:76
+msgid "Fixed: Unordered list formatting."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:77
+msgid "Fixed: Some UI bugs."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:84
+msgid "Release: The Top 100 (3.3.3)"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:86
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:96
+msgid "Changed: UI now looks better layoutted, is an experiment."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:87
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:97
+msgid "Changed: Backend was changed to be more stable than the old one."
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:94
+msgid "Release: The Top 100"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:104
 msgid "Release: Pinned Notes"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:62
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:106
 msgid "Added: Notes can now be pinned and are shown separately from others."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:63
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:107
 msgid "Added: Note title styling from older versions is back."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:64
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:108
 msgid "Added: Note searchbar is now always visible."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:71
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:115
 msgid "Release: Usability Independence"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:73
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:117
 msgid ""
 "Fixed: many UI bugs were fixed, last but not least the notebook switcher and "
-"trash and also removing singluar notes from a notebook."
+"trash and also removing singular notes from a notebook."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:80
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:124
 msgid "Release: Format But Don't Fail"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:82
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:126
 msgid ""
 "Fixed: formatting functions are the best they can be, plus minor fixes all "
 "around."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:89
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:133
 msgid "Release: Ready, Set, Go!"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:91
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:135
 msgid ""
 "Some UI design fixes, such as the notebook switcher being on the bottom "
 "instead of in the top."
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:98
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:142
 msgid "Release: GTK4 and Ready!"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:100
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:144
 msgid "New UI"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:101
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:145
 msgid "Using another widget to display note contents"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.appdata.xml.in:102
+#: data/io.github.lainsce.Notejot.metainfo.xml.in:146
 msgid "Keyboard shortcuts for formatting"
-msgstr ""
-
-#: data/io.github.lainsce.Notejot.desktop.in:3
-msgid "Notejot"
-msgstr ""
-
-#: data/io.github.lainsce.Notejot.desktop.in:7
-msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:5
@@ -147,53 +210,234 @@ msgid "The version of migration to use; Do not change."
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:10
-msgid "Last View Used"
+msgid "Last Seen View"
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:11
-msgid "The last view used in the UI"
+msgid "The last seen view on the sidebar."
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:15
-msgid "Notes Font Size"
+msgid "Last View Used"
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:16
-msgid "The size of the font used in notes. (Small, Medium, Large)"
+msgid "The last view used in the UI"
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:20
-msgid "Saves whether the window is maximized or not"
+msgid "Notes Font Size"
 msgstr ""
 
 #: data/io.github.lainsce.Notejot.gschema.xml:21
+msgid "The size of the font used in notes. (Small, Medium, Large)"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:25
+msgid "Saves whether the window is maximized or not"
+msgstr ""
+
+#: data/io.github.lainsce.Notejot.gschema.xml:26
 msgid ""
 "Whether the window is maximized. Used to open window with user's preferred "
 "settings"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.gschema.xml:25
+#: data/io.github.lainsce.Notejot.gschema.xml:30
 msgid "Saves window last-used width"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.gschema.xml:26
+#: data/io.github.lainsce.Notejot.gschema.xml:31
 msgid "The user's last used window width before closing the app"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.gschema.xml:30
+#: data/io.github.lainsce.Notejot.gschema.xml:35
 msgid "Saves window last-used height"
 msgstr ""
 
-#: data/io.github.lainsce.Notejot.gschema.xml:31
+#: data/io.github.lainsce.Notejot.gschema.xml:36
 msgid "The user's last used window height before closing the app"
 msgstr ""
 
-#: src/MainWindow.vala:261
-msgid "Jot your ideas."
+#: data/ui/edit_notebooks.blp:5 data/ui/edit_notebooks.blp:32
+msgid "Edit Notebooks"
 msgstr ""
 
-#: src/MainWindow.vala:267
+#: data/ui/edit_notebooks.blp:70
+msgid "Notebook Name"
+msgstr ""
+
+#: data/ui/edit_notebooks.blp:78
+msgid "Add"
+msgstr ""
+
+#: data/ui/main_menu.blp:57
+msgid "About Notejot"
+msgstr ""
+
+#: data/ui/main_window.ui:93
+msgid "Manage notebooks"
+msgstr ""
+
+#: data/ui/main_window.ui:97
+msgid "Edit Notebooks…"
+msgstr ""
+
+#: data/ui/main_window.ui:133
+msgid "Search notes…"
+msgstr ""
+
+#: data/ui/main_window.ui:148
+msgid "Add Note"
+msgstr ""
+
+#: data/ui/main_window.ui:189
+msgid "Clear Trash"
+msgstr ""
+
+#: data/ui/move_to_dialog.blp:33
+msgid "Move to a Notebook"
+msgstr ""
+
+#: data/ui/move_to_dialog.blp:66
+msgid "Detach Note From Notebook"
+msgstr ""
+
+#: data/ui/move_to_dialog.blp:67
+msgid "Removes this Note from its Notebook."
+msgstr ""
+
+#: data/ui/move_to_dialog.blp:76
+msgid "Move Note To Notebook"
+msgstr ""
+
+#: data/ui/move_to_dialog.blp:77
+msgid "Moves this Note to a Notebook."
+msgstr ""
+
+#: data/ui/note_theme.blp:15
+msgid "Note Color"
+msgstr ""
+
+#: data/ui/note_theme.blp:31
+msgid "Red"
+msgstr ""
+
+#: data/ui/note_theme.blp:45
+msgid "Yellow"
+msgstr ""
+
+#: data/ui/note_theme.blp:60
+msgid "Blue"
+msgstr ""
+
+#: data/ui/note_theme.blp:75
+msgid "Purple"
+msgstr ""
+
+#: data/ui/note_theme.blp:90
+msgid "Green"
+msgstr ""
+
+#: data/ui/note_theme.blp:105
+msgid "No Color"
+msgstr ""
+
+#: data/ui/note_theme.blp:132
+msgid "Pin/Unpin Note"
+msgstr ""
+
+#: data/ui/note_theme.blp:141
+msgid "Export Note…"
+msgstr ""
+
+#: data/ui/notecontentview.blp:43
+msgid "No Selected Notes"
+msgstr ""
+
+#: data/ui/notecontentview.blp:44
+msgid "Add a note with the + button."
+msgstr ""
+
+#: data/ui/notecontentview.blp:75
+msgid "Note Name"
+msgstr ""
+
+#: data/ui/notecontentview.blp:91
+msgid "Trashes the note"
+msgstr ""
+
+#: data/ui/notecontentview.blp:100
+msgid "Sets the notebook of the note"
+msgstr ""
+
+#: data/ui/notecontentview.blp:183
+msgid "Makes selected text emboldened"
+msgstr ""
+
+#: data/ui/notecontentview.blp:191
+msgid "Makes selected text italicized"
+msgstr ""
+
+#: data/ui/notecontentview.blp:199
+msgid "Makes selected text underlined"
+msgstr ""
+
+#: data/ui/notecontentview.blp:207
+msgid "Makes selected text striked through"
+msgstr ""
+
+#: data/ui/notecontentview.blp:215
+msgid "Makes selected text into an unordered list"
+msgstr ""
+
+#: data/ui/notecontentview.blp:223
+msgid "Makes selected text monospace"
+msgstr ""
+
+#: data/ui/notecontentview.blp:230
+msgid "Adds a header picture to the note"
+msgstr ""
+
+#: data/ui/notecontentview.blp:237
+msgid "Removes the header picture"
+msgstr ""
+
+#: data/ui/notecontentview.blp:246
+msgid "Removes formatting from selected text"
+msgstr ""
+
+#: data/ui/trashcontentview.blp:35 src/Views/TrashContentView.vala:171
+msgid "Trash is Empty"
+msgstr ""
+
+#: data/ui/trashcontentview.blp:36
+msgid "Find notes here that were trashed to restore them."
+msgstr ""
+
+#: data/ui/trashcontentview.blp:67
+msgid "Edit note name"
+msgstr ""
+
+#: data/ui/trashcontentview.blp:77
+msgid "Restore Note"
+msgstr ""
+
+#. TRANSLATORS: 'Name <email@domain.com>' or 'Name https://website.example'
+#: src/MainWindow.vala:251
 msgid "translator-credits"
+msgstr ""
+
+#: src/Utils/MiscUtils.vala:33
+msgid "Markdown files"
+msgstr ""
+
+#: src/Utils/MiscUtils.vala:37 src/Utils/MiscUtils.vala:61
+msgid "All files"
+msgstr ""
+
+#: src/Utils/MiscUtils.vala:54
+msgid "Image files"
 msgstr ""
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday, date, and year
@@ -213,6 +457,7 @@ msgstr ""
 
 #. / TRANSLATORS: a GLib.DateTime format showing the date
 #: src/Utils/TimeUtils.vala:43
+#, c-format
 msgid "%b %e"
 msgstr ""
 
@@ -229,11 +474,13 @@ msgstr ""
 
 #. / TRANSLATORS: a GLib.DateTime format showing the weekday and date
 #: src/Utils/TimeUtils.vala:52
+#, c-format
 msgid "%a, %b %e"
 msgstr ""
 
 #. / TRANSLATORS: a GLib.DateTime format showing the month.
 #: src/Utils/TimeUtils.vala:55
+#, c-format
 msgid "%b"
 msgstr ""
 
@@ -301,230 +548,56 @@ msgstr ""
 msgid "New Note"
 msgstr ""
 
-#: src/ViewModels/NoteViewModel.vala:40 src/Widgets/MoveToDialog.vala:61
+#: src/ViewModels/NoteViewModel.vala:39
+msgid "Type text here…"
+msgstr ""
+
+#: src/ViewModels/NoteViewModel.vala:40 src/Widgets/MoveToDialog.vala:54
+#: src/Widgets/MoveToDialog.vala:72
 msgid "No Notebook"
 msgstr ""
 
-#: src/ViewModels/TrashViewModel.vala:76
+#: src/ViewModels/TrashViewModel.vala:67
 msgid "Clear Trash?"
 msgstr ""
 
-#: src/ViewModels/TrashViewModel.vala:77
+#: src/ViewModels/TrashViewModel.vala:67
+msgid "Empties the Trash"
+msgstr ""
+
+#: src/ViewModels/TrashViewModel.vala:67
 msgid ""
-"Clearing means the notes in Trash will be permanently lost with no recovery."
+"Clearing means the items in Trash will be permanently lost with no recovery."
 msgstr ""
 
-#: src/ViewModels/TrashViewModel.vala:79 data/ui/move_to_dialog.ui:44
-msgid "Cancel"
-msgstr ""
-
-#: src/ViewModels/TrashViewModel.vala:80
-msgid "Clear"
-msgstr ""
-
-#: src/Views/NoteContentView.vala:169
-msgid "Set Note Title"
-msgstr ""
-
-#: src/Views/NoteContentView.vala:399
+#: src/Views/NoteContentView.vala:547
 msgid "bold text"
 msgstr ""
 
-#: src/Views/NoteContentView.vala:407
+#: src/Views/NoteContentView.vala:555
 msgid "italic text"
 msgstr ""
 
-#: src/Views/NoteContentView.vala:415
+#: src/Views/NoteContentView.vala:563
 msgid "underline text"
 msgstr ""
 
-#: src/Views/NoteContentView.vala:423
+#: src/Views/NoteContentView.vala:571
 msgid "strikethrough text"
 msgstr ""
 
-#: src/Views/NoteContentView.vala:431 src/Views/NoteContentView.vala:545
-#: src/Views/TrashContentView.vala:317
+#: src/Views/NoteContentView.vala:579 src/Views/NoteContentView.vala:727
+#: src/Views/TrashContentView.vala:343
 msgid "Item"
 msgstr ""
 
-#: data/ui/edit_notebooks.ui:6
-msgid "Edit Notebooks"
+#: src/Views/NoteContentView.vala:587
+msgid "monospace text"
 msgstr ""
 
-#: data/ui/edit_notebooks.ui:34
-msgid "New Notebook…"
-msgstr ""
-
-#: data/ui/edit_notebooks.ui:44
-msgid "Add"
-msgstr ""
-
-#: data/ui/move_to_dialog.ui:22
-msgid "Move"
-msgstr ""
-
-#: data/ui/move_to_dialog.ui:34
-msgid "Move to a Notebook"
-msgstr ""
-
-#: data/ui/move_to_dialog.ui:70
-msgid "Detach Note From Notebook"
-msgstr ""
-
-#: data/ui/move_to_dialog.ui:71
-msgid "Removes this Note from its Notebook."
-msgstr ""
-
-#: data/ui/main_window.ui:57
-msgid "Manage Notebooks…"
-msgstr ""
-
-#: data/ui/main_window.ui:64
-msgid "Views"
-msgstr ""
-
-#: data/ui/main_window.ui:82
-msgid "All Notes"
-msgstr ""
-
-#: data/ui/main_window.ui:99
-msgid "Trash"
-msgstr ""
-
-#: data/ui/main_window.ui:110
-msgid "Notebooks"
-msgstr ""
-
-#: data/ui/main_window.ui:180
-msgid "Add Note"
-msgstr ""
-
-#: data/ui/main_window.ui:230
-msgid "Clear Trash"
-msgstr ""
-
-#: data/ui/menu.ui:6
-msgid "Text Size"
-msgstr ""
-
-#: data/ui/menu.ui:10
-msgid "Small"
-msgstr ""
-
-#: data/ui/menu.ui:15
-msgid "Medium"
-msgstr ""
-
-#: data/ui/menu.ui:20
-msgid "Large"
-msgstr ""
-
-#: data/ui/menu.ui:26
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-#: data/ui/menu.ui:30
-msgid "About Notejot"
-msgstr ""
-
-#: data/ui/note_theme.ui:15
-msgid "Move Note to a Notebook"
-msgstr ""
-
-#: data/ui/note_theme.ui:29
-msgid "Pin/Unpin Note"
-msgstr ""
-
-#: data/ui/note_theme.ui:49
-msgid "Red"
-msgstr ""
-
-#: data/ui/note_theme.ui:62
-msgid "Orange"
-msgstr ""
-
-#: data/ui/note_theme.ui:76
-msgid "Yellow"
-msgstr ""
-
-#: data/ui/note_theme.ui:90
-msgid "Blue"
-msgstr ""
-
-#: data/ui/note_theme.ui:104
-msgid "Purple"
-msgstr ""
-
-#: data/ui/note_theme.ui:118
-msgid "Brown"
-msgstr ""
-
-#: data/ui/note_theme.ui:132
-msgid "Green"
-msgstr ""
-
-#: data/ui/note_theme.ui:146
-msgid "No Color"
-msgstr ""
-
-#: data/ui/note_theme.ui:172
-msgid "Delete Note"
-msgstr ""
-
-#: data/ui/notecontentview.ui:48
-msgid "No Selected Notes"
-msgstr ""
-
-#: data/ui/notecontentview.ui:49
-msgid "Add a note with the + button."
-msgstr ""
-
-#: data/ui/notecontentview.ui:186
-msgid "Removes formatting from selected text"
-msgstr ""
-
-#: data/ui/notecontentview.ui:201
-msgid "Makes selected text emboldened"
-msgstr ""
-
-#: data/ui/notecontentview.ui:209
-msgid "Makes selected text italicized"
-msgstr ""
-
-#: data/ui/notecontentview.ui:217
-msgid "Makes selected text underlined"
-msgstr ""
-
-#: data/ui/notecontentview.ui:225
-msgid "Makes selected text striked through"
-msgstr ""
-
-#: data/ui/notecontentview.ui:240
-msgid "Makes selected text into an unordered list"
-msgstr ""
-
-#: data/ui/notelistview.ui:26
-msgid "Search notes"
-msgstr ""
-
-#: data/ui/shortcuts.ui:12
-msgctxt "shortcut window"
-msgid "General"
-msgstr ""
-
-#: data/ui/shortcuts.ui:16
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr ""
-
-#: data/ui/trashcontentview.ui:22
-msgid "Restore Note"
-msgstr ""
-
-#: data/ui/trashcontentview.ui:36
-msgid "Trash is Empty"
-msgstr ""
-
-#: data/ui/trashcontentview.ui:37
-msgid "Find notes here that were trashed to restore them."
-msgstr ""
+#: src/Views/TrashContentView.vala:168
+#, c-format
+msgid "Trash has %u Item"
+msgid_plural "Trash has %u Items"
+msgstr[0] ""
+msgstr[1] ""
