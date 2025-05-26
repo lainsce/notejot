@@ -64,10 +64,43 @@ public class Notejot.Application : He.Application {
         var trepo = new TrashRepository ();
         var tview_model = new TrashViewModel (trepo);
 
-        new MainWindow (this, view_model, tview_model, nbview_model);
+        // FIX: Wait for migration to complete before setting schema_version
+        var settings = new Settings ();
+        if (settings.schema_version == 0) {
+            debug ("Starting migration...");
+            var mm = new MigrationManager (null); // Pass null for now
+
+            // Create a temporary window just for migration
+            var temp_window = new MainWindow (this, view_model, tview_model, nbview_model);
+            mm.win = temp_window;
+
+            run_migration.begin (mm, settings, () => {
+                debug ("Migration completed, creating main window");
+                temp_window.destroy ();
+                new MainWindow (this, view_model, tview_model, nbview_model);
+            });
+        } else {
+            // No migration needed
+            new MainWindow (this, view_model, tview_model, nbview_model);
+        }
+    }
+
+    private async void run_migration (MigrationManager mm, Settings settings, owned VoidFunc callback) {
+        yield mm.migrate_from_file_notes ();
+
+        yield mm.migrate_from_file_trash ();
+
+        yield mm.migrate_from_file_nb ();
+
+        // Only set schema version after migration is complete
+        settings.schema_version = 1;
+        debug ("Migration completed successfully");
     }
 
     protected override void activate () {
         active_window?.present ();
     }
 }
+
+// Helper delegate for callback
+public delegate void VoidFunc ();

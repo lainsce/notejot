@@ -56,7 +56,6 @@ sources = [
   'src/Utils/MiscUtils.vala',
   'src/Utils/NoteSorter.vala',
   'src/Utils/ObservableList.vala',
-  'src/Utils/ThreadUtils.vala',
   'src/Utils/TimeUtils.vala',
   'src/ViewModels/NoteViewModel.vala',
   'src/ViewModels/NotebookViewModel.vala',

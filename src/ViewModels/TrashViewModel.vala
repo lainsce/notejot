@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2021 Lains
+ * Copyright (C) 2017-2025 Lains
  *
  * This program is free software; you can redistribute it &&/or
  * modify it under the terms of the GNU General Public
@@ -41,6 +41,8 @@ public class Notejot.TrashViewModel : Object {
             pinned = note.pinned
         };
         trashs.add (trash);
+        repository.insert_trash (trash);
+        save_trashs ();
     }
 
     public void update_trash (Trash trash) {
