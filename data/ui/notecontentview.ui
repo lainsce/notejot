@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
   <menu id="smenu">
     <section>
@@ -13,8 +13,8 @@
     <child>
       <object class="GtkBox" id="main_box">
         <style>
-          <class name="main-view"/>
-          <class name="notejot-note"/>
+          <class name="main-view" />
+          <class name="notejot-note" />
         </style>
         <property name="orientation">vertical</property>
         <child>
@@ -36,8 +36,14 @@
                     <child>
                       <object class="HeEmptyPage" id="empty">
                         <property name="icon">list-select-symbolic</property>
-                        <property name="title" translatable="yes">No Selected Notes</property>
-                        <property name="description" translatable="yes">Add a note with the + button.</property>
+                        <property
+                                                    name="title"
+                                                    translatable="yes"
+                                                >No Selected Notes</property>
+                        <property
+                                                    name="description"
+                                                    translatable="yes"
+                                                >Add a note with the + button.</property>
                       </object>
                     </child>
                   </object>
@@ -60,53 +66,83 @@
                           <object class="GtkBox" id="note_header">
                             <property name="orientation">vertical</property>
                             <style>
-                              <class name="notejot-header"/>
+                              <class name="notejot-header" />
                             </style>
                             <child>
                               <object class="HeAppBar" id="titlebar">
                                 <property name="scroller">sw</property>
-                                <property name="show-left-title-buttons">0</property>
+                                <property
+                                                                    name="show-left-title-buttons"
+                                                                >0</property>
                                 <property name="viewtitle-widget">
                                   <object class="HeTextField" id="note_title">
                                     <property name="hexpand">1</property>
-                                    <property name="width-request">280</property>
+                                    <property
+                                                                            name="width-request"
+                                                                        >280</property>
                                     <property name="halign">start</property>
-                                    <property name="placeholder-text">Note Name</property>
+                                    <property
+                                                                            name="placeholder-text"
+                                                                        >Note Name</property>
                                     <property name="visibility">1</property>
-                                    <property name="tooltip-text" translatable="yes">Note Name</property>
+                                    <property
+                                                                            name="tooltip-text"
+                                                                            translatable="yes"
+                                                                        >Note Name</property>
                                   </object>
                                 </property>
                                 <child>
                                   <object class="GtkButton" id="back2_button">
                                     <property name="visible">0</property>
-                                    <property name="icon-name">go-previous-symbolic</property>
+                                    <property
+                                                                            name="icon-name"
+                                                                        >go-previous-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkMenuButton" id="s_menu">
                                     <property name="visible">0</property>
                                     <property name="menu-model">smenu</property>
-                                    <property name="icon-name">view-more-symbolic</property>
+                                    <property
+                                                                            name="icon-name"
+                                                                        >view-more-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HeDisclosureButton" id="delete_button">
-                                    <property name="tooltip-text" translatable="yes">Trashes the note</property>
-                                    <property name="icon-name">user-trash-symbolic</property>
+                                  <object class="HeButton" id="delete_button">
+                                  <property name="is_disclosure">true</property>
+                                    <property
+                                                                            name="tooltip-text"
+                                                                            translatable="yes"
+                                                                        >Trashes the note</property>
+                                    <property
+                                                                            name="icon-name"
+                                                                        >user-trash-symbolic</property>
                                     <style>
-                                      <class name="image-button"/>
+                                      <class name="image-button" />
                                     </style>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HeDisclosureButton" id="notebook_button">
-                                    <property name="tooltip-text" translatable="yes">Sets the notebook of the note</property>
+                                  <object class="HeButton" id="notebook_button">
+                                  <property name="is_disclosure">true</property>
+                                    <property
+                                                                            name="tooltip-text"
+                                                                            translatable="yes"
+                                                                        >Sets the notebook of the note</property>
                                     <child>
                                       <object class="HeButtonContent">
-                                        <property name="icon">notebook-symbolic</property>
+                                        <property
+                                                                                    name="icon"
+                                                                                >notebook-symbolic</property>
                                         <binding name="label">
-                                          <lookup name="notebook" type="NotejotNote">
-                                            <lookup name="note">NotejotNoteContentView</lookup>
+                                          <lookup
+                                                                                        name="notebook"
+                                                                                        type="NotejotNote"
+                                                                                    >
+                                            <lookup
+                                                                                            name="note"
+                                                                                        >NotejotNoteContentView</lookup>
                                           </lookup>
                                         </binding>
                                       </object>
@@ -129,7 +165,7 @@
                       <object class="GtkBox" id="note_body">
                         <property name="orientation">vertical</property>
                         <style>
-                          <class name="notejot-body"/>
+                          <class name="notejot-body" />
                         </style>
                         <child>
                           <object class="GtkTextView" id="note_textbox">
@@ -149,25 +185,35 @@
                                       </object>
                                     </child>
                                     <child type="tag">
-                                     <object class="GtkTextTag" id="italic_font">
+                                     <object
+                                                                                class="GtkTextTag"
+                                                                                id="italic_font"
+                                                                            >
                                         <property name="style">italic</property>
                                      </object>
                                     </child>
                                     <child type="tag">
                                       <object class="GtkTextTag" id="ul_font">
-                                        <property name="underline">single</property>
+                                        <property
+                                                                                    name="underline"
+                                                                                >single</property>
                                       </object>
                                     </child>
                                     <child type="tag">
                                       <object class="GtkTextTag" id="s_font">
-                                        <property name="strikethrough">1</property>
+                                        <property
+                                                                                    name="strikethrough"
+                                                                                >1</property>
                                       </object>
                                     </child>
                                     <child type="tag">
                                       <object class="GtkTextTag" id="mono_font">
-                                        <property name="font">"Source Code Pro Regular 12"</property>
-                                        <property name="background">"#8888882d"</property>
-                                        <property name="background-full-height">true</property>
+                                        <property
+                                                                                    name="font"
+                                                                                >"Source Code Pro Regular 12"</property>
+                                        <property
+                                                                                    name="background-full-height"
+                                                                                >true</property>
                                       </object>
                                     </child>
                                   </object>
@@ -188,74 +234,133 @@
                       <object class="HeBottomBar" id="note_footer">
                         <property name="hexpand">1</property>
                         <child type="left">
-                          <object class="HeIconicButton" id="bold_button">
+                          <object class="HeButton" id="bold_button">
+                            <property name="is_iconic">true</property>
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text emboldened</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Makes selected text emboldened</property>
                             <signal name="clicked" handler="action_bold" />
-                            <property name="icon-name">format-text-bold-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >format-text-bold-symbolic</property>
                           </object>
                         </child>
                         <child type="left">
-                          <object class="HeIconicButton" id="italic_button">
+                          <object class="HeButton" id="italic_button">
+                            <property name="is_iconic">true</property>
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text italicized</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Makes selected text italicized</property>
                             <signal name="clicked" handler="action_italic" />
-                            <property name="icon-name">format-text-italic-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >format-text-italic-symbolic</property>
                           </object>
                         </child>
                         <child type="left">
-                          <object class="HeIconicButton" id="ul_button">
+                          <object class="HeButton" id="ul_button">
+                            <property name="is_iconic">true</property>
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text underlined</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Makes selected text underlined</property>
                             <signal name="clicked" handler="action_ul" />
-                            <property name="icon-name">format-text-underline-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >format-text-underline-symbolic</property>
                           </object>
                         </child>
                         <child type="left">
-                          <object class="HeIconicButton" id="s_button">
+                          <object class="HeButton" id="s_button">
+                            <property name="is_iconic">true</property>
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text striked through</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Makes selected text striked through</property>
                             <signal name="clicked" handler="action_s" />
-                            <property name="icon-name">format-text-strikethrough-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >format-text-strikethrough-symbolic</property>
                           </object>
                         </child>
                         <child type="left">
-                          <object class="HeIconicButton" id="ulist_button">
+                          <object class="HeButton" id="ulist_button">
+                            <property name="is_iconic">true</property>
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text into an unordered list</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Makes selected text into an unordered list</property>
                             <signal name="clicked" handler="action_item" />
-                            <property name="icon-name">view-list-bullet-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >view-list-bullet-symbolic</property>
                           </object>
                         </child>
                         <child type="left">
-                          <object class="HeIconicButton" id="mono_button">
+                          <object class="HeButton" id="mono_button">
+                            <property name="is_iconic">true</property>
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Makes selected text monospace</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Makes selected text monospace</property>
                             <signal name="clicked" handler="action_monospace" />
-                            <property name="icon-name">format-text-monospace-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >format-text-monospace-symbolic</property>
                           </object>
                         </child>
                         <child type="right">
-                          <object class="HeIconicButton" id="image_button">
-                            <property name="tooltip-text" translatable="yes">Adds a header picture to the note</property>
+                          <object class="HeButton" id="image_button">
+                            <property name="is_iconic">true</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Adds a header picture to the note</property>
                             <signal name="clicked" handler="action_picture" />
-                            <property name="icon-name">image-round-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >image-round-symbolic</property>
                           </object>
                         </child>
                         <child type="right">
-                          <object class="HeIconicButton" id="image_remove_button">
-                            <property name="tooltip-text" translatable="yes">Removes the header picture</property>
+                          <object class="HeButton" id="image_remove_button">
+                                                    <property
+                                                            name="is_iconic"
+                                                        >true</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Removes the header picture</property>
                             <property name="visible">0</property>
-                            <signal name="clicked" handler="action_picture_remove" />
-                            <property name="icon-name">edit-delete-symbolic</property>
+                            <signal
+                                                            name="clicked"
+                                                            handler="action_picture_remove"
+                                                        />
+                            <property
+                                                            name="icon-name"
+                                                        >edit-delete-symbolic</property>
                           </object>
                         </child>
                         <child type="right">
-                          <object class="HeIconicButton" id="normal_button">
+                          <object class="HeButton" id="normal_button">
                             <property name="receives-default">1</property>
-                            <property name="tooltip-text" translatable="yes">Removes formatting from selected text</property>
+                            <property name="is_iconic">true</property>
+                            <property
+                                                            name="tooltip-text"
+                                                            translatable="yes"
+                                                        >Removes formatting from selected text</property>
                             <signal name="clicked" handler="action_normal" />
-                            <property name="icon-name">font-x-generic-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >font-x-generic-symbolic</property>
                           </object>
                         </child>
                       </object>

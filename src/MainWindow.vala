@@ -1,21 +1,21 @@
 /*
-* Copyright (c) 2017-2022 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (c) 2017-2022 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/main_window.ui")]
     public class MainWindow : He.ApplicationWindow {
@@ -42,10 +42,10 @@ namespace Notejot {
         public unowned He.NavigationSection viewchooser;
 
         // Custom
-        public MainWindow? mw {get; set;}
-        public Bis.Album? album {get; set;}
-        public Gtk.SelectionModel? ss {get; set;}
-        public NotebookMainListView? mlv {get; set;}
+        public MainWindow? mw { get; set; }
+        public Bis.Album? album { get; set; }
+        public Gtk.SelectionModel? ss { get; set; }
+        public NotebookMainListView? mlv { get; set; }
 
         [GtkChild]
         public unowned NoteListView listview;
@@ -67,20 +67,20 @@ namespace Notejot {
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
-              {ACTION_ABOUT, action_about },
-              {ACTION_EDIT_NOTEBOOKS, action_edit_notebooks},
+            { ACTION_ABOUT, action_about },
+            { ACTION_EDIT_NOTEBOOKS, action_edit_notebooks },
         };
 
         public He.Application app { get; construct; }
         public MainWindow (He.Application application, NoteViewModel view_model, TrashViewModel tview_model, NotebookViewModel nbview_model) {
             GLib.Object (
-                application: application,
-                app: application,
-                view_model: view_model,
-                tview_model: tview_model,
-                nbview_model: nbview_model,
-                icon_name: Config.APP_ID,
-                title: "Notejot"
+                         application : application,
+                         app : application,
+                         view_model : view_model,
+                         tview_model : tview_model,
+                         nbview_model: nbview_model,
+                         icon_name: Config.APP_ID,
+                         title: "Notejot"
             );
         }
 
@@ -96,7 +96,7 @@ namespace Notejot {
 
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
-            app.set_accels_for_action("app.quit", {"<Ctrl>q"});
+            app.set_accels_for_action ("app.quit", { "<Ctrl>q" });
 
             // Main View
             var theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
@@ -107,14 +107,14 @@ namespace Notejot {
             // Preparing window to be shown
             var settings = new Settings ();
             set_default_size (
-                settings.window_w,
-                settings.window_h
+                              settings.window_w,
+                              settings.window_h
             );
             if (settings.is_maximized)
                 maximize ();
 
             var action_fontsize = settings.create_action ("font-size");
-            app.add_action(action_fontsize);
+            app.add_action (action_fontsize);
 
             if (settings.sort_mode == 0) {
                 sgrid.visible_child_name = "All Notes";
@@ -143,13 +143,12 @@ namespace Notejot {
             style_manager.set_css ();
 
             this.set_size_request (360, 360);
-            this.show ();
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
 
             // Main Menu
             var nmp = new Widgets.MainMenu ();
-            var pop = (Gtk.PopoverMenu)menu_button.get_popover ();
+            var pop = (Gtk.PopoverMenu) menu_button.get_popover ();
             pop.add_child (nmp, "zoom");
             pop.has_arrow = false;
 
@@ -163,7 +162,7 @@ namespace Notejot {
             var settings = new Settings ();
             settings.is_maximized = is_maximized ();
 
-            if (!is_maximized()) {
+            if (!is_maximized ()) {
                 settings.window_w = get_width ();
                 settings.window_h = get_height ();
             }
@@ -251,19 +250,19 @@ namespace Notejot {
             string translators = (_("translator-credits"));
 
             var about = new He.AboutWindow (
-                this,
-                "Notejot",
-                Config.APP_ID,
-                Config.VERSION,
-                Config.APP_ID,
-                "https://github.com/lainsce/notejot/tree/main/po",
-                "https://github.com/lainsce/notejot/issues/new",
-                "https://github.com/lainsce/notejot",
-                {translators},
-                {"Paulo \"Lains\" Galardi"},
-                2017, // Year of first publication.
-                He.AboutWindow.Licenses.GPLV3,
-                He.Colors.YELLOW
+                                            this,
+                                            "Notejot",
+                                            Config.APP_ID,
+                                            Config.VERSION,
+                                            Config.APP_ID,
+                                            "https://github.com/lainsce/notejot/tree/main/po",
+                                            "https://github.com/lainsce/notejot/issues/new",
+                                            "https://github.com/lainsce/notejot",
+                                            { translators },
+                                            { "Paulo \"Lains\" Galardi" },
+                                            2017, // Year of first publication.
+                                            He.AboutWindow.Licenses.GPLV3,
+                                            He.Colors.YELLOW
             );
             about.present ();
         }
@@ -274,4 +273,3 @@ namespace Notejot {
         }
     }
 }
-

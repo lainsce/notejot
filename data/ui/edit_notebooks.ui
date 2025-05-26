@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libhelium" version="1.0" />
   <template class="NotejotWidgetsEditNotebooksDialog" parent="HeWindow">
     <property name="title" translatable="yes">Edit Notebooks</property>
     <property name="modal">1</property>
@@ -10,7 +10,7 @@
     <property name="default-height">480</property>
     <property name="default-widget">notebook_add_button</property>
     <style>
-      <class name="dialog-content"/>
+      <class name="dialog-content" />
     </style>
     <child>
       <object class="GtkShortcutController">
@@ -32,17 +32,20 @@
             <property name="scroller">sw</property>
             <property name="viewtitle-widget">
               <object class="GtkLabel" id="view_title">
-                <property name="label" translatable="yes">Edit Notebooks</property>
+                <property
+                                    name="label"
+                                    translatable="yes"
+                                >Edit Notebooks</property>
                 <property name="halign">start</property>
                 <style>
-                  <class name="view-title"/>
+                  <class name="view-title" />
                 </style>
               </object>
             </property>
           </object>
         </child>
         <child>
-          <object class="HeDivider"></object>
+          <object class="HeDivider" />
         </child>
         <child>
           <object class="GtkScrolledWindow" id="sw">
@@ -55,21 +58,27 @@
                 <property name="hexpand">1</property>
                 <binding name="notebooks">
                   <lookup name="notebooks" type="NotejotNotebookViewModel">
-                    <lookup name="nbview-model">NotejotWidgetsEditNotebooksDialog</lookup>
+                    <lookup
+                                            name="nbview-model"
+                                        >NotejotWidgetsEditNotebooksDialog</lookup>
                   </lookup>
                 </binding>
                 <binding name="nbview-model">
-                  <lookup name="nbview-model">NotejotWidgetsEditNotebooksDialog</lookup>
+                  <lookup
+                                        name="nbview-model"
+                                    >NotejotWidgetsEditNotebooksDialog</lookup>
                 </binding>
                 <binding name="view-model">
-                  <lookup name="view-model">NotejotWidgetsEditNotebooksDialog</lookup>
+                  <lookup
+                                        name="view-model"
+                                    >NotejotWidgetsEditNotebooksDialog</lookup>
                 </binding>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="HeDivider"></object>
+          <object class="HeDivider" />
         </child>
         <child>
           <object class="GtkBox">
@@ -83,13 +92,20 @@
                 <child>
                   <object class="HeTextField" id="notebook_name_entry">
                     <property name="hexpand">1</property>
-                    <property name="placeholder-text" translatable="yes">Notebook Name</property>
+                    <property
+                                            name="placeholder-text"
+                                            translatable="yes"
+                                        >Notebook Name</property>
                   </object>
                 </child>
                 <child>
-                  <object class="HeFillButton" id="notebook_add_button">
+                  <object class="HeButton" id="notebook_add_button">
+                    <property name="is_fill">true</property>
                     <property name="sensitive">0</property>
-                    <signal name="clicked" handler="on_new_notebook_requested" />
+                    <signal
+                                            name="clicked"
+                                            handler="on_new_notebook_requested"
+                                        />
                     <property name="child">
                       <object class="HeButtonContent">
                         <property name="icon">list-add-symbolic</property>

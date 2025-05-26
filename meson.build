@@ -1,6 +1,8 @@
-project('io.github.lainsce.Notejot', 'vala',
-        version: '3.6.0',
-        meson_version: '>= 0.60.0'
+project(
+  'io.github.lainsce.Notejot',
+  'vala',
+  version: '3.6.0',
+  meson_version: '>= 0.60.0',
 )
 
 gnome = import('gnome')
@@ -22,19 +24,19 @@ conf.set_quoted('GETTEXT_PACKAGE', app_id)
 conf.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set10('DEVELOPMENT', get_option('development'))
 configure_file(output: 'config.h', configuration: conf)
-config_h_dir = include_directories('.')
 
 add_project_arguments(
   '-include', 'config.h',
   '-DGETTEXT_PACKAGE="@0@"'.format(app_id),
-  language: 'c'
+  '-w',
+  language: 'c',
 )
 add_project_arguments(
   [
-		'--target-glib=2.68',
+    '--target-glib=2.68',
     '--gresourcesdir', meson.current_build_dir() / 'data',
-	],
-	language: 'vala',
+  ],
+  language: 'vala',
 )
 
 sources = [
@@ -87,7 +89,7 @@ dependencies = [
   dependency('libbismuth-1'),
   dependency('gmodule-2.0'),
   dependency('json-glib-1.0'),
-  meson.get_compiler('c').find_library('m', required: true)
+  meson.get_compiler('c').find_library('m', required: true),
 ]
 
 subdir('data')
@@ -98,7 +100,7 @@ executable(
   asresources,
   sources: sources,
   vala_args: [
-    meson.current_source_dir () + '/src/' + '/Config.vapi',
+    meson.current_source_dir() + '/src/' + '/Config.vapi',
   ],
   dependencies: dependencies,
   install: true,
@@ -107,5 +109,5 @@ executable(
 gnome.post_install(
   glib_compile_schemas: true,
   gtk_update_icon_cache: true,
-  update_desktop_database: true
+  update_desktop_database: true,
 )

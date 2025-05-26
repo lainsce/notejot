@@ -1,21 +1,21 @@
 /*
-* Copyright (C) 2017-2021 Lains
-*
-* This program is free software; you can redistribute it &&/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (C) 2017-2021 Lains
+ *
+ * This program is free software; you can redistribute it &&/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/trashrowcontent.ui")]
 public class Notejot.TrashRowContent : He.Bin {
     [GtkChild]
@@ -42,33 +42,33 @@ public class Notejot.TrashRowContent : He.Bin {
 
             if (_color == "") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @outline;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).tview_model.update_trash_color (_trash, _color);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).tview_model.update_trash_color (_trash, _color);
                 box.get_style_context ().add_provider (provider, 1);
             } else if (_color == "red") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).tview_model.update_trash_color (_trash, _color);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).tview_model.update_trash_color (_trash, _color);
                 box.get_style_context ().add_provider (provider, 1);
             } else if (_color == "yellow") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).tview_model.update_trash_color (_trash, _color);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).tview_model.update_trash_color (_trash, _color);
                 box.get_style_context ().add_provider (provider, 1);
             } else if (_color == "green") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).tview_model.update_trash_color (_trash, _color);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).tview_model.update_trash_color (_trash, _color);
                 box.get_style_context ().add_provider (provider, 1);
             } else if (_color == "blue") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).tview_model.update_trash_color (_trash, _color);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).tview_model.update_trash_color (_trash, _color);
                 box.get_style_context ().add_provider (provider, 1);
             } else if (_color == "purple") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).tview_model.update_trash_color (_trash, _color);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).tview_model.update_trash_color (_trash, _color);
                 box.get_style_context ().add_provider (provider, 1);
             }
         }
@@ -82,17 +82,19 @@ public class Notejot.TrashRowContent : He.Bin {
                 return;
 
             pinned_binding?.unbind ();
+
             color_binding?.unbind ();
+
             pix_binding?.unbind ();
 
             _trash = value;
 
-            pinned_binding = _trash?.bind_property (
-                "pinned", pin, "visible", SYNC_CREATE | BIDIRECTIONAL);
-            color_binding = _trash?.bind_property (
-                "color", this, "color", SYNC_CREATE | BIDIRECTIONAL);
-            pix_binding = _trash?.bind_property (
-                "picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+            pinned_binding = _trash ? .bind_property (
+                                                      "pinned", pin, "visible", SYNC_CREATE | BIDIRECTIONAL);
+            color_binding = _trash ? .bind_property (
+                                                     "color", this, "color", SYNC_CREATE | BIDIRECTIONAL);
+            pix_binding = _trash ? .bind_property (
+                                                   "picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
 
             if (_trash != null) {
                 if (_trash.picture != "") {
@@ -114,21 +116,13 @@ public class Notejot.TrashRowContent : He.Bin {
 
     public TrashRowContent (Trash trash) {
         Object (
-            trash: trash
+                trash : trash
         );
     }
 
     construct {
         box.add_css_class ("notejot-sidebar-box");
         box.get_style_context ().add_provider (provider, 1);
-    }
-
-    ~TrashRowContent () {
-        while (this.get_first_child () != null) {
-            var c = this.get_first_child ();
-            c.unparent ();
-        }
-        this.unparent ();
     }
 
     [GtkCallback]
@@ -168,6 +162,7 @@ public class Notejot.TrashRowContent : He.Bin {
 
         return res;
     }
+
     public string sync_text (string text) {
         string res = "";
         try {

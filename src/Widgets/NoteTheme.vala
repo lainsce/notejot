@@ -20,9 +20,9 @@ namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/note_theme.ui")]
     public class Widgets.NoteTheme : Gtk.Box {
         [GtkChild]
-        public unowned He.TextButton note_pin_button;
+        public unowned He.Button note_pin_button;
         [GtkChild]
-        public unowned He.TextButton export_button;
+        public unowned He.Button export_button;
         [GtkChild]
         public unowned Gtk.CheckButton color_button_red;
         [GtkChild]

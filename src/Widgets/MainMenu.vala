@@ -16,10 +16,10 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301 USA
  */
- namespace Notejot {
+namespace Notejot {
     [GtkTemplate (ui = "/io/github/lainsce/Notejot/main_menu.ui")]
     public class Widgets.MainMenu : Gtk.Box {
         [GtkChild]
-        public unowned He.TextButton about_button;
+        public unowned He.Button about_button;
     }
 }

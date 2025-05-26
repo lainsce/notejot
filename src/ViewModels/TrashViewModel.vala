@@ -1,21 +1,21 @@
 /*
-* Copyright (C) 2017-2021 Lains
-*
-* This program is free software; you can redistribute it &&/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (C) 2017-2021 Lains
+ *
+ * This program is free software; you can redistribute it &&/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 public class Notejot.TrashViewModel : Object {
     uint timeout_id = 0;
 
@@ -23,7 +23,7 @@ public class Notejot.TrashViewModel : Object {
     public TrashRepository? repository { private get; construct; }
 
     public TrashViewModel (TrashRepository repository) {
-        Object (repository: repository);
+        Object (repository : repository);
     }
 
     construct {
@@ -63,7 +63,8 @@ public class Notejot.TrashViewModel : Object {
     }
 
     public async void delete_trash (MainWindow win) {
-        var p_button = new He.FillButton ("Clear");
+        var p_button = new He.Button ("Clear", "");
+        p_button.is_fill = true;
         var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trash"), _("Clearing means the items in Trash will be permanently lost with no recovery."), "dialog-warning-symbolic", p_button, null);
         p_button.clicked.connect (() => {
             depopulate_trashs.begin ();
@@ -79,12 +80,14 @@ public class Notejot.TrashViewModel : Object {
 
     async void populate_trashs () {
         var trashs = yield repository.get_trashs ();
+
         this.trashs.add_all (trashs);
     }
 
     async void depopulate_trashs () {
         trashs.remove_all ();
         var rtrashs = yield repository.get_trashs ();
+
         foreach (var t in rtrashs) {
             repository.delete_trash (t.id);
         }

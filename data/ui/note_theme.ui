@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
+  <requires lib="gtk" version="4.0" />
   <template class="NotejotWidgetsNoteTheme" parent="GtkBox">
     <property name="orientation">1</property>
     <style>
-      <class name="notejot-theme"/>
+      <class name="notejot-theme" />
     </style>
     <child>
       <object class="GtkLabel">
@@ -13,8 +13,8 @@
         <property name="halign">1</property>
         <property name="label" translatable="true">Note Color</property>
         <style>
-          <class name="caption"/>
-          <class name="dim-label"/>
+          <class name="caption" />
+          <class name="dim-label" />
         </style>
       </object>
     </child>
@@ -29,8 +29,8 @@
           <object class="GtkCheckButton" id="color_button_red">
             <property name="tooltip-text" translatable="true">Red</property>
             <style>
-              <class name="circular"/>
-              <class name="color-red"/>
+              <class name="circular" />
+              <class name="color-red" />
             </style>
             <layout>
               <property name="column">0</property>
@@ -43,8 +43,8 @@
             <property name="tooltip-text" translatable="true">Yellow</property>
             <property name="group">color_button_red</property>
             <style>
-              <class name="circular"/>
-              <class name="color-yellow"/>
+              <class name="circular" />
+              <class name="color-yellow" />
             </style>
             <layout>
               <property name="column">1</property>
@@ -57,8 +57,8 @@
             <property name="tooltip-text" translatable="true">Blue</property>
             <property name="group">color_button_red</property>
             <style>
-              <class name="circular"/>
-              <class name="color-blue"/>
+              <class name="circular" />
+              <class name="color-blue" />
             </style>
             <layout>
               <property name="column">0</property>
@@ -71,8 +71,8 @@
             <property name="tooltip-text" translatable="true">Purple</property>
             <property name="group">color_button_red</property>
             <style>
-              <class name="circular"/>
-              <class name="color-purple"/>
+              <class name="circular" />
+              <class name="color-purple" />
             </style>
             <layout>
               <property name="column">1</property>
@@ -85,8 +85,8 @@
             <property name="tooltip-text" translatable="true">Green</property>
             <property name="group">color_button_red</property>
             <style>
-              <class name="circular"/>
-              <class name="color-green"/>
+              <class name="circular" />
+              <class name="color-green" />
             </style>
             <layout>
               <property name="column">2</property>
@@ -96,11 +96,14 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="color_button_reset">
-            <property name="tooltip-text" translatable="true">No Color</property>
+            <property
+                            name="tooltip-text"
+                            translatable="true"
+                        >No Color</property>
             <property name="group">color_button_red</property>
             <style>
-              <class name="circular"/>
-              <class name="color-reset"/>
+              <class name="circular" />
+              <class name="color-reset" />
             </style>
             <layout>
               <property name="column">2</property>
@@ -109,15 +112,16 @@
           </object>
         </child>
         <style>
-          <class name="notejot-theme-grid"/>
+          <class name="notejot-theme-grid" />
         </style>
       </object>
     </child>
     <child>
-      <object class="HeDivider"></object>
+      <object class="HeDivider" />
     </child>
     <child>
-      <object class="HeTextButton" id="note_pin_button">
+      <object class="HeButton" id="note_pin_button">
+        <property name="is_textual">true</property>
         <property name="hexpand">true</property>
         <property name="child">
           <object class="HeButtonContent">
@@ -128,7 +132,8 @@
       </object>
     </child>
     <child>
-      <object class="HeTextButton" id="export_button">
+      <object class="HeButton" id="export_button">
+        <property name="is_textual">true</property>
         <property name="hexpand">true</property>
         <property name="child">
           <object class="HeButtonContent">

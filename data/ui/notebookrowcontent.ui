@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
 <template class="NotejotNotebookRowContent" parent="HeBin">
   <child>
@@ -17,7 +17,8 @@
         </object>
       </child>
       <child type="suffix">
-        <object class="HeDisclosureButton" id="delete_button">
+        <object class="HeButton" id="delete_button">
+            <property name="is_disclosure">true</property>
           <property name="icon-name">window-close-symbolic</property>
           <property name="valign">center</property>
           <signal name="clicked" handler="on_delete_button_clicked" />

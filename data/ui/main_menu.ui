@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
+  <requires lib="gtk" version="4.0" />
   <template class="NotejotWidgetsMainMenu" parent="GtkBox">
     <property name="orientation">1</property>
     <style>
-      <class name="notejot-theme"/>
+      <class name="notejot-theme" />
     </style>
     <child>
       <object class="GtkBox">
@@ -17,8 +17,8 @@
             <property name="label" translatable="true">Font Size</property>
             <property name="halign">1</property>
             <style>
-              <class name="caption"/>
-              <class name="dim-label"/>
+              <class name="caption" />
+              <class name="dim-label" />
             </style>
           </object>
         </child>
@@ -52,10 +52,11 @@
       </object>
     </child>
     <child>
-      <object class="HeDivider"></object>
+      <object class="HeDivider" />
     </child>
     <child>
-      <object class="HeTextButton" id="about_button">
+      <object class="HeButton" id="about_button">
+        <property name="is_textual">true</property>
         <property name="hexpand">true</property>
         <property name="action-name">win.action_about</property>
         <property name="child">

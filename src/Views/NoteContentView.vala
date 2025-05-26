@@ -1,21 +1,21 @@
 /*
-* Copyright (C) 2017-2022 Lains
-*
-* This program is free software; you can redistribute it &&/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (C) 2017-2022 Lains
+ *
+ * This program is free software; you can redistribute it &&/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 [GtkTemplate (ui = "/io/github/lainsce/Notejot/notecontentview.ui")]
 public class Notejot.NoteContentView : He.Bin {
     delegate void HookFunc ();
@@ -78,11 +78,11 @@ public class Notejot.NoteContentView : He.Bin {
     Binding? pix_binding;
     Binding? bb_binding;
 
-    private Gtk.CssProvider provider = new Gtk.CssProvider();
-    public NoteViewModel? vm {get; set;}
-    public NotebookViewModel? nvm {get; set;}
-    public MainWindow? win {get; set;}
-    public Bis.Album? album {get; set;}
+    private Gtk.CssProvider provider = new Gtk.CssProvider ();
+    public NoteViewModel? vm { get; set; }
+    public NotebookViewModel? nvm { get; set; }
+    public MainWindow? win { get; set; }
+    public Bis.Album? album { get; set; }
     public Gtk.PopoverMenu? pop;
     uint update_idle_source = 0;
 
@@ -91,11 +91,14 @@ public class Notejot.NoteContentView : He.Bin {
         get { return _note; }
         set {
             if (value == _note)
-            return;
+                return;
 
             title_binding?.unbind ();
+
             subtitle_binding?.unbind ();
+
             text_binding?.unbind ();
+
             pix_binding?.unbind ();
 
             if (_note != null)
@@ -185,41 +188,41 @@ public class Notejot.NoteContentView : He.Bin {
                 }
             });
 
-            pop = (Gtk.PopoverMenu)s_menu.get_popover ();
+            pop = (Gtk.PopoverMenu) s_menu.get_popover ();
             pop.add_child (nmp, "theme");
             pop.has_arrow = false;
 
             note_text.changed.connect (() => {
-                Timeout.add(60, () => {
+                Timeout.add (60, () => {
                     var dt = new GLib.DateTime.now_local ();
                     _note.subtitle = "%s".printf (dt.format ("%A, %d/%m %H∶%M"));
                     return false;
                 });
             });
 
-            title_binding = _note?.bind_property ("title", note_title.get_internal_entry (), "text", SYNC_CREATE | BIDIRECTIONAL);
-            subtitle_binding = _note?.bind_property ("subtitle", titlebar, "viewsubtitle-label", 
-                                                     SYNC_CREATE | BIDIRECTIONAL);
-            text_binding = _note?.bind_property ("text", note_text, "text", SYNC_CREATE | BIDIRECTIONAL);
-            pix_binding = _note?.bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
+            title_binding = _note ? .bind_property ("title", note_title.get_internal_entry (), "text", SYNC_CREATE | BIDIRECTIONAL);
+            subtitle_binding = _note ? .bind_property ("subtitle", titlebar, "viewsubtitle-label",
+                                                       SYNC_CREATE | BIDIRECTIONAL);
+            text_binding = _note ? .bind_property ("text", note_text, "text", SYNC_CREATE | BIDIRECTIONAL);
+            pix_binding = _note ? .bind_property ("picture", image, "file", SYNC_CREATE | BIDIRECTIONAL);
 
             image_button.visible = image.file != "" ? false : true;
             image_remove_button.visible = image.file == "" ? false : true;
 
             var settings = new Settings ();
             switch (settings.font_size) {
-                case "'small'":
+            case "'small'" :
                 note_textbox.add_css_class ("sml-font");
                 note_textbox.remove_css_class ("med-font");
                 note_textbox.remove_css_class ("big-font");
                 break;
-                default:
-                case "'medium'":
+                default :
+            case "'medium'" :
                 note_textbox.remove_css_class ("sml-font");
                 note_textbox.add_css_class ("med-font");
                 note_textbox.remove_css_class ("big-font");
                 break;
-                case "'large'":
+            case "'large'" :
                 note_textbox.remove_css_class ("sml-font");
                 note_textbox.remove_css_class ("med-font");
                 note_textbox.add_css_class ("big-font");
@@ -227,26 +230,26 @@ public class Notejot.NoteContentView : He.Bin {
             }
             settings.notify["font-size"].connect (() => {
                 switch (settings.font_size) {
-                    case "'small'":
-                    note_textbox.add_css_class ("sml-font");
-                    note_textbox.remove_css_class ("med-font");
-                    note_textbox.remove_css_class ("big-font");
-                    break;
-                    default:
-                    case "'medium'":
-                    note_textbox.remove_css_class ("sml-font");
-                    note_textbox.add_css_class ("med-font");
-                    note_textbox.remove_css_class ("big-font");
-                    break;
-                    case "'large'":
-                    note_textbox.remove_css_class ("sml-font");
-                    note_textbox.remove_css_class ("med-font");
-                    note_textbox.add_css_class ("big-font");
-                    break;
+                    case "'small'" :
+                        note_textbox.add_css_class ("sml-font");
+                        note_textbox.remove_css_class ("med-font");
+                        note_textbox.remove_css_class ("big-font");
+                        break;
+                        default :
+                    case "'medium'" :
+                        note_textbox.remove_css_class ("sml-font");
+                        note_textbox.add_css_class ("med-font");
+                        note_textbox.remove_css_class ("big-font");
+                        break;
+                    case "'large'" :
+                        note_textbox.remove_css_class ("sml-font");
+                        note_textbox.remove_css_class ("med-font");
+                        note_textbox.add_css_class ("big-font");
+                        break;
                 }
             });
 
-            if (_note.color == "#ffffff00" || _note.color == "#797775" || _note.color == "#63452c" || _note.color == "#c64600") {
+            if (_note.color == "#ffffff00" || _note.color == "#8888882d" || _note.color == "#797775" || _note.color == "#63452c" || _note.color == "#c64600") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @surface_bg_color;");
                 vm.update_note_color (_note, "");
             }
@@ -276,61 +279,61 @@ public class Notejot.NoteContentView : He.Bin {
 
             if (_note.color == "") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @surface_bg_color;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).view_model.update_note_color (_note, _note.color);
-                main_box.get_style_context().add_provider(provider, 1);
-                note_header.get_style_context().add_provider(provider, 2);
-                note_footer.get_style_context().add_provider(provider, 3);
-                note_body.get_style_context().add_provider(provider, 4);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context ().add_provider (provider, 1);
+                note_header.get_style_context ().add_provider (provider, 2);
+                note_footer.get_style_context ().add_provider (provider, 3);
+                note_body.get_style_context ().add_provider (provider, 4);
             } else if (_note.color == "red") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @meson_red;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).view_model.update_note_color (_note, _note.color);
-                main_box.get_style_context().add_provider(provider, 1);
-                note_header.get_style_context().add_provider(provider, 2);
-                note_footer.get_style_context().add_provider(provider, 3);
-                note_body.get_style_context().add_provider(provider, 4);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context ().add_provider (provider, 1);
+                note_header.get_style_context ().add_provider (provider, 2);
+                note_footer.get_style_context ().add_provider (provider, 3);
+                note_body.get_style_context ().add_provider (provider, 4);
             } else if (_note.color == "yellow") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @electron_yellow;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).view_model.update_note_color (_note, _note.color);
-                main_box.get_style_context().add_provider(provider, 1);
-                note_header.get_style_context().add_provider(provider, 2);
-                note_footer.get_style_context().add_provider(provider, 3);
-                note_body.get_style_context().add_provider(provider, 4);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context ().add_provider (provider, 1);
+                note_header.get_style_context ().add_provider (provider, 2);
+                note_footer.get_style_context ().add_provider (provider, 3);
+                note_body.get_style_context ().add_provider (provider, 4);
             } else if (_note.color == "green") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @muon_green;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).view_model.update_note_color (_note, _note.color);
-                main_box.get_style_context().add_provider(provider, 1);
-                note_header.get_style_context().add_provider(provider, 2);
-                note_footer.get_style_context().add_provider(provider, 3);
-                note_body.get_style_context().add_provider(provider, 4);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context ().add_provider (provider, 1);
+                note_header.get_style_context ().add_provider (provider, 2);
+                note_footer.get_style_context ().add_provider (provider, 3);
+                note_body.get_style_context ().add_provider (provider, 4);
             } else if (_note.color == "blue") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @proton_blue;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).view_model.update_note_color (_note, _note.color);
-                main_box.get_style_context().add_provider(provider, 1);
-                note_header.get_style_context().add_provider(provider, 2);
-                note_footer.get_style_context().add_provider(provider, 3);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context ().add_provider (provider, 1);
+                note_header.get_style_context ().add_provider (provider, 2);
+                note_footer.get_style_context ().add_provider (provider, 3);
             } else if (_note.color == "purple") {
                 provider.load_from_data ((uint8[]) "@define-color note_color @tau_purple;");
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>
-                    (this)).view_model.update_note_color (_note, _note.color);
-                main_box.get_style_context().add_provider(provider, 1);
-                note_header.get_style_context().add_provider(provider, 2);
-                note_footer.get_style_context().add_provider(provider, 3);
-                note_body.get_style_context().add_provider(provider, 4);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow>
+                     (this)).view_model.update_note_color (_note, _note.color);
+                main_box.get_style_context ().add_provider (provider, 1);
+                note_header.get_style_context ().add_provider (provider, 2);
+                note_footer.get_style_context ().add_provider (provider, 3);
+                note_body.get_style_context ().add_provider (provider, 4);
             }
 
             note_textbox.grab_focus ();
             note_textbox.remove_css_class ("view");
 
             // ListView Back Button
-            bb_binding = ((Bis.Album)MiscUtils.find_ancestor_of_type<Bis.Album>(this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
+            bb_binding = ((Bis.Album) MiscUtils.find_ancestor_of_type<Bis.Album> (this)).bind_property ("folded", titlebar, "show-back", SYNC_CREATE);
             titlebar.back_button.clicked.connect (() => {
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).album.set_visible_child (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).sbox);
-                ((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)).listview.selected_note = null;
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).album.set_visible_child (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).sbox);
+                ((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)).listview.selected_note = null;
             });
 
             if (_note != null) {
@@ -350,7 +353,7 @@ public class Notejot.NoteContentView : He.Bin {
 
     public NoteContentView (NoteViewModel? vm) {
         Object (
-            vm: vm
+                vm : vm
         );
     }
 
@@ -375,11 +378,11 @@ public class Notejot.NoteContentView : He.Bin {
     public async void export_note (NoteViewModel vm, Note note) throws Error {
         debug ("Export button pressed.");
         string tasks = "";
-        var file = yield MiscUtils.display_save_dialog (((MainWindow)MiscUtils.find_ancestor_of_type<MainWindow>(this)));
+        var file = yield MiscUtils.display_save_dialog (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)));
 
         tasks += "% " + note.title + "\n% " + note.subtitle + "\n% Notebook: " + note.notebook + "\n\n" + note.text;
 
-        GLib.FileUtils.set_contents (file.get_path(), tasks);
+        GLib.FileUtils.set_contents (file.get_path (), tasks);
     }
 
     [GtkCallback]
@@ -389,7 +392,7 @@ public class Notejot.NoteContentView : He.Bin {
         var file = yield MiscUtils.display_open_dialog (((MainWindow) MiscUtils.find_ancestor_of_type<MainWindow> (this)));
 
         note.picture = file.get_path ();
-        image.file = "file://"+note.picture;
+        image.file = "file://" + note.picture;
         image_button.visible = false;
         image_remove_button.visible = true;
         note_header.add_css_class ("scrim");
@@ -414,7 +417,7 @@ public class Notejot.NoteContentView : He.Bin {
         }
 
         update_idle_source = GLib.Idle.add (() => {
-            var text_buffer = note_textbox.get_buffer();
+            var text_buffer = note_textbox.get_buffer ();
             fmt_syntax (text_buffer);
             return false;
         });
@@ -432,19 +435,19 @@ public class Notejot.NoteContentView : He.Bin {
 
             Gtk.TextTag tag = bold_font;
             switch (fmt.format) {
-                case Format.BOLD:
+            case Format.BOLD :
                 tag = bold_font;
                 break;
-                case Format.ITALIC:
+            case Format.ITALIC :
                 tag = italic_font;
                 break;
-                case Format.STRIKETHROUGH:
+            case Format.STRIKETHROUGH :
                 tag = s_font;
                 break;
-                case Format.UNDERLINE:
+            case Format.UNDERLINE :
                 tag = ul_font;
                 break;
-                case Format.MONOSPACE:
+            case Format.MONOSPACE :
                 tag = mono_font;
                 break;
             }
@@ -459,8 +462,8 @@ public class Notejot.NoteContentView : He.Bin {
     private void erase_utf8 (StringBuilder builder, ssize_t start, ssize_t len) {
         // erase a range in a string with respect to special offsets
         // because of utf8
-        int real_start = builder.str.index_of_nth_char(start);
-        builder.erase(real_start, len);
+        int real_start = builder.str.index_of_nth_char (start);
+        builder.erase (real_start, len);
     }
 
     [GtkCallback]
@@ -474,55 +477,55 @@ public class Notejot.NoteContentView : He.Bin {
 
             var text_buffer = textfield.get_buffer ();
 
-            //only record a single user action for the entire function
-            text_buffer.begin_user_action();
-            //ensure the selection is correctly extended
+            // only record a single user action for the entire function
+            text_buffer.begin_user_action ();
+            // ensure the selection is correctly extended
             extend_selection_to_format_block (textfield);
 
             text_buffer.get_selection_bounds (out sel_start, out sel_end);
 
             var text = get_selected_text (text_buffer);
 
-            var text_builder = new StringBuilder(text);
+            var text_builder = new StringBuilder (text);
 
-            foreach (FormatBlock fmt in fmt_syntax_blocks(text_buffer)) {
-                //after selection, nothing relevant anymore
-                if (fmt.start > sel_end.get_offset() - 1)
-                break;
+            foreach (FormatBlock fmt in fmt_syntax_blocks (text_buffer)) {
+                // after selection, nothing relevant anymore
+                if (fmt.start > sel_end.get_offset () - 1)
+                    break;
 
-                //before selection, not relevant
-                if (fmt.end - 1 < sel_start.get_offset())
-                continue;
+                // before selection, not relevant
+                if (fmt.end - 1 < sel_start.get_offset ())
+                    continue;
 
-                //relative to selected text
-                fmt_start = fmt.start - sel_start.get_offset();
-                fmt_end = fmt.end - sel_start.get_offset();
+                // relative to selected text
+                fmt_start = fmt.start - sel_start.get_offset ();
+                fmt_end = fmt.end - sel_start.get_offset ();
 
-                wrap = format_to_string(fmt.format);
+                wrap = format_to_string (fmt.format);
 
                 if (fmt_start >= 0) {
-                    //format block starts within selection -> remove starting wrap
+                    // format block starts within selection -> remove starting wrap
                     erase_utf8 (text_builder, fmt_start + offset, wrap.length);
                     offset -= wrap.length;
                 } else {
-                    //selection starts within format block -> add ending wrap
+                    // selection starts within format block -> add ending wrap
                     text_builder.prepend (wrap);
                     offset += wrap.length;
-                    //added wrap character before selection,
-                    //should be ignored for new selection
+                    // added wrap character before selection,
+                    // should be ignored for new selection
                     move_forward = wrap.length;
                 }
 
-                if (fmt_end <= text.char_count()) {
-                    //format block ends within selection
+                if (fmt_end <= text.char_count ()) {
+                    // format block ends within selection
                     erase_utf8 (text_builder, fmt_end + offset - wrap.length, wrap.length);
                     offset -= wrap.length;
                 } else {
-                    //selection ends within format block -> add starting wrap
-                    text_builder.append(wrap);
+                    // selection ends within format block -> add starting wrap
+                    text_builder.append (wrap);
                     offset += wrap.length;
-                    //added wrap character after selection,
-                    //should be ignored for new selection
+                    // added wrap character after selection,
+                    // should be ignored for new selection
                     move_backward = wrap.length;
                 }
             }
@@ -531,9 +534,9 @@ public class Notejot.NoteContentView : He.Bin {
 
             text_buffer.delete (ref sel_start, ref sel_end);
             text_buffer.insert (ref sel_start, text, -1);
-            //text length without potential wrap characters at the beginning or the end
-            int select_text_length = text.char_count() - (move_backward + move_forward);
-            select_text(textfield, move_backward, select_text_length);
+            // text length without potential wrap characters at the beginning or the end
+            int select_text_length = text.char_count () - (move_backward + move_forward);
+            select_text (textfield, move_backward, select_text_length);
             text_buffer.end_user_action ();
 
             textfield.grab_focus ();
@@ -544,7 +547,7 @@ public class Notejot.NoteContentView : He.Bin {
     public void action_bold () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "**", _("bold text"));
+            text_wrap (textfield, "**", _("bold text"));
         }
     }
 
@@ -552,7 +555,7 @@ public class Notejot.NoteContentView : He.Bin {
     public void action_italic () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "*", _("italic text"));
+            text_wrap (textfield, "*", _("italic text"));
         }
     }
 
@@ -560,7 +563,7 @@ public class Notejot.NoteContentView : He.Bin {
     public void action_ul () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "_", _("underline text"));
+            text_wrap (textfield, "_", _("underline text"));
         }
     }
 
@@ -568,7 +571,7 @@ public class Notejot.NoteContentView : He.Bin {
     public void action_s () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "~", _("strikethrough text"));
+            text_wrap (textfield, "~", _("strikethrough text"));
         }
     }
 
@@ -576,7 +579,7 @@ public class Notejot.NoteContentView : He.Bin {
     public void action_item () {
         var textfield = note_textbox;
         if (textfield != null) {
-            insert_item(textfield, _("Item"));
+            insert_item (textfield, _("Item"));
         }
     }
 
@@ -584,129 +587,129 @@ public class Notejot.NoteContentView : He.Bin {
     public void action_monospace () {
         var textfield = note_textbox;
         if (textfield != null) {
-            text_wrap(textfield, "`", _("monospace text"));
+            text_wrap (textfield, "`", _("monospace text"));
         }
     }
 
-    public void extend_selection_to_format_block(Gtk.TextView text_view, Format? format = null) {
+    public void extend_selection_to_format_block (Gtk.TextView text_view, Format? format = null) {
         Gtk.TextIter sel_start, sel_end;
-        var text_buffer = text_view.get_buffer();
+        var text_buffer = text_view.get_buffer ();
         text_buffer.get_selection_bounds (out sel_start, out sel_end);
         int start_rel, end_rel;
         string wrap;
 
-        foreach (FormatBlock fmt in fmt_syntax_blocks(text_buffer)) {
+        foreach (FormatBlock fmt in fmt_syntax_blocks (text_buffer)) {
             if (format != null && fmt.format != format)
-            continue;
+                continue;
 
-            //after selection, nothing relevant anymore
-            if (fmt.start > sel_end.get_offset())
-            break;
+            // after selection, nothing relevant anymore
+            if (fmt.start > sel_end.get_offset ())
+                break;
 
-            //before selection, not relevant
-            if (fmt.end < sel_start.get_offset())
-            continue;
+            // before selection, not relevant
+            if (fmt.end < sel_start.get_offset ())
+                continue;
 
-            start_rel = sel_start.get_offset() - fmt.start;
-            end_rel = fmt.end - sel_end.get_offset();
+            start_rel = sel_start.get_offset () - fmt.start;
+            end_rel = fmt.end - sel_end.get_offset ();
 
-            wrap = format_to_string(fmt.format);
+            wrap = format_to_string (fmt.format);
 
             if (start_rel > 0 && start_rel <= wrap.length) {
-                //selection start does not (entirely) cover the formatters
-                //only touches them -> extend selection
-                sel_start.set_offset(fmt.start);
+                // selection start does not (entirely) cover the formatters
+                // only touches them -> extend selection
+                sel_start.set_offset (fmt.start);
             }
 
             if (end_rel > 0 && end_rel <= wrap.length) {
-                //selection end does not (entirely) cover the formatters
-                //only touches them -> extend selection
-                sel_end.set_offset(fmt.end);
+                // selection end does not (entirely) cover the formatters
+                // only touches them -> extend selection
+                sel_end.set_offset (fmt.end);
             }
         }
 
-        text_buffer.select_range(sel_start, sel_end);
+        text_buffer.select_range (sel_start, sel_end);
     }
 
-    public void text_wrap(Gtk.TextView text_view, string wrap, string helptext) {
-        extend_selection_to_format_block(text_view, string_to_format(wrap));
+    public void text_wrap (Gtk.TextView text_view, string wrap, string helptext) {
+        extend_selection_to_format_block (text_view, string_to_format (wrap));
 
-        var text_buffer = text_view.get_buffer();
+        var text_buffer = text_view.get_buffer ();
         string text;
         int move_back = 0, text_length = 0;
         Gtk.TextIter start, end;
-        text_buffer.get_selection_bounds(out start, out end);
+        text_buffer.get_selection_bounds (out start, out end);
 
-        if (text_buffer.get_has_selection()) {
-            //Find current highlighting
-            text = text_buffer.get_text(start, end, true);
-
-            text_length = text.length;
-            text = text.chug();
-            //move to stripped start
-            start.forward_chars(text_length - text.length);
+        if (text_buffer.get_has_selection ()) {
+            // Find current highlighting
+            text = text_buffer.get_text (start, end, true);
 
             text_length = text.length;
-            text = text.chomp();
-            //move to stripped end
-            end.backward_chars(text_length - text.length);
+            text = text.chug ();
+            // move to stripped start
+            start.forward_chars (text_length - text.length);
 
-            //adjust selection to stripped text
-            text_buffer.select_range(start, end);
+            text_length = text.length;
+            text = text.chomp ();
+            // move to stripped end
+            end.backward_chars (text_length - text.length);
 
-            if (text.has_prefix(wrap) && text.has_suffix(wrap)){
-                //formatting is already in place
-                text = text[wrap.length:-wrap.length];
+            // adjust selection to stripped text
+            text_buffer.select_range (start, end);
+
+            if (text.has_prefix (wrap) && text.has_suffix (wrap)) {
+                // formatting is already in place
+                text = text[wrap.length : -wrap.length];
                 text_length = text.length;
             } else {
-                //store the text length of the original string
+                // store the text length of the original string
                 text_length = text.length;
                 text = wrap + text + wrap;
                 move_back = wrap.length;
             }
-            //only record a single action instead of two
-            text_buffer.begin_user_action();
-            text_buffer.delete(ref start, ref end);
-            text_buffer.insert(ref start, text, -1);
-            text_buffer.end_user_action();
+            // only record a single action instead of two
+            text_buffer.begin_user_action ();
+            text_buffer.delete (ref start, ref end);
+            text_buffer.insert (ref start, text, -1);
+            text_buffer.end_user_action ();
         } else {
-            text_buffer.insert(ref start, wrap + helptext + wrap, -1);
+            text_buffer.insert (ref start, wrap + helptext + wrap, -1);
             text_length = helptext.length;
             move_back = wrap.length;
         }
 
-        select_text(text_view, move_back, text_length);
-        text_view.grab_focus();
+        select_text (text_view, move_back, text_length);
+        text_view.grab_focus ();
     }
 
     public void insert_item (Gtk.TextView text_view, string helptext) {
-        var text_buffer = text_view.get_buffer();
+        var text_buffer = text_view.get_buffer ();
         string text;
         int text_length = 0;
         Gtk.TextIter start, end, starts, ends, cursor_iter;
-        text_buffer.get_selection_bounds(out start, out end);
+        text_buffer.get_selection_bounds (out start, out end);
 
-        if (text_buffer.get_has_selection()) {
-            text = text_buffer.get_text(start, end, false);
-            if (text.has_prefix("- ")){
-                var lines = text.strip ().split("\n");
+        if (text_buffer.get_has_selection ()) {
+            text = text_buffer.get_text (start, end, false);
+            if (text.has_prefix ("- ")) {
+                var lines = text.strip ().split ("\n");
                 string list_line = "";
 
                 foreach (var line in lines) {
                     if (line == lines[0]) {
-                        list_line += line.replace("- ", "");
+                        list_line += line.replace ("- ", "");
                     } else {
-                        list_line += "\n" + line.replace("- ", "");
+                        list_line += "\n" + line.replace ("- ", "");
                     }
                 }
-                text_buffer.insert(ref start, list_line, -1);
+                text_buffer.insert (ref start, list_line, -1);
 
-                text_buffer.get_selection_bounds(out starts, out ends);
-                text_buffer.delete(ref starts, ref ends);
+                text_buffer.get_selection_bounds (out starts, out ends);
+                text_buffer.delete (ref starts, ref ends);
 
-                select_text(text_view, 0, list_line.length);
+                select_text (text_view, 0, list_line.length);
             } else {
-                var lines = text.strip ().split("\n");
+                var lines = text.strip ().split ("\n");
                 string list_line = "";
 
                 foreach (var line in lines) {
@@ -716,90 +719,90 @@ public class Notejot.NoteContentView : He.Bin {
                         list_line += "\n" + "- " + line;
                     }
                 }
-                text_buffer.insert(ref start, list_line, -1);
+                text_buffer.insert (ref start, list_line, -1);
 
-                text_buffer.get_selection_bounds(out starts, out ends);
-                text_buffer.delete(ref starts, ref ends);
+                text_buffer.get_selection_bounds (out starts, out ends);
+                text_buffer.delete (ref starts, ref ends);
 
-                select_text(text_view, 0, list_line.length);
+                select_text (text_view, 0, list_line.length);
             }
         } else {
             helptext = _("Item");
             text_length = helptext.length;
 
-            var cursor_mark = text_buffer.get_insert();
-            text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
+            var cursor_mark = text_buffer.get_insert ();
+            text_buffer.get_iter_at_mark (out cursor_iter, cursor_mark);
 
-            var start_ext = cursor_iter.copy();
-            start_ext.backward_lines(3);
-            text = text_buffer.get_text(cursor_iter, start_ext, false);
-            var lines = text.split("\n");
+            var start_ext = cursor_iter.copy ();
+            start_ext.backward_lines (3);
+            text = text_buffer.get_text (cursor_iter, start_ext, false);
+            var lines = text.split ("\n");
 
             foreach (var line in lines) {
-                if (line != null && line.has_prefix("- ")) {
-                    if (cursor_iter.starts_line()) {
-                        text_buffer.insert_at_cursor(line[:2] + helptext, -1);
+                if (line != null && line.has_prefix ("- ")) {
+                    if (cursor_iter.starts_line ()) {
+                        text_buffer.insert_at_cursor (line[ : 2] + helptext, -1);
                     } else {
-                        text_buffer.insert_at_cursor("\n" + line[:2] + helptext, -1);
+                        text_buffer.insert_at_cursor ("\n" + line[ : 2] + helptext, -1);
                     }
                     break;
                 } else {
                     if (lines[-1] != null && lines[-2] != null) {
-                        text_buffer.insert_at_cursor("- " + helptext, -1);
+                        text_buffer.insert_at_cursor ("- " + helptext, -1);
                     } else if (lines[-1] != null) {
-                        if (cursor_iter.starts_line()){
-                            text_buffer.insert_at_cursor("- " + helptext, -1);
+                        if (cursor_iter.starts_line ()) {
+                            text_buffer.insert_at_cursor ("- " + helptext, -1);
                         } else {
-                            text_buffer.insert_at_cursor("\n- " + helptext, -1);
+                            text_buffer.insert_at_cursor ("\n- " + helptext, -1);
                         }
                     } else {
-                        text_buffer.insert_at_cursor("\n\n- " + helptext, -1);
+                        text_buffer.insert_at_cursor ("\n\n- " + helptext, -1);
                     }
                     break;
                 }
             }
 
-            select_text(text_view, 0, text_length);
+            select_text (text_view, 0, text_length);
         }
-        text_view.grab_focus();
+        text_view.grab_focus ();
     }
 
     public void select_text (Gtk.TextView text_view, int offset, int length) {
-        var text_buffer = text_view.get_buffer();
-        var cursor_mark = text_buffer.get_insert();
+        var text_buffer = text_view.get_buffer ();
+        var cursor_mark = text_buffer.get_insert ();
         Gtk.TextIter cursor_iter;
 
-        text_buffer.get_iter_at_mark(out cursor_iter, cursor_mark);
-        cursor_iter.backward_chars(offset);
-        text_buffer.move_mark_by_name("selection_bound", cursor_iter);
-        cursor_iter.backward_chars(length);
-        text_buffer.move_mark_by_name("insert", cursor_iter);
+        text_buffer.get_iter_at_mark (out cursor_iter, cursor_mark);
+        cursor_iter.backward_chars (offset);
+        text_buffer.move_mark_by_name ("selection_bound", cursor_iter);
+        cursor_iter.backward_chars (length);
+        text_buffer.move_mark_by_name ("insert", cursor_iter);
     }
 
-    public FormatBlock[] fmt_syntax_blocks(Gtk.TextBuffer buffer) {
+    public FormatBlock[] fmt_syntax_blocks (Gtk.TextBuffer buffer) {
         Gtk.TextIter start, end;
         int match_start_offset, match_end_offset;
         FormatBlock[] format_blocks = {};
 
         GLib.MatchInfo match;
 
-        buffer.get_bounds(out start, out end);
+        buffer.get_bounds (out start, out end);
         string measure_text, buf = buffer.get_text (start, end, true);
 
         try {
-            var regex = new Regex("""(?s)(?<wrap>\*{2}|[*_~`]).*?\g{wrap}""");
+            var regex = new Regex ("""(?s)(?<wrap>\*{2}|[*_~`]).*?\g{wrap}""");
 
             if (regex.match (buf, 0, out match)) {
                 do {
                     if (match.fetch_pos (0, out match_start_offset, out match_end_offset)) {
                         // measure the offset of the actual unicode glyphs,
                         // not the byte offset
-                        measure_text = buf[0:match_start_offset];
+                        measure_text = buf[0 : match_start_offset];
                         match_start_offset = measure_text.char_count ();
-                        measure_text = buf[0:match_end_offset];
+                        measure_text = buf[0 : match_end_offset];
                         match_end_offset = measure_text.char_count ();
 
-                        Format format = string_to_format (match.fetch_named("wrap"));
+                        Format format = string_to_format (match.fetch_named ("wrap"));
 
                         format_blocks += FormatBlock () {
                             start = match_start_offset,
@@ -807,10 +810,10 @@ public class Notejot.NoteContentView : He.Bin {
                             format = format
                         };
                     }
-                } while (match.next());
+                } while (match.next ());
             }
         } catch (GLib.RegexError re) {
-            warning ("%s".printf(re.message));
+            warning ("%s".printf (re.message));
         }
 
         return format_blocks;
@@ -820,10 +823,9 @@ public class Notejot.NoteContentView : He.Bin {
         Gtk.TextIter A;
         Gtk.TextIter B;
         if (buffer.get_selection_bounds (out A, out B)) {
-            return buffer.get_text(A, B, true);
+            return buffer.get_text (A, B, true);
         }
 
         return "";
     }
 }
-

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
   <menu id="menu">
     <item>
@@ -25,9 +25,14 @@
                     <property name="has-margins">0</property>
                     <property name="show-back">0</property>
                     <property name="width-request">213</property>
-                    <property name="show-right-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
+                    <property
+                                            name="show-right-title-buttons"
+                                            bind-source="albumt"
+                                            bind-property="folded"
+                                            bind-flags="sync-create"
+                                        />
                     <style>
-                      <class name="sidebar2-view"/>
+                      <class name="sidebar2-view" />
                     </style>
                     <property name="titlewidget">
                       <object class="GtkLabel">
@@ -35,7 +40,7 @@
                         <property name="halign">start</property>
                         <property name="label">Notejot</property>
                         <style>
-                          <class name="heading"/>
+                          <class name="heading" />
                         </style>
                       </object>
                     </property>
@@ -66,34 +71,53 @@
                         <property name="halign">start</property>
                         <property name="label">Notebooks</property>
                         <style>
-                          <class name="heading"/>
-                          <class name="dim-label"/>
+                          <class name="heading" />
+                          <class name="dim-label" />
                         </style>
                       </object>
                     </child>
                     <child>
-                      <object class="NotejotNotebookMainListView" id="nblistview">
+                      <object
+                                                class="NotejotNotebookMainListView"
+                                                id="nblistview"
+                                            >
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <binding name="notebooks">
-                          <lookup name="notebooks" type="NotejotNotebookViewModel">
-                            <lookup name="nbview-model">NotejotMainWindow</lookup>
+                          <lookup
+                                                        name="notebooks"
+                                                        type="NotejotNotebookViewModel"
+                                                    >
+                            <lookup
+                                                            name="nbview-model"
+                                                        >NotejotMainWindow</lookup>
                           </lookup>
                         </binding>
                       </object>
                     </child>
                     <child>
-                      <object class="HeTextButton" id="en_button">
+                      <object class="HeButton" id="en_button">
+                        <property name="is_textual">true</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
                         <property name="margin-top">6</property>
                         <property name="margin-bottom">18</property>
-                        <property name="action-name">win.action_edit_notebooks</property>
-                        <property name="tooltip-text" translatable="yes">Manage notebooks</property>
+                        <property
+                                                    name="action-name"
+                                                >win.action_edit_notebooks</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Manage notebooks</property>
                         <child>
                           <object class="HeButtonContent">
-                            <property name="icon">notebook-config-symbolic</property>
-                            <property name="label" translatable="yes">Edit Notebooks…</property>
+                            <property
+                                                            name="icon"
+                                                        >notebook-config-symbolic</property>
+                            <property
+                                                            name="label"
+                                                            translatable="yes"
+                                                        >Edit Notebooks…</property>
                           </object>
                         </child>
                       </object>
@@ -101,7 +125,7 @@
                   </object>
                 </property>
               </object>
-            </child>        
+            </child>
             <child>
               <object class="BisAlbumPage">
                 <property name="child">
@@ -110,14 +134,24 @@
                     <property name="show-back">0</property>
                     <property name="width-request">345</property>
                     <property name="show-left-title-buttons">0</property>
-                    <property name="show-right-title-buttons" bind-source="albumt" bind-property="folded" bind-flags="sync-create"/>
+                    <property
+                                            name="show-right-title-buttons"
+                                            bind-source="albumt"
+                                            bind-property="folded"
+                                            bind-flags="sync-create"
+                                        />
                     <property name="titlewidget">
                       <object class="GtkLabel" id="sbox-title">
                         <property name="margin-end">12</property>
                         <property name="halign">start</property>
-                        <property name="label" bind-source="sgrid" bind-property="visible-child-name" bind-flags="sync-create"/>
+                        <property
+                                                    name="label"
+                                                    bind-source="sgrid"
+                                                    bind-property="visible-child-name"
+                                                    bind-flags="sync-create"
+                                                />
                         <style>
-                          <class name="view-title"/>
+                          <class name="view-title" />
                         </style>
                       </object>
                     </property>
@@ -129,8 +163,13 @@
                         <property name="margin-end">18</property>
                         <property name="margin-top">6</property>
                         <property name="margin-bottom">6</property>
-                        <property name="placeholder-text" translatable="yes">Search notes…</property>
-                        <property name="prefix-icon">system-search-symbolic</property>
+                        <property
+                                                    name="placeholder-text"
+                                                    translatable="yes"
+                                                >Search notes…</property>
+                        <property
+                                                    name="prefix-icon"
+                                                >system-search-symbolic</property>
                       </object>
                     </child>
                     <child>
@@ -140,33 +179,72 @@
                           <object class="GtkStackPage">
                             <property name="name">All Notes</property>
                             <property name="title">All Notes</property>
-                            <property name="icon-name">text-x-generic-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >text-x-generic-symbolic</property>
                             <property name="child">
-                              <object class="HeOverlayButton" id="list_scroller">
-                                <property name="primary-tooltip" translatable="yes">Add Note</property>
-                                <property name="icon">list-add-symbolic</property>
+                              <object
+                                                                class="HeOverlayButton"
+                                                                id="list_scroller"
+                                                            >
+                                <property
+                                                                    name="primary-tooltip"
+                                                                    translatable="yes"
+                                                                >Add Note</property>
+                                <property
+                                                                    name="icon"
+                                                                >list-add-symbolic</property>
                                 <property name="typeb">primary</property>
-                                <signal name="clicked" handler="on_new_note_requested"/>
+                                <signal
+                                                                    name="clicked"
+                                                                    handler="on_new_note_requested"
+                                                                />
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
+                                    <property
+                                                                            name="orientation"
+                                                                        >vertical</property>
                                     <child>
-                                      <object class="GtkScrolledWindow" id="bscroller">
-                                        <property name="hscrollbar-policy">never</property>
+                                      <object
+                                                                                class="GtkScrolledWindow"
+                                                                                id="bscroller"
+                                                                            >
+                                        <property
+                                                                                    name="hscrollbar-policy"
+                                                                                >never</property>
                                         <child>
-                                          <object class="NotejotNoteListView" id="listview">
-                                            <signal name="new_note_requested" handler="on_new_note_requested"/>
+                                          <object
+                                                                                        class="NotejotNoteListView"
+                                                                                        id="listview"
+                                                                                    >
+                                            <signal
+                                                                                            name="new_note_requested"
+                                                                                            handler="on_new_note_requested"
+                                                                                        />
                                             <binding name="notes">
-                                              <lookup name="notes" type="NotejotNoteViewModel">
-                                                <lookup name="view-model">NotejotMainWindow</lookup>
+                                              <lookup
+                                                                                                name="notes"
+                                                                                                type="NotejotNoteViewModel"
+                                                                                            >
+                                                <lookup
+                                                                                                    name="view-model"
+                                                                                                >NotejotMainWindow</lookup>
                                               </lookup>
                                             </binding>
                                             <binding name="view-model">
-                                              <lookup name="view-model">NotejotMainWindow</lookup>
+                                              <lookup
+                                                                                                name="view-model"
+                                                                                            >NotejotMainWindow</lookup>
                                             </binding>
-                                            <property name="album">albumt</property>
-                                            <property name="nblistview">nblistview</property>
-                                            <property name="note_search">note_search</property>
+                                            <property
+                                                                                            name="album"
+                                                                                        >albumt</property>
+                                            <property
+                                                                                            name="nblistview"
+                                                                                        >nblistview</property>
+                                            <property
+                                                                                            name="note_search"
+                                                                                        >note_search</property>
                                           </object>
                                         </child>
                                       </object>
@@ -181,30 +259,62 @@
                           <object class="GtkStackPage">
                             <property name="name">Trash</property>
                             <property name="title">Trash</property>
-                            <property name="icon-name">user-trash-symbolic</property>
+                            <property
+                                                            name="icon-name"
+                                                        >user-trash-symbolic</property>
                             <property name="child">
-                              <object class="HeOverlayButton" id="tlist_scroller">
-                                <property name="primary-tooltip" translatable="yes">Clear Trash</property>
-                                <property name="icon">user-trash-symbolic</property>
-                                <property name="color">red</property>
-                                <signal name="clicked" handler="on_clear_trash_requested"/>
+                              <object
+                                                                class="HeOverlayButton"
+                                                                id="tlist_scroller"
+                                                            >
+                                <property
+                                                                    name="primary-tooltip"
+                                                                    translatable="yes"
+                                                                >Clear Trash</property>
+                                <property
+                                                                    name="icon"
+                                                                >user-trash-symbolic</property>
+                                <property name="typeb">tertiary</property>
+                                <signal
+                                                                    name="clicked"
+                                                                    handler="on_clear_trash_requested"
+                                                                />
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
+                                    <property
+                                                                            name="orientation"
+                                                                        >vertical</property>
                                     <child>
-                                      <object class="GtkScrolledWindow" id="tscroller">
-                                        <property name="hscrollbar-policy">never</property>
+                                      <object
+                                                                                class="GtkScrolledWindow"
+                                                                                id="tscroller"
+                                                                            >
+                                        <property
+                                                                                    name="hscrollbar-policy"
+                                                                                >never</property>
                                         <child>
-                                          <object class="NotejotTrashListView" id="tlistview">
+                                          <object
+                                                                                        class="NotejotTrashListView"
+                                                                                        id="tlistview"
+                                                                                    >
                                             <binding name="trashs">
-                                              <lookup name="trashs" type="NotejotTrashViewModel">
-                                                <lookup name="tview-model">NotejotMainWindow</lookup>
+                                              <lookup
+                                                                                                name="trashs"
+                                                                                                type="NotejotTrashViewModel"
+                                                                                            >
+                                                <lookup
+                                                                                                    name="tview-model"
+                                                                                                >NotejotMainWindow</lookup>
                                               </lookup>
                                             </binding>
                                             <binding name="tview-model">
-                                              <lookup name="tview-model">NotejotMainWindow</lookup>
+                                              <lookup
+                                                                                                name="tview-model"
+                                                                                            >NotejotMainWindow</lookup>
                                             </binding>
-                                            <property name="album">albumt</property>
+                                            <property
+                                                                                            name="album"
+                                                                                        >albumt</property>
                                           </object>
                                         </child>
                                       </object>
@@ -218,7 +328,7 @@
                       </object>
                     </child>
                     <style>
-                      <class name="sidebar-view"/>
+                      <class name="sidebar-view" />
                     </style>
                   </object>
                 </property>
@@ -232,17 +342,30 @@
                       <object class="GtkStackPage">
                         <property name="name">note</property>
                         <property name="child">
-                          <object class="NotejotNoteContentView" id="notecontent">
-                            <signal name="note_update_requested" handler="on_note_update_requested"/>
-                            <signal name="note_removal_requested" handler="on_note_removal_requested"/>
+                          <object
+                                                        class="NotejotNoteContentView"
+                                                        id="notecontent"
+                                                    >
+                            <signal
+                                                            name="note_update_requested"
+                                                            handler="on_note_update_requested"
+                                                        />
+                            <signal
+                                                            name="note_removal_requested"
+                                                            handler="on_note_removal_requested"
+                                                        />
                             <binding name="note">
                               <lookup name="selected-note">listview</lookup>
                             </binding>
                             <binding name="vm">
-                              <lookup name="view-model">NotejotMainWindow</lookup>
+                              <lookup
+                                                                name="view-model"
+                                                            >NotejotMainWindow</lookup>
                             </binding>
                             <binding name="nvm">
-                              <lookup name="nbview-model">NotejotMainWindow</lookup>
+                              <lookup
+                                                                name="nbview-model"
+                                                            >NotejotMainWindow</lookup>
                             </binding>
                             <binding name="win">
                               <lookup name="mw">NotejotMainWindow</lookup>
@@ -259,16 +382,26 @@
                         <property name="name">trash</property>
                         <property name="child">
                           <object class="NotejotTrashContentView">
-                            <signal name="trash_update_requested" handler="on_trash_update_requested"/>
-                            <signal name="trash_restore_requested" handler="on_trash_restore_requested"/>
+                            <signal
+                                                            name="trash_update_requested"
+                                                            handler="on_trash_update_requested"
+                                                        />
+                            <signal
+                                                            name="trash_restore_requested"
+                                                            handler="on_trash_restore_requested"
+                                                        />
                             <binding name="trash">
                               <lookup name="selected-trash">tlistview</lookup>
                             </binding>
                             <binding name="vm">
-                              <lookup name="tview-model">NotejotMainWindow</lookup>
+                              <lookup
+                                                                name="tview-model"
+                                                            >NotejotMainWindow</lookup>
                             </binding>
                             <binding name="nvm">
-                              <lookup name="nbview-model">NotejotMainWindow</lookup>
+                              <lookup
+                                                                name="nbview-model"
+                                                            >NotejotMainWindow</lookup>
                             </binding>
                             <binding name="win">
                               <lookup name="mw">NotejotMainWindow</lookup>

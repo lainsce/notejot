@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libhandy" version="0.0"/>
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libhandy" version="0.0" />
   <template class="NotejotWidgetsMoveToDialog" parent="HeWindow">
     <property name="modal">1</property>
     <property name="resizable">0</property>
@@ -9,7 +9,7 @@
     <property name="default-height">480</property>
     <property name="default-widget">move_button</property>
     <style>
-      <class name="dialog-content"/>
+      <class name="dialog-content" />
     </style>
     <binding name="notebook">
       <lookup name="selected-notebook">listview</lookup>
@@ -34,17 +34,20 @@
             <property name="scroller">sw</property>
             <property name="viewtitle-widget">
               <object class="GtkLabel" id="view_title">
-                <property name="label" translatable="yes">Move to a Notebook</property>
+                <property
+                                    name="label"
+                                    translatable="yes"
+                                >Move to a Notebook</property>
                 <property name="halign">start</property>
                 <style>
-                  <class name="view-title"/>
+                  <class name="view-title" />
                 </style>
               </object>
             </property>
           </object>
         </child>
         <child>
-          <object class="HeDivider"></object>
+          <object class="HeDivider" />
         </child>
         <child>
           <object class="GtkScrolledWindow" id="sw">
@@ -55,25 +58,34 @@
                 <property name="margin-end">20</property>
                 <binding name="notebooks">
                   <lookup name="notebooks" type="NotejotNotebookViewModel">
-                    <lookup name="nbview-model">NotejotWidgetsMoveToDialog</lookup>
+                    <lookup
+                                            name="nbview-model"
+                                        >NotejotWidgetsMoveToDialog</lookup>
                   </lookup>
                 </binding>
                 <style>
-                  <class name="content-list"/>
+                  <class name="content-list" />
                 </style>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="HeDivider"></object>
+          <object class="HeDivider" />
         </child>
         <child>
           <object class="GtkBox">
             <child>
-              <object class="HeTextButton" id="remove_notebook_button">
-                <property name="label" translatable="yes">Detach Note From Notebook</property>
-                <property name="tooltip-text" translatable="yes">Removes this Note from its Notebook.</property>
+              <object class="HeButton" id="remove_notebook_button">
+                <property
+                                    name="label"
+                                    translatable="yes"
+                                >Detach Note From Notebook</property>
+                <property name="is_textual">true</property>
+                <property
+                                    name="tooltip-text"
+                                    translatable="yes"
+                                >Removes this Note from its Notebook.</property>
                 <property name="sensitive">0</property>
                 <property name="margin-start">24</property>
                 <property name="margin-end">12</property>
@@ -82,9 +94,16 @@
               </object>
             </child>
             <child>
-              <object class="HeFillButton" id="move_button">
-                <property name="label" translatable="yes">Move Note To Notebook</property>
-                <property name="tooltip-text" translatable="yes">Moves this Note to a Notebook.</property>
+              <object class="HeButton" id="move_button">
+                <property
+                                    name="label"
+                                    translatable="yes"
+                                >Move Note To Notebook</property>
+                <property name="is_fill">true</property>
+                <property
+                                    name="tooltip-text"
+                                    translatable="yes"
+                                >Moves this Note to a Notebook.</property>
                 <property name="sensitive">0</property>
                 <property name="margin-start">12</property>
                 <property name="margin-end">24</property>

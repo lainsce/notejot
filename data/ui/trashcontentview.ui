@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
   <template class="NotejotTrashContentView" parent="HeBin">
     <property name="vexpand">1</property>
@@ -6,8 +6,8 @@
     <child>
       <object class="GtkBox" id="main_box">
         <style>
-          <class name="main-view"/>
-          <class name="notejot-note"/>
+          <class name="main-view" />
+          <class name="notejot-note" />
         </style>
         <property name="orientation">vertical</property>
         <child>
@@ -29,8 +29,14 @@
                     <child>
                       <object class="HeEmptyPage" id="trash_status_page">
                         <property name="icon">user-trash-symbolic</property>
-                        <property name="title" translatable="yes">Trash is Empty</property>
-                        <property name="description" translatable="yes">Find notes here that were trashed to restore them.</property>
+                        <property
+                                                    name="title"
+                                                    translatable="yes"
+                                                >Trash is Empty</property>
+                        <property
+                                                    name="description"
+                                                    translatable="yes"
+                                                >Find notes here that were trashed to restore them.</property>
                         <property name="valign">center</property>
                       </object>
                     </child>
@@ -44,7 +50,7 @@
                 <child>
                   <object class="GtkWindowHandle">
                     <style>
-                      <class name="notejot-header"/>
+                      <class name="notejot-header" />
                     </style>
                     <child>
                       <object class="GtkOverlay">
@@ -60,34 +66,57 @@
                               <object class="HeAppBar" id="titlebar">
                                 <property name="width-request">420</property>
                                 <property name="height-request">182</property>
-                                <property name="show-left-title-buttons">0</property>
+                                <property
+                                                                    name="show-left-title-buttons"
+                                                                >0</property>
                                 <property name="viewtitle-widget">
                                   <object class="GtkLabel" id="trash_title">
                                     <property name="hexpand">1</property>
                                     <property name="halign">start</property>
-                                    <property name="width-request">280</property>
-                                    <property name="tooltip-text" translatable="yes">Edit note name</property>
+                                    <property
+                                                                            name="width-request"
+                                                                        >280</property>
+                                    <property
+                                                                            name="tooltip-text"
+                                                                            translatable="yes"
+                                                                        >Edit note name</property>
                                     <style>
                                       <class name="view-title" />
                                     </style>
                                   </object>
                                 </property>
                                 <child>
-                                  <object class="HeDisclosureButton" id="s_menu">
+                                  <object class="HeButton" id="s_menu">
+                                    <property
+                                                                            name="is_disclosure"
+                                                                        >true</property>
                                     <property name="visible">0</property>
-                                    <property name="icon-name">edit-undo-symbolic</property>
-                                    <property name="tooltip-text" translatable="yes">Restore Note</property>
-                                    <signal name="clicked" handler="on_trash_restore_requested" />
+                                    <property
+                                                                            name="icon-name"
+                                                                        >edit-undo-symbolic</property>
+                                    <property
+                                                                            name="tooltip-text"
+                                                                            translatable="yes"
+                                                                        >Restore Note</property>
+                                    <signal
+                                                                            name="clicked"
+                                                                            handler="on_trash_restore_requested"
+                                                                        />
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="notebook_subtitle">
+                                  <object
+                                                                        class="GtkLabel"
+                                                                        id="notebook_subtitle"
+                                                                    >
                                     <property name="use-markup">1</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkImage" id="notebook_icon">
-                                    <property name="icon-name">notebook-symbolic</property>
+                                    <property
+                                                                            name="icon-name"
+                                                                        >notebook-symbolic</property>
                                   </object>
                                 </child>
                               </object>
@@ -125,25 +154,35 @@
                                       </object>
                                     </child>
                                     <child type="tag">
-                                     <object class="GtkTextTag" id="italic_font">
+                                     <object
+                                                                                class="GtkTextTag"
+                                                                                id="italic_font"
+                                                                            >
                                         <property name="style">italic</property>
                                      </object>
                                     </child>
                                     <child type="tag">
                                       <object class="GtkTextTag" id="ul_font">
-                                        <property name="underline">single</property>
+                                        <property
+                                                                                    name="underline"
+                                                                                >single</property>
                                       </object>
                                     </child>
                                     <child type="tag">
                                       <object class="GtkTextTag" id="s_font">
-                                        <property name="strikethrough">1</property>
+                                        <property
+                                                                                    name="strikethrough"
+                                                                                >1</property>
                                       </object>
                                     </child>
                                     <child type="tag">
                                       <object class="GtkTextTag" id="mono_font">
-                                        <property name="font">"Source Code Pro Regular 12"</property>
-                                        <property name="background">"#8888882d"</property>
-                                        <property name="background-full-height">true</property>
+                                        <property
+                                                                                    name="font"
+                                                                                >"Source Code Pro Regular 12"</property>
+                                        <property
+                                                                                    name="background-full-height"
+                                                                                >true</property>
                                       </object>
                                     </child>
                                   </object>
@@ -151,7 +190,7 @@
                               </object>
                             </property>
                             <style>
-                              <class name="notejot-view"/>
+                              <class name="notejot-view" />
                             </style>
                           </object>
                         </child>
