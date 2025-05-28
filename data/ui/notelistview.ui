@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
   <template class="NotejotNoteListView" parent="HeBin">
     <property name="vexpand">1</property>
@@ -21,7 +21,9 @@
                 </style>
                 <property name="factory">
                   <object class="GtkBuilderListItemFactory">
-                    <property name="resource">/io/github/lainsce/Notejot/noterow.ui</property>
+                    <property
+                                            name="resource"
+                                        >/io/github/lainsce/Notejot/noterow.ui</property>
                   </object>
                 </property>
                 <property name="model">
@@ -37,7 +39,7 @@
                               <lookup name="notes">NotejotNoteListView</lookup>
                             </binding>
                             <property name="sorter">
-                              <object class="NotejotNoteSorter" id="sorter"/>
+                              <object class="NotejotNoteSorter" id="sorter" />
                             </property>
                           </object>
                         </property>
@@ -45,29 +47,17 @@
                           <object class="GtkEveryFilter">
                             <child>
                               <object class="GtkStringFilter">
-                                <property name="ignore-case">1</property>
-                                <property name="match-mode">exact</property>
-                                <property name="expression">
-                                  <lookup name="notebook" type="NotejotNote"/>
-                                </property>
-                                <binding name="search">
-                                  <lookup name="sntext">
-                                    <lookup name="nblistview">NotejotNoteListView</lookup>
-                                  </lookup>
-                                </binding>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStringFilter">
                                 <property name="ignore-case">0</property>
                                 <property name="match-mode">exact</property>
                                 <property name="expression">
-                                  <lookup name="title" type="NotejotNote"/>
+                                  <lookup name="title" type="NotejotNote" />
                                 </property>
                                 <binding name="search">
                                   <lookup name="text">
                                     <lookup name="entry">
-                                      <lookup name="note_search">NotejotNoteListView</lookup>
+                                      <lookup
+                                                                                name="note_search"
+                                                                            >NotejotNoteListView</lookup>
                                     </lookup>
                                   </lookup>
                                 </binding>
@@ -78,12 +68,14 @@
                                 <property name="ignore-case">0</property>
                                 <property name="match-mode">exact</property>
                                 <property name="expression">
-                                  <lookup name="text" type="NotejotNote"/>
+                                  <lookup name="text" type="NotejotNote" />
                                 </property>
                                 <binding name="search">
                                   <lookup name="text">
                                     <lookup name="entry">
-                                      <lookup name="note_search">NotejotNoteListView</lookup>
+                                      <lookup
+                                                                                name="note_search"
+                                                                            >NotejotNoteListView</lookup>
                                     </lookup>
                                   </lookup>
                                 </binding>

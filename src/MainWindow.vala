@@ -25,6 +25,8 @@ namespace Notejot {
         [GtkChild]
         public unowned Gtk.MenuButton menu_button;
         [GtkChild]
+        public unowned He.Button en_button;
+        [GtkChild]
         public unowned Gtk.Stack grid;
         [GtkChild]
         public unowned He.SideBar sbox;
@@ -39,7 +41,7 @@ namespace Notejot {
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
         [GtkChild]
-        public unowned He.NavigationSection viewchooser;
+        public unowned He.ViewChooser viewchooser;
 
         // Custom
         public MainWindow? mw { get; set; }
@@ -51,8 +53,6 @@ namespace Notejot {
         public unowned NoteListView listview;
         [GtkChild]
         public unowned TrashListView tlistview;
-        [GtkChild]
-        public unowned NotebookMainListView nblistview;
 
         // Etc
         public Gtk.Settings gtk_settings;
@@ -101,8 +101,6 @@ namespace Notejot {
             // Main View
             var theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
             theme.add_resource_path ("/io/github/lainsce/Notejot/");
-
-            viewchooser.remove_css_class ("sidebar-view");
 
             // Preparing window to be shown
             var settings = new Settings ();

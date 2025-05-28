@@ -85,7 +85,7 @@
                                     </style>
                                   </object>
                                 </property>
-                                <child>
+                                <child type="titlebar-button">
                                   <object class="HeButton" id="s_menu">
                                     <property
                                                                             name="is_disclosure"

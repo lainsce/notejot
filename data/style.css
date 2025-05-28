@@ -1,149 +1,119 @@
 .circular radio {
-  background: none;
-  padding: 12px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 999px;
-  border-color: alpha(@window_fg_color, 0.3);
+    background: none;
+    padding: 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 999px;
+    border-color: alpha(@window_fg_color, 0.3);
 }
 .circular radio:hover {
-  border-color: alpha(@window_fg_color, 0.6);
+    border-color: alpha(@window_fg_color, 0.6);
 }
 .circular radio:checked {
-  border-color: alpha(@window_fg_color, 0.3);
+    border-color: alpha(@window_fg_color, 0.3);
 }
 
 .notejot-theme .textual-button {
-  border-radius: 0;
-  background: none;
-  color: @view_fg_color;
-  box-shadow: none;
+    border-radius: 0;
+    background: none;
+    color: @view_fg_color;
+    box-shadow: none;
 }
 .notejot-theme .textual-button:hover {
-  background: alpha(@window_fg_color, 0.05);
-  color: @view_fg_color;
+    background: alpha(@window_fg_color, 0.05);
+    color: @view_fg_color;
 }
 .notejot-theme .textual-button:active {
-  background: alpha(@window_fg_color, 0.08);
-  color: @view_fg_color;
+    background: alpha(@window_fg_color, 0.08);
+    color: @view_fg_color;
 }
 
-.notejot-textview text {
-  background: url("resource://io/github/lainsce/Notejot/texture.png"), alpha(@surface_container_bg_color, 0.38);
-  text-shadow: 0 1px 2px black;
+.notejot-body text {
+    background-color: @surface_container_bg_color;
+    border-radius: 12px;
+}
+.notejot-body {
+    margin: 8px;
+    margin-bottom: 0;
+    border-radius: 12px;
 }
 
 .scrim {
-  color: white;
-  padding: 0;
-  margin: 0;
+    color: white;
+    padding: 0;
+    margin: 0;
 }
 .scrim .view-subtitle {
-  color: white;
-  text-shadow: 0 1px 2px black;
+    color: white;
+    text-shadow: 0 1px 2px black;
 }
 .scrim .close image,
 .scrim .maximize image,
 .scrim .minimize image {
-  color: white;
-  -gtk-icon-shadow: 0 1px 2px black;
-  box-shadow: 0 1px 2px black;
+    color: white;
+    -gtk-icon-shadow: 0 1px 2px black;
+    box-shadow: 0 1px 2px black;
 }
 .scrim .disclosure-button {
-  box-shadow: 0 1px 2px black;
+    box-shadow: 0 1px 2px black;
 }
 .scrim .text-field {
-  box-shadow: 0 0 0 1px alpha(white, 0.38);
-  background: alpha(white, 0.08);
+    box-shadow: 0 0 0 1px alpha(white, 0.38);
+    background: alpha(white, 0.08);
 }
 .scrim .text-field * {
-  opacity: 1;
-  color: white;
-  text-shadow: 0 1px 2px black;
-  caret-color: @view_bg_color;
+    opacity: 1;
+    color: white;
+    text-shadow: 0 1px 2px black;
+    caret-color: @view_bg_color;
 }
 
 .color-red radio {
-  background: alpha(@meson_red, 0.65);
-  color: alpha(@meson_red, 0);
+    background: alpha(@meson_red, 0.65);
+    color: alpha(@meson_red, 0);
 }
 .color-orange radio {
-  background: alpha(@lepton_orange, 0.65);
-  color: alpha(@lepton_orange, 0);
+    background: alpha(@lepton_orange, 0.65);
+    color: alpha(@lepton_orange, 0);
 }
 .color-yellow radio {
-  background: alpha(@electron_yellow, 0.65);
-  color: alpha(@electron_yellow, 0);
+    background: alpha(@electron_yellow, 0.65);
+    color: alpha(@electron_yellow, 0);
 }
 .color-green radio {
-  background: alpha(@muon_green, 0.65);
-  color: alpha(@muon_green, 0);
+    background: alpha(@muon_green, 0.65);
+    color: alpha(@muon_green, 0);
 }
 .color-blue radio {
-  background: alpha(@proton_blue, 0.65);
-  color: alpha(@proton_blue, 0);
+    background: alpha(@proton_blue, 0.65);
+    color: alpha(@proton_blue, 0);
 }
 .color-purple radio {
-  background: alpha(@tau_purple, 0.65);
-  color: alpha(@tau_purple, 0);
+    background: alpha(@tau_purple, 0.65);
+    color: alpha(@tau_purple, 0);
 }
 .color-reset radio {
-  background: alpha(@surface_bg_color, 0.65);
-  color: alpha(@surface_bg_color, 0);
+    background: alpha(@surface_bg_color, 0.65);
+    color: alpha(@surface_bg_color, 0);
 }
 
 .big-font {
-  font-size: 20px;
+    font-size: 20px;
 }
 .med-font {
-  font-size: 16px;
+    font-size: 16px;
 }
 .sml-font {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .rounded-pic {
-  margin: 0;
-  padding: 0;
-  border-radius: 8px;
+    margin: 0;
+    padding: 0;
+    border-radius: 8px;
 }
 .unrounded-pic {
-  margin: 0;
-  padding: 0;
-  border-radius: 0;
-}
-
-/* MainSideBar, upstream when done */
-.sidebar2-view {
-  background: @surface_container_high_bg_color;
-}
-.sidebar2-view .disclosure-button {
-  background: alpha(@window_fg_color, 0.08);
-}
-.sidebar2-view .disclosure-button:hover {
-  background: @accent_color;
-}
-.sidebar2-view .disclosure-button:active {
-  background: @accent_color;
-}
-.sidebar2-view .disclosure-button > .toggle {
-  background: none;
-}
-.sidebar2-view .mini-content-block:hover {
-  background: alpha(@window_fg_color, 0.08);
-}
-.sidebar2-view .mini-content-block:active {
-  background: alpha(@window_fg_color, 0.08);
-}
-.sidebar2-view .navigation-rail-button:hover {
-  box-shadow: none;
-  background: alpha(@window_fg_color, 0.08);
-}
-.sidebar2-view .navigation-rail-button:checked {
-  box-shadow: none;
-  background: alpha(@window_fg_color, 0.08);
-}
-.sidebar2-view .navigation-rail-button:hover:checked {
-  box-shadow: none;
-  background: alpha(@window_fg_color, 0.08);
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
 }

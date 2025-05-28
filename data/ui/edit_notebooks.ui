@@ -51,8 +51,8 @@
           <object class="GtkScrolledWindow" id="sw">
             <property name="vexpand">1</property>
             <property name="hexpand">1</property>
-            <property name="margin-start">20</property>
-            <property name="margin-end">20</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
             <child>
               <object class="NotejotNotebookListView" id="listview">
                 <property name="hexpand">1</property>
@@ -92,6 +92,7 @@
                 <child>
                   <object class="HeTextField" id="notebook_name_entry">
                     <property name="hexpand">1</property>
+                    <property name="is-outline">1</property>
                     <property
                                             name="placeholder-text"
                                             translatable="yes"

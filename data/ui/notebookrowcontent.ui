@@ -9,10 +9,8 @@
       <child type="prefix">
         <object class="HeTextField" id="notebook_entry">
           <property name="valign">center</property>
+          <property name="is-outline">1</property>
           <property name="hexpand">1</property>
-          <style>
-            <class name="outline" />
-          </style>
           <signal name="activate" handler="on_edit_notebook_requested" />
         </object>
       </child>

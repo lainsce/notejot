@@ -44,8 +44,6 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     unowned Gtk.TextBuffer note_text;
     [GtkChild]
-    unowned Gtk.Revealer format_revealer;
-    [GtkChild]
     unowned Gtk.TextTag bold_font;
     [GtkChild]
     unowned Gtk.TextTag italic_font;
@@ -107,8 +105,6 @@ public class Notejot.NoteContentView : He.Bin {
             _note = value;
 
             fmt_syntax_start ();
-
-            format_revealer.reveal_child = _note != null ? true : false;
             s_menu.visible = _note != null ? true : false;
             stack.visible_child = _note != null ? (Gtk.Widget) note_view : empty_view;
 

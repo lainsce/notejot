@@ -77,13 +77,11 @@
                                 <property name="viewtitle-widget">
                                   <object class="HeTextField" id="note_title">
                                     <property name="hexpand">1</property>
+                                    <property name="is-outline">1</property>
                                     <property
                                                                             name="width-request"
                                                                         >280</property>
                                     <property name="halign">start</property>
-                                    <property
-                                                                            name="placeholder-text"
-                                                                        >Note Name</property>
                                     <property name="visibility">1</property>
                                     <property
                                                                             name="tooltip-text"
@@ -99,7 +97,7 @@
                                                                         >go-previous-symbolic</property>
                                   </object>
                                 </child>
-                                <child>
+                                <child type="titlebar-menu">
                                   <object class="GtkMenuButton" id="s_menu">
                                     <property name="visible">0</property>
                                     <property name="menu-model">smenu</property>
@@ -108,9 +106,8 @@
                                                                         >view-more-symbolic</property>
                                   </object>
                                 </child>
-                                <child>
+                                <child type="titlebar-button">
                                   <object class="HeButton" id="delete_button">
-                                  <property name="is_disclosure">true</property>
                                     <property
                                                                             name="tooltip-text"
                                                                             translatable="yes"
@@ -123,7 +120,7 @@
                                     </style>
                                   </object>
                                 </child>
-                                <child>
+                                <child type="titlebar-button">
                                   <object class="HeButton" id="notebook_button">
                                   <property name="is_disclosure">true</property>
                                     <property
@@ -227,145 +224,140 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkRevealer" id="format_revealer">
-                    <property name="can-focus">0</property>
-                    <property name="transition-type">crossfade</property>
-                    <child>
-                      <object class="HeBottomBar" id="note_footer">
-                        <property name="hexpand">1</property>
-                        <child type="left">
-                          <object class="HeButton" id="bold_button">
-                            <property name="is_iconic">true</property>
-                            <property name="receives-default">1</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Makes selected text emboldened</property>
-                            <signal name="clicked" handler="action_bold" />
-                            <property
-                                                            name="icon-name"
-                                                        >format-text-bold-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="left">
-                          <object class="HeButton" id="italic_button">
-                            <property name="is_iconic">true</property>
-                            <property name="receives-default">1</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Makes selected text italicized</property>
-                            <signal name="clicked" handler="action_italic" />
-                            <property
-                                                            name="icon-name"
-                                                        >format-text-italic-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="left">
-                          <object class="HeButton" id="ul_button">
-                            <property name="is_iconic">true</property>
-                            <property name="receives-default">1</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Makes selected text underlined</property>
-                            <signal name="clicked" handler="action_ul" />
-                            <property
-                                                            name="icon-name"
-                                                        >format-text-underline-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="left">
-                          <object class="HeButton" id="s_button">
-                            <property name="is_iconic">true</property>
-                            <property name="receives-default">1</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Makes selected text striked through</property>
-                            <signal name="clicked" handler="action_s" />
-                            <property
-                                                            name="icon-name"
-                                                        >format-text-strikethrough-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="left">
-                          <object class="HeButton" id="ulist_button">
-                            <property name="is_iconic">true</property>
-                            <property name="receives-default">1</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Makes selected text into an unordered list</property>
-                            <signal name="clicked" handler="action_item" />
-                            <property
-                                                            name="icon-name"
-                                                        >view-list-bullet-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="left">
-                          <object class="HeButton" id="mono_button">
-                            <property name="is_iconic">true</property>
-                            <property name="receives-default">1</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Makes selected text monospace</property>
-                            <signal name="clicked" handler="action_monospace" />
-                            <property
-                                                            name="icon-name"
-                                                        >format-text-monospace-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="right">
-                          <object class="HeButton" id="image_button">
-                            <property name="is_iconic">true</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Adds a header picture to the note</property>
-                            <signal name="clicked" handler="action_picture" />
-                            <property
-                                                            name="icon-name"
-                                                        >image-round-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="right">
-                          <object class="HeButton" id="image_remove_button">
-                                                    <property
-                                                            name="is_iconic"
-                                                        >true</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Removes the header picture</property>
-                            <property name="visible">0</property>
-                            <signal
-                                                            name="clicked"
-                                                            handler="action_picture_remove"
-                                                        />
-                            <property
-                                                            name="icon-name"
-                                                        >edit-delete-symbolic</property>
-                          </object>
-                        </child>
-                        <child type="right">
-                          <object class="HeButton" id="normal_button">
-                            <property name="receives-default">1</property>
-                            <property name="is_iconic">true</property>
-                            <property
-                                                            name="tooltip-text"
-                                                            translatable="yes"
-                                                        >Removes formatting from selected text</property>
-                            <signal name="clicked" handler="action_normal" />
-                            <property
-                                                            name="icon-name"
-                                                        >font-x-generic-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
+                    <object class="HeBottomBar" id="note_footer">
+                    <property name="hexpand">1</property>
+                    <property name="mode">floating</property>
+                    <child type="left">
+                        <object class="HeButton" id="bold_button">
+                        <property name="is_iconic">true</property>
+                        <property name="receives-default">1</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Makes selected text emboldened</property>
+                        <signal name="clicked" handler="action_bold" />
+                        <property
+                                                    name="icon-name"
+                                                >format-text-bold-symbolic</property>
+                        </object>
                     </child>
-                  </object>
+                    <child type="left">
+                        <object class="HeButton" id="italic_button">
+                        <property name="is_iconic">true</property>
+                        <property name="receives-default">1</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Makes selected text italicized</property>
+                        <signal name="clicked" handler="action_italic" />
+                        <property
+                                                    name="icon-name"
+                                                >format-text-italic-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="left">
+                        <object class="HeButton" id="ul_button">
+                        <property name="is_iconic">true</property>
+                        <property name="receives-default">1</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Makes selected text underlined</property>
+                        <signal name="clicked" handler="action_ul" />
+                        <property
+                                                    name="icon-name"
+                                                >format-text-underline-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="left">
+                        <object class="HeButton" id="s_button">
+                        <property name="is_iconic">true</property>
+                        <property name="receives-default">1</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Makes selected text striked through</property>
+                        <signal name="clicked" handler="action_s" />
+                        <property
+                                                    name="icon-name"
+                                                >format-text-strikethrough-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="left">
+                        <object class="HeButton" id="ulist_button">
+                        <property name="is_iconic">true</property>
+                        <property name="receives-default">1</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Makes selected text into an unordered list</property>
+                        <signal name="clicked" handler="action_item" />
+                        <property
+                                                    name="icon-name"
+                                                >view-list-bullet-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="left">
+                        <object class="HeButton" id="mono_button">
+                        <property name="is_iconic">true</property>
+                        <property name="receives-default">1</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Makes selected text monospace</property>
+                        <signal name="clicked" handler="action_monospace" />
+                        <property
+                                                    name="icon-name"
+                                                >format-text-plaintext-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="right">
+                        <object class="HeButton" id="image_button">
+                        <property name="is_iconic">true</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Adds a header picture to the note</property>
+                        <signal name="clicked" handler="action_picture" />
+                        <property
+                                                    name="icon-name"
+                                                >image-round-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="right">
+                        <object class="HeButton" id="image_remove_button">
+                                                <property
+                                                    name="is_iconic"
+                                                >true</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Removes the header picture</property>
+                        <property name="visible">0</property>
+                        <signal
+                                                    name="clicked"
+                                                    handler="action_picture_remove"
+                                                />
+                        <property
+                                                    name="icon-name"
+                                                >edit-delete-symbolic</property>
+                        </object>
+                    </child>
+                    <child type="right">
+                        <object class="HeButton" id="normal_button">
+                        <property name="receives-default">1</property>
+                        <property name="is_iconic">true</property>
+                        <property
+                                                    name="tooltip-text"
+                                                    translatable="yes"
+                                                >Removes formatting from selected text</property>
+                        <signal name="clicked" handler="action_normal" />
+                        <property
+                                                    name="icon-name"
+                                                >font-x-generic-symbolic</property>
+                        </object>
+                    </child>
+                    </object>
                 </child>
               </object>
             </child>

@@ -54,8 +54,8 @@
             <property name="vexpand">1</property>
             <child>
               <object class="NotejotNotebookMoveListView" id="listview">
-                <property name="margin-start">20</property>
-                <property name="margin-end">20</property>
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
                 <binding name="notebooks">
                   <lookup name="notebooks" type="NotejotNotebookViewModel">
                     <lookup

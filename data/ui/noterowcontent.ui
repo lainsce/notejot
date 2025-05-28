@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
 <template class="NotejotNoteRowContent" parent="HeBin">
   <child>
@@ -7,7 +7,7 @@
       <property name="valign">center</property>
       <property name="spacing">6</property>
       <style>
-        <class name="mini-content-block"/>
+        <class name="mini-content-block" />
       </style>
       <child type="prefix">
         <object class="HeContentBlockImage" id="image">
@@ -31,7 +31,7 @@
                 </lookup>
               </binding>
               <style>
-                <class name="cb-title"/>
+                <class name="cb-title" />
               </style>
             </object>
           </child>
@@ -50,7 +50,7 @@
                 </closure>
               </binding>
               <style>
-                <class name="cb-subtitle"/>
+                <class name="cb-subtitle" />
               </style>
             </object>
           </child>
@@ -65,6 +65,7 @@
             <object class="GtkLabel">
               <property name="halign">start</property>
               <property name="valign">start</property>
+              <property name="margin-top">2</property>
               <property name="hexpand">1</property>
               <property name="ellipsize">end</property>
               <property name="single-line-mode">yes</property>
@@ -78,7 +79,7 @@
                 </closure>
               </binding>
               <style>
-                <class name="caption"/>
+                <class name="caption" />
               </style>
             </object>
           </child>
@@ -102,7 +103,7 @@
               <property name="halign">1</property>
               <property name="valign">1</property>
               <style>
-                <class name="notejot-sidebar-box"/>
+                <class name="notejot-sidebar-box" />
               </style>
             </object>
           </child>

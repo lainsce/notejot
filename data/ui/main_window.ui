@@ -21,143 +21,43 @@
             <child>
               <object class="BisAlbumPage">
                 <property name="child">
-                  <object class="HeSideBar" id="mbox">
+                  <object class="HeSideBar" id="sbox">
                     <property name="has-margins">0</property>
                     <property name="show-back">0</property>
-                    <property name="width-request">213</property>
+                    <property name="width-request">412</property>
+                    <property name="show-left-title-buttons">1</property>
                     <property
                                             name="show-right-title-buttons"
                                             bind-source="albumt"
                                             bind-property="folded"
                                             bind-flags="sync-create"
                                         />
-                    <style>
-                      <class name="sidebar2-view" />
-                    </style>
                     <property name="titlewidget">
-                      <object class="GtkLabel">
-                        <property name="margin-end">12</property>
-                        <property name="halign">start</property>
-                        <property name="label">Notejot</property>
-                        <style>
-                          <class name="heading" />
-                        </style>
-                      </object>
+                        <object class="HeViewChooser" id="viewchooser">
+                            <property name="stack">sgrid</property>
+                        </object>
                     </property>
                     <child type="titlebar-button">
+                      <object class="HeButton" id="en_button">
+                        <property
+                                                    name="icon-name"
+                                                >notebook-config-symbolic</property>
+                        <property name="tooltip-text">Edit Notebooks…</property>
+                        <property
+                                                    name="action-name"
+                                                >win.action_edit_notebooks</property>
+                      </object>
+                    </child>
+                    <child type="titlebar-menu">
                       <object class="GtkMenuButton" id="menu_button">
                         <property name="icon-name">open-menu-symbolic</property>
                         <property name="menu-model">menu</property>
                       </object>
                     </child>
                     <child>
-                      <object class="HeNavigationSection" id="viewchooser">
-                        <property name="stack">sgrid</property>
-                        <property name="valign">start</property>
-                        <property name="margin-top">8</property>
-                        <property name="vexpand">0</property>
-                        <property name="vexpand-set">1</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HeDivider">
-                        <property name="is-inset">1</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="margin-start">18</property>
-                        <property name="margin-bottom">6</property>
-                        <property name="halign">start</property>
-                        <property name="label">Notebooks</property>
-                        <style>
-                          <class name="heading" />
-                          <class name="dim-label" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object
-                                                class="NotejotNotebookMainListView"
-                                                id="nblistview"
-                                            >
-                        <property name="margin-start">18</property>
-                        <property name="margin-end">18</property>
-                        <binding name="notebooks">
-                          <lookup
-                                                        name="notebooks"
-                                                        type="NotejotNotebookViewModel"
-                                                    >
-                            <lookup
-                                                            name="nbview-model"
-                                                        >NotejotMainWindow</lookup>
-                          </lookup>
-                        </binding>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HeButton" id="en_button">
-                        <property name="is_textual">true</property>
-                        <property name="margin-start">18</property>
-                        <property name="margin-end">18</property>
-                        <property name="margin-top">6</property>
-                        <property name="margin-bottom">18</property>
-                        <property
-                                                    name="action-name"
-                                                >win.action_edit_notebooks</property>
-                        <property
-                                                    name="tooltip-text"
-                                                    translatable="yes"
-                                                >Manage notebooks</property>
-                        <child>
-                          <object class="HeButtonContent">
-                            <property
-                                                            name="icon"
-                                                        >notebook-config-symbolic</property>
-                            <property
-                                                            name="label"
-                                                            translatable="yes"
-                                                        >Edit Notebooks…</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="BisAlbumPage">
-                <property name="child">
-                  <object class="HeSideBar" id="sbox">
-                    <property name="has-margins">0</property>
-                    <property name="show-back">0</property>
-                    <property name="width-request">345</property>
-                    <property name="show-left-title-buttons">0</property>
-                    <property
-                                            name="show-right-title-buttons"
-                                            bind-source="albumt"
-                                            bind-property="folded"
-                                            bind-flags="sync-create"
-                                        />
-                    <property name="titlewidget">
-                      <object class="GtkLabel" id="sbox-title">
-                        <property name="margin-end">12</property>
-                        <property name="halign">start</property>
-                        <property
-                                                    name="label"
-                                                    bind-source="sgrid"
-                                                    bind-property="visible-child-name"
-                                                    bind-flags="sync-create"
-                                                />
-                        <style>
-                          <class name="view-title" />
-                        </style>
-                      </object>
-                    </property>
-                    <child>
                       <object class="HeTextField" id="note_search">
                         <property name="is-search">1</property>
+                        <property name="is-outline">1</property>
                         <property name="visibility">1</property>
                         <property name="margin-start">18</property>
                         <property name="margin-end">18</property>
@@ -239,9 +139,6 @@
                                             <property
                                                                                             name="album"
                                                                                         >albumt</property>
-                                            <property
-                                                                                            name="nblistview"
-                                                                                        >nblistview</property>
                                             <property
                                                                                             name="note_search"
                                                                                         >note_search</property>
