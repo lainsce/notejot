@@ -33,7 +33,6 @@ add_project_arguments(
 )
 add_project_arguments(
   [
-    '--target-glib=2.68',
     '--gresourcesdir', meson.current_build_dir() / 'data',
   ],
   language: 'vala',
@@ -100,6 +99,7 @@ executable(
   sources: sources,
   vala_args: [
     meson.current_source_dir() + '/src/' + '/Config.vapi',
+    '--pkg', 'gio-2.0',
   ],
   dependencies: dependencies,
   install: true,

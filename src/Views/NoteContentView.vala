@@ -26,7 +26,7 @@ public class Notejot.NoteContentView : He.Bin {
     [GtkChild]
     public unowned Gtk.Stack stack;
     [GtkChild]
-    public unowned Gtk.Box note_view;
+    public unowned Gtk.Overlay note_view;
     [GtkChild]
     public unowned Gtk.Box empty_view;
     [GtkChild]

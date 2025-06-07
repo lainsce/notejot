@@ -86,9 +86,15 @@ public class Notejot.NoteViewModel : Object {
     }
 
     public void delete_note (Note note) {
-        notes.remove (note);
-        repository.delete_note (note.id);
-        save_notes ();
+        if (note == null || note.id == null)
+            return;
+
+        // Remove from observable list first
+        if (notes.remove (note)) {
+            // Only delete from repository if remove was successful
+            repository.delete_note (note.id);
+            save_notes ();
+        }
     }
 
     async void populate_notes () {

@@ -41,7 +41,9 @@ namespace Notejot {
         [GtkChild]
         public unowned He.OverlayButton list_scroller;
         [GtkChild]
-        public unowned He.ViewChooser viewchooser;
+        public unowned He.NavigationRail navrail;
+        [GtkChild]
+        public unowned He.ViewTitle viewtitle;
 
         // Custom
         public MainWindow? mw { get; set; }
@@ -122,10 +124,15 @@ namespace Notejot {
             sgrid.notify["visible-child-name"].connect (() => {
                 if (sgrid.visible_child_name == "All Notes") {
                     settings.sort_mode = 0;
+                    viewtitle.label = "All Notes";
                 } else if (sgrid.visible_child_name == "Trash") {
                     settings.sort_mode = 1;
+                    viewtitle.label = "Trash";
                 }
             });
+
+            // Set initial viewtitle
+            viewtitle.label = (settings.sort_mode == 0) ? "All Notes" : "Trash";
 
             // Migrate things from old version
             if (settings.schema_version == 0) {
@@ -143,6 +150,8 @@ namespace Notejot {
             this.set_size_request (360, 360);
             this.mw = (MainWindow) app.get_active_window ();
             this.album = albumt;
+
+            sbox.remove_css_class ("sidebar-view");
 
             // Main Menu
             var nmp = new Widgets.MainMenu ();

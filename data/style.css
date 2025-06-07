@@ -30,12 +30,20 @@
 
 .notejot-body text {
     background-color: @surface_container_bg_color;
-    border-radius: 12px;
 }
 .notejot-body {
-    margin: 8px;
-    margin-bottom: 0;
-    border-radius: 12px;
+    background-color: transparent;
+}
+.notejot-body textview {
+    background-color: transparent;
+}
+
+.notejot-header {
+    background-color: transparent;
+}
+
+.notejot-header .content-block-image {
+    border-radius: 0;
 }
 
 .scrim {

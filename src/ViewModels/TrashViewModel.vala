@@ -59,24 +59,31 @@ public class Notejot.TrashViewModel : Object {
     }
 
     public void delete_one_trash (Trash trash) {
-        trashs.remove (trash);
-        repository.delete_trash (trash.id);
-        save_trashs ();
+        if (trash == null)
+            return;
+
+        // Remove from observable list first
+        if (trashs.remove (trash)) {
+            // Only delete from repository if remove was successful
+            repository.delete_trash (trash.id);
+            save_trashs ();
+        }
     }
 
     public async void delete_trash (MainWindow win) {
-        var p_button = new He.Button ("Clear", "");
+        var p_button = new He.Button ("", "Clear");
         p_button.is_fill = true;
-        var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trash"), _("Clearing means the items in Trash will be permanently lost with no recovery."), "dialog-warning-symbolic", p_button, null);
+        var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trash"),
+                                    _("Clearing means the items in Trash will be permanently lost with no recovery."),
+                                    "dialog-warning-symbolic", p_button, null);
+
         p_button.clicked.connect (() => {
             depopulate_trashs.begin ();
             dialog.close ();
         });
+
         if (dialog != null) {
             dialog.present ();
-            return;
-        } else {
-            dialog.show ();
         }
     }
 
@@ -90,8 +97,12 @@ public class Notejot.TrashViewModel : Object {
         trashs.remove_all ();
         var rtrashs = yield repository.get_trashs ();
 
-        foreach (var t in rtrashs) {
-            repository.delete_trash (t.id);
+        if (rtrashs != null) {
+            foreach (var t in rtrashs) {
+                if (t != null && t.id != null) {
+                    repository.delete_trash (t.id);
+                }
+            }
         }
         save_trashs ();
     }
