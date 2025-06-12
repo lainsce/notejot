@@ -9,340 +9,344 @@
     <property name="visible">1</property>
     <property name="default-width">800</property>
     <property name="default-height">500</property>
-    <child>
-      <object class="GtkBox" id="main_box">
-        <property name="orientation">vertical</property>
-        <property name="homogeneous">1</property>
-        <child>
-          <object class="BisAlbum" id="albumt">
-            <property name="can-navigate-back">1</property>
-            <property name="can-navigate-forward">1</property>
-            <property name="visible-child">sbox</property>
+    <property name="child">
+      <object class="GtkOverlay" id="about_overlay">
+        <property name="child">
+          <object class="GtkBox" id="main_box">
+            <property name="orientation">vertical</property>
+            <property name="homogeneous">1</property>
             <child>
-              <object class="BisAlbumPage">
-                <property name="child">
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="HeAppBar">
+              <object class="BisAlbum" id="albumt">
+                <property name="can-navigate-back">1</property>
+                <property name="can-navigate-forward">1</property>
+                <property name="visible-child">sbox</property>
+                <child>
+                  <object class="BisAlbumPage">
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="HeAppBar">
+                            <property
+                              name="show-right-title-buttons"
+                              bind-source="albumt"
+                              bind-property="folded"
+                              bind-flags="sync-create"
+                            />
+                          </object>
+                        </child>
+                        <child>
+                          <object class="HeNavigationRail" id="navrail">
+                            <property name="orientation">vertical</property>
+                            <property name="stack">sgrid</property>
+                            <property name="width-request">113</property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="BisAlbumPage">
+                    <property name="child">
+                      <object class="HeSideBar" id="sbox">
+                        <property name="has-margins">0</property>
+                        <property name="show-back">0</property>
+                        <property name="width-request">412</property>
+                        <property name="show-left-title-buttons">1</property>
+                        <property
+                          name="show-left-title-buttons"
+                          bind-source="albumt"
+                          bind-property="folded"
+                          bind-flags="sync-create"
+                        />
                         <property
                           name="show-right-title-buttons"
                           bind-source="albumt"
                           bind-property="folded"
                           bind-flags="sync-create"
                         />
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HeNavigationRail" id="navrail">
-                        <property name="orientation">vertical</property>
-                        <property name="stack">sgrid</property>
-                        <property name="width-request">113</property>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="BisAlbumPage">
-                <property name="child">
-                  <object class="HeSideBar" id="sbox">
-                    <property name="has-margins">0</property>
-                    <property name="show-back">0</property>
-                    <property name="width-request">412</property>
-                    <property name="show-left-title-buttons">1</property>
-                    <property
-                      name="show-left-title-buttons"
-                      bind-source="albumt"
-                      bind-property="folded"
-                      bind-flags="sync-create"
-                    />
-                    <property
-                      name="show-right-title-buttons"
-                      bind-source="albumt"
-                      bind-property="folded"
-                      bind-flags="sync-create"
-                    />
-                    <property name="titlewidget">
-                      <object class="HeViewTitle" id="viewtitle">
-                        <property name="label">Notejot</property>
+                        <property name="titlewidget">
+                          <object class="HeViewTitle" id="viewtitle">
+                            <property name="label">Notejot</property>
+                          </object>
+                        </property>
+                        <child type="titlebar-button">
+                          <object class="HeButton" id="en_button">
+                            <property
+                              name="icon-name"
+                            >notebook-config-symbolic</property>
+                            <property name="tooltip-text">Edit Notebooks…</property>
+                            <property
+                              name="action-name"
+                            >win.action_edit_notebooks</property>
+                          </object>
+                        </child>
+                        <child type="titlebar-menu">
+                          <object class="GtkMenuButton" id="menu_button">
+                            <property name="icon-name">open-menu-symbolic</property>
+                            <property name="menu-model">menu</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="HeTextField" id="note_search">
+                            <property name="is-search">1</property>
+                            <property name="is-outline">1</property>
+                            <property name="visibility">1</property>
+                            <property name="margin-start">18</property>
+                            <property name="margin-end">18</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property
+                              name="placeholder-text"
+                              translatable="yes"
+                            >Search notes…</property>
+                            <property
+                              name="prefix-icon"
+                            >system-search-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStack" id="sgrid">
+                            <property name="transition-type">crossfade</property>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">All Notes</property>
+                                <property name="title">All Notes</property>
+                                <property
+                                  name="icon-name"
+                                >text-x-generic-symbolic</property>
+                                <property name="child">
+                                  <object
+                                    class="HeOverlayButton"
+                                    id="list_scroller"
+                                  >
+                                    <property
+                                      name="primary-tooltip"
+                                      translatable="yes"
+                                    >Add Note</property>
+                                    <property
+                                      name="icon"
+                                    >list-add-symbolic</property>
+                                    <property name="typeb">primary</property>
+                                    <signal
+                                      name="clicked"
+                                      handler="on_new_note_requested"
+                                    />
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property
+                                          name="orientation"
+                                        >vertical</property>
+                                        <child>
+                                          <object
+                                            class="GtkScrolledWindow"
+                                            id="bscroller"
+                                          >
+                                            <property
+                                              name="hscrollbar-policy"
+                                            >never</property>
+                                            <child>
+                                              <object
+                                                class="NotejotNoteListView"
+                                                id="listview"
+                                              >
+                                                <signal
+                                                  name="new_note_requested"
+                                                  handler="on_new_note_requested"
+                                                />
+                                                <binding name="notes">
+                                                  <lookup
+                                                    name="notes"
+                                                    type="NotejotNoteViewModel"
+                                                  >
+                                                    <lookup
+                                                      name="view-model"
+                                                    >NotejotMainWindow</lookup>
+                                                  </lookup>
+                                                </binding>
+                                                <binding name="view-model">
+                                                  <lookup
+                                                    name="view-model"
+                                                  >NotejotMainWindow</lookup>
+                                                </binding>
+                                                <property
+                                                  name="album"
+                                                >albumt</property>
+                                                <property
+                                                  name="note_search"
+                                                >note_search</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">Trash</property>
+                                <property name="title">Trash</property>
+                                <property
+                                  name="icon-name"
+                                >user-trash-symbolic</property>
+                                <property name="child">
+                                  <object
+                                    class="HeOverlayButton"
+                                    id="tlist_scroller"
+                                  >
+                                    <property
+                                      name="primary-tooltip"
+                                      translatable="yes"
+                                    >Clear Trash</property>
+                                    <property
+                                      name="icon"
+                                    >user-trash-symbolic</property>
+                                    <property name="typeb">tertiary</property>
+                                    <signal
+                                      name="clicked"
+                                      handler="on_clear_trash_requested"
+                                    />
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property
+                                          name="orientation"
+                                        >vertical</property>
+                                        <child>
+                                          <object
+                                            class="GtkScrolledWindow"
+                                            id="tscroller"
+                                          >
+                                            <property
+                                              name="hscrollbar-policy"
+                                            >never</property>
+                                            <child>
+                                              <object
+                                                class="NotejotTrashListView"
+                                                id="tlistview"
+                                              >
+                                                <binding name="trashs">
+                                                  <lookup
+                                                    name="trashs"
+                                                    type="NotejotTrashViewModel"
+                                                  >
+                                                    <lookup
+                                                      name="tview-model"
+                                                    >NotejotMainWindow</lookup>
+                                                  </lookup>
+                                                </binding>
+                                                <binding name="tview-model">
+                                                  <lookup
+                                                    name="tview-model"
+                                                  >NotejotMainWindow</lookup>
+                                                </binding>
+                                                <property
+                                                  name="album"
+                                                >albumt</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </property>
-                    <child type="titlebar-button">
-                      <object class="HeButton" id="en_button">
-                        <property
-                          name="icon-name"
-                        >notebook-config-symbolic</property>
-                        <property name="tooltip-text">Edit Notebooks…</property>
-                        <property
-                          name="action-name"
-                        >win.action_edit_notebooks</property>
-                      </object>
-                    </child>
-                    <child type="titlebar-menu">
-                      <object class="GtkMenuButton" id="menu_button">
-                        <property name="icon-name">open-menu-symbolic</property>
-                        <property name="menu-model">menu</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HeTextField" id="note_search">
-                        <property name="is-search">1</property>
-                        <property name="is-outline">1</property>
-                        <property name="visibility">1</property>
-                        <property name="margin-start">18</property>
-                        <property name="margin-end">18</property>
-                        <property name="margin-top">6</property>
-                        <property name="margin-bottom">6</property>
-                        <property
-                          name="placeholder-text"
-                          translatable="yes"
-                        >Search notes…</property>
-                        <property
-                          name="prefix-icon"
-                        >system-search-symbolic</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkStack" id="sgrid">
-                        <property name="transition-type">crossfade</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="BisAlbumPage">
+                    <property name="child">
+                      <object class="GtkStack" id="grid">
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">All Notes</property>
-                            <property name="title">All Notes</property>
-                            <property
-                              name="icon-name"
-                            >text-x-generic-symbolic</property>
+                            <property name="name">note</property>
                             <property name="child">
                               <object
-                                class="HeOverlayButton"
-                                id="list_scroller"
+                                class="NotejotNoteContentView"
+                                id="notecontent"
                               >
-                                <property
-                                  name="primary-tooltip"
-                                  translatable="yes"
-                                >Add Note</property>
-                                <property
-                                  name="icon"
-                                >list-add-symbolic</property>
-                                <property name="typeb">primary</property>
                                 <signal
-                                  name="clicked"
-                                  handler="on_new_note_requested"
+                                  name="note_update_requested"
+                                  handler="on_note_update_requested"
                                 />
-                                <child>
-                                  <object class="GtkBox">
-                                    <property
-                                      name="orientation"
-                                    >vertical</property>
-                                    <child>
-                                      <object
-                                        class="GtkScrolledWindow"
-                                        id="bscroller"
-                                      >
-                                        <property
-                                          name="hscrollbar-policy"
-                                        >never</property>
-                                        <child>
-                                          <object
-                                            class="NotejotNoteListView"
-                                            id="listview"
-                                          >
-                                            <signal
-                                              name="new_note_requested"
-                                              handler="on_new_note_requested"
-                                            />
-                                            <binding name="notes">
-                                              <lookup
-                                                name="notes"
-                                                type="NotejotNoteViewModel"
-                                              >
-                                                <lookup
-                                                  name="view-model"
-                                                >NotejotMainWindow</lookup>
-                                              </lookup>
-                                            </binding>
-                                            <binding name="view-model">
-                                              <lookup
-                                                name="view-model"
-                                              >NotejotMainWindow</lookup>
-                                            </binding>
-                                            <property
-                                              name="album"
-                                            >albumt</property>
-                                            <property
-                                              name="note_search"
-                                            >note_search</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
+                                <signal
+                                  name="note_removal_requested"
+                                  handler="on_note_removal_requested"
+                                />
+                                <binding name="note">
+                                  <lookup name="selected-note">listview</lookup>
+                                </binding>
+                                <binding name="vm">
+                                  <lookup
+                                    name="view-model"
+                                  >NotejotMainWindow</lookup>
+                                </binding>
+                                <binding name="nvm">
+                                  <lookup
+                                    name="nbview-model"
+                                  >NotejotMainWindow</lookup>
+                                </binding>
+                                <binding name="win">
+                                  <lookup name="mw">NotejotMainWindow</lookup>
+                                </binding>
+                                <binding name="album">
+                                  <lookup name="album">NotejotMainWindow</lookup>
+                                </binding>
                               </object>
                             </property>
                           </object>
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">Trash</property>
-                            <property name="title">Trash</property>
-                            <property
-                              name="icon-name"
-                            >user-trash-symbolic</property>
+                            <property name="name">trash</property>
                             <property name="child">
-                              <object
-                                class="HeOverlayButton"
-                                id="tlist_scroller"
-                              >
-                                <property
-                                  name="primary-tooltip"
-                                  translatable="yes"
-                                >Clear Trash</property>
-                                <property
-                                  name="icon"
-                                >user-trash-symbolic</property>
-                                <property name="typeb">tertiary</property>
+                              <object class="NotejotTrashContentView">
                                 <signal
-                                  name="clicked"
-                                  handler="on_clear_trash_requested"
+                                  name="trash_update_requested"
+                                  handler="on_trash_update_requested"
                                 />
-                                <child>
-                                  <object class="GtkBox">
-                                    <property
-                                      name="orientation"
-                                    >vertical</property>
-                                    <child>
-                                      <object
-                                        class="GtkScrolledWindow"
-                                        id="tscroller"
-                                      >
-                                        <property
-                                          name="hscrollbar-policy"
-                                        >never</property>
-                                        <child>
-                                          <object
-                                            class="NotejotTrashListView"
-                                            id="tlistview"
-                                          >
-                                            <binding name="trashs">
-                                              <lookup
-                                                name="trashs"
-                                                type="NotejotTrashViewModel"
-                                              >
-                                                <lookup
-                                                  name="tview-model"
-                                                >NotejotMainWindow</lookup>
-                                              </lookup>
-                                            </binding>
-                                            <binding name="tview-model">
-                                              <lookup
-                                                name="tview-model"
-                                              >NotejotMainWindow</lookup>
-                                            </binding>
-                                            <property
-                                              name="album"
-                                            >albumt</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
+                                <signal
+                                  name="trash_restore_requested"
+                                  handler="on_trash_restore_requested"
+                                />
+                                <binding name="trash">
+                                  <lookup name="selected-trash">tlistview</lookup>
+                                </binding>
+                                <binding name="vm">
+                                  <lookup
+                                    name="tview-model"
+                                  >NotejotMainWindow</lookup>
+                                </binding>
+                                <binding name="nvm">
+                                  <lookup
+                                    name="nbview-model"
+                                  >NotejotMainWindow</lookup>
+                                </binding>
+                                <binding name="win">
+                                  <lookup name="mw">NotejotMainWindow</lookup>
+                                </binding>
                               </object>
                             </property>
                           </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="BisAlbumPage">
-                <property name="child">
-                  <object class="GtkStack" id="grid">
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">note</property>
-                        <property name="child">
-                          <object
-                            class="NotejotNoteContentView"
-                            id="notecontent"
-                          >
-                            <signal
-                              name="note_update_requested"
-                              handler="on_note_update_requested"
-                            />
-                            <signal
-                              name="note_removal_requested"
-                              handler="on_note_removal_requested"
-                            />
-                            <binding name="note">
-                              <lookup name="selected-note">listview</lookup>
-                            </binding>
-                            <binding name="vm">
-                              <lookup
-                                name="view-model"
-                              >NotejotMainWindow</lookup>
-                            </binding>
-                            <binding name="nvm">
-                              <lookup
-                                name="nbview-model"
-                              >NotejotMainWindow</lookup>
-                            </binding>
-                            <binding name="win">
-                              <lookup name="mw">NotejotMainWindow</lookup>
-                            </binding>
-                            <binding name="album">
-                              <lookup name="album">NotejotMainWindow</lookup>
-                            </binding>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">trash</property>
-                        <property name="child">
-                          <object class="NotejotTrashContentView">
-                            <signal
-                              name="trash_update_requested"
-                              handler="on_trash_update_requested"
-                            />
-                            <signal
-                              name="trash_restore_requested"
-                              handler="on_trash_restore_requested"
-                            />
-                            <binding name="trash">
-                              <lookup name="selected-trash">tlistview</lookup>
-                            </binding>
-                            <binding name="vm">
-                              <lookup
-                                name="tview-model"
-                              >NotejotMainWindow</lookup>
-                            </binding>
-                            <binding name="nvm">
-                              <lookup
-                                name="nbview-model"
-                              >NotejotMainWindow</lookup>
-                            </binding>
-                            <binding name="win">
-                              <lookup name="mw">NotejotMainWindow</lookup>
-                            </binding>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                  </object>
-                </property>
+                </child>
               </object>
             </child>
           </object>
-        </child>
+        </property>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

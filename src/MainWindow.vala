@@ -23,6 +23,8 @@ namespace Notejot {
         public signal void clicked ();
 
         [GtkChild]
+        public unowned Gtk.Overlay about_overlay;
+        [GtkChild]
         public unowned Gtk.MenuButton menu_button;
         [GtkChild]
         public unowned He.Button en_button;
@@ -271,6 +273,7 @@ namespace Notejot {
                                             He.AboutWindow.Licenses.GPLV3,
                                             He.Colors.YELLOW
             );
+            about_overlay.add_overlay (about);
             about.present ();
         }
 
