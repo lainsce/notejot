@@ -18,7 +18,7 @@
       </child>
       <child>
         <object class="GtkLabel" id="notebook_entry">
-          <property name="halign">start</property>
+          <property name="xalign">0.0</property>
           <property name="valign">center</property>
           <property name="hexpand">1</property>
         </object>

@@ -12,7 +12,7 @@
       <child type="prefix">
         <object class="HeContentBlockImage" id="image">
           <property name="requested-height">48</property>
-          <property name="requested-width">48</property>
+          <property name="requested-width">64</property>
         </object>
       </child>
       <child>
@@ -22,7 +22,7 @@
           <property name="spacing">6</property>
           <child>
             <object class="GtkLabel">
-              <property name="halign">start</property>
+              <property name="xalign">0.0</property>
               <property name="ellipsize">end</property>
               <property name="single-line-mode">yes</property>
               <binding name="label">
@@ -37,7 +37,7 @@
           </child>
           <child>
             <object class="GtkLabel">
-              <property name="halign">start</property>
+              <property name="xalign">0.0</property>
               <property name="hexpand">1</property>
               <property name="ellipsize">end</property>
               <property name="max-width-chars">25</property>
