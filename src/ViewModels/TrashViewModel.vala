@@ -107,13 +107,7 @@ public class Notejot.TrashViewModel : Object {
     }
 
     void save_trashs () {
-        if (timeout_id != 0)
-            Source.remove (timeout_id);
-
-        timeout_id = Timeout.add (500, () => {
-            timeout_id = 0;
-            repository.save.begin ();
-            return Source.REMOVE;
-        });
+        timeout_id = 0;
+        repository.save.begin ();
     }
 }

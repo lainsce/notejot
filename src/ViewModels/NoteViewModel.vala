@@ -104,13 +104,7 @@ public class Notejot.NoteViewModel : Object {
     }
 
     void save_notes () {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
-        }
-        timeout_id = Timeout.add (500, () => {
-            timeout_id = 0;
-            repository.save.begin ();
-            return Source.REMOVE;
-        });
+        timeout_id = 0;
+        repository.save.begin ();
     }
 }

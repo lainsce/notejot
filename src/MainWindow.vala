@@ -183,8 +183,7 @@ namespace Notejot {
 
             tview_model.repository.save.begin ();
 
-            this.dispose ();
-            return true;
+            return base.close_request ();
         }
 
         // IO?
