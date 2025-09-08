@@ -176,6 +176,13 @@ namespace Notejot {
                 settings.window_h = get_height ();
             }
 
+            // Save all data before closing
+            view_model.repository.save.begin ();
+
+            nbview_model.repository.save.begin ();
+
+            tview_model.repository.save.begin ();
+
             this.dispose ();
             return true;
         }

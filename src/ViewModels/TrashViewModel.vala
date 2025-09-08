@@ -20,7 +20,7 @@ public class Notejot.TrashViewModel : Object {
     uint timeout_id = 0;
 
     public ObservableList<Trash> trashs { get; default = new ObservableList<Trash> (); }
-    public TrashRepository? repository { private get; construct; }
+    public TrashRepository? repository { get; construct; }
 
     public TrashViewModel (TrashRepository repository) {
         Object (repository : repository);
@@ -73,13 +73,12 @@ public class Notejot.TrashViewModel : Object {
     public async void delete_trash (MainWindow win) {
         var p_button = new He.Button ("", "Clear");
         p_button.is_fill = true;
-        var dialog = new He.Dialog (true, win, _("Clear Trash?"), _("Empties the Trash"),
-                                    _("Clearing means the items in Trash will be permanently lost with no recovery."),
-                                    "dialog-warning-symbolic", p_button, null);
+        var dialog = new He.Dialog (win, _("Clear Trash?"),
+                                    "dialog-warning-symbolic", _("Clearing means the items in Trash will be permanently lost with no recovery."), p_button, null);
 
         p_button.clicked.connect (() => {
             depopulate_trashs.begin ();
-            dialog.close ();
+            dialog.destroy ();
         });
 
         if (dialog != null) {
