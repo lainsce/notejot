@@ -173,3 +173,135 @@ window,
 .dialog-content {
     background: var(--dialog-bg);
 }
+
+/* --- Tag Row Color Classes --- */
+.tag-row-red:selected {
+    background: alpha(var(--red), 0.15);
+}
+.tag-row-red:hover {
+    background: alpha(var(--red), 0.08);
+}
+.tag-row-red:active {
+    background: alpha(var(--red), 0.14);
+}
+
+.tag-row-orange:selected {
+    background: alpha(var(--orange), 0.15);
+}
+.tag-row-orange:hover {
+    background: alpha(var(--orange), 0.08);
+}
+.tag-row-orange:active {
+    background: alpha(var(--orange), 0.14);
+}
+
+.tag-row-yellow:selected {
+    background: alpha(var(--yellow), 0.15);
+}
+.tag-row-yellow:hover {
+    background: alpha(var(--yellow), 0.08);
+}
+.tag-row-yellow:active {
+    background: alpha(var(--yellow), 0.14);
+}
+
+.tag-row-green:selected {
+    background: alpha(var(--green), 0.15);
+}
+.tag-row-green:hover {
+    background: alpha(var(--green), 0.08);
+}
+.tag-row-green:active {
+    background: alpha(var(--green), 0.14);
+}
+
+.tag-row-mint:selected {
+    background: alpha(var(--mint), 0.15);
+}
+.tag-row-mint:hover {
+    background: alpha(var(--mint), 0.08);
+}
+.tag-row-mint:active {
+    background: alpha(var(--mint), 0.14);
+}
+
+.tag-row-teal:selected {
+    background: alpha(var(--teal), 0.15);
+}
+.tag-row-teal:hover {
+    background: alpha(var(--teal), 0.08);
+}
+.tag-row-teal:active {
+    background: alpha(var(--teal), 0.14);
+}
+
+.tag-row-cyan:selected {
+    background: alpha(var(--cyan), 0.15);
+}
+.tag-row-cyan:hover {
+    background: alpha(var(--cyan), 0.08);
+}
+.tag-row-cyan:active {
+    background: alpha(var(--cyan), 0.14);
+}
+
+.tag-row-blue:selected {
+    background: alpha(var(--blue), 0.15);
+}
+.tag-row-blue:hover {
+    background: alpha(var(--blue), 0.08);
+}
+.tag-row-blue:active {
+    background: alpha(var(--blue), 0.14);
+}
+
+.tag-row-indigo:selected {
+    background: alpha(var(--indigo), 0.15);
+}
+.tag-row-indigo:hover {
+    background: alpha(var(--indigo), 0.08);
+}
+.tag-row-indigo:active {
+    background: alpha(var(--indigo), 0.14);
+}
+
+.tag-row-purple:selected {
+    background: alpha(var(--purple), 0.15);
+}
+.tag-row-purple:hover {
+    background: alpha(var(--purple), 0.08);
+}
+.tag-row-purple:active {
+    background: alpha(var(--purple), 0.14);
+}
+
+.tag-row-pink:selected {
+    background: alpha(var(--pink), 0.15);
+}
+.tag-row-pink:hover {
+    background: alpha(var(--pink), 0.08);
+}
+.tag-row-pink:active {
+    background: alpha(var(--pink), 0.14);
+}
+
+.tag-row-brown:selected {
+    background: alpha(var(--brown), 0.15);
+}
+.tag-row-brown:hover {
+    background: alpha(var(--brown), 0.08);
+}
+.tag-row-brown:active {
+    background: alpha(var(--brown), 0.14);
+}
+
+/* Default fallback */
+.tag-row-default:selected {
+    background: alpha(var(--text-secondary), 0.15);
+}
+.tag-row-default:hover {
+    background: alpha(var(--text-secondary), 0.08);
+}
+.tag-row-default:active {
+    background: alpha(var(--text-secondary), 0.14);
+}
