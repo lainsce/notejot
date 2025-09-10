@@ -5,6 +5,7 @@ namespace Notejot {
         private Gtk.Label total_entries_label;
         private Gtk.Label days_journaled_label;
         private Gtk.Label locations_label;
+        private Gtk.Label words_label;
         private Gtk.Grid calendar_grid;
         private Gtk.Label calendar_month_label;
         private DateTime current_date;
@@ -56,6 +57,7 @@ namespace Notejot {
             var all_entries = this.data_manager.get_entries();
             var unique_days = new GenericSet<string> (str_hash, str_equal);
             int location_count = 0;
+            int total_words = 0;
             foreach (var entry in all_entries) {
                 if (!entry.is_deleted) {
                     unique_days.add(entry.date.format("%Y-%m-%d"));
@@ -63,6 +65,7 @@ namespace Notejot {
                         entry.latitude != 0 && entry.longitude != 0) {
                         location_count++;
                     }
+                    total_words += count_words(entry.content);
                 }
             }
 
@@ -73,6 +76,10 @@ namespace Notejot {
             var locations_card = create_stat_card("locations-card", _("Locations"), location_count.to_string());
             this.locations_label = (locations_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
             stats_box.append(locations_card);
+
+            var words_card = create_stat_card("words-card", _("Total Words"), total_words.to_string());
+            this.words_label = (words_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
+            stats_box.append(words_card);
 
             // --- Calendar ---
             var calendar_header_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
@@ -146,18 +153,42 @@ namespace Notejot {
 
             var unique_days = new GenericSet<string> (str_hash, str_equal);
             int location_count = 0;
+            int total_words = 0;
             foreach (var entry in all_entries) {
                 if (!entry.is_deleted) {
                     unique_days.add(entry.date.format("%Y-%m-%d"));
                     if (entry.latitude != 0 && entry.longitude != 0) {
                         location_count++;
                     }
+                    total_words += count_words(entry.content);
                 }
             }
             this.days_journaled_label.set_label(@"$(unique_days.length)");
             this.locations_label.set_label(@"$(location_count)");
+            this.words_label.set_label(@"$(total_words)");
 
             mark_entry_days();
+        }
+
+        private int count_words(string? text) {
+            if (text == null || text.strip() == "") {
+                return 0;
+            }
+            int count = 0;
+            try {
+                var regex = new GLib.Regex("\\S+");
+                GLib.MatchInfo match_info;
+                if (regex.match((string) text, 0, out match_info)) {
+                    do {
+                        count++;
+                    } while (match_info.next());
+                }
+            } catch (Error e) {
+                foreach (var part in text.strip().split(" ")) {
+                    if (part != "")count++;
+                }
+            }
+            return count;
         }
 
         private void build_calendar() {

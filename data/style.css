@@ -71,7 +71,6 @@ window {
     margin-bottom: 0;
     background-image: linear-gradient(135deg, var(--purple), var(--indigo));
 }
-
 .card.places-card {
     margin: 18px;
     margin-bottom: 0;
@@ -296,6 +295,10 @@ window {
     padding: 15px;
     border-radius: 12px;
     color: white;
+}
+
+.words-card {
+    background-image: linear-gradient(135deg, var(--green), var(--teal));
 }
 
 .days-journaled-card {

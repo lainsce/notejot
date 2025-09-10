@@ -108,6 +108,9 @@
 .stat-card {
     color: white;
 }
+.words-card {
+    background-image: linear-gradient(135deg, var(--green), var(--teal));
+}
 .days-journaled-card {
     background-image: linear-gradient(135deg, var(--purple), var(--indigo));
 }
