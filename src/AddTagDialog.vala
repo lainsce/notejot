@@ -3,6 +3,7 @@ namespace Notejot {
         public signal void response(int response_id);
 
         public He.TextField name_entry { get; private set; }
+        private Gtk.Label title_label;
         private Gtk.MenuButton color_button;
         private Gtk.FlowBox icon_grid;
 
@@ -40,7 +41,7 @@ namespace Notejot {
             "#bcaaa4"
         };
 
-        public AddTagDialog(Gtk.Window parent) {
+        public AddTagDialog(Gtk.Window parent, bool editing = false) {
             Object(
                    parent : parent,
                    default_width: 440,
@@ -56,7 +57,7 @@ namespace Notejot {
             header_box.set_margin_end(12);
             header_box.set_margin_bottom(12);
 
-            var title_label = new Gtk.Label(_("Add New Tag"));
+            title_label = new Gtk.Label(editing == true ? _("Edit Tag") : _("Add Tag"));
             title_label.add_css_class("title-3");
             header_box.append(title_label);
 

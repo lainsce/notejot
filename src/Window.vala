@@ -272,7 +272,7 @@ namespace Notejot {
                     }
                     if (found == null)return;
 
-                    var dialog = new AddTagDialog (this);
+                    var dialog = new AddTagDialog (this, true);
                     dialog.name_entry.get_internal_entry ().text = found.name;
                     dialog.set_selected_color (found.color);
                     dialog.set_selected_icon_name (found.icon_name);
@@ -509,7 +509,7 @@ namespace Notejot {
         }
 
         private void on_add_tag_clicked () {
-            var dialog = new AddTagDialog (this);
+            var dialog = new AddTagDialog (this, false);
             dialog.present ();
 
             dialog.response.connect ((response_id) => {
