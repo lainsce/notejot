@@ -1,106 +1,76 @@
-/*
- * Copyright (c) 2017-2022 Lains
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1301 USA
- *
- */
-public class Notejot.Application : He.Application {
-    private const GLib.ActionEntry app_entries[] = {
-        { "quit", quit },
-    };
+namespace Notejot {
+    public class NotejotApp : He.Application {
+        private Gtk.CssProvider app_css_provider;
+        private const GLib.ActionEntry APP_ENTRIES[] = {
+            { "quit", quit },
+        };
 
-    public Application () {
-        Object (application_id: Config.APP_ID);
-    }
+        public NotejotApp () {
+            Object (application_id: "io.github.lainsce.Notejot");
+        }
 
-    public static int main (string[] args) {
-        Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
-        Intl.textdomain (Config.GETTEXT_PACKAGE);
+        public static int main (string[] args) {
+            var app = new NotejotApp ();
+            return app.run (args);
+        }
 
-        var app = new Notejot.Application ();
-        return app.run (args);
-    }
+        public override void activate () {
+            this.active_window?.present ();
+        }
 
-    protected override void startup () {
-        Gdk.RGBA accent_color = { 0 };
-        accent_color.parse ("#febc16");
-        default_accent_color = He.from_gdk_rgba (accent_color);
+        public override void startup () {
+            Gdk.RGBA accent_color = {};
+            accent_color.parse ("#ffd54f");
 
-        resource_base_path = "/io/github/lainsce/Notejot";
+            Gdk.RGBA secondary_color = {};
+            secondary_color.parse ("#8a8a8e");
 
-        base.startup ();
+            Gdk.RGBA tertiary_color = {};
+            tertiary_color.parse ("#32ade6");
 
-        add_action_entries (app_entries, this);
+            default_accent_color = He.from_gdk_rgba (accent_color);
+            default_secondary_color = He.from_gdk_rgba (secondary_color);
+            default_tertiary_color = He.from_gdk_rgba (tertiary_color);
+            override_accent_color = true;
 
-        typeof (NoteListView).ensure ();
-        typeof (NoteContentView).ensure ();
+            resource_base_path = "/io/github/lainsce/Notejot";
 
-        var repo = new NoteRepository ();
-        var view_model = new NoteViewModel (repo);
+            base.startup ();
 
-        typeof (NotebookListView).ensure ();
-        typeof (NotebookMainListView).ensure ();
-        typeof (NotebookMoveListView).ensure ();
+            add_action_entries (APP_ENTRIES, this);
 
-        var nbrepo = new NotebookRepository ();
-        var nbview_model = new NotebookViewModel (nbrepo);
+            // Load theme CSS based on system preference, needed when you override primary, secondary, and tertiary colors
+            this.app_css_provider = new Gtk.CssProvider ();
+            var display = Gdk.Display.get_default ();
+            if (display != null) {
+                Gtk.StyleContext.add_provider_for_display (display, this.app_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            }
+            load_theme_css ();
 
-        typeof (TrashListView).ensure ();
-        typeof (TrashContentView).ensure ();
+            // React to dark-mode changes
+            var settings = Gtk.Settings.get_default ();
+            if (settings != null) {
+                settings.notify["gtk-application-prefer-dark-theme"].connect (() => {
+                    load_theme_css ();
+                });
+            }
 
-        var trepo = new TrashRepository ();
-        var tview_model = new TrashViewModel (trepo);
+            new Window (this);
+        }
 
-        // FIX: Wait for migration to complete before setting schema_version
-        var settings = new Settings ();
-        if (settings.schema_version == 0) {
-            debug ("Starting migration...");
-            var mm = new MigrationManager (null); // Pass null for now
-
-            // Create a temporary window just for migration
-            var temp_window = new MainWindow (this, view_model, tview_model, nbview_model);
-            mm.win = temp_window;
-
-            run_migration.begin (mm, settings, () => {
-                debug ("Migration completed, creating main window");
-                temp_window.destroy ();
-                new MainWindow (this, view_model, tview_model, nbview_model);
-            });
-        } else {
-            // No migration needed
-            new MainWindow (this, view_model, tview_model, nbview_model);
+        private void load_theme_css () {
+            bool prefer_dark = false;
+            var settings = Gtk.Settings.get_default ();
+            if (settings != null) {
+                GLib.Value val = GLib.Value (typeof (bool));
+                settings.get_property ("gtk-application-prefer-dark-theme", ref val);
+                prefer_dark = (bool) val;
+            }
+            if (prefer_dark) {
+                this.app_css_provider.load_from_resource ("/io/github/lainsce/Notejot/style_dark.css");
+            } else {
+                this.app_css_provider.load_from_resource ("/io/github/lainsce/Notejot/style.css");
+            }
         }
     }
-
-    private async void run_migration (MigrationManager mm, Settings settings, owned VoidFunc callback) {
-        yield mm.migrate_from_file_notes ();
-
-        yield mm.migrate_from_file_trash ();
-
-        yield mm.migrate_from_file_nb ();
-
-        // Only set schema version after migration is complete
-        settings.schema_version = 1;
-        debug ("Migration completed successfully");
-    }
-
-    protected override void activate () {
-        active_window?.present ();
-    }
 }
-
-// Helper delegate for callback
-public delegate void VoidFunc ();

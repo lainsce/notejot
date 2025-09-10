@@ -1,0 +1,175 @@
+/* Dark Theme Overrides */
+:root {
+    /* Keep accent hues the same */
+    --red: #ef5350;      /* brighter red for dark bg */
+    --orange: #ffa726;   /* vivid orange */
+    --yellow: #ffe082;   /* softer yellow to avoid glare */
+    --green: #66bb6a;    /* fresher green */
+    --mint: #26a69a;     /* teal-ish mint */
+    --teal: #26c6da;     /* bright teal */
+    --cyan: #29b6f6;     /* sky blue */
+    --blue: #42a5f5;     /* brighter blue */
+    --indigo: #5c6bc0;   /* balanced indigo */
+    --purple: #ab47bc;   /* saturated purple */
+    --pink: #ec407a;     /* lively pink */
+    --brown: #a1887f;    /* muted brown for dark mode */
+
+    /* Dark surfaces & text */
+    --app-bg: #121315;
+    --dialog-bg: #16171a;
+    --sidebar-bg: #141518;
+    --card-bg: #1b1c1f;
+    --text-primary: #f2f2f4;
+    --text-secondary: #a9abb2;
+    --border-color: #2a2c31;
+}
+
+/* Places header accents: tone down brightness for dark */
+.places-view-appbar {
+    background: #5f7e8a;
+}
+.places-view-header {
+    background-image: linear-gradient(180deg, #5f7e8a, transparent);
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+}
+
+/* Cards and content */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+.card > label {
+    color: var(--text-primary);
+}
+.card .title {
+    color: var(--text-primary);
+}
+.card .subtitle {
+    color: var(--text-secondary);
+}
+
+/* Sidebar feature cards */
+.card.insights-card {
+    background-image: linear-gradient(135deg, var(--purple), var(--indigo));
+}
+.card.places-card {
+    background-image:
+        linear-gradient(90deg, #5f7e8a 50%, transparent 100%),
+        url("resource://io/github/lainsce/Notejot/map.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Text colors */
+.tag-label,
+.entry-card .entry-header,
+.empty-state-title,
+.main-content .header,
+.insights-view .header,
+.places-view .header {
+    color: var(--text-primary);
+}
+
+.tag-count-label,
+.entry-card .date,
+.entry-card .content,
+.empty-state-subtitle,
+.sidebar .tags-header,
+.main-content .date-label,
+.insights-view .date-label,
+.places-view .date-label {
+    color: var(--text-secondary);
+}
+
+/* Entry cards */
+.entry-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+.entry-card .entry-menu-button .toggle {
+    color: var(--text-secondary);
+}
+.entry-card .entry-thumbnail {
+    background: var(--border-color);
+}
+
+/* Overlay add-entry button: ensure contrast on yellow */
+.overlay-button {
+    color: #111214;
+}
+
+/* Insights View Specific */
+.stat-card {
+    color: white;
+}
+.days-journaled-card {
+    background-image: linear-gradient(135deg, var(--purple), var(--indigo));
+}
+.locations-card {
+    background-image: linear-gradient(135deg, var(--teal), var(--blue));
+}
+
+/* Calendar */
+.custom-calendar {
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+}
+.calendar-day-button {
+    color: var(--text-primary);
+}
+.calendar-day-button:hover {
+    background: alpha(var(--yellow), 0.10);
+    color: var(--yellow);
+}
+.calendar-day-button:active {
+    background: alpha(var(--yellow), 0.14);
+    color: var(--yellow);
+}
+.calendar-day-button.has-entry {
+    background: alpha(var(--blue), 0.18);
+    color: var(--blue);
+}
+.calendar-day-button.today {
+    color: #111214;
+}
+
+/* Buttons in tag list */
+.tag-delete-button:hover {
+    background: alpha(var(--red), 0.14);
+    color: var(--red);
+}
+.tag-delete-button:active {
+    background: alpha(var(--red), 0.20);
+    color: var(--red);
+}
+.tag-edit-button:hover {
+    background: alpha(var(--text-primary), 0.14);
+    color: var(--text-primary);
+}
+.tag-edit-button:active {
+    background: alpha(var(--text-primary), 0.20);
+    color: var(--text-primary);
+}
+
+/* Inverted icon should remain visible on colored swatch */
+.inverted-icon {
+    color: #ffffff;
+}
+
+/* General backgrounds */
+window,
+.main-content,
+.insights-view,
+.places-view {
+    background: var(--app-bg);
+}
+
+.dialog-content {
+    background: var(--dialog-bg);
+}

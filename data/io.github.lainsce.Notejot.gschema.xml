@@ -1,39 +1,6 @@
+<?xml version="1.0"?>
 <schemalist>
 	<schema id="io.github.lainsce.Notejot" path="/io/github/lainsce/Notejot/">
-		<key type="i" name="schema-version">
-			<default>0</default>
-			<summary>Migration Version</summary>
-			<description>The version of migration to use; Do not change.</description>
-		</key>
-		<key type="i" name="sort-mode">
-			<default>0</default>
-			<summary>Last Seen View</summary>
-			<description>The last seen view on the sidebar.</description>
-		</key>
-	  <key type="s" name="last-view">
-			<default>"grid"</default>
-			<summary>Last View Used</summary>
-			<description>The last view used in the UI</description>
-		</key>
-	  <key type="s" name="font-size">
-			<default>"'medium'"</default>
-			<summary>Notes Font Size</summary>
-			<description>The size of the font used in notes. (Small, Medium, Large)</description>
-		</key>
-	  <key type="b" name="is-maximized">
-	    <default>false</default>
-	    <summary>Saves whether the window is maximized or not</summary>
-	    <description>Whether the window is maximized. Used to open window with user's preferred settings</description>
-	  </key>
-	  <key type="i" name="window-w">
-	    <default>900</default>
-	    <summary>Saves window last-used width</summary>
-	    <description>The user's last used window width before closing the app</description>
-	  </key>
-	  <key type="i" name="window-h">
-	    <default>500</default>
-	    <summary>Saves window last-used height</summary>
-	    <description>The user's last used window height before closing the app</description>
-	  </key>
+
 	</schema>
 </schemalist>

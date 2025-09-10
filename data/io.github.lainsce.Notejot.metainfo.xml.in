@@ -6,20 +6,18 @@
     <name translatable="no">Notejot</name>
     <summary>Jot your ideas</summary>
     <description>
-        <p>A stupidly-simple notes application for any type of short term notes or ideas.</p>
+        <p>A very simple notes application for any type of short term notes or ideas.</p>
         <ul>
-            <li>🟡 Color your notes in 8 different colors</li>
-            <li>📓 Classify them in notebooks</li>
-            <li>🔤 Format text to your liking</li>
-            <li>📌 Pin your most important ones</li>
+            <li>Classify them in tags</li>
+            <li>Set locations and tags seamlessly, viewing locations in a brand new view</li>
         </ul>
     </description>
     <provides>
         <binary>io.github.lainsce.Notejot</binary>
     </provides>
     <kudos>
-      <kudo>ModernToolkit</kudo>
-      <kudo>HiDpiIcon</kudo>
+        <kudo>ModernToolkit</kudo>
+        <kudo>HiDpiIcon</kudo>
     </kudos>
     <developer_name translatable="no">Lains</developer_name>
     <url type="homepage">https://github.com/lainsce/notejot/</url>
@@ -32,20 +30,28 @@
             <image>https://raw.githubusercontent.com/lainsce/notejot/main/data/shot.png</image>
         </screenshot>
     </screenshots>
-    <content_rating type="oars-1.1" />
+    <content_rating type="oars-1.1"/>
     <recommends>
-      <control>keyboard</control>
-      <control>pointing</control>
-      <control>touch</control>
+        <control>keyboard</control>
+        <control>pointing</control>
+        <control>touch</control>
     </recommends>
     <requires>
-      <display_length compare="ge">360</display_length>
+        <display_length compare="ge">360</display_length>
     </requires>
     <custom>
-      <value key="GnomeSoftware::key-colors">[(246, 211, 45)]</value>
+        <value key="GnomeSoftware::key-colors">[(246, 211, 45)]</value>
     </custom>
     <translation type="gettext">@app_id@</translation>
     <releases>
+        <release version="4.0.0" date="2025-09-10">
+            <description>
+                <p>Release: Journalling</p>
+                <ul>
+                    <li>Changed: A whole new UI direction.</li>
+                </ul>
+            </description>
+        </release>
         <release version="3.6.0" date="2022-12-31">
             <description>
                 <p>Release: Stargone</p>

@@ -1,127 +1,391 @@
-.circular radio {
-    background: none;
-    padding: 12px;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 999px;
-    border-color: alpha(@window_fg_color, 0.3);
-}
-.circular radio:hover {
-    border-color: alpha(@window_fg_color, 0.6);
-}
-.circular radio:checked {
-    border-color: alpha(@window_fg_color, 0.3);
+/* * Color Palette & Theme Variables
+ */
+:root {
+    --red: #e57373;
+    --orange: #ffb74d;
+    --yellow: #ffd54f;
+    --green: #81c784;
+    --mint: #4db6ac;
+    --teal: #4dd0e1;
+    --cyan: #32ade6;
+    --blue: #64b5f6;
+    --indigo: #7986cb;
+    --purple: #ba68c8;
+    --pink: #f06292;
+    --brown: #bcaaa4;
+
+    --app-bg: #f9f5f4;
+    --dialog-bg: #f5f1f0;
+    --sidebar-bg: #fefcfb;
+    --card-bg: #fefcfb;
+    --text-primary: #1d1d1f;
+    --text-secondary: #8a8a8e;
+    --border-color: #e8e3e0;
 }
 
-.notejot-theme .textual-button {
-    border-radius: 0;
-    background: none;
-    color: @view_fg_color;
+/* General Window Styling */
+window {
+    background: var(--app-bg);
+}
+
+.dialog-content {
+    background: var(--dialog-bg);
+}
+
+.places-view-appbar {
+    background: #aad3df;
+}
+.places-view-header {
+    background-image: linear-gradient(180deg, #aad3df, transparent);
+}
+
+.overlay-button {
+    background: var(--yellow);
+    color: var(--text-primary);
+    border: none;
+}
+.overlay-button:hover {
+    background: shade(var(--yellow), 0.92);
+}
+.overlay-button:active {
+    background: shade(var(--yellow), 0.9);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar .card {
+    border-radius: 12px;
+    padding: 15px;
+    color: white;
+    min-height: 96px;
+    min-width: 194px;
+}
+
+.card.insights-card {
+    margin: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-image: linear-gradient(135deg, var(--purple), var(--indigo));
+}
+
+.card.places-card {
+    margin: 18px;
+    margin-bottom: 0;
+    margin-top: 4px;
+    background-image:
+        linear-gradient(90deg, #aad3df 50%, transparent 100%),
+        url("resource://io/github/lainsce/Notejot/map.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: none;
+}
+
+.card .title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.card > label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 18px;
+    margin-top: 18px;
+}
+
+.card .subtitle {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.sidebar .tags-header {
+    margin: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.sidebar listbox {
+    background: transparent;
+}
+
+.sidebar row {
+    border-radius: 99px;
+    margin: 0px 18px;
+    padding: 6px;
+    color: var(--text-primary);
+}
+
+.tag-label {
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+.tag-count-label {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.tag-delete-button {
+    background: transparent;
+    color: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    min-width: 24px;
+    min-height: 24px;
+}
+.tag-delete-button:hover {
+    background: alpha(var(--red), 0.1);
+    color: var(--red);
+    border-radius: 99px;
+    min-width: 24px;
+    min-height: 24px;
+}
+.tag-delete-button:active {
+    background: alpha(var(--red), 0.2);
+    color: var(--red);
+    border-radius: 99px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.tag-edit-button {
+    background: transparent;
+    color: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    min-width: 24px;
+    min-height: 24px;
+}
+.tag-edit-button:hover {
+    background: alpha(var(--text-primary), 0.1);
+    color: var(--text-primary);
+    border-radius: 99px;
+    min-width: 24px;
+    min-height: 24px;
+}
+.tag-edit-button:active {
+    background: alpha(var(--text-primary), 0.2);
+    color: var(--text-primary);
+    border-radius: 99px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.inverted-icon {
+    color: var(--card-bg);
+}
+
+/* --- Main Content Area --- */
+.main-content,
+.insights-view,
+.places-view {
+    background: var(--app-bg);
+    padding: 0px;
+    margin: 0px;
+}
+
+.insights-view .header,
+.places-view .header,
+.main-content .header {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 18px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.insights-view .date-label,
+.places-view .date-label {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin: 18px;
+    margin-top: 0;
+}
+
+.main-content .date-label {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin: 18px;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* --- Entry List & Empty State --- */
+.entry-list {
+    background: transparent;
+    margin: 18px;
+    margin-top: 0;
+}
+
+.entry-list row {
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.empty-state-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.empty-state-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+/* --- Entry Card --- */
+.entry-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 18px 0;
+    margin-bottom: 18px;
+    border: 1px solid var(--border-color);
+}
+
+.entry-card .entry-header {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0 18px;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.entry-card .date {
+    font-size: 13px;
+    padding: 0 18px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.entry-card .content {
+    font-size: 15px;
+    padding: 0 18px;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.entry-card .entry-menu-button .toggle {
+    background: transparent;
+    padding: 0 18px;
+    margin-top: 15px;
+    border: none;
+    color: var(--text-secondary);
+}
+
+.entry-card .entry-thumbnail {
+    border-radius: 12px;
+    background: var(--border-color);
+}
+
+/* --- Insights View Specific --- */
+.stat-card {
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+}
+
+.days-journaled-card {
+    background-image: linear-gradient(135deg, var(--purple), var(--indigo));
+}
+
+.locations-card {
+    background-image: linear-gradient(135deg, var(--teal), var(--blue));
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.stat-title {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.calendar-month-label {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.custom-calendar {
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 26px;
+    background: var(--card-bg);
     box-shadow: none;
 }
-.notejot-theme .textual-button:hover {
-    background: alpha(@window_fg_color, 0.05);
-    color: @view_fg_color;
-}
-.notejot-theme .textual-button:active {
-    background: alpha(@window_fg_color, 0.08);
-    color: @view_fg_color;
+
+.calendar-day-button {
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: 99px;
+    min-height: 56px;
+    min-width: 42px;
 }
 
-.notejot-body text {
-    background-color: @surface_container_bg_color;
-}
-.notejot-body {
-    background-color: transparent;
-}
-.notejot-body textview {
-    background-color: transparent;
+.calendar-day-button:hover {
+    background: alpha(var(--yellow), 0.08);
+    color: var(--yellow);
 }
 
-.notejot-header {
-    background-color: transparent;
+.calendar-day-button:active {
+    background: alpha(var(--yellow), 0.1);
+    color: var(--yellow);
 }
 
-.notejot-header .content-block-image {
-    border-radius: 0;
+.calendar-day-button.has-entry {
+    background: alpha(var(--blue), 0.1);
+    color: var(--blue);
+    border-radius: 99px;
 }
 
-.scrim {
-    color: white;
+.calendar-day-button.today {
+    font-weight: bold;
+    background: var(--yellow);
+    color: var(--text-primary);
+    box-shadow: none;
+    border-radius: 99px;
+}
+
+/* --- Places View Specific --- */
+.location-popover {
+    border-radius: 12px;
     padding: 0;
-    margin: 0;
-}
-.scrim .view-subtitle {
-    color: white;
-    text-shadow: 0 1px 2px black;
-}
-.scrim .close image,
-.scrim .maximize image,
-.scrim .minimize image {
-    color: white;
-    -gtk-icon-shadow: 0 1px 2px black;
-    box-shadow: 0 1px 2px black;
-}
-.scrim .disclosure-button {
-    box-shadow: 0 1px 2px black;
-}
-.scrim .text-field {
-    box-shadow: 0 0 0 1px alpha(white, 0.38);
-    background: alpha(white, 0.08);
-}
-.scrim .text-field * {
-    opacity: 1;
-    color: white;
-    text-shadow: 0 1px 2px black;
-    caret-color: @view_bg_color;
 }
 
-.color-red radio {
-    background: alpha(@meson_red, 0.65);
-    color: alpha(@meson_red, 0);
-}
-.color-orange radio {
-    background: alpha(@lepton_orange, 0.65);
-    color: alpha(@lepton_orange, 0);
-}
-.color-yellow radio {
-    background: alpha(@electron_yellow, 0.65);
-    color: alpha(@electron_yellow, 0);
-}
-.color-green radio {
-    background: alpha(@muon_green, 0.65);
-    color: alpha(@muon_green, 0);
-}
-.color-blue radio {
-    background: alpha(@proton_blue, 0.65);
-    color: alpha(@proton_blue, 0);
-}
-.color-purple radio {
-    background: alpha(@tau_purple, 0.65);
-    color: alpha(@tau_purple, 0);
-}
-.color-reset radio {
-    background: alpha(@surface_bg_color, 0.65);
-    color: alpha(@surface_bg_color, 0);
+.location-image {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
-.big-font {
-    font-size: 20px;
-}
-.med-font {
+.location-title {
     font-size: 16px;
-}
-.sml-font {
-    font-size: 12px;
+    font-weight: 600;
 }
 
-.rounded-pic {
-    margin: 0;
-    padding: 0;
-    border-radius: 8px;
+.location-description {
+    font-size: 14px;
+    color: var(--text-secondary);
 }
-.unrounded-pic {
-    margin: 0;
-    padding: 0;
-    border-radius: 0;
+
+/* Popover buttons in AddTagDialog */
+popover flowbox button.flat,
+.calendar-header-box button.flat {
+    background: transparent;
+    border: none;
 }

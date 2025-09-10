@@ -2,7 +2,7 @@
 
 # Notejot
 
-Stupidly simple notes app.
+A very simple notes application for any type of short term notes or ideas.
 
 ###
 
@@ -42,4 +42,23 @@ sudo ninja install
 ```
 
 ## 🗂️ Notes Storage
+
 Notes are stored in `~/.var/app/io.github.lainsce.Notejot/`
+
+## 🔄 Migrating Old Notejot Data
+
+On first launch, Notejot will automatically import your notes from older versions.
+
+## 🔄 Migration Details
+
+- Note colors are saved as the first line of each note.
+- Old modification times are preserved as note timestamps.
+- Trashed notes remain trashed after migration.
+- Notebooks are converted to tags.
+
+After migration:
+
+- A `.notejot_migrated` flag file is created.
+- Old files are renamed to `*_migrated.json` for reference and are no longer used.
+
+Migration happens automatically on first launch and keeps your data safe and compatible with the new version.
