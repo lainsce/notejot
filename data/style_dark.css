@@ -1,18 +1,18 @@
 /* Dark Theme Overrides */
 :root {
     /* Keep accent hues the same */
-    --red: #ef5350;      /* brighter red for dark bg */
-    --orange: #ffa726;   /* vivid orange */
-    --yellow: #ffe082;   /* softer yellow to avoid glare */
-    --green: #66bb6a;    /* fresher green */
-    --mint: #26a69a;     /* teal-ish mint */
-    --teal: #26c6da;     /* bright teal */
-    --cyan: #29b6f6;     /* sky blue */
-    --blue: #42a5f5;     /* brighter blue */
-    --indigo: #5c6bc0;   /* balanced indigo */
-    --purple: #ab47bc;   /* saturated purple */
-    --pink: #ec407a;     /* lively pink */
-    --brown: #a1887f;    /* muted brown for dark mode */
+    --red: #ef5350; /* brighter red for dark bg */
+    --orange: #ffa726; /* vivid orange */
+    --yellow: #ffe082; /* softer yellow to avoid glare */
+    --green: #66bb6a; /* fresher green */
+    --mint: #26a69a; /* teal-ish mint */
+    --teal: #26c6da; /* bright teal */
+    --cyan: #29b6f6; /* sky blue */
+    --blue: #42a5f5; /* brighter blue */
+    --indigo: #5c6bc0; /* balanced indigo */
+    --purple: #ab47bc; /* saturated purple */
+    --pink: #ec407a; /* lively pink */
+    --brown: #a1887f; /* muted brown for dark mode */
 
     /* Dark surfaces & text */
     --app-bg: #121315;
@@ -124,7 +124,7 @@
     color: var(--text-primary);
 }
 .calendar-day-button:hover {
-    background: alpha(var(--yellow), 0.10);
+    background: alpha(var(--yellow), 0.1);
     color: var(--yellow);
 }
 .calendar-day-button:active {
@@ -145,7 +145,7 @@
     color: var(--red);
 }
 .tag-delete-button:active {
-    background: alpha(var(--red), 0.20);
+    background: alpha(var(--red), 0.2);
     color: var(--red);
 }
 .tag-edit-button:hover {
@@ -153,7 +153,7 @@
     color: var(--text-primary);
 }
 .tag-edit-button:active {
-    background: alpha(var(--text-primary), 0.20);
+    background: alpha(var(--text-primary), 0.2);
     color: var(--text-primary);
 }
 

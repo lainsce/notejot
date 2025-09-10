@@ -24,16 +24,26 @@ namespace Notejot {
             box.append (overlay);
 
             // Add CSS for selected state with tag color
-            if (color != null) {
-                var css_provider = new Gtk.CssProvider ();
-                var css = ".tag-row:selected { background: alpha(%s, 0.15); } .tag-row:hover { background: alpha(%s, 0.08); } .tag-row:active { background: alpha(%s, 0.14); }".printf (color, color, color);
-                css_provider.load_from_data (css.data);
-                this.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            } else {
-                var css_provider = new Gtk.CssProvider ();
-                var css = ".tag-row:selected { background: #f3f2f8; } .tag-row:hover { background: #f3f2f8; } .tag-row:active { background: #f3f2f8; }";
-                css_provider.load_from_data (css.data);
-                this.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            /*
+             * Remove all possible tag-row-* classes first
+             */
+            this.remove_css_class ("tag-row-default");
+            this.remove_css_class ("tag-row-red");
+            this.remove_css_class ("tag-row-orange");
+            this.remove_css_class ("tag-row-yellow");
+            this.remove_css_class ("tag-row-green");
+            this.remove_css_class ("tag-row-mint");
+            this.remove_css_class ("tag-row-teal");
+            this.remove_css_class ("tag-row-cyan");
+            this.remove_css_class ("tag-row-blue");
+            this.remove_css_class ("tag-row-indigo");
+            this.remove_css_class ("tag-row-purple");
+            this.remove_css_class ("tag-row-pink");
+            this.remove_css_class ("tag-row-brown");
+
+            var color_class = get_color_class (color);
+            if (color_class != null) {
+                this.add_css_class ("tag-row-" + color_class);
             }
 
             if (color != null) {
@@ -117,6 +127,26 @@ namespace Notejot {
 
             box.append (count_label);
             this.set_child (box);
+        }
+
+        private string get_color_class (string? color) {
+            if (color == null)
+                return "default";
+            switch (color.down ()) {
+            case "#e57373": case "#ef5350": return "red";
+            case "#ffb74d": case "#ffa726": return "orange";
+            case "#ffd54f": case "#ffe082": return "yellow";
+            case "#81c784": case "#66bb6a": return "green";
+            case "#4db6ac": case "#26a69a": return "mint";
+            case "#4dd0e1": case "#26c6da": return "teal";
+            case "#32ade6": case "#29b6f6": return "cyan";
+            case "#64b5f6": case "#42a5f5": return "blue";
+            case "#7986cb": case "#5c6bc0": return "indigo";
+            case "#ba68c8": case "#ab47bc": return "purple";
+            case "#f06292": case "#ec407a": return "pink";
+            case "#bcaaa4": case "#a1887f": return "brown";
+            default: return "default";
+            }
         }
     }
 }

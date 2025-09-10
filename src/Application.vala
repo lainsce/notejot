@@ -39,15 +39,8 @@ namespace Notejot {
 
             add_action_entries (APP_ENTRIES, this);
 
-            // Load theme CSS based on system preference, needed when you override primary, secondary, and tertiary colors
-            this.app_css_provider = new Gtk.CssProvider ();
-            var display = Gdk.Display.get_default ();
-            if (display != null) {
-                Gtk.StyleContext.add_provider_for_display (display, this.app_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            }
-            load_theme_css ();
-
             // React to dark-mode changes
+            this.app_css_provider = new Gtk.CssProvider ();
             var settings = Gtk.Settings.get_default ();
             if (settings != null) {
                 settings.notify["gtk-application-prefer-dark-theme"].connect (() => {
