@@ -1,13 +1,16 @@
 namespace Notejot {
     public class AddTagDialog : He.Window {
-        public signal void response (int response_id);
+        public signal void response(int response_id);
 
         public He.TextField name_entry { get; private set; }
-        private Gtk.MenuButton icon_button;
-        private Gtk.MenuButton color_swatch_button;
+        private Gtk.MenuButton color_button;
+        private Gtk.FlowBox icon_grid;
 
         private string? selected_icon_name = null;
         private string selected_color = "#ffd54f"; // Yellow as default
+
+        // Track the overlay image so we can clean it up before adding a new one
+        private Gtk.Widget? overlay_image = null;
 
         private string[] icon_names = {
             "tag-symbolic", "user-bookmarks-symbolic", "folder-symbolic",
@@ -34,9 +37,9 @@ namespace Notejot {
 
         public AddTagDialog(Gtk.Window parent) {
             Object(
-                parent: parent,
-                default_width: 440,
-                resizable: false
+                   parent : parent,
+                   default_width: 440,
+                   resizable: false
             );
 
             add_css_class("dialog-content");
@@ -54,7 +57,7 @@ namespace Notejot {
 
             header_box.append(new Gtk.Label("") { hexpand = true }); // Spacer
 
-            var close_button = new He.Button ("window-close-symbolic", "");
+            var close_button = new He.Button("window-close-symbolic", "");
             close_button.is_disclosure = true;
             close_button.clicked.connect(() => {
                 response(Gtk.ResponseType.CANCEL);
@@ -62,167 +65,143 @@ namespace Notejot {
             });
             header_box.append(close_button);
 
-            var winhandle = new Gtk.WindowHandle ();
-            winhandle.set_child (header_box);
+            var winhandle = new Gtk.WindowHandle();
+            winhandle.set_child(header_box);
 
-            // Main content area
-            var main_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 15);
+            // --- Main ---
+            var main_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
             main_box.set_margin_top(6);
             main_box.set_margin_bottom(12);
             main_box.set_margin_start(12);
             main_box.set_margin_end(12);
 
-            // Name entry card
-            var name_card = new Gtk.Frame(_("Name"));
-            name_card.add_css_class("card");
-            name_card.set_margin_bottom(6);
-            var name_card_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
-            name_card_box.set_margin_top(12);
-            name_card_box.set_margin_bottom(12);
-            name_card_box.set_margin_start(12);
-            name_card_box.set_margin_end(12);
+            // Preview
+            var preview_overlay = new Gtk.Overlay();
+            preview_overlay.set_size_request(64, 64);
+            preview_overlay.set_halign(Gtk.Align.CENTER);
+            preview_overlay.set_valign(Gtk.Align.CENTER);
+            var preview_color = new Gtk.DrawingArea();
+            preview_color.set_content_width(64);
+            preview_color.set_content_height(64);
+            preview_color.set_draw_func((area, cr, w, h) => {
+                var rgba = Gdk.RGBA();
+                rgba.parse(this.selected_color);
+                cr.set_source_rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
+                cr.arc(w / 2.0, h / 2.0, w / 2.0, 0, 2 * Math.PI);
+                cr.fill();
+            });
+            preview_overlay.set_child(preview_color);
+            main_box.append(preview_overlay);
 
-            this.name_entry = new He.TextField();
-            this.name_entry.placeholder_text = _("Tag Name");
-            name_card_box.append(this.name_entry);
+            var preview_label = new Gtk.Label("");
+            preview_label.set_halign(Gtk.Align.CENTER);
+            preview_label.set_valign(Gtk.Align.CENTER);
+            preview_label.add_css_class("dim-label");
 
-            name_card.set_child(name_card_box);
-            main_box.append(name_card);
+            var preview_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            preview_box.set_halign(Gtk.Align.CENTER);
+            preview_box.set_valign(Gtk.Align.CENTER);
+            preview_box.margin_bottom = 12;
+            preview_box.append(preview_overlay);
+            preview_box.append(preview_label);
+            main_box.append(preview_box);
 
-            // Color card
-            var color_card = new Gtk.Frame(_("Color"));
-            color_card.add_css_class("card");
-            color_card.set_margin_bottom(6);
-            var color_card_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
-            color_card_box.set_margin_top(12);
-            color_card_box.set_margin_bottom(12);
-            color_card_box.set_margin_start(12);
-            color_card_box.set_margin_end(12);
+            // Name + Color row
+            var name_row = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            this.name_entry = new He.TextField() { placeholder_text = _("Tag Name"), hexpand = true, is_outline = true };
+            name_row.append(this.name_entry);
 
-            // Description for color selection
-            var color_desc = new Gtk.Label(_("Choose a color for the tag"));
-            color_desc.set_halign(Gtk.Align.START);
-            color_desc.set_valign(Gtk.Align.CENTER);
-            color_desc.set_hexpand(true);
-            color_card_box.append(color_desc);
+            preview_label.label = _("Tag Name");
+            this.name_entry.get_internal_entry().changed.connect(() => {
+                preview_label.label = this.name_entry.get_internal_entry().text != "" ? this.name_entry.get_internal_entry().text : _("Tag Name");
+            });
 
-            // --- Color Popover Button ---
-            this.color_swatch_button = new Gtk.MenuButton();
-            this.color_swatch_button.get_first_child ().add_css_class ("tint-button");
-            this.color_swatch_button.get_first_child ().add_css_class ("circular");
-            this.color_swatch_button.set_halign(Gtk.Align.END);
-            this.color_swatch_button.set_hexpand(true);
-            this.color_swatch_button.set_tooltip_text(_("Click to choose a color"));
-            var color_swatch_drawing_area = new Gtk.DrawingArea();
-            color_swatch_drawing_area.set_content_width(24);
-            color_swatch_drawing_area.set_content_height(24);
-            color_swatch_drawing_area.set_draw_func(this.draw_color_swatch);
-            this.color_swatch_button.set_child(color_swatch_drawing_area);
-            color_card_box.append(this.color_swatch_button);
+            this.color_button = new Gtk.MenuButton();
+            this.color_button.set_tooltip_text(_("Select Color"));
+            this.color_button.set_size_request(32, 32);
+            this.color_button.set_halign(Gtk.Align.CENTER);
+            this.color_button.set_valign(Gtk.Align.CENTER);
+            this.color_button.get_first_child().add_css_class("tint-button");
+            this.color_button.get_first_child().add_css_class("circular");
+            var color_area = new Gtk.DrawingArea();
+            color_area.set_halign(Gtk.Align.CENTER);
+            color_area.set_valign(Gtk.Align.CENTER);
+            color_area.set_content_width(24);
+            color_area.set_content_height(24);
+            color_area.set_draw_func((a, cr, w, h) => {
+                var rgba = Gdk.RGBA();
+                rgba.parse(this.selected_color);
+                cr.set_source_rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
+                cr.arc(w / 2.0, h / 2.0, w / 2.0, 0, 2 * Math.PI);
+                cr.fill();
+            });
+            this.color_button.set_child(color_area);
+            name_row.append(this.color_button);
+            main_box.append(name_row);
 
+            // Color popover
             var color_popover = new Gtk.Popover();
-            this.color_swatch_button.set_popover(color_popover);
+            this.color_button.set_popover(color_popover);
+            var color_flow = new Gtk.FlowBox();
+            color_flow.set_selection_mode(Gtk.SelectionMode.NONE);
+            color_flow.set_max_children_per_line(6);
+            color_popover.set_child(color_flow);
 
-            var color_flow_box = new Gtk.FlowBox();
-            color_flow_box.set_selection_mode(Gtk.SelectionMode.NONE);
-            color_flow_box.set_max_children_per_line(6); // Adjusted for a 12-color grid
-            color_flow_box.set_valign(Gtk.Align.START);
-            color_popover.set_child(color_flow_box);
-
-            foreach (var color in this.color_palette) {
-                var color_button = new Gtk.Button();
-                var swatch_area = new Gtk.DrawingArea();
-                swatch_area.set_content_width(32);
-                swatch_area.set_content_height(32);
-                // Use a local variable for the color in the closure
-                var current_color = color;
-                color_button.set_tooltip_text(current_color);
-                swatch_area.set_draw_func((area, cr, width, height) => {
+            foreach (var c in this.color_palette) {
+                var btn = new Gtk.Button();
+                var swatch = new Gtk.DrawingArea();
+                swatch.set_content_width(32);
+                swatch.set_content_height(32);
+                var current_color = c;
+                swatch.set_draw_func((a, cr, w, h) => {
                     var rgba = Gdk.RGBA();
                     rgba.parse(current_color);
                     cr.set_source_rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
-                    cr.arc(width/2.0, height/2.0, width/2.0, 0, 2 * Math.PI);
+                    cr.arc(w / 2.0, h / 2.0, w / 2.0, 0, 2 * Math.PI);
                     cr.fill();
-
-                    // If this swatch is the selected color, draw an outline
-                    if (current_color == this.selected_color) {
-                        // Pick contrasting outline (white for dark colors, black for light)
-                        double luminance = 0.2126 * rgba.red + 0.7152 * rgba.green + 0.0722 * rgba.blue;
-                        if (luminance > 0.5) {
-                            cr.set_source_rgba(0.0, 0.0, 0.0, 1.0);
-                        } else {
-                            cr.set_source_rgba(1.0, 1.0, 1.0, 1.0);
-                        }
-                        cr.set_line_width(2.0);
-                        cr.arc(width/2.0, height/2.0, width/2.0 - 1.0, 0, 2 * Math.PI);
-                        cr.stroke();
-                    }
                 });
-                color_button.set_child(swatch_area);
-                color_button.add_css_class ("flat");
-                color_button.clicked.connect(() => {
+                btn.set_child(swatch);
+                btn.add_css_class("flat");
+                btn.clicked.connect(() => {
                     this.selected_color = current_color;
-                    var da = this.color_swatch_button.get_child() as Gtk.DrawingArea;
-                    if (da != null) {
-                        da.queue_draw();
-                    }
+                    color_area.queue_draw();
+                    preview_color.queue_draw();
                     color_popover.popdown();
                 });
-                color_flow_box.insert(color_button, -1);
+                color_flow.insert(btn, -1);
             }
 
-            color_card.set_child(color_card_box);
-            main_box.append(color_card);
-
-            // Icon card
-            var icon_card = new Gtk.Frame(_("Icon"));
-            icon_card.add_css_class("card");
-            icon_card.set_margin_bottom(6);
-            var icon_card_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
-            icon_card_box.set_margin_top(12);
-            icon_card_box.set_margin_bottom(12);
-            icon_card_box.set_margin_start(12);
-            icon_card_box.set_margin_end(12);
-
-            // Description for icon selection
-            var icon_desc = new Gtk.Label(_("Pick an icon to represent the tag"));
-            icon_desc.set_halign(Gtk.Align.START);
-            icon_desc.set_valign(Gtk.Align.CENTER);
-            icon_desc.set_hexpand(true);
-            icon_card_box.append(icon_desc);
-
-            // --- Icon Popover Button ---
-            this.icon_button = new Gtk.MenuButton ();
-            this.icon_button.get_first_child ().add_css_class ("tint-button");
-            this.icon_button.get_first_child ().add_css_class ("circular");
-            this.icon_button.set_icon_name("emblem-system-symbolic");
-            this.icon_button.set_halign(Gtk.Align.END);
-            this.icon_button.set_hexpand(true);
-            this.icon_button.set_tooltip_text(_("Click to choose an icon"));
-            icon_card_box.append(this.icon_button);
-
-            var icon_popover = new Gtk.Popover();
-            this.icon_button.set_popover(icon_popover);
-
-            var icon_flow_box = new Gtk.FlowBox();
-            icon_flow_box.set_selection_mode(Gtk.SelectionMode.NONE);
-            icon_flow_box.set_max_children_per_line(5);
-            icon_popover.set_child(icon_flow_box);
-
-            foreach(var icon_name in this.icon_names) {
-                var button = new Gtk.Button.from_icon_name(icon_name);
-                button.set_tooltip_text(icon_name);
-                button.add_css_class ("flat");
-                button.clicked.connect(() => {
+            // Icon grid (4x5)
+            this.icon_grid = new Gtk.FlowBox();
+            this.icon_grid.set_selection_mode(Gtk.SelectionMode.NONE);
+            this.icon_grid.set_max_children_per_line(5);
+            this.icon_grid.set_min_children_per_line(4);
+            foreach (var icon_name in this.icon_names) {
+                var btn = new Gtk.Button.from_icon_name(icon_name);
+                btn.add_css_class("tint-button");
+                btn.add_css_class("circular");
+                btn.set_halign(Gtk.Align.CENTER);
+                btn.set_valign(Gtk.Align.CENTER);
+                btn.set_tooltip_text(icon_name);
+                btn.clicked.connect(() => {
                     this.selected_icon_name = icon_name;
-                    this.icon_button.set_icon_name(icon_name);
-                    icon_popover.popdown();
+                    var image = new Gtk.Image.from_icon_name(icon_name) {
+                        pixel_size = 32,
+                        halign = Gtk.Align.CENTER,
+                        valign = Gtk.Align.CENTER,
+                        css_classes = { "inverted-icon" }
+                    };
+                    // Remove previous overlay image if present
+                    if (this.overlay_image != null) {
+                        preview_overlay.remove_overlay(this.overlay_image);
+                        this.overlay_image = null;
+                    }
+                    preview_overlay.add_overlay(image);
+                    this.overlay_image = image;
                 });
-                icon_flow_box.insert(button, -1);
+                this.icon_grid.insert(btn, -1);
             }
-
-            icon_card.set_child(icon_card_box);
-            main_box.append(icon_card);
+            main_box.append(this.icon_grid);
 
             // Bottom buttons
             var button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
@@ -256,15 +235,7 @@ namespace Notejot {
             this.set_child(container);
         }
 
-        private void draw_color_swatch(Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
-            var rgba = Gdk.RGBA();
-            rgba.parse(this.selected_color);
-            cr.set_source_rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
-            cr.arc(width/2.0, height/2.0, width/2.0 - 8, 0, 2 * Math.PI);
-            cr.fill();
-        }
-
-        public string? get_selected_icon_name() {
+        public string ? get_selected_icon_name() {
             return this.selected_icon_name;
         }
 
@@ -274,7 +245,7 @@ namespace Notejot {
 
         public void set_selected_color(string color) {
             this.selected_color = color;
-            var da = this.color_swatch_button.get_child() as Gtk.DrawingArea;
+            var da = this.color_button.get_child() as Gtk.DrawingArea;
             if (da != null) {
                 da.queue_draw();
             }
@@ -282,15 +253,12 @@ namespace Notejot {
 
         public void set_selected_icon_name(string? icon_name) {
             this.selected_icon_name = icon_name;
-            if (icon_name != null) {
-                this.icon_button.set_icon_name(icon_name);
-            }
         }
 
         public void prefill(string name, string color, string? icon_name) {
-            this.name_entry.get_internal_entry ().text = name;
-            this.set_selected_color (color);
-            this.set_selected_icon_name (icon_name);
+            this.name_entry.get_internal_entry().text = name;
+            this.set_selected_color(color);
+            this.set_selected_icon_name(icon_name);
         }
     }
 }
