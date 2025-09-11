@@ -15,6 +15,8 @@ namespace Notejot {
         private Gtk.Box empty_state_view;
         private Gtk.Box deleted_empty_state_view;
 
+        private Gtk.SearchEntry? search_entry = null;
+
         private Gtk.Label current_tag_header;
         private Gtk.ListBox entry_list_box;
 
@@ -31,7 +33,7 @@ namespace Notejot {
         private Entry? selected_entry = null; // Track the currently selected entry
 
         public Window (He.Application app) {
-            Object (application : app, title: _("Notejot"));
+            Object (application : app, title : _("Notejot"));
             this.data_manager = new DataManager ();
 
             this.set_default_size (1024, 830);
@@ -135,9 +137,29 @@ namespace Notejot {
             var appbar = new He.AppBar ();
             appbar.show_left_title_buttons = false;
             entries_view.append (appbar);
+
+            var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            header_box.set_margin_end (18);
+            this.entries_view.append (header_box);
+
             this.current_tag_header = new Gtk.Label (_("All Entries")) { halign = Gtk.Align.START };
             this.current_tag_header.add_css_class ("header");
-            this.entries_view.append (this.current_tag_header);
+            header_box.append (this.current_tag_header);
+
+            var spacer = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) { hexpand = true };
+            header_box.append (spacer);
+
+            this.search_entry = new Gtk.SearchEntry ();
+            this.search_entry.set_placeholder_text (_("Search entries…"));
+            this.search_entry.search_changed.connect (() => {
+                this.refresh_entry_list ();
+                this.search_entry.grab_focus ();
+            });
+            header_box.append (this.search_entry);
+            this.search_entry.remove_css_class ("disclosure-button");
+            this.search_entry.add_css_class ("search");
+            this.search_entry.add_css_class ("text-field");
+
             // Entry List
             this.scrolled_entries = new Gtk.ScrolledWindow ();
             this.scrolled_entries.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
@@ -454,10 +476,33 @@ namespace Notejot {
                 entries_to_show = this.data_manager.get_entries_for_tag (this.current_tag_uuid);
             }
 
+            var q = "";
+            if (this.search_entry != null) {
+                q = this.search_entry.get_text ().strip ();
+            }
+            if (q != "") {
+                try {
+                    var pattern = GLib.Regex.escape_string (q, -1);
+                    var regex = new GLib.Regex (pattern, GLib.RegexCompileFlags.CASELESS | GLib.RegexCompileFlags.OPTIMIZE, 0);
+
+                    var filtered = new GLib.List<Entry> ();
+                    foreach (var entry in entries_to_show) {
+                        var t = entry.title != null ? entry.title : "";
+                        var c = entry.content != null ? entry.content : "";
+                        if (regex.match (t) || regex.match (c)) {
+                            filtered.append (entry);
+                        }
+                    }
+                    entries_to_show = filtered.copy_deep ((a) => { return a; });
+                } catch (Error e) {
+                    // keep unfiltered list on regex failure
+                }
+            }
+
             if (entries_to_show.length () == 0) {
                 if (this.current_tag_uuid == "deleted") {
                     switch_to_view ("deleted-empty");
-                } else {
+                } else if (q == "") {
                     switch_to_view ("empty");
                 }
             } else {
@@ -516,10 +561,140 @@ namespace Notejot {
             date.add_css_class ("date");
             text_box.append (date);
 
-            var content = new Gtk.Label (entry.content) { xalign = 0.0f, wrap = true };
+            // Show only the first three lines of content
+            string[] lines = entry.content.split ("\n");
+            string preview_content = "";
+            int max_lines = 3;
+            for (int i = 0; i < lines.length && i < max_lines; i++) {
+                preview_content += lines[i];
+                if (i < max_lines - 1 && i < lines.length - 1) {
+                    preview_content += "\n";
+                }
+            }
+            var content = new Gtk.Label (preview_content) { xalign = 0.0f, wrap = true };
             content.add_css_class ("content");
             content.set_hexpand (true);
             text_box.append (content);
+
+            // Tag chips row
+            if (entry.tag_uuids.length () > 0) {
+                var tags_row = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
+                tags_row.set_halign (Gtk.Align.START);
+                tags_row.margin_start = 18;
+                foreach (var tag_uuid in entry.tag_uuids) {
+                    Tag? tag = null;
+                    foreach (var t in this.data_manager.get_tags ()) {
+                        if (t.uuid == tag_uuid) {
+                            tag = t;
+                            break;
+                        }
+                    }
+                    if (tag != null) {
+                        var chip_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+                        chip_box.add_css_class ("tag-chip");
+                        if (tag.color != null && tag.color != "") {
+                            string color_class = "";
+                            if (tag.color != null && tag.color != "") {
+                                string color_name = "";
+                                switch (tag.color) {
+                                case "#f44336" :
+                                case "#e57373" :
+                                    color_name = "red";
+                                    break;
+                                case "#e91e63" :
+                                case "#f06292":
+                                    color_name = "pink";
+                                    break;
+                                case "#9c27b0":
+                                case "#ba68c8":
+                                    color_name = "purple";
+                                    break;
+                                case "#673ab7":
+                                case "#9575cd":
+                                    color_name = "deep-purple";
+                                    break;
+                                case "#3f51b5":
+                                case "#7986cb":
+                                    color_name = "indigo";
+                                    break;
+                                case "#2196f3":
+                                case "#64b5f6":
+                                    color_name = "blue";
+                                    break;
+                                case "#03a9f4":
+                                case "#4fc3f7":
+                                    color_name = "light-blue";
+                                    break;
+                                case "#00bcd4":
+                                case "#4dd0e1":
+                                    color_name = "cyan";
+                                    break;
+                                case "#009688":
+                                case "#4db6ac":
+                                    color_name = "teal";
+                                    break;
+                                case "#4caf50":
+                                case "#81c784":
+                                    color_name = "green";
+                                    break;
+                                case "#8bc34a":
+                                case "#aed581":
+                                    color_name = "light-green";
+                                    break;
+                                case "#cddc39":
+                                case "#dce775":
+                                    color_name = "lime";
+                                    break;
+                                case "#ffeb3b":
+                                case "#fff176":
+                                    color_name = "yellow";
+                                    break;
+                                case "#ffc107":
+                                case "#ffd54f":
+                                    color_name = "amber";
+                                    break;
+                                case "#ff9800":
+                                case "#ffb74d":
+                                    color_name = "orange";
+                                    break;
+                                case "#ff5722":
+                                case "#ff8a65":
+                                    color_name = "deep-orange";
+                                    break;
+                                case "#795548":
+                                case "#a1887f":
+                                    color_name = "brown";
+                                    break;
+                                case "#607d8b":
+                                case "#90a4ae":
+                                    color_name = "blue-grey";
+                                    break;
+                                case "#000000":
+                                    color_name = "black";
+                                    break;
+                                case "#ffffff":
+                                    color_name = "white";
+                                    break;
+                                default:
+                                    break;
+                                }
+                                color_class = "tag-chip-" + color_name;
+                            }
+                            chip_box.add_css_class (color_class);
+                        }
+                        if (tag.icon_name != null && tag.icon_name != "") {
+                            var icon = new Gtk.Image.from_icon_name (tag.icon_name);
+                            icon.set_pixel_size (14);
+                            chip_box.append (icon);
+                        }
+                        var tag_chip = new Gtk.Label (tag.name);
+                        chip_box.append (tag_chip);
+                        chip_box.set_valign (Gtk.Align.CENTER);
+                        tags_row.append (chip_box);
+                    }
+                }
+                text_box.append (tags_row);
+            }
 
             // Image grid on the right
             if (entry.image_paths.length () > 0) {

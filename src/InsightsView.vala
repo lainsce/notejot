@@ -175,17 +175,12 @@ namespace Notejot {
                 return 0;
             }
             int count = 0;
-            try {
-                var regex = new GLib.Regex("\\S+");
-                GLib.MatchInfo match_info;
-                if (regex.match((string) text, 0, out match_info)) {
-                    do {
+            if (text != "") {
+                var tokens = text.strip().split_set(" \t\r\n", 0);
+                foreach (var tok in tokens) {
+                    if (tok != "") {
                         count++;
-                    } while (match_info.next());
-                }
-            } catch (Error e) {
-                foreach (var part in text.strip().split(" ")) {
-                    if (part != "")count++;
+                    }
                 }
             }
             return count;

@@ -529,3 +529,67 @@ popover flowbox button.flat,
 .tag-row-default:active {
     background: #f3f2f8;
 }
+
+/* --- Tag Chip Styles --- */
+.tag-chip {
+    padding: 2px 10px;
+    border-radius: 99px;
+    margin: 2px 4px 2px 0;
+    border: none;
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+.tag-chip label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tag-chip-red {
+    background: alpha(var(--red), 0.15);
+    color: var(--red);
+}
+.tag-chip-orange {
+    background: alpha(var(--orange), 0.15);
+    color: var(--orange);
+}
+.tag-chip-yellow {
+    background: alpha(var(--yellow), 0.15);
+    color: var(--yellow);
+}
+.tag-chip-green {
+    background: alpha(var(--green), 0.15);
+    color: var(--green);
+}
+.tag-chip-mint {
+    background: alpha(var(--mint), 0.15);
+    color: var(--mint);
+}
+.tag-chip-teal {
+    background: alpha(var(--teal), 0.15);
+    color: var(--teal);
+}
+.tag-chip-cyan {
+    background: alpha(var(--cyan), 0.15);
+    color: var(--cyan);
+}
+.tag-chip-blue {
+    background: alpha(var(--blue), 0.15);
+    color: var(--blue);
+}
+.tag-chip-indigo {
+    background: alpha(var(--indigo), 0.15);
+    color: var(--indigo);
+}
+.tag-chip-purple {
+    background: alpha(var(--purple), 0.15);
+    color: var(--purple);
+}
+.tag-chip-pink {
+    background: alpha(var(--pink), 0.15);
+    color: var(--pink);
+}
+.tag-chip-brown {
+    background: alpha(var(--brown), 0.15);
+    color: var(--brown);
+}
