@@ -494,6 +494,12 @@ namespace Notejot {
                             filtered.append (entry);
                         }
                     }
+                    // Maintain sorting order after filtering
+                    filtered.sort ((a, b) => {
+                        if (a.creation_timestamp > b.creation_timestamp)return -1;
+                        if (a.creation_timestamp < b.creation_timestamp)return 1;
+                        return 0;
+                    });
                     entries_to_show = filtered.copy_deep ((a) => { return a; });
                 } catch (Error e) {
                     // keep unfiltered list on regex failure
@@ -838,6 +844,9 @@ namespace Notejot {
                         entry.content = content;
                         entry.tag_uuids = dialog.get_selected_tag_uuids ();
                         entry.location_address = address;
+
+                        // Update modified timestamp
+                        entry.modified_timestamp = new GLib.DateTime.now_utc ().to_unix ();
 
                         foreach (var path in dialog.image_paths) {
                             entry.image_paths.append (path);

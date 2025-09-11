@@ -70,6 +70,12 @@ namespace Notejot {
                     result.append(entry);
                 }
             }
+            // Sort by creation timestamp, most recent first
+            result.sort((a, b) => {
+                if (a.creation_timestamp > b.creation_timestamp)return -1;
+                if (a.creation_timestamp < b.creation_timestamp)return 1;
+                return 0;
+            });
             return result;
         }
 
@@ -85,6 +91,12 @@ namespace Notejot {
                     }
                 }
             }
+            // Sort by creation timestamp, most recent first
+            result.sort((a, b) => {
+                if (a.creation_timestamp > b.creation_timestamp)return -1;
+                if (a.creation_timestamp < b.creation_timestamp)return 1;
+                return 0;
+            });
             return result;
         }
 
@@ -319,7 +331,7 @@ namespace Notejot {
                                                    nt.get_string_member("title"),
                                                    content,
                                                    timestamp, // creation_timestamp
-                                                   timestamp, // modified_timestamp
+                                                   timestamp, // creation_timestamp
                                                    tags,
                                                    null, // no location info
                                                    null,
