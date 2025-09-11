@@ -20,7 +20,7 @@ namespace Notejot {
             "network-server-symbolic", "mail-read-symbolic",
             "emoji-food-symbolic", "airplane-mode-symbolic",
             "calendar-symbolic", "folder-music-symbolic",
-            "application-games-symbolic"
+            "applications-games-symbolic"
         };
 
         // Standard Color Palette
