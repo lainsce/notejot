@@ -290,7 +290,7 @@ namespace Notejot {
             }
         }
 
-        public void prefill(string name, string color, string? icon_name) {
+        public void prefill(string name, string color, string icon_name) {
             this.name_entry.get_internal_entry().text = name;
             this.set_selected_color(color);
             this.set_selected_icon_name(icon_name);

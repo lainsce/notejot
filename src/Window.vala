@@ -597,83 +597,41 @@ namespace Notejot {
                             if (tag.color != null && tag.color != "") {
                                 string color_name = "";
                                 switch (tag.color) {
-                                case "#f44336" :
                                 case "#e57373" :
                                     color_name = "red";
                                     break;
-                                case "#e91e63" :
-                                case "#f06292":
+                                case "#f06292" :
                                     color_name = "pink";
                                     break;
-                                case "#9c27b0":
-                                case "#ba68c8":
+                                case "#ba68c8" :
                                     color_name = "purple";
                                     break;
-                                case "#673ab7":
-                                case "#9575cd":
-                                    color_name = "deep-purple";
-                                    break;
-                                case "#3f51b5":
                                 case "#7986cb":
                                     color_name = "indigo";
                                     break;
-                                case "#2196f3":
                                 case "#64b5f6":
                                     color_name = "blue";
                                     break;
-                                case "#03a9f4":
-                                case "#4fc3f7":
-                                    color_name = "light-blue";
-                                    break;
-                                case "#00bcd4":
-                                case "#4dd0e1":
+                                case "#32ade6":
                                     color_name = "cyan";
                                     break;
-                                case "#009688":
-                                case "#4db6ac":
+                                case "#4dd0e1":
                                     color_name = "teal";
                                     break;
-                                case "#4caf50":
+                                case "#4db6ac":
+                                    color_name = "mint";
+                                    break;
                                 case "#81c784":
                                     color_name = "green";
                                     break;
-                                case "#8bc34a":
-                                case "#aed581":
-                                    color_name = "light-green";
-                                    break;
-                                case "#cddc39":
-                                case "#dce775":
-                                    color_name = "lime";
-                                    break;
-                                case "#ffeb3b":
-                                case "#fff176":
+                                case "#ffd54f":
                                     color_name = "yellow";
                                     break;
-                                case "#ffc107":
-                                case "#ffd54f":
-                                    color_name = "amber";
-                                    break;
-                                case "#ff9800":
                                 case "#ffb74d":
                                     color_name = "orange";
                                     break;
-                                case "#ff5722":
-                                case "#ff8a65":
-                                    color_name = "deep-orange";
-                                    break;
-                                case "#795548":
-                                case "#a1887f":
+                                case "#bcaaa4":
                                     color_name = "brown";
-                                    break;
-                                case "#607d8b":
-                                case "#90a4ae":
-                                    color_name = "blue-grey";
-                                    break;
-                                case "#000000":
-                                    color_name = "black";
-                                    break;
-                                case "#ffffff":
-                                    color_name = "white";
                                     break;
                                 default:
                                     break;
