@@ -55,6 +55,7 @@ namespace Notejot {
             this.places_view = new PlacesView (this.data_manager);
             // --- FAB (only for entries view) ---
             fab = new He.OverlayButton ("list-add-symbolic", null, null);
+            fab.alignment = He.OverlayButton.Alignment.CENTER;
             fab.clicked.connect (on_add_entry_clicked);
             fab.child = this.entries_view;
 
