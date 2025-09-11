@@ -8,7 +8,7 @@ namespace Notejot {
         private Gtk.FlowBox icon_grid;
         private Gtk.Widget? overlay_image = null;
 
-        private string? selected_icon_name = "tag-symbolic";
+        private string? selected_icon_name;
         private string? selected_color;
 
         private string[] icon_names = {
@@ -96,7 +96,7 @@ namespace Notejot {
             });
             preview_overlay.set_child(preview_color);
 
-            var image = new Gtk.Image.from_icon_name(selected_icon_name) {
+            var image = new Gtk.Image.from_icon_name(selected_icon_name == null ? "tag-symbolic" : selected_icon_name) {
                 pixel_size = 32,
                 halign = Gtk.Align.CENTER,
                 valign = Gtk.Align.CENTER,
@@ -190,7 +190,7 @@ namespace Notejot {
                 color_flow.insert(btn, -1);
             }
 
-            // Icon grid (4x5)
+            // Icon grid
             this.icon_grid = new Gtk.FlowBox();
             this.icon_grid.set_selection_mode(Gtk.SelectionMode.NONE);
             this.icon_grid.set_max_children_per_line(8);
