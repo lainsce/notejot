@@ -736,7 +736,6 @@ namespace Notejot {
 
         private void update_stats () {
             int year_count = 0;
-            int location_count = 0;
 
             // Extra insights
             var unique_days = new GLib.HashTable<string, bool> (GLib.str_hash, GLib.str_equal);
@@ -746,9 +745,6 @@ namespace Notejot {
             foreach (var entry in this.data_manager.get_entries (false)) {
                 if (entry.date.get_year () == now.get_year ()) {
                     year_count++;
-                }
-                if (entry.latitude != null && entry.longitude != null) {
-                    location_count++;
                 }
 
                 // Unique day key
@@ -768,6 +764,10 @@ namespace Notejot {
                     }
                 }
             }
+
+            // Count unique locations only
+            var unique_locations = this.data_manager.get_unique_locations ();
+            int location_count = (int) unique_locations.length ();
 
             // Update Insights card numbers
             if (this.insights_year_number_label != null) {

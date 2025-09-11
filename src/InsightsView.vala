@@ -56,18 +56,17 @@ namespace Notejot {
             // Calculate initial stats to pass to cards
             var all_entries = this.data_manager.get_entries();
             var unique_days = new GenericSet<string> (str_hash, str_equal);
-            int location_count = 0;
             int total_words = 0;
             foreach (var entry in all_entries) {
                 if (!entry.is_deleted) {
                     unique_days.add(entry.date.format("%Y-%m-%d"));
-                    if (entry.location_address != null && entry.location_address != "" &&
-                        entry.latitude != 0 && entry.longitude != 0) {
-                        location_count++;
-                    }
                     total_words += count_words(entry.content);
                 }
             }
+
+            // Count unique locations only
+            var unique_locations = this.data_manager.get_unique_locations();
+            int location_count = (int) unique_locations.length();
 
             var days_card = create_stat_card("days-journaled-card", _("Days Journaled"), unique_days.length.to_string());
             this.days_journaled_label = (days_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
@@ -152,17 +151,17 @@ namespace Notejot {
             this.total_entries_label.set_label(@"$(all_entries.length ().to_string ()) Entries");
 
             var unique_days = new GenericSet<string> (str_hash, str_equal);
-            int location_count = 0;
             int total_words = 0;
             foreach (var entry in all_entries) {
                 if (!entry.is_deleted) {
                     unique_days.add(entry.date.format("%Y-%m-%d"));
-                    if (entry.latitude != 0 && entry.longitude != 0) {
-                        location_count++;
-                    }
                     total_words += count_words(entry.content);
                 }
             }
+
+            // Count unique locations only
+            var unique_locations = this.data_manager.get_unique_locations();
+            int location_count = (int) unique_locations.length();
             this.days_journaled_label.set_label(@"$(unique_days.length)");
             this.locations_label.set_label(@"$(location_count)");
             this.words_label.set_label(@"$(total_words)");

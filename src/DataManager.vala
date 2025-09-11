@@ -88,6 +88,26 @@ namespace Notejot {
             return result;
         }
 
+        public GLib.List<Entry?> get_unique_locations() {
+            var unique_locations = new GLib.List<Entry> ();
+            var location_map = new GLib.HashTable<string, bool> (GLib.str_hash, GLib.str_equal);
+
+            foreach (var entry in this.entries) {
+                if (!entry.is_deleted && entry.latitude != null && entry.longitude != null) {
+                    // Create a location key with rounded coordinates to handle slight GPS variations
+                    var lat_rounded = Math.round(entry.latitude * 10000) / 10000;
+                    var lon_rounded = Math.round(entry.longitude * 10000) / 10000;
+                    var location_key = @"$lat_rounded,$lon_rounded";
+
+                    if (!location_map.contains(location_key)) {
+                        location_map.insert(location_key, true);
+                        unique_locations.append(entry);
+                    }
+                }
+            }
+            return unique_locations;
+        }
+
         public void save_data() {
             save_tags();
             save_entries();
@@ -166,12 +186,12 @@ namespace Notejot {
             }
         }
 
-        private void migrate_old_format () {
+        private void migrate_old_format() {
             var old_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
             var notes_file = GLib.Path.build_filename(old_dir, "saved_notes.json");
             if (!GLib.FileUtils.test(notes_file, GLib.FileTest.EXISTS))
                 return;
-        
+
 
             // Load old JSON
             try {
@@ -181,34 +201,34 @@ namespace Notejot {
                 notes_parser.load_from_file(notes_file);
                 var trash_parser = new Json.Parser();
                 trash_parser.load_from_file(GLib.Path.build_filename(old_dir, "saved_trash.json"));
-    
+
                 var notebooks_array = nb_parser.get_root().get_array();
                 var notes_array = notes_parser.get_root().get_array();
                 var trash_array = trash_parser.get_root().get_array();
-        
+
                 // Map notebooks -> Tags
-                tag_map = new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
+                tag_map = new GLib.HashTable<string, string> (GLib.str_hash, GLib.str_equal);
                 foreach (var nb_node in notebooks_array.get_elements()) {
                     var nb = nb_node.get_object();
                     var tag = new Notejot.Tag.full(
-                        nb.get_string_member("id"),
-                        nb.get_string_member("title"),
-                        "#ffd54f", // default
-                        null
+                                                   nb.get_string_member("id"),
+                                                   nb.get_string_member("title"),
+                                                   "#ffd54f", // default
+                                                   null
                     );
                     this.add_tag(tag);
                     tag_map.insert(nb.get_string_member("title"), tag.uuid);
                 }
-        
+
                 import_notes(notes_array, false);
                 import_notes(trash_array, true);
             } catch (GLib.Error e) {
                 warning("Failed to load old files: %s", e.message);
             }
-    
+
             // Save everything into new backend
             this.save_data();
-    
+
             // Flag migration done
             try {
                 GLib.FileUtils.set_contents(GLib.Path.build_filename(old_dir, ".notejot_migrated"), "done");
@@ -232,7 +252,7 @@ namespace Notejot {
                 }
             }
         }
-        
+
         // Try parsing legacy subtitle datetime
         int64 parse_subtitle_timestamp(string subtitle) {
 
@@ -276,7 +296,7 @@ namespace Notejot {
                 var color_line = "[Color: " + nt.get_string_member("color") + "]";
                 var content = color_line + "\n" + nt.get_string_member("text");
 
-                var tags = new GLib.List<string>();
+                var tags = new GLib.List<string> ();
                 if (nt.has_member("notebook")) {
                     var nb_title = nt.get_string_member("notebook");
                     var tag_uuid = tag_map.lookup(nb_title);
@@ -285,27 +305,27 @@ namespace Notejot {
                     }
                 }
 
-                var images = new GLib.List<string>();
+                var images = new GLib.List<string> ();
                 if (nt.has_member("picture") && nt.get_string_member("picture") != "") {
                     images.append(nt.get_string_member("picture"));
                 }
 
                 var timestamp = nt.has_member("subtitle") ?
-                                parse_subtitle_timestamp(nt.get_string_member("subtitle")) :
-                                new GLib.DateTime.now_utc().to_unix();
+                    parse_subtitle_timestamp(nt.get_string_member("subtitle")) :
+                    new GLib.DateTime.now_utc().to_unix();
 
                 var entry = new Notejot.Entry.full(
-                    nt.get_string_member("id"),
-                    nt.get_string_member("title"),
-                    content,
-                    timestamp, // creation_timestamp
-                    timestamp, // modified_timestamp
-                    tags,
-                    null,  // no location info
-                    null,
-                    null,
-                    images,
-                    trashed
+                                                   nt.get_string_member("id"),
+                                                   nt.get_string_member("title"),
+                                                   content,
+                                                   timestamp, // creation_timestamp
+                                                   timestamp, // modified_timestamp
+                                                   tags,
+                                                   null, // no location info
+                                                   null,
+                                                   null,
+                                                   images,
+                                                   trashed
                 );
 
                 this.add_entry(entry);
