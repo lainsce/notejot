@@ -14,11 +14,11 @@ namespace Notejot {
         private string[] icon_names = {
             "tag-symbolic", "user-bookmarks-symbolic", "folder-symbolic",
             "emblem-documents-symbolic", "emblem-favorite-symbolic",
-            "emblem-important-symbolic", "emblem-photos-symbolic", "emblem-shared-symbolic",
+            "emblem-important-symbolic", "emblem-photos-symbolic", "emoji-travel-symbolic",
             "weather-clear-night-symbolic", "weather-clear-symbolic",
-            "starred-symbolic", "bookmark-new-symbolic", "system-help-symbolic",
-            "network-server-symbolic", "mail-unread-symbolic",
-            "dialog-information-symbolic", "dialog-warning-symbolic",
+            "globe-symbolic", "bookmark-new-symbolic", "emoji-love-symbolic",
+            "network-server-symbolic", "mail-read-symbolic",
+            "emoji-food-symbolic", "airplane-mode-symbolic",
             "calendar-symbolic", "document-new-symbolic",
             "system-search-symbolic"
         };
