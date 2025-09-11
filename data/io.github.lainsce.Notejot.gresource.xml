@@ -7,5 +7,6 @@
     </gresource>
     <gresource prefix="/io/github/lainsce/Notejot/icons">
         <file alias="scalable/actions/marker-pin.svg">icons/marker.svg</file>
+        <file alias="scalable/actions/quote-symbolic.svg">icons/quote-symbolic.svg</file>
     </gresource>
 </gresources>

@@ -125,7 +125,7 @@ window {
 }
 
 .tag-label {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--text-primary);
 }
 
@@ -310,7 +310,12 @@ window {
 }
 
 .stat-value {
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.stat-value-small {
+    font-size: 16px;
     font-weight: bold;
 }
 

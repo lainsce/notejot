@@ -19,8 +19,13 @@ namespace Notejot {
         private Gtk.ListBox entry_list_box;
 
         private Gtk.ListBox tag_list_box;
-        private Gtk.Label insights_subtitle;
-        private Gtk.Label places_subtitle;
+
+        // Insights (sidebar card) stats
+        private Gtk.Label insights_year_number_label; // big number: Entries This Year
+        private Gtk.Label insights_days_number_label; // Days Journaled
+        private Gtk.Label insights_words_number_label; // Words All‑time
+
+        private Gtk.Label places_subtitle_number;
 
         private string? current_tag_uuid = null; // null means "All Entries" here
         private Entry? selected_entry = null; // Track the currently selected entry
@@ -76,17 +81,22 @@ namespace Notejot {
             appbar.set_size_request (285, -1);
             sidebar_box.append (appbar);
 
-            var insights_button = create_sidebar_card (
-                                                       _("Insights"), _("0 Entries This Year"), "insights-card", out this.insights_subtitle
-            );
+            // Insights card with detailed contents
+            var insights_button = create_insights_card (out this.insights_year_number_label,
+                                                        out this.insights_days_number_label,
+                                                        out this.insights_words_number_label);
             insights_button.clicked.connect (() => {
                 switch_to_view ("insights");
                 tag_list_box.unselect_all ();
             });
             sidebar_box.append (insights_button);
 
+            // Places card (keeps existing simple counter)
             var places_button = create_sidebar_card (
-                                                     _("Places"), _("0 Locations"), "places-card", out this.places_subtitle
+                                                     _("Places"),
+                                                     _("0 Locations"),
+                                                     "places-card",
+                                                     out this.places_subtitle_number
             );
             places_button.clicked.connect (() => {
                 switch_to_view ("places");
@@ -99,6 +109,7 @@ namespace Notejot {
             tags_header_box.set_size_request (285, -1);
             sidebar_box.append (tags_header_box);
             var tags_label = new Gtk.Label (_("Tags")) { hexpand = true, halign = Gtk.Align.START };
+            tags_label.add_css_class ("header");
             tags_header_box.append (tags_label);
             var add_tag_button = new He.Button ("list-add-symbolic", "");
             add_tag_button.is_disclosure = true;
@@ -225,22 +236,125 @@ namespace Notejot {
             }
         }
 
-        private Gtk.Button create_sidebar_card (string title, string subtitle, string style_class, out Gtk.Label subtitle_label_out) {
+        private Gtk.Button create_sidebar_card (string title, string subtitle, string style_class, out Gtk.Label number_label_out) {
             var button = new Gtk.Button ();
             button.add_css_class ("card");
             button.add_css_class (style_class);
 
             var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) { halign = Gtk.Align.START };
             button.set_child (box);
+
             var title_label = new Gtk.Label (title);
             title_label.add_css_class ("title");
             title_label.set_xalign (0.0f);
             box.append (title_label);
 
-            subtitle_label_out = new Gtk.Label (subtitle);
-            subtitle_label_out.add_css_class ("subtitle");
+            string number = "0";
+            string label = subtitle;
+
+            int space_index = subtitle.index_of (" ");
+            if (space_index > 0) {
+                number = subtitle.substring (0, space_index);
+                label = subtitle.substring (space_index + 1);
+            }
+
+            number_label_out = new Gtk.Label (number);
+            number_label_out.add_css_class ("stat-value");
+            number_label_out.set_xalign (0.0f);
+            box.append (number_label_out);
+
+            string label_markup = label;
+            var subtitle_label_out = new Gtk.Label (label_markup);
+            subtitle_label_out.add_css_class ("stat-title");
             subtitle_label_out.set_xalign (0.0f);
+            subtitle_label_out.set_use_markup (true);
+            subtitle_label_out.set_max_width_chars (12);
+            subtitle_label_out.set_wrap (true);
             box.append (subtitle_label_out);
+
+            return button;
+        }
+
+        // New: build Insights card with multiple stats as in the provided image
+        private Gtk.Button create_insights_card (out Gtk.Label year_number_out,
+                                                 out Gtk.Label days_number_out,
+                                                 out Gtk.Label words_number_out) {
+            var button = new Gtk.Button ();
+            button.add_css_class ("card");
+            button.add_css_class ("insights-card");
+
+            var root = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) { halign = Gtk.Align.START };
+            button.set_child (root);
+
+            var title_label = new Gtk.Label (_("Insights"));
+            title_label.add_css_class ("title");
+            title_label.set_xalign (0.0f);
+            root.append (title_label);
+
+            var content = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 42);
+            root.append (content);
+
+            // Left column: big number + label ("Entries This Year")
+            var left_col = new Gtk.Box (Gtk.Orientation.VERTICAL, 2) { halign = Gtk.Align.START };
+            year_number_out = new Gtk.Label ("0");
+            year_number_out.add_css_class ("stat-value");
+            year_number_out.set_xalign (0.0f);
+            left_col.append (year_number_out);
+
+            var type_label = new Gtk.Label (_("Entries"));
+            type_label.add_css_class ("stat-title");
+            type_label.set_xalign (0.0f);
+            type_label.set_wrap (true);
+            type_label.set_max_width_chars (14);
+            left_col.append (type_label);
+
+            var year_label = new Gtk.Label (_("This Year"));
+            year_label.add_css_class ("stat-title");
+            year_label.set_xalign (0.0f);
+            year_label.set_wrap (true);
+            year_label.set_max_width_chars (14);
+            left_col.append (year_label);
+
+            content.append (left_col);
+
+            // Right column: two stacked rows
+            var right_col = new Gtk.Box (Gtk.Orientation.VERTICAL, 10) { halign = Gtk.Align.START };
+
+            // Row 1: calendar icon + number, "Days Journaled"
+            var r1 = new Gtk.Box (Gtk.Orientation.VERTICAL, 2) { halign = Gtk.Align.START };
+            var r1top = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var cal_icon = new Gtk.Image.from_icon_name ("x-office-calendar-symbolic");
+            cal_icon.set_pixel_size (16);
+            r1top.append (cal_icon);
+            days_number_out = new Gtk.Label ("0");
+            days_number_out.add_css_class ("stat-value-small");
+            days_number_out.set_xalign (0.0f);
+            r1top.append (days_number_out);
+            r1.append (r1top);
+            var r1label = new Gtk.Label (_("Days Journaled"));
+            r1label.add_css_class ("stat-title");
+            r1label.set_xalign (0.0f);
+            r1.append (r1label);
+            right_col.append (r1);
+
+            // Row 2: quote icon + number, "Words All-time"
+            var r2 = new Gtk.Box (Gtk.Orientation.VERTICAL, 2) { halign = Gtk.Align.START };
+            var r2top = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var quote_icon = new Gtk.Image.from_icon_name ("quote-symbolic");
+            quote_icon.set_pixel_size (16);
+            r2top.append (quote_icon);
+            words_number_out = new Gtk.Label ("0");
+            words_number_out.add_css_class ("stat-value-small");
+            words_number_out.set_xalign (0.0f);
+            r2top.append (words_number_out);
+            r2.append (r2top);
+            var r2label = new Gtk.Label (_("Total Words"));
+            r2label.add_css_class ("stat-title");
+            r2label.set_xalign (0.0f);
+            r2.append (r2label);
+            right_col.append (r2);
+
+            content.append (right_col);
 
             return button;
         }
@@ -283,9 +397,6 @@ namespace Notejot {
                             if (new_name != "") {
                                 found.name = new_name;
                                 var chosen_color = dialog.get_selected_color ();
-                                if (chosen_color == "#ffd54f" && found.color != "#ffd54f") {
-                                    chosen_color = found.color;
-                                }
                                 found.color = chosen_color;
 
                                 var chosen_icon = dialog.get_selected_icon_name ();
@@ -492,6 +603,11 @@ namespace Notejot {
         private void update_stats () {
             int year_count = 0;
             int location_count = 0;
+
+            // Extra insights
+            var unique_days = new GLib.HashTable<string, bool> (GLib.str_hash, GLib.str_equal);
+            int words_all_time = 0;
+
             var now = new GLib.DateTime.now_local ();
             foreach (var entry in this.data_manager.get_entries (false)) {
                 if (entry.date.get_year () == now.get_year ()) {
@@ -500,9 +616,38 @@ namespace Notejot {
                 if (entry.latitude != null && entry.longitude != null) {
                     location_count++;
                 }
+
+                // Unique day key
+                var day_key = entry.date.format ("%Y-%m-%d");
+                if (!unique_days.contains (day_key)) {
+                    unique_days.insert (day_key, true);
+                }
+
+                // Word count (split by whitespace)
+                var text = entry.content;
+                if (text != "") {
+                    var tokens = text.strip ().split_set (" \t\r\n", 0);
+                    foreach (var tok in tokens) {
+                        if (tok != "") {
+                            words_all_time++;
+                        }
+                    }
+                }
             }
-            this.insights_subtitle.set_label (@"$year_count Entries This Year");
-            this.places_subtitle.set_label (@"$location_count Locations");
+
+            // Update Insights card numbers
+            if (this.insights_year_number_label != null) {
+                this.insights_year_number_label.set_label (@"$year_count");
+            }
+            if (this.insights_days_number_label != null) {
+                this.insights_days_number_label.set_label (@"$(unique_days.size ())");
+            }
+            if (this.insights_words_number_label != null) {
+                this.insights_words_number_label.set_label (@"$words_all_time");
+            }
+
+            // Places card number
+            this.places_subtitle_number.set_label (@"$location_count");
 
             if (this.insights_view != null)this.insights_view.update_view ();
             if (this.places_view != null)this.places_view.refresh_pins ();

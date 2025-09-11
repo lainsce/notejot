@@ -6,12 +6,10 @@ namespace Notejot {
         private Gtk.Label title_label;
         private Gtk.MenuButton color_button;
         private Gtk.FlowBox icon_grid;
+        private Gtk.Widget? overlay_image = null;
 
         private string? selected_icon_name = "tag-symbolic";
-        private string selected_color = "#ffd54f"; // Yellow as default
-
-        // Track the overlay image so we can clean it up before adding a new one
-        private Gtk.Widget? overlay_image = null;
+        private string? selected_color;
 
         private string[] icon_names = {
             "tag-symbolic", "user-bookmarks-symbolic", "folder-symbolic",
@@ -182,8 +180,10 @@ namespace Notejot {
                 });
                 btn.set_child(swatch);
                 btn.add_css_class("flat");
-                btn.clicked.connect(() => {
-                    this.selected_color = current_color;
+                btn.clicked.connect((btn) => {
+                    // Use the color from the swatch's draw_func closure, not a possibly mutated loop variable
+                    var swatch_color = current_color;
+                    this.selected_color = swatch_color;
                     color_area.queue_draw();
                     preview_color.queue_draw();
                     color_popover.popdown();

@@ -90,9 +90,14 @@ namespace Notejot {
             var label = new Gtk.Label (name);
             label.add_css_class ("tag-label");
             label.set_hexpand (true);
+            label.set_valign (Gtk.Align.CENTER);
+            label.margin_top = 3;
             label.set_xalign (0.0f);
 
             var count_label = new Gtk.Label (count);
+            count_label.set_valign (Gtk.Align.CENTER);
+            count_label.margin_top = 3;
+            count_label.margin_end = 9;
             count_label.add_css_class ("tag-count-label");
 
             box.append (label);
