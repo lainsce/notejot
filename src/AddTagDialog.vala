@@ -7,6 +7,7 @@ namespace Notejot {
         private Gtk.MenuButton color_button;
         private Gtk.FlowBox icon_grid;
         private Gtk.Widget? overlay_image = null;
+        private Gtk.Overlay preview_overlay;
 
         private string? selected_icon_name;
         private string? selected_color;
@@ -80,10 +81,10 @@ namespace Notejot {
             main_box.set_margin_end(12);
 
             // Preview
-            var preview_overlay = new Gtk.Overlay();
-            preview_overlay.set_size_request(64, 64);
-            preview_overlay.set_halign(Gtk.Align.CENTER);
-            preview_overlay.set_valign(Gtk.Align.CENTER);
+            this.preview_overlay = new Gtk.Overlay();
+            this.preview_overlay.set_size_request(64, 64);
+            this.preview_overlay.set_halign(Gtk.Align.CENTER);
+            this.preview_overlay.set_valign(Gtk.Align.CENTER);
             var preview_color = new Gtk.DrawingArea();
             preview_color.set_content_width(64);
             preview_color.set_content_height(64);
@@ -94,7 +95,7 @@ namespace Notejot {
                 cr.arc(w / 2.0, h / 2.0, w / 2.0, 0, 2 * Math.PI);
                 cr.fill();
             });
-            preview_overlay.set_child(preview_color);
+            this.preview_overlay.set_child(preview_color);
 
             var image = new Gtk.Image.from_icon_name(selected_icon_name == null ? "tag-symbolic" : selected_icon_name) {
                 pixel_size = 32,
@@ -104,10 +105,10 @@ namespace Notejot {
             };
             // Remove previous overlay image if present
             if (this.overlay_image != null) {
-                preview_overlay.remove_overlay(this.overlay_image);
+                this.preview_overlay.remove_overlay(this.overlay_image);
                 this.overlay_image = null;
             }
-            preview_overlay.add_overlay(image);
+            this.preview_overlay.add_overlay(image);
             this.overlay_image = image;
 
             var preview_label = new Gtk.Label("");
@@ -119,7 +120,7 @@ namespace Notejot {
             preview_box.set_halign(Gtk.Align.CENTER);
             preview_box.set_valign(Gtk.Align.CENTER);
             preview_box.margin_bottom = 12;
-            preview_box.append(preview_overlay);
+            preview_box.append(this.preview_overlay);
             preview_box.append(preview_label);
             main_box.append(preview_box);
 
@@ -212,10 +213,10 @@ namespace Notejot {
                     };
                     // Remove previous overlay image if present
                     if (this.overlay_image != null) {
-                        preview_overlay.remove_overlay(this.overlay_image);
+                        this.preview_overlay.remove_overlay(this.overlay_image);
                         this.overlay_image = null;
                     }
-                    preview_overlay.add_overlay(simage);
+                    this.preview_overlay.add_overlay(simage);
                     this.overlay_image = simage;
                 });
                 this.icon_grid.insert(btn, -1);
@@ -272,10 +273,9 @@ namespace Notejot {
 
         public void set_selected_icon_name(string? icon_name) {
             this.selected_icon_name = icon_name;
-            var preview_overlay = (this.icon_grid.get_parent() as Gtk.Box) ? .get_first_child() as Gtk.Overlay;
             // Remove previous overlay image if present
             if (this.overlay_image != null) {
-                preview_overlay.remove_overlay(this.overlay_image);
+                this.preview_overlay.remove_overlay(this.overlay_image);
                 this.overlay_image = null;
             }
             if (icon_name != null) {
@@ -285,7 +285,7 @@ namespace Notejot {
                     valign = Gtk.Align.CENTER,
                     css_classes = { "inverted-icon" }
                 };
-                preview_overlay.add_overlay(image);
+                this.preview_overlay.add_overlay(image);
                 this.overlay_image = image;
             }
         }
