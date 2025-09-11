@@ -193,8 +193,8 @@ namespace Notejot {
             // Icon grid (4x5)
             this.icon_grid = new Gtk.FlowBox();
             this.icon_grid.set_selection_mode(Gtk.SelectionMode.NONE);
-            this.icon_grid.set_max_children_per_line(5);
-            this.icon_grid.set_min_children_per_line(4);
+            this.icon_grid.set_max_children_per_line(8);
+            this.icon_grid.set_min_children_per_line(8);
             foreach (var icon_name in this.icon_names) {
                 var btn = new Gtk.Button.from_icon_name(icon_name);
                 btn.add_css_class("tint-button");
