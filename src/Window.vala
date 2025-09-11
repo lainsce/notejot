@@ -141,6 +141,7 @@ namespace Notejot {
 
             var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             header_box.set_margin_end (18);
+            header_box.set_margin_bottom (12);
             this.entries_view.append (header_box);
 
             this.current_tag_header = new Gtk.Label (_("All Entries")) { halign = Gtk.Align.START };
