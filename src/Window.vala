@@ -98,6 +98,7 @@ namespace Notejot {
                                                      "places-card",
                                                      out this.places_subtitle_number
             );
+            places_button.set_size_request (-1, 148);
             places_button.clicked.connect (() => {
                 switch_to_view ("places");
                 tag_list_box.unselect_all ();
@@ -318,7 +319,7 @@ namespace Notejot {
             content.append (left_col);
 
             // Right column: two stacked rows
-            var right_col = new Gtk.Box (Gtk.Orientation.VERTICAL, 10) { halign = Gtk.Align.START };
+            var right_col = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) { halign = Gtk.Align.START };
 
             // Row 1: calendar icon + number, "Days Journaled"
             var r1 = new Gtk.Box (Gtk.Orientation.VERTICAL, 2) { halign = Gtk.Align.START };
