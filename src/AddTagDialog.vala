@@ -89,13 +89,12 @@ namespace Notejot {
             preview_color.set_content_height(64);
             preview_color.set_draw_func((area, cr, w, h) => {
                 var rgba = Gdk.RGBA();
-                rgba.parse(this.selected_color);
+                rgba.parse(this.selected_color == null ? "#ffd54f" : this.selected_color);
                 cr.set_source_rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
                 cr.arc(w / 2.0, h / 2.0, w / 2.0, 0, 2 * Math.PI);
                 cr.fill();
             });
             preview_overlay.set_child(preview_color);
-            main_box.append(preview_overlay);
 
             var image = new Gtk.Image.from_icon_name(selected_icon_name) {
                 pixel_size = 32,
@@ -116,7 +115,7 @@ namespace Notejot {
             preview_label.set_valign(Gtk.Align.CENTER);
             preview_label.add_css_class("dim-label");
 
-            var preview_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            var preview_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 4);
             preview_box.set_halign(Gtk.Align.CENTER);
             preview_box.set_valign(Gtk.Align.CENTER);
             preview_box.margin_bottom = 12;
@@ -139,7 +138,7 @@ namespace Notejot {
             this.color_button.set_size_request(32, 32);
             this.color_button.set_halign(Gtk.Align.CENTER);
             this.color_button.set_valign(Gtk.Align.CENTER);
-            this.color_button.get_first_child().add_css_class("tint-button");
+            this.color_button.get_first_child().add_css_class("fill-button");
             this.color_button.get_first_child().add_css_class("circular");
             var color_area = new Gtk.DrawingArea();
             color_area.set_halign(Gtk.Align.CENTER);
@@ -148,7 +147,7 @@ namespace Notejot {
             color_area.set_content_height(24);
             color_area.set_draw_func((a, cr, w, h) => {
                 var rgba = Gdk.RGBA();
-                rgba.parse(this.selected_color);
+                rgba.parse(this.selected_color == null ? "#ffd54f" : this.selected_color);
                 cr.set_source_rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
                 cr.arc(w / 2.0, h / 2.0, w / 2.0, 0, 2 * Math.PI);
                 cr.fill();
