@@ -16,11 +16,11 @@ namespace Notejot {
             "emblem-documents-symbolic", "emblem-favorite-symbolic",
             "emblem-important-symbolic", "emblem-photos-symbolic", "emoji-travel-symbolic",
             "weather-clear-night-symbolic", "weather-clear-symbolic",
-            "globe-symbolic", "bookmark-new-symbolic", "emoji-love-symbolic",
+            "globe-symbolic", "emoji-activities-symbolic", "emoji-love-symbolic",
             "network-server-symbolic", "mail-read-symbolic",
             "emoji-food-symbolic", "airplane-mode-symbolic",
-            "calendar-symbolic", "document-new-symbolic",
-            "system-search-symbolic"
+            "calendar-symbolic", "folder-music-symbolic",
+            "application-games-symbolic"
         };
 
         // Standard Color Palette
