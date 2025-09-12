@@ -14,10 +14,10 @@ namespace Notejot {
             this.add_css_class ("tag-row");
 
             var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-            box.set_margin_start (6);
-            box.set_margin_end (6);
-            box.set_margin_top (6);
-            box.set_margin_bottom (6);
+            box.set_margin_start (3);
+            box.set_margin_end (3);
+            box.set_margin_top (3);
+            box.set_margin_bottom (3);
 
             var overlay = new Gtk.Overlay ();
             overlay.set_size_request (32, 32);
