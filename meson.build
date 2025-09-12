@@ -27,7 +27,6 @@ add_project_arguments(
 )
 
 sources = [
-  'src/AddEntryDialog.vala',
   'src/AddTagDialog.vala',
   'src/Application.vala',
   'src/DataManager.vala',
@@ -37,6 +36,7 @@ sources = [
   'src/MapStyle.vala',
   'src/PlacesView.vala',
   'src/TagRow.vala',
+  'src/EntryEditorView.vala',
   'src/Window.vala',
 ]
 

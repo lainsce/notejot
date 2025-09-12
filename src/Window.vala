@@ -31,6 +31,7 @@ namespace Notejot {
 
         private string? current_tag_uuid = null; // null means "All Entries" here
         private Entry? selected_entry = null; // Track the currently selected entry
+        private EntryEditorView? entry_editor_view; // Integrated editor view
 
         public Window (He.Application app) {
             Object (application : app, title : _("Notejot"));
@@ -234,25 +235,118 @@ namespace Notejot {
         }
 
         private void switch_to_view (string view_name) {
-            // Remove current child
+            // Navigation guard: if leaving a dirty editor view, confirm discard
+            if (view_name != "editor"
+                && this.entry_editor_view != null
+                && this.main_content_container.get_first_child () == this.entry_editor_view
+                && this.entry_editor_view.is_dirty ()) {
+                var dialog = new He.Window ();
+                dialog.set_transient_for (this);
+                dialog.set_title (_("Discard unsaved changes?"));
+                dialog.add_css_class ("dialog-content");
+
+                var container = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+
+                var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+                header_box.set_margin_top (12);
+                header_box.set_margin_start (12);
+                header_box.set_margin_end (12);
+                header_box.set_margin_bottom (12);
+
+                var title_label = new Gtk.Label (_("Discard Unsaved Changes")) { halign = Gtk.Align.START };
+                title_label.add_css_class ("title-3");
+                header_box.append (title_label);
+
+                header_box.append (new Gtk.Label ("") { hexpand = true }); // spacer
+
+                var close_button = new He.Button ("window-close-symbolic", "");
+                close_button.is_disclosure = true;
+                close_button.clicked.connect (() => {
+                    dialog.close ();
+                });
+                header_box.append (close_button);
+
+                var winhandle = new Gtk.WindowHandle ();
+                winhandle.set_child (header_box);
+                container.append (winhandle);
+
+                var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+                content_box.set_margin_start (18);
+                content_box.set_margin_end (18);
+                content_box.set_margin_bottom (6);
+
+                var message_label = new Gtk.Label (_("You have unsaved changes. Discard them?"));
+                message_label.set_wrap (true);
+                message_label.set_xalign (0.0f);
+                content_box.append (message_label);
+                container.append (content_box);
+
+                var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+                buttons_box.set_margin_start (18);
+                buttons_box.set_margin_end (18);
+                buttons_box.set_margin_bottom (18);
+                buttons_box.set_halign (Gtk.Align.END);
+
+                var cancel_button = new He.Button ("", _("Cancel"));
+                cancel_button.is_tint = true;
+                cancel_button.clicked.connect (() => {
+                    dialog.close ();
+                });
+                buttons_box.append (cancel_button);
+
+                var discard_button = new He.Button ("", _("Discard"));
+                discard_button.is_fill = true;
+                discard_button.clicked.connect (() => {
+                    this.entry_editor_view.clear_dirty ();
+                    var current_child2 = this.main_content_container.get_first_child ();
+                    if (current_child2 != null) {
+                        this.main_content_container.remove (current_child2);
+                    }
+                    if (view_name == "entries") {
+                        this.main_content_container.append (fab);
+                        fab.child = this.entries_view;
+                    } else if (view_name == "empty") {
+                        this.main_content_container.append (this.empty_state_view);
+                    } else if (view_name == "deleted-empty") {
+                        this.main_content_container.append (this.deleted_empty_state_view);
+                    } else if (view_name == "editor") {
+                        if (this.entry_editor_view != null) {
+                            this.main_content_container.append (this.entry_editor_view);
+                        }
+                    } else {
+                        if (view_name == "insights") {
+                            this.main_content_container.append (this.insights_view);
+                        } else if (view_name == "places") {
+                            this.main_content_container.append (this.places_view);
+                        }
+                    }
+                    dialog.close ();
+                });
+                buttons_box.append (discard_button);
+
+                container.append (buttons_box);
+
+                dialog.set_child (container);
+                dialog.present ();
+                return;
+            }
             var current_child = this.main_content_container.get_first_child ();
             if (current_child != null) {
                 this.main_content_container.remove (current_child);
             }
 
-            // Add appropriate view
             if (view_name == "entries") {
-                // Use FAB overlay for entries
                 this.main_content_container.append (fab);
                 fab.child = this.entries_view;
             } else if (view_name == "empty") {
-                // Direct view without FAB for empty state
                 this.main_content_container.append (this.empty_state_view);
             } else if (view_name == "deleted-empty") {
-                // Direct view without FAB for deleted empty state
                 this.main_content_container.append (this.deleted_empty_state_view);
+            } else if (view_name == "editor") {
+                if (this.entry_editor_view != null) {
+                    this.main_content_container.append (this.entry_editor_view);
+                }
             } else {
-                // Direct view without FAB for insights and places
                 if (view_name == "insights") {
                     this.main_content_container.append (this.insights_view);
                 } else if (view_name == "places") {
@@ -614,7 +708,7 @@ namespace Notejot {
                                 case "#ba68c8" :
                                     color_name = "purple";
                                     break;
-                                case "#7986cb":
+                                case "#7986cb" :
                                     color_name = "indigo";
                                     break;
                                 case "#64b5f6":
@@ -795,6 +889,67 @@ namespace Notejot {
             if (this.places_view != null)this.places_view.refresh_pins ();
         }
 
+        private void open_entry_editor (Entry? entry) {
+            if (this.entry_editor_view == null) {
+                this.entry_editor_view = new EntryEditorView (this.data_manager);
+                this.entry_editor_view.saved.connect (on_editor_saved);
+                this.entry_editor_view.cancelled.connect (() => {
+                    this.refresh_entry_list ();
+                });
+            }
+            this.entry_editor_view.load_entry (entry);
+            if (entry == null && this.current_tag_uuid != null && this.current_tag_uuid != "deleted") {
+                this.entry_editor_view.preselect_tag (this.current_tag_uuid);
+            }
+            switch_to_view ("editor");
+        }
+
+        private void on_editor_saved (Entry? existing, bool is_new) {
+            if (this.entry_editor_view == null)return;
+
+            var title = this.entry_editor_view.title_entry.get_internal_entry ().text;
+            Gtk.TextIter s, e;
+            this.entry_editor_view.content_view.get_buffer ().get_bounds (out s, out e);
+            var content = this.entry_editor_view.content_view.get_buffer ().get_text (s, e, false);
+            var address = this.entry_editor_view.location_entry.get_internal_entry ().text;
+            var tag_uuids = this.entry_editor_view.get_selected_tag_uuids ();
+
+            if (this.current_tag_uuid != null && this.current_tag_uuid != "deleted") {
+                bool found = false;
+                foreach (var uuid in tag_uuids) {
+                    if (uuid == this.current_tag_uuid) { found = true; break; }
+                }
+                if (!found) {
+                    tag_uuids.append (this.current_tag_uuid);
+                }
+            }
+
+            if (is_new) {
+                var new_entry = new Entry (title, content, tag_uuids, null);
+                new_entry.location_address = address;
+                foreach (var p in this.entry_editor_view.image_paths) {
+                    new_entry.image_paths.append (p);
+                }
+                save_entry_with_geocode.begin (new_entry, true);
+            } else if (existing != null) {
+                existing.title = title;
+                existing.content = content;
+                // Rebuild tag_uuids list instead of assigning (avoids duplicating GLib.List instance)
+                existing.tag_uuids = new GLib.List<string> ();
+                foreach (var u in tag_uuids) {
+                    existing.tag_uuids.append (u);
+                }
+                existing.location_address = address;
+                existing.modified_timestamp = new GLib.DateTime.now_utc ().to_unix ();
+                foreach (var p in this.entry_editor_view.image_paths) {
+                    existing.image_paths.append (p);
+                }
+                save_entry_with_geocode.begin (existing, false);
+            }
+
+            this.refresh_entry_list ();
+        }
+
         private void on_add_tag_clicked () {
             var dialog = new AddTagDialog (this, false);
             dialog.present ();
@@ -831,33 +986,7 @@ namespace Notejot {
 
         private void on_edit_entry_clicked () {
             if (this.selected_entry == null)return;
-            var entry = this.selected_entry;
-            var dialog = new AddEntryDialog (this, this.data_manager, entry);
-            dialog.present ();
-            dialog.response.connect ((response_id) => {
-                if (response_id == Gtk.ResponseType.ACCEPT) {
-                    var title = dialog.title_entry.get_internal_entry ().text;
-                    var content = dialog.get_content ();
-                    var address = dialog.location_entry.get_internal_entry ().text;
-
-                    if (title != "" || content != "") {
-                        entry.title = title;
-                        entry.content = content;
-                        entry.tag_uuids = dialog.get_selected_tag_uuids ();
-                        entry.location_address = address;
-
-                        // Update modified timestamp
-                        entry.modified_timestamp = new GLib.DateTime.now_utc ().to_unix ();
-
-                        foreach (var path in dialog.image_paths) {
-                            entry.image_paths.append (path);
-                        }
-
-                        save_entry_with_geocode.begin (entry, false);
-                    }
-                }
-                dialog.destroy ();
-            });
+            open_entry_editor (this.selected_entry);
         }
 
         private void on_delete_entry_clicked () {
@@ -883,51 +1012,7 @@ namespace Notejot {
             if (this.current_tag_uuid == "deleted") {
                 return;
             }
-
-            var dialog = new AddEntryDialog (this, this.data_manager, null);
-            // If a specific tag is selected (not "All Entries"), prepopulate it
-            if (this.current_tag_uuid != null) {
-                var tag_uuids = new GLib.List<string> ();
-                tag_uuids.append (this.current_tag_uuid);
-                dialog.set_preselected_tags (tag_uuids);
-            }
-
-            dialog.present ();
-            dialog.response.connect ((response_id) => {
-                if (response_id == Gtk.ResponseType.ACCEPT) {
-                    var title = dialog.title_entry.get_internal_entry ().text;
-                    var content = dialog.get_content ();
-                    var address = dialog.location_entry.get_internal_entry ().text;
-
-                    if (title != "" || content != "") {
-                        var tag_uuids = dialog.get_selected_tag_uuids ();
-
-                        // If viewing a specific tag, add it to the list if not already there
-                        if (this.current_tag_uuid != null && this.current_tag_uuid != "deleted") {
-                            bool found = false;
-                            foreach (var uuid in tag_uuids) {
-                                if (uuid == this.current_tag_uuid) {
-                                    found = true;
-                                    break;
-                                }
-                            }
-                            if (!found) {
-                                tag_uuids.append (this.current_tag_uuid);
-                            }
-                        }
-
-                        var new_entry = new Entry (title, content, tag_uuids, null);
-                        new_entry.location_address = address;
-
-                        foreach (var path in dialog.image_paths) {
-                            new_entry.image_paths.append (path);
-                        }
-
-                        save_entry_with_geocode.begin (new_entry, true);
-                    }
-                }
-                dialog.destroy ();
-            });
+            open_entry_editor (null);
         }
     }
 }
