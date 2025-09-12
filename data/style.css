@@ -295,6 +295,8 @@ window {
     padding: 15px;
     border-radius: 12px;
     color: white;
+    min-height: 152px;
+    min-width: 152px;
 }
 
 .words-card {
