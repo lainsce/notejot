@@ -37,7 +37,7 @@ namespace Notejot {
             Object (application : app, title : _("Notejot"));
             this.data_manager = new DataManager ();
 
-            this.set_default_size (1024, 830);
+            this.set_default_size (1024, 800);
 
             var main_paned = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             this.set_child (main_paned);

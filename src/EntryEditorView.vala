@@ -21,6 +21,8 @@ namespace Notejot {
 
         private Gtk.FlowBox image_preview_box;
         private He.Button add_image_button;
+        private Gtk.ScrolledWindow side_scroller;
+        private Gtk.Revealer side_pane_revealer;
 
         private He.Button save_button;
         private He.Button cancel_button;
@@ -88,6 +90,7 @@ namespace Notejot {
             tags_revealer.set_reveal_child (has_tags);
             images_revealer.set_reveal_child (has_images);
             location_revealer.set_reveal_child (has_location);
+            update_side_pane_visibility ();
 
             reset_dirty ();
         }
@@ -98,8 +101,10 @@ namespace Notejot {
                     tag_check_buttons.nth_data (i).set_active (true);
                 }
             }
-            if (any_tag_selected ())
+            if (any_tag_selected ()) {
                 tags_revealer.set_reveal_child (true);
+            }
+            update_side_pane_visibility ();
             mark_dirty ();
         }
 
@@ -157,26 +162,40 @@ namespace Notejot {
             loc_btn.clicked.connect (() => toggle_revealer (location_revealer));
             header.append (loc_btn);
 
-            var scroller = new Gtk.ScrolledWindow () { vexpand = true };
-            scroller.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
-            this.append (scroller);
-
-            var content_column = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-            content_column.set_margin_start (18);
-            content_column.set_margin_end (18);
-            content_column.set_margin_bottom (6);
-            scroller.set_child (content_column);
+            var body_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            body_box.set_margin_start (18);
+            body_box.set_margin_end (18);
+            body_box.set_margin_bottom (6);
+            body_box.set_vexpand (true);
+            this.append (body_box);
 
             content_view = new Gtk.TextView () {
                 wrap_mode = Gtk.WrapMode.WORD_CHAR,
                 left_margin = 8, right_margin = 8,
                 top_margin = 8, bottom_margin = 8,
-                vexpand = true
+                vexpand = true,
+                hexpand = true
             };
+            content_view.set_size_request (400, -1);
             content_view.add_css_class ("text-view");
-            content_column.append (content_view);
 
-            tags_revealer = new Gtk.Revealer () { reveal_child = false, transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN };
+            var editor_scroller = new Gtk.ScrolledWindow () { vexpand = true, hexpand = true };
+            editor_scroller.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+            editor_scroller.set_child (content_view);
+            body_box.append (editor_scroller);
+
+            // Right side: side panel with revealers
+            side_scroller = new Gtk.ScrolledWindow () { vexpand = true };
+            side_scroller.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+            var side_panel = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+            side_panel.set_size_request (280, -1);
+            side_panel.set_valign (Gtk.Align.START);
+            side_scroller.set_child (side_panel);
+            side_pane_revealer = new Gtk.Revealer () { reveal_child = false };
+            side_pane_revealer.set_child (side_scroller);
+            body_box.append (side_pane_revealer);
+
+            tags_revealer = new Gtk.Revealer () { reveal_child = false };
             var tags_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 8);
             tags_box.add_css_class ("card");
             var tags_title = new Gtk.Label (_("Tags")) { halign = Gtk.Align.START };
@@ -195,9 +214,9 @@ namespace Notejot {
             tags_scrolled.set_child (tags_flowbox);
             tags_box.append (tags_scrolled);
             tags_revealer.set_child (tags_box);
-            content_column.append (tags_revealer);
+            side_panel.append (tags_revealer);
 
-            images_revealer = new Gtk.Revealer () { reveal_child = false, transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN };
+            images_revealer = new Gtk.Revealer () { reveal_child = false };
             var images_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 8);
             images_box.add_css_class ("card");
             var images_title = new Gtk.Label (_("Images (Max 4)")) { halign = Gtk.Align.START };
@@ -218,9 +237,9 @@ namespace Notejot {
             };
             images_box.append (image_preview_box);
             images_revealer.set_child (images_box);
-            content_column.append (images_revealer);
+            side_panel.append (images_revealer);
 
-            location_revealer = new Gtk.Revealer () { reveal_child = false, transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN };
+            location_revealer = new Gtk.Revealer () { reveal_child = false };
             var location_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 8);
             location_card.add_css_class ("card");
             var location_title = new Gtk.Label (_("Location")) { halign = Gtk.Align.START };
@@ -232,7 +251,7 @@ namespace Notejot {
             };
             location_card.append (location_entry);
             location_revealer.set_child (location_card);
-            content_column.append (location_revealer);
+            side_panel.append (location_revealer);
 
             var actions_bar = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
             actions_bar.set_margin_start (18);
@@ -256,17 +275,25 @@ namespace Notejot {
 
             var title_entry_internal = title_entry.get_internal_entry ();
             if (title_entry_internal != null) {
-                title_entry_internal.changed.connect (() => mark_dirty ());
+                title_entry_internal.changed.connect (() => {
+                    mark_dirty ();
+                });
             }
             content_view.get_buffer ().changed.connect (() => mark_dirty ());
             var loc_entry_internal = location_entry.get_internal_entry ();
             if (loc_entry_internal != null) {
                 loc_entry_internal.changed.connect (() => {
                     mark_dirty ();
-                    if (loc_entry_internal.text.strip () != "")
+                    if (loc_entry_internal.text.strip () != "") {
                         location_revealer.set_reveal_child (true);
+                    } else {
+                        location_revealer.set_reveal_child (false);
+                    }
+                    update_side_pane_visibility ();
                 });
             }
+
+            update_side_pane_visibility ();
         }
 
         private void populate_tags () {
@@ -282,7 +309,10 @@ namespace Notejot {
                     mark_dirty ();
                     if (any_tag_selected ()) {
                         tags_revealer.set_reveal_child (true);
+                    } else {
+                        tags_revealer.set_reveal_child (false);
                     }
+                    update_side_pane_visibility ();
                 });
                 tag_check_buttons.append (check);
                 tag_uuids.append (tag.uuid);
@@ -319,40 +349,23 @@ namespace Notejot {
 
             var remove_btn = new He.Button ("window-close-symbolic", "");
             remove_btn.is_disclosure = true;
-            remove_btn.add_css_class ("image-remove-button");
-            remove_btn.add_css_class ("flat");
             remove_btn.set_halign (Gtk.Align.END);
             remove_btn.set_valign (Gtk.Align.START);
             remove_btn.clicked.connect (() => {
-                var new_list = new GLib.List<string> ();
-                foreach (var p in image_paths) {
-                    if (p != path) {
-                        new_list.append (p);
-                    }
-                }
-                for (int i = 0; i < image_paths.length (); ) {
-                    var data_item = image_paths.nth_data (i);
-                    bool keep = false;
-                    foreach (var keep_p in new_list) {
-                        if (keep_p == data_item) { keep = true; break; }
-                    }
-                    if (!keep) {
-                        var link = image_paths.nth_data (i);
-                        if (link != null) {
-                            image_paths.remove (link);
-                            continue;
-                        }
-                    }
-                    i++;
-                }
+                image_paths.remove (path);
                 image_preview_box.remove (overlay);
                 add_image_button.set_sensitive (image_paths.length () < 4);
+                if (image_paths.length () == 0) {
+                    images_revealer.set_reveal_child (false);
+                }
+                update_side_pane_visibility ();
                 mark_dirty ();
             });
             overlay.add_overlay (remove_btn);
 
             image_preview_box.insert (overlay, -1);
             images_revealer.set_reveal_child (true);
+            update_side_pane_visibility ();
             mark_dirty ();
         }
 
@@ -394,6 +407,25 @@ namespace Notejot {
 
         private void toggle_revealer (Gtk.Revealer r) {
             r.set_reveal_child (!r.get_reveal_child ());
+            r.set_visible (r.get_reveal_child ());
+            update_side_pane_visibility ();
+        }
+
+        private void update_side_pane_visibility () {
+            if (side_pane_revealer == null)return;
+            bool any_visible = tags_revealer.get_reveal_child () || images_revealer.get_reveal_child () || location_revealer.get_reveal_child ();
+
+            if (any_visible) {
+                side_pane_revealer.set_visible (true);
+                side_pane_revealer.set_reveal_child (true);
+            } else {
+                // Start hide animation
+                side_pane_revealer.set_reveal_child (false);
+                bool still_none = !tags_revealer.get_reveal_child () && !images_revealer.get_reveal_child () && !location_revealer.get_reveal_child ();
+                if (still_none) {
+                    side_pane_revealer.set_visible (false);
+                }
+            }
         }
 
         private string get_content () {
@@ -420,6 +452,7 @@ namespace Notejot {
         private void on_add_images_clicked () {
             if (image_paths.length () >= 4)return;
             images_revealer.set_reveal_child (true);
+            update_side_pane_visibility ();
 
             var file_dialog = new Gtk.FileDialog ();
             file_dialog.set_title (_("Select Images"));
