@@ -33,6 +33,8 @@ sources = [
   'src/DataManager.vala',
   'src/DataModels.vala',
   'src/InsightsView.vala',
+  'src/JsonObject.vala',
+  'src/MapStyle.vala',
   'src/PlacesView.vala',
   'src/TagRow.vala',
   'src/Window.vala',

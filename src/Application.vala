@@ -1,12 +1,17 @@
 namespace Notejot {
     public class NotejotApp : He.Application {
         private Gtk.CssProvider app_css_provider;
+        public static Settings settings { get; private set; }
         private const GLib.ActionEntry APP_ENTRIES[] = {
             { "quit", quit },
         };
 
         public NotejotApp () {
             Object (application_id: "io.github.lainsce.Notejot");
+        }
+
+        static construct {
+            settings = new Settings ("io.github.lainsce.Notejot");
         }
 
         public static int main (string[] args) {

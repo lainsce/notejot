@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <schemalist>
+    <enum id="map-settings">
+        <value value="0" nick="explore"/>
+    </enum>
 	<schema id="io.github.lainsce.Notejot" path="/io/github/lainsce/Notejot/">
-
+        <key enum="map-settings" name="map-source">
+            <default>'explore'</default>
+            <summary>Active map source</summary>
+            <description>The type of the map last used</description>
+        </key>
 	</schema>
 </schemalist>
