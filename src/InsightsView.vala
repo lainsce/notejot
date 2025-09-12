@@ -1,4 +1,133 @@
 namespace Notejot {
+    public class MonthlyDaysBarChart : Gtk.DrawingArea {
+
+        private int[] month_day_counts = new int[12];
+        private int max_value = 0;
+
+        public MonthlyDaysBarChart() {
+            this.set_content_width(210); // 12 * (8 bar + ~9 spacing) + left axis space
+            this.set_content_height(120);
+            this.set_draw_func(on_draw);
+        }
+
+        public void set_counts(int[] counts) {
+            if (counts.length != 12) {
+                return;
+            }
+            for (int i = 0; i < 12; i++) {
+                month_day_counts[i] = counts[i];
+            }
+            max_value = 0;
+            foreach (var v in month_day_counts) {
+                if (v > max_value)max_value = v;
+            }
+            queue_draw();
+        }
+
+        private int round_up_five(int v) {
+            if (v <= 0)return 5;
+            if (v % 5 == 0)return v;
+            return v + (5 - v % 5);
+        }
+
+        private void on_draw(Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+            // Layout parameters
+            int left_axis_space = 32;
+            int bottom_labels_space = 22;
+            int top_padding = 6;
+            int right_padding = 4;
+            int bar_width = 2;
+            int available_bar_area_width = width - left_axis_space - right_padding;
+            int bar_count = 12;
+
+            // Compute spacing between bars
+            // Ensure at least 4px spacing
+            double spacing = 0;
+            if (bar_count > 1) {
+                spacing = (available_bar_area_width - bar_count * bar_width) / (double) (bar_count - 1);
+                if (spacing < 4) {
+                    spacing = 4;
+                }
+            }
+
+            int chart_height = height - bottom_labels_space - top_padding;
+            if (chart_height < 10)return;
+
+            // Determine maximum (rounded to next multiple of 5)
+            int display_max = round_up_five(max_value);
+            if (display_max < 5)display_max = 5; // Ensure at least one tick
+
+            // Background (transparent; assume themed)
+            // Draw horizontal grid lines for each 5-step (excluding 0)
+            cr.set_source_rgba(0, 0, 0, 0.12);
+            cr.set_line_width(1);
+
+            // Use Pango for labels
+            var pango_ctx = this.create_pango_context();
+
+            // Y ticks and labels
+            for (int tick = 0; tick <= display_max; tick += 5) {
+                double y = top_padding + chart_height - (tick / (double) display_max) * chart_height;
+                cr.move_to(left_axis_space - 4, y + 0.5);
+                cr.line_to(width, y + 0.5);
+                cr.stroke();
+
+                // Label
+                var layout = new Pango.Layout(pango_ctx);
+                layout.set_text(@"$(tick)", -1);
+                int tw, th;
+                layout.get_pixel_size(out tw, out th);
+                cr.set_source_rgba(0, 0, 0, 0.32);
+                cr.move_to(left_axis_space - 6 - tw, y - th / 2);
+                Pango.cairo_show_layout(cr, layout);
+            }
+
+            // Bars
+            for (int i = 0; i < bar_count; i++) {
+                int value = month_day_counts[i];
+                double h = (display_max == 0) ? 0 : (value / (double) display_max) * chart_height;
+                double x = left_axis_space + i * (bar_width + spacing);
+                double y = top_padding + chart_height - h;
+
+                // Bar fill (or 2x2 square if zero)
+                cr.set_source_rgba(1, 1, 1, 1); // White
+
+                if (value == 0) {
+                    double baseline = top_padding + chart_height;
+                    double sq_x = x + (bar_width - 2) / 2.0;
+                    cr.rectangle(sq_x, baseline - 2, 2, 2);
+                    cr.fill();
+                    continue;
+                }
+
+                cr.rectangle(x, y, bar_width, h);
+                cr.fill();
+            }
+
+            // Line between bars and labels
+            double divider_y = top_padding + chart_height + 0.5;
+            cr.set_source_rgba(0, 0, 0, 0.32);
+            cr.move_to(left_axis_space - 4, divider_y);
+            cr.line_to(width, divider_y);
+            cr.stroke();
+
+            // Month labels (single letter)
+            string[] month_initials = { _("J"), _("F"), _("M"), _("A"), _("M"), _("J"), _("J"), _("A"), _("S"), _("O"), _("N"), _("D") };
+            for (int i = 0; i < 12; i++) {
+                double x = left_axis_space + i * (bar_width + spacing);
+                var layout = new Pango.Layout(pango_ctx);
+                layout.set_text(month_initials[i], -1);
+                int tw, th;
+                layout.get_pixel_size(out tw, out th);
+                double label_y = divider_y + 2;
+                double label_x = x + (bar_width - tw) / 2;
+                cr.set_source_rgba(1, 1, 1, 0.44); // White (44% opacity)
+                cr.move_to(label_x, label_y);
+                Pango.cairo_show_layout(cr, layout);
+            }
+        }
+    }
+
     public class InsightsView : Gtk.Box {
 
         private DataManager data_manager;
@@ -9,6 +138,9 @@ namespace Notejot {
         private Gtk.Grid calendar_grid;
         private Gtk.Label calendar_month_label;
         private DateTime current_date;
+
+        // New chart widget
+        private MonthlyDaysBarChart days_chart;
 
         public InsightsView(DataManager manager) {
             Object(
@@ -53,7 +185,7 @@ namespace Notejot {
             stats_box.margin_end = 18;
             this.append(stats_box);
 
-            // Calculate initial stats to pass to cards
+            // Calculate initial stats
             var all_entries = this.data_manager.get_entries();
             var unique_days = new GenericSet<string> (str_hash, str_equal);
             int total_words = 0;
@@ -68,8 +200,8 @@ namespace Notejot {
             var unique_locations = this.data_manager.get_unique_locations();
             int location_count = (int) unique_locations.length();
 
-            var days_card = create_stat_card("days-journaled-card", _("Days Journaled"), unique_days.length.to_string());
-            this.days_journaled_label = (days_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
+            // Days card with bar chart (custom)
+            var days_card = create_days_card_with_chart(_("Days Journaled"), unique_days.length.to_string());
             stats_box.append(days_card);
 
             var locations_card = create_stat_card("locations-card", _("Locations"), location_count.to_string());
@@ -120,9 +252,49 @@ namespace Notejot {
             build_calendar();
         }
 
+        private Gtk.Widget create_days_card_with_chart(string title, string initial_value) {
+            // Left side labels
+            var values_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
+            values_box.set_valign(Gtk.Align.START);
+
+            var value_label = new Gtk.Label(initial_value) {
+                halign = Gtk.Align.START
+            };
+            value_label.add_css_class("stat-value");
+
+            var title_label = new Gtk.Label(title) {
+                halign = Gtk.Align.START
+            };
+            title_label.add_css_class("stat-title");
+
+            values_box.append(value_label);
+            values_box.append(title_label);
+
+            this.days_journaled_label = value_label;
+
+            // Chart
+            this.days_chart = new MonthlyDaysBarChart();
+            this.days_chart.set_hexpand(true);
+            this.days_chart.set_vexpand(false);
+
+            // Horizontal box inside card
+            var hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
+            hbox.append(values_box);
+            hbox.append(this.days_chart);
+
+            var frame = new Gtk.Frame("") {
+                child = hbox,
+                hexpand = true
+            };
+            frame.label_widget.visible = false;
+            frame.add_css_class("stat-card");
+            frame.add_css_class("days-journaled-card");
+            return frame;
+        }
+
         private Gtk.Widget create_stat_card(string style_class, string? info = null, string initial_value = "0") {
             var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
-            box.set_valign(Gtk.Align.CENTER);
+            box.set_valign(Gtk.Align.START);
 
             var value_label = new Gtk.Label(initial_value) {
                 halign = Gtk.Align.START
@@ -140,6 +312,7 @@ namespace Notejot {
                 child = box,
                 hexpand = true
             };
+            frame.label_widget.visible = false;
             frame.add_css_class("stat-card");
             frame.add_css_class(style_class);
 
@@ -166,7 +339,28 @@ namespace Notejot {
             this.locations_label.set_label(@"$(location_count)");
             this.words_label.set_label(@"$(total_words)");
 
+            update_days_chart();
             mark_entry_days();
+        }
+
+        private void update_days_chart() {
+            if (this.days_chart == null)return;
+
+            // counts per month of distinct days journaled (across all years)
+            int[] counts = new int[12];
+            var seen_dates = new GenericSet<string> (str_hash, str_equal);
+
+            foreach (var entry in this.data_manager.get_entries()) {
+                if (entry.is_deleted)continue;
+                var date_key = entry.date.format("%Y-%m-%d");
+                if (seen_dates.add(date_key)) {
+                    int month_index = entry.date.get_month() - 1;
+                    if (month_index >= 0 && month_index < 12) {
+                        counts[month_index] += 1;
+                    }
+                }
+            }
+            this.days_chart.set_counts(counts);
         }
 
         private int count_words(string? text) {
