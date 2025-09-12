@@ -227,7 +227,7 @@ public class Notejot.MapStyle : Notejot.JsonObject {
             kind = "symbol",
             source = "vector-tiles",
             source_layer = "place",
-            minzoom = 1,
+            minzoom = 2,
             maxzoom = 6,
             filter = place_country_filter,
             layout = new Layer.Layout () {
