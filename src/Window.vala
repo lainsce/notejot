@@ -23,9 +23,9 @@ namespace Notejot {
         private Gtk.ListBox tag_list_box;
 
         // Insights (sidebar card) stats
-        private Gtk.Label insights_year_number_label; // big number: Entries This Year
+        private Gtk.Label insights_year_number_label; // Entries This Year
         private Gtk.Label insights_days_number_label; // Days Journaled
-        private Gtk.Label insights_words_number_label; // Words All‑time
+        private Gtk.Label insights_words_number_label; // Total Words
 
         private Gtk.Label places_subtitle_number;
 
@@ -948,6 +948,10 @@ namespace Notejot {
             }
 
             this.refresh_entry_list ();
+            if (this.entry_editor_view != null) {
+                // Ensure editor is marked clean after save to prevent discard dialog
+                this.entry_editor_view.clear_dirty ();
+            }
         }
 
         private void on_add_tag_clicked () {

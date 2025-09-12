@@ -456,11 +456,13 @@ namespace Notejot {
                 return;
             }
             if (editing_entry == null) {
+                // Reset dirty BEFORE emitting the saved signal so navigation checks see a clean state
+                reset_dirty ();
                 saved (null, true);
             } else {
+                reset_dirty ();
                 saved (editing_entry, false);
             }
-            reset_dirty ();
         }
 
         private void on_add_images_clicked () {
