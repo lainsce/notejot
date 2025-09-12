@@ -406,8 +406,22 @@ namespace Notejot {
         }
 
         private void toggle_revealer (Gtk.Revealer r) {
-            r.set_reveal_child (!r.get_reveal_child ());
-            r.set_visible (r.get_reveal_child ());
+            bool will_show = !r.get_reveal_child ();
+            if (will_show) {
+                // Show: make sure the revealer widget itself is visible, then animate open
+                r.set_visible (true);
+                r.set_reveal_child (true);
+            } else {
+                // Hide: animate close first, then (after animation) hide the widget to collapse allocation
+                r.set_reveal_child (false);
+                GLib.Timeout.add (200, () => {
+                    // Only hide if it was not reopened meanwhile
+                    if (!r.get_reveal_child ()) {
+                        r.set_visible (false);
+                    }
+                    return false;
+                });
+            }
             update_side_pane_visibility ();
         }
 
