@@ -323,14 +323,11 @@ namespace Notejot {
                                     var class_name = "chip-" + t.uuid.substring (0, 8);
                                     var css = @".$(class_name) { background-color: $(t.color); border-radius: 12px; padding: 2px 6px; }
                         .$(class_name) label { color: $(fg); }";
-                                    try {
-                                        provider.load_from_data ((uint8[]) css);
-                                        var display = Gdk.Display.get_default ();
-                                        if (display != null)
-                                            Gtk.StyleContext.add_provider_for_display (display, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                                    } catch (Error ce) {
-                                        // ignore CSS load errors
-                                    }
+
+                                    provider.load_from_data ((uint8[]) css);
+                                    var display = Gdk.Display.get_default ();
+                                    if (display != null)
+                                        Gtk.StyleContext.add_provider_for_display (display, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                                     chip.add_css_class (class_name);
 
                                     var name_lbl = new Gtk.Label (t.name) {

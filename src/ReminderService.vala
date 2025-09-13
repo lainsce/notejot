@@ -119,12 +119,8 @@ namespace Notejot {
             if (s == null)return false;
             var parts = s.strip ().split (":");
             if (parts.length != 2)return false;
-            try {
-                h = int.parse (parts[0]);
-                m = int.parse (parts[1]);
-            } catch (Error e) {
-                return false;
-            }
+            h = int.parse (parts[0]);
+            m = int.parse (parts[1]);
             if (h < 0 || h > 23)return false;
             if (m < 0 || m > 59)return false;
             return true;
@@ -152,12 +148,8 @@ namespace Notejot {
             n.add_button (_("New Entry"), "app.new-entry");
 
             // Use a symbolic icon if available
-            try {
-                var icon = new ThemedIcon ("appointment-new-symbolic");
-                n.set_icon (icon);
-            } catch (Error e) {
-                // ignore icon errors
-            }
+            var icon = new ThemedIcon ("appointment-new-symbolic");
+            n.set_icon (icon);
 
             app.send_notification (id, n);
         }

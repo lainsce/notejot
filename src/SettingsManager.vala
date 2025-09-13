@@ -284,12 +284,8 @@ namespace Notejot {
             var parts = trimmed.split (":");
             if (parts.length != 2)return false;
 
-            try {
-                h = int.parse (parts[0]);
-                m = int.parse (parts[1]);
-            } catch (Error e) {
-                return false;
-            }
+            h = int.parse (parts[0]);
+            m = int.parse (parts[1]);
             if (h < 0 || h > 23)return false;
             if (m < 0 || m > 59)return false;
             return true;
