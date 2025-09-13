@@ -452,7 +452,7 @@ window {
 }
 
 .note-card {
-    background: shade(var(--card-bg), 0.92);
+    background: shade(var(--card-bg), 0.96);
     border-radius: 8px;
     padding: 8px;
     margin: 0;

@@ -307,28 +307,33 @@ namespace Notejot {
                         foreach (var uuid in e.tag_uuids) {
                             foreach (var t in data_manager.tags) {
                                 if (t != null && t.uuid == uuid) {
-                                    // Compute foreground color for contrast
-                                    var rgba = Gdk.RGBA ();
-                                    rgba.parse (t.color);
-                                    var luminance = 0.2126 * rgba.red + 0.7152 * rgba.green + 0.0722 * rgba.blue;
-                                    var fg = luminance > 0.5 ? "#000000" : "#ffffff";
+
 
                                     var chip = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
                                     chip.add_css_class ("tag-chip");
                                     chip.set_margin_top (2);
                                     chip.set_margin_bottom (2);
 
-                                    // Apply inline CSS for background and text color
-                                    var provider = new Gtk.CssProvider ();
-                                    var class_name = "chip-" + t.uuid.substring (0, 8);
-                                    var css = @".$(class_name) { background-color: $(t.color); border-radius: 12px; padding: 2px 6px; }
-                        .$(class_name) label { color: $(fg); }";
-
-                                    provider.load_from_data ((uint8[]) css);
-                                    var display = Gdk.Display.get_default ();
-                                    if (display != null)
-                                        Gtk.StyleContext.add_provider_for_display (display, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                                    chip.add_css_class (class_name);
+                                    // Use predefined tag chip color classes instead of inline CSS
+                                    var color_class = "default";
+                                    switch (t.color.down ()) {
+                                    case "#e57373" : case "#ef5350": color_class = "red"; break;
+                                    case "#ffb74d": case "#ffa726": color_class = "orange"; break;
+                                    case "#ffd54f": case "#ffe082": color_class = "yellow"; break;
+                                    case "#81c784": case "#66bb6a": color_class = "green"; break;
+                                    case "#4db6ac": case "#26a69a": color_class = "mint"; break;
+                                    case "#4dd0e1": case "#26c6da": color_class = "teal"; break;
+                                    case "#32ade6": case "#29b6f6": color_class = "cyan"; break;
+                                    case "#64b5f6": case "#42a5f5": color_class = "blue"; break;
+                                    case "#7986cb": case "#5c6bc0": color_class = "indigo"; break;
+                                    case "#ba68c8": case "#ab47bc": color_class = "purple"; break;
+                                    case "#f06292": case "#ec407a": color_class = "pink"; break;
+                                    case "#bcaaa4": case "#a1887f": color_class = "brown"; break;
+                                    default: break;
+                                    }
+                                    if (color_class != "default") {
+                                        chip.add_css_class ("tag-chip-" + color_class);
+                                    }
 
                                     var name_lbl = new Gtk.Label (t.name) {
                                         halign = Gtk.Align.START
