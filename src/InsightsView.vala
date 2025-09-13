@@ -135,6 +135,9 @@ namespace Notejot {
         private Gtk.Label days_journaled_label;
         private Gtk.Label locations_label;
         private Gtk.Label words_label;
+        private Gtk.Label current_streak_label;
+        private Gtk.Label longest_daily_streak_label;
+        private Gtk.Label longest_week_streak_label;
         private Gtk.Grid calendar_grid;
         private Gtk.Label calendar_month_label;
         private DateTime current_date;
@@ -169,6 +172,34 @@ namespace Notejot {
             };
             this.total_entries_label.add_css_class("date-label");
             this.append(this.total_entries_label);
+
+            // --- Streaks ---
+            var streaks_header = new Gtk.Label(_("Streaks")) {
+                halign = Gtk.Align.START,
+                xalign = 0,
+                margin_start = 18,
+                margin_end = 18
+            };
+            streaks_header.add_css_class("tags-header");
+            this.append(streaks_header);
+
+            var streaks_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            streaks_box.margin_start = 18;
+            streaks_box.margin_end = 18;
+            this.append(streaks_box);
+
+            // Streak cards (init to 0; will be updated in update_view)
+            var current_card = create_stat_card("current-streak-card", _("Current Streak"), "0");
+            this.current_streak_label = (current_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
+            streaks_box.append(current_card);
+
+            var longest_daily_card = create_stat_card("longest-daily-streak-card", _("Longest Daily Streak"), "0");
+            this.longest_daily_streak_label = (longest_daily_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
+            streaks_box.append(longest_daily_card);
+
+            var longest_week_card = create_stat_card("longest-week-streak-card", _("Longest Week Streak"), "0");
+            this.longest_week_streak_label = (longest_week_card.get_first_child() as Gtk.Box) ? .get_first_child() as Gtk.Label;
+            streaks_box.append(longest_week_card);
 
             // --- Stats Cards ---
             var stats_header = new Gtk.Label(_("Stats")) {
@@ -338,6 +369,13 @@ namespace Notejot {
             this.days_journaled_label.set_label(@"$(unique_days.length)");
             this.locations_label.set_label(@"$(location_count)");
             this.words_label.set_label(@"$(total_words)");
+            // Update streaks
+            int current_streak = calc_current_daily_streak_current_month();
+            int longest_daily_streak = calc_longest_daily_streak();
+            int longest_week_streak = calc_longest_week_streak();
+            this.current_streak_label.set_label(@"$(current_streak)");
+            this.longest_daily_streak_label.set_label(@"$(longest_daily_streak)");
+            this.longest_week_streak_label.set_label(@"$(longest_week_streak)");
 
             update_days_chart();
             mark_entry_days();
@@ -377,6 +415,129 @@ namespace Notejot {
                 }
             }
             return count;
+        }
+
+        // Compute current daily streak up to today within the current month
+        private int calc_current_daily_streak_current_month() {
+            var today = new DateTime.now_local();
+            int year = today.get_year();
+            int month = today.get_month();
+
+            int streak = 0;
+            var cursor = today;
+            while (cursor.get_year() == year && cursor.get_month() == month) {
+                if (has_entry_for_date(cursor)) {
+                    streak++;
+                    cursor = cursor.add_days(-1);
+                } else {
+                    break;
+                }
+            }
+            return streak;
+        }
+
+        // Compute the longest daily streak (consecutive days) within each month across all time
+        private int calc_longest_daily_streak() {
+            // Map "YYYY-MM" -> set of days that have entries
+            var month_days = new GLib.HashTable<string, GLib.HashTable<int, bool>> (str_hash, str_equal);
+
+            foreach (var entry in this.data_manager.get_entries()) {
+                if (entry.is_deleted)continue;
+                int y = entry.date.get_year();
+                int m = entry.date.get_month();
+                int d = entry.date.get_day_of_month();
+                var key = "%04d-%02d".printf(y, m);
+
+                GLib.HashTable<int, bool>? set = month_days.lookup(key);
+                if (set == null) {
+                    set = new GLib.HashTable<int, bool> (GLib.direct_hash, GLib.direct_equal);
+                    month_days.insert(key, set);
+                }
+                set.insert(d, true);
+            }
+
+            int global_max = 0;
+            // Iterate each month and find longest run
+            var month_keys = month_days.get_keys();
+            foreach (var key in month_keys) {
+                var set = month_days.lookup(key);
+                if (set == null) {
+                    continue;
+                }
+
+                // parse year and month
+                int y = int.parse(key.substring(0, 4));
+                int m = int.parse(key.substring(5, 2));
+
+                var first = new DateTime.local(y, m, 1, 0, 0, 0);
+                int days_in_month = first.add_months(1).add_days(-1).get_day_of_month();
+
+                int current = 0;
+                int best = 0;
+                for (int day = 1; day <= days_in_month; day++) {
+                    if (set.lookup(day)) {
+                        current++;
+                        if (current > best)best = current;
+                    } else {
+                        current = 0;
+                    }
+                }
+                if (best > global_max)global_max = best;
+            }
+
+            return global_max;
+        }
+
+        // Helper: get Monday (start of week) for a given date
+        private DateTime monday_of_week(DateTime date) {
+            // 1 = Monday ... 7 = Sunday
+            int dow = date.get_day_of_week();
+            int offset = dow - 1;
+            return date.add_days(-offset);
+        }
+
+        // Compute longest consecutive week streak across all time
+        // A "week" counts if there is at least one entry in that Monday-Sunday period
+        private int calc_longest_week_streak() {
+            var week_has_entry = new GLib.HashTable<string, bool> (str_hash, str_equal);
+
+            DateTime? min_date = null;
+            DateTime? max_date = null;
+
+            foreach (var entry in this.data_manager.get_entries()) {
+                if (entry.is_deleted)continue;
+
+                var d = entry.date;
+                if (min_date == null || d.compare((!) min_date) < 0)min_date = d;
+                if (max_date == null || d.compare((!) max_date) > 0)max_date = d;
+
+                var monday = monday_of_week(d);
+                var key = monday.format("%Y-%m-%d");
+                week_has_entry.insert(key, true);
+            }
+
+            if (min_date == null || max_date == null)return 0;
+
+            var start = monday_of_week((!) min_date);
+            var end = monday_of_week((!) max_date);
+
+            int longest = 0;
+            int current = 0;
+
+            var cursor = start;
+            // iterate week by week until we pass end by 7 days
+            while (cursor.compare(end) <= 0) {
+                var key = cursor.format("%Y-%m-%d");
+                if (week_has_entry.lookup(key)) {
+                    current++;
+                    if (current > longest)longest = current;
+                } else {
+                    current = 0;
+                }
+                cursor = cursor.add_days(7);
+            }
+
+            return longest;
         }
 
         private void build_calendar() {

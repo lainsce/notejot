@@ -84,6 +84,17 @@ namespace Notejot {
             appbar.show_right_title_buttons = false;
             appbar.set_size_request (285, -1);
             sidebar_box.append (appbar);
+            // Settings button in the sidebar AppBar
+            var settings_button = new He.Button ("open-menu-symbolic", "");
+            settings_button.is_disclosure = true;
+            settings_button.set_halign (Gtk.Align.END);
+            settings_button.set_margin_end (12);
+            settings_button.set_margin_bottom (6);
+            settings_button.clicked.connect (() => {
+                var win = new SettingsWindow (this);
+                win.present ();
+            });
+            sidebar_box.append (settings_button);
 
             // Insights card with detailed contents
             var insights_button = create_insights_card (out this.insights_year_number_label,
@@ -1013,12 +1024,16 @@ namespace Notejot {
             this.update_stats ();
         }
 
-        private void on_add_entry_clicked () {
+        public void open_new_entry () {
             // Don't allow adding entries when in "Recently Deleted" section
             if (this.current_tag_uuid == "deleted") {
                 return;
             }
             open_entry_editor (null);
+        }
+
+        private void on_add_entry_clicked () {
+            open_new_entry ();
         }
     }
 }

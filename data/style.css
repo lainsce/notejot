@@ -51,6 +51,14 @@ window {
     background: shade(var(--yellow), 0.9);
 }
 
+.settings-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    border: 1px solid var(--border-color);
+}
+
 /* --- Sidebar --- */
 .sidebar {
     background: var(--sidebar-bg);

@@ -1,6 +1,7 @@
 namespace Notejot {
     public class NotejotApp : He.Application {
         private Gtk.CssProvider app_css_provider;
+        private ReminderService reminder_service;
         public static Settings settings { get; private set; }
         private const GLib.ActionEntry APP_ENTRIES[] = {
             { "quit", quit },
@@ -54,6 +55,8 @@ namespace Notejot {
             }
 
             new Window (this);
+            this.reminder_service = new ReminderService ();
+            this.reminder_service.start ();
         }
 
         private void load_theme_css () {

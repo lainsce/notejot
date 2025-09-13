@@ -38,6 +38,9 @@ sources = [
   'src/TagRow.vala',
   'src/EntryEditorView.vala',
   'src/Window.vala',
+  'src/ReminderService.vala',
+  'src/SettingsWindow.vala',
+  'src/SettingsManager.vala',
 ]
 
 dependencies = [
