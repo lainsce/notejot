@@ -941,6 +941,8 @@ namespace Notejot {
                 }
                 existing.location_address = address;
                 existing.modified_timestamp = new GLib.DateTime.now_utc ().to_unix ();
+                // Rebuild image_paths to match editor selection and avoid duplicates
+                existing.image_paths = new GLib.List<string> ();
                 foreach (var p in this.entry_editor_view.image_paths) {
                     existing.image_paths.append (p);
                 }
