@@ -89,7 +89,7 @@ public class Notejot.MapStyle : Notejot.JsonObject {
         };
         layers.add (park);
 
-        // Administrative boundaries
+        // Country boundaries
         var admin_filter = new Notejot.Expression ("all");
         admin_filter.append_string_int ("<=", "admin_level", 2);
 
@@ -113,6 +113,31 @@ public class Notejot.MapStyle : Notejot.JsonObject {
         admin_dash.add_double_element (2);
         admin_line.paint.line_dasharray = admin_dash;
         layers.add (admin_line);
+
+        // State boundaries
+        var state_filter = new Notejot.Expression ("all");
+        state_filter.append_string_int ("==", "admin_level", 4);
+
+        var state_line = new Layer () {
+            id = "admin_state",
+            kind = "line",
+            source = "vector-tiles",
+            source_layer = "boundary",
+            filter = state_filter,
+            paint = new Layer.Paint () {
+                line_color = BORDER_COLOR,
+                line_opacity = 0.4
+            },
+            layout = new Layer.Layout () {
+                line_cap = "round",
+                line_join = "round"
+            }
+        };
+        var state_dash = new Json.Array ();
+        state_dash.add_double_element (1);
+        state_dash.add_double_element (1);
+        state_line.paint.line_dasharray = state_dash;
+        layers.add (state_line);
 
         // Major roads
         var major_road_filter = new Notejot.Expression ("all");
