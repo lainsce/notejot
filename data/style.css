@@ -393,6 +393,20 @@ window {
     color: var(--text-secondary);
 }
 
+.location-notes-panel {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.note-card {
+    background: shade(var(--card-bg), 0.92);
+    border-radius: 8px;
+    padding: 8px;
+    margin: 0;
+}
+
 /* Popover buttons in AddTagDialog */
 popover flowbox button.flat,
 .calendar-header-box button.flat {
