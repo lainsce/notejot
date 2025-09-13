@@ -101,14 +101,17 @@ public class Notejot.MapStyle : Notejot.JsonObject {
             filter = admin_filter,
             paint = new Layer.Paint () {
                 line_color = BORDER_COLOR,
-                line_opacity = 0.8,
-                line_dasharray = { 2, 2 }
+                line_opacity = 0.8
             },
             layout = new Layer.Layout () {
                 line_cap = "round",
                 line_join = "round"
             }
         };
+        var admin_dash = new Json.Array ();
+        admin_dash.add_double_element (2);
+        admin_dash.add_double_element (2);
+        admin_line.paint.line_dasharray = admin_dash;
         layers.add (admin_line);
 
         // Major roads
@@ -309,7 +312,6 @@ public class Notejot.MapStyle : Notejot.JsonObject {
                 text_field = "{name_en}",
                 text_font = { "Geist Medium" },
                 text_max_width = 8,
-                text_offset = { 0, 0 },
                 text_size = city_text_size,
                 icon_allow_overlap = true,
                 icon_optional = false
@@ -318,6 +320,10 @@ public class Notejot.MapStyle : Notejot.JsonObject {
                 text_color = TEXT_PRIMARY
             }
         };
+        var city_offset = new Json.Array ();
+        city_offset.add_double_element (0);
+        city_offset.add_double_element (0);
+        place_city.layout.text_offset = city_offset;
         layers.add (place_city);
 
         // Place labels - Towns
@@ -449,7 +455,7 @@ public class Notejot.MapStyle : Notejot.JsonObject {
             public string text_color { get; set; }
             public string line_color { get; set; }
             public double line_opacity { get; set; }
-            public double[] line_dasharray { get; set; }
+            public Json.Array line_dasharray { get; set; }
             public InterpolateExpression line_width { get; set; }
         }
 
@@ -460,7 +466,7 @@ public class Notejot.MapStyle : Notejot.JsonObject {
             public string text_field { get; set; }
             public string[] text_font { get; set; }
             public int text_max_width { get; set; }
-            public double[] text_offset { get; set; }
+            public Json.Array text_offset { get; set; }
             public InterpolateExpression text_size { get; set; }
             public string text_transform { get; set; }
             public bool icon_allow_overlap { get; set; }
