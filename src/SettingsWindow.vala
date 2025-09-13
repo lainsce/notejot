@@ -1,15 +1,4 @@
-/*
- * SettingsWindow.vala
- *
- * Settings UI for:
- * - Scheduling: choose time and days of week for weekly write reminders
- * - Streak keeping: choose time for daily streak reminder
- *
- * Relies on SettingsManager for persistence.
- */
-
 namespace Notejot {
-
     public class SettingsWindow : He.Window {
         private SettingsManager settings;
 
@@ -27,7 +16,7 @@ namespace Notejot {
         public SettingsWindow (Gtk.Window? parent = null) {
             Object ();
             if (parent != null) {
-                this.set_transient_for (parent);
+                this.parent = parent;
             }
             this.set_title (_("Settings"));
             this.add_css_class ("dialog-content");
@@ -70,7 +59,7 @@ namespace Notejot {
                 halign = Gtk.Align.START,
                 xalign = 0
             };
-            scheduling_header.add_css_class ("tags-header");
+            scheduling_header.add_css_class ("settings-header");
             content.append (scheduling_header);
 
             var scheduling_card = build_scheduling_card ();
@@ -81,7 +70,7 @@ namespace Notejot {
                 halign = Gtk.Align.START,
                 xalign = 0
             };
-            streak_header.add_css_class ("tags-header");
+            streak_header.add_css_class ("settings-header");
             content.append (streak_header);
 
             var streak_card = build_streak_card ();
@@ -107,7 +96,7 @@ namespace Notejot {
                 hexpand = true,
                 xalign = 0
             };
-            title.add_css_class ("stat-title");
+            title.add_css_class ("settings-title");
             row1.append (title);
 
             this.scheduling_switch = new Gtk.Switch ();
@@ -125,16 +114,17 @@ namespace Notejot {
             var row2 = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             var time_lbl = new Gtk.Label (_("Time")) {
                 halign = Gtk.Align.START,
-                xalign = 0
+                xalign = 0,
+                valign = Gtk.Align.START
             };
-            time_lbl.add_css_class ("stat-title");
+            time_lbl.add_css_class ("settings-title");
             row2.append (time_lbl);
 
-            var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) { hexpand = true };
-            time_box.add_css_class ("time-box");
+            var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) { hexpand = true, halign = Gtk.Align.END };
 
             this.sched_hour_spin = new Gtk.SpinButton.with_range (0, 23, 1);
             this.sched_hour_spin.set_digits (0);
+            this.sched_hour_spin.orientation = Gtk.Orientation.VERTICAL;
             this.sched_hour_spin.set_wrap (true);
             this.sched_hour_spin.set_width_chars (2);
             this.sched_hour_spin.value_changed.connect (() => on_sched_time_changed ());
@@ -145,6 +135,7 @@ namespace Notejot {
 
             this.sched_min_spin = new Gtk.SpinButton.with_range (0, 59, 1);
             this.sched_min_spin.set_digits (0);
+            this.sched_min_spin.orientation = Gtk.Orientation.VERTICAL;
             this.sched_min_spin.set_wrap (true);
             this.sched_min_spin.set_width_chars (2);
             this.sched_min_spin.value_changed.connect (() => on_sched_time_changed ());
@@ -159,7 +150,7 @@ namespace Notejot {
                 halign = Gtk.Align.START,
                 xalign = 0
             };
-            days_lbl.add_css_class ("stat-title");
+            days_lbl.add_css_class ("settings-title");
             row3.append (days_lbl);
 
             var days_box = new He.SegmentedButton ();
@@ -194,7 +185,7 @@ namespace Notejot {
                 hexpand = true,
                 xalign = 0
             };
-            title.add_css_class ("stat-title");
+            title.add_css_class ("settings-title");
             row1.append (title);
 
             this.streak_switch = new Gtk.Switch ();
@@ -212,16 +203,17 @@ namespace Notejot {
             var row2 = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             var time_lbl = new Gtk.Label (_("Time")) {
                 halign = Gtk.Align.START,
-                xalign = 0
+                xalign = 0,
+                valign = Gtk.Align.START
             };
-            time_lbl.add_css_class ("stat-title");
+            time_lbl.add_css_class ("settings-title");
             row2.append (time_lbl);
 
-            var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) { hexpand = true };
-            time_box.add_css_class ("time-box");
+            var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) { hexpand = true, halign = Gtk.Align.END };
 
             this.streak_hour_spin = new Gtk.SpinButton.with_range (0, 23, 1);
             this.streak_hour_spin.set_digits (0);
+            this.streak_hour_spin.orientation = Gtk.Orientation.VERTICAL;
             this.streak_hour_spin.set_wrap (true);
             this.streak_hour_spin.set_width_chars (2);
             this.streak_hour_spin.value_changed.connect (() => on_streak_time_changed ());
@@ -232,6 +224,7 @@ namespace Notejot {
 
             this.streak_min_spin = new Gtk.SpinButton.with_range (0, 59, 1);
             this.streak_min_spin.set_digits (0);
+            this.streak_min_spin.orientation = Gtk.Orientation.VERTICAL;
             this.streak_min_spin.set_wrap (true);
             this.streak_min_spin.set_width_chars (2);
             this.streak_min_spin.value_changed.connect (() => on_streak_time_changed ());
@@ -309,14 +302,10 @@ namespace Notejot {
         private void set_spins_from_time (Gtk.SpinButton hour, Gtk.SpinButton min, string hhmm) {
             int h = 0;
             int m = 0;
-            try {
-                var parts = hhmm.split (":");
-                if (parts.length == 2) {
-                    h = int.parse (parts[0]);
-                    m = int.parse (parts[1]);
-                }
-            } catch (Error e) {
-                // ignore, keep defaults
+            var parts = hhmm.split (":");
+            if (parts.length == 2) {
+                h = int.parse (parts[0]);
+                m = int.parse (parts[1]);
             }
             hour.set_value (h.clamp (0, 23));
             min.set_value (m.clamp (0, 59));

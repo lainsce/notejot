@@ -893,10 +893,11 @@ namespace Notejot {
                 this.insights_words_number_label.set_label (@"$words_all_time");
             }
 
+            this.insights_view.update_view ();
+
             // Places card number
             this.places_subtitle_number.set_label (@"$location_count");
 
-            if (this.insights_view != null)this.insights_view.update_view ();
             if (this.places_view != null)this.places_view.refresh_pins ();
         }
 

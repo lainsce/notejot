@@ -59,6 +59,16 @@ window {
     border: 1px solid var(--border-color);
 }
 
+.settings-header {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.settings-title {
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
 /* --- Sidebar --- */
 .sidebar {
     background: var(--sidebar-bg);
@@ -307,6 +317,14 @@ window {
     min-width: 152px;
 }
 
+.stat-header {
+    margin: 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
 .words-card {
     background-image: linear-gradient(135deg, var(--green), var(--teal));
 }
@@ -348,12 +366,22 @@ window {
     box-shadow: none;
 }
 
+.calendar-day-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
 .calendar-day-button {
     background: transparent;
     color: var(--text-primary);
     border-radius: 99px;
     min-height: 56px;
     min-width: 42px;
+}
+
+.calendar-day-button label {
+    font-weight: 400;
 }
 
 .calendar-day-button:hover {
@@ -373,11 +401,26 @@ window {
 }
 
 .calendar-day-button.today {
-    font-weight: bold;
     background: var(--yellow);
     color: var(--text-primary);
     box-shadow: none;
     border-radius: 99px;
+}
+
+.calendar-day-button.today label {
+    font-weight: bold;
+}
+
+.current-streak-card {
+    background-image: linear-gradient(135deg, var(--orange), var(--red));
+}
+
+.longest-daily-streak-card {
+    background-image: linear-gradient(135deg, var(--pink), var(--purple));
+}
+
+.longest-week-streak-card {
+    background-image: linear-gradient(135deg, var(--indigo), var(--blue));
 }
 
 /* --- Places View Specific --- */
