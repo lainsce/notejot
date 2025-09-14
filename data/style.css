@@ -308,6 +308,10 @@ window {
     border-radius: 999px;
 }
 
+.entry-card .entry-pin-button:checked image {
+    color: #ffffff;
+}
+
 .entry-card .entry-menu-button .toggle {
     background: transparent;
     padding: 6px;

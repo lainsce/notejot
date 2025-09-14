@@ -504,7 +504,7 @@ namespace Notejot {
             // Bookmarks
             var pinned_entries = data_manager.get_pinned_entries ();
             if (pinned_entries.length () > 0) {
-                var bookmarks_row = new TagRow ("#e57373", _("Bookmarks"), pinned_entries.length ().to_string (), "user-bookmarks-symbolic", "pinned");
+                var bookmarks_row = new TagRow (null, _("Bookmarks"), pinned_entries.length ().to_string (), "user-bookmarks-symbolic", "pinned");
                 this.tag_list_box.append (bookmarks_row);
             }
 
