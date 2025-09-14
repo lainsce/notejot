@@ -27,21 +27,25 @@ add_project_arguments(
 )
 
 sources = [
-  'src/AddTagDialog.vala',
   'src/Application.vala',
   'src/DataManager.vala',
   'src/DataModels.vala',
-  'src/InsightsView.vala',
+  'src/dialogs/AddTagDialog.vala',
   'src/JsonObject.vala',
   'src/MapStyle.vala',
-  'src/PlacesView.vala',
-  'src/TagRow.vala',
-  'src/EntryEditorView.vala',
-  'src/Window.vala',
   'src/ReminderService.vala',
-  'src/SettingsWindow.vala',
   'src/SettingsManager.vala',
+  'src/SettingsWindow.vala',
+  'src/views/DeletedEmptyStateView.vala',
+  'src/views/EmptyStateView.vala',
+  'src/views/EntriesView.vala',
+  'src/views/EntryEditorView.vala',
+  'src/views/InsightsView.vala',
+  'src/views/PlacesView.vala',
+  'src/views/Sidebar.vala',
   'src/WelcomeScreen.vala',
+  'src/widgets/TagRow.vala',
+  'src/Window.vala',
 ]
 
 dependencies = [
