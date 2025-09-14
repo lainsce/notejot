@@ -13,6 +13,7 @@
     --purple: #ba68c8;
     --pink: #f06292;
     --brown: #bcaaa4;
+    --default: #e3e2e8;
 
     --app-bg: #f9f5f4;
     --dialog-bg: #f5f1f0;
@@ -477,6 +478,16 @@ popover flowbox button.flat,
 }
 
 /* --- Tag Row Color Classes --- */
+.tag-row-default:selected {
+    background: alpha(var(--default), 0.2);
+}
+.tag-row-default:hover {
+    background: alpha(var(--default), 0.14);
+}
+.tag-row-default:active {
+    background: alpha(var(--default), 0.16);
+}
+
 .tag-row-red:selected {
     background: alpha(var(--red), 0.15);
 }
@@ -595,17 +606,6 @@ popover flowbox button.flat,
 }
 .tag-row-brown:active {
     background: alpha(var(--brown), 0.14);
-}
-
-/* Default fallback */
-.tag-row-default:selected {
-    background: #f3f2f8;
-}
-.tag-row-default:hover {
-    background: #f3f2f8;
-}
-.tag-row-default:active {
-    background: #f3f2f8;
 }
 
 /* --- Tag Chip Styles --- */

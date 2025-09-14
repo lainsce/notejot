@@ -84,6 +84,8 @@ namespace Notejot {
 
             // React to dark-mode changes
             this.app_css_provider = new Gtk.CssProvider ();
+            Gtk.StyleContext.add_provider_for_display (Gdk.Display.get_default (), app_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            load_theme_css ();
             var gsettings = Gtk.Settings.get_default ();
             if (gsettings != null) {
                 gsettings.notify["gtk-application-prefer-dark-theme"].connect (() => {

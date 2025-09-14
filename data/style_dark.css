@@ -13,6 +13,7 @@
     --purple: #ab47bc; /* saturated purple */
     --pink: #ec407a; /* lively pink */
     --brown: #a1887f; /* muted brown for dark mode */
+    --default: #333238;
 
     /* Dark surfaces & text */
     --app-bg: #121315;
@@ -178,6 +179,16 @@ window,
 }
 
 /* --- Tag Row Color Classes --- */
+.tag-row-default:selected {
+    background: alpha(var(--default), 0.2);
+}
+.tag-row-default:hover {
+    background: alpha(var(--default), 0.14);
+}
+.tag-row-default:active {
+    background: alpha(var(--default), 0.16);
+}
+
 .tag-row-red:selected {
     background: alpha(var(--red), 0.15);
 }
@@ -296,15 +307,4 @@ window,
 }
 .tag-row-brown:active {
     background: alpha(var(--brown), 0.14);
-}
-
-/* Default fallback */
-.tag-row-default:selected {
-    background: alpha(var(--text-secondary), 0.15);
-}
-.tag-row-default:hover {
-    background: alpha(var(--text-secondary), 0.08);
-}
-.tag-row-default:active {
-    background: alpha(var(--text-secondary), 0.14);
 }
