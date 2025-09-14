@@ -41,6 +41,7 @@ sources = [
   'src/ReminderService.vala',
   'src/SettingsWindow.vala',
   'src/SettingsManager.vala',
+  'src/WelcomeScreen.vala',
 ]
 
 dependencies = [

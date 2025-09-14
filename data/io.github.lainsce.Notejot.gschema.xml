@@ -9,5 +9,10 @@
             <summary>Active map source</summary>
             <description>The type of the map last used</description>
         </key>
+        <key type="b" name="is-first-boot">
+            <default>true</default>
+            <summary>First run indicator</summary>
+            <description>Whether to show the welcome screen on startup</description>
+        </key>
 	</schema>
 </schemalist>

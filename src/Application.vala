@@ -7,8 +7,11 @@ namespace Notejot {
             { "quit", quit },
         };
 
+        // Hold a strong reference so the welcome window isn't GC'ed
+        private WelcomeScreen? welcome_screen = null;
+
         public NotejotApp () {
-            Object (application_id: "io.github.lainsce.Notejot");
+            Object (application_id : "io.github.lainsce.Notejot");
         }
 
         static construct {
@@ -21,7 +24,40 @@ namespace Notejot {
         }
 
         public override void activate () {
-            this.active_window?.present ();
+            var window = this.active_window;
+            if (window == null) {
+                window = new Window (this);
+            }
+            window.present ();
+
+            if (WelcomeScreen.should_show (settings)) {
+                this.welcome_screen = new WelcomeScreen (window);
+
+                // Make the Gtk.Application own the welcome window as well
+                this.add_window (this.welcome_screen);
+
+                GLib.Idle.add (() => {
+                    // It may have been closed quickly; guard against null
+                    if (this.welcome_screen != null) {
+                        this.welcome_screen.present ();
+                    }
+                    return false;
+                });
+
+                this.welcome_screen.finished.connect (() => {
+                    this.welcome_screen.mark_completed ();
+
+                    // Close the welcome window and drop our reference
+                    this.welcome_screen.close ();
+                    this.welcome_screen = null;
+
+                    this.reminder_service = new ReminderService ();
+                    this.reminder_service.start ();
+                });
+            } else {
+                this.reminder_service = new ReminderService ();
+                this.reminder_service.start ();
+            }
         }
 
         public override void startup () {
@@ -44,19 +80,16 @@ namespace Notejot {
             base.startup ();
 
             add_action_entries (APP_ENTRIES, this);
+            new Window (this);
 
             // React to dark-mode changes
             this.app_css_provider = new Gtk.CssProvider ();
-            var settings = Gtk.Settings.get_default ();
-            if (settings != null) {
-                settings.notify["gtk-application-prefer-dark-theme"].connect (() => {
+            var gsettings = Gtk.Settings.get_default ();
+            if (gsettings != null) {
+                gsettings.notify["gtk-application-prefer-dark-theme"].connect (() => {
                     load_theme_css ();
                 });
             }
-
-            new Window (this);
-            this.reminder_service = new ReminderService ();
-            this.reminder_service.start ();
         }
 
         private void load_theme_css () {
