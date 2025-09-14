@@ -57,6 +57,7 @@ namespace Notejot {
         public double? longitude { get; set; }
         public GLib.List<string> image_paths = new GLib.List<string> ();
         public bool is_deleted { get; set; }
+        public bool is_pinned { get; set; }
 
 
         public Entry(string title, string content, GLib.List<string> tag_uuids, GLib.List<string>? image_paths) {
@@ -74,10 +75,11 @@ namespace Notejot {
                 this.image_paths.append(path);
             }
             this.is_deleted = false;
+            this.is_pinned = false;
         }
 
         // Constructor for loading from file
-        public Entry.full(string uuid, string title, string content, int64 creation_timestamp, int64 modified_timestamp, GLib.List<string> tag_uuids, string? location_address, double? latitude, double? longitude, GLib.List<string> image_paths, bool is_deleted) {
+        public Entry.full(string uuid, string title, string content, int64 creation_timestamp, int64 modified_timestamp, GLib.List<string> tag_uuids, string? location_address, double? latitude, double? longitude, GLib.List<string> image_paths, bool is_deleted, bool is_pinned) {
             this.uuid = uuid;
             this.title = title;
             this.content = content;
@@ -94,15 +96,16 @@ namespace Notejot {
                 this.image_paths.append(path);
             }
             this.is_deleted = is_deleted;
+            this.is_pinned = is_pinned;
         }
 
         public async void geocode_location() {
             if (this.location_address == null || this.location_address.strip() == "")
                 return;
-        
+
             // Static variable to remember last request time
             int64 last_request_time = 0;
-        
+
             // Enforce 1-second interval
             var now = new GLib.DateTime.now_utc().to_unix();
             if (now - last_request_time < 1) {
@@ -111,26 +114,26 @@ namespace Notejot {
                 GLib.Thread.usleep(1000000); // 1 second in microseconds
             }
             last_request_time = new GLib.DateTime.now_utc().to_unix();
-        
+
             try {
                 var session = new Soup.Session();
-        
+
                 var encoded = GLib.Uri.escape_string(this.location_address, null, false);
                 var url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encoded;
-        
+
                 var msg = new Soup.Message("GET", url);
                 // REQUIRED by Nominatim usage policy
                 msg.request_headers.append("User-Agent", "Notejot/1.0");
-        
+
                 // Fetch complete response body
                 var bytes = yield session.send_and_read_async(msg, GLib.Priority.DEFAULT, null);
-        
+
                 // Parse JSON as string
                 var response_str = (string) bytes.get_data();
-        
+
                 var parser = new Json.Parser();
                 parser.load_from_data(response_str);
-        
+
                 var root = parser.get_root().get_array();
                 if (root.get_length() > 0) {
                     var obj = root.get_element(0).get_object();
@@ -141,8 +144,6 @@ namespace Notejot {
                 warning("Direct geocoding failed for '%s': %s", this.location_address, e.message);
             }
         }
-        
-        
 
         // Serializes the Entry object to a JSON object.
         public Json.Object to_json() {
@@ -175,6 +176,7 @@ namespace Notejot {
             obj.set_array_member("image_paths", images_array);
 
             obj.set_boolean_member("is_deleted", this.is_deleted);
+            obj.set_boolean_member("is_pinned", this.is_pinned);
             return obj;
         }
 
@@ -207,7 +209,8 @@ namespace Notejot {
                                   obj.has_member("latitude") ? (double?) obj.get_double_member("latitude") : null,
                                   obj.has_member("longitude") ? (double?) obj.get_double_member("longitude") : null,
                                   image_paths,
-                                  obj.get_boolean_member("is_deleted")
+                                  obj.get_boolean_member("is_deleted"),
+                                  obj.has_member("is_pinned") ? obj.get_boolean_member("is_pinned") : false
             );
         }
     }

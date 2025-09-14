@@ -295,10 +295,21 @@ window {
     margin-bottom: 15px;
 }
 
+.entry-card .entry-pin-button {
+    background: transparent;
+    padding: 6px;
+    border: none;
+    color: var(--text-secondary);
+}
+
+.entry-card .entry-pin-button:checked {
+    background: var(--red);
+    border-radius: 999px;
+}
+
 .entry-card .entry-menu-button .toggle {
     background: transparent;
-    padding: 0 18px;
-    margin-top: 15px;
+    padding: 6px;
     border: none;
     color: var(--text-secondary);
 }

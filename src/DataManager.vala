@@ -104,6 +104,22 @@ namespace Notejot {
             return result;
         }
 
+        public GLib.List<Entry?> get_pinned_entries() {
+            var result = new GLib.List<Entry> ();
+            foreach (var entry in this.entries) {
+                if (entry.is_pinned && !entry.is_deleted) {
+                    result.append(entry);
+                }
+            }
+            // Sort by creation timestamp, most recent first
+            result.sort((a, b) => {
+                if (a.creation_timestamp > b.creation_timestamp)return -1;
+                if (a.creation_timestamp < b.creation_timestamp)return 1;
+                return 0;
+            });
+            return result;
+        }
+
         public GLib.List<Entry?> get_unique_locations() {
             var unique_locations = new GLib.List<Entry> ();
             var location_map = new GLib.HashTable<string, bool> (GLib.str_hash, GLib.str_equal);
@@ -205,9 +221,11 @@ namespace Notejot {
         private void migrate_old_format() {
             var old_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
             var notes_file = GLib.Path.build_filename(old_dir, "saved_notes.json");
+            var pinned_notes_file = GLib.Path.build_filename(old_dir, "saved_pinned_notes.json");
             if (!GLib.FileUtils.test(notes_file, GLib.FileTest.EXISTS))
                 return;
-
+            if (!GLib.FileUtils.test(pinned_notes_file, GLib.FileTest.EXISTS))
+                return;
 
             // Load old JSON
             try {
@@ -215,11 +233,14 @@ namespace Notejot {
                 nb_parser.load_from_file(GLib.Path.build_filename(old_dir, "saved_notebooks.json"));
                 var notes_parser = new Json.Parser();
                 notes_parser.load_from_file(notes_file);
+                var pinned_notes_parser = new Json.Parser();
+                pinned_notes_parser.load_from_file(pinned_notes_file);
                 var trash_parser = new Json.Parser();
                 trash_parser.load_from_file(GLib.Path.build_filename(old_dir, "saved_trash.json"));
 
                 var notebooks_array = nb_parser.get_root().get_array();
                 var notes_array = notes_parser.get_root().get_array();
+                var pinned_notes_array = pinned_notes_parser.get_root().get_array();
                 var trash_array = trash_parser.get_root().get_array();
 
                 // Map notebooks -> Tags
@@ -236,8 +257,9 @@ namespace Notejot {
                     tag_map.insert(nb.get_string_member("title"), tag.uuid);
                 }
 
-                import_notes(notes_array, false);
-                import_notes(trash_array, true);
+                import_notes(notes_array, false, false);
+                import_notes(pinned_notes_array, false, true);
+                import_notes(trash_array, true, false);
             } catch (GLib.Error e) {
                 warning("Failed to load old files: %s", e.message);
             }
@@ -256,6 +278,7 @@ namespace Notejot {
             // Rename old files after migration
             string[] old_files = {
                 "saved_notes.json",
+                "saved_pinned_notes.json",
                 "saved_notebooks.json",
                 "saved_trash.json"
             };
@@ -304,7 +327,7 @@ namespace Notejot {
         }
 
         // Import notes helper
-        void import_notes(Json.Array arr, bool trashed) {
+        void import_notes(Json.Array arr, bool trashed, bool pinned) {
             foreach (var nt_node in arr.get_elements()) {
                 var nt = nt_node.get_object();
 
@@ -341,7 +364,8 @@ namespace Notejot {
                                                    null,
                                                    null,
                                                    images,
-                                                   trashed
+                                                   trashed,
+                                                   pinned
                 );
 
                 this.add_entry(entry);

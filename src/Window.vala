@@ -75,7 +75,7 @@ namespace Notejot {
 
         private void setup_sidebar (Gtk.Box main_paned) {
             var sidebar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            sidebar_box.set_size_request (260, -1);
+            sidebar_box.set_size_request (320, -1);
             sidebar_box.set_hexpand_set (false);
             sidebar_box.set_hexpand (false);
             sidebar_box.add_css_class ("sidebar");
@@ -83,7 +83,7 @@ namespace Notejot {
 
             var appbar = new He.AppBar ();
             appbar.show_right_title_buttons = false;
-            appbar.set_size_request (285, -1);
+            appbar.set_size_request (320, -1);
             sidebar_box.append (appbar);
             // Settings button in the sidebar AppBar
             var settings_button = new He.Button ("open-menu-symbolic", "");
@@ -124,7 +124,7 @@ namespace Notejot {
 
             var tags_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             tags_header_box.add_css_class ("tags-header");
-            tags_header_box.set_size_request (285, -1);
+            tags_header_box.set_size_request (320, -1);
             sidebar_box.append (tags_header_box);
             var tags_label = new Gtk.Label (_("Tags")) { hexpand = true, halign = Gtk.Align.START };
             tags_label.add_css_class ("header");
@@ -135,7 +135,7 @@ namespace Notejot {
             add_tag_button.clicked.connect (on_add_tag_clicked);
             tags_header_box.append (add_tag_button);
             var scrolled_tags = new Gtk.ScrolledWindow () { vexpand = true };
-            scrolled_tags.set_size_request (285, -1);
+            scrolled_tags.set_size_request (320, -1);
             scrolled_tags.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
             sidebar_box.append (scrolled_tags);
             this.tag_list_box = new Gtk.ListBox ();
@@ -501,6 +501,13 @@ namespace Notejot {
             var all_entries_row = new TagRow (null, _("All Entries"), data_manager.get_entries (false).length ().to_string (), "user-home-symbolic", null);
             this.tag_list_box.append (all_entries_row);
 
+            // Bookmarks
+            var pinned_entries = data_manager.get_pinned_entries ();
+            if (pinned_entries.length () > 0) {
+                var bookmarks_row = new TagRow ("#e57373", _("Bookmarks"), pinned_entries.length ().to_string (), "user-bookmarks-symbolic", "pinned");
+                this.tag_list_box.append (bookmarks_row);
+            }
+
             // User-created tags
             foreach (var tag in this.data_manager.get_tags ()) {
                 var row = new TagRow (tag.color, tag.name, data_manager.get_entries_for_tag (tag.uuid).length ().to_string (), tag.icon_name, tag.uuid);
@@ -580,6 +587,8 @@ namespace Notejot {
             var entries_to_show = new GLib.List<Entry> ();
             if (this.current_tag_uuid == "deleted") {
                 entries_to_show = this.data_manager.get_entries (true);
+            } else if (this.current_tag_uuid == "pinned") {
+                entries_to_show = this.data_manager.get_pinned_entries ();
             } else if (this.current_tag_uuid == null) {
                 entries_to_show = this.data_manager.get_entries (false);
             } else {
@@ -818,13 +827,55 @@ namespace Notejot {
             separator.margin_top = 12;
             box.append (separator);
 
+            var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+            actions_box.set_halign (Gtk.Align.END);
+            actions_box.margin_end = 18;
+            actions_box.margin_top = 12;
+            box.append (actions_box);
+
+            if (this.current_tag_uuid != "deleted") {
+                var pin_button = new Gtk.ToggleButton ();
+                pin_button.add_css_class ("entry-pin-button");
+                pin_button.set_halign (Gtk.Align.CENTER);
+                pin_button.set_valign (Gtk.Align.CENTER);
+                pin_button.set_active (entry.is_pinned);
+
+                if (pin_button.get_active ()) {
+                    pin_button.set_icon_name ("user-bookmarks-filled-symbolic");
+                    pin_button.set_tooltip_text (_("Remove Bookmark"));
+                } else {
+                    pin_button.set_icon_name ("user-bookmarks-symbolic");
+                    pin_button.set_tooltip_text (_("Add Bookmark"));
+                }
+
+                pin_button.toggled.connect (() => {
+                    entry.is_pinned = pin_button.get_active ();
+                    this.data_manager.save_data ();
+                    this.refresh_sidebar_tags ();
+                    // If we are in the bookmarks view, removing a bookmark should remove it from the list
+                    if (this.current_tag_uuid == "pinned" && !entry.is_pinned) {
+                        this.refresh_entry_list ();
+                    }
+
+                    if (pin_button.get_active ()) {
+                        pin_button.set_icon_name ("user-bookmarks-filled-symbolic");
+                        pin_button.set_tooltip_text (_("Remove Bookmark"));
+                    } else {
+                        pin_button.set_icon_name ("user-bookmarks-symbolic");
+                        pin_button.set_tooltip_text (_("Add Bookmark"));
+                    }
+                });
+                actions_box.append (pin_button);
+            }
+
             var menu_button = new Gtk.MenuButton ();
             menu_button.add_css_class ("entry-menu-button");
             var icon = new Gtk.Image.from_icon_name ("view-more-horizontal-symbolic");
             menu_button.set_child (icon);
             menu_button.set_halign (Gtk.Align.END);
+            menu_button.set_valign (Gtk.Align.CENTER);
             menu_button.get_popover ().has_arrow = false;
-            box.append (menu_button);
+            actions_box.append (menu_button);
             var edit_action = new SimpleAction ("edit-entry-" + entry.uuid, null);
             edit_action.activate.connect (() => {
                 this.selected_entry = entry;
