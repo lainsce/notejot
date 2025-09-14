@@ -255,11 +255,13 @@ namespace Notejot {
             calendar_header_box.append(this.calendar_month_label);
 
             var prev_button = new He.Button("go-previous-symbolic", "");
+            prev_button.tooltip_text = _("Previous Month");
             prev_button.is_disclosure = true;
             prev_button.clicked.connect(on_prev_month);
             calendar_header_box.append(prev_button);
 
             var next_button = new He.Button("go-next-symbolic", "");
+            next_button.tooltip_text = _("Next Month");
             next_button.is_disclosure = true;
             next_button.clicked.connect(on_next_month);
             calendar_header_box.append(next_button);

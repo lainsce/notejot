@@ -63,6 +63,7 @@ namespace Notejot {
             header_box.append(new Gtk.Label("") { hexpand = true }); // Spacer
 
             var close_button = new He.Button("window-close-symbolic", "");
+            close_button.tooltip_text = _("Close");
             close_button.is_disclosure = true;
             close_button.clicked.connect(() => {
                 response(Gtk.ResponseType.CANCEL);

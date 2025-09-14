@@ -3,6 +3,7 @@ namespace Notejot {
         private const GLib.ActionEntry APP_ENTRIES[] = {
             { "edit-entry", on_edit_entry_clicked },
             { "delete-entry", on_delete_entry_clicked },
+            { "restore-entry", on_restore_entry_clicked },
         };
         private DataManager data_manager;
         private InsightsView insights_view;
@@ -86,6 +87,7 @@ namespace Notejot {
             sidebar_box.append (appbar);
             // Settings button in the sidebar AppBar
             var settings_button = new He.Button ("open-menu-symbolic", "");
+            settings_button.tooltip_text = _("Open Settings…");
             settings_button.is_disclosure = true;
             settings_button.set_halign (Gtk.Align.END);
             settings_button.set_margin_end (12);
@@ -128,6 +130,7 @@ namespace Notejot {
             tags_label.add_css_class ("header");
             tags_header_box.append (tags_label);
             var add_tag_button = new He.Button ("list-add-symbolic", "");
+            add_tag_button.tooltip_text = _("Add Tag…");
             add_tag_button.is_disclosure = true;
             add_tag_button.clicked.connect (on_add_tag_clicked);
             tags_header_box.append (add_tag_button);
@@ -832,14 +835,25 @@ namespace Notejot {
                 this.selected_entry = entry;
                 on_delete_entry_clicked ();
             });
+            var restore_action = new SimpleAction ("restore-entry-" + entry.uuid, null);
+            restore_action.activate.connect (() => {
+                this.selected_entry = entry;
+                on_restore_entry_clicked ();
+            });
             var action_group = new SimpleActionGroup ();
             action_group.add_action (edit_action);
             action_group.add_action (delete_action);
+            action_group.add_action (restore_action);
             box.insert_action_group ("entry", action_group);
 
             var menu_model = new Menu ();
-            menu_model.append (_("Edit"), "entry.edit-entry-" + entry.uuid);
-            menu_model.append (_("Delete"), "entry.delete-entry-" + entry.uuid);
+            if (this.current_tag_uuid == "deleted") {
+                menu_model.append (_("Restore"), "entry.restore-entry-" + entry.uuid);
+                menu_model.append (_("Delete Permanently"), "entry.delete-entry-" + entry.uuid);
+            } else {
+                menu_model.append (_("Edit"), "entry.edit-entry-" + entry.uuid);
+                menu_model.append (_("Delete"), "entry.delete-entry-" + entry.uuid);
+            }
             menu_button.set_menu_model (menu_model);
 
             var row = new Gtk.ListBoxRow ();
@@ -1092,6 +1106,15 @@ namespace Notejot {
                 this.refresh_entry_list ();
                 this.update_stats ();
             }
+        }
+
+        private void on_restore_entry_clicked () {
+            if (this.selected_entry == null)return;
+            this.data_manager.restore_entry (this.selected_entry);
+            this.data_manager.save_data ();
+            this.refresh_sidebar_tags ();
+            this.refresh_entry_list ();
+            this.update_stats ();
         }
 
         public void open_new_entry () {

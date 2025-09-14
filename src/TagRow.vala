@@ -105,6 +105,7 @@ namespace Notejot {
             // Only show actions for user-created tags
             if (this.tag_uuid != null && this.tag_uuid != "deleted") {
                 var edit_button = new He.Button ("document-edit-symbolic", "");
+                edit_button.tooltip_text = _("Edit Tag…");
                 edit_button.add_css_class ("tag-edit-button");
                 edit_button.set_halign (Gtk.Align.END);
                 edit_button.set_valign (Gtk.Align.CENTER);
@@ -117,6 +118,7 @@ namespace Notejot {
 
                 var delete_button = new He.Button ("user-trash-symbolic", "");
                 delete_button.add_css_class ("tag-delete-button");
+                delete_button.tooltip_text = _("Delete Tag…");
                 delete_button.set_halign (Gtk.Align.END);
                 delete_button.set_valign (Gtk.Align.CENTER);
                 delete_button.set_tooltip_text (_("Delete Tag"));

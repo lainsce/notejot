@@ -59,6 +59,10 @@ namespace Notejot {
             this.entries.remove(entry);
         }
 
+        public void restore_entry(Entry entry) {
+            entry.is_deleted = false;
+        }
+
         public unowned GLib.List<Tag?> get_tags() {
             return this.tags;
         }
