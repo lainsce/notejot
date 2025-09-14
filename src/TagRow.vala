@@ -121,9 +121,76 @@ namespace Notejot {
                 delete_button.set_valign (Gtk.Align.CENTER);
                 delete_button.set_tooltip_text (_("Delete Tag"));
                 delete_button.clicked.connect (() => {
-                    if (this.tag_uuid != null) {
-                        deleted (this.tag_uuid);
-                    }
+                    // Permanently delete if in trash
+                    var dialog = new He.Window ();
+                    dialog.set_transient_for (this.get_root () as Gtk.Window);
+                    dialog.set_modal (true);
+                    dialog.add_css_class ("dialog-content");
+
+                    var container = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+
+                    var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+                    header_box.set_margin_top (12);
+                    header_box.set_margin_start (12);
+                    header_box.set_margin_end (12);
+                    header_box.set_margin_bottom (12);
+
+                    var title_label = new Gtk.Label (_("Delete This Tag?")) { halign = Gtk.Align.START };
+                    title_label.add_css_class ("title-3");
+                    header_box.append (title_label);
+
+                    header_box.append (new Gtk.Label ("") { hexpand = true }); // spacer
+
+                    var close_button = new He.Button ("window-close-symbolic", "");
+                    close_button.is_disclosure = true;
+                    close_button.clicked.connect (() => {
+                        dialog.close ();
+                    });
+                    header_box.append (close_button);
+
+                    var winhandle = new Gtk.WindowHandle ();
+                    winhandle.set_child (header_box);
+                    container.append (winhandle);
+
+                    var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+                    content_box.set_margin_start (18);
+                    content_box.set_margin_end (18);
+                    content_box.set_margin_bottom (6);
+
+                    var message_label = new Gtk.Label (_("Deleting this tag will be permanent and remove it from all entries that used it."));
+                    message_label.set_wrap (true);
+                    message_label.set_xalign (0.0f);
+                    content_box.append (message_label);
+                    container.append (content_box);
+
+                    var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+                    buttons_box.set_margin_start (18);
+                    buttons_box.set_margin_end (18);
+                    buttons_box.set_margin_bottom (18);
+                    buttons_box.set_halign (Gtk.Align.END);
+
+                    var cancel_button = new He.Button ("", _("Cancel"));
+                    cancel_button.is_tint = true;
+                    cancel_button.clicked.connect (() => {
+                        dialog.close ();
+                    });
+                    buttons_box.append (cancel_button);
+
+                    var discard_button = new He.Button ("", _("Delete"));
+                    discard_button.is_fill = true;
+                    discard_button.custom_color = He.Colors.RED;
+                    discard_button.clicked.connect (() => {
+                        if (this.tag_uuid != null) {
+                            deleted (this.tag_uuid);
+                        }
+                        dialog.close ();
+                    });
+                    buttons_box.append (discard_button);
+
+                    container.append (buttons_box);
+
+                    dialog.set_child (container);
+                    dialog.present ();
                 });
 
                 box.append (edit_button);

@@ -1013,16 +1013,85 @@ namespace Notejot {
 
             if (this.current_tag_uuid == "deleted") {
                 // Permanently delete if in trash
-                this.data_manager.permanently_delete_entry (entry);
+                var dialog = new He.Window ();
+                dialog.set_transient_for (this);
+                dialog.set_modal (true);
+                dialog.add_css_class ("dialog-content");
+
+                var container = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+
+                var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+                header_box.set_margin_top (12);
+                header_box.set_margin_start (12);
+                header_box.set_margin_end (12);
+                header_box.set_margin_bottom (12);
+
+                var title_label = new Gtk.Label (_("Permanently Delete This Entry?")) { halign = Gtk.Align.START };
+                title_label.add_css_class ("title-3");
+                header_box.append (title_label);
+
+                header_box.append (new Gtk.Label ("") { hexpand = true }); // spacer
+
+                var close_button = new He.Button ("window-close-symbolic", "");
+                close_button.is_disclosure = true;
+                close_button.clicked.connect (() => {
+                    dialog.close ();
+                });
+                header_box.append (close_button);
+
+                var winhandle = new Gtk.WindowHandle ();
+                winhandle.set_child (header_box);
+                container.append (winhandle);
+
+                var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+                content_box.set_margin_start (18);
+                content_box.set_margin_end (18);
+                content_box.set_margin_bottom (6);
+
+                var message_label = new Gtk.Label (_("Deleting this entry from trash will permanently remove it from Notejot."));
+                message_label.set_wrap (true);
+                message_label.set_xalign (0.0f);
+                content_box.append (message_label);
+                container.append (content_box);
+
+                var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+                buttons_box.set_margin_start (18);
+                buttons_box.set_margin_end (18);
+                buttons_box.set_margin_bottom (18);
+                buttons_box.set_halign (Gtk.Align.END);
+
+                var cancel_button = new He.Button ("", _("Cancel"));
+                cancel_button.is_tint = true;
+                cancel_button.clicked.connect (() => {
+                    dialog.close ();
+                });
+                buttons_box.append (cancel_button);
+
+                var discard_button = new He.Button ("", _("Discard"));
+                discard_button.is_fill = true;
+                discard_button.custom_color = He.Colors.RED;
+                discard_button.clicked.connect (() => {
+                    this.data_manager.permanently_delete_entry (entry);
+                    this.data_manager.save_data ();
+                    this.refresh_sidebar_tags ();
+                    this.refresh_entry_list ();
+                    this.update_stats ();
+                    dialog.close ();
+                });
+                buttons_box.append (discard_button);
+
+                container.append (buttons_box);
+
+                dialog.set_child (container);
+                dialog.present ();
             } else {
                 // Move to trash
                 this.data_manager.delete_entry (entry);
+                this.data_manager.save_data ();
+                this.refresh_sidebar_tags ();
+                this.refresh_entry_list ();
+                this.update_stats ();
             }
-
-            this.data_manager.save_data ();
-            this.refresh_sidebar_tags ();
-            this.refresh_entry_list ();
-            this.update_stats ();
         }
 
         public void open_new_entry () {
