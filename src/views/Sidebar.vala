@@ -40,7 +40,8 @@ namespace Notejot {
             settings_button.is_disclosure = true;
             settings_button.set_halign (Gtk.Align.END);
             settings_button.set_margin_end (12);
-            settings_button.set_margin_bottom (6);
+            settings_button.set_margin_top (4);
+            settings_button.set_margin_bottom (12);
             settings_button.clicked.connect (() => {
                 settings_clicked ();
             });
