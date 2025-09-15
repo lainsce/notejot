@@ -76,17 +76,17 @@ namespace Notejot {
                 entries_to_show = this.data_manager.get_entries (true);
             } else if (this.current_tag_uuid == "pinned") {
                 entries_to_show = this.data_manager.get_pinned_entries ();
-            } else if (this.current_tag_uuid == null) {
+            } else if (this.current_tag_uuid == "") {
                 entries_to_show = this.data_manager.get_entries (false);
             } else {
                 entries_to_show = this.data_manager.get_entries_for_tag (this.current_tag_uuid);
             }
 
-            var q = "";
+            string? q = null;
             if (this.search_entry != null) {
                 q = this.search_entry.get_text ().strip ();
             }
-            if (q != "") {
+            if (q != null) {
                 try {
                     var pattern = GLib.Regex.escape_string (q, -1);
                     var regex = new GLib.Regex (pattern, GLib.RegexCompileFlags.CASELESS | GLib.RegexCompileFlags.OPTIMIZE, 0);

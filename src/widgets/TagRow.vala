@@ -7,6 +7,10 @@ namespace Notejot {
         public string display_name { get; private set; }
         public string tag_color { get; private set; }
 
+        private He.Button? edit_button;
+        private He.Button? delete_button;
+        private Gtk.Image drag_handle;
+
         public TagRow (string? color, string name, string count, string? icon_name, string? uuid) {
             this.tag_uuid = uuid;
             this.display_name = name;
@@ -103,26 +107,26 @@ namespace Notejot {
             box.append (label);
 
             // Only show actions for user-created tags
-            if (this.tag_uuid != null && this.tag_uuid != "deleted") {
-                var edit_button = new He.Button ("document-edit-symbolic", "");
-                edit_button.tooltip_text = _("Edit Tag…");
-                edit_button.add_css_class ("tag-edit-button");
-                edit_button.set_halign (Gtk.Align.END);
-                edit_button.set_valign (Gtk.Align.CENTER);
-                edit_button.set_tooltip_text (_("Edit Tag"));
-                edit_button.clicked.connect (() => {
+            if (this.tag_uuid != null && this.tag_uuid != "deleted" && this.tag_uuid != "pinned" && this.tag_uuid != "all") {
+                this.edit_button = new He.Button ("document-edit-symbolic", "");
+                this.edit_button.tooltip_text = _("Edit Tag…");
+                this.edit_button.add_css_class ("tag-edit-button");
+                this.edit_button.set_halign (Gtk.Align.END);
+                this.edit_button.set_valign (Gtk.Align.CENTER);
+                this.edit_button.set_tooltip_text (_("Edit Tag"));
+                this.edit_button.clicked.connect (() => {
                     if (this.tag_uuid != null) {
                         edit_requested (this.tag_uuid);
                     }
                 });
 
-                var delete_button = new He.Button ("user-trash-symbolic", "");
-                delete_button.add_css_class ("tag-delete-button");
-                delete_button.tooltip_text = _("Delete Tag…");
-                delete_button.set_halign (Gtk.Align.END);
-                delete_button.set_valign (Gtk.Align.CENTER);
-                delete_button.set_tooltip_text (_("Delete Tag"));
-                delete_button.clicked.connect (() => {
+                this.delete_button = new He.Button ("user-trash-symbolic", "");
+                this.delete_button.add_css_class ("tag-delete-button");
+                this.delete_button.tooltip_text = _("Delete Tag…");
+                this.delete_button.set_halign (Gtk.Align.END);
+                this.delete_button.set_valign (Gtk.Align.CENTER);
+                this.delete_button.set_tooltip_text (_("Delete Tag"));
+                this.delete_button.clicked.connect (() => {
                     // Permanently delete if in trash
                     var dialog = new He.Window ();
                     dialog.set_transient_for (this.get_root () as Gtk.Window);
@@ -195,19 +199,38 @@ namespace Notejot {
                     dialog.present ();
                 });
 
-                box.append (edit_button);
-                box.append (delete_button);
+                box.append (this.edit_button);
+                box.append (this.delete_button);
             }
 
             box.append (count_label);
+
+            this.drag_handle = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic");
+            this.drag_handle.add_css_class ("dim-label");
+            this.drag_handle.set_valign (Gtk.Align.CENTER);
+            this.drag_handle.set_visible (false);
+            box.append (this.drag_handle);
             this.set_child (box);
         }
 
+        public void set_editing (bool is_editing) {
+            if (this.tag_uuid != null && this.tag_uuid != "deleted" && this.tag_uuid != "pinned" && this.tag_uuid != "all") {
+                if (this.edit_button != null) {
+                    this.edit_button.set_sensitive (!is_editing);
+                }
+                if (this.delete_button != null) {
+                    this.delete_button.set_sensitive (!is_editing);
+                }
+                this.drag_handle.set_visible (is_editing);
+            }
+        }
+
         private string get_color_class (string? color) {
-            if (color == null)
+            if (color == null) {
                 return "default";
+            }
             switch (color.down ()) {
-            case "#e57373": case "#ef5350": return "red";
+            case "#e57373" : case "#ef5350" : return "red";
             case "#ffb74d": case "#ffa726": return "orange";
             case "#ffd54f": case "#ffe082": return "yellow";
             case "#81c784": case "#66bb6a": return "green";
