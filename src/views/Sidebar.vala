@@ -103,7 +103,7 @@ namespace Notejot {
             // Places card (keeps existing simple counter)
             this.places_button = create_sidebar_card (
                                                       _("Places"),
-                                                      _("0 Locations"),
+                                                      _("0"),
                                                       "places-card",
                                                       out this.places_subtitle_number
             );
@@ -268,31 +268,18 @@ namespace Notejot {
             title_label.set_xalign (0.0f);
             title_box.append (title_label);
 
-            if (style_class == "places-card") {
-                // Checkbutton is created and overlaid at the top-level overlay in the constructor
-            }
-            string number = "0";
-            string label = subtitle;
+            var subtitle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
+            box.append (subtitle_box);
 
-            int space_index = subtitle.index_of (" ");
-            if (space_index > 0) {
-                number = subtitle.substring (0, space_index);
-                label = subtitle.substring (space_index + 1);
-            }
+            var image = new Gtk.Image.from_icon_name ("location-active-symbolic");
+            image.pixel_size = 24;
+            subtitle_box.append (image);
 
+            string number = subtitle;
             number_label_out = new Gtk.Label (number);
             number_label_out.add_css_class ("stat-value");
             number_label_out.set_xalign (0.0f);
-            box.append (number_label_out);
-
-            string label_markup = label;
-            var subtitle_label_out = new Gtk.Label (label_markup);
-            subtitle_label_out.add_css_class ("stat-title");
-            subtitle_label_out.set_xalign (0.0f);
-            subtitle_label_out.set_use_markup (true);
-            subtitle_label_out.set_max_width_chars (12);
-            subtitle_label_out.set_wrap (true);
-            box.append (subtitle_label_out);
+            subtitle_box.append (number_label_out);
 
             return button;
         }
