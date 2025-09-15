@@ -188,10 +188,14 @@ namespace Notejot {
             }
 
             string contents;
-            GLib.FileUtils.get_contents (this.settings_path, out contents);
+            try {
+                GLib.FileUtils.get_contents (this.settings_path, out contents);
+            } catch (GLib.FileError fe) {}
 
             var parser = new Json.Parser ();
-            parser.load_from_data (contents);
+            try {
+                parser.load_from_data (contents);
+            } catch (GLib.Error e) {}
             var root_node = parser.get_root ();
             if (root_node.get_node_type () != Json.NodeType.OBJECT)return;
 

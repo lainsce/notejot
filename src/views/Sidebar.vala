@@ -444,7 +444,12 @@ namespace Notejot {
             if (target_row.tag_uuid == null)return false;
 
             // Determine if drop should insert before or after the target row
-            int height = target_row.get_allocated_height ();
+            int min_h = 0;
+            int nat_h = 0;
+            int min_b = 0;
+            int nat_b = 0;
+            target_row.measure (Gtk.Orientation.VERTICAL, -1, out min_h, out nat_h, out min_b, out nat_b);
+            int height = nat_h;
             bool insert_before = y_in_row < (height / 2.0);
 
             // Build current ordered list of user-created tag UUIDs
