@@ -199,6 +199,7 @@ namespace Notejot {
             }
 
             total_locations_label.set_label (@"$(unique_locations.length()) Locations");
+            map_widget.queue_draw ();
         }
 
         private void show_location_notes (double lat, double lon) {

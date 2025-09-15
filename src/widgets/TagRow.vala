@@ -10,6 +10,7 @@ namespace Notejot {
         private He.Button? edit_button;
         private He.Button? delete_button;
         private Gtk.Image drag_handle;
+        private Gtk.Label count_label;
 
         public TagRow (string? color, string name, string count, string? icon_name, string? uuid) {
             this.tag_uuid = uuid;
@@ -98,7 +99,7 @@ namespace Notejot {
             label.margin_top = 3;
             label.set_xalign (0.0f);
 
-            var count_label = new Gtk.Label (count);
+            count_label = new Gtk.Label (count);
             count_label.set_valign (Gtk.Align.CENTER);
             count_label.margin_top = 3;
             count_label.margin_end = 9;
@@ -222,6 +223,8 @@ namespace Notejot {
                     this.delete_button.set_sensitive (!is_editing);
                 }
                 this.drag_handle.set_visible (is_editing);
+                count_label.margin_end = is_editing ? 0 : 9;
+                this.drag_handle.margin_end = 9;
             }
         }
 

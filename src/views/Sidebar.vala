@@ -29,6 +29,11 @@ namespace Notejot {
 
         private Gtk.Label places_subtitle_number;
 
+        // Places (sidebar card) map preview
+        private Shumate.SimpleMap places_map_widget;
+        private Shumate.MapSourceRegistry places_registry;
+        private Shumate.MarkerLayer places_marker_layer;
+
         public Sidebar (DataManager data_manager) {
             Object (
                     orientation: Gtk.Orientation.VERTICAL,
@@ -100,13 +105,9 @@ namespace Notejot {
             this.insights_card_overlay.add_overlay (this.insights_switch);
             this.append (this.insights_card_overlay);
 
-            // Places card (keeps existing simple counter)
-            this.places_button = create_sidebar_card (
-                                                      _("Places"),
-                                                      _("0"),
-                                                      "places-card",
-                                                      out this.places_subtitle_number
-            );
+            // Places card
+            // Places card with non-interactive map preview
+            this.places_button = create_places_card_with_map (out this.places_subtitle_number);
             places_button.set_size_request (-1, 148);
             places_button.clicked.connect (() => {
                 if (editing_mode)return;
@@ -250,38 +251,115 @@ namespace Notejot {
                 this.insights_words_number_label.set_label (@"$words_all_time");
             }
             this.places_subtitle_number.set_label (@"$location_count");
+            this.refresh_places_preview_pins ();
+
+            this.places_map_widget.queue_draw ();
         }
 
-        private Gtk.Button create_sidebar_card (string title, string subtitle, string style_class, out Gtk.Label number_label_out) {
+        private Gtk.Button create_places_card_with_map (out Gtk.Label number_label_out) {
             var button = new Gtk.Button ();
             button.add_css_class ("card");
-            button.add_css_class (style_class);
+            button.add_css_class ("places-card");
+            button.set_overflow (Gtk.Overflow.HIDDEN);
 
-            var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) { halign = Gtk.Align.START, hexpand = true };
-            button.set_child (box);
+            // Overlay with map as background
+            var overlay = new Gtk.Overlay ();
+            overlay.set_vexpand_set (true);
+            button.set_child (overlay);
+
+            this.places_map_widget = new Shumate.SimpleMap ();
+            this.places_map_widget.set_hexpand (true);
+            this.places_map_widget.show_zoom_buttons = false;
+            this.places_map_widget.license.visible = false;
+            this.places_map_widget.scale.visible = false;
+            // Make the map non-interactive inside the sidebar card
+            this.places_map_widget.set_can_target (false);
+            this.places_map_widget.set_focusable (false);
+            this.places_map_widget.realize.connect (() => {
+                this.fit_places_preview_to_markers ();
+                this.places_map_widget.queue_draw ();
+            });
+
+            // Map source and layers
+            setup_places_preview_map_source ();
+            this.places_marker_layer = new Shumate.MarkerLayer (this.places_map_widget.get_viewport ());
+            this.places_map_widget.add_overlay_layer (this.places_marker_layer);
+
+            overlay.set_child (this.places_map_widget);
+
+            // Title and counter overlay at top-left
+            var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) { halign = Gtk.Align.START };
+            box.set_size_request (165, -1);
 
             var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.append (title_box);
 
-            var title_label = new Gtk.Label (title) { hexpand = true };
+            var title_label = new Gtk.Label (_("Places")) { hexpand = true };
             title_label.add_css_class ("title");
             title_label.set_xalign (0.0f);
             title_box.append (title_label);
 
             var subtitle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
-            box.append (subtitle_box);
-
             var image = new Gtk.Image.from_icon_name ("location-active-symbolic");
             image.pixel_size = 24;
             subtitle_box.append (image);
 
-            string number = subtitle;
-            number_label_out = new Gtk.Label (number);
+            number_label_out = new Gtk.Label ("0");
             number_label_out.add_css_class ("stat-value");
             number_label_out.set_xalign (0.0f);
             subtitle_box.append (number_label_out);
 
+            box.append (subtitle_box);
+            overlay.add_overlay (box);
+
+            // Initial pins
+            refresh_places_preview_pins ();
+
             return button;
+        }
+
+        private void setup_places_preview_map_source () {
+            this.places_registry = new Shumate.MapSourceRegistry.with_defaults ();
+
+            if (Shumate.VectorRenderer.is_supported ()) {
+                try {
+                    var style_json = new Notejot.MapStyle ("notejot-light").to_string ();
+                    var renderer = new Shumate.VectorRenderer ("notejot-light", style_json) {
+                        max_zoom_level = 14,
+                        min_zoom_level = 1
+                    };
+                    this.places_registry.add (renderer);
+                } catch (Error e) {
+                    warning ("Places sidebar map: failed to create vector map style: %s", e.message);
+                }
+            }
+
+            NotejotApp.settings.bind_with_mapping (
+                                                   "map-source", this.places_map_widget, "map-source", GET,
+                                                   (SettingsBindGetMappingShared) PlacesView.map_source_get_mapping_cb,
+                                                   (SettingsBindSetMappingShared) null,
+                                                   this.places_registry, null
+            );
+        }
+
+        private void refresh_places_preview_pins () {
+            if (this.places_marker_layer == null) {
+                return;
+            }
+            this.places_marker_layer.remove_all ();
+
+            var unique_locations = this.data_manager.get_unique_locations ();
+            foreach (var entry in unique_locations) {
+                var marker = new Shumate.Marker ();
+                var marker_image = new Gtk.Image.from_icon_name ("marker-pin") { pixel_size = 20 };
+                marker.set_child (marker_image);
+                marker.set_location (entry.latitude, entry.longitude);
+                this.places_marker_layer.add_marker (marker);
+            }
+            if (this.places_map_widget != null) {
+                this.fit_places_preview_to_markers ();
+                this.places_map_widget.queue_draw ();
+            }
         }
 
         private Gtk.Button create_insights_card (out Gtk.Label year_number_out,
@@ -368,6 +446,68 @@ namespace Notejot {
             return button;
         }
 
+        private void fit_places_preview_to_markers () {
+            if (this.places_map_widget == null) {
+                return;
+            }
+
+            var viewport = this.places_map_widget.get_viewport ();
+            var unique_locations = this.data_manager.get_unique_locations ();
+
+            int count = 0;
+            double min_lat = 0.0;
+            double max_lat = 0.0;
+            double min_lon = 0.0;
+            double max_lon = 0.0;
+
+            foreach (var e in unique_locations) {
+                double lat = (double) e.latitude;
+                double lon = (double) e.longitude;
+                if (count == 0) {
+                    min_lat = lat;
+                    max_lat = lat;
+                    min_lon = lon;
+                    max_lon = lon;
+                } else {
+                    if (lat < min_lat)min_lat = lat;
+                    if (lat > max_lat)max_lat = lat;
+                    if (lon < min_lon)min_lon = lon;
+                    if (lon > max_lon)max_lon = lon;
+                }
+                count++;
+            }
+
+            if (count == 0) {
+                viewport.zoom_level = 1.0;
+                viewport.latitude = 0.0;
+                viewport.longitude = 0.0;
+                return;
+            }
+
+            double center_lat = (min_lat + max_lat) / 2.0;
+            double center_lon = (min_lon + max_lon) / 2.0;
+            viewport.latitude = center_lat;
+            viewport.longitude = center_lon;
+
+            if (count == 1) {
+                viewport.zoom_level = 12.0;
+                return;
+            }
+
+            double span_lat = max_lat - min_lat;
+            double span_lon = max_lon - min_lon;
+            double span = (span_lat > span_lon) ? span_lat : span_lon;
+
+            double zoom = 3.0;
+            if (span < 0.01)zoom = 13.0;
+            else if (span < 0.05)zoom = 12.0;
+            else if (span < 0.1)zoom = 11.0;
+            else if (span < 0.5)zoom = 10.0;
+            else if (span < 1.0)zoom = 9.0;
+
+            viewport.zoom_level = zoom;
+        }
+
         private GLib.List<Tag?> sort_tags (GLib.List<Tag?> tags, string[] order) {
             var by_uuid = new GLib.HashTable<string, Tag?> (GLib.str_hash, GLib.str_equal);
             foreach (var t in tags) {
@@ -375,6 +515,7 @@ namespace Notejot {
                     by_uuid.insert (t.uuid, t);
                 }
             }
+
 
             var used = new GLib.HashTable<string, bool> (GLib.str_hash, GLib.str_equal);
             var result = new GLib.List<Tag?> ();
