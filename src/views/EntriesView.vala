@@ -76,7 +76,7 @@ namespace Notejot {
                 entries_to_show = this.data_manager.get_entries (true);
             } else if (this.current_tag_uuid == "pinned") {
                 entries_to_show = this.data_manager.get_pinned_entries ();
-            } else if (this.current_tag_uuid == "") {
+            } else if (this.current_tag_uuid == null || this.current_tag_uuid == "" || this.current_tag_uuid == "all") {
                 entries_to_show = this.data_manager.get_entries (false);
             } else {
                 entries_to_show = this.data_manager.get_entries_for_tag (this.current_tag_uuid);
