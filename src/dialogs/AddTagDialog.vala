@@ -43,6 +43,7 @@ namespace Notejot {
         public AddTagDialog(Gtk.Window parent, bool editing = false) {
             Object(
                    parent : parent,
+                   modal: true,
                    default_width: 440,
                    resizable: false
             );

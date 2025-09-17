@@ -198,7 +198,38 @@ namespace Notejot {
                     this.refresh_tags ();
                 });
                 row.edit_requested.connect ((uuid) => {
-                    edit_tag_requested (uuid);
+                    // Find the tag by uuid
+                    Tag? found = null;
+                    foreach (var t in this.data_manager.get_tags ()) {
+                        if (t.uuid == uuid) { found = t; break; }
+                    }
+                    if (found == null)return;
+
+                    var dialog = new AddTagDialog (this.get_root () as Gtk.Window, true);
+                    dialog.name_entry.get_internal_entry ().text = found.name;
+                    dialog.set_selected_color (found.color);
+                    dialog.set_selected_icon_name (found.icon_name);
+                    dialog.present ();
+                    dialog.response.connect ((response_id) => {
+                        if (response_id == Gtk.ResponseType.ACCEPT) {
+                            var new_name = dialog.name_entry.get_internal_entry ().text;
+                            if (new_name != "") {
+                                found.name = new_name;
+                                var chosen_color = dialog.get_selected_color ();
+                                found.color = chosen_color;
+
+                                var chosen_icon = dialog.get_selected_icon_name ();
+                                if (chosen_icon == null && found.icon_name != null) {
+                                    chosen_icon = found.icon_name;
+                                }
+                                found.icon_name = chosen_icon;
+                                this.data_manager.save_data ();
+                                this.refresh_tags ();
+                                this.update_stats ();
+                            }
+                        }
+                        dialog.destroy ();
+                    });
                 });
                 this.tag_list_box.append (row);
                 this.setup_tag_dnd (row);
