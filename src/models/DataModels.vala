@@ -71,8 +71,29 @@ namespace Notejot {
             foreach (var uuid in tag_uuids) {
                 this.tag_uuids.append(uuid);
             }
-            foreach (var path in image_paths) {
-                this.image_paths.append(path);
+            // Normalize and import images into app media dir
+            this.image_paths = new GLib.List<string> ();
+            var app_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
+            var media_dir = GLib.Path.build_filename(app_dir, "media");
+            GLib.DirUtils.create_with_parents(media_dir, 0755);
+            if (image_paths != null) {
+                foreach (var path in image_paths) {
+                    if (path != null && path.strip() != "") {
+                        try {
+                            var file_base = GLib.Path.get_basename(path);
+                            var dest = GLib.Path.build_filename(media_dir, this.uuid + "_" + file_base);
+                            var srcf = File.new_for_path(path);
+                            var dstf = File.new_for_path(dest);
+                            if (!dstf.query_exists()) {
+                                srcf.copy(dstf, FileCopyFlags.OVERWRITE, null, null);
+                            }
+                            this.image_paths.append(dest);
+                        } catch (Error e) {
+                            warning("Failed to import image '%s': %s", path, e.message);
+                            this.image_paths.append(path);
+                        }
+                    }
+                }
             }
             this.is_deleted = false;
             this.is_pinned = false;
@@ -92,8 +113,41 @@ namespace Notejot {
             this.location_address = location_address;
             this.latitude = latitude;
             this.longitude = longitude;
+            this.image_paths = new GLib.List<string> ();
+            var app_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
+            var media_dir = GLib.Path.build_filename(app_dir, "media");
+            GLib.DirUtils.create_with_parents(media_dir, 0755);
             foreach (var path in image_paths) {
-                this.image_paths.append(path);
+                if (path != null && path.strip() != "") {
+                    if (path.has_prefix("/")) {
+                        var prefix = media_dir + GLib.Path.DIR_SEPARATOR_S;
+                        if (path.has_prefix(prefix)) {
+                            this.image_paths.append(path);
+                        } else {
+                            // Import into media dir
+                            try {
+                                var file_base = GLib.Path.get_basename(path);
+                                var dest = GLib.Path.build_filename(media_dir, this.uuid + "_" + file_base);
+                                var srcf = File.new_for_path(path);
+                                var dstf = File.new_for_path(dest);
+                                if (!dstf.query_exists()) {
+                                    srcf.copy(dstf, FileCopyFlags.OVERWRITE, null, null);
+                                }
+                                this.image_paths.append(dest);
+                            } catch (Error e) {
+                                warning("Failed to import image '%s': %s", path, e.message);
+                                this.image_paths.append(path);
+                            }
+                        }
+                    } else {
+                        // Relative path -> make absolute inside media dir
+                        if (path.has_prefix("media" + GLib.Path.DIR_SEPARATOR_S)) {
+                            this.image_paths.append(GLib.Path.build_filename(app_dir, path));
+                        } else {
+                            this.image_paths.append(GLib.Path.build_filename(media_dir, path));
+                        }
+                    }
+                }
             }
             this.is_deleted = is_deleted;
             this.is_pinned = is_pinned;
@@ -171,7 +225,15 @@ namespace Notejot {
 
             var images_array = new Json.Array();
             foreach (var path in this.image_paths) {
-                images_array.add_string_element(path);
+                var app_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
+                var media_dir = GLib.Path.build_filename(app_dir, "media");
+                string rel = path;
+                var prefix = media_dir + GLib.Path.DIR_SEPARATOR_S;
+                if (path.has_prefix(prefix)) {
+                    var file_base = GLib.Path.get_basename(path);
+                    rel = GLib.Path.build_filename("media", file_base);
+                }
+                images_array.add_string_element(rel);
             }
             obj.set_array_member("image_paths", images_array);
 
@@ -186,7 +248,22 @@ namespace Notejot {
             if (obj.has_member("image_paths")) {
                 var images_array = obj.get_array_member("image_paths");
                 foreach (var element in images_array.get_elements()) {
-                    image_paths.append(element.get_string());
+                    var p = element.get_string();
+                    if (p != null && p.strip() != "") {
+                        // Convert relative media paths to absolute on load
+                        if (p.has_prefix("/")) {
+                            image_paths.append(p);
+                        } else {
+                            var app_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
+                            var media_dir = GLib.Path.build_filename(app_dir, "media");
+                            GLib.DirUtils.create_with_parents(media_dir, 0755);
+                            if (p.has_prefix("media" + GLib.Path.DIR_SEPARATOR_S)) {
+                                image_paths.append(GLib.Path.build_filename(app_dir, p));
+                            } else {
+                                image_paths.append(GLib.Path.build_filename(media_dir, p));
+                            }
+                        }
+                    }
                 }
             }
 

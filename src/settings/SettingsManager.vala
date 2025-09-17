@@ -24,6 +24,10 @@
  *      "insights_card_enabled": true,
  *      "places_card_enabled": true,
  *      "tag_order": []
+ *   },
+ *   "sync": {
+ *      "enabled": false,
+ *      "folder_path": ""
  *   }
  * }
  */
@@ -50,6 +54,10 @@ namespace Notejot {
         private bool insights_card_enabled = true;
         private bool places_card_enabled = true;
         private string[] tag_order = {};
+
+        // Sync
+        private bool sync_enabled = false;
+        private string sync_folder_path = "";
 
         // Singleton
         private static SettingsManager? instance = null;
@@ -112,6 +120,14 @@ namespace Notejot {
             return this.tag_order;
         }
 
+        public bool get_sync_enabled () {
+            return this.sync_enabled;
+        }
+
+        public string get_sync_folder_path () {
+            return this.sync_folder_path;
+        }
+
         // ---- Public setters (auto-save) ------------------------------------
 
         public void set_scheduling_enabled (bool enabled) {
@@ -163,6 +179,19 @@ namespace Notejot {
 
         public void set_tag_order (string[] order) {
             this.tag_order = order;
+            save ();
+        }
+
+        public void set_sync_enabled (bool enabled) {
+            if (this.sync_enabled == enabled)return;
+            this.sync_enabled = enabled;
+            save ();
+        }
+
+        public void set_sync_folder_path (string path) {
+            var normalized = path != null ? path.strip () : "";
+            if (this.sync_folder_path == normalized)return;
+            this.sync_folder_path = normalized;
             save ();
         }
 
@@ -255,6 +284,19 @@ namespace Notejot {
                     this.tag_order = tmp;
                 }
             }
+
+            // Sync
+            if (root.has_member ("sync")) {
+                var sync = root.get_object_member ("sync");
+
+                if (sync.has_member ("enabled")) {
+                    this.sync_enabled = sync.get_boolean_member ("enabled");
+                }
+                if (sync.has_member ("folder_path")) {
+                    var p = sync.get_string_member ("folder_path");
+                    this.sync_folder_path = p != null ? p : "";
+                }
+            }
         }
 
         private void save () {
@@ -291,6 +333,12 @@ namespace Notejot {
             }
             sidebar_obj.set_array_member ("tag_order", tag_order_array);
             root_obj.set_object_member ("sidebar", sidebar_obj);
+
+            // Sync object
+            var sync_obj = new Json.Object ();
+            sync_obj.set_boolean_member ("enabled", this.sync_enabled);
+            sync_obj.set_string_member ("folder_path", this.sync_folder_path);
+            root_obj.set_object_member ("sync", sync_obj);
 
             // Write pretty JSON
             var generator = new Json.Generator ();

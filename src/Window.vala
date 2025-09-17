@@ -4,6 +4,7 @@ namespace Notejot {
             { "edit-entry", on_edit_entry_clicked },
             { "delete-entry", on_delete_entry_clicked },
             { "restore-entry", on_restore_entry_clicked },
+            { "sync-now", on_sync_now_clicked },
         };
         private DataManager data_manager;
         private InsightsView insights_view;
@@ -15,6 +16,7 @@ namespace Notejot {
         private EntriesView entries_view;
         private EmptyStateView empty_state_view;
         private DeletedEmptyStateView deleted_empty_state_view;
+        private SettingsWindow? settings_window;
 
         private string? current_tag_uuid = null; // null means "All Entries" here
         private Entry? selected_entry = null; // Track the currently selected entry
@@ -26,24 +28,34 @@ namespace Notejot {
 
             this.set_default_size (1024, 800);
 
-            var main_paned = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            this.set_child (main_paned);
+            var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            this.set_child (main_box);
 
             // --- Sidebar ---
             this.sidebar = new Sidebar (this.data_manager);
             this.sidebar.tag_selected.connect (on_tag_selected);
             this.sidebar.add_tag_clicked.connect (on_add_tag_clicked);
             this.sidebar.settings_clicked.connect (() => {
-                var win = new SettingsWindow (this);
-                win.present ();
+                if (this.settings_window == null) {
+                    this.settings_window = new SettingsWindow (this, this.data_manager);
+                    if (app != null) {
+                        this.settings_window.set_application (app);
+                        app.add_window (this.settings_window);
+                    }
+                    this.settings_window.close_request.connect (() => {
+                        this.settings_window = null;
+                        return false;
+                    });
+                }
+                this.settings_window.present ();
             });
             this.sidebar.view_switched.connect (switch_to_view);
-            main_paned.append (this.sidebar);
+            main_box.append (this.sidebar);
 
             // --- Main Content Area Container ---
             this.main_content_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             this.main_content_container.set_hexpand (true);
-            main_paned.append (this.main_content_container);
+            main_box.append (this.main_content_container);
 
             // --- Main Content Views ---
             this.entries_view = new EntriesView (this.data_manager);
@@ -290,10 +302,27 @@ namespace Notejot {
                 }
                 existing.location_address = address;
                 existing.modified_timestamp = new GLib.DateTime.now_utc ().to_unix ();
-                // Rebuild image_paths to match editor selection and avoid duplicates
+                // Rebuild and normalize image_paths: import to app media dir and store absolute paths
                 existing.image_paths = new GLib.List<string> ();
+                var app_dir = GLib.Path.build_filename (GLib.Environment.get_user_data_dir (), "io.github.lainsce.Notejot");
+                var media_dir = GLib.Path.build_filename (app_dir, "media");
+                GLib.DirUtils.create_with_parents (media_dir, 0755);
                 foreach (var p in this.entry_editor_view.image_paths) {
-                    existing.image_paths.append (p);
+                    if (p == null || p.strip () == "")continue;
+                    string final_path = p;
+                    try {
+                        var file_base = GLib.Path.get_basename (p);
+                        var dest = GLib.Path.build_filename (media_dir, existing.uuid + "_" + file_base);
+                        var srcf = File.new_for_path (p);
+                        var dstf = File.new_for_path (dest);
+                        // Always overwrite to ensure the latest edit is saved in media dir
+                        srcf.copy (dstf, FileCopyFlags.OVERWRITE, null, null);
+                        final_path = dest;
+                    } catch (Error e) {
+                        // If copy fails, fall back to original path
+                        final_path = p;
+                    }
+                    existing.image_paths.append (final_path);
                 }
                 save_entry_with_geocode.begin (existing, false);
             }
@@ -435,6 +464,13 @@ namespace Notejot {
             if (this.selected_entry == null)return;
             this.data_manager.restore_entry (this.selected_entry);
             this.data_manager.save_data ();
+            this.refresh_sidebar_tags ();
+            this.refresh_entry_list ();
+            this.update_stats ();
+        }
+
+        private void on_sync_now_clicked () {
+            this.data_manager.sync_push ();
             this.refresh_sidebar_tags ();
             this.refresh_entry_list ();
             this.update_stats ();

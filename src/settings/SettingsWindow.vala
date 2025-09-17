@@ -1,6 +1,7 @@
 namespace Notejot {
     public class SettingsWindow : He.Window {
         private SettingsManager settings;
+        private DataManager data_manager;
 
         // Scheduling controls
         private Gtk.Switch scheduling_switch;
@@ -13,7 +14,15 @@ namespace Notejot {
         private Gtk.SpinButton streak_hour_spin;
         private Gtk.SpinButton streak_min_spin;
 
-        public SettingsWindow (Gtk.Window? parent = null) {
+        // Sync controls
+        private Gtk.Switch sync_switch;
+        private Gtk.Entry sync_folder_entry;
+        private He.Button sync_choose_button;
+        private He.Button sync_now_button;
+        private He.Button sync_pull_button;
+        private He.Button cleanup_media_button;
+
+        public SettingsWindow (Gtk.Window? parent = null, DataManager data_manager) {
             Object ();
             if (parent != null) {
                 this.parent = parent;
@@ -22,6 +31,7 @@ namespace Notejot {
             this.add_css_class ("dialog-content");
 
             this.settings = SettingsManager.get_default ();
+            this.data_manager = data_manager;
 
             var root = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
             this.set_child (root);
@@ -75,6 +85,17 @@ namespace Notejot {
 
             var streak_card = build_streak_card ();
             content.append (streak_card);
+
+            // Sync section
+            var sync_header = new Gtk.Label (_("Sync")) {
+                halign = Gtk.Align.START,
+                xalign = 0
+            };
+            sync_header.add_css_class ("settings-header");
+            content.append (sync_header);
+
+            var sync_card = build_sync_card ();
+            content.append (sync_card);
 
             // Load values from settings
             load_from_settings ();
@@ -239,6 +260,92 @@ namespace Notejot {
             return frame;
         }
 
+        private Gtk.Widget build_sync_card () {
+            var card_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+            card_box.set_margin_start (12);
+            card_box.set_margin_end (12);
+            card_box.set_margin_top (12);
+            card_box.set_margin_bottom (12);
+
+            // Title + switch
+            var row1 = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var title = new Gtk.Label (_("Nextcloud Folder Sync")) {
+                halign = Gtk.Align.START,
+                hexpand = true,
+                xalign = 0
+            };
+            title.add_css_class ("settings-title");
+            row1.append (title);
+
+            this.sync_switch = new Gtk.Switch ();
+            this.sync_switch.halign = Gtk.Align.END;
+            this.sync_switch.valign = Gtk.Align.CENTER;
+            this.sync_switch.notify["active"].connect (() => {
+                bool enabled = this.sync_switch.get_active ();
+                this.settings.set_sync_enabled (enabled);
+                set_sync_sensitive (enabled);
+            });
+            row1.append (this.sync_switch);
+            card_box.append (row1);
+
+            // Folder row
+            var row2 = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var folder_lbl = new Gtk.Label (_("Folder")) {
+                halign = Gtk.Align.START,
+                xalign = 0,
+                valign = Gtk.Align.START
+            };
+            folder_lbl.add_css_class ("settings-title");
+            row2.append (folder_lbl);
+
+            var folder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) { hexpand = true, halign = Gtk.Align.END };
+
+            this.sync_folder_entry = new Gtk.Entry ();
+            this.sync_folder_entry.set_editable (false);
+            this.sync_folder_entry.set_hexpand (true);
+            folder_box.append (this.sync_folder_entry);
+
+            this.sync_choose_button = new He.Button ("", _("Choose…"));
+            this.sync_choose_button.is_fill = true;
+            this.sync_choose_button.clicked.connect (on_sync_choose_folder);
+            folder_box.append (this.sync_choose_button);
+
+            this.sync_now_button = new He.Button ("", _("Sync Now"));
+            this.sync_now_button.is_fill = true;
+            this.sync_now_button.clicked.connect (() => {
+                if (this.data_manager != null) {
+                    this.data_manager.sync_push ();
+                }
+            });
+            folder_box.append (this.sync_now_button);
+
+            this.sync_pull_button = new He.Button ("", _("Pull Now"));
+            this.sync_pull_button.is_fill = true;
+            this.sync_pull_button.clicked.connect (() => {
+                if (this.data_manager != null) {
+                    this.data_manager.sync_pull ();
+                }
+            });
+            folder_box.append (this.sync_pull_button);
+
+            this.cleanup_media_button = new He.Button ("", _("Cleanup Media"));
+            this.cleanup_media_button.is_fill = true;
+            this.cleanup_media_button.clicked.connect (() => {
+                if (this.data_manager != null) {
+                    this.data_manager.cleanup_media ();
+                }
+            });
+            folder_box.append (this.cleanup_media_button);
+
+            row2.append (folder_box);
+            card_box.append (row2);
+
+            var frame = new Gtk.Frame ("") { child = card_box, hexpand = true };
+            frame.label_widget.visible = false;
+            frame.add_css_class ("settings-card");
+            return frame;
+        }
+
         private void load_from_settings () {
             // Scheduling
             bool sched_enabled = settings.get_scheduling_enabled ();
@@ -263,6 +370,12 @@ namespace Notejot {
             set_streak_sensitive (streak_enabled);
 
             set_spins_from_time (this.streak_hour_spin, this.streak_min_spin, settings.get_streak_time ());
+
+            // Sync
+            bool sync_enabled = settings.get_sync_enabled ();
+            this.sync_switch.set_active (sync_enabled);
+            set_sync_sensitive (sync_enabled);
+            this.sync_folder_entry.set_text (settings.get_sync_folder_path ());
         }
 
         private void set_scheduling_sensitive (bool enabled) {
@@ -276,6 +389,148 @@ namespace Notejot {
         private void set_streak_sensitive (bool enabled) {
             this.streak_hour_spin.set_sensitive (enabled);
             this.streak_min_spin.set_sensitive (enabled);
+        }
+
+        private void set_sync_sensitive (bool enabled) {
+            // Folder selector is always enabled so users can choose a location to turn on sync
+            if (this.sync_folder_entry != null) {
+                this.sync_folder_entry.set_sensitive (true);
+            }
+            if (this.sync_choose_button != null) {
+                this.sync_choose_button.set_sensitive (true);
+            }
+            if (this.sync_now_button != null) {
+                this.sync_now_button.set_sensitive (enabled);
+            }
+            if (this.sync_pull_button != null) {
+                this.sync_pull_button.set_sensitive (enabled);
+            }
+            if (this.cleanup_media_button != null) {
+                this.cleanup_media_button.set_sensitive (enabled);
+            }
+        }
+
+        private void on_sync_choose_folder () {
+            // Use Gtk.FileChooserNative exclusively and hold a static reference to prevent GC auto-dismiss
+            Gtk.FileChooserNative? native = null;
+            if (native != null) {
+                native.show ();
+                return;
+            }
+
+            native = new Gtk.FileChooserNative (_("Select Sync Folder"),
+                                                this as Gtk.Window,
+                                                Gtk.FileChooserAction.SELECT_FOLDER,
+                                                _("Select"),
+                                                _("Cancel"));
+            native.set_modal (true);
+
+            native.response.connect ((response) => {
+                if (response == Gtk.ResponseType.ACCEPT) {
+                    var file = native.get_file ();
+                    if (file != null) {
+                        var p = file.get_path ();
+                        if (p != null) {
+                            this.sync_folder_entry.set_text (p);
+                            this.settings.set_sync_folder_path (p);
+                            // Auto-enable sync when a folder is chosen
+                            this.settings.set_sync_enabled (true);
+                            if (this.sync_switch != null) {
+                                this.sync_switch.set_active (true);
+                            }
+                            set_sync_sensitive (true);
+                        }
+                    } else {
+                        open_manual_path_dialog ();
+                    }
+                }
+                native.destroy ();
+                native = null;
+            });
+
+            native.show ();
+        }
+
+        private void open_manual_path_dialog () {
+            var dialog = new He.Window ();
+            dialog.set_transient_for (this as Gtk.Window);
+            dialog.set_modal (true);
+            dialog.add_css_class ("dialog-content");
+
+            var container = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+
+            var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+            header_box.set_margin_top (12);
+            header_box.set_margin_start (12);
+            header_box.set_margin_end (12);
+            header_box.set_margin_bottom (12);
+
+            var title_label = new Gtk.Label (_("Enter Sync Folder Path")) { halign = Gtk.Align.START };
+            title_label.add_css_class ("title-3");
+            header_box.append (title_label);
+
+            header_box.append (new Gtk.Label ("") { hexpand = true });
+
+            var close_button = new He.Button ("window-close-symbolic", "");
+            close_button.is_disclosure = true;
+            close_button.clicked.connect (() => { dialog.close (); });
+            header_box.append (close_button);
+
+            var winhandle = new Gtk.WindowHandle ();
+            winhandle.set_child (header_box);
+            container.append (winhandle);
+
+            var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+            content_box.set_margin_start (18);
+            content_box.set_margin_end (18);
+            content_box.set_margin_bottom (6);
+
+            var path_entry = new He.TextField () { placeholder_text = _("e.g. /home/user/Nextcloud"), hexpand = true };
+            content_box.append (path_entry);
+
+            container.append (content_box);
+
+            var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+            buttons_box.set_margin_start (18);
+            buttons_box.set_margin_end (18);
+            buttons_box.set_margin_bottom (18);
+            buttons_box.set_halign (Gtk.Align.END);
+
+            var cancel_button = new He.Button ("", _("Cancel"));
+            cancel_button.is_tint = true;
+            cancel_button.clicked.connect (() => { dialog.close (); });
+            buttons_box.append (cancel_button);
+
+            var select_button = new He.Button ("", _("Select"));
+            select_button.is_fill = true;
+            select_button.clicked.connect (() => {
+                var p = path_entry.get_internal_entry ().text;
+                if (p != null) {
+                    // Expand ~/ to absolute
+                    if (p.has_prefix ("~/")) {
+                        var home = GLib.Environment.get_home_dir ();
+                        if (home != null && home.strip () != "") {
+                            p = GLib.Path.build_filename (home, p.substring (2));
+                        }
+                    }
+                    if (p.strip () != "") {
+                        this.sync_folder_entry.set_text (p);
+                        this.settings.set_sync_folder_path (p);
+                        this.settings.set_sync_enabled (true);
+                        if (this.sync_switch != null) {
+                            this.sync_switch.set_active (true);
+                        }
+                        set_sync_sensitive (true);
+                    }
+                }
+                dialog.close ();
+            });
+            buttons_box.append (select_button);
+
+            container.append (buttons_box);
+
+            dialog.set_child (container);
+            dialog.present ();
         }
 
         private void on_sched_time_changed () {

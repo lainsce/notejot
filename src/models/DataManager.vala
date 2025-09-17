@@ -1,18 +1,27 @@
 namespace Notejot {
-    public class DataManager {
+    public class DataManager : GLib.Object {
 
         public GLib.List<Tag?> tags = new GLib.List<Tag?> ();
         public GLib.List<Entry> entries = new GLib.List<Entry> ();
         private string tags_path;
         private string entries_path;
+        private string app_dir;
+        private string media_dir;
         private GLib.HashTable<string, string> tag_map;
+        // Remote sync monitoring
+        private GLib.FileMonitor? remote_tags_monitor = null;
+        private GLib.FileMonitor? remote_entries_monitor = null;
+        private GLib.FileMonitor? remote_media_monitor = null;
+        private int64 last_push_time = 0;
 
         public DataManager() {
             var data_dir = GLib.Environment.get_user_data_dir();
-            var app_dir = GLib.Path.build_filename(data_dir, "io.github.lainsce.Notejot");
-            GLib.DirUtils.create_with_parents(app_dir, 0755);
-            this.tags_path = GLib.Path.build_filename(app_dir, "tags.json");
-            this.entries_path = GLib.Path.build_filename(app_dir, "entries.json");
+            this.app_dir = GLib.Path.build_filename(data_dir, "io.github.lainsce.Notejot");
+            GLib.DirUtils.create_with_parents(this.app_dir, 0755);
+            this.media_dir = GLib.Path.build_filename(this.app_dir, "media");
+            GLib.DirUtils.create_with_parents(this.media_dir, 0755);
+            this.tags_path = GLib.Path.build_filename(this.app_dir, "tags.json");
+            this.entries_path = GLib.Path.build_filename(this.app_dir, "entries.json");
 
             var old_dir = GLib.Path.build_filename(GLib.Environment.get_user_data_dir(), "io.github.lainsce.Notejot");
             var migration_flag = GLib.Path.build_filename(old_dir, ".notejot_migrated");
@@ -21,7 +30,15 @@ namespace Notejot {
                 migrate_old_format();
             }
 
+            sync_pull_if_enabled();
             load_data();
+
+            // React to settings changes: ensure monitors are set and try to push/pull
+            var settings = SettingsManager.get_default();
+            settings.changed.connect(() => {
+                sync_pull_if_enabled();
+                sync_push_if_enabled();
+            });
         }
 
         public void add_tag(Tag tag) {
@@ -143,6 +160,49 @@ namespace Notejot {
         public void save_data() {
             save_tags();
             save_entries();
+            sync_push_if_enabled();
+        }
+
+        public void sync_push() {
+            sync_push_if_enabled();
+        }
+
+        public void sync_pull() {
+            sync_pull_if_enabled();
+        }
+
+        public void cleanup_media() {
+            // Delete files in local media dir that are not referenced by any entry
+            try {
+                var used = new GLib.HashTable<string, bool>(GLib.str_hash, GLib.str_equal);
+                foreach (var e in this.entries) {
+                    foreach (var p in e.image_paths) {
+                        if (p != null && p.strip() != "") {
+                            var file_base = GLib.Path.get_basename(p);
+                            used.insert(file_base, true);
+                        }
+                    }
+                }
+                var dir = File.new_for_path(this.media_dir);
+                if (dir.query_exists()) {
+                    var en = dir.enumerate_children("standard::name", FileQueryInfoFlags.NONE, null);
+                    FileInfo info;
+                    while ((info = en.next_file(null)) != null) {
+                        var name = info.get_name();
+                        if (name == null || name == "") continue;
+                        if (!used.contains(name)) {
+                            try {
+                                var f = File.new_for_path(GLib.Path.build_filename(this.media_dir, name));
+                                f.delete();
+                            } catch (Error fe) {
+                                // ignore
+                            }
+                        }
+                    }
+                }
+            } catch (Error e) {
+                // ignore
+            }
         }
 
         private void save_tags() {
@@ -216,6 +276,320 @@ namespace Notejot {
             } catch (GLib.Error e) {
                 // File probably doesn't exist, which is fine on first run
             }
+        }
+
+        // Nextcloud-like folder sync: two-way merge pull + set up monitors
+        private void sync_pull_if_enabled() {
+            var settings = SettingsManager.get_default();
+            if (!settings.get_sync_enabled()) return;
+
+            var sync_base = settings.get_sync_folder_path();
+            if (sync_base == null || sync_base.strip() == "") return;
+
+            var sync_dir = GLib.Path.build_filename(sync_base, "Notejot");
+            try {
+                GLib.DirUtils.create_with_parents(sync_dir, 0755);
+            } catch (GLib.Error e) {
+                // ignore; we'll still try to read below
+            }
+
+            var src_tags = GLib.Path.build_filename(sync_dir, "tags.json");
+            var src_entries = GLib.Path.build_filename(sync_dir, "entries.json");
+            var remote_media_dir = GLib.Path.build_filename(sync_dir, "media");
+            try {
+                GLib.DirUtils.create_with_parents(remote_media_dir, 0755);
+            } catch (GLib.Error e) {
+            }
+
+            // Build Json arrays for local and remote (missing -> empty arrays)
+            var local_tags_arr = new Json.Array();
+            var local_entries_arr = new Json.Array();
+            var remote_tags_arr = new Json.Array();
+            var remote_entries_arr = new Json.Array();
+
+            // Load local
+            try {
+                if (GLib.FileUtils.test(this.tags_path, GLib.FileTest.EXISTS)) {
+                    string contents;
+                    GLib.FileUtils.get_contents(this.tags_path, out contents);
+                    if (contents != null && contents.strip() != "") {
+                        var parser = new Json.Parser();
+                        parser.load_from_data(contents);
+                        if (parser.get_root().get_node_type() == Json.NodeType.ARRAY) {
+                            local_tags_arr = parser.get_root().get_array();
+                        }
+                    }
+                }
+            } catch (GLib.Error e) {}
+            try {
+                if (GLib.FileUtils.test(this.entries_path, GLib.FileTest.EXISTS)) {
+                    string contents;
+                    GLib.FileUtils.get_contents(this.entries_path, out contents);
+                    if (contents != null && contents.strip() != "") {
+                        var parser = new Json.Parser();
+                        parser.load_from_data(contents);
+                        if (parser.get_root().get_node_type() == Json.NodeType.ARRAY) {
+                            local_entries_arr = parser.get_root().get_array();
+                        }
+                    }
+                }
+            } catch (GLib.Error e) {}
+
+            // Load remote
+            try {
+                if (GLib.FileUtils.test(src_tags, GLib.FileTest.EXISTS)) {
+                    string contents;
+                    GLib.FileUtils.get_contents(src_tags, out contents);
+                    if (contents != null && contents.strip() != "") {
+                        var parser = new Json.Parser();
+                        parser.load_from_data(contents);
+                        if (parser.get_root().get_node_type() == Json.NodeType.ARRAY) {
+                            remote_tags_arr = parser.get_root().get_array();
+                        }
+                    }
+                }
+            } catch (GLib.Error e) {
+                warning("Sync pull (tags) failed: %s", e.message);
+            }
+            try {
+                if (GLib.FileUtils.test(src_entries, GLib.FileTest.EXISTS)) {
+                    string contents;
+                    GLib.FileUtils.get_contents(src_entries, out contents);
+                    if (contents != null && contents.strip() != "") {
+                        var parser = new Json.Parser();
+                        parser.load_from_data(contents);
+                        if (parser.get_root().get_node_type() == Json.NodeType.ARRAY) {
+                            remote_entries_arr = parser.get_root().get_array();
+                        }
+                    }
+                }
+            } catch (GLib.Error e) {
+                warning("Sync pull (entries) failed: %s", e.message);
+            }
+
+            // Merge Tags (uuid union; on conflict prefer remote)
+            var tag_by_uuid_local = new GLib.HashTable<string, Tag> (GLib.str_hash, GLib.str_equal);
+            var tag_by_uuid_remote = new GLib.HashTable<string, Tag> (GLib.str_hash, GLib.str_equal);
+
+            foreach (var n in local_tags_arr.get_elements()) {
+                var t = Tag.from_json(n.get_object());
+                tag_by_uuid_local.insert(t.uuid, t);
+            }
+            foreach (var n in remote_tags_arr.get_elements()) {
+                var t = Tag.from_json(n.get_object());
+                tag_by_uuid_remote.insert(t.uuid, t);
+            }
+
+            var merged_tags = new Json.Array();
+            // add all remote (preferred)
+            foreach (var n in remote_tags_arr.get_elements()) {
+                merged_tags.add_object_element(Tag.from_json(n.get_object()).to_json());
+            }
+            // add locals not present remotely
+            foreach (var n in local_tags_arr.get_elements()) {
+                var t = Tag.from_json(n.get_object());
+                if (!tag_by_uuid_remote.contains(t.uuid)) {
+                    merged_tags.add_object_element(t.to_json());
+                }
+            }
+
+            // Merge Entries (uuid union; conflict -> choose higher modified_timestamp)
+            var entry_by_uuid_local = new GLib.HashTable<string, Entry> (GLib.str_hash, GLib.str_equal);
+            var entry_by_uuid_remote = new GLib.HashTable<string, Entry> (GLib.str_hash, GLib.str_equal);
+
+            foreach (var n in local_entries_arr.get_elements()) {
+                var e = Entry.from_json(n.get_object());
+                entry_by_uuid_local.insert(e.uuid, e);
+            }
+            foreach (var n in remote_entries_arr.get_elements()) {
+                var e = Entry.from_json(n.get_object());
+                entry_by_uuid_remote.insert(e.uuid, e);
+            }
+
+            var merged_entries = new Json.Array();
+            // First pass: for all uuids in remote, decide winner
+            foreach (var n in remote_entries_arr.get_elements()) {
+                var re = Entry.from_json(n.get_object());
+                Entry? winner = re;
+                if (entry_by_uuid_local.contains(re.uuid)) {
+                    var le = entry_by_uuid_local.lookup(re.uuid);
+                    if (le != null) {
+                        if (le.modified_timestamp > re.modified_timestamp) {
+                            winner = le;
+                        }
+                    }
+                }
+                merged_entries.add_object_element(winner.to_json());
+            }
+            // Second pass: add locals not present in remote
+            foreach (var n in local_entries_arr.get_elements()) {
+                var le = Entry.from_json(n.get_object());
+                if (!entry_by_uuid_remote.contains(le.uuid)) {
+                    merged_entries.add_object_element(le.to_json());
+                }
+            }
+
+            // Write merged arrays to local files
+            try {
+                var gen = new Json.Generator();
+                gen.set_pretty(true);
+                var node = new Json.Node(Json.NodeType.ARRAY);
+                node.set_array(merged_tags);
+                gen.set_root(node);
+                string? data = gen.to_data(null);
+                GLib.FileUtils.set_contents(this.tags_path, data);
+            } catch (GLib.Error e) {
+                warning("Sync pull: failed writing merged tags: %s", e.message);
+            }
+            try {
+                var gen = new Json.Generator();
+                gen.set_pretty(true);
+                var node = new Json.Node(Json.NodeType.ARRAY);
+                node.set_array(merged_entries);
+                gen.set_root(node);
+                string? data = gen.to_data(null);
+                GLib.FileUtils.set_contents(this.entries_path, data);
+            } catch (GLib.Error e) {
+                warning("Sync pull: failed writing merged entries: %s", e.message);
+            }
+
+            // Pull media from remote/media to local media dir (best-effort)
+            try {
+                var rdir = File.new_for_path(remote_media_dir);
+                if (rdir.query_exists()) {
+                    var enumerator = rdir.enumerate_children("standard::name", FileQueryInfoFlags.NONE, null);
+                    FileInfo info;
+                    while ((info = enumerator.next_file(null)) != null) {
+                        var name = info.get_name();
+                        if (name == null || name == "") continue;
+                        var src = File.new_for_path(GLib.Path.build_filename(remote_media_dir, name));
+                        var dst = File.new_for_path(GLib.Path.build_filename(this.media_dir, name));
+                        try {
+                            if (!dst.query_exists()) {
+                                src.copy(dst, FileCopyFlags.OVERWRITE, null, null);
+                            }
+                        } catch (Error e) {
+                            // ignore copy failure per file
+                        }
+                    }
+                }
+            } catch (Error e) {
+                // ignore
+            }
+
+            // Reload in-memory lists if already initialized
+            if (this.tags != null || this.entries != null) {
+                // Reset lists and load again
+                this.tags = new GLib.List<Tag?> ();
+                this.entries = new GLib.List<Entry> ();
+                load_data();
+            }
+
+            // Set up file monitors once
+            try {
+                if (this.remote_tags_monitor == null) {
+                    var f = File.new_for_path(src_tags);
+                    this.remote_tags_monitor = f.monitor_file(FileMonitorFlags.NONE, null);
+                    this.remote_tags_monitor.changed.connect((mon, file, other, event) => {
+                        // Avoid reacting immediately after our own push
+                        var now = new GLib.DateTime.now_utc().to_unix();
+                        if (now - this.last_push_time <= 2) return;
+                        sync_pull_if_enabled();
+                    });
+                }
+                if (this.remote_entries_monitor == null) {
+                    var f = File.new_for_path(src_entries);
+                    this.remote_entries_monitor = f.monitor_file(FileMonitorFlags.NONE, null);
+                    this.remote_entries_monitor.changed.connect((mon, file, other, event) => {
+                        var now = new GLib.DateTime.now_utc().to_unix();
+                        if (now - this.last_push_time <= 2) return;
+                        sync_pull_if_enabled();
+                    });
+                }
+                if (this.remote_media_monitor == null) {
+                    var f = File.new_for_path(remote_media_dir);
+                    this.remote_media_monitor = f.monitor_directory(FileMonitorFlags.NONE, null);
+                    this.remote_media_monitor.changed.connect((mon, file, other, event) => {
+                        var now = new GLib.DateTime.now_utc().to_unix();
+                        if (now - this.last_push_time <= 2) return;
+                        // Copy any new or modified media
+                        try {
+                            var rel = file.get_basename();
+                            if (rel != null && rel != "") {
+                                var src = File.new_for_path(GLib.Path.build_filename(remote_media_dir, rel));
+                                var dst = File.new_for_path(GLib.Path.build_filename(this.media_dir, rel));
+                                if (!dst.query_exists() || event == FileMonitorEvent.CHANGED) {
+                                    src.copy(dst, FileCopyFlags.OVERWRITE, null, null);
+                                }
+                            }
+                        } catch (Error e) {
+                        }
+                    });
+                }
+            } catch (Error e) {
+                // ignore monitor errors
+            }
+        }
+
+        // Nextcloud-like folder sync: push local data and media to remote folder (on save)
+        private void sync_push_if_enabled() {
+            var settings = SettingsManager.get_default();
+            if (!settings.get_sync_enabled()) return;
+
+            var sync_base = settings.get_sync_folder_path();
+            if (sync_base == null || sync_base.strip() == "") return;
+
+            var sync_dir = GLib.Path.build_filename(sync_base, "Notejot");
+            var remote_media_dir = GLib.Path.build_filename(sync_dir, "media");
+            try {
+                GLib.DirUtils.create_with_parents(sync_dir, 0755);
+                GLib.DirUtils.create_with_parents(remote_media_dir, 0755);
+            } catch (GLib.Error e) {
+                // If we cannot ensure the directory, abort push.
+                warning("Sync push: cannot create directory '%s': %s", sync_dir, e.message);
+                return;
+            }
+
+            var dst_tags = GLib.Path.build_filename(sync_dir, "tags.json");
+            var dst_entries = GLib.Path.build_filename(sync_dir, "entries.json");
+
+            try {
+                string contents;
+                GLib.FileUtils.get_contents(this.tags_path, out contents);
+                GLib.FileUtils.set_contents(dst_tags, contents);
+            } catch (GLib.Error e) {
+                warning("Sync push (tags) failed: %s", e.message);
+            }
+
+            try {
+                string contents;
+                GLib.FileUtils.get_contents(this.entries_path, out contents);
+                GLib.FileUtils.set_contents(dst_entries, contents);
+            } catch (GLib.Error e) {
+                warning("Sync push (entries) failed: %s", e.message);
+            }
+
+            // Copy referenced media files
+            try {
+                foreach (var e in this.entries) {
+                    foreach (var p in e.image_paths) {
+                        if (p == null || p.strip() == "") continue;
+                        try {
+                            var base_name = GLib.Path.get_basename(p);
+                            var src = File.new_for_path(p);
+                            var dst = File.new_for_path(GLib.Path.build_filename(remote_media_dir, base_name));
+                            // Always overwrite remote to keep it fresh
+                            src.copy(dst, FileCopyFlags.OVERWRITE, null, null);
+                        } catch (Error ce) {
+                            // ignore per-file error
+                        }
+                    }
+                }
+            } catch (Error e) {
+            }
+
+            // Record push time to avoid reacting to our own monitor events
+            this.last_push_time = new GLib.DateTime.now_utc().to_unix();
         }
 
         private void migrate_old_format() {
