@@ -21,6 +21,12 @@ namespace Notejot {
 
         private bool dirty = false;
 
+        // Indicator lines
+        private Gtk.Box indicators_box;
+        private Gtk.Label tags_indicator;
+        private Gtk.Label location_indicator;
+        private Gtk.Label images_indicator;
+
         public EntryEditorView (DataManager data_manager) {
             Object (orientation : Gtk.Orientation.VERTICAL, spacing : 0);
             this.data_manager = data_manager;
@@ -60,6 +66,7 @@ namespace Notejot {
                 }
             }
             reset_dirty ();
+            update_indicators ();
         }
 
         public void preselect_tag (string tag_uuid) {
@@ -141,6 +148,7 @@ namespace Notejot {
                         }
                         this.selected_tag_uuids = (owned) rebuilt;
                         mark_dirty ();
+                        update_indicators ();
                     }
                     dlg.destroy ();
                 });
@@ -163,6 +171,7 @@ namespace Notejot {
                         }
                         this.image_paths = (owned) rebuilt_i;
                         mark_dirty ();
+                        update_indicators ();
                     }
                     dlg.destroy ();
                 });
@@ -184,6 +193,7 @@ namespace Notejot {
                         var ie = this.location_entry.get_internal_entry ();
                         if (ie != null) ie.text = dlg.get_location_text ();
                         mark_dirty ();
+                        update_indicators ();
                     }
                     dlg.destroy ();
                 });
@@ -217,10 +227,30 @@ namespace Notejot {
             var editor_scroller = new Gtk.ScrolledWindow () { vexpand = true, hexpand = true };
             editor_scroller.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
             editor_scroller.set_child (content_view);
-            // Main editor column: Title + Content
+            // Main editor column: Indicators + Title + Content
             var editor_column = new Gtk.Box (Gtk.Orientation.VERTICAL, 8);
             editor_column.set_vexpand (true);
             editor_column.set_hexpand (true);
+            
+            // Indicator lines
+            indicators_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+            indicators_box.set_margin_bottom (8);
+            indicators_box.add_css_class ("entry-indicators");
+            
+            tags_indicator = new Gtk.Label ("") { halign = Gtk.Align.START };
+            tags_indicator.add_css_class ("indicator-label");
+            indicators_box.append (tags_indicator);
+            
+            location_indicator = new Gtk.Label ("") { halign = Gtk.Align.START };
+            location_indicator.add_css_class ("indicator-label");
+            indicators_box.append (location_indicator);
+            
+            images_indicator = new Gtk.Label ("") { halign = Gtk.Align.START };
+            images_indicator.add_css_class ("indicator-label");
+            indicators_box.append (images_indicator);
+            
+            editor_column.append (indicators_box);
+            
             title_entry = new He.TextField () { placeholder_text = _("Entry Title"), hexpand = true, is_outline = true };
             editor_column.append (title_entry);
             editor_column.append (editor_scroller);
@@ -274,6 +304,50 @@ namespace Notejot {
             reset_dirty ();
         }
 
+        private void update_indicators () {
+            // Update tags indicator
+            if (selected_tag_uuids.length () > 0) {
+                var tag_names = new GLib.List<string> ();
+                foreach (var tag in data_manager.get_tags ()) {
+                    for (int i = 0; i < selected_tag_uuids.length (); i++) {
+                        if (selected_tag_uuids.nth_data (i) == tag.uuid) {
+                            tag_names.append (tag.name);
+                            break;
+                        }
+                    }
+                }
+                if (tag_names.length () > 0) {
+                    var names_str = "";
+                    for (int i = 0; i < tag_names.length (); i++) {
+                        if (i > 0) names_str += ", ";
+                        names_str += tag_names.nth_data (i);
+                    }
+                    tags_indicator.set_text (@"🏷️ $names_str");
+                    tags_indicator.set_visible (true);
+                } else {
+                    tags_indicator.set_visible (false);
+                }
+            } else {
+                tags_indicator.set_visible (false);
+            }
+
+            // Update location indicator
+            var location_text = location_entry.get_internal_entry ().text;
+            if (location_text != null && location_text.strip () != "") {
+                location_indicator.set_text (@"📍 $location_text");
+                location_indicator.set_visible (true);
+            } else {
+                location_indicator.set_visible (false);
+            }
+
+            // Update images indicator
+            if (image_paths.length () > 0) {
+                images_indicator.set_text (@"🖼️ $(image_paths.length ()) image(s)");
+                images_indicator.set_visible (true);
+            } else {
+                images_indicator.set_visible (false);
+            }
+        }
 
         private string get_content () {
             Gtk.TextIter start, end;

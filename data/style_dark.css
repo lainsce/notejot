@@ -33,6 +33,24 @@
     background-image: linear-gradient(180deg, #5f7e8a, transparent);
 }
 
+/* Entry Editor Indicators */
+.entry-indicators {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+}
+
+.indicator-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.indicator-label:not(:last-child) {
+    margin-right: 16px;
+}
+
 /* Sidebar */
 .sidebar {
     background: var(--sidebar-bg);
