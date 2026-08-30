@@ -5,6 +5,7 @@
 # Tauri-generated ACL + capability schemas (rewritten on every build)
 # macOS
 .DS_Store
+xcuserdata/
 .claude/
 /src-tauri/gen/schemas/
 /src-tauri/target/
