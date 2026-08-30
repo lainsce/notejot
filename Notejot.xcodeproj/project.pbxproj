@@ -45,8 +45,8 @@
 		000000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				67264F7830327BC500C879C3 /* data */,
 				67264F3430327B9800C879C3 /* src */,
+				67264F7830327BC500C879C3 /* data */,
 				6740910D301D4B9600F95D72 /* tests */,
 				000000000000000000000020 /* Products */,
 			);
@@ -298,8 +298,8 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ATSApplicationFontsPath = Fonts;
 				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_ATSApplicationFontsPath = Fonts;
 				INFOPLIST_KEY_CFBundleDisplayName = Notejot;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -353,8 +353,8 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ATSApplicationFontsPath = Fonts;
 				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_ATSApplicationFontsPath = Fonts;
 				INFOPLIST_KEY_CFBundleDisplayName = Notejot;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
