@@ -20,6 +20,7 @@ struct MacDestinationSidebar: View {
 
     var body: some View {
         List {
+            Text("Destinations").font(NotejotTypography.viewTitle)
             Section {
                 destinationRow(source: .allNotes) {
                     destinationLabel("All Notes", systemImage: "note.text")
@@ -28,9 +29,9 @@ struct MacDestinationSidebar: View {
                 destinationRow(source: .trash) {
                     destinationLabel("Trash", systemImage: "trash")
                 }
-            } header: {
-                sidebarSectionHeader("Destinations")
             }
+
+            Divider()
 
             Section {
                 if tagFacets.isEmpty {
