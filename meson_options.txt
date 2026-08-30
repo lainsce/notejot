@@ -1,1 +1,0 @@
-option('development', type: 'boolean', value: false, description: 'If this is a development build')

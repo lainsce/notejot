@@ -1,0 +1,50 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Start writing your notes here.": {
+      "comment": "Body of the welcome note created for a new user.",
+      "localizations": {
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia a scrivere qui le tue note."
+          }
+        }
+      }
+    },
+    "The notes file could not be read and was preserved as %@.": {
+      "comment": "Error shown after preserving an unreadable notes file; the variable is its backup filename.",
+      "localizations": {
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere il file delle note; è stato conservato come %@."
+          }
+        }
+      }
+    },
+    "The notes file could not be read or preserved: %@": {
+      "comment": "Error shown when an unreadable notes file also could not be preserved; the variable is the system error.",
+      "localizations": {
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere o conservare il file delle note: %@"
+          }
+        }
+      }
+    },
+    "Welcome to Notejot": {
+      "comment": "Title of the welcome note created for a new user.",
+      "localizations": {
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benvenuto in Notejot"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

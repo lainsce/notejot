@@ -1,0 +1,19 @@
+{
+  "notes": [
+    {
+      "id": "n1a2b3c4d5e6f708192a3b4c5d6e7f809",
+      "title": "Old note",
+      "content": "<p>Written by the Tauri build.</p>",
+      "tags": [
+        {
+          "id": "tdeadbeef",
+          "color": "#4A90D9",
+          "name": "Ideas"
+        }
+      ],
+      "created_at": "2026-01-01T00:00:00.123456789Z",
+      "updated_at": "2026-01-02T12:30:00.987654321Z",
+      "is_deleted": false
+    }
+  ]
+}

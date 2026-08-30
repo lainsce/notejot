@@ -1,64 +1,54 @@
-<img align="left" style="vertical-align: middle" width="128" height="128" src="data/icons/io.github.lainsce.Notejot.svg">
-
 # Notejot
 
-A very simple notes application for any type of short term notes or ideas.
+Notejot is a local-first macOS notes app built with SwiftUI. It combines a
+compact sidebar and rich-text editor with the app's Quantum Paper visual style.
 
-###
+## Features
 
-[![Please do not theme this app](https://stopthemingmy.app/badge.svg)](https://stopthemingmy.app)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+- List and grid views with search, tags, pinning, and Trash
+- Rich-text formatting and up to four inline images per note
+- Deterministic Quantum Paper colors driven by note tags
+- Local JSON persistence with no network entitlement
+- Native macOS menus, About panel, window behavior, and App Sandbox support
 
-![Light screenshot](data/shot.png#gh-light-mode-only)
-![Dark screenshot](data/shot-dark.png#gh-dark-mode-only)
+## Requirements
 
-<p align="center"><a href='https://flathub.org/apps/details/io.github.lainsce.Notejot'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a></p>
+- macOS 26 or later
+- Xcode with the macOS 26 SDK
 
-## 💝 Donations 
+## Build and test
 
-Would you like to support the development of this app to new heights?
-Then become a GitHub Sponsor or check my Patreon, buttons in the sidebar.
-
-## 🛠️ Dependencies
-
-Please make sure you have these dependencies first before building.
-
-```bash
-gtk4
-libjson-glib
-libgee-0.8
-libadwaita-1
-meson
-vala
-```
-
-## 🏗️ Building
-
-Simply clone this repo, then:
+Open `Notejot.xcodeproj` in Xcode, select the `Notejot` scheme, and run the app.
+The equivalent command-line checks are:
 
 ```bash
-meson _build --prefix=/usr && cd _build
-sudo ninja install
+swift test --package-path lib
+xcodebuild -project Notejot.xcodeproj -scheme Notejot -configuration Debug build
 ```
 
-## 🗂️ Notes Storage
+## Repository layout
 
-Notes are stored in `~/.var/app/io.github.lainsce.Notejot/`
+- `src/Notejot/` — app source, grouped by UI feature
+- `lib/` — independent `NotejotCore` Swift package used by Notejot, with its
+  own sources and library tests
+- `data/` — asset catalog, localization, privacy manifest, migration data, and app icon
+- `tests/` — home for app-level tests
 
-## 🔄 Migrating Old Notejot Data
+## Data
 
-On first launch, Notejot will automatically import your notes from older versions.
+Notes are stored locally at:
 
-## 🔄 Migration Details
+```text
+~/Library/Application Support/notejot/notes.json
+```
 
-- Note colors are saved as the first line of each note.
-- Old modification times are preserved as note timestamps.
-- Trashed notes remain trashed after migration.
-- Notebooks are converted to tags.
+Existing notes in the former `minnote` support directory are migrated
+automatically. The original bundle identifier is intentionally retained so an
+upgrade can continue accessing the same sandbox container.
 
-After migration:
+## Sharing builds
 
-- A `.notejot_migrated` flag file is created.
-- Old files are renamed to `*_migrated.json` for reference and are no longer used.
-
-Migration happens automatically on first launch and keeps your data safe and compatible with the new version.
+An unsigned or ad-hoc-signed build is suitable for local development. A
+frictionless build for other Macs should be signed with a Developer ID
+certificate and notarized; App Store distribution additionally requires the
+appropriate Apple Developer Program membership and review metadata.
