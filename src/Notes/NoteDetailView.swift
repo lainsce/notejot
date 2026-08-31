@@ -170,7 +170,10 @@ struct NoteDetailView: View {
                     .help("Heading Style")
 
                     Button(action: addImage) {
-                        NULIcon(systemImage: "photo.badge.plus")
+                        NULIcon(
+                            systemImage: "photo.badge.plus",
+                            foregroundColor: .primary
+                        )
                     }
                         .accessibilityLabel("Add Image")
                         .frame(
@@ -192,6 +195,7 @@ struct NoteDetailView: View {
                 )
                 .accessibilityElement(children: .contain)
                 .accessibilityLabel("Text formatting")
+                .nulWindowActivityAppearance()
             }
         }
         .sharedBackgroundVisibility(.hidden)
@@ -247,12 +251,12 @@ struct NoteDetailView: View {
                         .notejotToolbarHitTarget()
                         .help("Trash Actions")
                     } else {
-                        Button(role: .destructive, action: {
+                        Button(action: {
                             store.trashNote(id: note.id)
                         }) {
                             NULIcon(
                                 systemImage: "trash",
-                                foregroundColor: NotejotColors.destructive
+                                foregroundColor: .primary
                             )
                         }
                         .accessibilityLabel("Move to Trash")
@@ -261,7 +265,7 @@ struct NoteDetailView: View {
                             height: NotejotLayoutMetrics.compactToolbarControlSize
                         )
                         .notejotToolbarHitTarget()
-                        .foregroundStyle(NotejotColors.destructive)
+                        .foregroundStyle(NotejotColors.contentSurface)
                         .help("Move to Trash")
                     }
                 }
@@ -275,6 +279,7 @@ struct NoteDetailView: View {
                 )
                 .accessibilityElement(children: .contain)
                 .accessibilityLabel("Note actions")
+                .nulWindowActivityAppearance()
             }
         }
         .sharedBackgroundVisibility(.hidden)

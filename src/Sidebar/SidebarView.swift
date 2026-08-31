@@ -49,6 +49,7 @@ struct SidebarView: View {
                         .accessibilityLabel(isSearchPresented ? "Hide Search" : "Show Search")
                         .help(isSearchPresented ? "Hide Search" : "Show Search")
                         .notejotToolbarHitTarget()
+                        .nulWindowActivityAppearance()
                     }
                     .sharedBackgroundVisibility(.hidden)
 
@@ -65,6 +66,7 @@ struct SidebarView: View {
                         .accessibilityValue(Text(viewModeAccessibilityValue))
                         .help("View Options")
                         .notejotToolbarHitTarget()
+                        .nulWindowActivityAppearance()
                     }
                     .sharedBackgroundVisibility(.hidden)
                 }
@@ -78,6 +80,7 @@ struct SidebarView: View {
                         .help(createButtonHelp)
                         .notejotToolbarHitTarget()
                         .contentShape(Rectangle())
+                        .nulWindowActivityAppearance()
 
                     Menu {
                         Button("Privacy Policy", action: showPrivacyPolicy)
@@ -87,6 +90,7 @@ struct SidebarView: View {
                     .accessibilityLabel("More")
                     .help("More")
                     .notejotToolbarHitTarget()
+                    .nulWindowActivityAppearance()
                 }
                 .sharedBackgroundVisibility(.hidden)
 #else
@@ -160,6 +164,7 @@ struct SidebarView: View {
                         .contentShape(Rectangle())
                         .help(createButtonHelp)
                         .padding(.leading, 8)
+                        .nulWindowActivityAppearance()
                     }
                     .sharedBackgroundVisibility(.hidden)
                 }
@@ -191,6 +196,11 @@ struct SidebarView: View {
 #endif
             }
         }
+#if os(macOS)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            QuickNoteComposer()
+        }
+#endif
         .toolbar(removing: .title)
         .onChange(of: isSearchPresented) { _, newValue in
             updateSearchPresentation(newValue)

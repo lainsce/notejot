@@ -86,6 +86,7 @@ struct MacSidebarToolbar: View {
         )
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Note list actions")
+        .nulWindowActivityAppearance()
     }
 }
 #endif

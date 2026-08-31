@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		674090F8301D477E00F95D72 /* NotejotCore in Frameworks */ = {isa = PBXBuildFile; productRef = 674090F7301D477E00F95D72 /* NotejotCore */; };
+		674090F9301D477E00F95D72 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = 674090FA301D477E00F95D72 /* WhisperKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			files = (
 				674090F8301D477E00F95D72 /* NotejotCore in Frameworks */,
+				674090F9301D477E00F95D72 /* WhisperKit in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			name = Notejot;
 			packageProductDependencies = (
 				674090F7301D477E00F95D72 /* NotejotCore */,
+				674090FA301D477E00F95D72 /* WhisperKit */,
 			);
 			productName = Notejot;
 			productReference = 000000000000000000000120 /* Notejot.app */;
@@ -112,6 +115,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				674090F6301D477E00F95D72 /* XCLocalSwiftPackageReference "lib" */,
+				674090FB301D477E00F95D72 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */,
 			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = 000000000000000000000020 /* Products */;
@@ -197,7 +201,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -261,7 +265,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -286,9 +290,9 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = YES;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
 				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
@@ -304,13 +308,15 @@
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Paulo \"Lains\" Galardi";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Notejot uses the microphone to capture spoken notes.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Notejot uses speech recognition to transcribe spoken notes.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.lainsce.Notejot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -341,9 +347,9 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = YES;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
 				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
@@ -359,13 +365,15 @@
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Paulo \"Lains\" Galardi";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Notejot uses the microphone to capture spoken notes.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Notejot uses speech recognition to transcribe spoken notes.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.lainsce.Notejot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -411,10 +419,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		674090FB301D477E00F95D72 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/argmaxinc/argmax-oss-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		674090F7301D477E00F95D72 /* NotejotCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NotejotCore;
+		};
+		674090FA301D477E00F95D72 /* WhisperKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 674090FB301D477E00F95D72 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */;
+			productName = WhisperKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

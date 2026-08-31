@@ -102,6 +102,7 @@ struct NULIcon: View {
             .foregroundStyle(foregroundColor)
             .frame(width: NotejotLayoutMetrics.toolbarIconSize, height: NotejotLayoutMetrics.toolbarIconSize)
             .accessibilityHidden(true)
+            .nulWindowActivityAppearance()
     }
 }
 
@@ -156,6 +157,7 @@ struct NULButtonStyle: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
             .animation(reduceMotion ? nil : NotejotMotion.control, value: configuration.isPressed)
+            .nulWindowActivityAppearance()
     }
 
     private var backgroundColor: Color {
@@ -338,6 +340,7 @@ struct NULMenuButton<Label: View, MenuContent: View>: View {
                 .fill(NotejotColors.surface(for: colorScheme))
         }
         .fixedSize()
+        .nulWindowActivityAppearance()
     }
 
     @Environment(\.colorScheme) private var colorScheme
@@ -399,6 +402,7 @@ struct NULToolbarSurface<S: InsettableShape>: ViewModifier {
         content
             .frame(height: NotejotLayoutMetrics.compactToolbarControlSize)
             .background(NotejotColors.surface(for: colorScheme), in: shape)
+            .nulWindowActivityAppearance()
     }
 }
 
@@ -407,5 +411,26 @@ extension View {
         _ shape: S
     ) -> some View {
         modifier(NULToolbarSurface(shape: shape))
+    }
+}
+
+/// Removes chroma from a window while it is inactive, preserving its layout and controls.
+struct NULWindowActivityAppearance: ViewModifier {
+    @Environment(\.appearsActive) private var appearsActive
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        content
+            .saturation(appearsActive ? 1 : 0)
+            .animation(
+                reduceMotion ? nil : .easeInOut(duration: 0.18),
+                value: appearsActive
+            )
+    }
+}
+
+extension View {
+    func nulWindowActivityAppearance() -> some View {
+        modifier(NULWindowActivityAppearance())
     }
 }

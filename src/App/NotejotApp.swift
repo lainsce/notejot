@@ -23,6 +23,7 @@ struct NotejotApp: App {
                 privacyPolicyPresenter: privacyPolicyPresenter
             )
             .font(NotejotTypography.body)
+            .nulWindowActivityAppearance()
             .environment(store)
             .environment(deletionConfirmation)
             .environment(privacyPolicyPresenter)
@@ -39,12 +40,14 @@ struct NotejotApp: App {
         Window("About Notejot", id: NotejotWindowID.about) {
             NotejotAboutView()
                 .font(NotejotTypography.body)
+                .nulWindowActivityAppearance()
         }
         .windowResizability(.contentSize)
 
         Window("Privacy Policy", id: NotejotWindowID.privacyPolicy) {
             PrivacyPolicyView()
                 .font(NotejotTypography.body)
+                .nulWindowActivityAppearance()
         }
         .defaultSize(width: 540, height: 520)
         .windowResizability(.contentSize)
@@ -56,6 +59,7 @@ struct NotejotApp: App {
                 privacyPolicyPresenter: privacyPolicyPresenter
             )
             .font(NotejotTypography.body)
+            .nulWindowActivityAppearance()
             .environment(store)
             .environment(deletionConfirmation)
             .environment(privacyPolicyPresenter)

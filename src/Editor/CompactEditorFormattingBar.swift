@@ -64,7 +64,7 @@ struct CompactEditorFormattingBar: View {
                 Button("Add Tag", systemImage: "tag", action: showTagPopover)
             } label: {
                 HStack(spacing: NotejotColors.gridUnit) {
-                    NULIcon(systemImage: "plus")
+                    NULIcon(systemImage: "plus", foregroundColor: NotejotColors.accent)
                     Image(systemName: "chevron.down")
                         .font(.system(size: 8, weight: .semibold))
                         .foregroundStyle(.secondary)

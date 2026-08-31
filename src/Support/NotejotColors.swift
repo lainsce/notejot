@@ -18,7 +18,7 @@ enum NotejotColors {
 
     /// The app accent, reserved for selection and primary creation actions.
     /// AccentColor intentionally keeps Notejot's signature #F6D32D in light
-    /// mode (with its existing #FFE496 dark companion). User-authored tag
+    /// mode (with the deeper #BA9E00 dark companion). User-authored tag
     /// colors remain independent and are rendered as-is.
     static let accent = Color("AccentColor")
     static let destructive = Color.red

@@ -38,8 +38,16 @@ struct MacDestinationSidebar: View {
                     Text("No Tags")
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 8)
+                        .padding(.horizontal, SidebarMetrics.horizontalInset)
                         .padding(.vertical, NotejotColors.gridUnit)
+                        .listRowInsets(
+                            EdgeInsets(
+                                top: 0,
+                                leading: SidebarMetrics.horizontalInset,
+                                bottom: 0,
+                                trailing: SidebarMetrics.horizontalInset
+                            )
+                        )
                 } else {
                     ForEach(tagFacets) { facet in
                         destinationRow(source: .tag(facet.id)) {
