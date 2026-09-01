@@ -33,7 +33,7 @@ private extension String {
 }
 
 final class NoteSpeechSamples: @unchecked Sendable {
-    private nonisolated(unsafe) let lock = NSLock()
+    private let lock = NSLock()
     private nonisolated(unsafe) var values: [Float] = []
     private nonisolated(unsafe) var sourceSampleRate = Double(WhisperKit.sampleRate)
 
