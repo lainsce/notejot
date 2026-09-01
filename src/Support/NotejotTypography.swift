@@ -7,8 +7,9 @@ import UIKit
 #endif
 
 /// Geist-first typography for the Metro hierarchy, with Old Standard TT used
-/// for view titles. Missing glyphs remain eligible for the platform's
-/// serif/Mincho fallback while preserving the Dynamic Type relationship.
+/// for view titles and Lekton used for technical data. Missing glyphs remain
+/// eligible for the platform's serif/Mincho fallback while preserving the
+/// Dynamic Type relationship.
 enum NotejotTypography {
     /// The shared Nuul text scale. Roles are anchored to Dynamic Type styles so
     /// accessibility settings grow the hierarchy without introducing ad-hoc
@@ -62,6 +63,10 @@ enum NotejotTypography {
     static let caption = font(.caption)
     static let micro = font(.micro)
 
+    static func technicalFont(_ role: Role) -> Font {
+        Font.custom("Lekton", size: role.size, relativeTo: role.relativeTo)
+    }
+
     /// Compatibility funnel for existing call sites. Any legacy size is
     /// quantized to one of the canonical roles.
     static func ui(
@@ -73,17 +78,23 @@ enum NotejotTypography {
     }
 
     private static func role(for size: CGFloat) -> Role {
-        switch size {
-        case 38...: return .bigDisplay
-        case 30..<38: return .display
-        case 26..<30: return .viewTitle
-        case 21..<26: return .viewSubtitle
-        case 17..<21: return .contentBlockTitle
-        case 15..<17: return .contentBlockSubtitle
-        case 13..<15: return .body
-        case 11..<13: return .caption
-        default: return .micro
-        }
+        let roles: [(lower: CGFloat, upper: CGFloat?, role: Role)] = [
+            (38, nil, .bigDisplay),
+            (30, 38, .display),
+            (26, 30, .viewTitle),
+            (21, 26, .viewSubtitle),
+            (17, 21, .contentBlockTitle),
+            (15, 17, .contentBlockSubtitle),
+            (13, 15, .body),
+            (11, 13, .caption),
+        ]
+        return roles.first { contains(size, lower: $0.lower, upper: $0.upper) }?.role ?? .micro
+    }
+
+    private static func contains(_ size: CGFloat, lower: CGFloat, upper: CGFloat?) -> Bool {
+        guard size >= lower else { return false }
+        guard let upper else { return true }
+        return size < upper
     }
 
     private static func fontName(for role: Role) -> String {

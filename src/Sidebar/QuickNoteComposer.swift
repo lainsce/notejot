@@ -84,7 +84,7 @@ struct QuickNoteComposer: View {
                 Spacer(minLength: 0)
                 TimelineView(.periodic(from: .now, by: 1)) { context in
                     Text(elapsedTime(from: context.date))
-                        .font(NotejotTypography.caption)
+                        .font(NotejotTypography.technicalFont(.caption))
                         .monospacedDigit()
                         .frame(width: 38, alignment: .leading)
                 }

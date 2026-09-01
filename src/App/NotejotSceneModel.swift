@@ -199,24 +199,28 @@ final class NotejotSceneModel {
     }
 
     private func updateSelection(for visibleIDs: [Note.ID]) {
-        if case .some(.note(let presentedNoteID)) = compactPath.last,
-           !visibleIDs.contains(presentedNoteID) {
-            compactPath.removeAll()
-        }
+        clearMissingNote(in: &compactPath, visibleIDs: visibleIDs)
+        clearDestinationPath(visibleIDs: visibleIDs)
+        updateSelectedID(visibleIDs: visibleIDs)
+    }
 
+    private func clearMissingNote(in path: inout [CompactRoute], visibleIDs: [Note.ID]) {
+        if case .some(.note(let presentedNoteID)) = path.last,
+           !visibleIDs.contains(presentedNoteID) {
+            path.removeAll()
+        }
+    }
+
+    private func clearDestinationPath(visibleIDs: [Note.ID]) {
         switch destination {
         case .notes:
-            if case .some(.note(let presentedNoteID)) = notesCompactPath.last,
-               !visibleIDs.contains(presentedNoteID) {
-                notesCompactPath.removeAll()
-            }
+            clearMissingNote(in: &notesCompactPath, visibleIDs: visibleIDs)
         case .trash:
-            if case .some(.note(let presentedNoteID)) = trashCompactPath.last,
-               !visibleIDs.contains(presentedNoteID) {
-                trashCompactPath.removeAll()
-            }
+            clearMissingNote(in: &trashCompactPath, visibleIDs: visibleIDs)
         }
+    }
 
+    private func updateSelectedID(visibleIDs: [Note.ID]) {
         guard let selection else {
             self.selection = visibleIDs.first
             return
@@ -228,14 +232,16 @@ final class NotejotSceneModel {
     private func updateDestination(_ newDestination: Destination) {
         switch newDestination {
         case .notes, .trash:
-            if case .some(.note) = compactPath.last {
-                updateSelection(for: shownNotes.map(\.id))
-            } else {
-                compactPath.removeAll()
-            }
-            if selection == nil {
-                selection = shownNotes.first?.id
-            }
+            updateCompactPath(for: shownNotes.map(\.id))
+        }
+        if selection == nil { selection = shownNotes.first?.id }
+    }
+
+    private func updateCompactPath(for visibleIDs: [Note.ID]) {
+        if case .some(.note) = compactPath.last {
+            updateSelection(for: visibleIDs)
+        } else {
+            compactPath.removeAll()
         }
     }
 

@@ -17,6 +17,7 @@ struct AvailableTagRow: View {
                 Spacer(minLength: 8)
 
                 Text(facet.count, format: .number)
+                    .font(NotejotTypography.technicalFont(.body))
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
 

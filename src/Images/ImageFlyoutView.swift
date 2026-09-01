@@ -12,10 +12,10 @@ struct ImageFlyoutView: View {
             HStack {
                 if note.images.count == 1 {
                     Text("1 image")
-                        .font(NotejotTypography.contentBlockSubtitle)
+                        .font(NotejotTypography.technicalFont(.contentBlockSubtitle))
                 } else {
                     Text("\(note.images.count) of 4 images")
-                        .font(NotejotTypography.contentBlockSubtitle)
+                        .font(NotejotTypography.technicalFont(.contentBlockSubtitle))
                 }
                 Spacer()
                 Button("Close", systemImage: "xmark.circle.fill") {

@@ -1,47 +1,57 @@
 import SwiftUI
-#if canImport(AppKit)
-import AppKit
+
+#if canImport(UIKit)
 import NotejotCore
+import UIKit
 
 @MainActor
 final class EditorFormattingController {
-    fileprivate weak var textView: NSTextView?
+    fileprivate weak var textView: UITextView?
 
     enum Style { case bold, italic, underline, strikethrough, bulletList, heading(Int) }
 
     func apply(_ style: Style) {
         guard let target = editingTarget(for: style) else { return }
-        let tv = target.textView
+        let textView = target.textView
         let storage = target.storage
 
-        // Character-level styles: no selection → set typing attributes only.
-        let range = tv.selectedRange()
+        let range = textView.selectedRange
         guard range.length > 0 else {
-            applyToTypingAttributes(style, textView: tv)
+            applyToTypingAttributes(style, textView: textView)
             return
         }
 
-        guard tv.shouldChangeText(in: range, replacementString: nil) else { return }
+        guard shouldChange(textView, in: range) else { return }
+
         storage.beginEditing()
         applyCharacterStyle(style, range: range, storage: storage)
         storage.endEditing()
-        tv.didChangeText()
+        textView.delegate?.textViewDidChange?(textView)
     }
 
     private struct EditingTarget {
-        let textView: NSTextView
+        let textView: UITextView
         let storage: NSTextStorage
     }
 
     private func editingTarget(for style: Style) -> EditingTarget? {
-        guard let tv = textView, let storage = tv.textStorage else { return nil }
-        guard !applyParagraphStyleIfNeeded(style, textView: tv, storage: storage) else { return nil }
-        return EditingTarget(textView: tv, storage: storage)
+        guard let textView else { return nil }
+        let storage = textView.textStorage
+        guard !applyParagraphStyleIfNeeded(style, textView: textView, storage: storage) else { return nil }
+        return EditingTarget(textView: textView, storage: storage)
+    }
+
+    private func shouldChange(_ textView: UITextView, in range: NSRange) -> Bool {
+        textView.delegate?.textView?(
+            textView,
+            shouldChangeTextIn: range,
+            replacementText: ""
+        ) ?? true
     }
 
     private func applyParagraphStyleIfNeeded(
         _ style: Style,
-        textView: NSTextView,
+        textView: UITextView,
         storage: NSTextStorage
     ) -> Bool {
         switch style {
@@ -77,10 +87,10 @@ final class EditorFormattingController {
     private func enumerateFonts(
         in range: NSRange,
         storage: NSTextStorage,
-        transform: @escaping (NSFont) -> NSFont
+        transform: @escaping (UIFont) -> UIFont
     ) {
-        storage.enumerateAttribute(.font, in: range, options: []) { value, subrange, _ in
-            let font = value as? NSFont ?? HTMLMapper.bodyFont
+        storage.enumerateAttribute(.font, in: range) { value, subrange, _ in
+            let font = value as? UIFont ?? HTMLMapper.bodyFont
             storage.addAttribute(.font, value: transform(font), range: subrange)
         }
     }
@@ -96,9 +106,13 @@ final class EditorFormattingController {
         }
     }
 
-    private func toggleBinaryAttribute(_ key: NSAttributedString.Key, in range: NSRange, storage: NSTextStorage) {
+    private func toggleBinaryAttribute(
+        _ key: NSAttributedString.Key,
+        in range: NSRange,
+        storage: NSTextStorage
+    ) {
         var allSet = true
-        storage.enumerateAttribute(key, in: range, options: []) { value, _, stop in
+        storage.enumerateAttribute(key, in: range) { value, _, stop in
             if (value as? Int ?? 0) == 0 {
                 allSet = false
                 stop.pointee = true
@@ -111,12 +125,12 @@ final class EditorFormattingController {
         }
     }
 
-    private func applyToTypingAttributes(_ style: Style, textView tv: NSTextView) {
-        var attrs: [NSAttributedString.Key: NSObject] = tv.typingAttributes.compactMapValues { $0 as? NSObject }
-        if !applyFontTypingAttributes(style, to: &attrs) {
-            applyBinaryTypingAttributes(style, to: &attrs)
+    private func applyToTypingAttributes(_ style: Style, textView: UITextView) {
+        var attributes: [NSAttributedString.Key: NSObject] = textView.typingAttributes.compactMapValues { $0 as? NSObject }
+        if !applyFontTypingAttributes(style, to: &attributes) {
+            applyBinaryTypingAttributes(style, to: &attributes)
         }
-        tv.typingAttributes = attrs
+        textView.typingAttributes = attributes
     }
 
     private func applyFontTypingAttributes(
@@ -135,8 +149,8 @@ final class EditorFormattingController {
         }
     }
 
-    private func typingFont(from attributes: [NSAttributedString.Key: NSObject]) -> NSFont {
-        attributes[.font] as? NSFont ?? HTMLMapper.bodyFont
+    private func typingFont(from attributes: [NSAttributedString.Key: NSObject]) -> UIFont {
+        attributes[.font] as? UIFont ?? HTMLMapper.bodyFont
     }
 
     private func applyBinaryTypingAttributes(
@@ -161,63 +175,54 @@ final class EditorFormattingController {
         attributes[key] = isSet ? nil : NSNumber(value: NSUnderlineStyle.single.rawValue)
     }
 
-    // Toggle a disc bullet list on the paragraphs touched by the current selection.
-    private func applyBulletList(textView tv: NSTextView, storage: NSTextStorage) {
-        let sel = tv.selectedRange()
-        let str = storage.string as NSString
-        let paraRange = str.paragraphRange(for: sel)
-
+    private func applyBulletList(textView: UITextView, storage: NSTextStorage) {
+        let selectedRange = textView.selectedRange
+        let paragraphRange = (storage.string as NSString).paragraphRange(for: selectedRange)
         var hasList = false
-        storage.enumerateAttribute(.paragraphStyle, in: paraRange) { value, _, stop in
+        storage.enumerateAttribute(.paragraphStyle, in: paragraphRange) { value, _, stop in
             if let style = value as? NSParagraphStyle, !style.textLists.isEmpty {
                 hasList = true
                 stop.pointee = true
             }
         }
 
-        guard tv.shouldChangeText(in: paraRange, replacementString: nil) else { return }
         storage.beginEditing()
         if hasList {
-            storage.addAttribute(.paragraphStyle, value: NSParagraphStyle.default, range: paraRange)
+            storage.addAttribute(.paragraphStyle, value: NSParagraphStyle.default, range: paragraphRange)
         } else {
             let list = NSTextList(markerFormat: .disc, options: 0)
-            let ps = NSMutableParagraphStyle()
-            ps.textLists = [list]
-            ps.firstLineHeadIndent = 0
-            ps.headIndent = 22
-            storage.addAttribute(.paragraphStyle, value: ps, range: paraRange)
+            let style = NSMutableParagraphStyle()
+            style.textLists = [list]
+            style.firstLineHeadIndent = 0
+            style.headIndent = 22
+            storage.addAttribute(.paragraphStyle, value: style, range: paragraphRange)
         }
         storage.endEditing()
-        tv.didChangeText()
+        textView.delegate?.textViewDidChange?(textView)
     }
 
-    // Change the font size (and weight) of paragraphs touched by the current selection.
-    // level 0 = normal body, 1 = H1 (26 pt bold), 2 = H2 (20 pt bold), 3 = H3 (17 pt semibold).
-    private func applyHeading(level: Int, textView tv: NSTextView, storage: NSTextStorage) {
-        let sel = tv.selectedRange()
-        let str = storage.string as NSString
-        let paraRange = str.paragraphRange(for: sel)
-
+    private func applyHeading(level: Int, textView: UITextView, storage: NSTextStorage) {
+        let selectedRange = textView.selectedRange
+        let paragraphRange = (storage.string as NSString).paragraphRange(for: selectedRange)
         let baseFont = HTMLMapper.font(forHeadingLevel: level)
 
-        guard tv.shouldChangeText(in: paraRange, replacementString: nil) else { return }
         storage.beginEditing()
-        applyHeadingFonts(baseFont: baseFont, level: level, range: paraRange, storage: storage)
-        applyHeadingAttribute(level: level, range: paraRange, storage: storage)
+        applyHeadingFonts(baseFont: baseFont, level: level, range: paragraphRange, storage: storage)
+        applyHeadingAttribute(level: level, range: paragraphRange, storage: storage)
         storage.endEditing()
-        tv.didChangeText()
+        textView.delegate?.textViewDidChange?(textView)
     }
 
     private func applyHeadingFonts(
-        baseFont: NSFont,
+        baseFont: UIFont,
         level: Int,
         range: NSRange,
         storage: NSTextStorage
     ) {
         storage.enumerateAttribute(.font, in: range) { value, subrange, _ in
-            let source = value as? NSFont ?? HTMLMapper.bodyFont
+            let source = value as? UIFont ?? HTMLMapper.bodyFont
             var traits = source.fontDescriptor.symbolicTraits
-            if level > 0 { traits.insert(.bold) } else { traits.remove(.bold) }
+            if level > 0 { traits.insert(PlatformTypography.boldTrait) } else { traits.remove(PlatformTypography.boldTrait) }
             storage.addAttribute(
                 .font,
                 value: PlatformTypography.applying(traits, to: baseFont),
@@ -235,62 +240,69 @@ final class EditorFormattingController {
     }
 }
 
-struct EditorTextView: NSViewRepresentable {
+struct EditorTextView: UIViewRepresentable {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     @Binding var text: NSAttributedString
     let formatter: EditorFormattingController
 
-    func makeCoordinator() -> Coordinator { Coordinator(self) }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self, dynamicTypeSize: dynamicTypeSize)
+    }
 
-    func makeNSView(context: Context) -> NSScrollView {
-        let scroll = NSTextView.scrollableTextView()
-        guard let textView = scroll.documentView as? NSTextView else { return scroll }
-
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
         textView.delegate = context.coordinator
-        textView.textColor = .labelColor
-        textView.isRichText = true
-        textView.allowsUndo = true
-        textView.isAutomaticQuoteSubstitutionEnabled = false
-        textView.isAutomaticDashSubstitutionEnabled = false
-        textView.isContinuousSpellCheckingEnabled = false
+        textView.isEditable = true
+        textView.isScrollEnabled = true
+        textView.allowsEditingTextAttributes = true
+        textView.backgroundColor = .clear
+        textView.textColor = .label
         textView.font = HTMLMapper.bodyFont
-        textView.textContainerInset = NSSize(width: 0, height: 12)
-        textView.drawsBackground = false
-        scroll.drawsBackground = false
-
-        textView.textStorage?.setAttributedString(text)
-        textView.textStorage?.addAttribute(
-            .foregroundColor,
-            value: NSColor.labelColor,
-            range: NSRange(location: 0, length: textView.string.utf16.count)
-        )
+        textView.adjustsFontForContentSizeCategory = true
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        textView.attributedText = text
         formatter.textView = textView
-        return scroll
+        return textView
     }
 
-    func updateNSView(_ scroll: NSScrollView, context: Context) {
-        guard let textView = scroll.documentView as? NSTextView else { return }
+    func updateUIView(_ textView: UITextView, context: Context) {
+        context.coordinator.parent = self
         formatter.textView = textView
-
-        // Do NOT replace the contents while the editor has focus. Unsaved text
-        // lives between keystroke and debounced save, and overwriting it loses
-        // whatever the user was mid-sentence on. The web build hit this.
-        guard textView.window?.firstResponder !== textView else { return }
-        guard textView.attributedString() != text else { return }
-        textView.textStorage?.setAttributedString(text)
-        textView.textStorage?.addAttribute(
-            .foregroundColor,
-            value: NSColor.labelColor,
-            range: NSRange(location: 0, length: textView.string.utf16.count)
-        )
+        if context.coordinator.dynamicTypeSize != dynamicTypeSize {
+            context.coordinator.dynamicTypeSize = dynamicTypeSize
+            let selectedRange = textView.selectedRange
+            let html = HTMLMapper.html(from: textView.attributedText)
+            let rescaledText = HTMLMapper.attributedString(fromHTML: html)
+            textView.attributedText = rescaledText
+            let location = min(selectedRange.location, rescaledText.length)
+            let remainingLength = rescaledText.length - location
+            textView.selectedRange = NSRange(
+                location: location,
+                length: min(selectedRange.length, remainingLength)
+            )
+            Task { @MainActor in
+                await Task.yield()
+                context.coordinator.parent.text = rescaledText
+            }
+            return
+        }
+        guard !textView.isFirstResponder else { return }
+        guard !textView.attributedText.isEqual(to: text) else { return }
+        textView.attributedText = text
     }
 
-    final class Coordinator: NSObject, NSTextViewDelegate {
-        private let parent: EditorTextView
-        init(_ parent: EditorTextView) { self.parent = parent }
+    final class Coordinator: NSObject, UITextViewDelegate {
+        var parent: EditorTextView
+        var dynamicTypeSize: DynamicTypeSize
 
-        func textDidChange(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView else { return }
-            parent.text = textView.attributedString()
+        init(_ parent: EditorTextView, dynamicTypeSize: DynamicTypeSize) {
+            self.parent = parent
+            self.dynamicTypeSize = dynamicTypeSize
+        }
+
+        func textViewDidChange(_ textView: UITextView) {
+            parent.text = textView.attributedText
         }
     }
 }

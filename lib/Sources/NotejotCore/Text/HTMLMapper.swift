@@ -17,8 +17,21 @@ public enum HTMLMapper {
         "p", "div", "li", "h1", "h2", "h3", "blockquote", "pre",
     ]
     private static let listTags: Set<String> = ["ul", "ol"]
-    private static let dropWithContent: Set<String> = [
+    static let dropWithContent: Set<String> = [
         "script", "style", "iframe", "object", "embed", "template", "link", "meta",
+    ]
+    private static let headingLevels: [String: Int] = ["h1": 1, "h2": 2, "h3": 3]
+    private static let inlineStyleKeyPaths: [String: WritableKeyPath<Style, Bool>] = [
+        "b": \.bold, "strong": \.bold,
+        "i": \.italic, "em": \.italic,
+        "u": \.underline,
+        "s": \.strikethrough, "strike": \.strikethrough,
+        "code": \.isMonospaced,
+    ]
+    private static let paragraphFlagKeyPaths: [String: WritableKeyPath<Style, Bool>] = [
+        "li": \.isListItem,
+        "blockquote": \.isQuoted,
+        "pre": \.isMonospaced,
     ]
 
     public static var bodyFont: NotejotFont {
@@ -63,167 +76,12 @@ public enum HTMLMapper {
         // collapsed by appendParagraphBreak() and authored blank lines vanish
         // when a note is reloaded.
         var paragraphContentStack = [Bool]()
-        var index = html.startIndex
-
-        func appendParagraphBreak(force: Bool = false) {
-            guard force || !output.string.hasSuffix("\n") else { return }
-            // A bare newline has no font metrics, so AppKit gives an empty
-            // paragraph a shorter fallback line fragment. Carry the editor's
-            // body metrics on separators to keep authored blank lines visible
-            // at the same height as surrounding paragraphs.
-            output.append(
-                NSAttributedString(
-                    string: "\n",
-                    attributes: [
-                        .font: bodyFont,
-                        .paragraphStyle: NSParagraphStyle.default,
-                    ]
-                )
-            )
-        }
-
-        func markParagraphContent() {
-            guard !paragraphContentStack.isEmpty else { return }
-            paragraphContentStack[paragraphContentStack.count - 1] = true
-        }
-
-        func appendText(_ encodedText: String) {
-            let text = unescape(encodedText)
-            guard !text.isEmpty else { return }
-            markParagraphContent()
-            let style = styleStack.last ?? Style()
-
-            var font: NotejotFont
-            if style.headingLevel > 0 {
-                font = Self.font(forHeadingLevel: style.headingLevel)
-            } else if style.isMonospaced {
-                font = PlatformTypography.monospacedFont
-            } else {
-                font = bodyFont
-            }
-
-            var traits: NotejotFontTraits = []
-            if style.bold { traits.insert(PlatformTypography.boldTrait) }
-            if style.italic { traits.insert(PlatformTypography.italicTrait) }
-            if !traits.isEmpty {
-                font = PlatformTypography.applying(traits, to: font)
-            }
-
-            let paragraphStyle = NSMutableParagraphStyle()
-            if style.isListItem {
-                paragraphStyle.textLists = [NSTextList(markerFormat: .disc, options: 0)]
-                paragraphStyle.firstLineHeadIndent = 12
-                paragraphStyle.headIndent = 24
-            } else if style.isQuoted {
-                paragraphStyle.firstLineHeadIndent = 24
-                paragraphStyle.headIndent = 24
-            }
-
-            var attributes: [NSAttributedString.Key: Any] = [
-                .font: font,
-                .paragraphStyle: paragraphStyle,
-            ]
-            if style.headingLevel > 0 {
-                attributes[.notejotHeadingLevel] = style.headingLevel
-            }
-            if style.underline {
-                attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
-            }
-            if style.strikethrough {
-                attributes[.strikethroughStyle] = NSUnderlineStyle.single.rawValue
-            }
-            output.append(NSAttributedString(string: text, attributes: attributes))
-        }
-
-        while index < html.endIndex {
-            guard html[index] == "<" else {
-                let nextTag = html[index...].firstIndex(of: "<") ?? html.endIndex
-                appendText(String(html[index..<nextTag]))
-                index = nextTag
-                continue
-            }
-
-            guard let close = html[index...].firstIndex(of: ">") else {
-                appendText(String(html[index...]))
-                break
-            }
-
-            let rawTag = String(html[html.index(after: index)..<close])
-            index = html.index(after: close)
-            let isClosing = rawTag.hasPrefix("/")
-            let name = rawTag
-                .drop(while: { $0 == "/" })
-                .prefix(while: { !$0.isWhitespace && $0 != "/" })
-                .lowercased()
-
-            if dropWithContent.contains(name) {
-                if !isClosing,
-                   let end = html.range(
-                       of: "</\(name)>",
-                       options: .caseInsensitive,
-                       range: index..<html.endIndex
-                   ) {
-                    index = end.upperBound
-                }
-                continue
-            }
-
-            if name == "br" {
-                markParagraphContent()
-                appendParagraphBreak()
-                continue
-            }
-
-            if listTags.contains(name) {
-                if isClosing {
-                    if styleStack.count > 1 { styleStack.removeLast() }
-                } else {
-                    styleStack.append(styleStack.last ?? Style())
-                }
-                continue
-            }
-
-            if paragraphTags.contains(name) {
-                if isClosing {
-                    let hasContent = paragraphContentStack.popLast() ?? true
-                    if styleStack.count > 1 { styleStack.removeLast() }
-                    appendParagraphBreak(force: !hasContent)
-                } else {
-                    if output.length > 0 { appendParagraphBreak() }
-                    var style = styleStack.last ?? Style()
-                    switch name {
-                    case "h1": style.headingLevel = 1
-                    case "h2": style.headingLevel = 2
-                    case "h3": style.headingLevel = 3
-                    case "li": style.isListItem = true
-                    case "blockquote": style.isQuoted = true
-                    case "pre": style.isMonospaced = true
-                    default: break
-                    }
-                    styleStack.append(style)
-                    paragraphContentStack.append(false)
-                }
-                continue
-            }
-
-            if inlineTags.contains(name) {
-                if isClosing {
-                    if styleStack.count > 1 { styleStack.removeLast() }
-                } else {
-                    var style = styleStack.last ?? Style()
-                    switch name {
-                    case "b", "strong": style.bold = true
-                    case "i", "em": style.italic = true
-                    case "u": style.underline = true
-                    case "s", "strike": style.strikethrough = true
-                    case "code": style.isMonospaced = true
-                    default: break
-                    }
-                    styleStack.append(style)
-                }
-            }
-            // Unknown tags are deliberately unwrapped: their text remains.
-        }
+        parseHTML(
+            html,
+            output: output,
+            styleStack: &styleStack,
+            paragraphContentStack: &paragraphContentStack
+        )
 
         // Closing the final block adds a separator, not a user-authored blank line.
         if output.string.hasSuffix("\n") {
@@ -232,117 +90,307 @@ public enum HTMLMapper {
         return output
     }
 
-    /// Emits only markup the editor can create: paragraphs, headings, lists,
-    /// bold, italic, underline, and strikethrough.
-    public static func html(from attributedString: NSAttributedString) -> String {
-        guard attributedString.length > 0 else { return "" }
-
-        let string = attributedString.string as NSString
-        var paragraphs: [String] = []
-        var location = 0
-
-        while location < string.length {
-            let fullRange = string.paragraphRange(for: NSRange(location: location, length: 0))
-            var contentRange = fullRange
-            while contentRange.length > 0 {
-                let finalCharacter = string.character(at: NSMaxRange(contentRange) - 1)
-                guard finalCharacter == 10 || finalCharacter == 13 else { break }
-                contentRange.length -= 1
-            }
-            paragraphs.append(htmlParagraph(from: attributedString, range: contentRange, string: string))
-            location = NSMaxRange(fullRange)
-        }
-
-        if string.hasSuffix("\n") {
-            paragraphs.append("<p></p>")
-        }
-
-        var output = ""
-        var isListOpen = false
-        for paragraph in paragraphs {
-            if paragraph.hasPrefix("<li>") {
-                if !isListOpen {
-                    output += "<ul>"
-                    isListOpen = true
-                }
-                output += paragraph
+    private static func parseHTML(
+        _ html: String,
+        output: NSMutableAttributedString,
+        styleStack: inout [Style],
+        paragraphContentStack: inout [Bool]
+    ) {
+        var index = html.startIndex
+        while index < html.endIndex {
+            if html[index] == "<" {
+                consumeTag(
+                    in: html,
+                    index: &index,
+                    output: output,
+                    styleStack: &styleStack,
+                    paragraphContentStack: &paragraphContentStack
+                )
             } else {
-                if isListOpen {
-                    output += "</ul>"
-                    isListOpen = false
-                }
-                output += paragraph
+                consumeText(
+                    in: html,
+                    index: &index,
+                    output: output,
+                    styleStack: styleStack,
+                    paragraphContentStack: &paragraphContentStack
+                )
             }
         }
-        if isListOpen { output += "</ul>" }
-        return output
     }
 
-    public static func plainTextPreview(fromHTML html: String) -> String {
-        var result = html
-        for tag in dropWithContent {
-            while let openRange = result.range(of: "<\(tag)", options: .caseInsensitive),
-                  let closeRange = result.range(
-                      of: "</\(tag)>",
-                      options: .caseInsensitive,
-                      range: openRange.lowerBound..<result.endIndex
-                  ) {
-                result.removeSubrange(openRange.lowerBound..<closeRange.upperBound)
-            }
-        }
-        while let open = result.range(of: "<"),
-              let close = result.range(of: ">", range: open.upperBound..<result.endIndex) {
-            result.removeSubrange(open.lowerBound..<close.upperBound)
-        }
-        return unescape(result)
-            .components(separatedBy: .whitespacesAndNewlines)
-            .filter { !$0.isEmpty }
-            .joined(separator: " ")
+    private static func consumeText(
+        in html: String,
+        index: inout String.Index,
+        output: NSMutableAttributedString,
+        styleStack: [Style],
+        paragraphContentStack: inout [Bool]
+    ) {
+        let nextTag = html[index...].firstIndex(of: "<") ?? html.endIndex
+        appendText(
+            String(html[index..<nextTag]),
+            output: output,
+            styleStack: styleStack,
+            paragraphContentStack: &paragraphContentStack
+        )
+        index = nextTag
     }
 
-    private static func unescape(_ text: String) -> String {
-        text.replacing("&lt;", with: "<")
-            .replacing("&gt;", with: ">")
-            .replacing("&nbsp;", with: "\u{00A0}")
-            .replacing("&quot;", with: "\"")
-            .replacing("&#39;", with: "'")
-            .replacing("&amp;", with: "&")
-    }
-
-    private static func htmlParagraph(
-        from attributedString: NSAttributedString,
-        range: NSRange,
-        string: NSString
-    ) -> String {
-        guard range.length > 0 else { return "<p></p>" }
-
-        let paragraphAttributes = attributedString.attributes(at: range.location, effectiveRange: nil)
-        let headingLevel = paragraphAttributes[.notejotHeadingLevel] as? Int ?? 0
-        let paragraphStyle = paragraphAttributes[.paragraphStyle] as? NSParagraphStyle
-        let isListItem = paragraphStyle?.textLists.isEmpty == false
-        var innerHTML = ""
-
-        attributedString.enumerateAttributes(in: range) { attributes, runRange, _ in
-            var piece = escape(string.substring(with: runRange))
-            let font = attributes[.font] as? NotejotFont ?? bodyFont
-            let traits = font.fontDescriptor.symbolicTraits
-            if (attributes[.strikethroughStyle] as? Int ?? 0) != 0 {
-                piece = "<s>\(piece)</s>"
-            }
-            if (attributes[.underlineStyle] as? Int ?? 0) != 0 {
-                piece = "<u>\(piece)</u>"
-            }
-            if traits.contains(PlatformTypography.italicTrait) { piece = "<i>\(piece)</i>" }
-            if traits.contains(PlatformTypography.boldTrait), headingLevel == 0 {
-                piece = "<b>\(piece)</b>"
-            }
-            innerHTML += piece
+    private static func consumeTag(
+        in html: String,
+        index: inout String.Index,
+        output: NSMutableAttributedString,
+        styleStack: inout [Style],
+        paragraphContentStack: inout [Bool]
+    ) {
+        guard let close = html[index...].firstIndex(of: ">") else {
+            appendText(
+                String(html[index...]),
+                output: output,
+                styleStack: styleStack,
+                paragraphContentStack: &paragraphContentStack
+            )
+            index = html.endIndex
+            return
         }
 
-        if isListItem { return "<li>\(innerHTML)</li>" }
-        if headingLevel == 1 { return "<h1>\(innerHTML)</h1>" }
-        if headingLevel == 2 { return "<h2>\(innerHTML)</h2>" }
-        if headingLevel == 3 { return "<h3>\(innerHTML)</h3>" }
-        return "<p>\(innerHTML)</p>"
+        let rawTag = String(html[html.index(after: index)..<close])
+        index = html.index(after: close)
+        let isClosing = rawTag.hasPrefix("/")
+        let name = tagName(from: rawTag)
+
+        if consumeSpecialTag(
+            name,
+            isClosing: isClosing,
+            in: html,
+            index: &index,
+            output: output,
+            styleStack: &styleStack,
+            paragraphContentStack: &paragraphContentStack
+        ) { return }
+
+        if inlineTags.contains(name) {
+            handleInlineTag(name, isClosing: isClosing, styleStack: &styleStack)
+        }
+        // Unknown tags are deliberately unwrapped: their text remains.
     }
+
+    private static func tagName(from rawTag: String) -> String {
+        rawTag
+            .drop(while: { $0 == "/" })
+            .prefix(while: { !$0.isWhitespace && $0 != "/" })
+            .lowercased()
+    }
+
+    private static func consumeSpecialTag(
+        _ name: String,
+        isClosing: Bool,
+        in html: String,
+        index: inout String.Index,
+        output: NSMutableAttributedString,
+        styleStack: inout [Style],
+        paragraphContentStack: inout [Bool]
+    ) -> Bool {
+        if dropWithContent.contains(name) {
+            if !isClosing,
+               let end = html.range(
+                   of: "</\(name)>",
+                   options: .caseInsensitive,
+                   range: index..<html.endIndex
+               ) { index = end.upperBound }
+            return true
+        }
+        if name == "br" {
+            markParagraphContent(&paragraphContentStack)
+            appendParagraphBreak(to: output)
+            return true
+        }
+        return consumeBlockTag(
+            name,
+            isClosing: isClosing,
+            output: output,
+            styleStack: &styleStack,
+            paragraphContentStack: &paragraphContentStack
+        )
+    }
+
+    private static func consumeBlockTag(
+        _ name: String,
+        isClosing: Bool,
+        output: NSMutableAttributedString,
+        styleStack: inout [Style],
+        paragraphContentStack: inout [Bool]
+    ) -> Bool {
+        if listTags.contains(name) {
+            handleListTag(isClosing: isClosing, styleStack: &styleStack)
+            return true
+        }
+        if paragraphTags.contains(name) {
+            handleParagraphTag(
+                name,
+                isClosing: isClosing,
+                output: output,
+                styleStack: &styleStack,
+                paragraphContentStack: &paragraphContentStack
+            )
+            return true
+        }
+        return false
+    }
+
+    private static func appendParagraphBreak(
+        to output: NSMutableAttributedString,
+        force: Bool = false
+    ) {
+        guard force || !output.string.hasSuffix("\n") else { return }
+        // A bare newline has no font metrics, so AppKit gives an empty
+        // paragraph a shorter fallback line fragment. Carry the editor's
+        // body metrics on separators to keep authored blank lines visible
+        // at the same height as surrounding paragraphs.
+        output.append(
+            NSAttributedString(
+                string: "\n",
+                attributes: [
+                    .font: bodyFont,
+                    .paragraphStyle: NSParagraphStyle.default,
+                ]
+            )
+        )
+    }
+
+    private static func markParagraphContent(_ stack: inout [Bool]) {
+        guard !stack.isEmpty else { return }
+        stack[stack.count - 1] = true
+    }
+
+    private static func handleListTag(isClosing: Bool, styleStack: inout [Style]) {
+        if isClosing {
+            if styleStack.count > 1 { styleStack.removeLast() }
+        } else {
+            styleStack.append(styleStack.last ?? Style())
+        }
+    }
+
+    private static func handleParagraphTag(
+        _ name: String,
+        isClosing: Bool,
+        output: NSMutableAttributedString,
+        styleStack: inout [Style],
+        paragraphContentStack: inout [Bool]
+    ) {
+        if isClosing {
+            closeParagraph(output: output, styleStack: &styleStack, paragraphContentStack: &paragraphContentStack)
+            return
+        }
+
+        if output.length > 0 { appendParagraphBreak(to: output) }
+        styleStack.append(paragraphStyle(named: name, base: currentStyle(styleStack)))
+        paragraphContentStack.append(false)
+    }
+
+    private static func closeParagraph(
+        output: NSMutableAttributedString,
+        styleStack: inout [Style],
+        paragraphContentStack: inout [Bool]
+    ) {
+        let hasContent = paragraphContentStack.popLast() ?? true
+        if styleStack.count > 1 { styleStack.removeLast() }
+        appendParagraphBreak(to: output, force: !hasContent)
+    }
+
+    private static func currentStyle(_ styleStack: [Style]) -> Style {
+        styleStack.last ?? Style()
+    }
+
+    private static func paragraphStyle(named name: String, base: Style) -> Style {
+        var style = base
+        if let level = headingLevels[name] {
+            style.headingLevel = level
+        } else if let keyPath = paragraphFlagKeyPaths[name] {
+            style[keyPath: keyPath] = true
+        }
+        return style
+    }
+
+    private static func handleInlineTag(
+        _ name: String,
+        isClosing: Bool,
+        styleStack: inout [Style]
+    ) {
+        if isClosing {
+            if styleStack.count > 1 { styleStack.removeLast() }
+            return
+        }
+
+        var style = currentStyle(styleStack)
+        if let keyPath = inlineStyleKeyPaths[name] { style[keyPath: keyPath] = true }
+        styleStack.append(style)
+    }
+
+    private static func appendText(
+        _ encodedText: String,
+        output: NSMutableAttributedString,
+        styleStack: [Style],
+        paragraphContentStack: inout [Bool]
+    ) {
+        let text = unescape(encodedText)
+        guard !text.isEmpty else { return }
+        markParagraphContent(&paragraphContentStack)
+        let style = styleStack.last ?? Style()
+        let font = textFont(for: style)
+        let paragraphStyle = paragraphStyle(for: style)
+        let attributes = textAttributes(for: style, font: font, paragraphStyle: paragraphStyle)
+        output.append(NSAttributedString(string: text, attributes: attributes))
+    }
+
+    private static func textFont(for style: Style) -> NotejotFont {
+        let baseFont = baseFont(for: style)
+        let traits = traits(for: style)
+        return traits.isEmpty ? baseFont : PlatformTypography.applying(traits, to: baseFont)
+    }
+
+    private static func baseFont(for style: Style) -> NotejotFont {
+        if style.headingLevel > 0 {
+            return Self.font(forHeadingLevel: style.headingLevel)
+        } else if style.isMonospaced {
+            return PlatformTypography.monospacedFont
+        } else {
+            return bodyFont
+        }
+    }
+
+    private static func traits(for style: Style) -> NotejotFontTraits {
+        var traits: NotejotFontTraits = []
+        if style.bold { traits.insert(PlatformTypography.boldTrait) }
+        if style.italic { traits.insert(PlatformTypography.italicTrait) }
+        return traits
+    }
+
+    private static func paragraphStyle(for style: Style) -> NSMutableParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        if style.isListItem {
+            paragraphStyle.textLists = [NSTextList(markerFormat: .disc, options: 0)]
+            paragraphStyle.firstLineHeadIndent = 12
+            paragraphStyle.headIndent = 24
+        } else if style.isQuoted {
+            paragraphStyle.firstLineHeadIndent = 24
+            paragraphStyle.headIndent = 24
+        }
+        return paragraphStyle
+    }
+
+    private static func textAttributes(
+        for style: Style,
+        font: NotejotFont,
+        paragraphStyle: NSMutableParagraphStyle
+    ) -> [NSAttributedString.Key: NSObject] {
+        var attributes: [NSAttributedString.Key: NSObject] = [
+            .font: font,
+            .paragraphStyle: paragraphStyle,
+        ]
+        if style.headingLevel > 0 { attributes[.notejotHeadingLevel] = NSNumber(value: style.headingLevel) }
+        if style.underline { attributes[.underlineStyle] = NSNumber(value: NSUnderlineStyle.single.rawValue) }
+        if style.strikethrough { attributes[.strikethroughStyle] = NSNumber(value: NSUnderlineStyle.single.rawValue) }
+        return attributes
+    }
+
 }

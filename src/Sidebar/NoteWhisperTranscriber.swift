@@ -1,6 +1,6 @@
 import Foundation
 import AVFoundation
-import WhisperKit
+@preconcurrency import WhisperKit
 
 /// Local Whisper transcription shared by the voice composer. The model is downloaded
 /// and cached by WhisperKit on first use; callers can continue using Apple Speech as
@@ -12,24 +12,30 @@ final class NoteWhisperTranscriber: @unchecked Sendable {
     func transcribe(samples: [Float]) async -> String? {
         guard samples.count > 3200 else { return nil }
         do {
-            if whisper == nil {
-                whisper = try await WhisperKit(WhisperKitConfig(model: "base"))
-            }
-            guard let whisper else { return nil }
-            // Do not use WhisperKit's English prefill: detect the spoken language
-            // from the recording so Brazilian Portuguese is transcribed naturally.
-            let options = DecodingOptions(usePrefillPrompt: false, detectLanguage: true)
-            let results = await whisper.transcribe(audioArrays: [samples], decodeOptions: options)
-            return results.first??.map(\.text).joined(separator: " ")
-                .trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+            let whisper = try await instance()
+            return await decode(samples, with: whisper)
         } catch {
             return nil
         }
     }
-}
 
-private extension String {
-    var nilIfEmpty: String? { isEmpty ? nil : self }
+    private nonisolated func instance() async throws -> WhisperKit {
+        if whisper == nil { whisper = try await WhisperKit(WhisperKitConfig(model: "base")) }
+        guard let whisper else { throw TranscriptionError.unavailable }
+        return whisper
+    }
+
+    private nonisolated func decode(_ samples: [Float], with whisper: WhisperKit) async -> String? {
+        // Do not use WhisperKit's English prefill: detect the spoken language
+        // from the recording so Brazilian Portuguese is transcribed naturally.
+        let options = DecodingOptions(usePrefillPrompt: false, detectLanguage: true)
+        let results = await whisper.transcribe(audioArrays: [samples], decodeOptions: options)
+        guard let text = results.first??.map(\.text).joined(separator: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines) else { return nil }
+        return text.isEmpty ? nil : text
+    }
+
+    private enum TranscriptionError: Error { case unavailable }
 }
 
 final class NoteSpeechSamples: @unchecked Sendable {
@@ -38,13 +44,26 @@ final class NoteSpeechSamples: @unchecked Sendable {
     private nonisolated(unsafe) var sourceSampleRate = Double(WhisperKit.sampleRate)
 
     nonisolated func append(_ buffer: AVAudioPCMBuffer) {
-        guard case .float(let channel) = buffer.channelData(0) else { return }
         let count = Int(buffer.frameLength)
         guard count > 0 else { return }
         lock.lock()
-        if sourceSampleRate == Double(WhisperKit.sampleRate) { sourceSampleRate = buffer.format.sampleRate }
-        for index in 0..<count { values.append(channel[index]) }
+        appendSamples(buffer, count: count, sampleRate: buffer.format.sampleRate)
         lock.unlock()
+    }
+
+    private nonisolated func appendSamples(
+        _ buffer: AVAudioPCMBuffer,
+        count: Int,
+        sampleRate: Double
+    ) {
+        guard case .float(let channel) = buffer.channelData(0) else { return }
+        updateSourceSampleRate(sampleRate)
+        values.append(contentsOf: (0..<count).map { channel[$0] })
+    }
+
+    private nonisolated func updateSourceSampleRate(_ sampleRate: Double) {
+        guard sourceSampleRate == Double(WhisperKit.sampleRate) else { return }
+        sourceSampleRate = sampleRate
     }
 
     nonisolated func snapshot() -> [Float] {

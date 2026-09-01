@@ -39,6 +39,7 @@ struct TagFilterChip: View {
                 }
 
                 Text(count, format: .number)
+                    .font(NotejotTypography.technicalFont(.body))
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
             }

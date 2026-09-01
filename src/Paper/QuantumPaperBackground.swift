@@ -1,12 +1,9 @@
-import NotejotCore
 import SwiftUI
 
 /// The editor canvas is intentionally quiet: a single paper tone, one rule,
 /// and a hairline edge. Tag color belongs to metadata controls, not the page
 /// background, so notes remain readable and the accent stays meaningful.
 struct QuantumPaperBackground: View {
-    let tags: [Tag]
-
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {

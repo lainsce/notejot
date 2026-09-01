@@ -11,8 +11,19 @@
 		674090F9301D477E00F95D72 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = 674090FA301D477E00F95D72 /* WhisperKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		000000000000000300000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = Notejot;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* Notejot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notejot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000121 /* NotejotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotejotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -41,6 +52,11 @@
 				674090F9301D477E00F95D72 /* WhisperKit in Frameworks */,
 			);
 		};
+		000000000000000230000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -58,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* Notejot.app */,
+				000000000000000000000121 /* NotejotTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,6 +105,27 @@
 			productReference = 000000000000000000000120 /* Notejot.app */;
 			productType = "com.apple.product-type.application";
 		};
+		000000000000000100000001 /* NotejotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000210000000 /* Build configuration list for PBXNativeTarget "NotejotTests" */;
+			buildPhases = (
+				000000000000000220000000 /* Sources */,
+				000000000000000230000000 /* Frameworks */,
+				000000000000000240000000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				000000000000000300000000 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6740910D301D4B9600F95D72 /* tests */,
+			);
+			name = NotejotTests;
+			productName = NotejotTests;
+			productReference = 000000000000000000000121 /* NotejotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -101,6 +139,10 @@
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
 						LastSwiftMigration = 2700;
+					};
+					000000000000000100000001 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = 000000000000000100000000;
 					};
 				};
 			};
@@ -123,12 +165,18 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* Notejot */,
+				000000000000000100000001 /* NotejotTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		000000000000000240000000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -141,7 +189,20 @@
 			files = (
 			);
 		};
+		000000000000000220000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		000000000000000300000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* Notejot */;
+			targetProxy = 000000000000000300000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "Notejot" */ = {
@@ -300,6 +361,7 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -391,6 +453,38 @@
 			};
 			name = Release;
 		};
+		000000000000000211000000 /* Debug configuration for PBXNativeTarget "NotejotTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXLP3297S8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nayu.NotejotTests;
+				PRODUCT_NAME = NotejotTests;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notejot.app/Contents/MacOS/Notejot";
+			};
+			name = Debug;
+		};
+		000000000000000212000000 /* Release configuration for PBXNativeTarget "NotejotTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXLP3297S8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nayu.NotejotTests;
+				PRODUCT_NAME = NotejotTests;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notejot.app/Contents/MacOS/Notejot";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -407,6 +501,14 @@
 			buildConfigurations = (
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "Notejot" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "Notejot" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		000000000000000210000000 /* Build configuration list for PBXNativeTarget "NotejotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000211000000 /* Debug configuration for PBXNativeTarget "NotejotTests" */,
+				000000000000000212000000 /* Release configuration for PBXNativeTarget "NotejotTests" */,
 			);
 			defaultConfigurationName = Release;
 		};

@@ -61,7 +61,7 @@ struct NoteDetailView: View {
                     .zIndex(3)
             }
         }
-        .background(QuantumPaperBackground(tags: note.tags))
+        .background(QuantumPaperBackground())
         .padding(8)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if usesCompactLayout {
@@ -328,7 +328,7 @@ struct NoteDetailView: View {
         detailActions.addImage()
     }
 
-    private func handleImageSelection(_ result: Result<[URL], any Error>) {
+    private func handleImageSelection(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
             importImages(from: urls)
@@ -346,17 +346,17 @@ struct NoteDetailView: View {
         Task {
             let result = await ImageImporter.shared.importImages(from: urls, limit: remaining)
             detailActions.isImportingImages = false
-            guard !result.dataURLs.isEmpty else {
-                if result.failedCount > 0 {
-                    store.reportError("The selected image could not be imported.")
-                }
-                return
-            }
-            store.appendImages(id: note.id, images: result.dataURLs)
-            if result.failedCount > 0 {
-                store.reportError("Some selected images could not be imported.")
-            }
+            handleImportResult(result)
         }
+    }
+
+    private func handleImportResult(_ result: ImageImportResult) {
+        guard !result.dataURLs.isEmpty else {
+            if result.failedCount > 0 { store.reportError("The selected image could not be imported.") }
+            return
+        }
+        store.appendImages(id: note.id, images: result.dataURLs)
+        if result.failedCount > 0 { store.reportError("Some selected images could not be imported.") }
     }
 
     private func removeTag(_ tag: Tag) {

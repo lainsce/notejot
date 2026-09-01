@@ -326,11 +326,6 @@ struct SidebarView: View {
         }
     }
 
-    private func clearSearch() {
-        query = ""
-        isSearchFocused = true
-    }
-
     private func showPrivacyPolicy() {
         privacyPolicyPresenter.show()
     }

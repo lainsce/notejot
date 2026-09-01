@@ -11,7 +11,7 @@ struct NoteRow: View {
             VStack(alignment: .leading, spacing: NotejotColors.gridUnit) {
                 HStack(alignment: .top, spacing: 4) {
                     Text(formattedNoteDate(note.updatedAt))
-                        .font(NotejotTypography.caption)
+                        .font(NotejotTypography.technicalFont(.caption))
                         .monospacedDigit()
                         .foregroundStyle(.tertiary)
 

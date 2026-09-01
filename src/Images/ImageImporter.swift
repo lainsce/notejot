@@ -32,62 +32,96 @@ actor ImageImporter {
 
     private func importImage(from url: URL) throws -> String {
         let isScoped = url.startAccessingSecurityScopedResource()
-        defer {
-            if isScoped { url.stopAccessingSecurityScopedResource() }
+        defer { stopAccessIfNeeded(isScoped, url: url) }
+        let source = try imageSource(from: url)
+        let properties = sourceProperties(source)
+        if fitsOriginal(url: url, properties: properties) {
+            return dataURL(mimeType: source.mimeType, data: try Data(contentsOf: url, options: .mappedIfSafe))
         }
+        return try compressedDataURL(source: source, properties: properties)
+    }
 
+    private struct ImageSourceInfo {
+        let source: CGImageSource
+        let type: UTType
+        let mimeType: String
+    }
+
+    private func stopAccessIfNeeded(_ isScoped: Bool, url: URL) {
+        if isScoped { url.stopAccessingSecurityScopedResource() }
+    }
+
+    private func imageSource(from url: URL) throws -> ImageSourceInfo {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
               let typeIdentifier = CGImageSourceGetType(source) as String?,
-              let sourceType = UTType(typeIdentifier),
-              let sourceMIME = sourceType.preferredMIMEType,
-              ImageDataURL.allowedMIMETypes.contains(sourceMIME) else {
+              let type = UTType(typeIdentifier),
+              let mimeType = type.preferredMIMEType,
+              ImageDataURL.allowedMIMETypes.contains(mimeType) else {
             throw CocoaError(.fileReadCorruptFile)
         }
+        return ImageSourceInfo(source: source, type: type, mimeType: mimeType)
+    }
 
-        let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
-        let pixelWidth = properties?[kCGImagePropertyPixelWidth] as? Int ?? .max
-        let pixelHeight = properties?[kCGImagePropertyPixelHeight] as? Int ?? .max
-        let resourceValues = try? url.resourceValues(forKeys: [.fileSizeKey])
-        let fileSize = resourceValues?.fileSize ?? .max
-        if fileSize <= maximumOriginalByteCount,
-           pixelWidth <= maximumPixelDimension,
-           pixelHeight <= maximumPixelDimension {
-            let original = try Data(contentsOf: url, options: .mappedIfSafe)
-            return dataURL(mimeType: sourceMIME, data: original)
-        }
+    private func sourceProperties(_ source: ImageSourceInfo) -> [CFString: NSObject] {
+        CGImageSourceCopyPropertiesAtIndex(source.source, 0, nil) as? [CFString: NSObject] ?? [:]
+    }
 
-        let options: [CFString: Any] = [
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: maximumPixelDimension,
+    private func fitsOriginal(url: URL, properties: [CFString: NSObject]) -> Bool {
+        let pixelWidth = imageDimension(kCGImagePropertyPixelWidth, in: properties)
+        let pixelHeight = imageDimension(kCGImagePropertyPixelHeight, in: properties)
+        let fileSize = sourceFileSize(url)
+        return fitsDimensions(fileSize: fileSize, width: pixelWidth, height: pixelHeight)
+    }
+
+    private func imageDimension(_ key: CFString, in properties: [CFString: NSObject]) -> Int {
+        (properties[key] as? NSNumber)?.intValue ?? .max
+    }
+
+    private func sourceFileSize(_ url: URL) -> Int {
+        (try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? .max
+    }
+
+    private func fitsDimensions(fileSize: Int, width: Int, height: Int) -> Bool {
+        fileSize <= maximumOriginalByteCount
+            && width <= maximumPixelDimension
+            && height <= maximumPixelDimension
+    }
+
+    private func compressedDataURL(
+        source: ImageSourceInfo,
+        properties _: [CFString: NSObject]
+    ) throws -> String {
+        let image = try thumbnail(from: source.source)
+        let destinationType: UTType = source.type.conforms(to: .png) ? .png : .jpeg
+        let (mimeType, data) = try encodedThumbnail(image, type: destinationType)
+        return dataURL(mimeType: mimeType, data: data)
+    }
+
+    private func thumbnail(from source: CGImageSource) throws -> CGImage {
+        let options: [CFString: NSObject] = [
+            kCGImageSourceCreateThumbnailFromImageAlways: NSNumber(value: true),
+            kCGImageSourceCreateThumbnailWithTransform: NSNumber(value: true),
+            kCGImageSourceThumbnailMaxPixelSize: NSNumber(value: maximumPixelDimension),
         ]
         guard let image = CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary) else {
             throw CocoaError(.fileReadCorruptFile)
         }
+        return image
+    }
 
-        let destinationType: UTType = sourceType.conforms(to: .png) ? .png : .jpeg
+    private func encodedThumbnail(_ image: CGImage, type: UTType) throws -> (String, Data) {
         let output = NSMutableData()
-        guard let destination = CGImageDestinationCreateWithData(
-            output,
-            destinationType.identifier as CFString,
-            1,
-            nil
-        ) else {
+        guard let destination = CGImageDestinationCreateWithData(output, type.identifier as CFString, 1, nil) else {
             throw CocoaError(.fileWriteUnknown)
         }
+        CGImageDestinationAddImage(destination, image, destinationProperties(for: type) as CFDictionary)
+        guard CGImageDestinationFinalize(destination) else { throw CocoaError(.fileWriteUnknown) }
+        guard let mimeType = type.preferredMIMEType else { throw CocoaError(.fileWriteUnknown) }
+        return (mimeType, output as Data)
+    }
 
-        let destinationProperties: [CFString: Any] = destinationType == .jpeg
-            ? [kCGImageDestinationLossyCompressionQuality: jpegQuality]
-            : [:]
-        CGImageDestinationAddImage(destination, image, destinationProperties as CFDictionary)
-        guard CGImageDestinationFinalize(destination) else {
-            throw CocoaError(.fileWriteUnknown)
-        }
-
-        guard let mimeType = destinationType.preferredMIMEType else {
-            throw CocoaError(.fileWriteUnknown)
-        }
-        return dataURL(mimeType: mimeType, data: output as Data)
+    private func destinationProperties(for type: UTType) -> [CFString: NSObject] {
+        type == .jpeg ? [kCGImageDestinationLossyCompressionQuality: NSNumber(value: jpegQuality)] : [:]
     }
 
     private func dataURL(mimeType: String, data: Data) -> String {

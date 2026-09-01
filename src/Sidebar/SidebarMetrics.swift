@@ -5,7 +5,6 @@ enum SidebarMetrics {
     static let horizontalSpacing: CGFloat = 6
     static let verticalSpacing: CGFloat = 12
     static let halfVerticalSpacing = verticalSpacing / 2
-    static let gridCardWidth: CGFloat = 144
     static let gridTextOnlyExcerptLineLimit = 8
     static let gridImageExcerptLineLimit = 3
 

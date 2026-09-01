@@ -5,32 +5,43 @@ public enum ImageDataURL {
         "image/png", "image/jpeg", "image/gif", "image/webp",
         "image/avif", "image/heic", "image/heif",
     ]
+    private static let base64Bytes: Set<UInt8> = Set(
+        Array(65...90) + Array(97...122) + Array(48...57) + [43, 47]
+    )
 
     public static func isValid(_ source: String) -> Bool {
         guard let components = components(from: source) else { return false }
         let payload = components.payload
-        guard !payload.isEmpty, payload.count.isMultiple(of: 4) else { return false }
+        guard isValidPayload(payload) else { return false }
+        let paddingCount = paddingCount(in: payload)
+        return payload.dropLast(paddingCount).utf8.allSatisfy(isBase64Byte)
+    }
 
-        let paddingCount = payload.reversed().prefix(while: { $0 == "=" }).count
+    private static func isValidPayload(_ payload: Substring) -> Bool {
+        guard !payload.isEmpty, payload.count.isMultiple(of: 4) else { return false }
+        let paddingCount = paddingCount(in: payload)
         guard paddingCount <= 2 else { return false }
         let content = payload.dropLast(paddingCount)
         guard !content.contains("=") else { return false }
+        return true
+    }
 
-        return content.utf8.allSatisfy { byte in
-            byte >= 65 && byte <= 90 ||
-            byte >= 97 && byte <= 122 ||
-            byte >= 48 && byte <= 57 ||
-            byte == 43 || byte == 47
+    private static func paddingCount(in payload: Substring) -> Int {
+        var count = 0
+        for character in payload.reversed() {
+            guard character == "=" else { break }
+            count += 1
         }
+        return count
+    }
+
+    private static func isBase64Byte(_ byte: UInt8) -> Bool {
+        base64Bytes.contains(byte)
     }
 
     public static func decodedData(from source: String) -> Data? {
         guard isValid(source), let components = components(from: source) else { return nil }
         return Data(base64Encoded: String(components.payload))
-    }
-
-    public static func mimeType(in source: String) -> String? {
-        components(from: source)?.mimeType
     }
 
     private static func components(from source: String) -> (mimeType: String, payload: Substring)? {

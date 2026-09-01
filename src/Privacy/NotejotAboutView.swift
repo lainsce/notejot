@@ -19,7 +19,7 @@ struct NotejotAboutView: View {
                     .font(NotejotTypography.viewTitle)
                     .tracking(-0.4)
 
-                Text("A quiet, local-first home for your notes.")
+                Text("A quiet home for your notes.")
                     .font(NotejotTypography.viewSubtitle)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -37,7 +37,7 @@ struct NotejotAboutView: View {
 
             VStack(spacing: 4) {
                 Text("Version \(NotejotAppInfo.versionString)")
-                    .font(NotejotTypography.caption)
+                    .font(NotejotTypography.technicalFont(.caption))
                     .foregroundStyle(.secondary)
 
                 Text(NotejotAppInfo.copyright)

@@ -45,31 +45,45 @@ public struct TagFacet: Identifiable, Hashable, Sendable {
         var counts: [ID: Int] = [:]
 
         for note in notes {
-            if let destination,
-               (destination == .trash ? !note.isTrashed : note.isTrashed) {
-                continue
-            }
-
-            var noteFacetIDs: Set<ID> = []
-            for tag in note.tags {
-                let id = tag.facetID
-                if representatives[id] == nil {
-                    representatives[id] = tag
-                }
-                if noteFacetIDs.insert(id).inserted {
-                    counts[id, default: 0] += 1
-                }
-            }
+            guard includes(note, for: destination) else { continue }
+            addFacets(from: note, representatives: &representatives, counts: &counts)
         }
 
-        return representatives.compactMap { id, tag in
+        return makeFacets(representatives: representatives, counts: counts)
+    }
+
+    private static func includes(_ note: Note, for destination: Destination?) -> Bool {
+        guard let destination else { return true }
+        return destination == .trash ? note.isTrashed : !note.isTrashed
+    }
+
+    private static func addFacets(
+        from note: Note,
+        representatives: inout [ID: Tag],
+        counts: inout [ID: Int]
+    ) {
+        var noteFacetIDs: Set<ID> = []
+        for tag in note.tags {
+            let id = tag.facetID
+            if representatives[id] == nil { representatives[id] = tag }
+            if noteFacetIDs.insert(id).inserted { counts[id, default: 0] += 1 }
+        }
+    }
+
+    private static func makeFacets(
+        representatives: [ID: Tag],
+        counts: [ID: Int]
+    ) -> [TagFacet] {
+        representatives.compactMap { id, tag in
             guard let count = counts[id] else { return nil }
             return TagFacet(tag: tag, count: count)
         }
-        .sorted {
-            let nameOrder = $0.name.localizedStandardCompare($1.name)
-            if nameOrder != .orderedSame { return nameOrder == .orderedAscending }
-            return $0.color.localizedStandardCompare($1.color) == .orderedAscending
-        }
+        .sorted(by: facetSort)
+    }
+
+    private static func facetSort(_ lhs: TagFacet, _ rhs: TagFacet) -> Bool {
+        let nameOrder = lhs.name.localizedStandardCompare(rhs.name)
+        if nameOrder != .orderedSame { return nameOrder == .orderedAscending }
+        return lhs.color.localizedStandardCompare(rhs.color) == .orderedAscending
     }
 }

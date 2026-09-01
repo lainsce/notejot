@@ -19,45 +19,64 @@ public enum PlatformTypography {
 #endif
     }
 
-    public static var monospacedFont: NotejotFont {
+    /// Technical/code text uses the bundled Lekton family when available.
+    /// Keep the legacy property name as an API-compatible alias for HTML
+    /// mapping callers.
+    public static var technicalFont: NotejotFont {
 #if canImport(AppKit)
-        .monospacedSystemFont(ofSize: 14, weight: .regular)
+        lektonFont(size: 14, weight: .regular)
 #else
-        UIFontMetrics(forTextStyle: .body).scaledFont(
-            for: .monospacedSystemFont(ofSize: 14, weight: .regular)
-        )
+        dynamicLektonFont(size: 14, textStyle: .body, weight: .regular)
 #endif
     }
 
+    public static var monospacedFont: NotejotFont { technicalFont }
+
     public static func headingFont(level: Int) -> NotejotFont {
-        let size: CGFloat
 #if canImport(AppKit)
-        switch level {
-        case 1: size = 28
-        case 2: size = 24
-        case 3: size = 18
-        default: return bodyFont
-        }
+        guard let size = headingSize(level) else { return bodyFont }
         return geistFont(size: size, weight: .semibold)
 #else
-        let textStyle: UIFont.TextStyle
-        switch level {
-        case 1: size = 28; textStyle = .title1
-        case 2: size = 24; textStyle = .title2
-        case 3: size = 18; textStyle = .headline
-        default: return bodyFont
-        }
+        guard let heading = headingStyle(level) else { return bodyFont }
+        let size = heading.size
+        let textStyle = heading.style
         return dynamicGeistFont(size: size, textStyle: textStyle, weight: .semibold)
 #endif
     }
 
+    private static func headingSize(_ level: Int) -> CGFloat? {
+        [1: CGFloat(28), 2: 24, 3: 18][level]
+    }
+
+#if canImport(UIKit)
+    private static func headingStyle(_ level: Int) -> (size: CGFloat, style: UIFont.TextStyle)? {
+        [1: (28, UIFont.TextStyle.title1), 2: (24, .title2), 3: (18, .headline)][level]
+    }
+#endif
+
 #if canImport(AppKit)
+    private static func lektonFont(size: CGFloat, weight: NSFont.Weight) -> NSFont {
+        NSFont(name: weight == .bold ? "Lekton-Bold" : "Lekton-Regular", size: size)
+            ?? NSFont.monospacedSystemFont(ofSize: size, weight: weight)
+    }
+
     private static func geistFont(size: CGFloat, weight: NSFont.Weight) -> NSFont {
         let name = weight == .semibold ? "Geist-SemiBold" : "Geist-Regular"
         return NSFont(name: name, size: size)
             ?? NSFont.systemFont(ofSize: size, weight: weight)
     }
 #else
+    private static func dynamicLektonFont(
+        size: CGFloat,
+        textStyle: UIFont.TextStyle,
+        weight: UIFont.Weight
+    ) -> UIFont {
+        let name = weight == .bold ? "Lekton-Bold" : "Lekton-Regular"
+        let font = UIFont(name: name, size: size)
+            ?? UIFont.monospacedSystemFont(ofSize: size, weight: weight)
+        return UIFontMetrics(forTextStyle: textStyle).scaledFont(for: font)
+    }
+
     private static func dynamicGeistFont(
         size: CGFloat,
         textStyle: UIFont.TextStyle,

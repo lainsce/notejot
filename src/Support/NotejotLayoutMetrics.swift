@@ -1,7 +1,6 @@
 import CoreGraphics
 
 enum NotejotLayoutMetrics {
-    nonisolated static let compactNavigationBreakpoint: CGFloat = 400
     static let minimumWindowWidth: CGFloat = 390
     static let compactTitleHorizontalInset: CGFloat = 24
     static let compactEditorHorizontalInset: CGFloat = 16

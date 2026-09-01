@@ -17,7 +17,7 @@ struct NoteCard: View {
             }
 
             Text(formattedNoteDate(note.updatedAt))
-                .font(NotejotTypography.caption)
+                .font(NotejotTypography.technicalFont(.caption))
                 .monospacedDigit()
                 .foregroundStyle(.tertiary)
 

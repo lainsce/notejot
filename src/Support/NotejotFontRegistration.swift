@@ -8,6 +8,9 @@ enum NotejotFontRegistration {
         "Geist-SemiBold",
         "Geist-Bold",
         "Geist-Black",
+        "Lekton-Regular",
+        "Lekton-Bold",
+        "Lekton-Italic",
         "OldStandardTT-Regular",
         "OldStandardTT-Italic",
         "OldStandardTT-Bold"

@@ -34,13 +34,22 @@ public struct TaskCategory: Identifiable, Codable, Equatable, Hashable, Sendable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? Self.newID()
-        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        color = try container.decodeIfPresent(String.self, forKey: .color) ?? Self.defaultColor
-        items = try container.decodeIfPresent([TaskItem].self, forKey: .items) ?? []
+        id = try Self.decode(container, String.self, forKey: .id, default: Self.newID())
+        title = try Self.decode(container, String.self, forKey: .title, default: "")
+        color = try Self.decode(container, String.self, forKey: .color, default: Self.defaultColor)
+        items = try Self.decode(container, [TaskItem].self, forKey: .items, default: [])
         let fallbackTimestamp = Note.now()
-        createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) ?? fallbackTimestamp
-        updatedAt = try container.decodeIfPresent(String.self, forKey: .updatedAt) ?? createdAt
+        createdAt = try Self.decode(container, String.self, forKey: .createdAt, default: fallbackTimestamp)
+        updatedAt = try Self.decode(container, String.self, forKey: .updatedAt, default: createdAt)
+    }
+
+    private static func decode<T: Decodable>(
+        _ container: KeyedDecodingContainer<CodingKeys>,
+        _ type: T.Type,
+        forKey key: CodingKeys,
+        default fallback: @autoclosure () -> T
+    ) throws -> T {
+        try container.decodeIfPresent(type, forKey: key) ?? fallback()
     }
 
     public static func newID() -> String {

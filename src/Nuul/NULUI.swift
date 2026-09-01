@@ -14,50 +14,46 @@ struct NULToggleStyle: ToggleStyle {
     @Environment(\.colorScheme) private var colorScheme
 
     func makeBody(configuration: Configuration) -> some View {
-        Button {
-            if reduceMotion {
-                configuration.isOn.toggle()
-            } else {
-                withAnimation(NotejotMotion.control) {
-                    configuration.isOn.toggle()
-                }
-            }
-        } label: {
+        Button(action: { toggle(&configuration.isOn) }) {
             HStack(spacing: 8) {
                 configuration.label
-
-                ZStack(alignment: configuration.isOn ? .trailing : .leading) {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .fill(
-                            configuration.isOn
-                                ? NotejotColors.accent
-                                : Color.primary.opacity(0.05)
-                        )
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 999, style: .continuous)
-                                .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 1)
-                        }
-
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .fill(.white)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 999, style: .continuous)
-                                .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 1)
-                        }
-                        .frame(width: 24, height: 24)
-                        .padding(4)
-                }
-                .frame(width: 48, height: 32)
-                .animation(
-                    reduceMotion ? nil : NotejotMotion.control,
-                    value: configuration.isOn
-                )
+                toggleTrack(isOn: configuration.isOn)
             }
         }
         .buttonStyle(.plain)
         .accessibilityValue(configuration.isOn ? "On" : "Off")
         .accessibilityRemoveTraits(.isButton)
         .accessibilityAddTraits(.isToggle)
+    }
+
+    private func toggle(_ isOn: inout Bool) {
+        if reduceMotion {
+            isOn.toggle()
+        } else {
+            withAnimation(NotejotMotion.control) { isOn.toggle() }
+        }
+    }
+
+    private func toggleTrack(isOn: Bool) -> some View {
+        ZStack(alignment: isOn ? .trailing : .leading) {
+            RoundedRectangle(cornerRadius: 999, style: .continuous)
+                .fill(isOn ? NotejotColors.accent : Color.primary.opacity(0.05))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 999, style: .continuous)
+                        .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 1)
+                }
+
+            RoundedRectangle(cornerRadius: 999, style: .continuous)
+                .fill(.white)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 999, style: .continuous)
+                        .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 1)
+                }
+                .frame(width: 24, height: 24)
+                .padding(4)
+        }
+        .frame(width: 48, height: 32)
+        .animation(reduceMotion ? nil : NotejotMotion.control, value: isOn)
     }
 }
 
@@ -133,11 +129,8 @@ struct NULButtonStyle: ButtonStyle {
         configuration.label
             .font(NotejotTypography.contentBlockSubtitle)
             .symbolRenderingMode(.monochrome)
-            .foregroundStyle(labelColor ?? (kind == .primary ? .black : .primary))
-            .padding(
-                .horizontal,
-                horizontalPadding ?? (kind == .quiet ? NotejotColors.gridUnit : NotejotColors.gridUnit * 2)
-            )
+            .foregroundStyle(resolvedForegroundColor())
+            .padding(.horizontal, resolvedHorizontalPadding())
             .frame(minWidth: NotejotLayoutMetrics.compactToolbarControlSize, minHeight: NotejotLayoutMetrics.compactToolbarControlSize)
             .background(
                 backgroundColor,
@@ -150,14 +143,27 @@ struct NULButtonStyle: ButtonStyle {
                 }
             }
             .contentShape(Rectangle())
-            .opacity(
-                isEnabled
-                    ? (configuration.isPressed ? 0.84 : 1)
-                    : 0.42
-            )
-            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
+            .opacity(controlOpacity(isPressed: configuration.isPressed))
+            .scaleEffect(controlScale(isPressed: configuration.isPressed))
             .animation(reduceMotion ? nil : NotejotMotion.control, value: configuration.isPressed)
             .nulWindowActivityAppearance()
+    }
+
+    private func resolvedForegroundColor() -> Color {
+        labelColor ?? (kind == .primary ? .black : .primary)
+    }
+
+    private func resolvedHorizontalPadding() -> CGFloat {
+        horizontalPadding ?? (kind == .quiet ? NotejotColors.gridUnit : NotejotColors.gridUnit * 2)
+    }
+
+    private func controlOpacity(isPressed: Bool) -> Double {
+        guard isEnabled else { return 0.42 }
+        return isPressed ? 0.84 : 1
+    }
+
+    private func controlScale(isPressed: Bool) -> CGFloat {
+        isPressed && !reduceMotion ? 0.98 : 1
     }
 
     private var backgroundColor: Color {
@@ -239,34 +245,36 @@ struct NULSidebarButtonStyle: ButtonStyle {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func makeBody(configuration: Configuration) -> some View {
-        let fill: Color = if configuration.isPressed {
-            NotejotColors.accent.opacity(NotejotColors.sidebarPressedFillOpacity)
-        } else if isSelected {
-            NotejotColors.accent.opacity(NotejotColors.sidebarSelectedFillOpacity)
-        } else if isHovered {
-            Color.primary.opacity(NotejotColors.sidebarHoverFillOpacity)
-        } else {
-            .clear
-        }
-
         configuration.label
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 8)
             .padding(.vertical, NotejotColors.gridUnit * 2)
-            .background(fill, in: RoundedRectangle(cornerRadius: NotejotColors.industrialSmallRadius))
+            .background(fill(for: configuration.isPressed), in: RoundedRectangle(cornerRadius: NotejotColors.industrialSmallRadius))
             .overlay {
                 RoundedRectangle(cornerRadius: NotejotColors.industrialSmallRadius)
-                    .strokeBorder(
-                        isSelected && isHovered
-                            ? NotejotColors.accent.opacity(NotejotColors.sidebarSelectedBorderOpacity)
-                            : .clear,
-                        lineWidth: 1
-                    )
+                    .strokeBorder(borderColor, lineWidth: 1)
             }
             .contentShape(Rectangle())
             .opacity(configuration.isPressed ? 0.86 : 1)
             .animation(NotejotMotion.controlAnimation(reduceMotion: reduceMotion), value: isSelected)
             .animation(NotejotMotion.controlAnimation(reduceMotion: reduceMotion), value: isHovered)
+    }
+
+    private func fill(for isPressed: Bool) -> Color {
+        if isPressed {
+            return NotejotColors.accent.opacity(NotejotColors.sidebarPressedFillOpacity)
+        } else if isSelected {
+            return NotejotColors.accent.opacity(NotejotColors.sidebarSelectedFillOpacity)
+        } else if isHovered {
+            return Color.primary.opacity(NotejotColors.sidebarHoverFillOpacity)
+        }
+        return .clear
+    }
+
+    private var borderColor: Color {
+        isSelected && isHovered
+            ? NotejotColors.accent.opacity(NotejotColors.sidebarSelectedBorderOpacity)
+            : .clear
     }
 }
 

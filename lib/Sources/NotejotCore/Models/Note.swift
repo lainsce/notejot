@@ -47,16 +47,25 @@ public struct Note: Identifiable, Codable, Equatable, Hashable, Sendable {
     // Every field defaults so notes written by older builds still load.
     public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        id        = try c.decodeIfPresent(String.self,  forKey: .id)        ?? Self.newID()
-        title     = try c.decodeIfPresent(String.self,  forKey: .title)     ?? ""
-        content   = try c.decodeIfPresent(String.self,  forKey: .content)   ?? ""
-        isPinned  = try c.decodeIfPresent(Bool.self,    forKey: .isPinned)  ?? false
-        isTrashed = try c.decodeIfPresent(Bool.self,    forKey: .isTrashed) ?? false
+        id        = try Self.decode(c, String.self, forKey: .id, default: Self.newID())
+        title     = try Self.decode(c, String.self, forKey: .title, default: "")
+        content   = try Self.decode(c, String.self, forKey: .content, default: "")
+        isPinned  = try Self.decode(c, Bool.self, forKey: .isPinned, default: false)
+        isTrashed = try Self.decode(c, Bool.self, forKey: .isTrashed, default: false)
         let fallbackTimestamp = Self.now()
-        createdAt = try c.decodeIfPresent(String.self,  forKey: .createdAt) ?? fallbackTimestamp
-        updatedAt = try c.decodeIfPresent(String.self,  forKey: .updatedAt) ?? createdAt
-        tags      = try c.decodeIfPresent([Tag].self,   forKey: .tags)      ?? []
-        images    = try c.decodeIfPresent([String].self, forKey: .images)   ?? []
+        createdAt = try Self.decode(c, String.self, forKey: .createdAt, default: fallbackTimestamp)
+        updatedAt = try Self.decode(c, String.self, forKey: .updatedAt, default: createdAt)
+        tags      = try Self.decode(c, [Tag].self, forKey: .tags, default: [])
+        images    = try Self.decode(c, [String].self, forKey: .images, default: [])
+    }
+
+    private static func decode<T: Decodable>(
+        _ container: KeyedDecodingContainer<CodingKeys>,
+        _ type: T.Type,
+        forKey key: CodingKeys,
+        default fallback: @autoclosure () -> T
+    ) throws -> T {
+        try container.decodeIfPresent(type, forKey: key) ?? fallback()
     }
 
     public static func now() -> String {

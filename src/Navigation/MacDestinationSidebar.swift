@@ -56,6 +56,7 @@ struct MacDestinationSidebar: View {
                                     Text(facet.name)
                                     Spacer(minLength: 0)
                                     Text(facet.count, format: .number)
+                                        .font(NotejotTypography.technicalFont(.body))
                                         .foregroundStyle(.secondary)
                                 }
                             } icon: {
@@ -158,17 +159,21 @@ struct MacDestinationSidebar: View {
         }
 
         withAnimation(NotejotMotion.navigationAnimation(reduceMotion: reduceMotion)) {
-            switch source {
-            case .allNotes:
-                selectedTagID = nil
-                destination = .notes
-            case .tag(let tagID):
-                selectedTagID = tagID
-                destination = .notes
-            case .trash:
-                selectedTagID = nil
-                destination = .trash
-            }
+            apply(source)
+        }
+    }
+
+    private func apply(_ source: Source) {
+        switch source {
+        case .allNotes:
+            selectedTagID = nil
+            destination = .notes
+        case .tag(let tagID):
+            selectedTagID = tagID
+            destination = .notes
+        case .trash:
+            selectedTagID = nil
+            destination = .trash
         }
     }
 }
