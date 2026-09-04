@@ -70,9 +70,11 @@ struct ContentView: View {
         .tint(NotejotColors.accent)
         .task {
             await model.prepare()
+            NotejotWidgetDataStore.save(notes: store.notes)
         }
         .onChange(of: store.notes) {
             model.refreshFromStore()
+            NotejotWidgetDataStore.save(notes: store.notes)
         }
         .onChange(of: store.lastSaveError) { oldValue, newValue in
             model.presentStoreError(oldValue, newValue)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		674090F8301D477E00F95D72 /* NotejotCore in Frameworks */ = {isa = PBXBuildFile; productRef = 674090F7301D477E00F95D72 /* NotejotCore */; };
 		674090F9301D477E00F95D72 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = 674090FA301D477E00F95D72 /* WhisperKit */; };
+		674091200000000000000018 /* NotejotWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 674091200000000000000006 /* NotejotWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -19,11 +20,31 @@
 			remoteGlobalIDString = 000000000000000100000000;
 			remoteInfo = Notejot;
 		};
+		674091200000000000000013 /* NotejotWidget proxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 674091200000000000000001;
+			remoteInfo = NotejotWidget;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		674091200000000000000002 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				674091200000000000000018 /* NotejotWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* Notejot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notejot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000121 /* NotejotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotejotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		674091200000000000000006 /* NotejotWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotejotWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -42,7 +63,34 @@
 			path = tests;
 			sourceTree = "<group>";
 		};
+		674091200000000000000010 /* Widget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		674091200000000000000011 /* WidgetSupport */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				674091200000000000000012 /* WidgetSupport build file exceptions */,
+			);
+			path = WidgetSupport;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		674091200000000000000012 /* WidgetSupport build file exceptions */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"NotejotWidget-Info.plist",
+				"NotejotWidget-iOS.entitlements",
+				"NotejotWidget-macOS.entitlements",
+				"NotejotApp-iOS.entitlements",
+				"NotejotApp-macOS.entitlements",
+			);
+			target = 674091200000000000000001 /* NotejotWidget */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		000000000000000130000000 /* Frameworks */ = {
@@ -57,6 +105,11 @@
 			files = (
 			);
 		};
+		674091200000000000000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -66,6 +119,8 @@
 				67264F3430327B9800C879C3 /* src */,
 				67264F7830327BC500C879C3 /* data */,
 				6740910D301D4B9600F95D72 /* tests */,
+				674091200000000000000010 /* Widget */,
+				674091200000000000000011 /* WidgetSupport */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,6 +130,7 @@
 			children = (
 				000000000000000000000120 /* Notejot.app */,
 				000000000000000000000121 /* NotejotTests.xctest */,
+				674091200000000000000006 /* NotejotWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,12 +145,16 @@
 				000000000000000120000000 /* Sources */,
 				000000000000000130000000 /* Frameworks */,
 				000000000000000140000000 /* Resources */,
+				674091200000000000000002 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			fileSystemSynchronizedGroups = (
 				67264F3430327B9800C879C3 /* src */,
 				67264F7830327BC500C879C3 /* data */,
+			);
+			dependencies = (
+				674091200000000000000014 /* NotejotWidget dependency */,
 			);
 			name = Notejot;
 			packageProductDependencies = (
@@ -104,6 +164,25 @@
 			productName = Notejot;
 			productReference = 000000000000000000000120 /* Notejot.app */;
 			productType = "com.apple.product-type.application";
+		};
+		674091200000000000000001 /* NotejotWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 674091200000000000000017 /* Build configuration list for PBXNativeTarget "NotejotWidget" */;
+			buildPhases = (
+				674091200000000000000003 /* Sources */,
+				674091200000000000000004 /* Frameworks */,
+				674091200000000000000005 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				674091200000000000000010 /* Widget */,
+				674091200000000000000011 /* WidgetSupport */,
+			);
+			name = NotejotWidget;
+			productName = NotejotWidget;
+			productReference = 674091200000000000000006 /* NotejotWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		000000000000000100000001 /* NotejotTests */ = {
 			isa = PBXNativeTarget;
@@ -144,6 +223,9 @@
 						CreatedOnToolsVersion = 27.0;
 						TestTargetID = 000000000000000100000000;
 					};
+					674091200000000000000001 = {
+						CreatedOnToolsVersion = 27.0;
+					};
 				};
 			};
 			buildConfigurationList = 000000000000000010000000 /* Build configuration list for PBXProject "Notejot" */;
@@ -165,6 +247,7 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* Notejot */,
+				674091200000000000000001 /* NotejotWidget */,
 				000000000000000100000001 /* NotejotTests */,
 			);
 		};
@@ -177,6 +260,11 @@
 			);
 		};
 		000000000000000240000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		674091200000000000000005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -194,6 +282,11 @@
 			files = (
 			);
 		};
+		674091200000000000000003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -201,6 +294,12 @@
 			isa = PBXTargetDependency;
 			target = 000000000000000100000000 /* Notejot */;
 			targetProxy = 000000000000000300000001 /* PBXContainerItemProxy */;
+		};
+		674091200000000000000014 /* NotejotWidget dependency */ = {
+			isa = PBXTargetDependency;
+			name = NotejotWidget;
+			target = 674091200000000000000001 /* NotejotWidget */;
+			targetProxy = 674091200000000000000013 /* NotejotWidget proxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -349,6 +448,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXLP3297S8;
 				ENABLE_APP_SANDBOX = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = "WidgetSupport/NotejotApp-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = "WidgetSupport/NotejotApp-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "WidgetSupport/NotejotApp-macOS.entitlements";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -407,6 +509,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXLP3297S8;
 				ENABLE_APP_SANDBOX = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = "WidgetSupport/NotejotApp-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = "WidgetSupport/NotejotApp-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "WidgetSupport/NotejotApp-macOS.entitlements";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -448,6 +553,71 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		674091200000000000000015 /* Debug configuration for PBXNativeTarget "NotejotWidget" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = "WidgetSupport/NotejotWidget-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = "WidgetSupport/NotejotWidget-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "WidgetSupport/NotejotWidget-macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GXLP3297S8;
+				ENABLE_DEBUG_DYLIB = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "WidgetSupport/NotejotWidget-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Notejot;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.lainsce.Notejot.Widget;
+				PRODUCT_NAME = NotejotWidget;
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		674091200000000000000016 /* Release configuration for PBXNativeTarget "NotejotWidget" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = "WidgetSupport/NotejotWidget-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = "WidgetSupport/NotejotWidget-iOS.entitlements";
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "WidgetSupport/NotejotWidget-macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GXLP3297S8;
+				ENABLE_DEBUG_DYLIB = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "WidgetSupport/NotejotWidget-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Notejot;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.lainsce.Notejot.Widget;
+				PRODUCT_NAME = NotejotWidget;
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -501,6 +671,14 @@
 			buildConfigurations = (
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "Notejot" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "Notejot" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		674091200000000000000017 /* Build configuration list for PBXNativeTarget "NotejotWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				674091200000000000000015 /* Debug configuration for PBXNativeTarget "NotejotWidget" */,
+				674091200000000000000016 /* Release configuration for PBXNativeTarget "NotejotWidget" */,
 			);
 			defaultConfigurationName = Release;
 		};
