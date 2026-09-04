@@ -37,8 +37,9 @@ extension View {
             width: NotejotLayoutMetrics.minimumInteractiveControlSize,
             height: NotejotLayoutMetrics.minimumInteractiveControlSize
         )
+        .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
 #else
-        self
+        contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
 #endif
     }
 }

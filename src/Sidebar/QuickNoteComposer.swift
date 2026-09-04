@@ -12,12 +12,18 @@ struct QuickNoteComposer: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            if listening || !recorder.transcript.isEmpty {
+            if listening || !recorder.transcript.isEmpty || recorder.errorDescription != nil {
                 HStack(spacing: 8) {
                     Text(verbatim: recorder.errorDescription ?? (recorder.transcript.isEmpty ? "Listening…" : recorder.transcript))
                         .font(NotejotTypography.caption)
                         .lineLimit(3)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                    if recorder.needsPermissionSettings {
+                        Button("Open Settings", systemImage: "gearshape", action: NotejotPermissionActions.openSystemSettings)
+                            .font(NotejotTypography.caption)
+                            .buttonStyle(.plain)
+                            .help("Open System Settings")
+                    }
                     Button(action: saveNote) {
                         Image(systemName: "paperplane.fill")
                             .frame(width: 28, height: 28)
@@ -25,6 +31,8 @@ struct QuickNoteComposer: View {
                     .buttonStyle(.plain)
                     .foregroundStyle(.black)
                     .background(NotejotColors.accent, in: Circle())
+                    .contentShape(.circle)
+                    .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && recorder.transcript.isEmpty)
                     .accessibilityLabel("Save note")
                 }
                 .padding(.horizontal, 12)
@@ -39,6 +47,11 @@ struct QuickNoteComposer: View {
         .onChange(of: recorder.transcript) { _, value in
             text = value
         }
+        .onChange(of: recorder.errorDescription) { _, error in
+            if error != nil {
+                listening = false
+            }
+        }
     }
 
     private var idleBar: some View {
@@ -52,6 +65,7 @@ struct QuickNoteComposer: View {
                     .frame(width: 40, height: 40)
             }
             .buttonStyle(.plain)
+            .contentShape(.rect)
             .accessibilityLabel("Start voice note")
 
             TextField("Add a note…", text: $text)
@@ -86,7 +100,7 @@ struct QuickNoteComposer: View {
                     Text(elapsedTime(from: context.date))
                         .font(NotejotTypography.technicalFont(.caption))
                         .monospacedDigit()
-                        .frame(width: 38, alignment: .leading)
+                        .frame(width: NotejotLayoutMetrics.compactToolbarControlSize, alignment: .leading)
                 }
                 .padding(.trailing, 14)
             }
@@ -94,6 +108,7 @@ struct QuickNoteComposer: View {
         .buttonStyle(.plain)
         .foregroundStyle(.black)
         .background(NotejotColors.accent, in: Capsule())
+        .contentShape(Capsule())
         .accessibilityLabel("Stop recording")
     }
 
@@ -105,6 +120,7 @@ struct QuickNoteComposer: View {
         .buttonStyle(.plain)
         .foregroundStyle(.black)
         .background(NotejotColors.accent, in: Circle())
+        .contentShape(.circle)
         .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && recorder.transcript.isEmpty)
         .padding(.trailing, 4)
         .accessibilityLabel("Save note")

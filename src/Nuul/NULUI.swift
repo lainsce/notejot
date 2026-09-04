@@ -15,10 +15,13 @@ struct NULToggleStyle: ToggleStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         Button(action: { toggle(&configuration.isOn) }) {
-            HStack(spacing: 8) {
-                configuration.label
+            HStack(spacing: NotejotColors.switchLabelSpacing) {
                 toggleTrack(isOn: configuration.isOn)
+                configuration.label
             }
+            // The toggle action covers the complete laid-out control, not
+            // only the track or label glyphs.
+            .contentShape(.rect(cornerRadius: NotejotColors.switchCornerRadius))
         }
         .buttonStyle(.plain)
         .accessibilityValue(configuration.isOn ? "On" : "Off")
@@ -36,23 +39,23 @@ struct NULToggleStyle: ToggleStyle {
 
     private func toggleTrack(isOn: Bool) -> some View {
         ZStack(alignment: isOn ? .trailing : .leading) {
-            RoundedRectangle(cornerRadius: 999, style: .continuous)
-                .fill(isOn ? NotejotColors.accent : Color.primary.opacity(0.05))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 1)
-                }
+            RoundedRectangle(cornerRadius: NotejotColors.switchCornerRadius, style: .continuous)
+                .fill(isOn ? NotejotColors.accent : NotejotColors.industrialRule(for: colorScheme))
 
-            RoundedRectangle(cornerRadius: 999, style: .continuous)
+            RoundedRectangle(cornerRadius: NotejotColors.switchCornerRadius, style: .continuous)
                 .fill(.white)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 1)
+                    HStack(spacing: 4) {
+                        Rectangle().frame(width: 2, height: 12)
+                        Rectangle().frame(width: 2, height: 12)
+                    }
+                    .foregroundStyle(Color.black.opacity(0.2))
+                    .frame(width: 8, height: 12)
                 }
-                .frame(width: 24, height: 24)
-                .padding(4)
+                .frame(width: NotejotColors.switchKnobSize, height: NotejotColors.switchKnobSize)
+                .padding(NotejotColors.switchInset)
         }
-        .frame(width: 48, height: 32)
+        .frame(width: NotejotColors.switchWidth, height: NotejotColors.switchHeight)
         .animation(reduceMotion ? nil : NotejotMotion.control, value: isOn)
     }
 }
@@ -60,21 +63,37 @@ struct NULToggleStyle: ToggleStyle {
 /// Simple two-column form row using flat, native controls.
 struct NULFormRow<Control: View>: View {
     private let title: LocalizedStringKey
+    private let description: LocalizedStringKey?
     private let control: Control
 
-    init(_ title: LocalizedStringKey, @ViewBuilder control: () -> Control) {
+    init(
+        _ title: LocalizedStringKey,
+        description: LocalizedStringKey? = nil,
+        @ViewBuilder control: () -> Control
+    ) {
         self.title = title
+        self.description = description
         self.control = control()
     }
 
     var body: some View {
         HStack(alignment: .top, spacing: NotejotColors.formRowSpacing) {
-            Text(title)
-                .font(NotejotTypography.caption)
-                .textCase(.uppercase)
-                .kerning(0.4)
-                .foregroundStyle(.secondary)
-                .frame(width: NotejotColors.formLabelWidth, alignment: .leading)
+            VStack(alignment: .leading, spacing: NotejotColors.gridUnit) {
+                Text(title)
+                    .font(NotejotTypography.caption)
+                    .textCase(.uppercase)
+                    .kerning(0.4)
+                    .foregroundStyle(.secondary)
+
+                if let description {
+                    Text(description)
+                        .font(NotejotTypography.body)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .frame(width: NotejotColors.formLabelWidth, alignment: .leading)
+
             control
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
@@ -134,7 +153,7 @@ struct NULButtonStyle: ButtonStyle {
             .frame(minWidth: NotejotLayoutMetrics.compactToolbarControlSize, minHeight: NotejotLayoutMetrics.compactToolbarControlSize)
             .background(
                 backgroundColor,
-                in: RoundedRectangle(cornerRadius: NotejotColors.controlRadius)
+                in: RoundedRectangle(cornerRadius: NotejotColors.controlRadius, style: .continuous)
             )
             .overlay {
                 if configuration.isPressed && kind != .quiet {
@@ -142,7 +161,7 @@ struct NULButtonStyle: ButtonStyle {
                         .fill(Color.primary.opacity(0.10))
                 }
             }
-            .contentShape(Rectangle())
+            .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
             .opacity(controlOpacity(isPressed: configuration.isPressed))
             .scaleEffect(controlScale(isPressed: configuration.isPressed))
             .animation(reduceMotion ? nil : NotejotMotion.control, value: configuration.isPressed)
@@ -224,6 +243,7 @@ struct NULSegmentedPicker<Selection: Hashable, ItemLabel: View>: View {
                             RoundedRectangle(cornerRadius: NotejotColors.gridUnit / 2, style: .continuous)
                                 .fill(option == selection ? Color.primary.opacity(0.12) : .clear)
                         }
+                        .contentShape(.rect(cornerRadius: NotejotColors.gridUnit / 2))
                 }
                 .buttonStyle(.plain)
                 .accessibilityAddTraits(option == selection ? .isSelected : [])
@@ -247,14 +267,13 @@ struct NULSidebarButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 8)
             .padding(.vertical, NotejotColors.gridUnit * 2)
             .background(fill(for: configuration.isPressed), in: RoundedRectangle(cornerRadius: NotejotColors.industrialSmallRadius))
             .overlay {
                 RoundedRectangle(cornerRadius: NotejotColors.industrialSmallRadius)
                     .strokeBorder(borderColor, lineWidth: 1)
             }
-            .contentShape(Rectangle())
+            .contentShape(.rect(cornerRadius: NotejotColors.industrialSmallRadius))
             .opacity(configuration.isPressed ? 0.86 : 1)
             .animation(NotejotMotion.controlAnimation(reduceMotion: reduceMotion), value: isSelected)
             .animation(NotejotMotion.controlAnimation(reduceMotion: reduceMotion), value: isHovered)
@@ -293,6 +312,7 @@ struct NULSidebarSurface: View {
 /// Nuul rounded text field style.
 struct NULTextFieldStyle: TextFieldStyle {
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.isEnabled) private var isEnabled
 
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
@@ -311,6 +331,8 @@ struct NULTextFieldStyle: TextFieldStyle {
                 RoundedRectangle(cornerRadius: NotejotColors.controlRadius, style: .continuous)
                     .strokeBorder(NotejotColors.industrialRule(for: colorScheme), lineWidth: 2)
             }
+            .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
+            .opacity(isEnabled ? 1 : 0.42)
     }
 }
 
@@ -337,14 +359,14 @@ struct NULMenuButton<Label: View, MenuContent: View>: View {
             label()
                 .frame(width: NotejotLayoutMetrics.compactToolbarControlSize,
                        height: NotejotLayoutMetrics.compactToolbarControlSize)
-                .contentShape(Rectangle())
+                .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
         }
         .accessibilityLabel(accessibilityLabel)
         .menuStyle(.button)
         .buttonStyle(.plain)
         .menuIndicator(.hidden)
         .background {
-            RoundedRectangle(cornerRadius: NotejotColors.controlRadius)
+            RoundedRectangle(cornerRadius: NotejotColors.controlRadius, style: .continuous)
                 .fill(NotejotColors.surface(for: colorScheme))
         }
         .fixedSize()
@@ -381,6 +403,8 @@ struct NULSearchField: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
                 .foregroundStyle(.secondary)
+                .frame(width: NotejotColors.fieldHeight, height: NotejotColors.fieldHeight)
+                .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
                 .help("Clear Search")
             }
         }
@@ -389,14 +413,15 @@ struct NULSearchField: View {
         .frame(height: NotejotLayoutMetrics.sidebarSearchHeight)
         .background(
             NotejotColors.surface(for: colorScheme),
-            in: RoundedRectangle(cornerRadius: NotejotColors.controlRadius)
+            in: RoundedRectangle(cornerRadius: NotejotColors.controlRadius, style: .continuous)
         )
         .overlay {
             if isFocused {
-                RoundedRectangle(cornerRadius: NotejotColors.controlRadius)
+                RoundedRectangle(cornerRadius: NotejotColors.controlRadius, style: .continuous)
                     .strokeBorder(NotejotColors.accent.opacity(0.72), lineWidth: 2)
             }
         }
+        .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
         .onTapGesture { isFocused = true }
     }
 }

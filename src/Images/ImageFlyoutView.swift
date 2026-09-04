@@ -29,6 +29,7 @@ struct ImageFlyoutView: View {
                     width: NotejotLayoutMetrics.minimumInteractiveControlSize,
                     height: NotejotLayoutMetrics.minimumInteractiveControlSize
                 )
+                .contentShape(.circle)
             }
             .padding()
 

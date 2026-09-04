@@ -83,9 +83,11 @@ struct TagPopoverView: View {
                 Button("Cancel") { dismiss() }
                     .buttonStyle(NULButtonStyle(kind: .neutral))
                     .frame(minHeight: NotejotLayoutMetrics.minimumInteractiveControlSize)
+                    .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
                 Button("Create", action: addTag)
                     .buttonStyle(NULButtonStyle(kind: .primary))
                     .frame(minHeight: NotejotLayoutMetrics.minimumInteractiveControlSize)
+                    .contentShape(.rect(cornerRadius: NotejotColors.controlRadius))
                     .disabled(!canAddPendingTag)
             }
         }

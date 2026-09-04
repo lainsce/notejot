@@ -2,6 +2,34 @@ import Foundation
 import AVFoundation
 @preconcurrency import WhisperKit
 
+/// Whisper model variants chosen for the capabilities of each supported platform.
+///
+/// WhisperKit resolves these identifiers against its Core ML model repository. The
+/// repository uses an underscore for the Turbo variant (`large-v3_turbo`), while
+/// the model is commonly referred to as “large-v3-turbo”.
+enum PlatformWhisperModel {
+    case iphoneStandard  // small (multilingual, Q4_1) ~150 MB
+    case macUltra         // large-v3-turbo (Q5_0) ~1.6 GB
+
+    nonisolated static var recommended: PlatformWhisperModel {
+        #if os(iOS)
+        return .iphoneStandard
+        #else
+        return .macUltra
+        #endif
+    }
+
+    /// Identifier understood by WhisperKit's model downloader.
+    nonisolated var whisperKitIdentifier: String {
+        switch self {
+        case .iphoneStandard:
+            return "small"
+        case .macUltra:
+            return "large-v3_turbo"
+        }
+    }
+}
+
 /// Local Whisper transcription shared by the voice composer. The model is downloaded
 /// and cached by WhisperKit on first use; callers can continue using Apple Speech as
 /// a live fallback while this finishes.
@@ -20,7 +48,10 @@ final class NoteWhisperTranscriber: @unchecked Sendable {
     }
 
     private nonisolated func instance() async throws -> WhisperKit {
-        if whisper == nil { whisper = try await WhisperKit(WhisperKitConfig(model: "base")) }
+        if whisper == nil {
+            let model = PlatformWhisperModel.recommended.whisperKitIdentifier
+            whisper = try await WhisperKit(WhisperKitConfig(model: model))
+        }
         guard let whisper else { throw TranscriptionError.unavailable }
         return whisper
     }

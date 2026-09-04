@@ -161,7 +161,7 @@ struct SidebarView: View {
                                 style: .continuous
                             )
                         )
-                        .contentShape(Rectangle())
+                        .contentShape(.rect(cornerRadius: NotejotColors.industrialSmallRadius))
                         .help(createButtonHelp)
                         .padding(.leading, 8)
                         .nulWindowActivityAppearance()

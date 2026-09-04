@@ -22,7 +22,7 @@ struct PrivacyPolicyView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Label("Privacy at Notejot", systemImage: "lock.shield.fill")
                             .font(NotejotTypography.viewTitle)
-                        Text("Notejot is a local-first notes app. It does not collect, transmit, sell, or share your personal data.")
+                        Text("Notejot is a local-first notes app. It does not collect, sell, or share your personal data. Voice recognition may use Apple Speech Recognition for live partial text, as described below.")
                             .font(NotejotTypography.body)
                             .foregroundStyle(.secondary)
                     }
@@ -31,7 +31,12 @@ struct PrivacyPolicyView: View {
                         PrivacyPolicySection(
                             title: "Your notes and attachments",
                             systemImage: "internaldrive",
-                            text: "Notes, tags, and attached images stay in this app’s local storage on your device. Notejot has no accounts, analytics, advertising, tracking, or third-party SDKs."
+                            text: "Notes, tags, and attached images stay in this app’s local storage on your device. Notejot has no accounts, analytics, advertising, or tracking, and does not collect personal data."
+                        )
+                        PrivacyPolicySection(
+                            title: "Voice transcription",
+                            systemImage: "waveform.and.mic",
+                            text: "After you finish recording, Notejot uses WhisperKit to transcribe the voice note locally on your device. WhisperKit does not upload your audio or final transcript. WhisperKit model files may be downloaded from the model host on first use and cached locally. While recording, Notejot may also use Apple Speech Recognition for live partial text; Apple’s processing is subject to Apple’s privacy policy and on-device availability."
                         )
                         PrivacyPolicySection(
                             title: "Choosing an image",

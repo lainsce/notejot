@@ -39,6 +39,7 @@ struct ImageFlyoutCell: View {
                     width: NotejotLayoutMetrics.minimumInteractiveControlSize,
                     height: NotejotLayoutMetrics.minimumInteractiveControlSize
                 )
+                .contentShape(.circle)
         }
     }
 

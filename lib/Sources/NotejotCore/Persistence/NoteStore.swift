@@ -263,7 +263,7 @@ public final class NoteStore {
     public func seedWelcomeNoteIfEmpty() {
         guard !notes.contains(where: { !$0.isTrashed }) else { return }
         let welcomeBody = String(
-            localized: "Start writing your notes here.",
+            localized: "Start writing your notes here. Use New Note to create a note, the tag button to organize it, and All Notes or Trash in Destinations.",
             bundle: #bundle,
             comment: "Body of the welcome note created for a new user."
         )

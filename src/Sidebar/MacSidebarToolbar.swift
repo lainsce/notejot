@@ -22,6 +22,7 @@ struct MacSidebarToolbar: View {
                     width: NotejotLayoutMetrics.compactToolbarControlSize,
                     height: NotejotLayoutMetrics.compactToolbarControlSize
                 )
+                .contentShape(.rect(cornerRadius: NotejotColors.industrialSmallRadius))
                 .help(isSearchPresented ? "Hide Search" : "Show Search")
             }
             .nulToolbarSurface(
@@ -73,7 +74,7 @@ struct MacSidebarToolbar: View {
                     style: .continuous
                 )
             )
-            .contentShape(Rectangle())
+            .contentShape(.rect(cornerRadius: NotejotColors.industrialSmallRadius))
             .help(createButtonHelp)
         }
         .padding(.horizontal, distributesAcrossLane ? NotejotColors.gridUnit * 2 : 0)

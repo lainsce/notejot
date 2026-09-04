@@ -4,8 +4,8 @@ import PackageDescription
 let package = Package(
     name: "NotejotCore",
     platforms: [
-        .iOS(.v26),
-        .macOS(.v26),
+        .iOS("27.0"),
+        .macOS("27.0"),
     ],
     products: [
         .library(name: "NotejotCore", targets: ["NotejotCore"]),

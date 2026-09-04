@@ -15,6 +15,7 @@ final class NoteVoiceRecorder: ObservableObject {
     @Published private(set) var mid: CGFloat = 0.28
     @Published private(set) var treble: CGFloat = 0.20
     @Published private(set) var errorDescription: String?
+    @Published private(set) var needsPermissionSettings = false
 
     private var engine = AVAudioEngine()
     private var request: SFSpeechAudioBufferRecognitionRequest?
@@ -97,14 +98,26 @@ final class NoteVoiceRecorder: ObservableObject {
         transcript = ""
         samples = NoteSpeechSamples()
         errorDescription = nil
+        needsPermissionSettings = false
         acceptsTranscription = true
     }
 
     private func requestRecordPermissionIfNeeded() -> Bool {
         guard case .granted = AVAudioApplication.shared.recordPermission else {
             AVAudioApplication.requestRecordPermission { [weak self] granted in
-                guard granted else { return }
-                Task { @MainActor in self?.start() }
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    guard granted else {
+                        self.handlePermissionDenied(
+                            String(
+                                localized: "Microphone access is required to record a voice note.",
+                                comment: "Error shown when microphone permission is denied for voice notes."
+                            )
+                        )
+                        return
+                    }
+                    self.start()
+                }
             }
             return false
         }
@@ -114,12 +127,30 @@ final class NoteVoiceRecorder: ObservableObject {
     private func requestSpeechAuthorizationIfNeeded() -> Bool {
         guard SFSpeechRecognizer.authorizationStatus() == .authorized else {
             SFSpeechRecognizer.requestAuthorization { [weak self] status in
-                guard status == .authorized else { return }
-                Task { @MainActor in self?.start() }
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    guard status == .authorized else {
+                        self.handlePermissionDenied(
+                            String(
+                                localized: "Speech recognition access is required to transcribe a voice note.",
+                                comment: "Error shown when speech recognition permission is denied for voice notes."
+                            )
+                        )
+                        return
+                    }
+                    self.start()
+                }
             }
             return false
         }
         return true
+    }
+
+    private func handlePermissionDenied(_ message: String) {
+        acceptsTranscription = false
+        stop()
+        needsPermissionSettings = true
+        errorDescription = message
     }
 
     private func configureRecognition(
@@ -216,6 +247,7 @@ final class NoteVoiceRecorder: ObservableObject {
         stop()
         transcript = ""
         errorDescription = nil
+        needsPermissionSettings = false
     }
 
     private nonisolated static func mutableBuffer(copying buffer: AVReadOnlyAudioPCMBuffer) -> AVAudioPCMBuffer? {

@@ -37,6 +37,7 @@ struct ClipStackView: View {
                 height: clipOverhang + fanHeight + clipOverhang,
                 alignment: .top
             )
+            .contentShape(.rect)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text("View ^[\(images.count) attached image](inflect: true)"))

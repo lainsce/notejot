@@ -38,16 +38,7 @@ struct MacDestinationSidebar: View {
                     Text("No Tags")
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, SidebarMetrics.horizontalInset)
                         .padding(.vertical, NotejotColors.gridUnit)
-                        .listRowInsets(
-                            EdgeInsets(
-                                top: 0,
-                                leading: SidebarMetrics.horizontalInset,
-                                bottom: 0,
-                                trailing: SidebarMetrics.horizontalInset
-                            )
-                        )
                 } else {
                     ForEach(tagFacets) { facet in
                         destinationRow(source: .tag(facet.id)) {
@@ -125,9 +116,13 @@ struct MacDestinationSidebar: View {
             Text(title)
                 .font(NotejotTypography.contentBlockSubtitle)
         } icon: {
-            Image(systemName: systemImage)
-                .font(.system(size: 16, weight: .regular))
-                .accessibilityHidden(true)
+                Image(systemName: systemImage)
+                    .font(.system(size: 16, weight: .regular))
+                    .frame(
+                        width: NotejotLayoutMetrics.toolbarIconSize,
+                        height: NotejotLayoutMetrics.toolbarIconSize
+                    )
+                    .accessibilityHidden(true)
         }
     }
 

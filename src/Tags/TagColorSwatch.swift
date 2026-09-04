@@ -46,6 +46,7 @@ struct TagColorSwatch: View {
             width: NotejotLayoutMetrics.smallInteractiveControlSize,
             height: NotejotLayoutMetrics.smallInteractiveControlSize
         )
+        .contentShape(.rect(cornerRadius: NotejotColors.industrialSmallRadius))
         .animation(NotejotMotion.controlAnimation(reduceMotion: reduceMotion), value: isSelected)
         .accessibilityLabel(Text(name))
         .accessibilityValue(

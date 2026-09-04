@@ -9,11 +9,20 @@ import UIKit
 enum NotejotColors {
     // Four-point geometry is shared by fields, rows, and compact controls.
     static let gridUnit: CGFloat = 4
+    /// Minimum clearance for content that can approach a rounded window
+    /// corner. This is a Nuul design-pixel value, not a module gap.
+    static let windowCornerInset: CGFloat = 24
     static let formRowSpacing: CGFloat = gridUnit * 4
     static let formLabelWidth: CGFloat = gridUnit * 32
     static let fieldHorizontalPadding: CGFloat = gridUnit * 3
     static let fieldHeight: CGFloat = gridUnit * 9
     static let controlRadius: CGFloat = gridUnit
+    static let switchWidth: CGFloat = gridUnit * 16
+    static let switchHeight: CGFloat = gridUnit * 8
+    static let switchKnobSize: CGFloat = gridUnit * 6
+    static let switchInset: CGFloat = gridUnit
+    static let switchCornerRadius: CGFloat = controlRadius
+    static let switchLabelSpacing: CGFloat = gridUnit * 3
     static let largeSurfaceRadius: CGFloat = gridUnit * 3
 
     /// The app accent, reserved for selection and primary creation actions.
